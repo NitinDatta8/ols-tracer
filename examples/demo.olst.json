@@ -20,8 +20,8 @@
     }
   ],
   "links": [
-    { "id": "f1", "type": "smf", "a": { "device": "d1", "slot": "1", "port": "L1" }, "b": { "device": "d2", "slot": "1", "port": "L1" } },
-    { "id": "f2", "type": "smf", "a": { "device": "d2", "slot": "1", "port": "L1" }, "b": { "device": "d1", "slot": "1", "port": "L1" } },
+    { "id": "f1", "type": "smf", "a": { "device": "d1", "slot": "1", "port": "LINE" }, "b": { "device": "d2", "slot": "1", "port": "LINE" } },
+    { "id": "f2", "type": "smf", "a": { "device": "d2", "slot": "1", "port": "LINE" }, "b": { "device": "d1", "slot": "1", "port": "LINE" } },
     { "id": "f3", "type": "smf", "a": { "device": "d1", "slot": "3", "port": "L1" }, "b": { "device": "d1", "slot": "3", "port": "L1" } },
     { "id": "f4", "type": "smf", "a": { "device": "d2", "slot": "3", "port": "L1" }, "b": { "device": "d2", "slot": "3", "port": "L1" } }
   ]

@@ -1,4 +1,5 @@
 import { byId } from './catalog';
+import { canLoopback } from './ports';
 import type { Alarm, Catalog, ChassisDef, Device, End, Link, Topology } from './types';
 
 /** Look up the catalog card, port and pluggable at an endpoint. Any of them may be missing; `fixed` = built-in Tx/Rx, no pluggable. */
@@ -87,8 +88,8 @@ export const fiberRules: FiberRule[] = [
   bothEnds((t, cat, e) => resolve(t, cat, e).fixed || resolve(t, cat, e).pluggable?.fiber === 'SMF', 'is not single-mode (SMF)'),
   (t, _cat, a, b) => (fibersAt(t, a).tx ? `${path(t, a)} Tx already has a fiber`
     : fibersAt(t, b).rx ? `${path(t, b)} Rx already has a fiber` : null),
-  (t, cat, a, b) => (a.device !== b.device || a.slot !== b.slot || (sameEnd(a, b) && resolve(t, cat, a).port?.role === 'line') ? null
-    : 'Both ends are on the same card (only a line port loops back, Tx to its own Rx)'),
+  (t, cat, a, b) => (a.device !== b.device || a.slot !== b.slot || (sameEnd(a, b) && canLoopback(resolve(t, cat, a).port)) ? null
+    : 'Both ends are on the same card (only a loopback-capable port loops back, Tx to its own Rx)'),
 ];
 
 export const fiberError = (t: Topology, cat: Catalog, a: End, b: End) =>

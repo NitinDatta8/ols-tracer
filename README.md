@@ -37,6 +37,7 @@ npm test           # smoke tests
 npm run build      # typecheck and production build in dist/
 npm run sync:platform  # regenerate catalog/streams.json and catalog/<stream>/chassis.json from ../IIVI_Platform profiles
 npm run sync:cli       # regenerate catalog/<stream>/cli.json from ../IIVI_Platform profile XML
+npm run sync:linecards # regenerate catalog/common/linecards.json ports + behavior overlays from ../IIVI_Platform profiles
 ```
 
 ## Docs

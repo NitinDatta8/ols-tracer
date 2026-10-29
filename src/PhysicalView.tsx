@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type DragEvent, type MouseEvent } from 'react';
 import { byId, cli, nextMode } from './catalog';
 import { PipeLayer, type PipeEnds } from './Pipe';
+import { roleOf, toneOf } from './ports';
 import { alarms, bays, coverage, fiberable, fiberError, fibersAt, linecardError, path, pluggableError, resolve, sameEnd, span, touches } from './rules';
 import { useCatalog, useStore } from './store';
 import type { Alarm, CliLevel, Datasheet, End, LinecardDef, PluggableDef, Strand, Topology } from './types';
@@ -324,8 +325,9 @@ export function PhysicalView() {
       onDragStart={(e) => { e.dataTransfer.setData('text/plain', lc.id); setDrag({ kind: 'card', id: lc.id }); }}
       onDragEnd={() => setDrag(null)}
       onClick={() => pick('card', lc.id)}>
-      <div className="mini-ports">{lc.ports.map((p) => <span key={p.id} className={`mini-dot ${p.role}`} />)}</div>
       <b>{lc.name}</b>
+      <small>{lc.width ?? 1} slot{(lc.width ?? 1) > 1 ? 's' : ''} · {lc.ports.length} port{lc.ports.length > 1 ? 's' : ''}</small>
+      <div className="mini-ports">{lc.ports.map((p) => <span key={p.id} className={`mini-dot ${toneOf(p)}`} />)}</div>
     </div>
   );
 
@@ -360,7 +362,7 @@ export function PhysicalView() {
                       const from = wire && sameEnd(wire.end, end);
                       const target = wire && !fiberError(t, cat, ...ends(wire, end));
                       return (
-                        <div key={p.id} className={`mini ${p.role}${pluggable ? ' filled' : ''}${from ? ' wiring' : ''}${target ? ' fits' : ''}`}
+                        <div key={p.id} className={`mini ${toneOf(p)}${pluggable ? ' filled' : ''}${from ? ' wiring' : ''}${target ? ' fits' : ''}`}
                           data-pipe-box {...hoverable(pluggable)}
                           onClick={pluggable ? (e) => { e.stopPropagation(); show('plug', pluggable.id, { slot: slot.id, port: p.id }); } : undefined}>
                           {pluggable ? <Pic p={pluggable} /> : <div className="pic empty">{p.allowedPluggables.length ? '' : 'LC'}</div>}
@@ -424,11 +426,11 @@ export function PhysicalView() {
             const inserted = device.slots[slotId].ports[p.id];
             const fits = part?.kind === 'plug' && !inserted && !pluggableError(cat, lc.id, p.id, part.id);
             return (
-              <div key={p.id} data-port={p.id} className={`cage ${p.role}${fits ? ' fits' : ''}${pluggable ? ' filled' : ''}${wire && sameEnd(wire.end, end) ? ' wiring' : ''}`}
+              <div key={p.id} data-port={p.id} className={`cage ${toneOf(p)}${fits ? ' fits' : ''}${pluggable ? ' filled' : ''}${wire && sameEnd(wire.end, end) ? ' wiring' : ''}`}
                 data-pipe-box {...hoverable(pluggable, { slot: slotId, port: p.id })}
                 onClick={pluggable ? () => show('plug', pluggable.id, { slot: slotId, port: p.id }) : fits ? () => insertPluggable(device.id, slotId, p.id, part.id) : undefined}>
                 <div className="cage-head">
-                  <b>{p.id}</b><small>{p.role}</small>
+                  <b>{p.id}</b><small>{roleOf(p)}</small>
                   {alarmButton({ slot: slotId, port: p.id })}
                   {inserted &&<span className="remove" onClick={(e) => { e.stopPropagation(); removeAt(slotId, p.id); }}>✕</span>}
                 </div>
@@ -532,7 +534,8 @@ export function PhysicalView() {
     }
     if (detail?.kind === 'card') {
       const lc = byId(cat.linecards, detail.id);
-      const roles = lc && Object.entries(Object.groupBy(lc.ports, (p) => p.role)).map(([role, ps]) => `${ps!.length} ${role}`).join(', ');
+      const roleCounts = lc?.ports.reduce((m, p) => m.set(roleOf(p), (m.get(roleOf(p)) ?? 0) + 1), new Map<string, number>());
+      const roles = roleCounts && [...roleCounts.entries()].map(([role, n]) => `${n} ${role}`).join(', ');
       return lc && { item: lc, tag: 'Linecard', facts: { Width: `${lc.width ?? 1} slot${(lc.width ?? 1) > 1 ? 's' : ''}`, Ports: `${lc.ports.length} (${roles})` },
         command: detail.at && command('card', detail.at) };
     }
@@ -546,8 +549,8 @@ export function PhysicalView() {
     : back
       ? '✕ pulls a PSU or fan out, which raises an alarm · Insert puts it back · Esc closes'
       : wire
-        ? `Running a fiber ${wire.strand === 'tx' ? 'from' : 'into'} ${farLabel(wire.end)} ${STRAND[wire.strand]}: click the ${STRAND[OTHER[wire.strand]]} at the other end (green = free; a line port may loop back to itself) · Esc cancels`
-        : 'Drag a linecard onto a slot, or click it, then a green slot · click a card to open it · click a Tx, then an Rx, to run a fiber · click a lit strand to remove it · click a fiber to move its runs · Esc closes';
+        ? `Running a fiber ${wire.strand === 'tx' ? 'from' : 'into'} ${farLabel(wire.end)} ${STRAND[wire.strand]}: click the ${STRAND[OTHER[wire.strand]]} at the other end (green = free; a loopback-capable port may loop back to itself) · Esc cancels`
+        : 'Drag a linecard onto a slot, or click it, then a green slot · click a card to open it, a tile or the name plate for a datasheet · click a Tx, then an Rx, to run a fiber · click a lit strand to remove it · click a fiber to move its runs · Esc closes';
 
   return (
     <div className="backdrop" onClick={() => setOpenDevice(null)}>

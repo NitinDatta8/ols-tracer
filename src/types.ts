@@ -1,6 +1,13 @@
 // Catalog (per stream, read-only JSON in /catalog)
 
-export type Role = 'client' | 'line';
+export type Role = 'line' | 'client' | 'adddrop' | 'com' | 'osc' | 'monitor' | 'port';
+
+export interface PortBehavior {
+  showsInL1?: boolean;
+  showsInData?: boolean;
+  canLoopback?: boolean;
+  serviceGroup?: string;
+}
 
 export interface Stream { id: string; name: string }
 
@@ -25,10 +32,12 @@ export interface ChassisDef extends Datasheet {
 }
 
 /**
+ * `role` is the physical kind (line, client, add/drop, COM, OSC, monitor, generic port).
+ * `behavior` controls UI and rules: L1 visibility, Data visibility, loopback and service grouping.
  * `allowedPluggables` lists pluggable ids or whole form-factor families ("QSFP" = every QSFP speed).
  * An empty list means a fixed LC connector (SMF, no pluggable needed).
  */
-export interface PortDef { id: string; role: Role; allowedPluggables: string[] }
+export interface PortDef { id: string; role: Role; behavior?: PortBehavior; allowedPluggables: string[] }
 
 /**
  * `width` is how many side-by-side slots the card takes (default 1); it sits in the leftmost one.

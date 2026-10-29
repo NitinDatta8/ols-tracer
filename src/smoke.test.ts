@@ -13,7 +13,7 @@ describe.each(streams)('stream $id', ({ id }) => {
       ['2000', 2, 2, 3], ['2026', 2, 2, 3], ['2026-4RU', 4, 2, 3],
     ]);
     expect(cat.linecards.map((c) => [c.name, c.width ?? 1, c.ports.length])).toEqual([
-      ['C25', 2, 1], ['C925', 2, 9], ['C1125', 2, 11], ['400MX', 1, 4], ['800MX', 1, 8],
+      ['C25', 2, 1], ['C925', 2, 14], ['C1125', 2, 11], ['400MX', 1, 5], ['800MX', 1, 10],
     ]);
   });
 
@@ -68,27 +68,27 @@ describe('rules on the demo topology', () => {
   });
 
   it('takes no pluggable in a C card: its ports have fixed Tx/Rx', () => {
-    expect(pluggableError(cat, 'lc-c925', 'L1', 'osfp-800g-zr')).toBe('Port L1 of C925 has fixed Tx/Rx and takes no pluggable');
-    expect(fiberError(t, cat, at('d1', '1', 'C3'), at('d2', '1', 'C3'))).toBeNull();
+    expect(pluggableError(cat, 'lc-c925', 'LINE', 'osfp-800g-zr')).toBe('Port LINE of C925 has fixed Tx/Rx and takes no pluggable');
+    expect(fiberError(t, cat, at('d1', '1', 'AD3'), at('d2', '1', 'AD3'))).toBeNull();
   });
 
   it('refuses bad fibers with a reason', () => {
     expect(fiberError(t, cat, at('d1', '3', 'C3'), at('d2', '1', 'C3'))).toBe('Site-A/3/C3 has no pluggable');
     const mmf = structuredClone(t);
     mmf.devices[0].slots['3'].ports.C3 = { pluggable: 'qsfp28-100g-sr4' };
-    expect(fiberError(mmf, cat, at('d1', '3', 'C3'), at('d2', '1', 'C1'))).toBe('Site-A/3/C3 is not single-mode (SMF)');
-    expect(fiberError(t, cat, at('d1', '1', 'L1'), at('d2', '1', 'C1'))).toBe('Site-A/1/L1 Tx already has a fiber');
-    expect(fiberError(t, cat, at('d2', '1', 'C1'), at('d1', '1', 'L1'))).toBe('Site-A/1/L1 Rx already has a fiber');
-    expect(fiberError(t, cat, at('d1', '3', 'C1'), at('d1', '3', 'C2'))).toBe('Both ends are on the same card (only a line port loops back, Tx to its own Rx)');
-    expect(fiberError(t, cat, at('d1', '1', 'C1'), at('d1', '1', 'C1'))).toBe('Both ends are on the same card (only a line port loops back, Tx to its own Rx)');
-    expect(fiberError(t, cat, at('d1', '1', 'C1'), at('d2', '1', 'C1'))).toBeNull();
+    expect(fiberError(mmf, cat, at('d1', '3', 'C3'), at('d2', '1', 'AD1'))).toBe('Site-A/3/C3 is not single-mode (SMF)');
+    expect(fiberError(t, cat, at('d1', '1', 'LINE'), at('d2', '1', 'AD1'))).toBe('Site-A/1/LINE Tx already has a fiber');
+    expect(fiberError(t, cat, at('d2', '1', 'AD1'), at('d1', '1', 'LINE'))).toBe('Site-A/1/LINE Rx already has a fiber');
+    expect(fiberError(t, cat, at('d1', '1', 'AD1'), at('d1', '1', 'AD2'))).toBe('Both ends are on the same card (only a loopback-capable port loops back, Tx to its own Rx)');
+    expect(fiberError(t, cat, at('d1', '1', 'AD1'), at('d1', '1', 'AD1'))).toBe('Both ends are on the same card (only a loopback-capable port loops back, Tx to its own Rx)');
+    expect(fiberError(t, cat, at('d1', '1', 'AD1'), at('d2', '1', 'AD1'))).toBeNull();
   });
 
   it('runs each strand on its own: a Tx and the Rx of the same port may go to different ports', () => {
-    const one = { ...t, links: [...t.links, { id: 'f9', type: 'smf' as const, a: at('d1', '1', 'C1'), b: at('d2', '1', 'C1') }] };
-    expect(fiberError(one, cat, at('d2', '1', 'C1'), at('d1', '3', 'C1'))).toBeNull(); // d2 C1's Tx elsewhere
-    expect(fiberError(one, cat, at('d2', '3', 'C1'), at('d1', '1', 'C1'))).toBeNull(); // d1 C1's Rx from elsewhere
-    expect(fiberError(one, cat, at('d1', '1', 'C1'), at('d2', '3', 'C1'))).toBe('Site-A/1/C1 Tx already has a fiber');
+    const one = { ...t, links: [...t.links, { id: 'f9', type: 'smf' as const, a: at('d1', '1', 'AD1'), b: at('d2', '1', 'AD1') }] };
+    expect(fiberError(one, cat, at('d2', '1', 'AD1'), at('d1', '3', 'C1'))).toBeNull(); // d2 AD1's Tx elsewhere
+    expect(fiberError(one, cat, at('d2', '3', 'C1'), at('d1', '1', 'AD1'))).toBeNull(); // d1 AD1's Rx from elsewhere
+    expect(fiberError(one, cat, at('d1', '1', 'AD1'), at('d2', '3', 'C1'))).toBe('Site-A/1/AD1 Tx already has a fiber');
   });
 
   it('loops a line port back, Tx to its own Rx', () => {
@@ -110,11 +110,11 @@ describe('rules on the demo topology', () => {
 
   it('raises LOS on each pluggable or fixed port without a fiber and an alarm per empty back bay', () => {
     const siteA = { ...t.devices[0], emptyBays: ['PSU2', 'FAN3'] };
-    const fixed = ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8'].map((p) => ['critical', `1/${p}`]); // C925's L1 is fibered
+    const fixed = ['COM', 'OSC', 'MON1', 'MON2', 'AD1', 'AD2', 'AD3', 'AD4', 'AD5', 'AD6', 'AD7', 'AD8', 'AD9'].map((p) => ['critical', `1/${p}`]); // C925's LINE is fibered
     expect(alarms(t, cat, siteA).map((a) => [a.severity, a.bay ?? `${a.slot}/${a.port}`])).toEqual([
       ...fixed, ['critical', '3/C1'], ['critical', '3/C2'], ['major', 'PSU2'], ['major', 'FAN3'],
     ]);
-    expect(alarms(t, cat, t.devices[1])).toHaveLength(10); // all PSUs and fans in by default
+    expect(alarms(t, cat, t.devices[1])).toHaveLength(15); // all PSUs and fans in by default
   });
 });
 
