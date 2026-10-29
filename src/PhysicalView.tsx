@@ -108,27 +108,30 @@ const MgmtStrip = ({ ports }: { ports?: string[] }) => !ports?.length ? null : (
  * The CLI line at the bottom shows the command for what is hovered, else for the level shown.
  */
 /**
- * Scales the element's only child to fill it as far as its proportions allow, centred, so it never scrolls.
- * `open` is what decides whether the element is rendered.
+ * Scales the element's only child up as far as its proportions allow, then stretches it the rest of the way, so it
+ * fills the element edge to edge and never scrolls: the child reads --fit-w and --fit-h, the element's size before
+ * scaling. Measured after every render, since what is drawn changes the child's natural size.
  */
-function useFit(open: unknown) {
+function useFit() {
   const ref = useRef<HTMLDivElement>(null);
-  const [transform, setTransform] = useState('');
-  useLayoutEffect(() => {
+  const [fit, setFit] = useState({ w: 0, h: 0, k: 1 });
+  const measure = useCallback(() => {
     const outer = ref.current, inner = outer?.firstElementChild as HTMLElement | null;
     if (!outer || !inner) return;
-    const fit = () => {
-      const [w, h, W, H] = [inner.offsetWidth, inner.offsetHeight, outer.clientWidth, outer.clientHeight];
-      const k = Math.min(W / w, H / h);
-      setTransform(`translate(${(W - w * k) / 2}px, ${(H - h * k) / 2}px) scale(${k})`);
-    };
-    fit();
-    const ro = new ResizeObserver(fit);
-    ro.observe(outer);
-    ro.observe(inner);
+    const style = inner.style.cssText;
+    inner.style.cssText = ''; // its natural size
+    const [w, h, W, H] = [inner.offsetWidth, inner.offsetHeight, outer.clientWidth, outer.clientHeight];
+    inner.style.cssText = style;
+    const k = Math.min(W / w, H / h);
+    setFit((f) => (f.k === k && f.w === W / k && f.h === H / k ? f : { w: W / k, h: H / k, k }));
+  }, []);
+  useLayoutEffect(measure);
+  useEffect(() => {
+    const ro = new ResizeObserver(measure);
+    if (ref.current) ro.observe(ref.current);
     return () => ro.disconnect();
-  }, [open]);
-  return [ref, transform] as const;
+  }, [measure]);
+  return [ref, fit.w ? { '--fit-w': `${fit.w}px`, '--fit-h': `${fit.h}px`, transform: `scale(${fit.k})` } as CSSProperties : undefined] as const;
 }
 
 const NO_BRIDGE: Box = { state: 'down', error: 'Bridge not running: npm run bridge' };
@@ -160,7 +163,7 @@ function useBox() {
 export function PhysicalView() {
   const t = useStore((s) => s.topology)!;
   const openId = useStore((s) => s.openDevice);
-  const [stage, fit] = useFit(openId);
+  const [stage, fit] = useFit();
   const cat = useCatalog();
   const [cardSlot, setCardSlot] = useState<string | null>(null); // slot of the linecard being shown
   const [drag, setDrag] = useState<Drag | null>(null);
@@ -534,6 +537,8 @@ export function PhysicalView() {
         command: detail.at && command('card', detail.at) };
     }
   })();
+  /** The command greyed out in the CLI line: for what is hovered, else what was clicked, else the level shown. */
+  const suggested = (!focus && sheet?.command) || strip;
   /** The inspector lists the alarms of what a bell was clicked on, else of the level shown. */
   const scope = alarmsFor ?? (cardSlot ? { slot: cardSlot } : {});
   const hint = card
@@ -576,20 +581,33 @@ export function PhysicalView() {
         <div className="body">
           {tray()}
           <div ref={stage} className={`stage${card ? ' card-view' : ''}`}>
-            <div className="fit" style={{ transform: fit }}>
+            <div className="fit" style={fit}>
               {card && cardSlot ? cardLevel(cardSlot, card) : back ? backLevel() : chassisLevel()}
             </div>
           </div>
-          {/* Type a command (Enter runs it), or Run the one for what is hovered. The badge is the CLI mode the box is in. */}
+          {/*
+            * Type a command (Enter runs it), or Run the one for what is hovered. The prompt is oh-my-posh style: a segment
+            * for the CLI mode the box is in (warmer the deeper), then the mode's prompt sign.
+            */}
           <section className="term">
-            <pre ref={termRef} data-empty="Connect to the box, then type a command below, or Run the one for what you hover.">{term}</pre>
-            <form className="cli" onSubmit={(e) => { e.preventDefault(); runOnBox(typed.trim() || strip); setTyped(''); }}>
-              <span className={`mode m${mode}`}
+            <pre ref={termRef} data-empty="Connect to the box, then type a command below, or Run the one for what you hover.">
+              {term && term.split(/(?<=\n)/).map((line, i) => <span key={i} className={line.startsWith('── ') ? 'note' : undefined}>{line}</span>)}
+            </pre>
+            <form className="cli" onSubmit={(e) => { e.preventDefault(); runOnBox(typed.trim() || suggested); setTyped(''); }}>
+              <span className={`posh m${mode}`}
                 title={`${modes[mode].about}\n\n${modes.map((m, i) => (i ? `${m.enter} → ${m.name}` : m.name)).join(' → ')} · exit goes back one`}>
-                {modes[mode].name} {modes[mode].prompt}
+                <span className="mode">{modes[mode].name}</span>
+                <b>{modes[mode].prompt ?? '❯'}</b>
               </span>
-              <input value={typed} placeholder={strip} onChange={(e) => setTyped(e.target.value)} spellCheck={false} aria-label="CLI command" />
-              <button type="button" onClick={() => navigator.clipboard.writeText(typed.trim() || strip)} title="Copy command">Copy</button>
+              {/*
+                * Any command can be typed. Tab fills in the greyed-out one (or completes it from what is typed), and so
+                * does clicking into an empty line, selected so that typing replaces it.
+                */}
+              <input value={typed} placeholder={suggested} onChange={(e) => setTyped(e.target.value)} spellCheck={false} aria-label="CLI command"
+                title="Tab or click fills in the greyed-out command · or type your own"
+                onKeyDown={(e) => { if (e.key === 'Tab' && !e.shiftKey && typed !== suggested && suggested.startsWith(typed)) { e.preventDefault(); setTyped(suggested); } }}
+                onClick={(e) => { if (!typed) { e.currentTarget.value = suggested; e.currentTarget.select(); setTyped(suggested); } }} />
+              <button type="button" onClick={() => navigator.clipboard.writeText(typed.trim() || suggested)} title="Copy command">Copy</button>
               <RunButton box={here} />
             </form>
           </section>

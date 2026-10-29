@@ -8,6 +8,7 @@
   --client: #2563eb;
   --line: #d97706;
   --error: #b42318;
+  --mono: 'JetBrains Mono', 'SF Mono', ui-monospace, Menlo, monospace;
   font: 13px/1.4 system-ui, -apple-system, 'Segoe UI', sans-serif;
   color: var(--text);
 }
@@ -18,8 +19,8 @@ h3, h4, p { margin: 0 0 8px; }
 .spacer { flex: 1; }
 
 button, .button {
-  font: inherit; padding: 4px 10px; border: 1px solid var(--border); border-radius: 4px;
-  background: #fff; color: inherit; cursor: pointer;
+  font: inherit; padding: 4px 10px; border: 1px solid var(--border); border-radius: 6px;
+  background: #fff; color: inherit; cursor: pointer; transition: background-color .15s, border-color .15s, color .15s, box-shadow .15s;
 }
 button:hover, .button:hover { filter: brightness(0.96); }
 button:disabled { opacity: 0.5; cursor: default; }
@@ -91,47 +92,58 @@ main { position: relative; min-height: 0; }
 
 /* Dialogs */
 .backdrop { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; background: rgb(15 23 42 / 35%); }
-.dialog { max-width: 96vw; max-height: 94vh; overflow: auto; padding: 16px; background: #fff; border-radius: 8px; box-shadow: 0 10px 30px rgb(0 0 0 / 20%); }
+.dialog { max-width: 96vw; max-height: 94vh; overflow: auto; padding: 16px; background: #fff; border-radius: 12px; box-shadow: 0 24px 60px rgb(15 23 42 / 28%); }
 .radio { display: block; margin: 6px 0; }
 .row { display: flex; gap: 8px; margin-top: 12px; }
 .cli { display: flex; align-items: center; gap: 8px; margin-top: 10px; padding: 6px 8px; background: #1e2329; color: #d6f5d6; border-radius: 4px; }
 /* The CLI terminal: the session's output, scrolling, over the command line. */
-.term { grid-area: term; display: flex; flex-direction: column; min-height: 0; overflow: hidden; background: #1e2329; border-radius: 6px; }
-.term pre { flex: 1; min-height: 0; margin: 0; padding: 8px 10px; overflow: auto; color: #d6f5d6; font: 12px ui-monospace, Menlo, monospace; }
-.term pre:empty::before { content: attr(data-empty); color: #7d8a96; }
-.term .cli { margin: 0; border-top: 1px solid #323f4b; border-radius: 0; }
-.cli code { flex: 1; font: 13px ui-monospace, Menlo, monospace; }
+.term { grid-area: term; display: flex; flex-direction: column; min-height: 0; overflow: hidden; background: #0d1117; border-radius: 10px; box-shadow: 0 1px 3px rgb(15 23 42 / 25%); }
+.term pre { flex: 1; min-height: 0; margin: 0; padding: 10px 14px; overflow: auto; color: #c9d1d9; font: 12px/1.5 var(--mono); }
+.term pre:empty::before { content: attr(data-empty); color: #6e7681; }
+.term .note { color: #d2a8ff; } /* the line saying which CLI mode the box is in now */
+.term .cli { margin: 0; padding: 7px 10px; background: #161b22; border-top: 1px solid #21262d; border-radius: 0; }
+.cli code { flex: 1; font: 13px var(--mono); }
 .cli code::before { content: '> '; color: #7d8a96; }
-.cli input { flex: 1; min-width: 0; padding: 0; border: none; outline: none; background: none; color: inherit; font: 13px ui-monospace, Menlo, monospace; }
-.cli input::placeholder { color: #8fb38f; }
-/* The CLI mode the box is in, warmer the deeper it is: Normal, Configure, Engineering, Bash, kgdb. */
-.cli .mode { flex: none; width: 112px; padding: 1px 6px; border-radius: 3px; background: #3e4c59; color: #fff; font: 11px ui-monospace, Menlo, monospace; text-align: center; cursor: help; }
-.cli .mode.m1 { background: #b45309; }
-.cli .mode.m2 { background: #c2410c; }
-.cli .mode.m3 { background: #b91c1c; }
-.cli .mode.m4 { background: #7e22ce; }
-.cli button { padding: 1px 8px; font-size: 12px; color: #1e2329; }
+.cli input { flex: 1; min-width: 0; padding: 0; border: none; outline: none; background: none; color: #e6edf3; font: 13px var(--mono); }
+.cli input::placeholder { color: #6e7681; }
+.cli button { padding: 2px 10px; font-size: 12px; color: #1e2329; }
+/*
+ * The prompt, oh-my-posh style: a powerline segment as wide as the CLI mode's name, then the mode's prompt sign.
+ * The mode is warmer the deeper it is: Normal, Configure, Engineering, Bash, kgdb.
+ */
+.posh { --mode: #3fb950; flex: none; display: flex; align-items: center; height: 22px; font: 600 11px/22px var(--mono); cursor: help; }
+.posh.m1 { --mode: #e3b341; }
+.posh.m2 { --mode: #f0883e; }
+.posh.m3 { --mode: #f85149; }
+.posh.m4 { --mode: #bc8cff; }
+.posh .mode {
+  height: 100%; padding: 0 18px 0 10px; border-radius: 11px 0 0 11px; background: var(--mode); color: #0d1117; white-space: nowrap;
+  clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 50%, calc(100% - 9px) 100%, 0 100%);
+}
+.posh b { margin-left: 8px; color: var(--mode); font-size: 14px; }
 .hint { margin: 10px 0 0; color: var(--muted); font-size: 12px; }
 .toast { position: fixed; bottom: 110px; left: 50%; transform: translateX(-50%); z-index: 30; padding: 8px 14px; border-radius: 6px; background: var(--error); color: #fff; }
 
 /* Physical view */
 .physical header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-/* The box to connect to: fixed widths, so nothing moves when it connects or fails. */
-.physical header .box { display: flex; align-items: center; gap: 8px; }
-.physical header .box input { width: 150px; padding: 4px 6px; border: 1px solid var(--border); border-radius: 4px; font: 13px ui-monospace, Menlo, monospace; }
-.physical header .box button { width: 104px; }
+/* The box to connect to, its IP and Connect joined: fixed widths, so nothing moves when it connects or fails. */
+.physical header .box { display: flex; align-items: center; }
+.physical header .box input { width: 150px; padding: 4px 8px; border: 1px solid var(--border); border-radius: 6px 0 0 6px; background: #fff; font: 13px var(--mono); }
+.physical header .box input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgb(15 98 254 / 15%); }
+.physical header .box button { width: 104px; margin-left: -1px; border-radius: 0 6px 6px 0; }
+.physical header .box small { margin-left: 10px; }
 .physical header .box small { width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .seg { display: inline-flex; }
-.seg button:first-child { border-radius: 4px 0 0 4px; }
-.seg button:last-child { margin-left: -1px; border-radius: 0 4px 4px 0; }
+.seg button:first-child { border-radius: 6px 0 0 6px; }
+.seg button:last-child { margin-left: -1px; border-radius: 0 6px 6px 0; }
 /*
  * One fixed size whatever it shows, laid out the same at the chassis, a card and the rear: the parts as small icons
- * across the top, the faceplate on the stage (scaled to fit it, see useFit) the full width, and the CLI terminal and
- * the details side by side at the bottom.
+ * across the top, the faceplate filling the stage (see useFit) the full width, and the CLI terminal and the details
+ * side by side at the bottom.
  */
-.dialog.physical { display: flex; flex-direction: column; width: 96vw; height: 94vh; overflow: hidden; }
+.dialog.physical { display: flex; flex-direction: column; width: 96vw; height: 94vh; overflow: hidden; background: #f4f6f9; }
 .physical .body { flex: 1; min-height: 0; display: grid; grid-template: 'tray tray' 88px 'stage stage' 3fr 'term side' 2fr / 1fr 440px; gap: 12px; }
-.stage { grid-area: stage; min-width: 0; min-height: 0; overflow: hidden; border-radius: 6px; background: #e4e9ef; }
+.stage { grid-area: stage; min-width: 0; min-height: 0; overflow: hidden; border-radius: 10px; background: #2c3640; box-shadow: 0 2px 8px rgb(15 23 42 / 18%); }
 .fit { width: max-content; transform-origin: 0 0; }
 .physical .hint { flex: none; margin-top: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } /* one line, whichever hint */
 
@@ -142,15 +154,17 @@ main { position: relative; min-height: 0; }
  */
 .faceplate.rack-view { --mm: 2.35px; padding: 0; background: none; border: none; color: var(--text); }
 .rack {
-  position: relative; display: flex; gap: 4px; width: calc(482.6 * var(--mm)); height: calc((44.45 * var(--u) - 0.8) * var(--mm));
-  padding: 3px calc(16.3 * var(--mm)); background: linear-gradient(#3e4c59, #323f4b); border: 1px solid #1f2933; border-radius: 2px; color: #fff;
+  /* At least to scale; stretched further to fill the stage (--fit-w, --fit-h from useFit). */
+  position: relative; display: flex; gap: 4px;
+  width: max(calc(482.6 * var(--mm)), var(--fit-w, 0px)); height: max(calc((44.45 * var(--u) - 0.8) * var(--mm)), var(--fit-h, 0px));
+  padding: 4px calc(16.3 * var(--mm)); background: linear-gradient(#4a5865, #2c3640); border: 1px solid #1f2933; color: #fff;
 }
 .rack::before, .rack::after {
   --hole: #111820 calc(2.6 * var(--mm)), transparent calc(2.6 * var(--mm) + 0.5px);
-  content: ''; position: absolute; top: 0; bottom: 0; width: calc(16.3 * var(--mm)); background-color: #52606d;
-  background-image: radial-gradient(circle at 50% calc(6.35 * var(--mm)), var(--hole)),
-    radial-gradient(circle at 50% calc(22.2 * var(--mm)), var(--hole)), radial-gradient(circle at 50% calc(38.1 * var(--mm)), var(--hole));
-  background-size: 100% calc(44.45 * var(--mm));
+  content: ''; position: absolute; top: 0; bottom: 0; width: calc(16.3 * var(--mm));
+  background: radial-gradient(circle at 50% calc(6.35 * var(--mm)), var(--hole)), radial-gradient(circle at 50% calc(22.2 * var(--mm)), var(--hole)),
+    radial-gradient(circle at 50% calc(38.1 * var(--mm)), var(--hole)), linear-gradient(90deg, #56636f, #7b8794 45%, #56636f);
+  background-size: 100% calc(44.45 * var(--mm)), 100% calc(44.45 * var(--mm)), 100% calc(44.45 * var(--mm)), 100% 100%;
 }
 .rack::before { left: 0; }
 .rack::after { right: 0; }
@@ -159,12 +173,14 @@ main { position: relative; min-height: 0; }
 .slots { flex: 1; display: grid; gap: 4px; min-width: 0; }
 .slot {
   display: grid; align-content: start; gap: 3px; min-width: 0; padding: 3px 5px; overflow: hidden; background: #111820;
-  border: 1px dashed #52606d; border-radius: 2px; font-size: 11px; color: #9aa5b1;
+  border: 1px dashed #52606d; border-radius: 4px; font-size: 11px; color: #9aa5b1; box-shadow: inset 0 2px 6px rgb(0 0 0 / 35%);
 }
 .slot .cage-head { line-height: 14px; }
+.slot { grid-template-rows: auto minmax(0, 1fr); }
+.slot > .port-grid, .slot > .far { align-self: center; } /* centred in the slot, however tall the stage makes it */
 .slot .alarm { font-size: 10px; line-height: 14px; }
 .slot .port-grid { gap: 4px; }
-.slot.filled { background: #1f2933; border: 1px solid #52606d; border-top: 3px solid #9aa5b1; color: #fff; cursor: pointer; }
+.slot.filled { background: linear-gradient(#27323d, #1b242c); border: 1px solid #52606d; border-top: 3px solid #9aa5b1; color: #fff; cursor: pointer; box-shadow: inset 0 1px 0 rgb(255 255 255 / 6%); }
 .slot.filled:hover { border-color: var(--accent); }
 .slot.fits { border-color: var(--fiber); background: #14532d; }
 .mini-ports { display: flex; flex-wrap: wrap; gap: 4px; }
@@ -184,15 +200,15 @@ main { position: relative; min-height: 0; }
 .mini-dot { width: 12px; height: 8px; border: 1px solid #9aa5b1; border-top-width: 3px; border-radius: 2px; }
 
 /* Physical view: linecard faceplate, one cage per port */
-.faceplate { position: relative; padding: 10px; background: linear-gradient(#3e4c59, #323f4b); border: 1px solid #1f2933; border-radius: 6px; color: #fff; }
+.faceplate { position: relative; padding: 10px; background: linear-gradient(#4a5865, #2c3640); border: 1px solid #1f2933; border-radius: 6px; color: #fff; }
 .plate-label { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; cursor: pointer; }
 .plate-label b { font-size: 18px; }
 .plate-label small { color: #cbd2d9; }
 .led { width: 8px; height: 8px; margin-left: auto; border-radius: 50%; background: #4ade80; box-shadow: 0 0 6px #4ade80; }
 .cages { gap: 28px 20px; } /* room for fibers between cages */
 .cage {
-  display: grid; gap: 4px; width: 120px; padding: 6px; background: #1f2933; border: 2px solid #52606d;
-  border-top-width: 4px; border-radius: 4px; font-size: 12px;
+  display: grid; gap: 4px; width: 120px; padding: 6px; background: linear-gradient(#27323d, #1b242c); border: 2px solid #52606d;
+  border-top-width: 4px; border-radius: 6px; font-size: 12px; box-shadow: 0 2px 6px rgb(0 0 0 / 30%);
 }
 .cage.client { border-top-color: var(--client); }
 .cage.line { border-top-color: var(--line); }
@@ -205,7 +221,13 @@ main { position: relative; min-height: 0; }
 .cage .pic { height: 72px; }
 .cage .far { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .lc { display: flex; gap: 4px; }
-.card-view .faceplate { padding: 16px; } /* room for a fiber along the edge */
+/* At a card the faceplate fills the stage (see useFit), its cages centred, with room for a fiber along the edge. */
+.card-view .faceplate {
+  display: flex; flex-direction: column; align-items: center; min-width: var(--fit-w, 0); min-height: var(--fit-h, 0); padding: 16px; border-radius: 0;
+}
+.card-view .plate-label { align-self: stretch; }
+.card-view .cages { margin-top: auto; }
+.card-view .connect-to { margin-bottom: auto; }
 .cage.wiring { border-color: var(--accent); box-shadow: 0 0 6px var(--accent); }
 
 /* Physical view: fibers as pipes over the faceplate, and the far-end terminals under a card */
@@ -257,13 +279,14 @@ main { position: relative; min-height: 0; }
 .pic.big { height: 160px; }
 
 /* Physical view: the parts to drag in, one row in a strip under the faceplate that scrolls sideways */
-.tray { grid-area: tray; display: flex; justify-content: safe center; align-items: center; gap: 20px; min-width: 0; padding: 6px 10px; overflow: auto hidden; border: 1px solid var(--border); border-radius: 6px; }
+.tray { grid-area: tray; display: flex; justify-content: safe center; align-items: center; gap: 28px; min-width: 0; padding: 6px 10px; overflow: auto hidden; background: #fff; border: 1px solid #e3e8ef; border-radius: 10px; box-shadow: 0 1px 2px rgb(15 23 42 / 6%); }
+.tray h4 { letter-spacing: .06em; }
 .tray section { flex: none; }
 .tiles { display: flex; gap: 6px; }
 .tile b { font-size: 10px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .tile {
   display: grid; gap: 2px; width: 68px; padding: 3px; background: #fff; border: 1px solid var(--border);
-  border-top: 3px solid #9aa5b1; border-radius: 4px; cursor: grab; font-size: 12px;
+  border-top: 3px solid #9aa5b1; border-radius: 6px; cursor: grab; font-size: 12px; transition: border-color .15s, box-shadow .15s;
 }
 /* The icon: a pluggable's photo (or form factor), or a linecard's faceplate with a dot per port. */
 .tile .pic { height: 32px; font-size: 10px; }
@@ -272,6 +295,7 @@ main { position: relative; min-height: 0; }
 .tile.dco { border-top-color: #7c3aed; }
 .kind.dco { border-left-color: #7c3aed; }
 .tile:hover, .tile.on { border-color: var(--accent); }
+.tile:hover { box-shadow: 0 4px 12px rgb(15 23 42 / 14%); }
 .tile.on { box-shadow: 0 0 0 2px rgb(15 98 254 / 35%); background: #eef4ff; } /* picked: where it fits is green */
 .slot.fits, .cage.fits { cursor: copy; }
 
@@ -286,7 +310,10 @@ main { position: relative; min-height: 0; }
 .plug-tip small { color: var(--muted); }
 
 /* Physical view: the inspector, always there: a pluggable's datasheet, else alarms. It scrolls rather than grows. */
-.inspector { grid-area: side; position: relative; min-height: 0; overflow: auto; display: grid; gap: 6px; align-content: start; padding: 12px; border: 1px solid var(--border); border-radius: 6px; }
+.inspector {
+  grid-area: side; position: relative; min-height: 0; overflow: auto; display: grid; gap: 6px; align-content: start; padding: 14px;
+  background: #fff; border: 1px solid #e3e8ef; border-radius: 10px; box-shadow: 0 1px 2px rgb(15 23 42 / 6%);
+}
 .inspector h3 { margin: 4px 0 0; }
 .sheet-head { display: flex; align-items: center; gap: 12px; }
 .sheet-head > div { display: grid; gap: 4px; justify-items: start; }
@@ -294,7 +321,8 @@ main { position: relative; min-height: 0; }
 .inspector p { margin: 0; }
 .inspector .close { position: absolute; top: 6px; right: 6px; padding: 0 6px; }
 .inspector table { border-collapse: collapse; font-size: 12px; }
-.inspector th, .inspector td { padding: 3px 4px; border-top: 1px solid #e4e9ef; text-align: left; vertical-align: top; }
+.inspector th, .inspector td { padding: 4px 6px; border-top: 1px solid #eef1f5; text-align: left; vertical-align: top; }
+.inspector tr:hover td, .inspector tr:hover th { background: #f8fafc; }
 .inspector th { width: 40%; color: var(--muted); font-weight: normal; }
 .kind { justify-self: start; padding: 1px 8px; border-left: 4px solid #9aa5b1; background: #f4f6f8; border-radius: 3px; font-size: 11px; }
 .mini .far { display: block; font-size: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #9aa5b1; }
