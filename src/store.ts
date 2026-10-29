@@ -20,7 +20,7 @@ interface State {
   setOpenDevice: (id: string | null) => void;
   notify: (msg: string) => void;
   addDevice: (chassis: string, x: number, y: number) => void;
-  updateDevice: (id: string, patch: Partial<Pick<Device, 'name' | 'chassisNo' | 'x' | 'y' | 'emptyBays'>>) => void;
+  updateDevice: (id: string, patch: Partial<Pick<Device, 'host' | 'x' | 'y' | 'emptyBays'>>) => void;
   deleteDevice: (id: string) => void;
   insertLinecard: (device: string, slot: string, linecard: string) => void;
   insertPluggable: (device: string, slot: string, port: string, pluggable: string) => void;
@@ -33,10 +33,18 @@ interface State {
 const nextId = (prefix: string, items: { id: string }[]) =>
   prefix + (Math.max(0, ...items.map((x) => Number(x.id.slice(prefix.length)) || 0)) + 1);
 
-/** Linecard ids renamed since files were saved: C-1, C-9, C-11, MX-4 and MX-8 are now C25, C925, C1125, 400MX and 800MX. */
-const RENAMED: Record<string, string> = { 'lc-c1': 'lc-c25', 'lc-c9': 'lc-c925', 'lc-c11': 'lc-c1125', 'lc-mx4': 'lc-400mx', 'lc-mx8': 'lc-800mx' };
+/**
+ * Ids renamed since files were saved: linecards C-1, C-9, C-11, MX-4 and MX-8 are now C25, C925, C1125, 400MX and 800MX,
+ * and the 8-Slot Chassis is now the 2000.
+ */
+const RENAMED: Record<string, string> = {
+  'lc-c1': 'lc-c25', 'lc-c9': 'lc-c925', 'lc-c11': 'lc-c1125', 'lc-mx4': 'lc-400mx', 'lc-mx8': 'lc-800mx', 'ch-8slot': 'ch-2000',
+};
 const upgrade = (t: Topology | null) => {
-  for (const s of t?.devices.flatMap((d) => Object.values(d.slots)) ?? []) s.linecard = RENAMED[s.linecard] ?? s.linecard;
+  for (const d of t?.devices ?? []) {
+    d.chassis = RENAMED[d.chassis] ?? d.chassis;
+    for (const s of Object.values(d.slots)) s.linecard = RENAMED[s.linecard] ?? s.linecard;
+  }
 };
 
 let toastTimer: ReturnType<typeof setTimeout> | undefined;
@@ -145,9 +153,9 @@ export const useStore = create<State>()(
         s.topology!.links = s.topology!.links.filter((l) => l.id !== id);
       }),
     })),
-    // Browser autosave: the open topology and the current view. Version 1 has the renamed linecard ids.
+    // Browser autosave: the open topology and the current view. Version 1 has the renamed linecard ids, 2 the renamed chassis.
     {
-      name: 'ols-tracer', version: 1, partialize: (s) => ({ topology: s.topology, view: s.view }),
+      name: 'ols-tracer', version: 2, partialize: (s) => ({ topology: s.topology, view: s.view }),
       migrate: (saved) => { const s = saved as Pick<State, 'topology' | 'view'>; upgrade(s.topology); return s; },
     },
   ),

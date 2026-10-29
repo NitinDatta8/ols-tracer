@@ -1,5 +1,5 @@
-import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type DragEvent, type MouseEvent } from 'react';
-import { byId, cli } from './catalog';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type DragEvent, type MouseEvent } from 'react';
+import { byId, cli, nextMode } from './catalog';
 import { PipeLayer, type PipeEnds } from './Pipe';
 import { alarms, bays, coverage, fiberable, fiberError, fibersAt, linecardError, path, pluggableError, resolve, sameEnd, span, touches } from './rules';
 import { useCatalog, useStore } from './store';
@@ -7,10 +7,10 @@ import type { Alarm, CliLevel, Datasheet, End, LinecardDef, PluggableDef, Strand
 
 type Drag = { kind: 'card' | 'plug'; id: string };
 type At = { slot: string; port?: string };
-/** The lab box as the CLI bridge sees it (bridge/server.mjs). */
-type Box = { state: 'connected' | 'connecting' | 'down'; host?: string; error?: string };
+/** The box as the CLI bridge sees it (bridge/server.mjs); `logins` counts its logins, each starting a session in Normal mode. */
+type Box = { state: 'connected' | 'connecting' | 'down'; host?: string; error?: string; logins?: number };
 /** The hardware whose datasheet the inspector shows, and where it sits (for its CLI command). */
-type Detail = { kind: 'chassis' | 'card' | 'plug'; id: string; at?: At };
+type Detail = { kind: 'card' | 'plug'; id: string; at?: At };
 /** A level whose alarms to list: {} the chassis, { slot } a card, { slot, port } a port, { bay } a PSU or fan. */
 type Where = Pick<Alarm, 'slot' | 'port' | 'bay'>;
 /** The strand a fiber is being run from. */
@@ -99,18 +99,19 @@ const MgmtStrip = ({ ports }: { ports?: string[] }) => !ports?.length ? null : (
 /**
  * Like Packet Tracer's Physical tab, two levels deep: the chassis shows its slot grid, each linecard with a mini
  * cage per port so what is plugged in shows at a glance, and clicking a linecard shows the whole faceplate.
- * Every level has the same fixed layout: the faceplate, the parts to drag in (linecards or pluggables) under it, and
- * an inspector at the right. Back turns the chassis round to its PSU and fan bays.
+ * Every level has the same fixed layout: the parts to put in (linecards or pluggables) as icons across the top, the
+ * faceplate filling the area under them, and the CLI terminal and the inspector at the bottom. Rear turns the chassis
+ * round to its PSU and fan bays.
  * Hovering a pluggable shows its part and photo; clicking it opens its datasheet in the inspector.
- * Each level with alarms (chassis, card, port, PSU or fan) shows a bell; clicking it lists them in the inspector,
- * which otherwise lists the alarms of the level shown.
- * The CLI strip at the bottom shows the command for what is hovered, else for the level shown.
+ * Each card, port, PSU or fan with alarms shows a bell; clicking it lists them in the inspector, which otherwise lists
+ * the alarms of the level shown.
+ * The CLI line at the bottom shows the command for what is hovered, else for the level shown.
  */
 /**
- * Scales the element's only child to fit it, centred and at most `max` times its size, so it never scrolls.
+ * Scales the element's only child to fill it as far as its proportions allow, centred, so it never scrolls.
  * `open` is what decides whether the element is rendered.
  */
-function useFit(max: number, open: unknown) {
+function useFit(open: unknown) {
   const ref = useRef<HTMLDivElement>(null);
   const [transform, setTransform] = useState('');
   useLayoutEffect(() => {
@@ -118,7 +119,7 @@ function useFit(max: number, open: unknown) {
     if (!outer || !inner) return;
     const fit = () => {
       const [w, h, W, H] = [inner.offsetWidth, inner.offsetHeight, outer.clientWidth, outer.clientHeight];
-      const k = Math.min(max, W / w, H / h);
+      const k = Math.min(W / w, H / h);
       setTransform(`translate(${(W - w * k) / 2}px, ${(H - h * k) / 2}px) scale(${k})`);
     };
     fit();
@@ -126,28 +127,40 @@ function useFit(max: number, open: unknown) {
     ro.observe(outer);
     ro.observe(inner);
     return () => ro.disconnect();
-  }, [max, open]);
+  }, [open]);
   return [ref, transform] as const;
 }
 
 const NO_BRIDGE: Box = { state: 'down', error: 'Bridge not running: npm run bridge' };
 
-/** The lab box, checked every 5 s while the view is open; down when the bridge is not running. */
+/**
+ * A request to the CLI bridge, which Vite proxies under /bridge. The header tells the bridge it comes from this app.
+ * Disconnect is sent with keepalive, so it still goes out when the page closes.
+ */
+const bridge = (path: string, body?: string) => fetch(`${import.meta.env.BASE_URL}bridge/${path}`,
+  { method: body === undefined ? 'GET' : 'POST', headers: { 'x-ols-tracer': '1' }, body, keepalive: path === 'disconnect' });
+
+/** The box, checked every 5 s while the view is open (every second while it connects); closing the view or the page disconnects it. */
 function useBox() {
   const [box, setBox] = useState<Box>(NO_BRIDGE);
+  const check = useCallback(() => bridge('status').then((r) => r.json()).then(setBox, () => setBox(NO_BRIDGE)), []);
   useEffect(() => {
-    const check = () => fetch(import.meta.env.BASE_URL + 'bridge/status').then((r) => r.json()).then(setBox, () => setBox(NO_BRIDGE));
     check();
-    const id = setInterval(check, 5000);
+    const id = setInterval(check, box.state === 'connecting' ? 1000 : 5000);
     return () => clearInterval(id);
+  }, [check, box.state]);
+  useEffect(() => {
+    const disconnect = () => void bridge('disconnect', '').catch(() => {});
+    window.addEventListener('pagehide', disconnect);
+    return () => { window.removeEventListener('pagehide', disconnect); disconnect(); };
   }, []);
-  return box;
+  return [box, check] as const;
 }
 
 export function PhysicalView() {
   const t = useStore((s) => s.topology)!;
   const openId = useStore((s) => s.openDevice);
-  const [stage, fit] = useFit(1.25, openId);
+  const [stage, fit] = useFit(openId);
   const cat = useCatalog();
   const [cardSlot, setCardSlot] = useState<string | null>(null); // slot of the linecard being shown
   const [drag, setDrag] = useState<Drag | null>(null);
@@ -157,23 +170,28 @@ export function PhysicalView() {
   const [wire, setWire] = useState<Wire | null>(null);
   const [back, setBack] = useState(false); // chassis seen from the back: PSUs and fans
   const [alarmsFor, setAlarmsFor] = useState<Where | null>(null); // level whose alarms the side panel lists
-  const [output, setOutput] = useState<{ id: number; command: string; text: string; done: boolean } | null>(null); // a command run on the box
-  const runs = useRef(0);
-  const box = useBox();
-  const { setOpenDevice, updateDevice, deleteDevice, insertLinecard, insertPluggable, remove, notify, connect, deleteLink } = useStore.getState();
+  const [term, setTerm] = useState(''); // the CLI session so far: each command's output, as the box printed it
+  const termRef = useRef<HTMLPreElement>(null);
+  const [box, checkBox] = useBox();
+  const [typed, setTyped] = useState(''); // a command typed into the CLI strip
+  const [cliMode, setCliMode] = useState({ mode: 0, logins: 0 }); // the CLI mode, in the session of that login
+  const { setOpenDevice, updateDevice, insertLinecard, insertPluggable, remove, notify, connect, deleteLink } = useStore.getState();
 
-  // Escape goes up one level: fiber being run → side panel → linecard → chassis → canvas.
+  // Escape goes up one level: fiber being run → picked part or side panel → linecard → chassis → canvas.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return;
       if (wire) setWire(null);
-      else if (detail || alarmsFor || output) { setDetail(null); setAlarmsFor(null); setOutput(null); }
+      else if (detail || alarmsFor) { setDetail(null); setAlarmsFor(null); }
       else if (cardSlot) setCardSlot(null);
       else setOpenDevice(null);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [wire, detail, alarmsFor, output, cardSlot, setOpenDevice]);
+  }, [wire, detail, alarmsFor, cardSlot, setOpenDevice]);
+
+  // The terminal follows the output.
+  useEffect(() => { termRef.current?.scrollTo(0, termRef.current.scrollHeight); }, [term]);
 
   // The hovered element, and the level whose alarms were listed, are gone once the level or side changes.
   useEffect(() => { setFocus(null); setWire(null); setAlarmsFor(null); setTip(null); }, [cardSlot, back]);
@@ -181,7 +199,6 @@ export function PhysicalView() {
   const device = byId(t.devices, openId ?? undefined);
   if (!device) return null;
   const chassis = byId(cat.chassis, device.chassis);
-  const chassisName = chassis?.name ?? `unknown chassis ${device.chassis}`;
   const slots = chassis?.slots ?? [];
   const columns = chassis?.columns ?? slots.length;
   const ru = Math.ceil(slots.length / columns) || 1; // drawn one rack unit (1U) high per row of slots
@@ -190,6 +207,17 @@ export function PhysicalView() {
   const command = (level: CliLevel, at?: At) => cli(cat, level, { chassis: device.chassisNo ?? 1, ...at });
   const at = focus ?? (cardSlot ? { slot: cardSlot } : undefined);
   const strip = command(at?.port ? 'port' : at ? 'card' : 'chassis', at);
+
+  /** The bridge's box as far as this device goes: down unless it is this device's box. */
+  const here: Box = device.host && box.host === device.host ? box
+    : { state: 'down', error: device.host ? `Not connected to ${device.host}: click Connect` : 'Enter the box IP, then Connect' };
+  const linked = here.state !== 'down' || !!here.host; // connected to this box, or trying to
+  const modes = cat.cli.modes;
+  const mode = cliMode.logins === box.logins ? cliMode.mode : 0; // a new login starts in Normal
+  const connectBox = () => {
+    const host = device.host?.trim();
+    if (host) bridge(linked ? 'disconnect' : 'connect', linked ? '' : host).then(checkBox, () => notify(NO_BRIDGE.error!));
+  };
 
   /** "3", or "1–2" for a card that spans slots. */
   const slotLabel = (slot: string, width?: number) => {
@@ -200,24 +228,36 @@ export function PhysicalView() {
   const all = alarms(t, cat, device);
   /** The alarms at a level and below it. */
   const alarmsAt = (w: Where) => all.filter((a) => (Object.keys(w) as (keyof Where)[]).every((k) => a[k] === w[k]));
-  const alarmButton = (w: Where) => <AlarmButton list={alarmsAt(w)} onOpen={() => { setDetail(null); setOutput(null); setAlarmsFor(w); }} />;
-  /** The side panel shows one thing: a datasheet, a level's alarms or a command's output. */
-  const show = (kind: Detail['kind'], id: string, at?: At) => { setAlarmsFor(null); setOutput(null); setDetail({ kind, id, at }); };
-  /** Runs the command on the box through the bridge, streaming its output into the side panel. */
+  const alarmButton = (w: Where) => <AlarmButton list={alarmsAt(w)} onOpen={() => { setDetail(null); setAlarmsFor(w); }} />;
+  /** The side panel shows one thing: a datasheet or a level's alarms. */
+  const show = (kind: Detail['kind'], id: string, at?: At) => { setAlarmsFor(null); setDetail({ kind, id, at }); };
+  /**
+   * The part being dragged, else the one picked in the tray (its datasheet is shown, not from where it sits): the slots
+   * or ports it fits light up green, and clicking one puts it there.
+   */
+  const part: Drag | null = drag ?? (detail && !detail.at ? { kind: detail.kind, id: detail.id } : null);
+  /** Clicking a part in the tray picks it, or drops the pick if it was picked. */
+  const pick = (kind: Drag['kind'], id: string) => (part?.kind === kind && part.id === id ? setDetail(null) : show(kind, id));
+  /**
+   * Runs the command on the box through the bridge, streaming its output into the terminal. A command that changes the
+   * CLI mode (configure, exit…) gets a line saying which mode the box is in now, just above the box's new prompt.
+   */
   const runOnBox = async (command: string) => {
-    const id = ++runs.current;
-    const add = (text: string, done = false) => setOutput((o) => (o?.id === id ? { ...o, text: o.text + text, done } : o));
-    setDetail(null);
-    setAlarmsFor(null);
-    setOutput({ id, command, text: '', done: false });
+    const add = (text: string) => setTerm((t) => t + text);
+    const { logins = 0 } = box;
     try {
-      const res = await fetch(import.meta.env.BASE_URL + 'bridge/run', { method: 'POST', body: command });
+      const res = await bridge('run', command);
       const reader = res.body!.pipeThrough(new TextDecoderStream()).getReader();
       for (let r = await reader.read(); !r.done; r = await reader.read()) add(r.value);
+      const next = nextMode(cat, mode, command);
+      if (res.ok && next !== mode) {
+        setCliMode({ mode: next, logins });
+        const note = `── ${modes[next].about}${next ? ` · exit goes back to ${modes[next - 1].name}` : ''}\n`;
+        setTerm((t) => { const i = t.lastIndexOf('\n') + 1; return t.slice(0, i) + note + t.slice(i); });
+      }
     } catch {
       add(`${NO_BRIDGE.error}\n`);
     }
-    add('', true);
   };
   const shown = (kind: Detail['kind'], id: string) => detail?.kind === kind && detail.id === id;
   /** Up to the chassis, seen from the front or the back. */
@@ -274,24 +314,15 @@ export function PhysicalView() {
     return lines.map((s, i) => <small key={i} className="far">{s || '\u00a0'}</small>);
   };
 
+  /** A linecard as a small icon: its faceplate with a dot per port. */
   const cardTile = (lc: LinecardDef) => (
     <div key={lc.id} className={`tile${shown('card', lc.id) ? ' on' : ''}`} draggable
+      title={`${lc.name} · ${lc.width ?? 1} slot${(lc.width ?? 1) > 1 ? 's' : ''} · ${lc.ports.length} port${lc.ports.length > 1 ? 's' : ''}`}
       onDragStart={(e) => { e.dataTransfer.setData('text/plain', lc.id); setDrag({ kind: 'card', id: lc.id }); }}
       onDragEnd={() => setDrag(null)}
-      onClick={() => show('card', lc.id)}>
-      <b>{lc.name}</b>
-      <small>{lc.width ?? 1} slot{(lc.width ?? 1) > 1 ? 's' : ''} · {lc.ports.length} port{lc.ports.length > 1 ? 's' : ''}</small>
+      onClick={() => pick('card', lc.id)}>
       <div className="mini-ports">{lc.ports.map((p) => <span key={p.id} className={`mini-dot ${p.role}`} />)}</div>
-    </div>
-  );
-
-  /** The chassis name plate, front or back, with the alarms of the whole chassis. Clicking it shows the datasheet. */
-  const chassisLabel = (note: string) => (
-    <div className="plate-label" title="Datasheet" onClick={() => chassis && show('chassis', chassis.id)}>
-      <b>{chassisName}</b>
-      <small>{note}</small>
-      {alarmButton({})}
-      <span className="led" />
+      <b>{lc.name}</b>
     </div>
   );
 
@@ -299,7 +330,6 @@ export function PhysicalView() {
     const taken = coverage(cat, device);
     return (
       <div className="faceplate rack-view" onDragOver={(e) => e.preventDefault()} onDrop={onDrop}>
-        {chassisLabel(`${ru}U · ${slots.length} slots · ${Object.keys(device.slots).length} linecards`)}
         <div className="rack" style={{ '--u': ru } as CSSProperties}>
         <MgmtStrip ports={chassis?.mgmtPorts?.front} />
         <div className="slots" style={{ gridTemplate: `repeat(${ru}, 1fr) / repeat(${columns}, 1fr)` }}>
@@ -307,11 +337,11 @@ export function PhysicalView() {
             const state = device.slots[slot.id];
             if (!state && taken.has(slot.id)) return null; // under a wide card to its left
             const lc = byId(cat.linecards, state?.linecard);
-            const fits = drag?.kind === 'card' && !state && !linecardError(cat, device, slot.id, drag.id);
+            const fits = part?.kind === 'card' && !state && !linecardError(cat, device, slot.id, part.id);
             return (
               <div key={slot.id} data-slot={slot.id} className={`slot${state ? ' filled' : ''}${fits ? ' fits' : ''}`}
                 style={{ gridColumn: `${(i % columns) + 1} / span ${lc?.width ?? 1}`, gridRow: Math.floor(i / columns) + 1 }}
-                onClick={state ? () => setCardSlot(slot.id) : undefined}
+                onClick={state ? () => setCardSlot(slot.id) : fits ? () => insertLinecard(device.id, slot.id, part.id) : undefined}
                 onMouseEnter={state ? () => setFocus({ slot: slot.id }) : undefined} onMouseLeave={() => setFocus(null)}>
                 <div className="cage-head">
                   <b>{state ? (lc?.name ?? `unknown ${state.linecard}`) : 'empty'}</b>
@@ -338,7 +368,7 @@ export function PhysicalView() {
                     })}
                   </div>
                 ) : (
-                  <small className="far">{fits ? 'drop here' : 'drag a linecard here'}</small>
+                  <small className="far">{fits ? (drag ? 'drop here' : 'click to insert') : 'drag a linecard here'}</small>
                 )}
               </div>
             );
@@ -389,11 +419,11 @@ export function PhysicalView() {
             const end = { device: device.id, slot: slotId, port: p.id };
             const { pluggable } = resolve(t, cat, end);
             const inserted = device.slots[slotId].ports[p.id];
-            const fits = drag?.kind === 'plug' && !inserted && !pluggableError(cat, lc.id, p.id, drag.id);
+            const fits = part?.kind === 'plug' && !inserted && !pluggableError(cat, lc.id, p.id, part.id);
             return (
               <div key={p.id} data-port={p.id} className={`cage ${p.role}${fits ? ' fits' : ''}${pluggable ? ' filled' : ''}${wire && sameEnd(wire.end, end) ? ' wiring' : ''}`}
                 data-pipe-box {...hoverable(pluggable, { slot: slotId, port: p.id })}
-                onClick={pluggable ? () => show('plug', pluggable.id, { slot: slotId, port: p.id }) : undefined}>
+                onClick={pluggable ? () => show('plug', pluggable.id, { slot: slotId, port: p.id }) : fits ? () => insertPluggable(device.id, slotId, p.id, part.id) : undefined}>
                 <div className="cage-head">
                   <b>{p.id}</b><small>{p.role}</small>
                   {alarmButton({ slot: slotId, port: p.id })}
@@ -454,7 +484,6 @@ export function PhysicalView() {
   /** The back of the chassis, left to right: the NMS ports, the PSUs one above the other, then the fans. */
   const backLevel = () => (
     <div className="faceplate rack-view">
-      {chassisLabel(`back · ${ru}U · ${psus.length} PSUs · ${fans.length} fans`)}
       <div className="rack" style={{ '--u': ru } as CSSProperties}>
         <MgmtStrip ports={chassis?.mgmtPorts?.back} />
         {psus.length > 0 && <div className="psus">{psus.map(bayBox)}</div>}
@@ -470,15 +499,14 @@ export function PhysicalView() {
         <div key={p.id} className={`tile${p.dco ? ' dco' : ''}${shown('plug', p.id) ? ' on' : ''}`} draggable {...hoverable(p)}
           onDragStart={(e) => { e.dataTransfer.setData('text/plain', p.id); setTip(null); setDrag({ kind: 'plug', id: p.id }); }}
           onDragEnd={() => setDrag(null)}
-          onClick={() => show('plug', p.id)}>
+          onClick={() => pick('plug', p.id)}>
           <Pic p={p} />
           <b>{p.name}</b>
-          <small>{p.speed} · {p.fiber}</small>
         </div>
       ))] as const)
       : [['Linecards', cat.linecards.map(cardTile)] as const];
     // Always there, so the faceplate keeps its size: a card with built-in ports and the back get a note instead.
-    const note = back ? 'Nothing to drag in at the back.'
+    const note = back ? 'Nothing to drag in at the rear.'
       : builtIn ? `${card.name} has built-in ports: nothing to plug in.` : '';
     return (
       <div className="tray">
@@ -505,73 +533,78 @@ export function PhysicalView() {
       return lc && { item: lc, tag: 'Linecard', facts: { Width: `${lc.width ?? 1} slot${(lc.width ?? 1) > 1 ? 's' : ''}`, Ports: `${lc.ports.length} (${roles})` },
         command: detail.at && command('card', detail.at) };
     }
-    if (detail?.kind === 'chassis' && chassis) {
-      return { item: chassis, tag: 'Chassis', facts: { Size: `${ru}U`, Slots: String(slots.length), PSUs: String(psus.length), Fans: String(fans.length) },
-        command: command('chassis') };
-    }
   })();
   /** The inspector lists the alarms of what a bell was clicked on, else of the level shown. */
   const scope = alarmsFor ?? (cardSlot ? { slot: cardSlot } : {});
   const hint = card
-    ? `${builtIn ? 'Click the card name for its datasheet · click' : 'Drag a pluggable onto a port · click it or the card name for its datasheet · click'} a Tx, then an Rx, to run a fiber · click a lit strand to remove it · click a fiber to move its runs · Esc goes back`
+    ? `${builtIn ? 'Click the card name for its datasheet · click' : 'Drag a pluggable onto a port, or click it, then a green port · click the card name for its datasheet · click'} a Tx, then an Rx, to run a fiber · click a lit strand to remove it · click a fiber to move its runs · Esc goes back`
     : back
       ? '✕ pulls a PSU or fan out, which raises an alarm · Insert puts it back · Esc closes'
       : wire
         ? `Running a fiber ${wire.strand === 'tx' ? 'from' : 'into'} ${farLabel(wire.end)} ${STRAND[wire.strand]}: click the ${STRAND[OTHER[wire.strand]]} at the other end (green = free; a line port may loop back to itself) · Esc cancels`
-        : 'Drag a linecard onto a slot · click a card to open it, a tile or the name plate for a datasheet · click a Tx, then an Rx, to run a fiber · click a lit strand to remove it · click a fiber to move its runs · Esc closes';
+        : 'Drag a linecard onto a slot, or click it, then a green slot · click a card to open it · click a Tx, then an Rx, to run a fiber · click a lit strand to remove it · click a fiber to move its runs · Esc closes';
 
   return (
     <div className="backdrop" onClick={() => setOpenDevice(null)}>
       <div className="dialog physical" onClick={(e) => e.stopPropagation()}>
         <header>
           {/* Focus moves here, so Escape closes the view without React Flow also deselecting the node. */}
-          <input autoFocus value={device.name} onChange={(e) => updateDevice(device.id, { name: e.target.value })} aria-label="Device name" />
-          <label className="muted" title="Chassis number in CLI commands">
-            chassis <input className="no" type="number" min={1} value={device.chassisNo ?? 1}
-              onChange={(e) => updateDevice(device.id, { chassisNo: Math.max(1, Number(e.target.value) || 1) })} />
-          </label>
-          <nav className="crumbs">
-            {card && cardSlot ? (
-              <>
-                <button onClick={() => side(false)}>← Chassis</button>
-                <span className="muted">{chassisName} ›</span>
-                <strong>{card.name} · slot {slotLabel(cardSlot, card.width)}</strong>
-              </>
-            ) : <strong>{chassisName}</strong>}
-          </nav>
+          <button autoFocus onClick={() => (cardSlot ? side(false) : setOpenDevice(null))} title={cardSlot ? 'Back to the chassis' : 'Back to the canvas'}>← Back</button>
+          {/* The box to run CLI commands on. Its session closes with the view. */}
+          <form className="box" onSubmit={(e) => { e.preventDefault(); connectBox(); }}>
+            <input value={device.host ?? ''} placeholder="Box IP" aria-label="Box IP" spellCheck={false} disabled={linked}
+              onChange={(e) => updateDevice(device.id, { host: e.target.value })} />
+            <button className={`run ${here.state}`} disabled={!device.host?.trim()}>
+              <span className="dot" />{linked ? 'Disconnect' : 'Connect'}
+            </button>
+            <small className="muted" title={here.error}>{here.state === 'down' ? here.error : here.state === 'connecting' ? 'connecting…' : 'connected'}</small>
+          </form>
           <span className="spacer" />
           {/* There at a card too, so the header never shifts: either one goes back to that side of the chassis. */}
           {psus.length + fans.length > 0 && (
             <span className="seg">
               <button className={back ? '' : 'on'} onClick={() => side(false)}>Front</button>
-              <button className={back ? 'on' : ''} onClick={() => side(true)}>Back</button>
+              <button className={back ? 'on' : ''} onClick={() => side(true)}>Rear</button>
             </span>
           )}
-          <button onClick={() => deleteDevice(device.id)}>Delete device</button>
           <button onClick={() => setOpenDevice(null)} aria-label="Close">✕</button>
         </header>
-        {/* The same three fixed areas at every level: the faceplate (scaled to fit), the parts under it, the inspector. */}
+        {/*
+          * The same four fixed areas at every level: the parts to put in across the top as small icons, the faceplate
+          * (scaled to fit) the full width under them, and the CLI terminal and the details side by side at the bottom.
+          */}
         <div className="body">
+          {tray()}
           <div ref={stage} className={`stage${card ? ' card-view' : ''}`}>
             <div className="fit" style={{ transform: fit }}>
               {card && cardSlot ? cardLevel(cardSlot, card) : back ? backLevel() : chassisLevel()}
             </div>
           </div>
-          {tray()}
+          {/* Type a command (Enter runs it), or Run the one for what is hovered. The badge is the CLI mode the box is in. */}
+          <section className="term">
+            <pre ref={termRef} data-empty="Connect to the box, then type a command below, or Run the one for what you hover.">{term}</pre>
+            <form className="cli" onSubmit={(e) => { e.preventDefault(); runOnBox(typed.trim() || strip); setTyped(''); }}>
+              <span className={`mode m${mode}`}
+                title={`${modes[mode].about}\n\n${modes.map((m, i) => (i ? `${m.enter} → ${m.name}` : m.name)).join(' → ')} · exit goes back one`}>
+                {modes[mode].name} {modes[mode].prompt}
+              </span>
+              <input value={typed} placeholder={strip} onChange={(e) => setTyped(e.target.value)} spellCheck={false} aria-label="CLI command" />
+              <button type="button" onClick={() => navigator.clipboard.writeText(typed.trim() || strip)} title="Copy command">Copy</button>
+              <RunButton box={here} />
+            </form>
+          </section>
           <aside className="inspector">
-            {(sheet || alarmsFor || output) && <button className="close" onClick={() => { setDetail(null); setAlarmsFor(null); setOutput(null); }} aria-label="Close">✕</button>}
-            {output ? (
+            {(sheet || alarmsFor) && <button className="close" onClick={() => { setDetail(null); setAlarmsFor(null); }} aria-label="Close">✕</button>}
+            {sheet ? (
               <>
-                <h3>Output</h3>
-                <p className="muted">{box.host} · {output.done ? 'done' : 'running…'}</p>
-                <pre className="output">{output.text}</pre>
-              </>
-            ) : sheet ? (
-              <>
-                <Pic p={sheet.item} big />
-                <h3>{sheet.item.name}</h3>
-                <span className={`kind${sheet.dco ? ' dco' : ''}`}>{sheet.tag}</span>
-                {sheet.item.part && <p className="muted">{sheet.item.vendor} {sheet.item.part}</p>}
+                <div className="sheet-head">
+                  <Pic p={sheet.item} big />
+                  <div>
+                    <h3>{sheet.item.name}</h3>
+                    <span className={`kind${sheet.dco ? ' dco' : ''}`}>{sheet.tag}</span>
+                    {sheet.item.part && <p className="muted">{sheet.item.vendor} {sheet.item.part}</p>}
+                  </div>
+                </div>
                 {sheet.item.about && <p>{sheet.item.about}</p>}
                 <table>
                   <tbody>
@@ -581,7 +614,7 @@ export function PhysicalView() {
                   </tbody>
                 </table>
                 {sheet.item.url && <a href={asset(sheet.item.url)} target="_blank" rel="noreferrer">Datasheet ↗</a>}
-                {sheet.command && <Cli command={sheet.command} box={box} onRun={runOnBox} />}
+                {sheet.command && <Cli command={sheet.command} box={here} onRun={runOnBox} />}
               </>
             ) : (
               <>
@@ -609,24 +642,30 @@ export function PhysicalView() {
             </div>
           </div>
         )}
-        <Cli command={strip} box={box} onRun={runOnBox} />
         <p className="hint" title={hint}>{hint}</p>
       </div>
     </div>
   );
 }
 
-/** A CLI command with Copy, and Run on the lab box once the bridge has it connected. */
-function Cli({ command, box, onRun }: { command: string; box: Box; onRun: (command: string) => void }) {
+/** Runs a command on the box once it is connected; without `onClick` it submits its form. */
+function RunButton({ box, onClick }: { box: Box; onClick?: () => void }) {
   const up = box.state === 'connected';
+  return (
+    <button type={onClick ? 'button' : 'submit'} className={`run ${box.state}`} disabled={!up} onClick={onClick}
+      title={up ? `Run on ${box.host}` : box.error || `Box ${box.state}`}>
+      <span className="dot" />Run
+    </button>
+  );
+}
+
+/** A CLI command with Copy and Run. */
+function Cli({ command, box, onRun }: { command: string; box: Box; onRun: (command: string) => void }) {
   return (
     <div className="cli">
       <code>{command}</code>
       <button onClick={() => navigator.clipboard.writeText(command)} title="Copy command">Copy</button>
-      <button className={`run ${box.state}`} disabled={!up} onClick={() => onRun(command)}
-        title={up ? `Run on ${box.host}` : box.error || `Box ${box.state}`}>
-        <span className="dot" />Run
-      </button>
+      <RunButton box={box} onClick={() => onRun(command)} />
     </div>
   );
 }

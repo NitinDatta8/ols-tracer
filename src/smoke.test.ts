@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import demo from '../examples/demo.olst.json';
-import { byId, catalogFor, cli, streams } from './catalog';
+import { byId, catalogFor, cli, nextMode, streams } from './catalog';
 import { layout, moveRun } from './route';
 import { alarms, fiberError, linecardError, pluggableError, validate } from './rules';
 import type { Topology } from './types';
@@ -8,8 +8,10 @@ import type { Topology } from './types';
 describe.each(streams)('stream $id', ({ id }) => {
   const cat = catalogFor(id);
 
-  it('has the one 4x2 chassis (2 PSUs and 3 fans at the back) and the C and MX variants from common/', () => {
-    expect(cat.chassis.map((c) => [c.id, c.columns, c.slots.length, c.psus, c.fans])).toEqual([['ch-8slot', 4, 8, 2, 3]]);
+  it('has the 2000, 2026 (2U) and 2026-4RU (4U) chassis and the C and MX variants from common/', () => {
+    expect(cat.chassis.map((c) => [c.name, c.slots.length / (c.columns ?? c.slots.length), c.psus, c.fans])).toEqual([
+      ['2000', 2, 2, 3], ['2026', 2, 2, 3], ['2026-4RU', 4, 2, 3],
+    ]);
     expect(cat.linecards.map((c) => [c.name, c.width ?? 1, c.ports.length])).toEqual([
       ['C25', 2, 1], ['C925', 2, 9], ['C1125', 2, 11], ['400MX', 1, 4], ['800MX', 1, 8],
     ]);
@@ -29,6 +31,16 @@ it('fills CLI templates', () => {
   expect(cli(cat, 'pluggable', { chassis: 1, slot: '3', port: 'C2' })).toBe('show port 1-3-C2');
 });
 
+it('follows the CLI mode: configure, ^^^, bash and kgdb go one deeper, exit one back', () => {
+  const cat = catalogFor('corp-a');
+  const after = (commands: string[]) => commands.reduce((m, c) => nextMode(cat, m, c), 0);
+  expect(['configure', '^^^', 'bash', 'kgdb'].map((_, i, all) => cat.cli.modes[after(all.slice(0, i + 1))].name))
+    .toEqual(['Configure', 'Engineering', 'Bash', 'kgdb']);
+  expect(after(['show card 1-3', 'bash', 'configure'])).toBe(1); // bash only works from Engineering
+  expect(after(['configure', '^^^', 'exit'])).toBe(1);
+  expect(after(['exit'])).toBe(0);
+});
+
 it('keeps stream-only hardware out of other streams', () => {
   expect(byId(catalogFor('corp-b').pluggables, 'osfp-1600g-dr8')).toBeDefined();
   expect(byId(catalogFor('corp-a').pluggables, 'osfp-1600g-dr8')).toBeUndefined();
@@ -44,7 +56,7 @@ describe('rules on the demo topology', () => {
   it('places a 2-slot card across its right neighbour', () => {
     const siteA = t.devices[0]; // C925 in slot 1 also takes slot 2
     expect(linecardError(cat, siteA, '2', 'lc-400mx')).toBe('Slot 2 is taken by the card in slot 1');
-    expect(linecardError(cat, siteA, '2', 'lc-c1125')).toBe('C1125 is not allowed in slot 2 of 8-Slot Chassis');
+    expect(linecardError(cat, siteA, '2', 'lc-c1125')).toBe('C1125 is not allowed in slot 2 of 2000');
     expect(linecardError(cat, siteA, '4', 'lc-800mx')).toBeNull();
     expect(linecardError(cat, siteA, '5', 'lc-c25')).toBeNull();
   });
@@ -90,7 +102,7 @@ describe('rules on the demo topology', () => {
     bad.devices[0].slots['4'] = { linecard: 'lc-c925', ports: {} };
     bad.devices[1].slots['2'] = { linecard: 'lc-400mx', ports: {} };
     expect(validate(bad, cat)).toEqual([
-      'Site-A: C925 is not allowed in slot 4 of 8-Slot Chassis',
+      'Site-A: C925 is not allowed in slot 4 of 2000',
       'Site-B: Slot 2 is taken by the card in slot 2',
       'Site-B: Slot 2 is taken by the card in slot 1',
     ]);

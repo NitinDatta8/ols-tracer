@@ -49,7 +49,13 @@ export interface PluggableDef extends Datasheet {
 /** CLI command templates per level; `{chassis}`, `{slot}` and `{port}` are filled in. */
 export type CliLevel = 'chassis' | 'card' | 'port' | 'pluggable';
 
-export interface Catalog { chassis: ChassisDef[]; linecards: LinecardDef[]; pluggables: PluggableDef[]; cli: Record<CliLevel, string> }
+/** A CLI mode, Normal first; each one deeper is reached by typing its `enter` in the one above, and `exit` goes back one. */
+export interface CliMode { name: string; prompt?: string; enter?: string; about: string }
+
+export interface Catalog {
+  chassis: ChassisDef[]; linecards: LinecardDef[]; pluggables: PluggableDef[];
+  cli: Record<CliLevel, string> & { modes: CliMode[] };
+}
 
 // Topology (the saved .olst.json file)
 
@@ -61,6 +67,8 @@ export interface Device {
   name: string;
   /** The chassis number in CLI commands (default 1). */
   chassisNo?: number;
+  /** The box's IP (or name) the physical view connects to, to run CLI commands on it. */
+  host?: string;
   x: number;
   y: number;
   slots: Record<string, SlotState>;

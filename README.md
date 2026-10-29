@@ -24,11 +24,11 @@ Click **Open** and pick `examples/demo.olst.json` to see a ready-made topology.
 ## Run commands on a lab box (optional)
 
 ```sh
-cp bridge/.env.example bridge/.env   # then set BOX_HOST, BOX_USER and BOX_PASSWORD (or BOX_KEY)
+cp bridge/.env.example bridge/.env   # then set BOX_USER and BOX_PASSWORD (or BOX_KEY)
 npm run bridge                       # keep it running next to npm run dev
 ```
 
-The machine has to reach the box over SSH, so its IP must be allowed in the lab. The **Run** button's dot turns green once the box is connected. `bridge/.env` is git-ignored, so credentials never get committed.
+Open a device, type the box's IP in the header and click **Connect**. The machine has to reach the box over SSH, so its IP must be allowed in the lab. The dot turns green once the box is connected, and closing the view disconnects. `bridge/.env` is git-ignored, so credentials never get committed.
 
 ## Other commands
 

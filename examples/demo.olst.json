@@ -3,7 +3,7 @@
   "stream": "corp-a",
   "devices": [
     {
-      "id": "d1", "chassis": "ch-8slot", "name": "Site-A", "x": 0, "y": 0,
+      "id": "d1", "chassis": "ch-2000", "name": "Site-A", "x": 0, "y": 0,
       "slots": {
         "1": { "linecard": "lc-c925", "ports": {} },
         "3": { "linecard": "lc-400mx",
@@ -11,7 +11,7 @@
       }
     },
     {
-      "id": "d2", "chassis": "ch-8slot", "name": "Site-B", "x": 650, "y": 0,
+      "id": "d2", "chassis": "ch-2000", "name": "Site-B", "x": 650, "y": 0,
       "slots": {
         "1": { "linecard": "lc-c925", "ports": {} },
         "3": { "linecard": "lc-400mx",

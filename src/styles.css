@@ -30,7 +30,7 @@ button.primary, button.on { background: var(--accent); border-color: var(--accen
 .topbar { display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: #1f2933; color: #fff; }
 .topbar button, .topbar .button { background: #323f4b; border-color: #52606d; color: #fff; }
 .topbar button.on { background: var(--accent); border-color: var(--accent); }
-.badge { padding: 2px 8px; border-radius: 10px; background: #3e4c59; font-size: 12px; }
+.topbar .corp { padding: 3px 6px; border: 1px solid #52606d; border-radius: 4px; background: #323f4b; color: #fff; font: inherit; font-size: 13px; }
 main { position: relative; min-height: 0; }
 .canvas { position: absolute; inset: 0; }
 .overlay { position: absolute; top: 10px; right: 10px; width: 320px; display: grid; gap: 8px; z-index: 5; pointer-events: none; }
@@ -46,7 +46,6 @@ main { position: relative; min-height: 0; }
   display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 88px; padding: 6px;
   background: #fff; border: 1px solid var(--border); border-radius: 4px; cursor: grab; font-size: 12px;
 }
-.item.static { cursor: help; }
 .item small { color: var(--muted); font-size: 11px; }
 .icon rect { fill: #e4e9ef; stroke: #52606d; }
 .icon line { stroke: #9aa5b1; }
@@ -96,26 +95,42 @@ main { position: relative; min-height: 0; }
 .radio { display: block; margin: 6px 0; }
 .row { display: flex; gap: 8px; margin-top: 12px; }
 .cli { display: flex; align-items: center; gap: 8px; margin-top: 10px; padding: 6px 8px; background: #1e2329; color: #d6f5d6; border-radius: 4px; }
+/* The CLI terminal: the session's output, scrolling, over the command line. */
+.term { grid-area: term; display: flex; flex-direction: column; min-height: 0; overflow: hidden; background: #1e2329; border-radius: 6px; }
+.term pre { flex: 1; min-height: 0; margin: 0; padding: 8px 10px; overflow: auto; color: #d6f5d6; font: 12px ui-monospace, Menlo, monospace; }
+.term pre:empty::before { content: attr(data-empty); color: #7d8a96; }
+.term .cli { margin: 0; border-top: 1px solid #323f4b; border-radius: 0; }
 .cli code { flex: 1; font: 13px ui-monospace, Menlo, monospace; }
 .cli code::before { content: '> '; color: #7d8a96; }
+.cli input { flex: 1; min-width: 0; padding: 0; border: none; outline: none; background: none; color: inherit; font: 13px ui-monospace, Menlo, monospace; }
+.cli input::placeholder { color: #8fb38f; }
+/* The CLI mode the box is in, warmer the deeper it is: Normal, Configure, Engineering, Bash, kgdb. */
+.cli .mode { flex: none; width: 112px; padding: 1px 6px; border-radius: 3px; background: #3e4c59; color: #fff; font: 11px ui-monospace, Menlo, monospace; text-align: center; cursor: help; }
+.cli .mode.m1 { background: #b45309; }
+.cli .mode.m2 { background: #c2410c; }
+.cli .mode.m3 { background: #b91c1c; }
+.cli .mode.m4 { background: #7e22ce; }
 .cli button { padding: 1px 8px; font-size: 12px; color: #1e2329; }
 .hint { margin: 10px 0 0; color: var(--muted); font-size: 12px; }
 .toast { position: fixed; bottom: 110px; left: 50%; transform: translateX(-50%); z-index: 30; padding: 8px 14px; border-radius: 6px; background: var(--error); color: #fff; }
 
 /* Physical view */
 .physical header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-.physical header input.no { width: 48px; font-weight: normal; }
-.physical header input { font: inherit; font-weight: 600; padding: 4px 6px; border: 1px solid var(--border); border-radius: 4px; }
-.crumbs { display: flex; align-items: center; gap: 6px; }
+/* The box to connect to: fixed widths, so nothing moves when it connects or fails. */
+.physical header .box { display: flex; align-items: center; gap: 8px; }
+.physical header .box input { width: 150px; padding: 4px 6px; border: 1px solid var(--border); border-radius: 4px; font: 13px ui-monospace, Menlo, monospace; }
+.physical header .box button { width: 104px; }
+.physical header .box small { width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .seg { display: inline-flex; }
 .seg button:first-child { border-radius: 4px 0 0 4px; }
 .seg button:last-child { margin-left: -1px; border-radius: 0 4px 4px 0; }
 /*
- * One fixed size whatever it shows, laid out the same at the chassis, a card and the back: the faceplate on the
- * stage (scaled to fit it, see useFit), the parts strip under it and the inspector at the right.
+ * One fixed size whatever it shows, laid out the same at the chassis, a card and the rear: the parts as small icons
+ * across the top, the faceplate on the stage (scaled to fit it, see useFit) the full width, and the CLI terminal and
+ * the details side by side at the bottom.
  */
 .dialog.physical { display: flex; flex-direction: column; width: 96vw; height: 94vh; overflow: hidden; }
-.physical .body { flex: 1; min-height: 0; display: grid; grid-template: 'stage side' 1fr 'tray side' 150px / 1fr 260px; gap: 12px; }
+.physical .body { flex: 1; min-height: 0; display: grid; grid-template: 'tray tray' 88px 'stage stage' 3fr 'term side' 2fr / 1fr 440px; gap: 12px; }
 .stage { grid-area: stage; min-width: 0; min-height: 0; overflow: hidden; border-radius: 6px; background: #e4e9ef; }
 .fit { width: max-content; transform-origin: 0 0; }
 .physical .hint { flex: none; margin-top: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } /* one line, whichever hint */
@@ -126,7 +141,6 @@ main { position: relative; min-height: 0; }
  * opening and three mounting holes per U in each ear. --mm is pixels per millimetre.
  */
 .faceplate.rack-view { --mm: 2.35px; padding: 0; background: none; border: none; color: var(--text); }
-.rack-view .plate-label small { color: var(--muted); }
 .rack {
   position: relative; display: flex; gap: 4px; width: calc(482.6 * var(--mm)); height: calc((44.45 * var(--u) - 0.8) * var(--mm));
   padding: 3px calc(16.3 * var(--mm)); background: linear-gradient(#3e4c59, #323f4b); border: 1px solid #1f2933; border-radius: 2px; color: #fff;
@@ -243,17 +257,23 @@ main { position: relative; min-height: 0; }
 .pic.big { height: 160px; }
 
 /* Physical view: the parts to drag in, one row in a strip under the faceplate that scrolls sideways */
-.tray { grid-area: tray; display: flex; gap: 20px; min-width: 0; padding: 8px 10px; overflow: auto hidden; border: 1px solid var(--border); border-radius: 6px; }
+.tray { grid-area: tray; display: flex; justify-content: safe center; align-items: center; gap: 20px; min-width: 0; padding: 6px 10px; overflow: auto hidden; border: 1px solid var(--border); border-radius: 6px; }
 .tray section { flex: none; }
-.tiles { display: flex; gap: 8px; }
-.tile b { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tiles { display: flex; gap: 6px; }
+.tile b { font-size: 10px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .tile {
-  display: grid; gap: 2px; width: 140px; padding: 6px; background: #fff; border: 1px solid var(--border);
-  border-left: 4px solid #9aa5b1; border-radius: 4px; cursor: grab; font-size: 12px;
+  display: grid; gap: 2px; width: 68px; padding: 3px; background: #fff; border: 1px solid var(--border);
+  border-top: 3px solid #9aa5b1; border-radius: 4px; cursor: grab; font-size: 12px;
 }
-.tile.dco, .kind.dco { border-left-color: #7c3aed; }
+/* The icon: a pluggable's photo (or form factor), or a linecard's faceplate with a dot per port. */
+.tile .pic { height: 32px; font-size: 10px; }
+.tile .mini-ports { height: 32px; gap: 2px; place-content: center; padding: 2px; background: #1f2933; border-radius: 3px; }
+.tile .mini-dot { width: 6px; height: 5px; border-top-width: 2px; }
+.tile.dco { border-top-color: #7c3aed; }
+.kind.dco { border-left-color: #7c3aed; }
 .tile:hover, .tile.on { border-color: var(--accent); }
-.tile small { color: var(--muted); font-size: 11px; }
+.tile.on { box-shadow: 0 0 0 2px rgb(15 98 254 / 35%); background: #eef4ff; } /* picked: where it fits is green */
+.slot.fits, .cage.fits { cursor: copy; }
 
 .plug-tip {
   position: fixed; z-index: 40; display: flex; gap: 8px; align-items: center; width: 260px; padding: 6px;
@@ -268,6 +288,9 @@ main { position: relative; min-height: 0; }
 /* Physical view: the inspector, always there: a pluggable's datasheet, else alarms. It scrolls rather than grows. */
 .inspector { grid-area: side; position: relative; min-height: 0; overflow: auto; display: grid; gap: 6px; align-content: start; padding: 12px; border: 1px solid var(--border); border-radius: 6px; }
 .inspector h3 { margin: 4px 0 0; }
+.sheet-head { display: flex; align-items: center; gap: 12px; }
+.sheet-head > div { display: grid; gap: 4px; justify-items: start; }
+.sheet-head .pic.big { flex: none; width: 120px; height: 80px; }
 .inspector p { margin: 0; }
 .inspector .close { position: absolute; top: 6px; right: 6px; padding: 0 6px; }
 .inspector table { border-collapse: collapse; font-size: 12px; }
@@ -280,8 +303,7 @@ main { position: relative; min-height: 0; }
 .mini.wiring { border-color: var(--accent); box-shadow: 0 0 6px var(--accent); }
 .mini.fits { border-color: var(--fiber); background: #14532d; }
 
-/* Run on the lab box: the dot is the bridge's session, green when connected. Output scrolls inside the inspector. */
-.cli .run .dot { display: inline-block; width: 7px; height: 7px; margin-right: 5px; border-radius: 50%; background: #9aa5b1; }
-.cli .run.connected .dot { background: #22c55e; }
-.cli .run.connecting .dot { background: #f59e0b; }
-.inspector .output { min-width: 0; margin: 0; padding: 8px; overflow: auto; background: #1e2329; color: #d6f5d6; border-radius: 4px; font: 11px ui-monospace, Menlo, monospace; }
+/* Connect and Run: the dot is the bridge's session, green when connected. */
+.run .dot { display: inline-block; width: 7px; height: 7px; margin-right: 5px; border-radius: 50%; background: #9aa5b1; }
+.run.connected .dot { background: #22c55e; }
+.run.connecting .dot { background: #f59e0b; }

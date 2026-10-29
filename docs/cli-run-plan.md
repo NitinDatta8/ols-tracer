@@ -31,10 +31,12 @@ A browser cannot open SSH, so a small bridge sits between them:
 Browser ──HTTP (/bridge, proxied by Vite)──> CLI bridge (Node + ssh2) ──one SSH session, kept open──> lab box
 ```
 
-- `npm run bridge` starts `bridge/server.mjs`, which reads `bridge/.env` (see `bridge/.env.example`): host, port, user, and a password or a key file. Credentials stay on that machine, never in the browser or a `.olst.json`.
+- `npm run bridge` starts `bridge/server.mjs`, which reads `bridge/.env` (see `bridge/.env.example`): port, user, and a password or a key file. Credentials stay on that machine, never in the browser or a `.olst.json`.
+- **The box's IP comes from the physical view:** type it in the header and click Connect (the device keeps it). Closing the view, or the page, disconnects.
 - **One session, kept open:** it opens an interactive shell, because the box's CLI is prompt-driven. It sends a keepalive every 15 s and reconnects with backoff (1 s up to 30 s) whenever the session drops. `BOX_INIT` runs commands once after login, for example to turn paging off.
 - **One command at a time:** commands are queued. A command's output ends when the box's prompt comes back (`BOX_PROMPT`, a regex). If there is no prompt within `BOX_TIMEOUT`, the bridge sends Ctrl-C and waits for the prompt again, so nothing spills into the next command. If the prompt still does not come, the bridge reopens the session.
-- **Safety:** the bridge listens on localhost only and takes one command on one line, so a newline cannot slip in a second command. It logs every command with a timestamp. Config commands are allowed, per the decision above.
+- **Safety:** the bridge listens on localhost only and answers only the app: requests need an `x-ols-tracer` header (so other web pages cannot call it) and a localhost `Host` (so DNS rebinding cannot). It takes one command on one line, so a newline cannot slip in a second command. It logs every command with a timestamp. Config commands are allowed, per the decision above.
+- **CLI modes:** Normal (`>`) → `configure` → Configure (`#`) → `^^^` → Engineering → `bash` → Bash → `kgdb` → kgdb, and `exit` goes back one. The app follows the mode from the commands it sends, shows it on a badge in the CLI strip, and describes each new mode at the end of the command's output. The modes are listed in `cli.json`.
 - **UI:** Run sits next to Copy, in the CLI strip and in the inspector. Its dot is green when the box is connected, orange while connecting and grey when down. Output streams into the inspector, so the dialog does not move.
 - **Tested** against a fake SSH box: password and keyboard-interactive logins, a reconnect after the box drops, a hung command, and a command queued behind it.
 
@@ -56,3 +58,4 @@ Browser ──HTTP (/bridge, proxied by Vite)──> CLI bridge (Node + ssh2) �
 2. Does the C++ CLI have a JSON or other structured output mode?
 3. What does the box's prompt look like, and what turns paging off? These set `BOX_PROMPT` and `BOX_INIT`.
 4. Should config commands ask for confirmation before Run sends them?
+5. What are the Engineering, Bash and kgdb prompts, and is Engineering entered by typing `^^^` and Enter? The default `BOX_PROMPT` matches a name ending in `#`, `>` or `$`, and `(kgdb)`.

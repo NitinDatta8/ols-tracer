@@ -41,7 +41,14 @@ function TopBar() {
   return (
     <header className="topbar">
       <strong>OLS Tracer</strong>
-      {t && <span className="badge">Stream: {byId(streams, t.stream)?.name ?? t.stream}</span>}
+      {/* Each corporation has its own hardware, so switching starts a new topology. */}
+      {t && (
+        <select className="corp" value={t.stream} title="Corporation: the palette shows only its hardware"
+          onChange={(e) => (!t.devices.length || confirm(`Switch to ${byId(streams, e.target.value)?.name}? This discards the current topology.`))
+            && load({ version: 1, stream: e.target.value, devices: [], links: [] })}>
+          {streams.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+        </select>
+      )}
       <button onClick={() => (!t?.devices.length || confirm('Discard the current topology?')) && load(null)}>New</button>
       <OpenButton />
       <button disabled={!t} onClick={() => t && save(t)}>Save</button>
@@ -59,7 +66,7 @@ function NewProject() {
     <div className="backdrop">
       <div className="dialog">
         <h3>New topology</h3>
-        <p className="muted">Pick the stream (catalog) for this project. The palette shows only its hardware.</p>
+        <p className="muted">Pick the corporation for this project. The palette shows only its hardware.</p>
         {streams.map((s) => (
           <label key={s.id} className="radio">
             <input type="radio" name="stream" checked={s.id === stream} onChange={() => setStream(s.id)} /> {s.name}
@@ -96,15 +103,6 @@ function Palette() {
           </div>
         </section>
       ))}
-      <section>
-        <h4>Connections</h4>
-        <div className="items">
-          <div className="item static" title="Drag from a port's Tx to another port's Rx on the canvas (or click one, then the other). A fiber runs one way; a line port can loop its Tx back to its own Rx. Select a fiber to drag its runs; double-click a run to route it automatically again.">
-            <svg className="icon" width="48" height="30"><path d="M4 26 C 18 -4, 30 34, 44 4" /></svg>
-            SMF Tx → Rx
-          </div>
-        </div>
-      </section>
     </footer>
   );
 }
@@ -153,7 +151,8 @@ export function App() {
         <div className="overlay"><Inspector /><Problems /></div>
       </main>
       {open && <Palette />}
-      {open ? <PhysicalView key={openDevice} /> : <NewProject />}
+      {/* Mounted only while a device is open: closing it also closes the box's CLI session. */}
+      {open ? openDevice && <PhysicalView key={openDevice} /> : <NewProject />}
       <Toast />
     </div>
   );
