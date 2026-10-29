@@ -2,12 +2,5 @@
   "chassis": "show chassis {chassis}",
   "card": "show card {chassis}-{slot}",
   "port": "show port {chassis}-{slot}-{port}",
-  "pluggable": "show port {chassis}-{slot}-{port}",
-  "modes": [
-    { "name": "Normal", "prompt": ">", "about": "Normal mode, where the session starts: show commands work, nothing on the box changes" },
-    { "name": "Configure", "prompt": "#", "enter": "configure", "about": "Configure mode: commands change the box's configuration" },
-    { "name": "Engineering", "enter": "^^^", "about": "Engineering mode (Shift+6 three times in Configure): engineering commands" },
-    { "name": "Bash", "enter": "bash", "about": "Bash: a Linux shell on the box" },
-    { "name": "kgdb", "enter": "kgdb", "about": "kgdb: application-level access, to turn features on or off" }
-  ]
+  "pluggable": "show port {chassis}-{slot}-{port}"
 }

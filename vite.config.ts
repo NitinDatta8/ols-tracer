@@ -3,6 +3,6 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [react()],
-  // The CLI bridge (npm run bridge) that runs commands on the lab box.
-  server: { proxy: { '/bridge': { target: 'http://127.0.0.1:8022', rewrite: (p) => p.replace(/^\/bridge/, '') } } },
+  // The CLI bridge (npm run bridge) to the lab box; its terminal is a WebSocket.
+  server: { proxy: { '/bridge': { target: 'http://127.0.0.1:8022', ws: true, rewrite: (p) => p.replace(/^\/bridge/, '') } } },
 });

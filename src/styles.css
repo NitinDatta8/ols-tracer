@@ -96,31 +96,14 @@ main { position: relative; min-height: 0; }
 .radio { display: block; margin: 6px 0; }
 .row { display: flex; gap: 8px; margin-top: 12px; }
 .cli { display: flex; align-items: center; gap: 8px; margin-top: 10px; padding: 6px 8px; background: #1e2329; color: #d6f5d6; border-radius: 4px; }
-/* The CLI terminal: the session's output, scrolling, over the command line. */
+/* The CLI terminal (xterm.js) over the command for what is hovered. */
 .term { grid-area: term; display: flex; flex-direction: column; min-height: 0; overflow: hidden; background: #0d1117; border-radius: 10px; box-shadow: 0 1px 3px rgb(15 23 42 / 25%); }
-.term pre { flex: 1; min-height: 0; margin: 0; padding: 10px 14px; overflow: auto; color: #c9d1d9; font: 12px/1.5 var(--mono); }
-.term pre:empty::before { content: attr(data-empty); color: #6e7681; }
-.term .note { color: #d2a8ff; } /* the line saying which CLI mode the box is in now */
+.xterm-host { flex: 1; min-height: 0; overflow: hidden; }
+.xterm-host .xterm { height: 100%; padding: 8px 0 0 12px; }
 .term .cli { margin: 0; padding: 7px 10px; background: #161b22; border-top: 1px solid #21262d; border-radius: 0; }
 .cli code { flex: 1; font: 13px var(--mono); }
 .cli code::before { content: '> '; color: #7d8a96; }
-.cli input { flex: 1; min-width: 0; padding: 0; border: none; outline: none; background: none; color: #e6edf3; font: 13px var(--mono); }
-.cli input::placeholder { color: #6e7681; }
 .cli button { padding: 2px 10px; font-size: 12px; color: #1e2329; }
-/*
- * The prompt, oh-my-posh style: a powerline segment as wide as the CLI mode's name, then the mode's prompt sign.
- * The mode is warmer the deeper it is: Normal, Configure, Engineering, Bash, kgdb.
- */
-.posh { --mode: #3fb950; flex: none; display: flex; align-items: center; height: 22px; font: 600 11px/22px var(--mono); cursor: help; }
-.posh.m1 { --mode: #e3b341; }
-.posh.m2 { --mode: #f0883e; }
-.posh.m3 { --mode: #f85149; }
-.posh.m4 { --mode: #bc8cff; }
-.posh .mode {
-  height: 100%; padding: 0 18px 0 10px; border-radius: 11px 0 0 11px; background: var(--mode); color: #0d1117; white-space: nowrap;
-  clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 50%, calc(100% - 9px) 100%, 0 100%);
-}
-.posh b { margin-left: 8px; color: var(--mode); font-size: 14px; }
 .hint { margin: 10px 0 0; color: var(--muted); font-size: 12px; }
 .toast { position: fixed; bottom: 110px; left: 50%; transform: translateX(-50%); z-index: 30; padding: 8px 14px; border-radius: 6px; background: var(--error); color: #fff; }
 
@@ -234,7 +217,7 @@ main { position: relative; min-height: 0; }
 .pipes { position: absolute; inset: 0; z-index: 1; overflow: visible; pointer-events: none; }
 .pipes .pipe, .pipes .pipe-fill { pointer-events: stroke; cursor: pointer; }
 .terminals { display: flex; flex-wrap: wrap; gap: 8px; min-height: 28px; margin-top: 44px; }
-.terminal { padding: 4px 8px; background: #111820; border: 1px solid #a16207; border-top: 3px solid #facc15; border-radius: 4px; color: #fde68a; font-size: 11px; }
+.terminals .terminal { padding: 4px 8px; background: #111820; border: 1px solid #a16207; border-top: 3px solid #facc15; border-radius: 4px; color: #fde68a; font-size: 11px; }
 .connect-to { display: flex; align-items: center; gap: 6px; min-height: 28px; margin-top: 10px; font-size: 12px; }
 .connect-to select { font: inherit; padding: 3px; }
 .strand { flex: 1; padding: 1px 0; border: 1px solid #52606d; border-radius: 2px; background: #323f4b; color: #9aa5b1; font-size: 9px; text-align: center; }

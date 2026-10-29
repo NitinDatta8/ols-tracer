@@ -49,12 +49,9 @@ export interface PluggableDef extends Datasheet {
 /** CLI command templates per level; `{chassis}`, `{slot}` and `{port}` are filled in. */
 export type CliLevel = 'chassis' | 'card' | 'port' | 'pluggable';
 
-/** A CLI mode, Normal first; each one deeper is reached by typing its `enter` in the one above, and `exit` goes back one. */
-export interface CliMode { name: string; prompt?: string; enter?: string; about: string }
-
 export interface Catalog {
   chassis: ChassisDef[]; linecards: LinecardDef[]; pluggables: PluggableDef[];
-  cli: Record<CliLevel, string> & { modes: CliMode[] };
+  cli: Record<CliLevel, string>;
 }
 
 // Topology (the saved .olst.json file)
