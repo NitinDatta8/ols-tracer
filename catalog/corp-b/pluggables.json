@@ -1,0 +1,9 @@
+[
+  {
+    "id": "osfp-1600g-dr8", "name": "OSFP 1.6T DR8", "formFactor": "OSFP", "speed": "1.6T", "fiber": "SMF",
+    "vendor": "Coherent", "part": "FTCF2519E3PCA", "image": "pluggables/osfp-1600g-dr8.jpg",
+    "url": "https://www.coherent.com/networking/transceivers/datacom/FTCF2519E3PCA",
+    "about": "1.6T-DR8 OSFP with dual MPO-12, 8x200G PAM4 (IEEE P802.3dj, OIF CEI-224G-LR). For Ethernet and InfiniBand AI fabrics.",
+    "specs": { "Reach": "500 m", "Wavelength": "1310 nm", "Data rate": "1.6 Tb/s", "Connector": "Dual MPO12", "Media": "Parallel SMF", "Case temp": "0 to 70 °C" }
+  }
+]

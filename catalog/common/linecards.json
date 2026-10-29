@@ -1,0 +1,68 @@
+[
+  {
+    "id": "lc-c25",
+    "name": "C25",
+    "width": 2,
+    "ports": [
+      {"id": "L1", "role": "line", "allowedPluggables": []}
+    ]
+  },
+  {
+    "id": "lc-c925",
+    "name": "C925",
+    "width": 2,
+    "ports": [
+      {"id": "C1", "role": "client", "allowedPluggables": []},
+      {"id": "C2", "role": "client", "allowedPluggables": []},
+      {"id": "C3", "role": "client", "allowedPluggables": []},
+      {"id": "C4", "role": "client", "allowedPluggables": []},
+      {"id": "C5", "role": "client", "allowedPluggables": []},
+      {"id": "C6", "role": "client", "allowedPluggables": []},
+      {"id": "C7", "role": "client", "allowedPluggables": []},
+      {"id": "C8", "role": "client", "allowedPluggables": []},
+      {"id": "L1", "role": "line", "allowedPluggables": []}
+    ]
+  },
+  {
+    "id": "lc-c1125",
+    "name": "C1125",
+    "width": 2,
+    "ports": [
+      {"id": "C1", "role": "client", "allowedPluggables": []},
+      {"id": "C2", "role": "client", "allowedPluggables": []},
+      {"id": "C3", "role": "client", "allowedPluggables": []},
+      {"id": "C4", "role": "client", "allowedPluggables": []},
+      {"id": "C5", "role": "client", "allowedPluggables": []},
+      {"id": "C6", "role": "client", "allowedPluggables": []},
+      {"id": "C7", "role": "client", "allowedPluggables": []},
+      {"id": "C8", "role": "client", "allowedPluggables": []},
+      {"id": "C9", "role": "client", "allowedPluggables": []},
+      {"id": "C10", "role": "client", "allowedPluggables": []},
+      {"id": "L1", "role": "line", "allowedPluggables": []}
+    ]
+  },
+  {
+    "id": "lc-400mx",
+    "name": "400MX",
+    "ports": [
+      {"id": "C1", "role": "client", "allowedPluggables": ["SFP"]},
+      {"id": "C2", "role": "client", "allowedPluggables": ["SFP"]},
+      {"id": "C3", "role": "client", "allowedPluggables": ["SFP"]},
+      {"id": "L1", "role": "line", "allowedPluggables": ["QSFP"]}
+    ]
+  },
+  {
+    "id": "lc-800mx",
+    "name": "800MX",
+    "ports": [
+      {"id": "C1", "role": "client", "allowedPluggables": ["SFP"]},
+      {"id": "C2", "role": "client", "allowedPluggables": ["SFP"]},
+      {"id": "C3", "role": "client", "allowedPluggables": ["SFP"]},
+      {"id": "C4", "role": "client", "allowedPluggables": ["SFP"]},
+      {"id": "C5", "role": "client", "allowedPluggables": ["SFP"]},
+      {"id": "C6", "role": "client", "allowedPluggables": ["SFP"]},
+      {"id": "C7", "role": "client", "allowedPluggables": ["SFP"]},
+      {"id": "L1", "role": "line", "allowedPluggables": ["QSFP"]}
+    ]
+  }
+]

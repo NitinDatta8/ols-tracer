@@ -1,0 +1,68 @@
+[
+  {
+    "id": "sfp-10g-lr", "name": "SFP+ 10G LR", "formFactor": "SFP", "speed": "10G", "fiber": "SMF",
+    "vendor": "Coherent", "part": "FTLX1475D3BCL", "image": "pluggables/sfp-10g-lr.jpg",
+    "about": "10GBASE-LR/LW SFP+ for 10 km single-mode links. Compliant with SFF-8431, SFF-8432 and IEEE 802.3ae; digital diagnostics per SFF-8472.",
+    "specs": { "Reach": "10 km", "Wavelength": "1310 nm", "Connector": "Duplex LC", "Case temp": "0 to 70 °C" }
+  },
+  {
+    "id": "sfp28-25g-lr", "name": "SFP28 25G LR", "formFactor": "SFP", "speed": "25G", "fiber": "SMF",
+    "vendor": "Coherent", "part": "FTLF1436P4BCL",
+    "about": "25GE LR SFP28 for 10 km single-mode links, 1310 nm DFB transmitter and PIN receiver.",
+    "specs": { "Reach": "10 km", "Wavelength": "1310 nm", "Data rate": "25.78 Gb/s", "Connector": "Duplex LC" }
+  },
+  {
+    "id": "dsfp-100g-lr", "name": "DSFP 100G LR", "formFactor": "SFP", "speed": "100G", "fiber": "SMF",
+    "about": "Dual-lane SFP (DSFP) 100G for single-mode links.",
+    "specs": { "Connector": "Duplex LC" }
+  },
+
+  {
+    "id": "qsfp28-100g-lr4", "name": "QSFP28 100G LR4", "formFactor": "QSFP", "speed": "100G", "fiber": "SMF",
+    "vendor": "Coherent", "part": "FTLC1154RDPL", "image": "pluggables/qsfp28-100g-lr4.jpg",
+    "url": "https://www.coherent.com/networking/transceivers/datacom/FTLC1154RDPL",
+    "about": "100GBASE-LR4 QSFP28. Compliant with the QSFP28 MSA, IEEE 802.3ba 100GBASE-LR4 and IEEE 802.3bm CAUI-4. Digital diagnostics over I2C.",
+    "specs": { "Reach": "10 km", "Wavelength": "1310 nm band", "Transmitter": "4x LWDM DFB laser", "Receiver": "PIN", "Data rate": "103.1 Gb/s", "Connector": "Duplex LC", "Supply": "3.3 V", "Case temp": "up to 70 °C" }
+  },
+  {
+    "id": "qsfp28-100g-sr4", "name": "QSFP28 100G SR4", "formFactor": "QSFP", "speed": "100G", "fiber": "MMF",
+    "vendor": "Coherent", "part": "FTLC9558REPM", "image": "pluggables/qsfp28-100g-sr4.jpg",
+    "url": "https://www.coherent.com/networking/transceivers/datacom/FTLC9558REPM",
+    "about": "100GBASE-SR4 QSFP28 over parallel multimode fiber. Compliant with the QSFP28 MSA and IEEE 802.3bm 100GBASE-SR4 and CAUI-4.",
+    "specs": { "Reach": "100 m", "Wavelength": "850 nm band", "Transmitter": "4x VCSEL", "Receiver": "PIN", "Data rate": "103.1 Gb/s", "Connector": "MPO (MTP12)", "Supply": "3.3 V", "Case temp": "up to 70 °C" }
+  },
+  {
+    "id": "qsfp-dd-400g-fr4", "name": "QSFP-DD 400G FR4", "formFactor": "QSFP", "speed": "400G", "fiber": "SMF",
+    "vendor": "Coherent", "part": "FTCD4313E3PCL", "image": "pluggables/qsfp-dd-400g-fr4.jpg",
+    "url": "https://www.coherent.com/networking/transceivers/datacom/FTCD4313E3PCL",
+    "about": "400G-FR4 Gen 3 QSFP-DD. Compliant with the QSFP-DD MSA, QSFP28 MSA, IEEE P802.3cu and portions of P802.3bs. Digital diagnostics over I2C.",
+    "specs": { "Reach": "2 km", "Wavelength": "1310 nm", "Transmitter": "EML", "Receiver": "PIN", "Data rate": "425 Gb/s", "Connector": "Duplex LC", "Supply": "3.3 V", "Case temp": "0 to 70 °C" }
+  },
+  {
+    "id": "qsfp-dd-zr", "name": "QSFP-DD 400G ZR", "formFactor": "QSFP", "speed": "400G", "fiber": "SMF", "dco": true,
+    "vendor": "Coherent", "part": "FTCD3323E1PCL", "image": "pluggables/qsfp-dd-zr.jpg",
+    "url": "https://www.coherent.com/networking/transceivers/telecom/FTCD3323E1PCL",
+    "about": "400G QSFP-DD digital coherent optics, OIF 400ZR. High Tx power (0 dBm) makes it ROADM-compatible, so it plugs straight into a router or switch for IP-over-DWDM without a transponder layer.",
+    "specs": { "Reach": "120 km", "Wavelength": "C-band 5 THz DWDM tunable", "Tx power": "0 dBm", "Modulation": "DP-16QAM/8QAM/QPSK", "Data rate": "478 Gb/s", "Connector": "Duplex LC", "Management": "CMIS", "Case temp": "0 to 70 °C" }
+  },
+  {
+    "id": "qsfp-dd-800g-zr", "name": "QSFP-DD800 800G ZR", "formFactor": "QSFP", "speed": "800G", "fiber": "SMF", "dco": true,
+    "vendor": "Coherent", "part": "FTCE3326E1PCL", "image": "pluggables/qsfp-dd-800g-zr.jpg",
+    "url": "https://www.coherent.com/networking/transceivers/telecom/FTCE3326E1PCL",
+    "about": "800G QSFP-DD digital coherent optics, OIF 800ZR. For DWDM data center interconnect up to 120 km; high Tx power for ROADM line systems.",
+    "specs": { "Reach": "120 km", "Wavelength": "C-band 5 THz DWDM tunable", "Tx power": "0 dBm", "Modulation": "DP-16QAM/8QAM/QPSK", "Data rate": "800 Gb/s", "Connector": "Duplex LC", "Management": "CMIS", "Case temp": "0 to 70 °C" }
+  },
+
+  {
+    "id": "osfp-400g-zrp", "name": "OSFP 400G ZR+", "formFactor": "OSFP", "speed": "400G", "fiber": "SMF", "dco": true,
+    "about": "400G OpenZR+ digital coherent optics in OSFP for metro and regional DWDM.",
+    "specs": { "Wavelength": "C-band DWDM tunable", "Connector": "Duplex LC", "Management": "CMIS" }
+  },
+  {
+    "id": "osfp-800g-zr", "name": "OSFP 800G ZR", "formFactor": "OSFP", "speed": "800G", "fiber": "SMF", "dco": true,
+    "vendor": "Coherent", "part": "FTCE3327E1PCL", "image": "pluggables/osfp-800g-zr.jpg",
+    "url": "https://www.coherent.com/networking/transceivers/telecom/FTCE3327E1PCL",
+    "about": "800G OSFP digital coherent optics, OIF 800ZR. For DWDM data center interconnect up to 120 km; high Tx power for ROADM line systems.",
+    "specs": { "Reach": "120 km", "Wavelength": "C-band 5 THz DWDM tunable", "Tx power": "0 dBm", "Modulation": "DP-16QAM/8QAM/QPSK", "Data rate": "825 Gb/s", "Connector": "Duplex LC", "Management": "CMIS", "Case temp": "0 to 70 °C" }
+  }
+]
