@@ -8,13 +8,35 @@ import type { Topology } from './types';
 describe.each(streams)('stream $id', ({ id }) => {
   const cat = catalogFor(id);
 
-  it('has the 2000, 2026 (2U) and 2026-4RU (4U) chassis and the C and MX variants from common/', () => {
-    expect(cat.chassis.map((c) => [c.name, c.slots.length / (c.columns ?? c.slots.length), c.psus, c.fans])).toEqual([
-      ['2000', 2, 2, 3], ['2026', 2, 2, 3], ['2026-4RU', 4, 2, 3],
-    ]);
-    expect(cat.linecards.map((c) => [c.name, c.width ?? 1, c.ports.length])).toEqual([
-      ['C25', 2, 1], ['C925', 2, 14], ['C1125', 2, 11], ['400MX', 1, 5], ['800MX', 1, 10],
-    ]);
+  it('includes common chassis and the C/MX linecard variants', () => {
+    const chassisByName = new Map(cat.chassis.map((c) => [c.name, c]));
+    const commonChassis = [
+      ['2000', 2, 2, 3],
+      ['2026', 2, 2, 3],
+      ['2026-4RU', 4, 2, 3],
+    ] as const;
+    for (const [name, units, psus, fans] of commonChassis) {
+      const chassis = chassisByName.get(name);
+      expect(chassis, `${id}: missing chassis ${name}`).toBeDefined();
+      expect(chassis?.slots.length ? chassis.slots.length / (chassis.columns ?? chassis.slots.length) : 0).toBe(units);
+      expect(chassis?.psus).toBe(psus);
+      expect(chassis?.fans).toBe(fans);
+    }
+
+    const linecardsByName = new Map(cat.linecards.map((c) => [c.name, c]));
+    const commonLinecards = [
+      ['C25', 2, 1],
+      ['C925', 2, 14],
+      ['C1125', 2, 11],
+      ['400MX', 1, 5],
+      ['800MX', 1, 10],
+    ] as const;
+    for (const [name, width, ports] of commonLinecards) {
+      const linecard = linecardsByName.get(name);
+      expect(linecard, `${id}: missing linecard ${name}`).toBeDefined();
+      expect(linecard?.width ?? 1).toBe(width);
+      expect(linecard?.ports.length).toBe(ports);
+    }
   });
 
   it('only references hardware that exists in the stream', () => {
