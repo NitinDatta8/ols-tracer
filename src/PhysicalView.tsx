@@ -1,15 +1,16 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type DragEvent, type MouseEvent } from 'react';
-import { byId, cli, nextMode } from './catalog';
+import { byId, cli } from './catalog';
 import { PipeLayer, type PipeEnds } from './Pipe';
 import { roleOf, toneOf } from './ports';
 import { alarms, bays, coverage, fiberable, fiberError, fibersAt, linecardError, path, pluggableError, resolve, sameEnd, span, touches } from './rules';
 import { useCatalog, useStore } from './store';
+import { BoxTerminal, type Keys } from './Terminal';
 import type { Alarm, CliLevel, Datasheet, End, LinecardDef, PluggableDef, Strand, Topology } from './types';
 
 type Drag = { kind: 'card' | 'plug'; id: string };
 type At = { slot: string; port?: string };
-/** The box as the CLI bridge sees it (bridge/server.mjs); `logins` counts its logins, each starting a session in Normal mode. */
-type Box = { state: 'connected' | 'connecting' | 'down'; host?: string; error?: string; logins?: number };
+/** The box as the CLI bridge sees it (bridge/server.mjs). */
+type Box = { state: 'connected' | 'connecting' | 'down'; host?: string; error?: string };
 /** The hardware whose datasheet the inspector shows, and where it sits (for its CLI command). */
 type Detail = { kind: 'card' | 'plug'; id: string; at?: At };
 /** A level whose alarms to list: {} the chassis, { slot } a card, { slot, port } a port, { bay } a PSU or fan. */
@@ -174,11 +175,8 @@ export function PhysicalView() {
   const [wire, setWire] = useState<Wire | null>(null);
   const [back, setBack] = useState(false); // chassis seen from the back: PSUs and fans
   const [alarmsFor, setAlarmsFor] = useState<Where | null>(null); // level whose alarms the side panel lists
-  const [term, setTerm] = useState(''); // the CLI session so far: each command's output, as the box printed it
-  const termRef = useRef<HTMLPreElement>(null);
   const [box, checkBox] = useBox();
-  const [typed, setTyped] = useState(''); // a command typed into the CLI strip
-  const [cliMode, setCliMode] = useState({ mode: 0, logins: 0 }); // the CLI mode, in the session of that login
+  const keys = useRef<Keys>(null); // types into the CLI terminal
   const { setOpenDevice, updateDevice, insertLinecard, insertPluggable, remove, notify, connect, deleteLink } = useStore.getState();
 
   // Escape goes up one level: fiber being run → picked part or side panel → linecard → chassis → canvas.
@@ -193,9 +191,6 @@ export function PhysicalView() {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [wire, detail, alarmsFor, cardSlot, setOpenDevice]);
-
-  // The terminal follows the output.
-  useEffect(() => { termRef.current?.scrollTo(0, termRef.current.scrollHeight); }, [term]);
 
   // The hovered element, and the level whose alarms were listed, are gone once the level or side changes.
   useEffect(() => { setFocus(null); setWire(null); setAlarmsFor(null); setTip(null); }, [cardSlot, back]);
@@ -216,8 +211,6 @@ export function PhysicalView() {
   const here: Box = device.host && box.host === device.host ? box
     : { state: 'down', error: device.host ? `Not connected to ${device.host}: click Connect` : 'Enter the box IP, then Connect' };
   const linked = here.state !== 'down' || !!here.host; // connected to this box, or trying to
-  const modes = cat.cli.modes;
-  const mode = cliMode.logins === box.logins ? cliMode.mode : 0; // a new login starts in Normal
   const connectBox = () => {
     const host = device.host?.trim();
     if (host) bridge(linked ? 'disconnect' : 'connect', linked ? '' : host).then(checkBox, () => notify(NO_BRIDGE.error!));
@@ -242,27 +235,8 @@ export function PhysicalView() {
   const part: Drag | null = drag ?? (detail && !detail.at ? { kind: detail.kind, id: detail.id } : null);
   /** Clicking a part in the tray picks it, or drops the pick if it was picked. */
   const pick = (kind: Drag['kind'], id: string) => (part?.kind === kind && part.id === id ? setDetail(null) : show(kind, id));
-  /**
-   * Runs the command on the box through the bridge, streaming its output into the terminal. A command that changes the
-   * CLI mode (configure, exit…) gets a line saying which mode the box is in now, just above the box's new prompt.
-   */
-  const runOnBox = async (command: string) => {
-    const add = (text: string) => setTerm((t) => t + text);
-    const { logins = 0 } = box;
-    try {
-      const res = await bridge('run', command);
-      const reader = res.body!.pipeThrough(new TextDecoderStream()).getReader();
-      for (let r = await reader.read(); !r.done; r = await reader.read()) add(r.value);
-      const next = nextMode(cat, mode, command);
-      if (res.ok && next !== mode) {
-        setCliMode({ mode: next, logins });
-        const note = `── ${modes[next].about}${next ? ` · exit goes back to ${modes[next - 1].name}` : ''}\n`;
-        setTerm((t) => { const i = t.lastIndexOf('\n') + 1; return t.slice(0, i) + note + t.slice(i); });
-      }
-    } catch {
-      add(`${NO_BRIDGE.error}\n`);
-    }
-  };
+  /** Runs the command on the box: types it into the CLI terminal, then Enter. */
+  const runOnBox = (command: string) => keys.current?.type(command + '\r');
   const shown = (kind: Detail['kind'], id: string) => detail?.kind === kind && detail.id === id;
   /** Up to the chassis, seen from the front or the back. */
   const side = (b: boolean) => { setCardSlot(null); setDetail(null); setBack(b); };
@@ -540,7 +514,7 @@ export function PhysicalView() {
         command: detail.at && command('card', detail.at) };
     }
   })();
-  /** The command greyed out in the CLI line: for what is hovered, else what was clicked, else the level shown. */
+  /** The command under the CLI terminal: for what is hovered, else what was clicked, else the level shown. */
   const suggested = (!focus && sheet?.command) || strip;
   /** The inspector lists the alarms of what a bell was clicked on, else of the level shown. */
   const scope = alarmsFor ?? (cardSlot ? { slot: cardSlot } : {});
@@ -589,30 +563,12 @@ export function PhysicalView() {
             </div>
           </div>
           {/*
-            * Type a command (Enter runs it), or Run the one for what is hovered. The prompt is oh-my-posh style: a segment
-            * for the CLI mode the box is in (warmer the deeper), then the mode's prompt sign.
+            * The box's CLI, typed into as over ssh (Tab, ↑, Ctrl-C and Escape go to the box while it has focus), and under
+            * it the command for what is hovered, to Copy or Run.
             */}
           <section className="term">
-            <pre ref={termRef} data-empty="Connect to the box, then type a command below, or Run the one for what you hover.">
-              {term && term.split(/(?<=\n)/).map((line, i) => <span key={i} className={line.startsWith('── ') ? 'note' : undefined}>{line}</span>)}
-            </pre>
-            <form className="cli" onSubmit={(e) => { e.preventDefault(); runOnBox(typed.trim() || suggested); setTyped(''); }}>
-              <span className={`posh m${mode}`}
-                title={`${modes[mode].about}\n\n${modes.map((m, i) => (i ? `${m.enter} → ${m.name}` : m.name)).join(' → ')} · exit goes back one`}>
-                <span className="mode">{modes[mode].name}</span>
-                <b>{modes[mode].prompt ?? '❯'}</b>
-              </span>
-              {/*
-                * Any command can be typed. Tab fills in the greyed-out one (or completes it from what is typed), and so
-                * does clicking into an empty line, selected so that typing replaces it.
-                */}
-              <input value={typed} placeholder={suggested} onChange={(e) => setTyped(e.target.value)} spellCheck={false} aria-label="CLI command"
-                title="Tab or click fills in the greyed-out command · or type your own"
-                onKeyDown={(e) => { if (e.key === 'Tab' && !e.shiftKey && typed !== suggested && suggested.startsWith(typed)) { e.preventDefault(); setTyped(suggested); } }}
-                onClick={(e) => { if (!typed) { e.currentTarget.value = suggested; e.currentTarget.select(); setTyped(suggested); } }} />
-              <button type="button" onClick={() => navigator.clipboard.writeText(typed.trim() || suggested)} title="Copy command">Copy</button>
-              <RunButton box={here} />
-            </form>
+            <BoxTerminal live={here.state === 'connected'} ref={keys} />
+            <Cli command={suggested} box={here} onRun={runOnBox} />
           </section>
           <aside className="inspector">
             {(sheet || alarmsFor) && <button className="close" onClick={() => { setDetail(null); setAlarmsFor(null); }} aria-label="Close">✕</button>}

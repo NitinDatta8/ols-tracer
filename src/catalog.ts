@@ -28,7 +28,3 @@ export const byId = <T extends { id: string }>(items: T[], id: string | undefine
 /** The CLI command for one level, e.g. `show card 1-3`. */
 export const cli = (cat: Catalog, level: CliLevel, vars: { chassis?: number; slot?: string; port?: string }) =>
   cat.cli[level]?.replace(/\{(\w+)\}/g, (m, k: string) => String(vars[k as keyof typeof vars] ?? m)) ?? '';
-
-/** The CLI mode (index into `cli.modes`) after `command` ran in `mode`: the next mode's `enter` goes one deeper, `exit` one back. */
-export const nextMode = (cat: Catalog, mode: number, command: string) =>
-  command === cat.cli.modes[mode + 1]?.enter ? mode + 1 : command === 'exit' ? Math.max(0, mode - 1) : mode;

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import demo from '../examples/demo.olst.json';
-import { byId, catalogFor, cli, nextMode, streams } from './catalog';
+import { byId, catalogFor, cli, streams } from './catalog';
 import { layout, moveRun } from './route';
 import { alarms, fiberError, linecardError, pluggableError, validate } from './rules';
 import type { Topology } from './types';
@@ -51,16 +51,6 @@ it('fills CLI templates', () => {
   expect(cli(cat, 'chassis', { chassis: 2 })).toBe('show chassis 2');
   expect(cli(cat, 'card', { chassis: 1, slot: '3' })).toBe('show card 1-3');
   expect(cli(cat, 'pluggable', { chassis: 1, slot: '3', port: 'C2' })).toBe('show transceiver 1-3-C2');
-});
-
-it('follows the CLI mode: configure, ^^^, bash and kgdb go one deeper, exit one back', () => {
-  const cat = catalogFor('corp-a');
-  const after = (commands: string[]) => commands.reduce((m, c) => nextMode(cat, m, c), 0);
-  expect(['configure', '^^^', 'bash', 'kgdb'].map((_, i, all) => cat.cli.modes[after(all.slice(0, i + 1))].name))
-    .toEqual(['Configure', 'Engineering', 'Bash', 'kgdb']);
-  expect(after(['show card 1-3', 'bash', 'configure'])).toBe(1); // bash only works from Engineering
-  expect(after(['configure', '^^^', 'exit'])).toBe(1);
-  expect(after(['exit'])).toBe(0);
 });
 
 it('keeps stream-only hardware out of other streams', () => {
