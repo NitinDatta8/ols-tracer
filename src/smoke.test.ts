@@ -25,10 +25,10 @@ describe.each(streams)('stream $id', ({ id }) => {
 });
 
 it('fills CLI templates', () => {
-  const cat = catalogFor('corp-a');
+  const cat = catalogFor('csp');
   expect(cli(cat, 'chassis', { chassis: 2 })).toBe('show chassis 2');
   expect(cli(cat, 'card', { chassis: 1, slot: '3' })).toBe('show card 1-3');
-  expect(cli(cat, 'pluggable', { chassis: 1, slot: '3', port: 'C2' })).toBe('show port 1-3-C2');
+  expect(cli(cat, 'pluggable', { chassis: 1, slot: '3', port: 'C2' })).toBe('show transceiver 1-3-C2');
 });
 
 it('follows the CLI mode: configure, ^^^, bash and kgdb go one deeper, exit one back', () => {
@@ -42,8 +42,8 @@ it('follows the CLI mode: configure, ^^^, bash and kgdb go one deeper, exit one 
 });
 
 it('keeps stream-only hardware out of other streams', () => {
-  expect(byId(catalogFor('corp-b').pluggables, 'osfp-1600g-dr8')).toBeDefined();
-  expect(byId(catalogFor('corp-a').pluggables, 'osfp-1600g-dr8')).toBeUndefined();
+  expect(byId(catalogFor('tencent').pluggables, 'osfp-1600g-dr8')).toBeDefined();
+  expect(byId(catalogFor('csp').pluggables, 'osfp-1600g-dr8')).toBeUndefined();
 });
 
 describe('rules on the demo topology', () => {

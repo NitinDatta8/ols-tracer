@@ -8,11 +8,12 @@ const files = import.meta.glob<{ id: string }[]>('../catalog/*/*.json', { eager:
 const cliFiles = import.meta.glob<Catalog['cli']>('../catalog/*/cli.json', { eager: true, import: 'default' });
 
 const cache = new Map<string, Catalog>();
+const dirsFor = (stream: string) => ['common', stream];
 
 /** catalog/common merged with catalog/<stream>. Stream items override common items with the same id, stream CLI templates common ones. */
 export function catalogFor(stream: string): Catalog {
   const merge = (kind: keyof Catalog) => {
-    const items = ['common', stream].flatMap((dir) => files[`../catalog/${dir}/${kind}.json`] ?? []);
+    const items = dirsFor(stream).flatMap((dir) => files[`../catalog/${dir}/${kind}.json`] ?? []);
     return [...new Map(items.map((x) => [x.id, x])).values()];
   };
   if (!cache.has(stream)) {

@@ -35,6 +35,8 @@ Open a device, type the box's IP in the header and click **Connect**. The machin
 ```sh
 npm test           # smoke tests
 npm run build      # typecheck and production build in dist/
+npm run sync:platform  # regenerate catalog/streams.json and catalog/<stream>/chassis.json from ../IIVI_Platform profiles
+npm run sync:cli       # regenerate catalog/<stream>/cli.json from ../IIVI_Platform profile XML
 ```
 
 ## Docs

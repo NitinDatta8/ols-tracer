@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "stream": "corp-a",
+  "stream": "csp",
   "devices": [
     {
       "id": "d1", "chassis": "ch-2000", "name": "Site-A", "x": 0, "y": 0,

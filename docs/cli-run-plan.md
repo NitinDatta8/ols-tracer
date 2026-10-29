@@ -1,6 +1,6 @@
 # OLS Tracer: command book, Run on a lab box and the C++ CLI
 
-Follows the [MVP plan](mvp-plan.md). Hovering hardware in the physical view shows its command from `catalog/<stream>/cli.json` (`show chassis 1`, `show card 1-3`, `show port 1-3-C2`). **Copy** copies it and **Run** runs it on the lab box.
+Follows the [MVP plan](mvp-plan.md). Hovering hardware in the physical view shows its command from `catalog/<stream>/cli.json` (`show chassis 1`, `show card 1-3`, `show port 1-3-C2`, pluggable `show transceiver 1-3-C2`). **Copy** copies it and **Run** runs it on the lab box.
 
 **Status:** step 2 (Run on one box over SSH) is built. Step 1 is waiting for the command book, and steps 3 and 4 come later.
 
@@ -42,7 +42,7 @@ Browser ──HTTP (/bridge, proxied by Vite)──> CLI bridge (Node + ssh2) �
 
 ## Step 3: deeper integration with the C++ CLI (later)
 
-- **Generate the command book from the C++ source.** If commands are registered in a table or with macros, a script can read them and write `cli.json`, so the tracer never drifts from the box.
+- **Generate the command book from the CLI profile XML.** `npm run sync:cli` reads `../IIVI_Platform/profile/cu/cli/<stream>/cli_shortcut_cmds_eqpt.xml` and `../IIVI_Platform/profile/cu/cli/<stream>/cli_shortcut_cmds_l1.xml` and rewrites `catalog/<stream>/cli.json`.
 - **Structured output.** A JSON output mode in the C++ CLI, or an API (gRPC, NETCONF/YANG), would let the tracer read the box's real state: cards in slots, pluggables and alarms. The tracer could then draw the physical view from the box and show live alarms instead of simulated ones.
 - The bridge stays the only thing that talks to boxes, so swapping SSH for an API changes only the bridge.
 

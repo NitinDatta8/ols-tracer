@@ -8,7 +8,9 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "bridge": "node --env-file-if-exists=bridge/.env bridge/server.mjs"
+    "bridge": "node --env-file-if-exists=bridge/.env bridge/server.mjs",
+    "sync:platform": "node scripts/sync-streams-chassis-from-iivi.mjs",
+    "sync:cli": "node scripts/sync-cli-from-iivi.mjs"
   },
   "dependencies": {
     "@xyflow/react": "^12.12.0",
