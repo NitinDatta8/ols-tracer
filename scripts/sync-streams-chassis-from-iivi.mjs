@@ -2,6 +2,13 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, isAbsolute, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {
+  deriveWidthFromSlots,
+  linecardIdForVendorType,
+  linecardKnown,
+  linecardWidthOverrideForVendorType,
+  uniqueSortedNums,
+} from './sync-profile-utils.mjs';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const argv = process.argv.slice(2);
@@ -9,7 +16,6 @@ const argv = process.argv.slice(2);
 const options = {
   iiviRoot: '../IIVI_Platform',
   out: 'catalog',
-  linecards: 'catalog/common/linecards.json',
   dryRun: false,
 };
 
@@ -17,7 +23,7 @@ const usage = [
   'Sync stream list and chassis slot compatibility from IIVI platform profiles.',
   '',
   'Usage:',
-  '  npm run sync:platform -- [--iivi-root <path>] [--out <path>] [--linecards <path>] [--dry-run]',
+  '  npm run sync:platform -- [--iivi-root <path>] [--out <path>] [--dry-run]',
 ].join('\n');
 
 for (let i = 0; i < argv.length; i += 1) {
@@ -30,7 +36,7 @@ for (let i = 0; i < argv.length; i += 1) {
     options.dryRun = true;
     continue;
   }
-  if (arg === '--iivi-root' || arg === '--out' || arg === '--linecards') {
+  if (arg === '--iivi-root' || arg === '--out') {
     const val = argv[i + 1];
     if (!val) throw new Error(`Missing value for ${arg}`);
     options[arg.slice(2).replace(/-([a-z])/g, (_, c) => c.toUpperCase())] = val;
@@ -41,28 +47,15 @@ for (let i = 0; i < argv.length; i += 1) {
 }
 
 const fromRepo = (path) => (isAbsolute(path) ? path : resolve(repoRoot, path));
-const sortedNums = (arr) => [...new Set(arr)].sort((a, b) => a - b);
-const keyToSlots = (obj, key) => sortedNums((obj?.[key] ?? []).map(Number).filter(Number.isFinite));
+const keyToSlots = (obj, key) => uniqueSortedNums(obj?.[key] ?? []);
 const title = (id) => id.toUpperCase();
 
 const iiviRoot = fromRepo(options.iiviRoot);
 const catalogRoot = fromRepo(options.out);
-const linecardsPath = fromRepo(options.linecards);
 const platformRoot = join(iiviRoot, 'profile/cu/platform');
 const cliRoot = join(iiviRoot, 'profile/cu/cli');
 const l1Root = join(iiviRoot, 'profile/cu/l1');
 const streamsPath = join(catalogRoot, 'streams.json');
-
-const knownLinecards = JSON.parse(readFileSync(linecardsPath, 'utf8'));
-const linecardWidths = new Map(knownLinecards.map((linecard) => [linecard.id, linecard.width ?? 1]));
-
-const vendorToLinecard = {
-  TMUXC_25: 'lc-c25',
-  TMUXC925: 'lc-c925',
-  TMUXC1125: 'lc-c1125',
-  '400MXS': 'lc-400mx',
-  '800MX': 'lc-800mx',
-};
 
 const streamIds = readdirSync(platformRoot, { withFileTypes: true })
   .filter((entry) => entry.isDirectory() && entry.name !== 'common')
@@ -81,7 +74,8 @@ const outputPlan = [];
 outputPlan.push({ path: streamsPath, json: streams });
 
 for (const stream of streamIds) {
-  const chassisPath = join(platformRoot, stream, 'CHASSIS.json');
+  const streamRoot = join(platformRoot, stream);
+  const chassisPath = join(streamRoot, 'CHASSIS.json');
   const parsed = JSON.parse(readFileSync(chassisPath, 'utf8'));
   const chassisRoot = parsed.CHASSIS;
   if (!chassisRoot) throw new Error(`CHASSIS root missing in ${chassisPath}`);
@@ -92,18 +86,37 @@ for (const stream of streamIds) {
 
   const vendorModules = chassisRoot.modules?.LINECARD?.modules ?? {};
   const vendorTypes = (vendorModules.key ?? []).filter((vendorType) => typeof vendorType === 'string');
-  const mappedVendors = vendorTypes
-    .map((vendorType) => ({
-      vendorType,
-      linecardId: vendorToLinecard[vendorType],
-      profile: vendorModules[vendorType]?.filename,
-    }))
-    .filter((entry) => entry.linecardId && linecardWidths.has(entry.linecardId));
+  if (!vendorTypes.length) throw new Error(`No LINECARD vendor types in ${chassisPath}`);
 
-  const mappedLinecards = [...new Set(mappedVendors.map((entry) => entry.linecardId))];
-  const fallbackLinecards = knownLinecards.map((linecard) => linecard.id).filter((linecardId) => linecardWidths.has(linecardId));
-  const linecardsForSlots = mappedLinecards.length ? mappedLinecards : fallbackLinecards;
-  if (!linecardsForSlots.length) throw new Error(`No linecards available for ${stream} (${chassisPath})`);
+  const mappedVendors = vendorTypes
+    .map((vendorType) => {
+      const profile = vendorModules[vendorType]?.filename;
+      const profilePath = profile ? join(streamRoot, profile) : '';
+      let width = linecardWidthOverrideForVendorType(vendorType);
+      if (!width && profilePath && existsSync(profilePath)) {
+        const profileParsed = JSON.parse(readFileSync(profilePath, 'utf8'));
+        const profileRoot = profileParsed[Object.keys(profileParsed)[0]];
+        width = deriveWidthFromSlots(profileRoot?.attributes?.slots, lineSlots);
+      }
+      return {
+        vendorType,
+        linecardId: linecardIdForVendorType(vendorType),
+        known: !!linecardKnown(vendorType),
+        profile,
+        width: width ?? 1,
+      };
+    })
+    .filter((entry) => !!entry.profile);
+
+  const knownMappings = mappedVendors.filter((entry) => entry.known).length;
+  const fallbackMappings = mappedVendors.length - knownMappings;
+
+  if (!mappedVendors.length) {
+    throw new Error(`No profile-backed linecards mapped for ${stream} (${chassisPath})`);
+  }
+
+  const linecardWidths = new Map(mappedVendors.map((entry) => [entry.linecardId, entry.width]));
+  const linecardsForSlots = [...new Set(mappedVendors.map((entry) => entry.linecardId))];
 
   const fitsAt = (slotIndex, linecardId) => {
     const width = linecardWidths.get(linecardId) ?? 1;
@@ -135,8 +148,11 @@ for (const stream of streamIds) {
         mux: keyToSlots(attrs, 'muxslot').map(String),
       },
       supportedVendorTypes: vendorTypes,
-      vendorTypeMap: mappedVendors,
-      linecardMappingComplete: mappedLinecards.length > 0,
+      vendorTypeMap: mappedVendors.map(({ vendorType, linecardId, profile }) => ({ vendorType, linecardId, profile })),
+      linecardMappingComplete: mappedVendors.length === vendorTypes.length,
+      knownLinecardMappings: knownMappings,
+      fallbackLinecardMappings: fallbackMappings,
+      knownMappingComplete: knownMappings === vendorTypes.length,
       slots,
     },
   ];

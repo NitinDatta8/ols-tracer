@@ -112,17 +112,200 @@
         "profile": "TMUXC925.json"
       },
       {
+        "vendorType": "TMUXC935",
+        "linecardId": "lc-tmuxc935",
+        "profile": "TMUXC935.json"
+      },
+      {
         "vendorType": "TMUXC_25",
         "linecardId": "lc-c25",
         "profile": "TMUXC_25.json"
       },
       {
+        "vendorType": "M4QD",
+        "linecardId": "lc-m4qd",
+        "profile": "M4QD.json"
+      },
+      {
         "vendorType": "400MXS",
         "linecardId": "lc-400mx",
         "profile": "400MX-S.json"
+      },
+      {
+        "vendorType": "800TR",
+        "linecardId": "lc-800tr",
+        "profile": "800TR.json"
+      },
+      {
+        "vendorType": "M2CQ",
+        "linecardId": "lc-m2cq",
+        "profile": "M2CQ.json"
+      },
+      {
+        "vendorType": "M2CP",
+        "linecardId": "lc-m2cp",
+        "profile": "M2CP.json"
+      },
+      {
+        "vendorType": "OA25",
+        "linecardId": "lc-oa25",
+        "profile": "OA25.json"
+      },
+      {
+        "vendorType": "OA35",
+        "linecardId": "lc-oa35",
+        "profile": "OA35.json"
+      },
+      {
+        "vendorType": "OLA25",
+        "linecardId": "lc-ola25",
+        "profile": "OLA25.json"
+      },
+      {
+        "vendorType": "OLA35A",
+        "linecardId": "lc-ola35a",
+        "profile": "OLA35A.json"
+      },
+      {
+        "vendorType": "OLA35B",
+        "linecardId": "lc-ola35b",
+        "profile": "OLA35B.json"
+      },
+      {
+        "vendorType": "PTM-E",
+        "linecardId": "lc-ptm-e",
+        "profile": "PTME.json"
+      },
+      {
+        "vendorType": "PTM-W",
+        "linecardId": "lc-ptm-w",
+        "profile": "PTMW.json"
+      },
+      {
+        "vendorType": "TFF1619",
+        "linecardId": "lc-tff1619",
+        "profile": "TFF1619.json"
+      },
+      {
+        "vendorType": "TFF2023",
+        "linecardId": "lc-tff2023",
+        "profile": "TFF2023.json"
+      },
+      {
+        "vendorType": "TFF2528",
+        "linecardId": "lc-tff2528",
+        "profile": "TFF2528.json"
+      },
+      {
+        "vendorType": "TFF2932",
+        "linecardId": "lc-tff2932",
+        "profile": "TFF2932.json"
+      },
+      {
+        "vendorType": "TFF3437",
+        "linecardId": "lc-tff3437",
+        "profile": "TFF3437.json"
+      },
+      {
+        "vendorType": "TFF3841",
+        "linecardId": "lc-tff3841",
+        "profile": "TFF3841.json"
+      },
+      {
+        "vendorType": "TFF4346",
+        "linecardId": "lc-tff4346",
+        "profile": "TFF4346.json"
+      },
+      {
+        "vendorType": "TFF4750",
+        "linecardId": "lc-tff4750",
+        "profile": "TFF4750.json"
+      },
+      {
+        "vendorType": "TFF5255",
+        "linecardId": "lc-tff5255",
+        "profile": "TFF5255.json"
+      },
+      {
+        "vendorType": "TFF5659",
+        "linecardId": "lc-tff5659",
+        "profile": "TFF5659.json"
+      },
+      {
+        "vendorType": "OP1",
+        "linecardId": "lc-op1",
+        "profile": "OP1.json"
+      },
+      {
+        "vendorType": "OP2",
+        "linecardId": "lc-op2",
+        "profile": "OP2.json"
+      },
+      {
+        "vendorType": "T4B4",
+        "linecardId": "lc-t4b4",
+        "profile": "T4B4.json"
+      },
+      {
+        "vendorType": "T2B2",
+        "linecardId": "lc-t2b2",
+        "profile": "T2B2.json"
+      },
+      {
+        "vendorType": "M4CP",
+        "linecardId": "lc-m4cp",
+        "profile": "M4CP.json"
+      },
+      {
+        "vendorType": "M10Q2B2",
+        "linecardId": "lc-m10q2b2",
+        "profile": "M10Q2B2.json"
+      },
+      {
+        "vendorType": "T1X12C8",
+        "linecardId": "lc-t1x12c8",
+        "profile": "T1X12C8.json"
+      },
+      {
+        "vendorType": "T1X12C8L",
+        "linecardId": "lc-t1x12c8l",
+        "profile": "T1X12C8L.json"
+      },
+      {
+        "vendorType": "TWS05OA25",
+        "linecardId": "lc-tws05oa25",
+        "profile": "TWS05OA25.json"
+      },
+      {
+        "vendorType": "TWS05OA35",
+        "linecardId": "lc-tws05oa35",
+        "profile": "TWS05OA35.json"
+      },
+      {
+        "vendorType": "TWS09OA25",
+        "linecardId": "lc-tws09oa25",
+        "profile": "TWS09OA25.json"
+      },
+      {
+        "vendorType": "TWS09OA35",
+        "linecardId": "lc-tws09oa35",
+        "profile": "TWS09OA35.json"
+      },
+      {
+        "vendorType": "OCM",
+        "linecardId": "lc-ocm",
+        "profile": "OCM.json"
+      },
+      {
+        "vendorType": "OTDR",
+        "linecardId": "lc-otdr",
+        "profile": "OTDR.json"
       }
     ],
     "linecardMappingComplete": true,
+    "knownLinecardMappings": 5,
+    "fallbackLinecardMappings": 36,
+    "knownMappingComplete": false,
     "slots": [
       {
         "id": "1",
@@ -130,15 +313,75 @@
           "lc-c1125",
           "lc-800mx",
           "lc-c925",
+          "lc-tmuxc935",
           "lc-c25",
-          "lc-400mx"
+          "lc-m4qd",
+          "lc-400mx",
+          "lc-800tr",
+          "lc-m2cq",
+          "lc-m2cp",
+          "lc-oa25",
+          "lc-oa35",
+          "lc-ola25",
+          "lc-ola35a",
+          "lc-ola35b",
+          "lc-ptm-e",
+          "lc-ptm-w",
+          "lc-tff1619",
+          "lc-tff2023",
+          "lc-tff2528",
+          "lc-tff2932",
+          "lc-tff3437",
+          "lc-tff3841",
+          "lc-tff4346",
+          "lc-tff4750",
+          "lc-tff5255",
+          "lc-tff5659",
+          "lc-op1",
+          "lc-op2",
+          "lc-t4b4",
+          "lc-t2b2",
+          "lc-m4cp",
+          "lc-m10q2b2",
+          "lc-t1x12c8",
+          "lc-t1x12c8l",
+          "lc-tws05oa25",
+          "lc-tws05oa35",
+          "lc-tws09oa25",
+          "lc-tws09oa35",
+          "lc-ocm",
+          "lc-otdr"
         ]
       },
       {
         "id": "2",
         "allowedLinecards": [
           "lc-800mx",
-          "lc-400mx"
+          "lc-m4qd",
+          "lc-400mx",
+          "lc-800tr",
+          "lc-m2cp",
+          "lc-ptm-e",
+          "lc-ptm-w",
+          "lc-tff1619",
+          "lc-tff2023",
+          "lc-tff2528",
+          "lc-tff2932",
+          "lc-tff3437",
+          "lc-tff3841",
+          "lc-tff4346",
+          "lc-tff4750",
+          "lc-tff5255",
+          "lc-tff5659",
+          "lc-op1",
+          "lc-op2",
+          "lc-t4b4",
+          "lc-t2b2",
+          "lc-m4cp",
+          "lc-t1x12c8",
+          "lc-t1x12c8l",
+          "lc-ocm",
+          "lc-otdr"
         ]
       },
       {
@@ -147,15 +390,75 @@
           "lc-c1125",
           "lc-800mx",
           "lc-c925",
+          "lc-tmuxc935",
           "lc-c25",
-          "lc-400mx"
+          "lc-m4qd",
+          "lc-400mx",
+          "lc-800tr",
+          "lc-m2cq",
+          "lc-m2cp",
+          "lc-oa25",
+          "lc-oa35",
+          "lc-ola25",
+          "lc-ola35a",
+          "lc-ola35b",
+          "lc-ptm-e",
+          "lc-ptm-w",
+          "lc-tff1619",
+          "lc-tff2023",
+          "lc-tff2528",
+          "lc-tff2932",
+          "lc-tff3437",
+          "lc-tff3841",
+          "lc-tff4346",
+          "lc-tff4750",
+          "lc-tff5255",
+          "lc-tff5659",
+          "lc-op1",
+          "lc-op2",
+          "lc-t4b4",
+          "lc-t2b2",
+          "lc-m4cp",
+          "lc-m10q2b2",
+          "lc-t1x12c8",
+          "lc-t1x12c8l",
+          "lc-tws05oa25",
+          "lc-tws05oa35",
+          "lc-tws09oa25",
+          "lc-tws09oa35",
+          "lc-ocm",
+          "lc-otdr"
         ]
       },
       {
         "id": "4",
         "allowedLinecards": [
           "lc-800mx",
-          "lc-400mx"
+          "lc-m4qd",
+          "lc-400mx",
+          "lc-800tr",
+          "lc-m2cp",
+          "lc-ptm-e",
+          "lc-ptm-w",
+          "lc-tff1619",
+          "lc-tff2023",
+          "lc-tff2528",
+          "lc-tff2932",
+          "lc-tff3437",
+          "lc-tff3841",
+          "lc-tff4346",
+          "lc-tff4750",
+          "lc-tff5255",
+          "lc-tff5659",
+          "lc-op1",
+          "lc-op2",
+          "lc-t4b4",
+          "lc-t2b2",
+          "lc-m4cp",
+          "lc-t1x12c8",
+          "lc-t1x12c8l",
+          "lc-ocm",
+          "lc-otdr"
         ]
       },
       {
@@ -164,15 +467,75 @@
           "lc-c1125",
           "lc-800mx",
           "lc-c925",
+          "lc-tmuxc935",
           "lc-c25",
-          "lc-400mx"
+          "lc-m4qd",
+          "lc-400mx",
+          "lc-800tr",
+          "lc-m2cq",
+          "lc-m2cp",
+          "lc-oa25",
+          "lc-oa35",
+          "lc-ola25",
+          "lc-ola35a",
+          "lc-ola35b",
+          "lc-ptm-e",
+          "lc-ptm-w",
+          "lc-tff1619",
+          "lc-tff2023",
+          "lc-tff2528",
+          "lc-tff2932",
+          "lc-tff3437",
+          "lc-tff3841",
+          "lc-tff4346",
+          "lc-tff4750",
+          "lc-tff5255",
+          "lc-tff5659",
+          "lc-op1",
+          "lc-op2",
+          "lc-t4b4",
+          "lc-t2b2",
+          "lc-m4cp",
+          "lc-m10q2b2",
+          "lc-t1x12c8",
+          "lc-t1x12c8l",
+          "lc-tws05oa25",
+          "lc-tws05oa35",
+          "lc-tws09oa25",
+          "lc-tws09oa35",
+          "lc-ocm",
+          "lc-otdr"
         ]
       },
       {
         "id": "6",
         "allowedLinecards": [
           "lc-800mx",
-          "lc-400mx"
+          "lc-m4qd",
+          "lc-400mx",
+          "lc-800tr",
+          "lc-m2cp",
+          "lc-ptm-e",
+          "lc-ptm-w",
+          "lc-tff1619",
+          "lc-tff2023",
+          "lc-tff2528",
+          "lc-tff2932",
+          "lc-tff3437",
+          "lc-tff3841",
+          "lc-tff4346",
+          "lc-tff4750",
+          "lc-tff5255",
+          "lc-tff5659",
+          "lc-op1",
+          "lc-op2",
+          "lc-t4b4",
+          "lc-t2b2",
+          "lc-m4cp",
+          "lc-t1x12c8",
+          "lc-t1x12c8l",
+          "lc-ocm",
+          "lc-otdr"
         ]
       },
       {
@@ -181,15 +544,75 @@
           "lc-c1125",
           "lc-800mx",
           "lc-c925",
+          "lc-tmuxc935",
           "lc-c25",
-          "lc-400mx"
+          "lc-m4qd",
+          "lc-400mx",
+          "lc-800tr",
+          "lc-m2cq",
+          "lc-m2cp",
+          "lc-oa25",
+          "lc-oa35",
+          "lc-ola25",
+          "lc-ola35a",
+          "lc-ola35b",
+          "lc-ptm-e",
+          "lc-ptm-w",
+          "lc-tff1619",
+          "lc-tff2023",
+          "lc-tff2528",
+          "lc-tff2932",
+          "lc-tff3437",
+          "lc-tff3841",
+          "lc-tff4346",
+          "lc-tff4750",
+          "lc-tff5255",
+          "lc-tff5659",
+          "lc-op1",
+          "lc-op2",
+          "lc-t4b4",
+          "lc-t2b2",
+          "lc-m4cp",
+          "lc-m10q2b2",
+          "lc-t1x12c8",
+          "lc-t1x12c8l",
+          "lc-tws05oa25",
+          "lc-tws05oa35",
+          "lc-tws09oa25",
+          "lc-tws09oa35",
+          "lc-ocm",
+          "lc-otdr"
         ]
       },
       {
         "id": "8",
         "allowedLinecards": [
           "lc-800mx",
-          "lc-400mx"
+          "lc-m4qd",
+          "lc-400mx",
+          "lc-800tr",
+          "lc-m2cp",
+          "lc-ptm-e",
+          "lc-ptm-w",
+          "lc-tff1619",
+          "lc-tff2023",
+          "lc-tff2528",
+          "lc-tff2932",
+          "lc-tff3437",
+          "lc-tff3841",
+          "lc-tff4346",
+          "lc-tff4750",
+          "lc-tff5255",
+          "lc-tff5659",
+          "lc-op1",
+          "lc-op2",
+          "lc-t4b4",
+          "lc-t2b2",
+          "lc-m4cp",
+          "lc-t1x12c8",
+          "lc-t1x12c8l",
+          "lc-ocm",
+          "lc-otdr"
         ]
       }
     ]

@@ -68,75 +68,191 @@
       "L1X12C8",
       "L1X12C8L"
     ],
-    "vendorTypeMap": [],
-    "linecardMappingComplete": false,
+    "vendorTypeMap": [
+      {
+        "vendorType": "OLP3",
+        "linecardId": "lc-olp3",
+        "profile": "OLP3.json"
+      },
+      {
+        "vendorType": "RAMANCL_16",
+        "linecardId": "lc-ramancl-16",
+        "profile": "RAMAN_CL.json"
+      },
+      {
+        "vendorType": "ILADC_DGE_32",
+        "linecardId": "lc-iladc-dge-32",
+        "profile": "DGE_C.json"
+      },
+      {
+        "vendorType": "ILADC_32",
+        "linecardId": "lc-iladc-32",
+        "profile": "ILA_C.json"
+      },
+      {
+        "vendorType": "TMUXC32_32",
+        "linecardId": "lc-tmuxc32-32",
+        "profile": "IRA_C.json"
+      },
+      {
+        "vendorType": "TMUXC_32",
+        "linecardId": "lc-tmuxc-32",
+        "profile": "OA_C.json"
+      },
+      {
+        "vendorType": "TMUXC64",
+        "linecardId": "lc-tmuxc64",
+        "profile": "TMUXC_64.json"
+      },
+      {
+        "vendorType": "IRACL",
+        "linecardId": "lc-iracl",
+        "profile": "IRA-CL.json"
+      },
+      {
+        "vendorType": "ILACL",
+        "linecardId": "lc-ilacl",
+        "profile": "ILA-CL.json"
+      },
+      {
+        "vendorType": "DGECL",
+        "linecardId": "lc-dgecl",
+        "profile": "DGE-CL.json"
+      },
+      {
+        "vendorType": "OLP3_3",
+        "linecardId": "lc-olp3-3",
+        "profile": "OLP3-3.json"
+      },
+      {
+        "vendorType": "L3X8C7",
+        "linecardId": "lc-l3x8c7",
+        "profile": "L3X8C7.json"
+      },
+      {
+        "vendorType": "L1X12C8",
+        "linecardId": "lc-l1x12c8",
+        "profile": "L1X12C8.json"
+      },
+      {
+        "vendorType": "L1X12C8L",
+        "linecardId": "lc-l1x12c8l",
+        "profile": "L1X12C8L.json"
+      }
+    ],
+    "linecardMappingComplete": true,
+    "knownLinecardMappings": 0,
+    "fallbackLinecardMappings": 14,
+    "knownMappingComplete": false,
     "slots": [
       {
         "id": "1",
         "allowedLinecards": [
-          "lc-c25",
-          "lc-c925",
-          "lc-c1125",
-          "lc-400mx",
-          "lc-800mx"
+          "lc-olp3",
+          "lc-ramancl-16",
+          "lc-iladc-dge-32",
+          "lc-iladc-32",
+          "lc-tmuxc32-32",
+          "lc-tmuxc-32",
+          "lc-tmuxc64",
+          "lc-iracl",
+          "lc-ilacl",
+          "lc-dgecl",
+          "lc-olp3-3",
+          "lc-l3x8c7",
+          "lc-l1x12c8",
+          "lc-l1x12c8l"
         ]
       },
       {
         "id": "2",
         "allowedLinecards": [
-          "lc-400mx",
-          "lc-800mx"
+          "lc-olp3",
+          "lc-ramancl-16",
+          "lc-olp3-3",
+          "lc-l3x8c7",
+          "lc-l1x12c8",
+          "lc-l1x12c8l"
         ]
       },
       {
         "id": "3",
         "allowedLinecards": [
-          "lc-c25",
-          "lc-c925",
-          "lc-c1125",
-          "lc-400mx",
-          "lc-800mx"
+          "lc-olp3",
+          "lc-ramancl-16",
+          "lc-iladc-32",
+          "lc-tmuxc-32",
+          "lc-ilacl",
+          "lc-olp3-3",
+          "lc-l3x8c7",
+          "lc-l1x12c8",
+          "lc-l1x12c8l"
         ]
       },
       {
         "id": "4",
         "allowedLinecards": [
-          "lc-400mx",
-          "lc-800mx"
+          "lc-olp3",
+          "lc-ramancl-16",
+          "lc-olp3-3",
+          "lc-l3x8c7",
+          "lc-l1x12c8",
+          "lc-l1x12c8l"
         ]
       },
       {
         "id": "5",
         "allowedLinecards": [
-          "lc-c25",
-          "lc-c925",
-          "lc-c1125",
-          "lc-400mx",
-          "lc-800mx"
+          "lc-olp3",
+          "lc-ramancl-16",
+          "lc-iladc-dge-32",
+          "lc-iladc-32",
+          "lc-tmuxc32-32",
+          "lc-tmuxc-32",
+          "lc-tmuxc64",
+          "lc-iracl",
+          "lc-ilacl",
+          "lc-dgecl",
+          "lc-olp3-3",
+          "lc-l3x8c7",
+          "lc-l1x12c8",
+          "lc-l1x12c8l"
         ]
       },
       {
         "id": "6",
         "allowedLinecards": [
-          "lc-400mx",
-          "lc-800mx"
+          "lc-olp3",
+          "lc-ramancl-16",
+          "lc-olp3-3",
+          "lc-l3x8c7",
+          "lc-l1x12c8",
+          "lc-l1x12c8l"
         ]
       },
       {
         "id": "7",
         "allowedLinecards": [
-          "lc-c25",
-          "lc-c925",
-          "lc-c1125",
-          "lc-400mx",
-          "lc-800mx"
+          "lc-olp3",
+          "lc-ramancl-16",
+          "lc-iladc-32",
+          "lc-tmuxc-32",
+          "lc-ilacl",
+          "lc-olp3-3",
+          "lc-l3x8c7",
+          "lc-l1x12c8",
+          "lc-l1x12c8l"
         ]
       },
       {
         "id": "8",
         "allowedLinecards": [
-          "lc-400mx",
-          "lc-800mx"
+          "lc-olp3",
+          "lc-ramancl-16",
+          "lc-olp3-3",
+          "lc-l3x8c7",
+          "lc-l1x12c8",
+          "lc-l1x12c8l"
         ]
       }
     ]
