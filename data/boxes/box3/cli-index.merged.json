@@ -3,7 +3,7 @@
   "kind": "merged",
   "stream": "csp",
   "boxId": "box3",
-  "generatedAt": "2026-10-31T15:54:38.926Z",
+  "generatedAt": "2026-10-31T16:04:47.053Z",
   "refs": {
     "indexPath": "data/cli/csp/cli-index.source.json",
     "observedPath": "data/boxes/box3/cli-observed.json"
@@ -94,9 +94,9 @@
         "everySec": null
       },
       "template": {
-        "templatePath": null,
-        "fixtureTxtPath": null,
-        "fixtureJsonPath": null
+        "templatePath": "data/boxes/box3/ttp/templates/cli_shortcut_cmds_eqpt__transceiver__show__transceiver.ttp",
+        "fixtureTxtPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_eqpt__transceiver__show__transceiver.txt",
+        "fixtureJsonPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_eqpt__transceiver__show__transceiver.json"
       }
     },
     {
@@ -227,9 +227,9 @@
         "everySec": null
       },
       "template": {
-        "templatePath": null,
-        "fixtureTxtPath": null,
-        "fixtureJsonPath": null
+        "templatePath": "data/boxes/box3/ttp/templates/cli_shortcut_cmds_eqpt__transceiver__show__transceiver__physical-channel.ttp",
+        "fixtureTxtPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_eqpt__transceiver__show__transceiver__physical-channel.txt",
+        "fixtureJsonPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_eqpt__transceiver__show__transceiver__physical-channel.json"
       }
     },
     {
@@ -9725,9 +9725,9 @@
         "everySec": null
       },
       "template": {
-        "templatePath": null,
-        "fixtureTxtPath": null,
-        "fixtureJsonPath": null
+        "templatePath": "data/boxes/box3/ttp/templates/cli_shortcut_cmds_l1__och__show__och.ttp",
+        "fixtureTxtPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_l1__och__show__och.txt",
+        "fixtureJsonPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_l1__och__show__och.json"
       }
     },
     {
@@ -12018,9 +12018,9 @@
         "everySec": null
       },
       "template": {
-        "templatePath": null,
-        "fixtureTxtPath": null,
-        "fixtureJsonPath": null
+        "templatePath": "data/boxes/box3/ttp/templates/cli_shortcut_cmds_l1__eth__show__eth.ttp",
+        "fixtureTxtPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_l1__eth__show__eth.txt",
+        "fixtureJsonPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_l1__eth__show__eth.json"
       }
     },
     {
@@ -13365,9 +13365,9 @@
         "everySec": null
       },
       "template": {
-        "templatePath": null,
-        "fixtureTxtPath": null,
-        "fixtureJsonPath": null
+        "templatePath": "data/boxes/box3/ttp/templates/cli_shortcut_cmds_l1__port__show__port.ttp",
+        "fixtureTxtPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_l1__port__show__port.txt",
+        "fixtureJsonPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_l1__port__show__port.json"
       }
     },
     {
@@ -14348,9 +14348,9 @@
         "everySec": null
       },
       "template": {
-        "templatePath": null,
-        "fixtureTxtPath": null,
-        "fixtureJsonPath": null
+        "templatePath": "data/boxes/box3/ttp/templates/cli_shortcut_cmds_l1__assignment__show__assignment.ttp",
+        "fixtureTxtPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_l1__assignment__show__assignment.txt",
+        "fixtureJsonPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_l1__assignment__show__assignment.json"
       }
     },
     {
@@ -14559,9 +14559,9 @@
         "everySec": null
       },
       "template": {
-        "templatePath": null,
-        "fixtureTxtPath": null,
-        "fixtureJsonPath": null
+        "templatePath": "data/boxes/box3/ttp/templates/cli_shortcut_cmds_l1__cross-connection__show__cross-connection.ttp",
+        "fixtureTxtPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_l1__cross-connection__show__cross-connection.txt",
+        "fixtureJsonPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_l1__cross-connection__show__cross-connection.json"
       }
     },
     {
@@ -27109,9 +27109,9 @@
         "everySec": null
       },
       "template": {
-        "templatePath": null,
-        "fixtureTxtPath": null,
-        "fixtureJsonPath": null
+        "templatePath": "data/boxes/box3/ttp/templates/cli_shortcut_cmds_platform__alarm__show__alarm.ttp",
+        "fixtureTxtPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_platform__alarm__show__alarm.txt",
+        "fixtureJsonPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_platform__alarm__show__alarm.json"
       }
     },
     {
@@ -39421,9 +39421,9 @@
         "everySec": null
       },
       "template": {
-        "templatePath": null,
-        "fixtureTxtPath": null,
-        "fixtureJsonPath": null
+        "templatePath": "data/boxes/box3/ttp/templates/cli_shortcut_cmds_system__log__show__log__alarm.ttp",
+        "fixtureTxtPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_system__log__show__log__alarm.txt",
+        "fixtureJsonPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_system__log__show__log__alarm.json"
       }
     },
     {

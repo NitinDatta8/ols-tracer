@@ -141,9 +141,23 @@ The commands are the real ones from run 1. **Snapshot** commands run in every sn
 
 ## Templates
 
-Eight TTP templates, with run 1 as their fixtures: transceiver, och, eth, port, assignment, cross-connection, alarm and log alarm. They go in `data/boxes/box3/ttp/templates/`, and `npm test` checks each against its fixture.
+Nine TTP templates, with run 1 as their fixtures: transceiver, transceiver physical-channel (a lane), och, eth, port, assignment, cross-connection, alarm and log alarm. They are in `data/boxes/box3/ttp/templates/`, each named after its command's id, and `npm test` checks each against its fixture. The [guide](guide.md#poller) gives the result shapes.
 
-- **Two shapes cover the whole CLI:** `[config]`/`[state]` blocks of `key value unit` lines with `instant | avg | min | max unit` statistics rows, and column tables under a `-----` line. Two shared patterns keep the eight templates thin.
+| Template | Fixture | Reads |
+| --- | --- | --- |
+| `show transceiver <name>` | `show transceiver 1-7-4` | `[config]`, `[state]`, stats |
+| `show transceiver <name> physical-channel <index>` | `show transceiver 1-7-4 physical-channel 1` | `[state]`, stats |
+| `show och <name>` | `show och 1-7-5` | `[config]`, `[state]`, optical and DSP stats |
+| `show eth <index>` | `show eth 1-7-4` | `[config]`, `[state]` counters, stats |
+| `show port` | `show port` | `[state]` table: 30 ports |
+| `show assignment` | `show assignment` | 16 rows, with end-z on the 2 that cross |
+| `show cross-connection` | `show cross-connection` | `[config]` table: CC5_4, CC_1 |
+| `show alarm` | `show alarm` | 11 alarms, by id |
+| `show log alarm -l <n>` | `show log alarm -l 200` | 200 events (98 CREATE, 102 CLEAR) |
+
+- **Two shapes cover the whole CLI:** `[config]`/`[state]` blocks of `key value unit` lines with `instant | avg | min | max unit` statistics rows, and column tables under a `-----` line. The first is one shared part, `_detail.ttp`, which the four detail templates extend; `bridge/parse.py` runs TTP from the template's folder so it finds it. A table template is one row line, or two where a column can be empty.
+- **TTP 0.10.1 limits:** `_headers_` fails on hyphenated column names (`source-entity`), and a `|` inside `re("…")` splits the argument, so the regexes write it as `\x7c`. An indent in a template line is matched literally, so the wrapped alarm text uses ` *` in its regex.
+- **Detail forms only:** `show och`, `show transceiver` and `show eth` without an address print wide tables. Their templates read the one-entity form and give empty sections for the list.
 - **Wrapped cells:** an alarm's text and an LLDP management address wrap onto a continuation line, which the templates join or skip.
 - **Wide tables:** `show och` has two-line headers. Take the ids from it and the values from `show och <id>`.
 - **Alarms don't wait for a fault run.** Run 1 has 11 standing alarms, and its `show log alarm` has the CREATE and CLEAR pairs of an old pull (2021-07-25 19:23–19:28: `IN_LOS` on both amplifiers, `LOF` on flexgo-1-7-5, `LINK_RF` on 100ge 1-7-4).
@@ -170,7 +184,7 @@ Hovering a fiber shows what the box measures at its ends. These are run 1's valu
 ## Order
 
 1. **Done (2026-10-31).** Split run 1 into the recorder's layout (50 commands), write its `meta.json`, `setup.md` and `wiring.csv`, make the sync read `raw/index.jsonl`, and run `npm run sync:cli-data:csp` again (28 index commands observed).
-2. The two shared patterns, the eight templates and their fixtures from run 1, with `npm test` passing.
+2. **Done (2026-10-31).** The nine templates and their fixtures from run 1, with `npm test` passing (38 tests). The merged index still says `no-template` for them, because its parse status comes from a run's `parsed/` files: the recorder writes those, and run 1 gets its own in step 3.
 3. The recorder, parts 1 to 4, and `poll.json` from the capture list.
 4. The hovers.
 5. Typed commands (part 5) and marking a pulled fiber (part 6).

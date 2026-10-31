@@ -1,0 +1,2 @@
+<!-- show och <name>: one line port, with OSNR, Q-margin and pre-FEC BER. Its list form (no address) prints tables, which this does not read. -->
+<extend template="_detail.ttp"/>

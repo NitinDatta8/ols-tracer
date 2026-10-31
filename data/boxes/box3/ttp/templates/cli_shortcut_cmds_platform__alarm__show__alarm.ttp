@@ -1,0 +1,5 @@
+<!-- show alarm: the active alarms by id. A text too long for its column wraps onto an indented line, which is joined on. -->
+<group name="alarms.{{ id }}">
+{{ resource | ORPHRASE | _start_ }}  {{ type-id | re("[A-Z]+") }}  {{ alarm-abbreviate | re("[A-Z][A-Z0-9_-]*") }}  {{ severity | re("[A-Z][A-Z-]*") }}  {{ text | ORPHRASE | joinmatches(" ") }}  {{ time-created | re("\\d+-\\S+ UTC") }}  {{ direction }}  {{ location }}  {{ alarm-type }}  {{ time-period }}  {{ id | re("\\d+") }}
+ {{ text | re(" *\\S+(?: \\S+)*") | strip | joinmatches(" ") }}
+</group>

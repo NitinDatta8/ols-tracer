@@ -1,0 +1,8 @@
+<!-- show assignment: what each line (och) carries, client to line, in order. end-z is only there for a client mapped across. -->
+<group name="state">
+[state] {{ _start_ }}
+<group name="assignments*">
+{{ end-a | re("[a-z]+ \\d+(?:-\\d+)*") | _start_ }}  {{ assignment-hierarchy | re("\\S+(?: \\S+)?") }}  {{ end-z | re("[a-z]+ \\d+(?:-\\d+)*") }}
+{{ end-a | re("[a-z]+ \\d+(?:-\\d+)*") | _start_ }}  {{ assignment-hierarchy | re("\\S+(?: \\S+)?") }}
+</group>
+</group>

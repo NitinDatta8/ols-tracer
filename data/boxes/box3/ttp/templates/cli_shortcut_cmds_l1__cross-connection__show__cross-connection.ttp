@@ -1,0 +1,9 @@
+<!-- show cross-connection: the [config] table, one entry per cross-connect by name. The state table repeats it. -->
+<group name="config">
+[config] {{ _start_ }}
+[state] {{ _end_ }}
+<group name="cross-connections.{{ name }}">
+{{ name | _start_ }}  {{ source-entity | re("\\S+-\\d+-\\d+\\S*") }}  {{ destination-entity | re("\\S+-\\d+-\\d+\\S*") }}  {{ description | ORPHRASE }}  {{ direction-type }}
+{{ name | _start_ }}  {{ source-entity | re("\\S+-\\d+-\\d+\\S*") }}  {{ destination-entity | re("\\S+-\\d+-\\d+\\S*") }}  {{ direction-type }}
+</group>
+</group>

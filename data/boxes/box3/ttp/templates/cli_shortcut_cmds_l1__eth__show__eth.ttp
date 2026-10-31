@@ -1,0 +1,2 @@
+<!-- show eth <index>: one client. Its list form (no address) prints tables, which this does not read. -->
+<extend template="_detail.ttp"/>

@@ -3,7 +3,7 @@
   "kind": "observed",
   "stream": "csp",
   "boxId": "box3",
-  "generatedAt": "2026-10-31T15:54:53.303Z",
+  "generatedAt": "2026-10-31T16:04:47.053Z",
   "source": {
     "runsRoot": "data/boxes/box3/runs",
     "runIds": [
@@ -49,7 +49,7 @@
           "redacted": false,
           "parse": {
             "status": "not-attempted",
-            "templateId": null,
+            "templateId": "cli_shortcut_cmds_eqpt__transceiver__show__transceiver",
             "resultPath": null,
             "error": null
           }
@@ -66,7 +66,7 @@
           "redacted": false,
           "parse": {
             "status": "not-attempted",
-            "templateId": null,
+            "templateId": "cli_shortcut_cmds_eqpt__transceiver__show__transceiver",
             "resultPath": null,
             "error": null
           }
@@ -83,7 +83,7 @@
           "redacted": false,
           "parse": {
             "status": "not-attempted",
-            "templateId": null,
+            "templateId": "cli_shortcut_cmds_eqpt__transceiver__show__transceiver",
             "resultPath": null,
             "error": null
           }
@@ -134,7 +134,7 @@
           "redacted": false,
           "parse": {
             "status": "not-attempted",
-            "templateId": null,
+            "templateId": "cli_shortcut_cmds_eqpt__transceiver__show__transceiver__physical-channel",
             "resultPath": null,
             "error": null
           }
@@ -151,7 +151,7 @@
           "redacted": false,
           "parse": {
             "status": "not-attempted",
-            "templateId": null,
+            "templateId": "cli_shortcut_cmds_eqpt__transceiver__show__transceiver__physical-channel",
             "resultPath": null,
             "error": null
           }
@@ -168,7 +168,7 @@
           "redacted": false,
           "parse": {
             "status": "not-attempted",
-            "templateId": null,
+            "templateId": "cli_shortcut_cmds_eqpt__transceiver__show__transceiver__physical-channel",
             "resultPath": null,
             "error": null
           }
@@ -2718,7 +2718,7 @@
           "redacted": false,
           "parse": {
             "status": "not-attempted",
-            "templateId": null,
+            "templateId": "cli_shortcut_cmds_l1__och__show__och",
             "resultPath": null,
             "error": null
           }
@@ -2735,7 +2735,7 @@
           "redacted": false,
           "parse": {
             "status": "not-attempted",
-            "templateId": null,
+            "templateId": "cli_shortcut_cmds_l1__och__show__och",
             "resultPath": null,
             "error": null
           }
@@ -2752,7 +2752,7 @@
           "redacted": false,
           "parse": {
             "status": "not-attempted",
-            "templateId": null,
+            "templateId": "cli_shortcut_cmds_l1__och__show__och",
             "resultPath": null,
             "error": null
           }
@@ -3375,7 +3375,7 @@
           "redacted": false,
           "parse": {
             "status": "not-attempted",
-            "templateId": null,
+            "templateId": "cli_shortcut_cmds_l1__eth__show__eth",
             "resultPath": null,
             "error": null
           }
@@ -3392,7 +3392,7 @@
           "redacted": false,
           "parse": {
             "status": "not-attempted",
-            "templateId": null,
+            "templateId": "cli_shortcut_cmds_l1__eth__show__eth",
             "resultPath": null,
             "error": null
           }
@@ -3751,7 +3751,7 @@
           "redacted": false,
           "parse": {
             "status": "not-attempted",
-            "templateId": null,
+            "templateId": "cli_shortcut_cmds_l1__port__show__port",
             "resultPath": null,
             "error": null
           }
@@ -3768,7 +3768,7 @@
           "redacted": false,
           "parse": {
             "status": "not-attempted",
-            "templateId": null,
+            "templateId": "cli_shortcut_cmds_l1__port__show__port",
             "resultPath": null,
             "error": null
           }
@@ -3785,7 +3785,7 @@
           "redacted": false,
           "parse": {
             "status": "not-attempted",
-            "templateId": null,
+            "templateId": "cli_shortcut_cmds_l1__port__show__port",
             "resultPath": null,
             "error": null
           }
@@ -4074,7 +4074,7 @@
           "redacted": false,
           "parse": {
             "status": "not-attempted",
-            "templateId": null,
+            "templateId": "cli_shortcut_cmds_l1__assignment__show__assignment",
             "resultPath": null,
             "error": null
           }
@@ -4147,7 +4147,7 @@
           "redacted": false,
           "parse": {
             "status": "not-attempted",
-            "templateId": null,
+            "templateId": "cli_shortcut_cmds_l1__cross-connection__show__cross-connection",
             "resultPath": null,
             "error": null
           }
@@ -7464,7 +7464,7 @@
           "redacted": false,
           "parse": {
             "status": "not-attempted",
-            "templateId": null,
+            "templateId": "cli_shortcut_cmds_platform__alarm__show__alarm",
             "resultPath": null,
             "error": null
           }
@@ -7481,7 +7481,7 @@
           "redacted": false,
           "parse": {
             "status": "not-attempted",
-            "templateId": null,
+            "templateId": "cli_shortcut_cmds_platform__alarm__show__alarm",
             "resultPath": null,
             "error": null
           }
@@ -7498,7 +7498,7 @@
           "redacted": false,
           "parse": {
             "status": "not-attempted",
-            "templateId": null,
+            "templateId": "cli_shortcut_cmds_platform__alarm__show__alarm",
             "resultPath": null,
             "error": null
           }
@@ -7515,7 +7515,7 @@
           "redacted": false,
           "parse": {
             "status": "not-attempted",
-            "templateId": null,
+            "templateId": "cli_shortcut_cmds_platform__alarm__show__alarm",
             "resultPath": null,
             "error": null
           }
@@ -10874,7 +10874,7 @@
           "redacted": false,
           "parse": {
             "status": "not-attempted",
-            "templateId": null,
+            "templateId": "cli_shortcut_cmds_system__log__show__log__alarm",
             "resultPath": null,
             "error": null
           }

@@ -1,0 +1,8 @@
+<!-- show port: its [state] table, one entry per port by address. The config table repeats it without parent and oper-status. -->
+<group name="state">
+[state] {{ _start_ }}
+<group name="ports.{{ id }}">
+{{ id | re("\\d+-\\d+-\\S+") | _start_ }}  {{ admin-state }}  {{ description | ORPHRASE }}  {{ laser }}  {{ port-mode }}  {{ parent | re("[a-z]+ \\d+(?:-\\d+)*") }}  {{ oper-status }}
+{{ id | re("\\d+-\\d+-\\S+") | _start_ }}  {{ admin-state }}  {{ laser }}  {{ port-mode }}  {{ parent | re("[a-z]+ \\d+(?:-\\d+)*") }}  {{ oper-status }}
+</group>
+</group>

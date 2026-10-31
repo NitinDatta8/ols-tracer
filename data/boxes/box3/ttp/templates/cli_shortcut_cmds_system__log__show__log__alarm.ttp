@@ -1,0 +1,4 @@
+<!-- show log alarm -l <n>: alarm raises (CREATE) and clears (CLEAR), newest first. time-created is the alarm's id, which a CREATE and its CLEAR share. -->
+<group name="events*">
+{{ time-stamp | re("\\d+-\\d+-\\d+T\\S+") | _start_ }}  {{ action | re("[A-Z]+") }}  {{ resource | ORPHRASE }}  {{ alarm-abbreviate | re("[A-Z][A-Z0-9_-]*") }}  {{ severity | re("[A-Z][A-Z-]*") }}  {{ direction }}  {{ service-affect }}  {{ type-id | re("[A-Z]+") }}  {{ time-created | re("\\d+") }}
+</group>

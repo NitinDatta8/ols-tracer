@@ -81,12 +81,14 @@ The bridge polls the box for its live state, so the canvas can show it later.
 
 - `bridge/poll.json` lists what to poll: `[{ "cmd": "show optics", "template": "optics", "every": 10 }]`. `every` is in seconds, and `0` runs a command once per session (for inventory). The list is empty until the real commands are in, and while it is empty the poller is off.
 - While a box is connected, the poller runs the commands that are due one at a time, on its own shell of the session, so it never types into the terminal. That shell is a dumb terminal 10000 rows tall, so nothing pages. A command is done when the last line of its output matches `BOX_PROMPT`. If that takes longer than `BOX_TIMEOUT`, the poller sends Ctrl-C and records an error.
-- `bridge/parse.py` takes each output, without its echo and prompt, and turns it into JSON with the TTP template `data/boxes/<box-id>/ttp/templates/<template>.ttp` (default box id `box3`, configurable with `BOX_DATA_BOX` or `BOX_DATA_ROOT`). Templates key their results by CLI address (`1-3-C1`), so each value finds its port.
+- `bridge/parse.py` takes each output, without its echo and prompt, and turns it into JSON with the TTP template `data/boxes/<box-id>/ttp/templates/<template>.ttp` (default box id `box3`, configurable with `BOX_DATA_BOX` or `BOX_DATA_ROOT`). A template is named after its command's id in `data/cli/csp/cli-index.source.json` (`cli_shortcut_cmds_l1__och__show__och`), so the merged index links them. Results keep the CLI's own sections and names:
+  - A command for one entity (`show och 1-7-5`, `show transceiver 1-7-4`) gives `{ config: {…}, state: { …, stats: {…} } }`. Its `key value` lines are strings as printed (`"193500000 MHz"`), and its `instant | avg | min | max` lines are numbers (`stats["q-margin"]` is `{ instant: 3.4, avg: 3.4, min: 3.3, max: 3.4, unit: "dB" }`). Its address is in the command, not in the output. These templates are a single `<extend template="_detail.ttp"/>`.
+  - A list is keyed by CLI address or name (`state.ports["1-7-5"]`, `config["cross-connections"].CC5_4`, `alarms[<id>]`), or is a list in order where rows have no key (`state.assignments`, `events`).
 - `GET /bridge/state` returns the latest result per command: `{ at, raw, data }`, or `{ at, raw, error }`. Disconnecting clears it. The app doesn't read it yet.
 - Set up once with `npm run bridge:setup`, which makes `bridge/.venv` with TTP in it.
 - **To add a command:**
-  1. Run it in the terminal and paste its output into `data/boxes/<box-id>/ttp/fixtures/<name>.txt`.
-  2. Write `data/boxes/<box-id>/ttp/templates/<name>.ttp`: copy one line of the output and replace each value with `{{ name }}`. `data/boxes/box3/ttp/templates/example.ttp` shows the shape.
+  1. Copy its output from a run (`data/boxes/<box-id>/runs/<run>/raw/NNN_<slug>.txt`) to `data/boxes/<box-id>/ttp/fixtures/<name>.txt`, where `<name>` is the command's id.
+  2. Write `data/boxes/<box-id>/ttp/templates/<name>.ttp`. For a command that shows one entity, `<extend template="_detail.ttp"/>` is the whole template. For a table, copy one row and replace each value with `{{ column-name }}`, as in `cli_shortcut_cmds_l1__port__show__port.ttp`. Give a value a regex when spaces alone can't tell the columns apart.
   3. Put the JSON you expect in `data/boxes/<box-id>/ttp/fixtures/<name>.json`.
   4. Add the command to `poll.json`.
 
