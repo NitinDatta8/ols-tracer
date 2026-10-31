@@ -75,7 +75,7 @@ data/boxes/box3/runs/
   ```json
   {"n": 7, "cmd": "show och 1-7-5", "at": "2026-10-31T14:52:10Z", "source": "snapshot", "file": "007_show-och-1-7-5.txt", "ok": true}
   ```
-  `source` is `prereq`, `snapshot`, `typed` or `hand`. The sync works out which command of the [CLI index](cli-data-schemas.md) each line ran: `show och 1-7-5` is `show och <name>`, `show och` (a list without its key) is the same command, and `-l 200` is an option. Typos and commands the index lacks match nothing.
+  `source` is `prereq`, `snapshot`, `typed` or `hand`. The sync works out which command of the [CLI index](../reference/cli-data-schemas.md) each line ran: `show och 1-7-5` is `show och <name>`, `show och` (a list without its key) is the same command, and `-l 200` is an option. Typos and commands the index lacks match nothing.
 - **Errors and empty output still count.** `Invalid name: alarms` shows the box doesn't have that command (`onBox: no`), and empty output is data.
 
 ### `meta.json`
@@ -141,7 +141,7 @@ The commands are the real ones from run 1. **Snapshot** commands run in every sn
 
 ## Templates
 
-Nine TTP templates, with run 1 as their fixtures: transceiver, transceiver physical-channel (a lane), och, eth, port, assignment, cross-connection, alarm and log alarm. They are in `data/boxes/box3/ttp/templates/`, each named after its command's id, and `npm test` checks each against its fixture. The [guide](guide.md#poller) gives the result shapes.
+Nine TTP templates, with run 1 as their fixtures: transceiver, transceiver physical-channel (a lane), och, eth, port, assignment, cross-connection, alarm and log alarm. They are in `data/boxes/box3/ttp/templates/`, each named after its command's id, and `npm test` checks each against its fixture. The [guide](../guide.md#poller) gives the result shapes.
 
 | Template | Fixture | Reads |
 | --- | --- | --- |

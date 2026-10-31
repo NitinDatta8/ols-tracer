@@ -57,7 +57,7 @@ data/
 - **Index** (`cli-index.source.json`): flattened stream command catalog built from all branches.
 - **Observed** (`boxes/<box-id>/cli-observed.json`): what is actually present/captured on a specific box and run set.
 - **Merged** (`boxes/<box-id>/cli-index.merged.json`): index + observed overlay, used to choose poll commands and template priorities.
-- **Schema reference:** exact JSON schemas are in [CLI data schemas](cli-data-schemas.md).
+- **Schema reference:** exact JSON schemas are in [CLI data schemas](../reference/cli-data-schemas.md).
 
 ### CSP-only first implementation
 

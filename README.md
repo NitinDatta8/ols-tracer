@@ -52,6 +52,6 @@ For hardware catalogs, `catalog/<stream>/{chassis,linecards,pluggables}.json` is
 ## Docs
 
 - [Guide](docs/guide.md): how to use it, plus the catalog, rules and code
-- [MVP plan](docs/mvp-plan.md), from the [original idea](docs/idea.md)
-- [CLI plan](docs/cli-run-plan.md): the command book, Run on a lab box, the C++ CLI and AAA
-- [CLI data schemas](docs/cli-data-schemas.md): exact JSON schemas for branch/index/observed/merged
+- [MVP plan](docs/archive/mvp-plan.md), from the [original idea](docs/archive/idea.md)
+- [CLI plan](docs/archive/cli-run-plan.md): the command book, Run on a lab box, the C++ CLI and AAA
+- [CLI data schemas](docs/reference/cli-data-schemas.md): exact JSON schemas for branch/index/observed/merged

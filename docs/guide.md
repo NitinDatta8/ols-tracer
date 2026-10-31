@@ -1,6 +1,6 @@
 # OLS Tracer guide
 
-How to use OLS Tracer, and how its catalog, rules and code are laid out. To install and run it, see the [README](../README.md). It implements the [MVP plan](mvp-plan.md) and step 2 of the [CLI plan](cli-run-plan.md).
+How to use OLS Tracer, and how its catalog, rules and code are laid out. To install and run it, see the [README](../README.md). It implements the [MVP plan](archive/mvp-plan.md) and step 2 of the [CLI plan](archive/cli-run-plan.md).
 
 React + TypeScript + Vite, React Flow for the canvas, Zustand (+ Immer) for state, plain SVG for the physical view. The web app has no backend. An optional CLI bridge (`bridge/server.mjs`) runs its commands on a lab box over SSH.
 
