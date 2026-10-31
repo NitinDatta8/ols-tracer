@@ -1,254 +1,175 @@
 # OLS Tracer: capturing the CLI of box 3
 
-Round 1 of Goal 2.5: learn the CLI and what its output looks like on box 3, and store it so it can be reused, before choosing how to pull the link design. This page says exactly what to collect and in what format. Everything collected now goes in `data/boxes/box3/`.
+Round 1 of Goal 2.5: learn box 3's CLI and what its output looks like, store it so it can be reused, and build the first Iter 3 view on it: measured light on the fibers. Everything collected goes in `data/boxes/box3/`.
 
-## What to hand over
+**Status (2026-10-31):** run 1 (healthy) is captured as one hand-made `session.log`. That is the last hand capture. From now on the bridge records every run itself, from the SSH session the UI already opens (see [The recorder](#the-recorder)), and nobody is asked to capture anything. The wiring below is confirmed.
 
-| # | What | Format | Why |
-| --- | --- | --- | --- |
-| 1 | The CLI reference | The PDF as is, plus its title, version and the software release it covers | The full list of commands, syntax and sample outputs |
-| 2 | Box 3 facts | `setup.md`, filled in from the template below | What the CLI can't tell: the BERT, passives, the service under test |
-| 3 | The fiber map | `wiring.csv`, one row per strand (below) | The box knows its ports, not where the glass goes |
-| 4 | Real outputs | Three runs captured on box 3 (below) | Docs lag the build. Templates are written against real output, never against PDF samples |
-| 5 | Photos (optional) | `photos/*.jpg` of the rack's front and back | To check the fiber map and the labels |
+## Box 3
 
-```
-data/boxes/box3/
-  cli-reference.pdf
-  setup.md
-  wiring.csv
-  photos/
-  runs/
-    run-01-healthy/
-      meta.json
-      raw/session.log            # option A: one session log per run
-      raw/001_show-version.txt   # option B: one file per command
-    run-02-pull-F03/
-    run-03-restored/
-  ttp/
-    templates/
-    fixtures/
-```
+| | |
+| --- | --- |
+| Hostname | PAHO-GS2000-03 (`ne-type` COHERENT-GS2000) |
+| Release | CSP-2.10.100.10_20261013 |
+| Chassis | 1 |
+| Cards | 1-1 TMUXC1125 (terminal mux/demux with integrated amplifiers), 1-7 800MX, 1-8 800MX |
+| Client | 1-7-4: FS QSFP-LR4-100G (100GBASE-LR4, 4 lanes), port mode 100GE |
+| Line | 1-7-5: Finisar QSFP-DD DCO, ZR400-16QAMSS-60G-OFEC at 193.5 THz, target −3 dBm |
+| Service | Cross-connect CC5_4: 100GE-1-7-4 ⇄ 100GE-1-7-5-4 → flexgdu-1-7-5-4 → flexgo-1-7-5 (#4) → och 1-7-5 |
+| Not in service | 1-7-1 (laser off), 1-8-1 and 1-8-4 (no transceiver) |
+| Box clock | Wrong: stuck in 2021 (`DATETIME_UNCHANGED` alarm), so alarm times need the offset in `meta.json` |
 
-The run layout matches the [ROADM diagnostic plan](../../../nitin/roadm-diagnostic-agent-plan.md) (`runs/run-XX/raw/`), so its collectors later write `observations.jsonl` into the same folders.
+### Wiring
 
-## 1. The CLI reference
-
-- **The PDF unchanged.** Check its text can be selected in Preview. If it is a scan with no text layer, say so, because it then needs OCR first.
-- **Its version** in `setup.md`: document title, version or date, and the release it covers. Box 3's own release comes from `show version` in run 1. If the two differ, the PDF is suspect wherever the box disagrees.
-- **Better sources, if any exist:** HTML help, a man-page tree, or the table in the C++ source where commands are registered. Any of these beats the PDF. If the source is reachable, generate the `branch/index/observed/merged` artifacts from source (see [CLI data schemas](cli-data-schemas.md)).
-
-## 2. `setup.md`
-
-```markdown
-# Box 3
-
-## Nodes
-| Hostname | Chassis model | Release | Chassis numbers (CLI) |
-| --- | --- | --- | --- |
-| box3-a | 2026-4RU | 5.2.1 | 1 |
-
-## Service under test
-- In words: BERT P1 → 1-3-C1 (client) → 1-3-L1 (line) → … → far client → BERT P2
-- Client type: 100GE / OTU4 / …
-- Line frequency or wavelength: 193.1 THz / channel 34 / …
-
-## BERT
-- Vendor and model:
-- Test interface and ports used:
-- Pattern, duration and pass criterion (e.g. PRBS31, 15 min, 0 errors):
-- Remote control: none / SCPI / REST / other
-
-## Passives (anything without its own CLI)
-| Id | What | Value |
-| --- | --- | --- |
-| PP1 | patch panel | 24 ports |
-| ATT1 | attenuator | 10 dB |
-| SPOOL1 | fiber spool | 25 km |
-
-## Behaviour
-- ALS/APR (laser shutdown on loss): on / off, per line
-- Protection: none / OPS / Y-cable
-- Command that turns paging off:
-- Prompt per mode (normal, configure, engineering):
-- Box clock timezone:
-
-## Not found in the CLI
-Categories from the capture list with no command at all. A missing command is an answer too.
-```
-
-## 3. `wiring.csv`
-
-One row per **strand**, from its Tx end to its Rx end, which is how the tracer models a fiber. A duplex cable is two rows.
+The light leaves the BERT, goes through 1-7-4 and 1-7-5, into the C1125, round its line side and back through a 10 dB pad, and returns the same way. LLDP on 1-1-osc sees the box itself, which matches the loop.
 
 ```csv
 strand,from,to,via,length_km,loss_db,notes
-F01,BERT:P1,1-3-C1,,,,BERT Tx into client Rx
-F02,1-3-C1,BERT:P1,,,,
-F03,1-3-L1,1-5-L1,PP1:4;ATT1,,10.5,line out through the panel and a 10 dB pad
-F04,1-5-L1,1-3-L1,PP1:5,,,
+F01,BERT:P1,1-7-4,,,,direct patch
+F02,1-7-4,BERT:P1,,,,direct patch
+F03,1-7-5,1-1-ad1,,,,line Tx into the mux
+F04,1-1-ad1,1-7-5,,,,demux out to the line Rx
+F05,1-1-line,1-1-line,ATT1,,10,line side looped back through a 10 dB pad
 ```
 
-- **`strand`:** `F01`, `F02` and so on. Label the real fibers with the same ids if you can, because the experiments refer to them.
-- **`from` / `to`:** a box port as its CLI address (`1-3-C1`). When box 3 has more than one node with its own CLI, prefix the hostname (`box3-a/1-3-C1`). Anything else is `NAME:port` (`BERT:P1`, `PP1:4`).
-- **`via`:** the passives the strand runs through, in order, separated by `;`. Leave it empty for a direct patch.
-- Write `?` for anything unknown. That is better than a guess.
+This goes into `data/boxes/box3/wiring.csv`, and the table above into `setup.md`. Inside the C1125 (ad1 → booster → line, line → preamp → ad1) is L0, which stays opaque glass for now. F02 ends at the BERT, so the box cannot see it pulled: its right answer in an experiment is "insufficient evidence".
 
-## 4. Real outputs: three runs
+## The recorder
 
-| Run | Box state | Why |
-| --- | --- | --- |
-| `run-01-healthy` | BERT running, error-free | The baseline: every command in the capture list below |
-| `run-02-pull-F03` | One strand pulled (pick one whose Rx end is a box port) | A healthy box has no alarms, so its alarm commands print nothing and can't be templated. This run shows what alarms, LOS and alarm history look like |
-| `run-03-restored` | Fiber back in and alarms cleared | Shows how clear events look in the alarm history |
+The bridge (`bridge/server.mjs`) already holds the box's SSH session, with two shells on it. The terminal shell is for people: it has Tab completion, history and line editing, and wraps to the width of the panel, so its output is never saved. The poller shell is clean: `term: dumb`, 500 columns, no paging, and the poller already cuts each command's output between its echo and the next prompt. The recorder writes what the poller reads to disk.
 
-For run 2, pull the fiber, wait 60 s, then capture the alarm, alarm-history, port-state, power and client groups for the ports it touches. Put it back, wait for the alarms to clear and for BERT to be error-free again, then do run 3 with the same groups.
+1. **Prerequisites.** Right after login, on the poller's shell, it runs the setup commands and saves their output as the run's first files:
+   ```
+   configure
+   set cli length 0
+   set cli width 1024
+   exit
+   ```
+   Run 1 shows these work on this release (`set cli auto-width disabled` is `invalid command`). Box 3 has `config-saving-mode auto`, so they may be saved to its config; that is accepted. If one fails, `meta.json` says so and the poller stops, because paging could cut the output.
+2. **A snapshot when the session opens.** It runs every snapshot command in the capture list once, into a new run folder.
+3. **Polls.** The periodic polls append their parsed results to the latest run's `poll.jsonl`, one line per command per poll. Raw output goes to disk only in snapshots, so a long session stays small.
+4. **A snapshot when the alarms change.** When the parsed `show alarm` set changes, it takes another snapshot into a new run folder. A pull and its restore are each recorded without anyone typing.
+5. **Typed commands.** When someone runs a `show` command in the UI's terminal, the recorder reads the final command line (after Tab completion and backspaces) from a headless xterm (`@xterm/headless`) fed with the same output, runs it again on the poller's shell, and saves that clean output in the latest run. It only re-runs `show` commands, never `set`, `delete`, `clear`, `commit` or `rpc`.
+6. **The answer.** The only step a person does is labelling, for scoring. Marking a fiber as pulled in the UI writes `answer.json` into the run that the alarm change created. The agent never reads it.
 
-> **Laser safety:** never look into a pulled connector or a port, and cap the open ends. For this first pull, avoid an amplifier's output, whose power can be high. Don't rely on ALS to shut the laser off.
+> **Laser safety:** never look into a pulled connector or a port, and cap the open ends. Avoid an amplifier's output, whose power can be high. Don't rely on ALS to shut the laser off.
 
-### Capture list
+### Run layout
 
-The command names are the usual ones on other vendors' boxes. Use the real names from the PDF. **P1** is needed for round 1, **P2** if time allows.
+Each run folder is one snapshot, plus the polls that follow it until the next one.
 
-| P | Group | Look for | Scope |
-| --- | --- | --- | --- |
-| P1 | Identity | `show version`, hostname, uptime, **box clock** (`show clock`/`date`) | box |
-| P1 | Help tree | `?` at the top level, `show ?`, and `?` after each P1 command (`show port ?`) | — |
-| P1 | Inventory | chassis, every card, every pluggable with **part number** and serial, PSUs, fans | box |
-| P1 | Port state | admin and operational state of every port | box, then one card, then one port |
-| P1 | Optical power | Rx/Tx power per port, plus thresholds (LOS, low/high warning) | box, then one port, plain and `detail` |
-| P1 | Amplifiers | input/output power, gain, tilt, mode, ALS/APR state | each amp |
-| P1 | Channels | per-channel power (OCM) on a mux, ROADM or line port | each line port |
-| P1 | Alarms | active alarms, with timestamps and severity | box |
-| P1 | Alarm history | the event or alarm log: raise and clear, with timestamps | box |
-| P1 | Neighbors | OSC, LLDP, trail trace (TTI, SAPI/DAPI), anything named neighbor or topology | box, each line port |
-| P1 | Path config | cross-connects, services, frequency per line port, add/drop mapping | box |
-| P1 | Client | Ethernet/OTN status, counters, FEC, pre-FEC BER, remote fault (RF), BDI | each client port in the service |
-| P1 | Config dump | the whole running config, once | box |
-| P2 | PM bins | current and past 15-min and 24-h bins | one line port, one client port |
-| P2 | Protection | protection group state and switch events | each group |
-| P2 | Environment | temperatures, PSU and fan state | box |
-
-- **Scopes:** run each P1 command once for the whole box. The poller wants one command that covers every port. Then run it again on one card and one port on the service path, to see the address syntax and the `detail` fields.
-- **Errors and empty output still count.** An `% Invalid input` shows the right syntax, and empty output is data.
-- If a group has no command, write it under *Not found* in `setup.md`.
-
-### How to capture
-
-Use either option. Both have the same rules.
-
-**Option A, one session log per run (less work, preferred):**
-```sh
-cd data/boxes/box3/runs/run-01-healthy/raw
-script -q session.log ssh <user>@<box3-ip>
-# turn paging off, run the commands, exit
 ```
-I split the log into commands by its prompt lines.
+data/boxes/box3/runs/
+  run-01-healthy/                      run 1, the hand capture, converted to this layout
+  20261031-145210-connect/             <YYYYMMDD-HHMMSS>-<trigger>: connect | alarms
+    meta.json
+    raw/index.jsonl                    one line per command
+    raw/000_configure.txt              prerequisites first
+    raw/007_show-och-1-7-5.txt         the exact output, prompt lines cut
+    parsed/007_show-och-1-7-5.json     its TTP result, or { "error": … }
+    poll.jsonl                         the polls until the next snapshot
+    answer.json                        only when a fault was marked
+```
 
-**Option B, one file per command:** `NNN_<slug>.txt`, where NNN is the order they were run and the slug is the command with spaces turned into `-`. The address keeps its case, and `?` becomes `help`. For example `007_show-port-1-3-C2.txt` or `002_show-help.txt`.
+- **File names:** `NNN_<slug>.txt`, where NNN is the order they ran and the slug is the command with spaces turned into `-`. The address keeps its case, `*` becomes `all` and `?` becomes `help`: `show port 1-7-*` is `004_show-port-1-7-all.txt`.
+- **`raw/index.jsonl`:** maps each file to its command id in the [CLI index](cli-data-schemas.md). `ok` is true once the prompt came back, so the output is complete.
+  ```json
+  {"n": 7, "cmd": "show och 1-7-5", "commandId": "cli_shortcut_cmds_l1__och__show__och", "at": "2026-10-31T14:52:10Z", "source": "snapshot", "file": "007_show-och-1-7-5.txt", "ok": true}
+  ```
+  `source` is `prereq`, `snapshot`, `typed` or `hand`.
+- **Errors and empty output still count.** `Invalid name: alarms` shows the box doesn't have that command (`onBox: no`), and empty output is data.
 
-**Rules for the raw output:**
-1. **Paging off.** A `--More--` breaks the output. Use the CLI's own no-paging command and write it in `setup.md`.
-2. **No wrapped lines.** Make the terminal at least 250 columns wide; a wrapped line breaks parsing. Use a plain macOS Terminal window, not the tracer's terminal, which wraps to the width of its panel.
-3. **No edits.** Keep spaces, tabs, blank lines and column alignment exactly as they are. TTP matches on whitespace. Don't tidy anything up.
-4. **Keep the prompt** before and after each command, so I can tell that nothing was cut off.
-5. **No Tab completion, ↑ history or line editing in option A.** They leave control characters in the log. Paste the commands from a list.
-6. **Redact only if policy needs it**, and then the same value always gets the same placeholder. Keep part numbers and CLI addresses, because inventory matching runs on them.
+### `meta.json`
 
-### `meta.json` per run
+Filled in by the recorder from the prerequisites and the identity commands:
 
 ```json
 {
-  "run": "run-02-pull-F03",
+  "run": "20261031-145210-connect",
   "box": "box3",
-  "release": "5.2.1",
-  "started": "2026-10-31T10:50:00-07:00",
-  "ended": "2026-10-31T10:58:00-07:00",
-  "boxClockOffsetSec": 0,
-  "state": "fault",
-  "bert": { "running": true, "result": "LOS on P2", "errors": null },
-  "fault": { "strand": "F03", "action": "pulled", "at": "10:52:10", "restored": "10:55:00" },
+  "host": "10.111.25.12",
+  "hostname": "PAHO-GS2000-03",
+  "release": "CSP-2.10.100.10_20261013",
+  "trigger": "connect",
+  "started": "2026-10-31T10:52:10-04:00",
+  "ended": "2026-10-31T10:52:41-04:00",
+  "boxClock": "2021-07-25T19:31:02+00:00",
+  "boxClockOffsetSec": -166216868,
+  "prereqs": [{ "cmd": "set cli length 0", "ok": true }, { "cmd": "set cli width 1024", "ok": true }],
+  "state": "unknown",
   "notes": ""
 }
 ```
 
-- `boxClockOffsetSec` is the box clock minus the Mac clock, from `show clock`. It lines up alarm timestamps with the pull times.
-- In round 1 the fault sits in `meta.json`. From the experiments on, it moves to `answer.json`, which the agent never sees.
+- `boxClockOffsetSec` is the box clock minus the Mac clock. It lines alarm timestamps up with the pull times.
+- `state` stays `unknown` until a run is labelled (`healthy`, `fault`, `restored`).
 
-## What I build from it
+### Run 1
 
-| Output | Where | What |
+Run 1 came from `script` over ssh, with Tab completion, backspaces and typos in it (`show cas  haschassis       assis`, `physicall^H ^H-channel`). A one-off script, `scripts/split-session-log.mjs`, replays `session.log` through `@xterm/headless`, so each command line reads as the box saw it, splits it at the prompt lines and writes the layout above (`source: "hand"`). Run 1 has no clock command, so its `boxClockOffsetSec` is null.
+
+`scripts/sync-cli-index-csp.mjs` then reads `raw/index.jsonl`. Today it looks for `raw/<commandId>.txt` and falls back to `session.log` for every command, which marks every command as observed.
+
+## Capture list
+
+The commands are the real ones from run 1. **Snapshot** commands run in every snapshot; the others are also polled.
+
+| Group | Command | When |
 | --- | --- | --- |
-| `cli-index.source.json` | `data/cli/csp/` | Source-derived command index for CSP, flattened from CLI XML branches |
-| `cli-observed.json` | `data/boxes/box3/` | Per-box observed coverage from capture runs |
-| `cli-index.merged.json` | `data/boxes/box3/` | Source + observed merge used for poll/template prioritization |
-| Capability map | `data/boxes/box3/capability-map.md` | Which link-design questions the CLI can answer, which it can't, and the commands for each |
-| Fixtures and TTP templates | `data/boxes/box3/ttp/fixtures/`, `data/boxes/box3/ttp/templates/` | One per P1 command, from run 1 (and run 2 for alarms), tested by `npm test` |
-| `poll.json` | `bridge/` | The commands the poller runs, and how often |
-| How to pull the link design | a section in the capability map | OSC/TTI, power matching, or a hand-drawn map checked by pull tests |
+| Prerequisites | `configure`, `set cli length 0`, `set cli width 1024`, `exit` | login |
+| Identity | `show system`, `show software`, `show system clock` | snapshot |
+| Inventory | `show chassis`, `show card`, `show inventory`, `show card 1-* fan`, `show card 1-* psu` | snapshot |
+| Port state | `show port`, `show port 1-7-*` | snapshot |
+| Path config | `show assignment`, `show cross-connection` | snapshot |
+| Neighbors | `show lldp neighbors` | snapshot |
+| Lists | `show transceiver`, `show och`, `show eth` (ids only; values come from the per-port commands) | snapshot |
+| Client optics | `show transceiver 1-7-4`, `show transceiver 1-7-4 physical-channel 1` to `4` | every 10 s |
+| Client | `show eth 1-7-4` | every 30 s |
+| Line optics | `show transceiver 1-7-5`, `show och 1-7-5` | every 10 s |
+| Alarms | `show alarm` (its changes trigger snapshots) | every 10 s |
+| Alarm history | `show log alarm -l 50` (`-l 200` in snapshots) | every 30 s |
+| Events | `show log event -l 200` | snapshot |
 
-### `cli-index.merged.json`
+- The per-port commands are hard-coded to 1-7-4 and 1-7-5 for box 3. Later the poller takes the in-service ports from `show port` and `show assignment`.
+- Not on this release, from run 1: `show alarms`, `show alarm history` (use `show log alarm`), and `show pm threshold` (`invalid command`). `show pm` and `show pm history` print `None`.
+- `show system clock` hasn't been run yet. If it doesn't print the box's current time, find the command that does.
 
-```json
-{
-  "schemaVersion": "1.0",
-  "kind": "merged",
-  "stream": "csp",
-  "boxId": "box3",
-  "generatedAt": "2026-10-31T18:20:00Z",
-  "refs": {
-    "indexPath": "data/cli/csp/cli-index.source.json",
-    "observedPath": "data/boxes/box3/cli-observed.json"
-  },
-  "commands": [
-    {
-      "commandId": "cli_shortcut_cmds_eqpt__chassis__show__chassis",
-      "branchId": "cli_shortcut_cmds_eqpt__chassis",
-      "op": "show",
-      "syntax": "show chassis <name>",
-      "onBox": "yes",
-      "observed": true,
-      "parseStatus": "parse-ok",
-      "coverage": {
-        "runsSeen": ["run-01-healthy"],
-        "captureCount": 1,
-        "parseOkCount": 1,
-        "parseErrorCount": 0
-      },
-      "sourceMeta": {
-        "nodeType": "list",
-        "cmdTypeRaw": "set,show",
-        "cmdTypes": ["set", "show"],
-        "keyPattern": "CHASSIS-",
-        "keyRegex": "^CHASSIS-(\\d+)$",
-        "helperInfo": "show chassis",
-        "permissionRule": "admin|rw,operation|rw,supervision|ro"
-      },
-      "runtime": {
-        "safe": true,
-        "tags": ["inventory"]
-      },
-      "pollCandidate": {
-        "eligible": true,
-        "reason": "show command observed and parse-ok",
-        "templateId": "cli_shortcut_cmds_eqpt__chassis__show__chassis",
-        "everySec": 30
-      },
-      "template": {
-        "templatePath": "data/boxes/box3/ttp/templates/cli_shortcut_cmds_eqpt__chassis__show__chassis.ttp",
-        "fixtureTxtPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_eqpt__chassis__show__chassis.txt",
-        "fixtureJsonPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_eqpt__chassis__show__chassis.json"
-      }
-    }
-  ]
-}
-```
+## Templates
 
-- **`kind`:** `show`, `config`, `action` (clear, reset, laser off) or `debug`.
-- **`safe`:** true only when the command changes nothing. The MCP agent (idea 2) runs only safe commands without asking. `clear pm` is not safe, even though it looks harmless.
-- **`tags`:** taken from the groups above: `identity`, `inventory`, `port-state`, `power`, `amp`, `channel`, `alarm`, `alarm-history`, `neighbor`, `path-config`, `client`, `config-dump`, `pm`, `protection`, `environment`.
-- **`onBox`:** whether the help tree on box 3 has the command. It catches commands the PDF lists but this release doesn't have, and the other way round.
+Eight TTP templates, with run 1 as their fixtures: transceiver, och, eth, port, assignment, cross-connection, alarm and log alarm. They go in `data/boxes/box3/ttp/templates/`, and `npm test` checks each against its fixture.
 
-## Open question
+- **Two shapes cover the whole CLI:** `[config]`/`[state]` blocks of `key value unit` lines with `instant | avg | min | max unit` statistics rows, and column tables under a `-----` line. Two shared patterns keep the eight templates thin.
+- **Wrapped cells:** an alarm's text and an LLDP management address wrap onto a continuation line, which the templates join or skip.
+- **Wide tables:** `show och` has two-line headers. Take the ids from it and the values from `show och <id>`.
+- **Alarms don't wait for a fault run.** Run 1 has 11 standing alarms, and its `show log alarm` has the CREATE and CLEAR pairs of an old pull (2021-07-25 19:23–19:28: `IN_LOS` on both amplifiers, `LOF` on flexgo-1-7-5, `LINK_RF` on 100ge 1-7-4).
+- **No thresholds yet:** `show pm threshold` is invalid, so the fibers can't be coloured by threshold yet.
 
-Real outputs carry serials and hostnames. Should `data/boxes/box3/ttp/fixtures/` get redacted committed copies, or should template tests read local captures from `data/boxes/box3/` and skip when they are missing?
+## Iter 3, step 1: measured light on hover
+
+Hovering a fiber shows what the box measures at its ends. These are run 1's values:
+
+| Strand | Hover |
+| --- | --- |
+| F01 BERT → 1-7-4 | Rx 7.79 dBm (lane 1: 2.31 dBm) |
+| F02 1-7-4 → BERT | Tx 7.67 dBm (lane 1: 2.05 dBm) |
+| F03 1-7-5 → 1-1-ad1 | Tx −2.97 dBm (target −3.00), 193.5 THz |
+| F04 1-1-ad1 → 1-7-5 | Rx −7.4 dBm, OSNR 29.7 dB, Q-margin 3.4 dB, pre-FEC BER 1.2E-03, post-FEC BER 0 |
+| F05 1-1-line loop | Nothing yet: L0 |
+
+- A Tx value goes on the strand that leaves the port, and an Rx value on the strand that arrives. OSNR, Q-margin, BER, CD and PMD are measured at the end of the path, so they go on the arriving strand.
+- Box 3 is drawn in `examples/box3.olst.json` with its real CLI addresses and the strands F01 to F05.
+- The bridge serves `/bridge/state` from the poller while connected, and from the latest run's `parsed/` files while not, in the same shape. The hovers then work from run 1 with no box connected.
+- The app keeps it in the store by CLI address and refreshes it every 10 s. `Pipe` already takes a `tip`, which shows the numbers.
+- Colours (more power, a bigger red highlight over the yellow line) come once there are thresholds.
+
+## Order
+
+1. Split run 1 into the recorder's layout, write its `meta.json`, `setup.md` and `wiring.csv`, make the sync read `raw/index.jsonl`, and run `npm run sync:cli-data:csp` again.
+2. The two shared patterns, the eight templates and their fixtures from run 1, with `npm test` passing.
+3. The recorder, parts 1 to 4, and `poll.json` from the capture list.
+4. The hovers.
+5. Typed commands (part 5) and marking a pulled fiber (part 6).
+
+## Decided
+
+- **Raw captures** carry serials, hostnames and IPs. They are committed as they are for now and cleaned up later (2026-10-31).
+- **Prerequisites** may change the box's CLI settings. The recorder runs them on every login and records their results (2026-10-31).
