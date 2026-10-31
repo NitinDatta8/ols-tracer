@@ -43,15 +43,15 @@ npm run sync:cli-data:csp # generate CSP branch/index/observed/merged artifacts 
 npm run sync:linecards # regenerate catalog/<stream>/linecards.json and catalog/<stream>/pluggables.json from ../IIVI_Platform profiles
 ```
 
-`npm run dev`, `npm run build` and `npm test` run `sync:auto` first when `../IIVI_Platform/profile/cu` is present.
-
-For hardware catalogs, `catalog/<stream>/{chassis,linecards,pluggables}.json` is authoritative when present; `catalog/common/*` is fallback only.
-`linecardMappingComplete` means every vendor type had a profile-backed mapping (including `lc-<vendor>` fallback ids).
-`knownLinecardMappings`/`fallbackLinecardMappings` and `knownMappingComplete` show how much of that mapping came from explicit known-name overrides.
+`npm run dev`, `npm run build` and `npm test` run `sync:auto` first when `../IIVI_Platform/profile/cu` is present. The [guide](docs/guide.md#catalog) says what each sync writes.
 
 ## Docs
 
-- [Guide](docs/guide.md): how to use it, plus the catalog, rules and code
-- [MVP plan](docs/archive/mvp-plan.md), from the [original idea](docs/archive/idea.md)
-- [CLI plan](docs/archive/cli-run-plan.md): the command book, Run on a lab box, the C++ CLI and AAA
-- [CLI data schemas](docs/reference/cli-data-schemas.md): exact JSON schemas for branch/index/observed/merged
+- [Guide](docs/guide.md): how it works today: use, catalog, rules, poller and code
+- [Roadmap](docs/roadmap.md): the iterations, Goal 2.5 and the ideas backlog
+- [Decision log](docs/decisions.md): what was decided, when and why, and what is still open
+- [Box 3 capture plan](docs/plans/box3-capture.md): the current plan, the recorder and Iter 3's first hovers
+- [CLI data schemas](docs/reference/cli-data-schemas.md): the JSON schemas for branch, index, observed and merged
+- [Archive](docs/archive/): built plans, kept as they were (the original idea, the MVP plan, the CLI plan)
+
+Plans move to the archive once they are built; the guide and the roadmap stay current.

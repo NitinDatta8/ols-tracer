@@ -13,7 +13,7 @@ To see everything at once: **Open** → `examples/demo.olst.json`.
 | New project | **New**, pick a corporation. The palette shows only that corporation's hardware |
 | Corporation | The dropdown at the top left switches between the five corporations, each with its own hardware. Switching starts a new topology, and asks first if the canvas has devices |
 | Add a chassis | Drag it from the bottom palette onto the canvas |
-| Physical view | Click a device: its chassis shows as a slot grid, drawn to scale as 19-inch rack gear (EIA-310: a 482.6 mm panel with rack ears, 1U = 44.45 mm high per row of slots, so the 2000 and 2026 are 4×2 and 2U, the 2026-4RU 4×4 and 4U). Each linecard shows a mini cage per port, labelled with the port: light when a module is in, a dark recess when empty, slate for a fixed LC port; its Tx and Rx turn green when a fiber is on them. Hover or click those pluggables just like on the card level. Drag linecards into slots (a 2-slot card such as C also takes the slot to its right). Click a linecard to see its slot enlarged to fill the view: the same rows of ports as in the chassis, each cage showing the module's part, form factor and speed (or, when empty, the form factors it takes), with each Tx and Rx saying where its fiber goes; **← Back** in the header goes up a level (card → chassis → canvas). Every level has the same fixed layout: the parts to put in as small text tiles across the top, scrolling sideways when they don't fit (linecards at the chassis, each with its slot width and port count; at a card, pluggables with their form factor and speed, in two groups: **pluggable optics** and **DCO**, digital coherent optics; hover one for its photo and details), the faceplate under them (scaled up as far as its 19-inch proportions allow, then stretched to fill its whole area, never scrolled), and at the bottom the CLI terminal with the details (datasheet or alarms) beside it. Drag a part onto the faceplate, or click it to pick it: it stays highlighted, every slot or port it fits turns green, and clicking a green one puts it there (click the part again or press Esc to drop the pick). Drag a pluggable into a cage. Hover a pluggable (in the strip or a cage) for its part number and a small photo; click it for its photo, description and properties in the details. Click a linecard tile or the card's name plate for the card's datasheet. Green = fits, a refused drop says why, Esc goes back up. ✕ removes a card or pluggable, and asks first if that deletes fibers. Nothing in the view moves or resizes whatever you click |
+| Physical view | Click a device: its chassis shows as a slot grid, drawn to scale as 19-inch rack gear (EIA-310: a 482.6 mm panel with rack ears, 1U = 44.45 mm high per row of slots, so the 8-slot chassis is 4×2 and 2U). Each linecard shows a mini cage per port, labelled with the port: light when a module is in, a dark recess when empty, slate for a fixed LC port; its Tx and Rx turn green when a fiber is on them. Hover or click those pluggables just like on the card level. Drag linecards into slots (a 2-slot card such as C also takes the slot to its right). Click a linecard to see its slot enlarged to fill the view: the same rows of ports as in the chassis, each cage showing the module's part, form factor and speed (or, when empty, the form factors it takes), with each Tx and Rx saying where its fiber goes; **← Back** in the header goes up a level (card → chassis → canvas). Every level has the same fixed layout: the parts to put in as small text tiles across the top, scrolling sideways when they don't fit (linecards at the chassis, each with its slot width and port count; at a card, pluggables with their form factor and speed, in two groups: **pluggable optics** and **DCO**, digital coherent optics; hover one for its photo and details), the faceplate under them (scaled up as far as its 19-inch proportions allow, then stretched to fill its whole area, never scrolled), and at the bottom the CLI terminal with the details (datasheet or alarms) beside it. Drag a part onto the faceplate, or click it to pick it: it stays highlighted, every slot or port it fits turns green, and clicking a green one puts it there (click the part again or press Esc to drop the pick). Drag a pluggable into a cage. Hover a pluggable (in the strip or a cage) for its part number and a small photo; click it for its photo, description and properties in the details. Click a linecard tile or the card's name plate for the card's datasheet. Green = fits, a refused drop says why, Esc goes back up. ✕ removes a card or pluggable, and asks first if that deletes fibers. Nothing in the view moves or resizes whatever you click |
 | Rear view | **Front** / **Rear** at the top right turn it round (from a card too). The rear is a panel of the same height, with a bay per PSU and fan (2 PSUs and 3 fans on every chassis for now). ✕ pulls one out, **Insert** puts it back. A new chassis has all of them in |
 | Alarms | A bell with a count shows wherever there are alarms, at every level: the device on the canvas, each linecard, each port and each PSU or fan. Each counts its own alarms and those below it; red if one is critical, orange if all are major. The inspector lists the alarms of the level shown; click a bell for just its own. Alarms follow the build: **LOS** (critical) on a pluggable or a C card port with no fiber into its Rx, and one (major) per empty PSU or fan bay. Fiber the port or insert the unit and it clears |
 | CLI command | Under the CLI terminal sits the CLI command for what you hover, else what you last clicked, else the level shown: `show chassis 1`, or hover a linecard for `show card 1-3`; on a linecard, the card, or hover a port for `show port 1-3-C2`. A pluggable's datasheet in the inspector, opened from a port, shows its command, which is its port's (`show port 1-3-C2`). **Copy** copies it. **Run** types it into the terminal and presses Enter |
@@ -29,27 +29,39 @@ To see everything at once: **Open** → `examples/demo.olst.json`.
 
 ```
 catalog/
-  streams.json              # the five corporations: [{ "id": "corp-a", "name": "Corp A" }, …]
-  common/                   # merged into every corporation
-  corp-a/ … corp-e/         # each corporation's own chassis.json, linecards.json, pluggables.json, cli.json (each optional)
+  streams.json              # the five corporations (streams): csp, ctc, polaris, tencent, ws
+  common/cli.json           # CLI command templates and modes, merged into every stream
+  <stream>/                 # chassis.json, linecards.json, pluggables.json, cli.json
 ```
 
-- Stream items override `common/` items with the same id.
-- For now there are three chassis in `common/`: **2000** and **2026** (8 slots, 2U) and **2026-4RU** (16 slots, 4U). Their slots, PSUs and fans are placeholders, the same pattern on all three, until the real layouts come; the 8-Slot Chassis in older files and autosaves opens as the 2000. A corporation's own chassis go in its folder. There are two linecard types in port-count variants, all in `common/`: **C** (2 slots wide) as C25, C925 or C1125, and **MX** (1 slot) as 400MX or 800MX. More cards come later. These were C-1, C-9, C-11, MX-4 and MX-8; files and autosaves with the old ids are upgraded when they load. C cards take no pluggables: every port has its own fixed Tx/Rx.
+The stream files are generated from the IIVI profiles in `../IIVI_Platform/profile/cu/`, so don't edit them by hand: the next sync overwrites them. `npm run dev`, `build` and `test` run `npm run sync:auto` first, which does nothing when that folder is missing, so the committed files are used as they are.
+
+| File | Generated from | Script |
+| --- | --- | --- |
+| `streams.json`, `<stream>/chassis.json` | `platform/<stream>/CHASSIS.json`, plus each card's profile for its width | `npm run sync:platform` |
+| `<stream>/linecards.json`, `<stream>/pluggables.json` | `CHASSIS.json` and `l1/<stream>/l1_profile.xml` (its `supported-part-no` lists) | `npm run sync:linecards` |
+| `<stream>/cli.json` | `cli/<stream>/cli_shortcut_cmds_eqpt.xml` and `cli_shortcut_cmds_l1.xml` | `npm run sync:cli` |
+
+- A stream is any profile folder that has all three: `platform/<stream>/CHASSIS.json`, `cli/<stream>` and `l1/<stream>`.
+- A stream's hardware files are its whole catalog: `common/` has no hardware. Only `cli.json` merges, a stream's overriding `common/`'s level by level.
+- Every stream has one chassis today, `ch-8slot`: 8 linecard slots as 4×2, 2 PSUs and 3 fans. `slotDomains` keeps the profile's slot ids by kind (linecard 1–8, psu 21–22, fan 31–33, fp, cu, mux).
+- The linecards are the chassis's `supportedVendorTypes` (`TMUXC1125`, `800MX`, …). `vendorTypeMap` gives each its linecard id: known names get readable ids (`lc-c1125`, `lc-800mx`), the rest `lc-<vendor type>` (`lc-tmuxc935`). `linecardMappingComplete` means every vendor type got a mapping, `knownLinecardMappings` and `fallbackLinecardMappings` count each kind, and `knownMappingComplete` is true only when none fell back.
+- When the catalog loads (`hydrate` in `src/catalog.ts`), each slot's allowed list also gets every supported card that fits there, a card the profiles name without describing it gets a placeholder (one client port P1, one line port L1), and a port's pluggable family that no pluggable has gets a `<family>-placeholder`.
+- A port's `role` comes from its profile module or its name: `line` (`LINEPORT`, `L1`), `client` (`CLIENTPORT`, `C1`), `adddrop` (`AD11`), `com`, `osc`, `monitor`, else `port`. Its `behavior` (`showsInL1`, `showsInData`, `canLoopback`, `serviceGroup`) drives the views and rules; without one, line ports show in L1 and loop back, and client ports show in Data.
+- The pluggables are the `supported-part-no` parts, with the lowercase part number as their id (`ftlc1154rdpl`), and their form factor (SFP, QSFP, QSFPDD, CFP2), speed and `dco`.
+- Files and autosaves with the old demo ids (`corp-a`, `ch-2000`, `lc-c1`, …) are upgraded when they load (`RENAMED` in `src/store.ts`).
 - `chassis.columns` lays the slots out row by row (4 columns → 4×2 for 8 slots). `chassis.category` groups the palette (optional).
 - `chassis.psus` and `chassis.fans` are how many PSU and fan bays its back has, named PSU1…PSUn and FAN1…FANn (default none, and then no **Rear** button). A device saves the bays left empty as `emptyBays`, e.g. `["PSU2"]`.
 - `chassis.mgmtPorts` lists the management ports drawn in a narrow strip at the left: `front` (USB-C, CON, MON) and `back` (NMS, NMS1, NMS2), where the back shows them left of the PSUs (stacked) and fans. Names starting with `USB` are drawn as USB-C, the rest as RJ-45. They are only drawn: no fibers, alarms or CLI.
-- `linecard.width` is how many side-by-side slots a card takes (default 1). It sits in the leftmost one; the slot's allowed list decides where it may start (C: slots 1, 3, 5, 7).
+- `linecard.width` is how many side-by-side slots a card takes (default 1). It sits in the leftmost one; the slot's allowed list decides where it may start, and it must fit in that row.
 - `linecard.columns` lays its ports out row by row, the same at the chassis and at the card level. By default a card's ports sit as in its 1U slot: one row of up to five per slot of width, else two rows, the top one the longer (800MX 5 over 5, 400MX one row of 5, C1125 10 over 10, OCM 5 over 4).
-- Pluggables come in three form-factor families, each with speed variants: **SFP** (SFP+ 10G, SFP28 25G, DSFP 100G), **QSFP** (QSFP28 100G, QSFP-DD 400G, QSFP-DD800 800G) and **OSFP** (400G, 800G, plus 1.6T in the Corp B stream only).
-- A port's `allowedPluggables` lists pluggable ids or whole families: `"QSFP"` takes every QSFP speed, which is how one cage takes 100G, 400G or 800G. An empty list (`[]`) is a fixed port: built-in SMF Tx/Rx, fibered as is, no pluggable.
+- A port's `allowedPluggables` lists pluggable ids (the profiles list parts) or whole families (`"QSFP"` takes every QSFP). An empty list (`[]`) is a fixed port: built-in SMF Tx/Rx, fibered as is, no pluggable.
 - `cli.json` (not a list) holds the CLI command templates per level, `chassis`, `card`, `port` and `pluggable`, with `{chassis}`, `{slot}` and `{port}` filled in. A wide card's `{slot}` is its leftmost slot. A pluggable's command is its port's, `show port …`. A stream's `cli.json` overrides `common/`'s level by level.
-- Port `role` is `client` or `line`; it drives the L1 and Data views.
 
 - Chassis, linecards and pluggables all carry the same datasheet info, all optional: `vendor`, `part`, `image` (path under `public/`), `url` (a link, or a file under `public/` such as `datasheets/c1125.pdf`), `about` and `specs` (any label → value, shown in the inspector). A pluggable without `image` shows its form factor instead; `dco` groups it under DCO.
 - Internal capture and generated CLI data now goes in `data/` (for example `data/cli/csp/` and `data/boxes/<box-id>/`).
 
-Photos live in `public/pluggables/<pluggable id>.jpg`. They and the specs come from Coherent's product pages on coherent.com:
+`public/pluggables/` has photos from Coherent's product pages on coherent.com, named after the demo pluggable ids used before the catalog came from the profiles. No stream pluggable has an `image` yet, so nothing shows them (see the [roadmap](roadmap.md#iter-3-run-the-light)):
 
 | Pluggable id | Coherent part |
 | --- | --- |
@@ -61,10 +73,8 @@ Photos live in `public/pluggables/<pluggable id>.jpg`. They and the specs come f
 | `qsfp-dd-zr` | FTCD3323E1PCL, 400ZR QSFP-DD DCO, 120 km |
 | `qsfp-dd-800g-zr` | FTCE3326E1PCL, 800ZR QSFP-DD DCO, 120 km |
 | `osfp-800g-zr` | FTCE3327E1PCL, 800ZR OSFP DCO, 120 km |
-| `osfp-1600g-dr8` | FTCF2519E3PCA, 1.6T-DR8 OSFP, 500 m (Corp B) |
-| `cfp2-dco-400g` | FTCD3312M1BCL, 400G CFP2-DCO, 500 km (photo only; CFP2 is not in the catalog) |
-
-`dsfp-100g-lr` and `osfp-400g-zrp` have no Coherent match, so no part or photo.
+| `osfp-1600g-dr8` | FTCF2519E3PCA, 1.6T-DR8 OSFP, 500 m |
+| `cfp2-dco-400g` | FTCD3312M1BCL, 400G CFP2-DCO, 500 km |
 
 ## Rules
 
@@ -101,9 +111,13 @@ The bridge polls the box for its live state, so the canvas can show it later, an
 | File | What |
 | --- | --- |
 | `src/types.ts` | Catalog and topology (`.olst.json`) types |
-| `src/catalog.ts` | Loads `catalog/` at build time; stream hardware (`chassis`, `linecards`, `pluggables`) is source-of-truth, with `common/` as legacy fallback |
+| `src/catalog.ts` | Loads `catalog/` at build time: a stream's own hardware files, `common/cli.json` under the stream's, and `hydrate`'s fill-ins |
 | `src/rules.ts` | Lookups, allowed lists, fiber rules, validation, alarms |
-| `src/store.ts` | The one Zustand store: topology, actions, autosave |
+| `src/store.ts` | The one Zustand store: topology, actions, autosave, upgrades of old ids |
+| `src/ports.ts` | A port's behavior (its own or its role's defaults) and its tone per view |
+| `src/route.ts`, `src/Pipe.tsx` | Fiber routing on the canvas (straight runs around devices, movable runs, spread-out shared runs, hops at crossings) and the pipe drawn along it, with its flowing arrows |
+| `scripts/sync-*.mjs` | The catalog syncs from the IIVI profiles (`sync-all.mjs` runs them) and the CLI index for CSP (`sync-cli-index-csp.mjs`) |
+| `scripts/split-session-log.mjs` | Splits a hand-made `session.log` into a run's files |
 | `src/Canvas.tsx` | Logical canvas: device nodes, port handles, fibers, views |
 | `src/PhysicalView.tsx` | Physical view: chassis slot grid (SVG) and its back (PSU and fan bays), then one linecard's faceplate, pluggable tray, hover card, detail and alarm panels, alarm bells |
 | `src/App.tsx` | Top bar, palette, new-project dialog, fiber panel, problems, toast |
@@ -115,9 +129,9 @@ The bridge polls the box for its live state, so the canvas can show it later, an
 
 ## Choices the plan left open
 
-- **Which C and MX ports are client or line** is a guess, until the internal documents replace it: every variant has one line port, L1, and the rest are client ports C1…Cn (C25 is just L1). C clients take QSFP and C's L1 takes OSFP; MX clients take SFP and MX's L1 takes QSFP. Change them in `catalog/common/linecards.json`.
+- **Port roles are inferred** from each port's profile module or name (see [Catalog](#catalog)); a port the sync can't place is a plain `port`. Fix a wrong role in `scripts/sync-linecards-from-iivi.mjs`, not in the generated JSON.
 - **A link is one strand**, `a` Tx → `b` Rx; a duplex pair is two links. Files saved before this (when one link meant both strands) open as one strand each, `a` → `b`; add the return strand by hand.
 - **Fibers between two cards of one device** are allowed (rule 4) and drawn as a loop under the device. Parallel fibers between two devices are drawn side by side, spread away from the devices. **Loopback** is allowed only on a line port, Tx to its own Rx (no client loopbacks, no port-to-port fibers on one card).
 - **Data view** pairs client ports by position (C1↔C1, C2↔C2) on cards whose line ports share a fiber directly, in either direction; a loopback carries no service. No path tracing through amps or muxes; the views are cosmetic, as the plan says.
-- **All catalogs ship in one bundle.** See the confidentiality risk in the plan.
+- **All catalogs ship in one bundle.** See the confidentiality question in the [decision log](decisions.md#open).
 - **Alarms are simulated from the build**, since there is no live device: LOS on pluggables with nothing into their Rx and missing PSUs or fans. There are no models of PSU or fan (one generic unit each), no way to fail a unit that is in, and no CLI command for alarms yet.
