@@ -9,7 +9,7 @@ Where the tracer is going, iteration by iteration, and the ideas not scheduled y
 | 1 | Packet Tracer–style builder: chassis → linecards → pluggables → Tx/Rx fiber, single-mode only, with L0, L1 and Data views | Done ([MVP plan](archive/mvp-plan.md), from the [original idea](archive/idea.md)) |
 | 2 | The real inventory per corporation from the IIVI profiles (CSP first, L0 later), the exact CLI command per level, and **Run** on a lab box | Done ([CLI plan](archive/cli-run-plan.md)) |
 | 2.5 | **Box 3 replica:** the tracer learns box 3 from its own CLI, and an agent names any pulled fiber | In progress ([box 3 capture](plans/box3-capture.md)) |
-| 3 | **Run the light:** show the measured light on the fibers and in hovers | Step 1 planned, after 2.5's recorder |
+| 3 | **Run the light:** show the measured light on the fibers and in hovers | Step 1 next: 2.5's recorder is done |
 | Later | Deeper C++ CLI integration, AAA, MACsec, more boxes | Not started |
 
 ## Goal 2.5: box 3 replica
