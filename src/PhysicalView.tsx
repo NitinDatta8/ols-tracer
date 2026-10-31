@@ -5,7 +5,7 @@ import { roleOf, toneOf } from './ports';
 import { alarms, bays, coverage, fiberable, fiberError, fibersAt, linecardError, path, pluggableError, resolve, sameEnd, span, touches } from './rules';
 import { useCatalog, useStore } from './store';
 import { BoxTerminal, type Keys } from './Terminal';
-import type { Alarm, CliLevel, Datasheet, End, LinecardDef, PluggableDef, Strand, Topology } from './types';
+import type { Alarm, Catalog, CliLevel, Datasheet, End, LinecardDef, PluggableDef, PortDef, Strand, Topology } from './types';
 
 type Drag = { kind: 'card' | 'plug'; id: string };
 type At = { slot: string; port?: string };
@@ -24,20 +24,31 @@ const OTHER: Record<Strand, Strand> = { tx: 'rx', rx: 'tx' };
 /** The fiber between the strand being wired and `end`'s other strand, as [Tx end, Rx end]. */
 const ends = (w: Wire, end: End): [End, End] => (w.strand === 'tx' ? [w.end, end] : [end, w.end]);
 
-/** The same port rows and columns at the chassis and at the card level. */
-const portGrid = (lc: LinecardDef) => ({ gridTemplateColumns: `repeat(${lc.columns ?? 4 * (lc.width ?? 1)}, max-content)` });
+/**
+ * The ports as they sit in the card's 1U slot, the same at the chassis and at the card level: one row of up to five
+ * per slot of width, else two rows, the top one the longer (an 800MX's ten ports five over five). Each column is at
+ * most `cage` wide, each row at most `row` high.
+ */
+const portGrid = (lc: LinecardDef, cage: string, row = '1fr') => {
+  const n = lc.ports.length;
+  const columns = lc.columns ?? (n > 5 * (lc.width ?? 1) ? Math.ceil(n / 2) : n);
+  return { gridTemplate: `repeat(${Math.ceil(n / columns)}, minmax(0, ${row})) / repeat(${columns}, minmax(0, ${cage}))` };
+};
+
+/** The form factors a port takes, e.g. "QSFP / QSFPDD"; none for a fixed LC connector. */
+const takes = (cat: Catalog, p: PortDef) => [...new Set(p.allowedPluggables.map((a) => byId(cat.pluggables, a)?.formFactor ?? a))].join(' / ');
 
 /** A link as is, or a file under public/. */
 const asset = (path: string) => (/^https?:/.test(path) ? path : import.meta.env.BASE_URL + path);
 
-/** Product photo, else a placeholder with its form factor (or "No image"). */
-const Pic = ({ p, big }: { p: Datasheet & { name: string; formFactor?: string }; big?: boolean }) => {
+/** Product photo, else a placeholder with its form factor and speed (or "No image"). */
+const Pic = ({ p, big }: { p: Datasheet & { name: string; formFactor?: string; speed?: string }; big?: boolean }) => {
   const [failed, setFailed] = useState(false);
   useEffect(() => setFailed(false), [p.image]);
   if (p.image && !failed) {
     return <img className={`pic${big ? ' big' : ''}`} src={asset(p.image)} alt={p.name} draggable={false} onError={() => setFailed(true)} />;
   }
-  return <div className={`pic none${big ? ' big' : ''}`}>{p.formFactor ?? 'No image'}</div>;
+  return <div className={`pic none${big ? ' big' : ''}`}><b>{p.formFactor ?? 'No image'}</b>{p.speed && <small>{p.speed}</small>}</div>;
 };
 
 /** A strand's key for the pipes drawn over the faceplate. */
@@ -45,9 +56,9 @@ const pin = (e: End, s: Strand) => `${s}:${e.slot}/${e.port}`;
 
 /**
  * Duplex LC: the Tx and Rx connectors, each lit while a fiber is on it; the tooltip says where it goes or comes from.
- * A fiber drawn as a pipe leaves a Tx and lands on an Rx.
+ * A fiber drawn as a pipe leaves a Tx and lands on an Rx. With `far`, each also says it: "Tx → 3/C1", "Rx ← 3/C2".
  */
-const Strands = ({ t, end, onClick }: { t: Topology; end: End; onClick: (e: MouseEvent, s: Strand) => void }) => {
+const Strands = ({ t, end, onClick, far }: { t: Topology; end: End; onClick: (e: MouseEvent, s: Strand) => void; far?: (e: End) => string }) => {
   const at = fibersAt(t, end);
   return (
     <div className="lc">
@@ -56,7 +67,7 @@ const Strands = ({ t, end, onClick }: { t: Topology; end: End; onClick: (e: Mous
         return (
           <span key={s} className={`strand wire${l ? ' lit' : ''}`} data-pipe-end={pin(end, s)} onClick={(e) => onClick(e, s)}
             title={l ? `${path(t, l.a)} Tx → ${path(t, l.b)} Rx` : `${STRAND[s]}: no fiber`}>
-            {STRAND[s]}
+            {STRAND[s]}{far && l && (sameEnd(l.a, l.b) ? ' ↺ loop' : s === 'tx' ? ` → ${far(l.b)}` : ` ← ${far(l.a)}`)}
           </span>
         );
       })}
@@ -290,14 +301,8 @@ export function PhysicalView() {
       .filter((e) => !fiberError(t, cat, ...ends(w, e)));
   /** Far end label: just slot/port when it is on this chassis. */
   const farLabel = (far: End) => (far.device === device.id ? `${far.slot}/${far.port}` : path(t, far));
-  /** Two lines under a port: where its Tx goes and where its Rx comes from. Always both, so nothing moves. */
-  const farLines = (end: End) => {
-    const { tx, rx } = fibersAt(t, end);
-    const lines = tx && tx === rx ? ['↺ loop', ''] : [tx ? `→ ${farLabel(tx.b)}` : '', rx ? `← ${farLabel(rx.a)}` : ''];
-    return lines.map((s, i) => <small key={i} className="far">{s || '\u00a0'}</small>);
-  };
 
-  /** A linecard as a small icon: its faceplate with a dot per port. */
+  /** A linecard as a small tile: its name over its width and port count. */
   const cardTile = (lc: LinecardDef) => (
     <div key={lc.id} className={`tile${shown('card', lc.id) ? ' on' : ''}`} draggable
       title={`${lc.name} · ${lc.width ?? 1} slot${(lc.width ?? 1) > 1 ? 's' : ''} · ${lc.ports.length} port${lc.ports.length > 1 ? 's' : ''}`}
@@ -306,7 +311,6 @@ export function PhysicalView() {
       onClick={() => pick('card', lc.id)}>
       <b>{lc.name}</b>
       <small>{lc.width ?? 1} slot{(lc.width ?? 1) > 1 ? 's' : ''} · {lc.ports.length} port{lc.ports.length > 1 ? 's' : ''}</small>
-      <div className="mini-ports">{lc.ports.map((p) => <span key={p.id} className={`mini-dot ${toneOf(p)}`} />)}</div>
     </div>
   );
 
@@ -334,7 +338,7 @@ export function PhysicalView() {
                   {state && <span className="remove" onClick={(e) => { e.stopPropagation(); removeAt(slot.id); }}>✕</span>}
                 </div>
                 {lc ? (
-                  <div className="port-grid" style={portGrid(lc)}>
+                  <div className="port-grid" style={portGrid(lc, '52px')}>
                     {lc.ports.map((p) => {
                       const end = { device: device.id, slot: slot.id, port: p.id };
                       const { pluggable } = resolve(t, cat, end);
@@ -344,8 +348,8 @@ export function PhysicalView() {
                         <div key={p.id} className={`mini ${toneOf(p)}${pluggable ? ' filled' : ''}${from ? ' wiring' : ''}${target ? ' fits' : ''}`}
                           data-pipe-box {...hoverable(pluggable)}
                           onClick={pluggable ? (e) => { e.stopPropagation(); show('plug', pluggable.id, { slot: slot.id, port: p.id }); } : undefined}>
-                          {pluggable ? <Pic p={pluggable} /> : <div className="pic empty">{p.allowedPluggables.length ? '' : 'LC'}</div>}
-                          <small>{p.id}</small>
+                          {/* The cage, labelled with its port: a module in it, empty, or a fixed LC connector, as at the card. */}
+                          <small className={`face${pluggable ? ' in' : p.allowedPluggables.length ? '' : ' lc'}`}>{p.id}</small>
                           <Strands t={t} end={end} onClick={(e, s) => onStrand(e, end, s)} />
                         </div>
                       );
@@ -377,7 +381,10 @@ export function PhysicalView() {
     onMouseLeave: () => { setTip(null); if (at) setFocus(null); },
   });
 
-  /** The whole linecard faceplate, one cage per port, big enough to show what is plugged in. */
+  /**
+   * The linecard's slot enlarged to fill the stage: the same rows of ports as at the chassis, each cage big enough to
+   * show what is plugged in, and no bigger than 280 × 200 px, so cages look alike from card to card.
+   */
   const cardLevel = (slotId: string, lc: LinecardDef) => {
     // The card's fibers, in port order: out of a Tx or into an Rx, each piped to a terminal for its far end under
     // the card (its arrows then flow up into the Rx). A loopback runs from the port's Tx to its own Rx.
@@ -391,19 +398,35 @@ export function PhysicalView() {
       ];
     });
     return (
-      <div className="faceplate" onDragOver={(e) => e.preventDefault()} onDrop={onDrop}>
+      <div className="faceplate card-plate" onDragOver={(e) => e.preventDefault()} onDrop={onDrop}>
         <div className="plate-label" title="Datasheet" onClick={() => show('card', lc.id, { slot: slotId })}>
           <b>{lc.name}</b>
           <small>slot {slotLabel(slotId, lc.width)} · {lc.ports.length} ports</small>
+          {/* The other cards are not shown here, so the far end is picked from a list. Always there, so the plate never shifts. */}
+          <label className="connect-to" onClick={(e) => e.stopPropagation()}>
+            {wire && (
+              <>
+                {wire.strand === 'tx' ? `Fiber from ${farLabel(wire.end)} Tx to` : `Fiber into ${farLabel(wire.end)} Rx from`}
+                <select autoFocus value="" onChange={(e) => { const [d, slot, port] = e.target.value.split('|'); connect(...ends(wire, { device: d, slot, port })); setWire(null); }}>
+                  <option value="" disabled>pick a free {STRAND[OTHER[wire.strand]]}…</option>
+                  {freePorts(wire).map((e) => (
+                    <option key={path(t, e)} value={`${e.device}|${e.slot}|${e.port}`}>{path(t, e)} {STRAND[OTHER[wire.strand]]}</option>
+                  ))}
+                </select>
+                <button onClick={() => setWire(null)}>Cancel</button>
+              </>
+            )}
+          </label>
           {alarmButton({ slot: slotId })}
           <span className="led" />
         </div>
-        <div className="cages port-grid" style={portGrid(lc)}>
+        <div className="cages port-grid" style={portGrid(lc, '280px', '200px')}>
           {lc.ports.map((p) => {
             const end = { device: device.id, slot: slotId, port: p.id };
             const { pluggable } = resolve(t, cat, end);
             const inserted = device.slots[slotId].ports[p.id];
             const fits = part?.kind === 'plug' && !inserted && !pluggableError(cat, lc.id, p.id, part.id);
+            const fixed = !p.allowedPluggables.length;
             return (
               <div key={p.id} data-port={p.id} className={`cage ${toneOf(p)}${fits ? ' fits' : ''}${pluggable ? ' filled' : ''}${wire && sameEnd(wire.end, end) ? ' wiring' : ''}`}
                 data-pipe-box {...hoverable(pluggable, { slot: slotId, port: p.id })}
@@ -413,15 +436,21 @@ export function PhysicalView() {
                   {alarmButton({ slot: slotId, port: p.id })}
                   {inserted &&<span className="remove" onClick={(e) => { e.stopPropagation(); removeAt(slotId, p.id); }}>✕</span>}
                 </div>
-                {pluggable ? <Pic p={pluggable} /> : <div className="pic empty">{p.allowedPluggables.join(' / ') || 'fixed LC'}</div>}
-                <div className="cage-name">{pluggable?.name ?? (inserted ? `unknown ${inserted.pluggable}` : p.allowedPluggables.length ? 'empty' : 'built-in')}</div>
-                {farLines(end)}
-                <Strands t={t} end={end} onClick={(e, s) => onStrand(e, end, s)} />
+                {/*
+                  * The cage's face, as at the chassis: the module in it with its part on the label (over its photo, if
+                  * there is one), else the empty cage with what it takes, else the fixed LC connector.
+                  */}
+                <div className={`face${pluggable ? ' in' : fixed ? ' lc' : ''}`}>
+                  {pluggable?.image && <img src={asset(pluggable.image)} alt="" draggable={false} onError={(e) => { e.currentTarget.hidden = true; }} />}
+                  <b>{pluggable?.name ?? (fixed ? 'LC' : inserted ? `unknown ${inserted.pluggable}` : 'empty')}</b>
+                  <small>{pluggable ? `${pluggable.formFactor} · ${pluggable.speed}` : fixed ? 'built-in' : takes(cat, p)}</small>
+                </div>
+                <Strands t={t} end={end} onClick={(e, s) => onStrand(e, end, s)} far={farLabel} />
               </div>
             );
           })}
         </div>
-        {/* Always there, like the row below, so the card does not grow when it is fibered. */}
+        {/* Always there, so the card does not grow when it is fibered. */}
         <div className="terminals">
           {fibers.map(({ link, far, reverse }) => far && (
             <div key={link.id} className="terminal" data-pipe-box data-pipe-end={`far:${link.id}`} data-pipe-top title={path(t, far)}>
@@ -430,21 +459,6 @@ export function PhysicalView() {
           ))}
         </div>
         <PipeLayer view={`card:${device.id}/${slotId}`} spacing={{ margin: 10, lane: 18, hop: 9 }} width={14} ends={fibers} />
-        {/* The other cards are not shown here, so the far end is picked from a list. */}
-        <label className="connect-to">
-          {wire && (
-            <>
-              {wire.strand === 'tx' ? `Fiber from ${farLabel(wire.end)} Tx to` : `Fiber into ${farLabel(wire.end)} Rx from`}
-              <select autoFocus value="" onChange={(e) => { const [d, slot, port] = e.target.value.split('|'); connect(...ends(wire, { device: d, slot, port })); setWire(null); }}>
-                <option value="" disabled>pick a free {STRAND[OTHER[wire.strand]]}…</option>
-                {freePorts(wire).map((e) => (
-                  <option key={path(t, e)} value={`${e.device}|${e.slot}|${e.port}`}>{path(t, e)} {STRAND[OTHER[wire.strand]]}</option>
-                ))}
-              </select>
-              <button onClick={() => setWire(null)}>Cancel</button>
-            </>
-          )}
-        </label>
       </div>
     );
   };
@@ -490,8 +504,8 @@ export function PhysicalView() {
           onDragStart={(e) => { e.dataTransfer.setData('text/plain', p.id); setTip(null); setDrag({ kind: 'plug', id: p.id }); }}
           onDragEnd={() => setDrag(null)}
           onClick={() => pick('plug', p.id)}>
-          <Pic p={p} />
           <b>{p.name}</b>
+          <small>{[p.formFactor, p.speed].filter(Boolean).join(' · ')}</small>
         </div>
       ))] as const)
       : [['Linecards', cat.linecards.map(cardTile)] as const];
@@ -569,10 +583,9 @@ export function PhysicalView() {
           */}
         <div className="body">
           {tray()}
-          <div ref={stage} className={`stage${card ? ' card-view' : ''}`}>
-            <div className="fit" style={fit}>
-              {card && cardSlot ? cardLevel(cardSlot, card) : back ? backLevel() : chassisLevel()}
-            </div>
+          {/* The chassis is scaled to fit; a card's plate fills the stage as laid out, its cages sized to it. */}
+          <div ref={stage} className="stage">
+            {card && cardSlot ? cardLevel(cardSlot, card) : <div className="fit" style={fit}>{back ? backLevel() : chassisLevel()}</div>}
           </div>
           {/*
             * The box's CLI, typed into as over ssh (Tab, ↑, Ctrl-C and Escape go to the box while it has focus), and under
@@ -626,7 +639,7 @@ export function PhysicalView() {
             <Pic p={tip.p} />
             <div>
               <b>{tip.p.name}</b>
-              <small>{tip.p.part ? `${tip.p.vendor} ${tip.p.part}` : 'no part number'}</small>
+              <small>{tip.p.part ? [tip.p.vendor, tip.p.part].filter(Boolean).join(' ') : 'no part number'}</small>
               <small>{tip.p.dco ? 'DCO' : 'Pluggable'} · {tip.p.speed} · {tip.p.fiber}{tip.p.specs?.Reach ? ` · ${tip.p.specs.Reach}` : ''}</small>
             </div>
           </div>

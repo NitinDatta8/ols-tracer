@@ -52,7 +52,6 @@ main { position: relative; min-height: 0; }
 .icon rect { fill: #e4e9ef; stroke: #52606d; }
 .icon line { stroke: #9aa5b1; }
 .icon circle { fill: var(--fiber); }
-.icon path { fill: none; stroke: var(--fiber); stroke-width: 2.5; }
 
 /* Canvas: devices and their port handles */
 .device {
@@ -127,7 +126,7 @@ main { position: relative; min-height: 0; }
  * side by side at the bottom.
  */
 .dialog.physical { display: flex; flex-direction: column; width: 96vw; height: 94vh; overflow: hidden; background: #f4f6f9; }
-.physical .body { flex: 1; min-height: 0; display: grid; grid-template: 'tray tray' 88px 'stage stage' 3fr 'term side' 2fr / 1fr 440px; gap: 12px; }
+.physical .body { flex: 1; min-height: 0; display: grid; grid-template: 'tray tray' 74px 'stage stage' 3fr 'term side' 2fr / 1fr 440px; gap: 12px; }
 .stage { grid-area: stage; min-width: 0; min-height: 0; overflow: hidden; border-radius: 10px; background: #2c3640; box-shadow: 0 2px 8px rgb(15 23 42 / 18%); }
 .fit { width: max-content; transform-origin: 0 0; }
 .physical .hint { flex: none; margin-top: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } /* one line, whichever hint */
@@ -168,62 +167,74 @@ main { position: relative; min-height: 0; }
 .slot.filled { background: linear-gradient(#27323d, #1b242c); border: 1px solid #52606d; border-top: 3px solid #9aa5b1; color: #fff; cursor: pointer; box-shadow: inset 0 1px 0 rgb(255 255 255 / 6%); }
 .slot.filled:hover { border-color: var(--accent); }
 .slot.fits { border-color: var(--fiber); background: #14532d; }
-.mini-ports { display: flex; flex-wrap: wrap; gap: 4px; }
 .port-grid { display: grid; gap: 16px 4px; } /* room for fibers between rows of ports */
-.mini {
-  display: grid; grid-template: 'id pic' 16px 'lc lc' auto / auto 1fr; gap: 1px 3px; width: 52px; padding: 1px 2px;
-  border: 1px solid #52606d; border-top: 2px solid; border-radius: 2px;
-}
-.mini.data, .mini-dot.data { border-top-color: var(--data); }
-.mini.l1, .mini-dot.l1 { border-top-color: var(--l1); }
-.mini.aux, .mini-dot.aux { border-top-color: var(--aux); }
+.mini { display: grid; gap: 1px; min-width: 0; padding: 1px; border: 1px solid #52606d; border-top: 2px solid; border-radius: 2px; }
+.mini.data { border-top-color: var(--data); }
+.mini.l1 { border-top-color: var(--l1); }
+.mini.aux { border-top-color: var(--aux); }
 .mini.filled { cursor: pointer; }
 .mini.filled:hover { border-color: var(--accent); }
-.mini .pic { grid-area: pic; height: 16px; font-size: 7px; }
-.mini small { grid-area: id; display: flex; align-items: center; color: #cbd2d9; font-size: 8px; }
-.mini .lc { grid-area: lc; gap: 2px; }
+/* A port's cage, at the chassis and the card: a dark recess when empty, a light module when one is in, slate for fixed LC. */
+.face { overflow: hidden; background: #111820; border: 1px dashed #52606d; border-radius: 2px; color: #9aa5b1; text-align: center; }
+.face.in { background: #e4e9ef; border: 1px solid #cbd2d9; color: #1f2933; }
+.face.lc { background: #323f4b; border-style: solid; color: #cbd2d9; }
+.mini .face { padding: 0 2px; font-size: 8px; line-height: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.mini .face.in { font-weight: 600; }
+.mini .lc { gap: 2px; }
 .mini .strand { padding: 0; font-size: 7px; line-height: 9px; }
-.mini-dot { width: 12px; height: 8px; border: 1px solid #9aa5b1; border-top-width: 3px; border-radius: 2px; }
 
 /* Physical view: linecard faceplate, one cage per port */
 .faceplate { position: relative; padding: 10px; background: linear-gradient(#4a5865, #2c3640); border: 1px solid #1f2933; border-radius: 6px; color: #fff; }
-.plate-label { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; cursor: pointer; }
+.plate-label { display: flex; align-items: center; gap: 10px; min-height: 28px; cursor: pointer; }
 .plate-label b { font-size: 18px; }
 .plate-label small { color: #cbd2d9; }
-.led { width: 8px; height: 8px; margin-left: auto; border-radius: 50%; background: #4ade80; box-shadow: 0 0 6px #4ade80; }
-.cages { gap: 28px 20px; } /* room for fibers between cages */
-.cage {
-  display: grid; gap: 4px; width: 120px; padding: 6px; background: linear-gradient(#27323d, #1b242c); border: 2px solid #52606d;
-  border-top-width: 4px; border-radius: 6px; font-size: 12px; box-shadow: 0 2px 6px rgb(0 0 0 / 30%);
+.led { flex: none; width: 8px; height: 8px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 6px #4ade80; }
+/*
+ * At a card, its slot fills the stage: the name plate, the same rows of ports as at the chassis (see portGrid) centred
+ * in the room left, with gaps for fibers between them, and the far-end terminals under them.
+ */
+.card-plate {
+  height: 100%; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 8px; padding: 8px 20px 10px;
+  background: linear-gradient(#27323d, #1b242c); border: none; border-top: 4px solid #9aa5b1; border-radius: 0;
 }
+.cages { gap: 28px 20px; place-content: center; } /* room for fibers between cages */
+.cage {
+  display: grid; grid-template: auto minmax(0, 1fr) auto / minmax(0, 1fr); gap: 4px; min-width: 0; min-height: 0; padding: 4px 6px 5px;
+  overflow: hidden; background: #1f2933; border: 2px solid #52606d; border-top-width: 4px; border-radius: 6px;
+  font-size: 12px; box-shadow: 0 2px 6px rgb(0 0 0 / 30%); container-type: inline-size;
+}
+.cage .face { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2px; min-height: 0; padding: 4px; border-radius: 3px; }
+.cage .face b, .cage .face small { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cage .face small { font-size: 11px; }
+.cage .face img { flex: 1; width: 100%; min-height: 0; object-fit: contain; }
+/* A cage too narrow for it all keeps its port id: the role goes and the bell shows just the count. */
+@container (max-width: 110px) {
+  .cage-head small, .cage-head .alarm svg { display: none; }
+}
+.cage .strand { min-width: 0; padding: 2px 4px; overflow: hidden; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
 .cage.data { border-top-color: var(--data); }
 .cage.l1 { border-top-color: var(--l1); }
 .cage.aux { border-top-color: var(--aux); }
 .cage.fits { border-color: var(--fiber); border-style: dashed; background: #14532d; }
 .cage.filled { cursor: pointer; }
 .cage-head { display: flex; align-items: baseline; gap: 6px; }
-.cage-head small, .cage .far { color: #9aa5b1; font-size: 10px; }
+.cage .cage-head { align-items: center; min-height: 18px; white-space: nowrap; } /* the same with or without a bell */
+.cage-head b { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.cage-head .alarm { flex: none; }
+.cage-head small { flex: 0 100 auto; min-width: 0; overflow: hidden; color: #9aa5b1; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
 .cage-head .remove { margin-left: auto; color: #fca5a5; cursor: pointer; }
-.cage-name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.cage .pic { height: 72px; }
-.cage .far { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .lc { display: flex; gap: 4px; }
-/* At a card the faceplate fills the stage (see useFit), its cages centred, with room for a fiber along the edge. */
-.card-view .faceplate {
-  display: flex; flex-direction: column; align-items: center; min-width: var(--fit-w, 0); min-height: var(--fit-h, 0); padding: 16px; border-radius: 0;
-}
-.card-view .plate-label { align-self: stretch; }
-.card-view .cages { margin-top: auto; }
-.card-view .connect-to { margin-bottom: auto; }
 .cage.wiring { border-color: var(--accent); box-shadow: 0 0 6px var(--accent); }
 
 /* Physical view: fibers as pipes over the faceplate, and the far-end terminals under a card */
 .pipes { position: absolute; inset: 0; z-index: 1; overflow: visible; pointer-events: none; }
 .pipes .pipe, .pipes .pipe-fill { pointer-events: stroke; cursor: pointer; }
-.terminals { display: flex; flex-wrap: wrap; gap: 8px; min-height: 28px; margin-top: 44px; }
+.terminals { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; min-height: 28px; }
 .terminals .terminal { padding: 4px 8px; background: #111820; border: 1px solid #a16207; border-top: 3px solid #facc15; border-radius: 4px; color: #fde68a; font-size: 11px; }
-.connect-to { display: flex; align-items: center; gap: 6px; min-height: 28px; margin-top: 10px; font-size: 12px; }
+/* Fills the name plate between the name and the bell, so the bell and LED stay at the right. */
+.connect-to { flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 6px; font-size: 12px; cursor: default; }
 .connect-to select { font: inherit; padding: 3px; }
+.connect-to button { color: var(--text); }
 .strand { flex: 1; padding: 1px 0; border: 1px solid #52606d; border-radius: 2px; background: #323f4b; color: #9aa5b1; font-size: 9px; text-align: center; }
 .strand.lit { background: #bbf7d0; border-color: var(--fiber); color: #14532d; }
 
@@ -256,13 +267,14 @@ main { position: relative; min-height: 0; }
 .alarm.critical { background: #dc2626; }
 .alarm.major { background: #ea580c; }
 .alarm svg { fill: none; stroke: currentColor; stroke-width: 2.5; }
-.cage-head .alarm, .plate-label .alarm { margin-left: auto; }
-.cage-head .alarm ~ .remove, .plate-label .alarm ~ .led { margin-left: 0; }
+.cage-head .alarm { margin-left: auto; }
+.cage-head .alarm ~ .remove { margin-left: 0; }
 
 /* Pluggable photos: product shots are on white, so they sit on a white tile */
 .pic { display: grid; place-items: center; width: 100%; height: 56px; object-fit: contain; background: #fff; border-radius: 3px; }
-.pic.none { color: var(--muted); font-weight: 600; font-size: 12px; background: repeating-linear-gradient(45deg, #f4f6f8 0 6px, #e4e9ef 6px 12px); }
-.pic.empty { color: #7b8794; font-size: 10px; background: #111820; border: 1px dashed #52606d; text-align: center; }
+/* No photo: the form factor over the speed, centred. */
+.pic.none { place-content: center; gap: 2px; color: var(--muted); font-weight: 600; font-size: 12px; text-align: center; background: repeating-linear-gradient(45deg, #f4f6f8 0 6px, #e4e9ef 6px 12px); }
+.pic small { font-size: .85em; font-weight: normal; }
 .pic.big { height: 160px; }
 
 /* Physical view: the parts to drag in, one row in a strip under the faceplate that scrolls sideways */
@@ -270,15 +282,12 @@ main { position: relative; min-height: 0; }
 .tray h4 { letter-spacing: .06em; }
 .tray section { flex: none; }
 .tiles { display: flex; gap: 6px; }
-.tile b { font-size: 10px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tile b { font-size: 11px; white-space: nowrap; }
+.tile small { font-size: 10px; color: var(--muted); white-space: nowrap; }
 .tile {
-  display: grid; gap: 2px; width: 68px; padding: 3px; background: #fff; border: 1px solid var(--border);
+  display: grid; gap: 2px; min-width: 68px; padding: 3px 6px; text-align: center; background: #fff; border: 1px solid var(--border);
   border-top: 3px solid #9aa5b1; border-radius: 6px; cursor: grab; font-size: 12px; transition: border-color .15s, box-shadow .15s;
 }
-/* The icon: a pluggable's photo (or form factor), or a linecard's faceplate with a dot per port. */
-.tile .pic { height: 32px; font-size: 10px; }
-.tile .mini-ports { height: 32px; gap: 2px; place-content: center; padding: 2px; background: #1f2933; border-radius: 3px; }
-.tile .mini-dot { width: 6px; height: 5px; border-top-width: 2px; }
 .tile.dco { border-top-color: #7c3aed; }
 .kind.dco { border-left-color: #7c3aed; }
 .tile:hover, .tile.on { border-color: var(--accent); }

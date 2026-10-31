@@ -103,15 +103,6 @@ function Palette() {
           </div>
         </section>
       ))}
-      <section>
-        <h4>Connections</h4>
-        <div className="items">
-          <div className="item static" title="Drag from a port's Tx to another port's Rx on the canvas (or click one, then the other). A fiber runs one way; a loopback-capable port can loop its Tx back to its own Rx. Select a fiber to drag its runs; double-click a run to route it automatically again.">
-            <svg className="icon" width="48" height="30"><path d="M4 26 C 18 -4, 30 34, 44 4" /></svg>
-            SMF Tx → Rx
-          </div>
-        </div>
-      </section>
     </footer>
   );
 }

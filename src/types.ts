@@ -41,7 +41,8 @@ export interface PortDef { id: string; role: Role; behavior?: PortBehavior; allo
 
 /**
  * `width` is how many side-by-side slots the card takes (default 1); it sits in the leftmost one.
- * Ports are laid out row by row, `columns` to a row (default 4 per slot of width), in the chassis and card views alike.
+ * Ports are laid out row by row, `columns` to a row, in the chassis and card views alike (default: one row of up to
+ * five per slot of width, else two rows, as in its 1U slot: an 800MX's ten ports five over five).
  */
 export interface LinecardDef extends Datasheet { id: string; name: string; width?: number; columns?: number; ports: PortDef[] }
 
