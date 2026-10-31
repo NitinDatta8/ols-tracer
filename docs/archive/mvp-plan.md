@@ -1,5 +1,7 @@
 # OLS Tracer: MVP Plan
 
+> **Archived 2026-10-31:** built, and kept as it was for its history. Current state: [guide](../guide.md) · next: [roadmap](../roadmap.md) · decisions: [decision log](../decisions.md).
+
 Based on [the original idea](idea.md). A web app in the style of Cisco Packet Tracer for building OLS (optical line system) topologies. Users drag chassis onto a canvas, fill them with linecards and pluggables, and connect single-mode fiber. People in the industry already know Packet Tracer, so we copy its interaction model instead of inventing a new one.
 
 **Verdict:** a barebones MVP takes about **5 days** for one developer. No backend, no physics, generic SVG graphics.

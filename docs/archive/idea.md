@@ -1,3 +1,5 @@
+> **Archived 2026-10-31:** built, and kept as it was for its history. Current state: [guide](../guide.md) · next: [roadmap](../roadmap.md) · decisions: [decision log](../decisions.md).
+
 You want to make a cisco style tracer for OLS line system. 
 
 For example - what all fibers. We can show similar to how they show in cisco packet. For now start just with single mode fiber. 

@@ -1,6 +1,6 @@
 # OLS Tracer: capturing the CLI of box 3
 
-Round 1 of Goal 2.5: learn box 3's CLI and what its output looks like, store it so it can be reused, and build the first Iter 3 view on it: measured light on the fibers. Everything collected goes in `data/boxes/box3/`.
+Round 1 of [Goal 2.5](../roadmap.md#goal-25-box-3-replica): learn box 3's CLI and what its output looks like, store it so it can be reused, and build the first Iter 3 view on it: measured light on the fibers. Everything collected goes in `data/boxes/box3/`.
 
 **Status (2026-10-31):** run 1 (healthy) is captured as one hand-made `session.log`. That is the last hand capture. From now on the bridge records every run itself, from the SSH session the UI already opens (see [The recorder](#the-recorder)), and nobody is asked to capture anything. The wiring below is confirmed.
 

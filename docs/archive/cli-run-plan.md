@@ -1,5 +1,7 @@
 # OLS Tracer: command index, Run on a lab box and the C++ CLI
 
+> **Archived 2026-10-31:** built, and kept as it was for its history. Current state: [guide](../guide.md) · next: [roadmap](../roadmap.md) · decisions: [decision log](../decisions.md).
+
 Follows the [MVP plan](mvp-plan.md). Hovering hardware in the physical view shows its command from `catalog/<stream>/cli.json` (`show chassis 1`, `show card 1-3`, `show port 1-3-C2`, pluggable `show transceiver 1-3-C2`). **Copy** copies it and **Run** runs it on the lab box.
 
 **Status:** step 2 (Run on one box over SSH) is built. Step 1 is now the CLI extraction + capture pipeline under `data/`, and steps 3 and 4 come later.
