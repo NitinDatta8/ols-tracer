@@ -1,0 +1,3 @@
+Invalid name: interfact
+Problem parsing command setting statement-path with value interfact
+

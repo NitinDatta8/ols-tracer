@@ -1,0 +1,16 @@
+[config]
+admin-state        in-service
+description        PORT
+laser              enabled
+port-mode          PROT_ZR400_16QAMSS_60G
+
+
+[state]
+admin-state        in-service
+description        PORT
+laser              enabled
+port-mode          PROT_ZR400_16QAMSS_60G
+parent             card 1-7
+oper-status        active
+
+

@@ -1,0 +1,50 @@
+{"n":0,"cmd":"configure","at":null,"source":"hand","file":"000_configure.txt","ok":true}
+{"n":1,"cmd":"set cli length 0","at":null,"source":"hand","file":"001_set-cli-length-0.txt","ok":true}
+{"n":2,"cmd":"set cli auto-width disabled","at":null,"source":"hand","file":"002_set-cli-auto-width-disabled.txt","ok":true}
+{"n":3,"cmd":"set cli width 1024","at":null,"source":"hand","file":"003_set-cli-width-1024.txt","ok":true}
+{"n":4,"cmd":"exit","at":null,"source":"hand","file":"004_exit.txt","ok":true}
+{"n":5,"cmd":"show cli","at":null,"source":"hand","file":"005_show-cli.txt","ok":true}
+{"n":6,"cmd":"date-time","at":null,"source":"hand","file":"006_date-time.txt","ok":true}
+{"n":7,"cmd":"help","at":null,"source":"hand","file":"007_help.txt","ok":true}
+{"n":8,"cmd":"help show","at":null,"source":"hand","file":"008_help-show.txt","ok":true}
+{"n":9,"cmd":"show system","at":null,"source":"hand","file":"009_show-system.txt","ok":true}
+{"n":10,"cmd":"show software","at":null,"source":"hand","file":"010_show-software.txt","ok":true}
+{"n":11,"cmd":"show chassis","at":null,"source":"hand","file":"011_show-chassis.txt","ok":true}
+{"n":12,"cmd":"show card","at":null,"source":"hand","file":"012_show-card.txt","ok":true}
+{"n":13,"cmd":"show inventory","at":null,"source":"hand","file":"013_show-inventory.txt","ok":true}
+{"n":14,"cmd":"show port","at":null,"source":"hand","file":"014_show-port.txt","ok":true}
+{"n":15,"cmd":"show port 1-7-*","at":null,"source":"hand","file":"015_show-port-1-7-all.txt","ok":true}
+{"n":16,"cmd":"show port 1-7-5","at":null,"source":"hand","file":"016_show-port-1-7-5.txt","ok":true}
+{"n":17,"cmd":"show transceiver","at":null,"source":"hand","file":"017_show-transceiver.txt","ok":true}
+{"n":18,"cmd":"show transciever 1-7-* physical-channel","at":null,"source":"hand","file":"018_show-transciever-1-7-all-physical-channel.txt","ok":true}
+{"n":19,"cmd":"show transceiver 1-7-* physical-channel","at":null,"source":"hand","file":"019_show-transceiver-1-7-all-physical-channel.txt","ok":true}
+{"n":20,"cmd":"show transceiver 1-7-4","at":null,"source":"hand","file":"020_show-transceiver-1-7-4.txt","ok":true}
+{"n":21,"cmd":"show transceiver 1-7-4 physical-channel 1","at":null,"source":"hand","file":"021_show-transceiver-1-7-4-physical-channel-1.txt","ok":true}
+{"n":22,"cmd":"show och","at":null,"source":"hand","file":"022_show-och.txt","ok":true}
+{"n":23,"cmd":"show transceiver 1-7-5","at":null,"source":"hand","file":"023_show-transceiver-1-7-5.txt","ok":true}
+{"n":24,"cmd":"show transceiver 1-7-5 physical-channel 1","at":null,"source":"hand","file":"024_show-transceiver-1-7-5-physical-channel-1.txt","ok":true}
+{"n":25,"cmd":"show och","at":null,"source":"hand","file":"025_show-och.txt","ok":true}
+{"n":26,"cmd":"show och 1-7-5","at":null,"source":"hand","file":"026_show-och-1-7-5.txt","ok":true}
+{"n":27,"cmd":"show eth","at":null,"source":"hand","file":"027_show-eth.txt","ok":true}
+{"n":28,"cmd":"show eth 1-7-4","at":null,"source":"hand","file":"028_show-eth-1-7-4.txt","ok":true}
+{"n":29,"cmd":"show logical-channel","at":null,"source":"hand","file":"029_show-logical-channel.txt","ok":true}
+{"n":30,"cmd":"show assignment","at":null,"source":"hand","file":"030_show-assignment.txt","ok":true}
+{"n":31,"cmd":"show cross-connection","at":null,"source":"hand","file":"031_show-cross-connection.txt","ok":true}
+{"n":32,"cmd":"show lldp -a","at":null,"source":"hand","file":"032_show-lldp--a.txt","ok":true}
+{"n":33,"cmd":"show lldp neighbors","at":null,"source":"hand","file":"033_show-lldp-neighbors.txt","ok":true}
+{"n":34,"cmd":"show interfact","at":null,"source":"hand","file":"034_show-interfact.txt","ok":true}
+{"n":35,"cmd":"show interface","at":null,"source":"hand","file":"035_show-interface.txt","ok":true}
+{"n":36,"cmd":"show alarms","at":null,"source":"hand","file":"036_show-alarms.txt","ok":true}
+{"n":37,"cmd":"show alarm","at":null,"source":"hand","file":"037_show-alarm.txt","ok":true}
+{"n":38,"cmd":"show alarm history","at":null,"source":"hand","file":"038_show-alarm-history.txt","ok":true}
+{"n":39,"cmd":"show alarm","at":null,"source":"hand","file":"039_show-alarm.txt","ok":true}
+{"n":40,"cmd":"show alarm filter","at":null,"source":"hand","file":"040_show-alarm-filter.txt","ok":true}
+{"n":41,"cmd":"show log alarm -l 200","at":null,"source":"hand","file":"041_show-log-alarm--l-200.txt","ok":true}
+{"n":42,"cmd":"show log event -l 200","at":null,"source":"hand","file":"042_show-log-event--l-200.txt","ok":true}
+{"n":43,"cmd":"show pm","at":null,"source":"hand","file":"043_show-pm.txt","ok":true}
+{"n":44,"cmd":"show pm history","at":null,"source":"hand","file":"044_show-pm-history.txt","ok":true}
+{"n":45,"cmd":"show pm pme","at":null,"source":"hand","file":"045_show-pm-pme.txt","ok":true}
+{"n":46,"cmd":"show pm threshold","at":null,"source":"hand","file":"046_show-pm-threshold.txt","ok":true}
+{"n":47,"cmd":"show card 1-* fan","at":null,"source":"hand","file":"047_show-card-1-all-fan.txt","ok":true}
+{"n":48,"cmd":"show card 1-* psu","at":null,"source":"hand","file":"048_show-card-1-all-psu.txt","ok":true}
+{"n":49,"cmd":"exit","at":null,"source":"hand","file":"049_exit.txt","ok":false}

@@ -3,14 +3,16 @@
   "kind": "observed",
   "stream": "csp",
   "boxId": "box3",
-  "generatedAt": "2026-10-31T02:49:05.177Z",
+  "generatedAt": "2026-10-31T15:54:53.303Z",
   "source": {
     "runsRoot": "data/boxes/box3/runs",
-    "runIds": [],
+    "runIds": [
+      "run-01-healthy"
+    ],
     "captureRules": {
       "pagingOffCommand": "set cli length 0",
       "minTerminalCols": 250,
-      "preservePrompt": true,
+      "preservePrompt": false,
       "allowEdits": false
     }
   },
@@ -28,13 +30,65 @@
     },
     {
       "commandId": "cli_shortcut_cmds_eqpt__transceiver__show__transceiver",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show transceiver",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/017_show-transceiver.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        },
+        {
+          "runId": "run-01-healthy",
+          "command": "show transceiver 1-7-4",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/020_show-transceiver-1-7-4.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        },
+        {
+          "runId": "run-01-healthy",
+          "command": "show transceiver 1-7-5",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/023_show-transceiver-1-7-5.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -61,13 +115,65 @@
     },
     {
       "commandId": "cli_shortcut_cmds_eqpt__transceiver__show__transceiver__physical-channel",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show transceiver 1-7-* physical-channel",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/019_show-transceiver-1-7-all-physical-channel.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        },
+        {
+          "runId": "run-01-healthy",
+          "command": "show transceiver 1-7-4 physical-channel 1",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/021_show-transceiver-1-7-4-physical-channel-1.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        },
+        {
+          "runId": "run-01-healthy",
+          "command": "show transceiver 1-7-5 physical-channel 1",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/024_show-transceiver-1-7-5-physical-channel-1.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -281,13 +387,31 @@
     },
     {
       "commandId": "cli_shortcut_cmds_eqpt__card__show__card",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show card",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/012_show-card.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -545,13 +669,31 @@
     },
     {
       "commandId": "cli_shortcut_cmds_eqpt__card__show__card__fan",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show card 1-* fan",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/047_show-card-1-all-fan.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -633,13 +775,31 @@
     },
     {
       "commandId": "cli_shortcut_cmds_eqpt__card__show__card__psu",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show card 1-* psu",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/048_show-card-1-all-psu.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -721,13 +881,31 @@
     },
     {
       "commandId": "cli_shortcut_cmds_eqpt__inventory__show__inventory",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show inventory",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/013_show-inventory.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -853,13 +1031,31 @@
     },
     {
       "commandId": "cli_shortcut_cmds_eqpt__chassis__show__chassis",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show chassis",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/011_show-chassis.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -2503,13 +2699,65 @@
     },
     {
       "commandId": "cli_shortcut_cmds_l1__och__show__och",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show och",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/022_show-och.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        },
+        {
+          "runId": "run-01-healthy",
+          "command": "show och",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/025_show-och.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        },
+        {
+          "runId": "run-01-healthy",
+          "command": "show och 1-7-5",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/026_show-och-1-7-5.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -3108,13 +3356,48 @@
     },
     {
       "commandId": "cli_shortcut_cmds_l1__eth__show__eth",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show eth",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/027_show-eth.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        },
+        {
+          "runId": "run-01-healthy",
+          "command": "show eth 1-7-4",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/028_show-eth-1-7-4.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -3449,13 +3732,65 @@
     },
     {
       "commandId": "cli_shortcut_cmds_l1__port__show__port",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show port",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/014_show-port.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        },
+        {
+          "runId": "run-01-healthy",
+          "command": "show port 1-7-*",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/015_show-port-1-7-all.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        },
+        {
+          "runId": "run-01-healthy",
+          "command": "show port 1-7-5",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/016_show-port-1-7-5.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -3581,13 +3916,31 @@
     },
     {
       "commandId": "cli_shortcut_cmds_l1__logical-channel__show__logical-channel",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show logical-channel",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/029_show-logical-channel.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -3702,13 +4055,31 @@
     },
     {
       "commandId": "cli_shortcut_cmds_l1__assignment__show__assignment",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show assignment",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/030_show-assignment.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -3757,13 +4128,31 @@
     },
     {
       "commandId": "cli_shortcut_cmds_l1__cross-connection__show__cross-connection",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show cross-connection",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/031_show-cross-connection.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -3889,13 +4278,31 @@
     },
     {
       "commandId": "cli_shortcut_cmds_networking__interface__show__interface",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show interface",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/035_show-interface.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -6309,13 +6716,31 @@
     },
     {
       "commandId": "cli_shortcut_cmds_networking__lldp__show__lldp",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show lldp -a",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/032_show-lldp--a.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -6496,13 +6921,31 @@
     },
     {
       "commandId": "cli_shortcut_cmds_networking__lldp__show__lldp__neighbors",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show lldp neighbors",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/033_show-lldp-neighbors.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -7002,13 +7445,82 @@
     },
     {
       "commandId": "cli_shortcut_cmds_platform__alarm__show__alarm",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show alarm",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/037_show-alarm.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        },
+        {
+          "runId": "run-01-healthy",
+          "command": "show alarm history",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/038_show-alarm-history.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        },
+        {
+          "runId": "run-01-healthy",
+          "command": "show alarm",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/039_show-alarm.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        },
+        {
+          "runId": "run-01-healthy",
+          "command": "show alarm filter",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/040_show-alarm-filter.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -7156,13 +7668,31 @@
     },
     {
       "commandId": "cli_shortcut_cmds_platform__pm__show__pm",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show pm",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/043_show-pm.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -7189,13 +7719,31 @@
     },
     {
       "commandId": "cli_shortcut_cmds_platform__pm__show__pm__pme",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show pm pme",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/045_show-pm-pme.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -7805,13 +8353,31 @@
     },
     {
       "commandId": "cli_shortcut_cmds_platform__pm__show__pm__history",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show pm history",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/044_show-pm-history.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -8256,13 +8822,31 @@
     },
     {
       "commandId": "cli_shortcut_cmds_rpc__date-time__rpc__date-time",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "date-time",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/006_date-time.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -8366,13 +8950,31 @@
     },
     {
       "commandId": "cli_shortcut_cmds_system__system__show__system",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show system",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/009_show-system.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -9554,13 +10156,31 @@
     },
     {
       "commandId": "cli_shortcut_cmds_system__software__show__software",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show software",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/010_show-software.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -9895,24 +10515,60 @@
     },
     {
       "commandId": "cli_shortcut_cmds_system__cli__show__cli",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show cli",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/005_show-cli.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
       "commandId": "cli_shortcut_cmds_system__cli__set__cli__width",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "set cli width 1024",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/003_set-cli-width-1024.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -9928,13 +10584,31 @@
     },
     {
       "commandId": "cli_shortcut_cmds_system__cli__set__cli__length",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "set cli length 0",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/001_set-cli-length-0.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -10181,24 +10855,60 @@
     },
     {
       "commandId": "cli_shortcut_cmds_system__log__show__log__alarm",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show log alarm -l 200",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/041_show-log-alarm--l-200.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
       "commandId": "cli_shortcut_cmds_system__log__show__log__event",
-      "status": "not-run",
-      "onBox": "unknown",
+      "status": "captured",
+      "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
         "matched": false
       },
-      "captures": [],
+      "captures": [
+        {
+          "runId": "run-01-healthy",
+          "command": "show log event -l 200",
+          "rawPath": "data/boxes/box3/runs/run-01-healthy/raw/042_show-log-event--l-200.txt",
+          "startedAt": "2026-10-31T10:48:05-04:00",
+          "endedAt": "2026-10-31T10:56:14-04:00",
+          "promptBefore": true,
+          "promptAfter": true,
+          "terminalCols": 250,
+          "redacted": false,
+          "parse": {
+            "status": "not-attempted",
+            "templateId": null,
+            "resultPath": null,
+            "error": null
+          }
+        }
+      ],
       "notes": ""
     },
     {
@@ -10853,10 +11563,10 @@
   ],
   "stats": {
     "commandCount": 985,
-    "onBoxYes": 0,
+    "onBoxYes": 28,
     "onBoxNo": 0,
-    "onBoxUnknown": 985,
-    "capturedCount": 0,
+    "onBoxUnknown": 957,
+    "capturedCount": 28,
     "parseOkCount": 0,
     "parseErrorCount": 0
   }

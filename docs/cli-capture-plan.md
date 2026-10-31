@@ -16,7 +16,7 @@ Round 1 of Goal 2.5: learn box 3's CLI and what its output looks like, store it 
 | Line | 1-7-5: Finisar QSFP-DD DCO, ZR400-16QAMSS-60G-OFEC at 193.5 THz, target −3 dBm |
 | Service | Cross-connect CC5_4: 100GE-1-7-4 ⇄ 100GE-1-7-5-4 → flexgdu-1-7-5-4 → flexgo-1-7-5 (#4) → och 1-7-5 |
 | Not in service | 1-7-1 (laser off), 1-8-1 and 1-8-4 (no transceiver) |
-| Box clock | Wrong: stuck in 2021 (`DATETIME_UNCHANGED` alarm), so alarm times need the offset in `meta.json` |
+| Box clock | Wrong: 2021-07-26 on 2026-10-31 (`DATETIME_UNCHANGED` alarm), so alarm times need the offset in `meta.json` |
 
 ### Wiring
 
@@ -31,7 +31,7 @@ F04,1-1-ad1,1-7-5,,,,demux out to the line Rx
 F05,1-1-line,1-1-line,ATT1,,10,line side looped back through a 10 dB pad
 ```
 
-This goes into `data/boxes/box3/wiring.csv`, and the table above into `setup.md`. Inside the C1125 (ad1 → booster → line, line → preamp → ad1) is L0, which stays opaque glass for now. F02 ends at the BERT, so the box cannot see it pulled: its right answer in an experiment is "insufficient evidence".
+This is `data/boxes/box3/wiring.csv`, and the table above is in `setup.md`. Inside the C1125 (ad1 → booster → line, line → preamp → ad1) is L0, which stays opaque glass for now. F02 ends at the BERT, so the box cannot see it pulled: its right answer in an experiment is "insufficient evidence".
 
 ## The recorder
 
@@ -71,11 +71,11 @@ data/boxes/box3/runs/
 ```
 
 - **File names:** `NNN_<slug>.txt`, where NNN is the order they ran and the slug is the command with spaces turned into `-`. The address keeps its case, `*` becomes `all` and `?` becomes `help`: `show port 1-7-*` is `004_show-port-1-7-all.txt`.
-- **`raw/index.jsonl`:** maps each file to its command id in the [CLI index](cli-data-schemas.md). `ok` is true once the prompt came back, so the output is complete.
+- **`raw/index.jsonl`:** one line per command, in the order they ran. `ok` is true once the prompt came back, so the output is complete. `at` is null in a hand capture, which has no per-command times.
   ```json
-  {"n": 7, "cmd": "show och 1-7-5", "commandId": "cli_shortcut_cmds_l1__och__show__och", "at": "2026-10-31T14:52:10Z", "source": "snapshot", "file": "007_show-och-1-7-5.txt", "ok": true}
+  {"n": 7, "cmd": "show och 1-7-5", "at": "2026-10-31T14:52:10Z", "source": "snapshot", "file": "007_show-och-1-7-5.txt", "ok": true}
   ```
-  `source` is `prereq`, `snapshot`, `typed` or `hand`.
+  `source` is `prereq`, `snapshot`, `typed` or `hand`. The sync works out which command of the [CLI index](cli-data-schemas.md) each line ran: `show och 1-7-5` is `show och <name>`, `show och` (a list without its key) is the same command, and `-l 200` is an option. Typos and commands the index lacks match nothing.
 - **Errors and empty output still count.** `Invalid name: alarms` shows the box doesn't have that command (`onBox: no`), and empty output is data.
 
 ### `meta.json`
@@ -105,9 +105,14 @@ Filled in by the recorder from the prerequisites and the identity commands:
 
 ### Run 1
 
-Run 1 came from `script` over ssh, with Tab completion, backspaces and typos in it (`show cas  haschassis       assis`, `physicall^H ^H-channel`). A one-off script, `scripts/split-session-log.mjs`, replays `session.log` through `@xterm/headless`, so each command line reads as the box saw it, splits it at the prompt lines and writes the layout above (`source: "hand"`). Run 1 has no clock command, so its `boxClockOffsetSec` is null.
+Run 1 came from `script` over ssh, with Tab completion, backspaces and typos in it (`show cas  haschassis       assis`, `physicall^H ^H-channel`). Its only control characters are backspaces and bells. `scripts/split-session-log.mjs` replays the backspaces on each prompt line, so each command reads as the box saw it, splits the log at the prompt lines and writes the layout above (`source: "hand"`). The original `session.log` stays next to the files.
 
-`scripts/sync-cli-index-csp.mjs` then reads `raw/index.jsonl`. Today it looks for `raw/<commandId>.txt` and falls back to `session.log` for every command, which marks every command as observed.
+```sh
+node scripts/split-session-log.mjs data/boxes/box3/runs/run-01-healthy
+npm run sync:cli-data:csp
+```
+
+Run 1 ran `date-time`, which prints the box clock (`2021-07-26T18:16:06 UTC`). With no per-command times, its offset is taken against the session start and may be up to 489 s too high. The sync reads `raw/index.jsonl` and nothing else from the run, so it no longer counts `session.log` as a capture of every command. Without the IIVI source on the machine, it keeps the committed `cli-index.source.json` and rebuilds only the observed and merged artifacts.
 
 ## Capture list
 
@@ -116,7 +121,8 @@ The commands are the real ones from run 1. **Snapshot** commands run in every sn
 | Group | Command | When |
 | --- | --- | --- |
 | Prerequisites | `configure`, `set cli length 0`, `set cli width 1024`, `exit` | login |
-| Identity | `show system`, `show software`, `show system clock` | snapshot |
+| Identity | `show system`, `show software`, `date-time` (the box clock) | snapshot |
+| Help tree | `help`, `help show`, `show cli` | snapshot |
 | Inventory | `show chassis`, `show card`, `show inventory`, `show card 1-* fan`, `show card 1-* psu` | snapshot |
 | Port state | `show port`, `show port 1-7-*` | snapshot |
 | Path config | `show assignment`, `show cross-connection` | snapshot |
@@ -131,7 +137,7 @@ The commands are the real ones from run 1. **Snapshot** commands run in every sn
 
 - The per-port commands are hard-coded to 1-7-4 and 1-7-5 for box 3. Later the poller takes the in-service ports from `show port` and `show assignment`.
 - Not on this release, from run 1: `show alarms`, `show alarm history` (use `show log alarm`), and `show pm threshold` (`invalid command`). `show pm` and `show pm history` print `None`.
-- `show system clock` hasn't been run yet. If it doesn't print the box's current time, find the command that does.
+- `date-time` is an rpc (`rpc date-time` in the index). With no arguments it only prints the clock. It is in the list by name, but the recorder never re-runs it, or any rpc, from typed commands.
 
 ## Templates
 
@@ -163,7 +169,7 @@ Hovering a fiber shows what the box measures at its ends. These are run 1's valu
 
 ## Order
 
-1. Split run 1 into the recorder's layout, write its `meta.json`, `setup.md` and `wiring.csv`, make the sync read `raw/index.jsonl`, and run `npm run sync:cli-data:csp` again.
+1. **Done (2026-10-31).** Split run 1 into the recorder's layout (50 commands), write its `meta.json`, `setup.md` and `wiring.csv`, make the sync read `raw/index.jsonl`, and run `npm run sync:cli-data:csp` again (28 index commands observed).
 2. The two shared patterns, the eight templates and their fixtures from run 1, with `npm test` passing.
 3. The recorder, parts 1 to 4, and `poll.json` from the capture list.
 4. The hovers.

@@ -1,0 +1,53 @@
+[config]
+control                   enabled
+hello-timer               30
+system-name               PAHO-GS2000-03
+system-description        GCATA000G
+chassis-id                
+chassis-id-type           mac-address
+
+
+[state]
+control                   enabled
+hello-timer               30
+system-name               PAHO-GS2000-03
+system-description        GCATA000G
+chassis-id                
+chassis-id-type           mac-address
+
+[interface]
+[config]
+
+id          control     
+--------    --------    
+1-1-osc     enabled     
+1-40-eth    disabled    
+1-43-nm     enabled     
+1-43-nm1    enabled     
+1-43-nm2    enabled     
+1-7-4       disabled    
+1-8-4       disabled    
+
+[interface]
+[state]
+
+id          control     
+--------    --------    
+1-1-osc     enabled     
+1-40-eth    disabled    
+1-43-nm     enabled     
+1-43-nm1    enabled     
+1-43-nm2    enabled     
+1-7-4       disabled    
+1-8-4       disabled    
+
+[neighbors]
+[state]
+
+interface    system-name       chassis-id           chassis-id-type    ttl    port-id    management-address                                    
+---------    --------------    -----------------    ---------------    ---    -------    --------------------------------------------------    
+1-1-osc      PAHO-GS2000-03    c4:ee:f5:07:07:fc    MAC_ADDRESS        120    1-1-osc    169.254.0.1,INTERFACE-1-40-ETH;10.111.25.12,INTERF    
+                                                                                         ACE-1-43-NM2
+1-43-nm2     PAHO-A04          24:71:21:a8:9a:81    MAC_ADDRESS        120    gi4        10.111.254.8                                          
+
+

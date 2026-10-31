@@ -1,0 +1,3 @@
+Invalid name: transciever
+Problem parsing command setting statement-path with value transciever
+

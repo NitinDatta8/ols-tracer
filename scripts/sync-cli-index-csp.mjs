@@ -363,13 +363,11 @@ const stream = options.stream;
 const box = options.box;
 
 const profileDir = join(iiviRoot, 'profile', 'cu', 'cli', stream);
-if (!existsSync(profileDir)) throw new Error(`Missing profile directory: ${profileDir}`);
-
-const xmlFiles = readdirSync(profileDir)
-  .filter((name) => /^cli_shortcut_cmds_.*\.xml$/.test(name))
-  .sort();
-
-if (!xmlFiles.length) throw new Error(`No cli_shortcut_cmds_*.xml files found under ${profileDir}`);
+// Without the IIVI source (a machine with only this repo), the committed index stays as it is and only the observed
+// and merged artifacts are rebuilt from the runs.
+const xmlFiles = existsSync(profileDir)
+  ? readdirSync(profileDir).filter((name) => /^cli_shortcut_cmds_.*\.xml$/.test(name)).sort()
+  : [];
 
 const cliRoot = join(outRoot, 'cli', stream);
 const branchesRoot = join(cliRoot, 'branches');
@@ -433,7 +431,10 @@ for (const fileName of xmlFiles) {
   }
 }
 
-const uniqueCommands = ensureUniqueCommandIds(commands);
+const indexPath = join(cliRoot, 'cli-index.source.json');
+const uniqueCommands = xmlFiles.length ? ensureUniqueCommandIds(commands) : readJson(indexPath)?.commands;
+if (!uniqueCommands) throw new Error(`No cli_shortcut_cmds_*.xml under ${profileDir} and no ${relRepo(indexPath)}`);
+if (!xmlFiles.length) console.log(`[sync:cli-data:csp] no CLI XML under ${relRepo(profileDir)}: using ${relRepo(indexPath)}`);
 
 const indexDoc = {
   schemaVersion: '1.0',
@@ -457,21 +458,52 @@ const indexDoc = {
   },
 };
 
-writeJson(join(cliRoot, 'cli-index.source.json'), indexDoc, options.dryRun);
+if (xmlFiles.length) writeJson(indexPath, indexDoc, options.dryRun);
 
 const runIds = existsSync(runsRoot)
   ? readdirSync(runsRoot, { withFileTypes: true }).filter((entry) => entry.isDirectory()).map((entry) => entry.name).sort()
   : [];
 
+/**
+ * The index command a command line runs. The syntax's words match the line's, a <key> matches any word, and a list's
+ * last key may be left out (`show och` lists them all); only options (`-l 200`) may follow. An rpc is typed without
+ * its `rpc`. The match with the most literal words wins, so typos and commands the index lacks match nothing.
+ */
+function commandFor(line) {
+  const typed = line.trim().split(/\s+/);
+  const key = (word) => word.startsWith('<');
+  let best = null;
+  let bestScore = -1;
+  for (const command of uniqueCommands) {
+    const words = command.syntax.split(' ').slice(command.op === 'rpc' && typed[0] !== 'rpc' ? 1 : 0);
+    const fits = words.every((word, i) => (i < typed.length ? key(word) || word === typed[i] : key(word) && i === words.length - 1))
+      && (typed.length <= words.length || typed[words.length].startsWith('-'));
+    const score = words.filter((word) => !key(word)).length;
+    if (fits && score > bestScore) [best, bestScore] = [command, score];
+  }
+  return best;
+}
+
+/** Each run's raw/index.jsonl, one { n, cmd, at, source, file, ok } per command run, grouped by the index command. */
+const runCaptures = new Map();
+for (const runId of runIds) {
+  const runRoot = join(runsRoot, runId);
+  const indexFile = join(runRoot, 'raw', 'index.jsonl');
+  if (!existsSync(indexFile)) continue;
+  const meta = readJson(join(runRoot, 'meta.json'), {});
+  for (const entry of readFileSync(indexFile, 'utf8').split('\n').filter(Boolean).map((line) => JSON.parse(line))) {
+    const command = commandFor(entry.cmd);
+    if (!command) continue;
+    if (!runCaptures.has(command.commandId)) runCaptures.set(command.commandId, []);
+    runCaptures.get(command.commandId).push({ runId, runRoot, meta, entry });
+  }
+}
+
 const observations = uniqueCommands.map((command) => {
   const captures = [];
-  for (const runId of runIds) {
-    const runRoot = join(runsRoot, runId);
-    const meta = readJson(join(runRoot, 'meta.json'), {});
-    const rawPath = join(runRoot, 'raw', `${command.commandId}.txt`);
-    const sessionPath = join(runRoot, 'raw', 'session.log');
-    const parsedPath = join(runRoot, 'parsed', `${command.commandId}.json`);
-    if (!existsSync(rawPath) && !existsSync(parsedPath) && !existsSync(sessionPath)) continue;
+  for (const { runId, runRoot, meta, entry } of runCaptures.get(command.commandId) ?? []) {
+    const rawPath = join(runRoot, 'raw', entry.file);
+    const parsedPath = join(runRoot, 'parsed', entry.file.replace(/\.txt$/, '.json'));
 
     let parseStatus = 'not-attempted';
     let parseError = null;
@@ -490,12 +522,12 @@ const observations = uniqueCommands.map((command) => {
 
     captures.push({
       runId,
-      command: command.syntax,
-      rawPath: relRepo(existsSync(rawPath) ? rawPath : sessionPath),
-      startedAt: typeof meta.started === 'string' ? meta.started : nowIso,
-      endedAt: typeof meta.ended === 'string' ? meta.ended : nowIso,
+      command: entry.cmd,
+      rawPath: relRepo(rawPath),
+      startedAt: entry.at ?? (typeof meta.started === 'string' ? meta.started : nowIso),
+      endedAt: entry.at ?? (typeof meta.ended === 'string' ? meta.ended : nowIso),
       promptBefore: true,
-      promptAfter: true,
+      promptAfter: entry.ok === true,
       terminalCols: 250,
       redacted: false,
       parse: {
@@ -541,7 +573,7 @@ const observedDoc = {
     captureRules: {
       pagingOffCommand: 'set cli length 0',
       minTerminalCols: 250,
-      preservePrompt: true,
+      preservePrompt: false, // raw files hold the lines between the echo and the next prompt
       allowEdits: false,
     },
   },

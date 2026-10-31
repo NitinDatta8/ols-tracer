@@ -1,0 +1,19 @@
+{
+  "run": "run-01-healthy",
+  "box": "box3",
+  "host": "10.111.25.12",
+  "hostname": "PAHO-GS2000-03",
+  "release": "CSP-2.10.100.10_20261013",
+  "trigger": "hand",
+  "started": "2026-10-31T10:48:05-04:00",
+  "ended": "2026-10-31T10:56:14-04:00",
+  "boxClock": "2021-07-26T18:16:06+00:00",
+  "boxClockOffsetSec": -166134719,
+  "prereqs": [
+    { "cmd": "set cli length 0", "ok": true },
+    { "cmd": "set cli auto-width disabled", "ok": false },
+    { "cmd": "set cli width 1024", "ok": true }
+  ],
+  "state": "healthy",
+  "notes": "Hand capture: `script` over ssh, split by scripts/split-session-log.mjs. The log has no per-command times, so boxClockOffsetSec is taken against the session start and may be up to 489 s too high (date-time ran within the session)."
+}

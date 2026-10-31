@@ -422,7 +422,7 @@ Current rollout scope: **CSP only** (`stream = "csp"`).
           "properties": {
             "pagingOffCommand": { "type": "string", "minLength": 1 },
             "minTerminalCols": { "type": "integer", "minimum": 250 },
-            "preservePrompt": { "const": true },
+            "preservePrompt": { "type": "boolean" },
             "allowEdits": { "const": false }
           }
         }
