@@ -1,6 +1,6 @@
 // Recorder: writes what the bridge's poller reads into data/boxes/<box>/runs/, so a session with the box leaves its runs
 // on disk without anyone capturing them. A run is one snapshot (every command in poll.json, once) and the polls after
-// it, until the next snapshot. The layout and meta.json are described in docs/cli-capture-plan.md.
+// it, until the next snapshot. The layout and meta.json are described in docs/plans/box3-capture.md.
 // On its own it parses a run's raw output again into parsed/, e.g. after a template changed:
 //   node bridge/recorder.mjs data/boxes/box3/runs/run-01-healthy
 import { execFile } from 'node:child_process';
