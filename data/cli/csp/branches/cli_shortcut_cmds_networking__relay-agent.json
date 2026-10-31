@@ -1,0 +1,455 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_networking__relay-agent",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_networking.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_networking__relay-agent:n1",
+    "name": "relay-agent",
+    "aliasName": null,
+    "type": "container",
+    "path": [
+      "relay-agent"
+    ],
+    "cmdTypeRaw": "set,show",
+    "cmdTypes": [
+      "set",
+      "show"
+    ],
+    "key": null,
+    "keyQuery": null,
+    "keyElem": null,
+    "idName": null,
+    "keyPattern": null,
+    "keyRegex": null,
+    "keyPrefixReplacement": null,
+    "permissionRule": null,
+    "helperInfo": "Description: Configuration data for global relay-agent.",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_networking__relay-agent:n2",
+        "name": "dhcpv4",
+        "aliasName": null,
+        "type": "container",
+        "path": [
+          "relay-agent",
+          "dhcpv4"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Configuration data for global dhcpv4",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_networking__relay-agent:n3",
+            "name": "enable",
+            "aliasName": "enable-relay-agent",
+            "type": "leaf",
+            "path": [
+              "relay-agent",
+              "dhcpv4",
+              "enable"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": "/openconfig-relay-agent:relay-agent/dhcp/config",
+            "keyQuery": "/openconfig-relay-agent:relay-agent/dhcp/state",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The configured, desired state of the global relay-agent. Available input value: - \"true\": Enable relay-agent on system level - \"false\": Disable relay-agent on system level Default mode: \"false\"",
+            "unit": null,
+            "values": [
+              "true",
+              "false"
+            ],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__relay-agent:n4",
+            "name": "agent-information-option-enable",
+            "aliasName": "enable-agent-information",
+            "type": "leaf",
+            "path": [
+              "relay-agent",
+              "dhcpv4",
+              "agent-information-option-enable"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": "/openconfig-relay-agent:relay-agent/dhcp/config",
+            "keyQuery": "/openconfig-relay-agent:relay-agent/dhcp/state",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The switch to inject or not the option82 Available input value: - \"true\": Inject option82 - \"false\": Not inject option82 Default value: \"true\"",
+            "unit": null,
+            "values": [
+              "true",
+              "false"
+            ],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__relay-agent:n5",
+            "name": "interface",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "relay-agent",
+              "dhcpv4",
+              "interface"
+            ],
+            "cmdTypeRaw": "set,show,delete",
+            "cmdTypes": [
+              "set",
+              "show",
+              "delete"
+            ],
+            "key": "/openconfig-relay-agent:relay-agent/dhcp/interfaces/interface/config",
+            "keyQuery": "/openconfig-relay-agent:relay-agent/dhcp/interfaces/interface/state",
+            "keyElem": [
+              "id"
+            ],
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: Set dhcpv4 relay-agent interface enable the rule.",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": true,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_networking__relay-agent:n6",
+                "name": "interface-ref",
+                "aliasName": "interface",
+                "type": "leaf",
+                "path": [
+                  "relay-agent",
+                  "dhcpv4",
+                  "interface",
+                  "interface-ref"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": "/openconfig-relay-agent:relay-agent/dhcp/interfaces/interface/config",
+                "keyQuery": "/openconfig-relay-agent:relay-agent/dhcp/interfaces/interface/state",
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: Reference to a base interface identifier of system network management interface or osc interface. Value type: string",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__relay-agent:n7",
+                "name": "enable",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "relay-agent",
+                  "dhcpv4",
+                  "interface",
+                  "enable"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": "/openconfig-relay-agent:relay-agent/dhcp/interfaces/interface/config",
+                "keyQuery": "/openconfig-relay-agent:relay-agent/dhcp/interfaces/interface/state",
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The configured, desired state of the relay-agent on interface. Available input value: - \"true\": Enable relay-agent on the interface - \"false\": Disable relay-agent on the interface Default mode: \"false\"",
+                "unit": null,
+                "values": [
+                  "true",
+                  "false"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__relay-agent:n8",
+                "name": "helper-address",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "relay-agent",
+                  "dhcpv4",
+                  "interface",
+                  "helper-address"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": "/openconfig-relay-agent:relay-agent/dhcp/interfaces/interface/config",
+                "keyQuery": "/openconfig-relay-agent:relay-agent/dhcp/interfaces/interface/state",
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: DHCP server IPv4 address. Available input: - &lt;IPv4 address&gt;: The DHCP server IPv4 address . Format: xxx.xxx.xxx.xxx - \"\";delete the DHCP server IP address Default Value: \"\"",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__relay-agent:n9",
+                "name": "circuit-id",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "relay-agent",
+                  "dhcpv4",
+                  "interface",
+                  "circuit-id"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": "/openconfig-relay-agent:relay-agent/dhcp/interfaces/interface/config",
+                "keyQuery": "/openconfig-relay-agent:relay-agent/dhcp/interfaces/interface/state",
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: DHCP relay-agent interface circuit ID Value type: string Default Value: 1-&lt;slot-id&gt;-&lt;interface-name&gt;",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__relay-agent:n10",
+                "name": "remote-id",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "relay-agent",
+                  "dhcpv4",
+                  "interface",
+                  "remote-id"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": "/openconfig-relay-agent:relay-agent/dhcp/interfaces/interface/config",
+                "keyQuery": "/openconfig-relay-agent:relay-agent/dhcp/interfaces/interface/state",
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: DHCP relay-agent interface remote ID Value type: string Default Value: \"\"",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__relay-agent:n11",
+                "name": "sent-circuit-id",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "relay-agent",
+                  "dhcpv4",
+                  "interface",
+                  "sent-circuit-id"
+                ],
+                "cmdTypeRaw": "show",
+                "cmdTypes": [
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": "/openconfig-relay-agent:relay-agent/dhcp/interfaces/interface/state",
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": null,
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__relay-agent:n12",
+                "name": "sent-remote-id",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "relay-agent",
+                  "dhcpv4",
+                  "interface",
+                  "sent-remote-id"
+                ],
+                "cmdTypeRaw": "show",
+                "cmdTypes": [
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": "/openconfig-relay-agent:relay-agent/dhcp/interfaces/interface/state",
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": null,
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 12,
+    "leafCount": 9,
+    "maxDepth": 4
+  }
+}

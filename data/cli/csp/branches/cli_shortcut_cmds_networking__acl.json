@@ -1,0 +1,682 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_networking__acl",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_networking.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_networking__acl:n1",
+    "name": "acl",
+    "aliasName": null,
+    "type": "container",
+    "path": [
+      "acl"
+    ],
+    "cmdTypeRaw": "set,show",
+    "cmdTypes": [
+      "set",
+      "show"
+    ],
+    "key": "/openconfig-acl:acl/config",
+    "keyQuery": null,
+    "keyElem": null,
+    "idName": null,
+    "keyPattern": null,
+    "keyRegex": null,
+    "keyPrefixReplacement": null,
+    "permissionRule": null,
+    "helperInfo": "Set Access Control List (ACL).",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_networking__acl:n2",
+        "name": "counter-capability",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "acl",
+          "counter-capability"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": "/openconfig-acl:acl/config",
+        "keyQuery": "/openconfig-acl:acl/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: System reported indication of how ACL counters are reported by the target Possibility Output Value: - \"interface-only\": ACL counters are available and reported per interface.",
+        "unit": null,
+        "values": [
+          "interface-only"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_networking__acl:n3",
+        "name": "rule",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "acl",
+          "rule"
+        ],
+        "cmdTypeRaw": "set,show,delete",
+        "cmdTypes": [
+          "set",
+          "show",
+          "delete"
+        ],
+        "key": "/openconfig-acl:acl/acl-sets/acl-set/config",
+        "keyQuery": "/openconfig-acl:acl/acl-sets/acl-set/state",
+        "keyElem": [
+          "name",
+          "type"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Set Access Control List (ACL) rule group attributes for identified one.",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": true,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_networking__acl:n4",
+            "name": "name",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "acl",
+              "rule",
+              "name"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The name of the identified acl rule. Value type: string",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__acl:n5",
+            "name": "type",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "acl",
+              "rule",
+              "type"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The type determines the fields allowed in the ACL entries belonging to the ACL rule. Available input: - \"ACL_IPV4\": the fields allowed IP-layer ACLs with IPv4 address. - \"ACL_IPV6\": the fields allowed IP-layer ACLs with IPv6 address.",
+            "unit": null,
+            "values": [
+              "ACL_IPV4",
+              "ACL_IPV6"
+            ],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__acl:n6",
+            "name": "description",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "acl",
+              "rule",
+              "description"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: Customer defined description for ACL rule. Value type: string",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__acl:n7",
+            "name": "entry",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "acl",
+              "rule",
+              "entry"
+            ],
+            "cmdTypeRaw": "set,show,delete",
+            "cmdTypes": [
+              "set",
+              "show",
+              "delete"
+            ],
+            "key": "/openconfig-acl:acl/acl-sets/acl-set/acl-entries/acl-entry/config",
+            "keyQuery": "/openconfig-acl:acl/acl-sets/acl-set/acl-entries/acl-entry/state",
+            "keyElem": [
+              "sequence-id"
+            ],
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: Set Access Control List (ACL) entry attributes for identified rule.",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_networking__acl:n8",
+                "name": "sequence-id",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "acl",
+                  "rule",
+                  "entry",
+                  "sequence-id"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The sequence id determines the order in which ACL entries are applied. The sequence id must be unique for each entry in an ACL set. Target devices should apply the ACL entry rule in ascending order determined by sequence id (low to high), rather than the relying only on order in the list. Value type: positive integer Value range: 0…4294967295 Granularity: 1",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__acl:n9",
+                "name": "source-address",
+                "aliasName": "source-address",
+                "type": "leaf",
+                "path": [
+                  "acl",
+                  "rule",
+                  "entry",
+                  "source-address"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": "/openconfig-acl:acl/acl-sets/acl-set/acl-entries/acl-entry/ipv4/config",
+                "keyQuery": "/openconfig-acl:acl/acl-sets/acl-set/acl-entries/acl-entry/ipv4/state",
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: Source IPv4 or IPv6 address prefix. Available input: - &lt;IPv4 address with prefix&gt;: The IPv4 source address with prefix. Format: xxx.xxx.xxx.xxx/xx - &lt;IPv6 address with prefix&gt;: The IPv6 source address with prefix. Could be full Format: xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx/xx or shortened Format: xxxx::x/xx or xxxx::/xx - \"\": Empty, hasn't defined the target source ip Default Value: \"\"",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__acl:n10",
+                "name": "protocol",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "acl",
+                  "rule",
+                  "entry",
+                  "protocol"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": "/openconfig-acl:acl/acl-sets/acl-set/acl-entries/acl-entry/ipv4/config",
+                "keyQuery": "/openconfig-acl:acl/acl-sets/acl-set/acl-entries/acl-entry/ipv4/state",
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: IP protocol type Available input: - &lt;IP_TCP&gt;: The layer4 protocol type TCP - &lt;IP_UDP&gt;: The layer4 protocol type UDP - &lt;ICMPv4&gt;: The IPv4 ICMP - &lt;ICMPv6&gt;: The IPv6 ICMP - \"any\": permit all protocols Default Value: \"any\"",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__acl:n11",
+                "name": "destination-port",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "acl",
+                  "rule",
+                  "entry",
+                  "destination-port"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": "/openconfig-acl:acl/acl-sets/acl-set/acl-entries/acl-entry/transport/config",
+                "keyQuery": "/openconfig-acl:acl/acl-sets/acl-set/acl-entries/acl-entry/transport/state",
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: the layer4 destination port Available input: - &lt;port-num-range&gt;: The layer4 protocol destination port number range Format: xx..xx - \"any\": permit all port number Default Value: \"any\"",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__acl:n12",
+                "name": "forwarding-action",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "acl",
+                  "rule",
+                  "entry",
+                  "forwarding-action"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": "/openconfig-acl:acl/acl-sets/acl-set/acl-entries/acl-entry/actions/config",
+                "keyQuery": "/openconfig-acl:acl/acl-sets/acl-set/acl-entries/acl-entry/actions/state",
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: Specifies the forwarding action. One forwarding action must be specified for each ACL entry. Available input: - \"accept\": Accept the packet match the rule. Default Value: \"accept\"",
+                "unit": null,
+                "values": [
+                  "accept"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__acl:n13",
+                "name": "description",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "acl",
+                  "rule",
+                  "entry",
+                  "description"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: Customer defined description for ACL rule entry. Value type: string",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_networking__acl:n14",
+        "name": "interface",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "acl",
+          "interface"
+        ],
+        "cmdTypeRaw": "set,show,delete",
+        "cmdTypes": [
+          "set",
+          "show",
+          "delete"
+        ],
+        "key": "/openconfig-acl:acl/interfaces/interface/config",
+        "keyQuery": "/openconfig-acl:acl/interfaces/interface/state",
+        "keyElem": [
+          "id"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: User-defined identifier for the interface. Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": true,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_networking__acl:n15",
+            "name": "interface-ref",
+            "aliasName": "interface",
+            "type": "leaf",
+            "path": [
+              "acl",
+              "interface",
+              "interface-ref"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": "/openconfig-acl:acl/interfaces/interface/interface-ref/config",
+            "keyQuery": "/openconfig-acl:acl/interfaces/interface/interface-ref/state",
+            "keyElem": [
+              "id"
+            ],
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: Reference to a base interface identifier of system network management interface or osc interface. Value type: string",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__acl:n16",
+            "name": "ingress-rule",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "acl",
+              "interface",
+              "ingress-rule"
+            ],
+            "cmdTypeRaw": "set,show,delete",
+            "cmdTypes": [
+              "set",
+              "show",
+              "delete"
+            ],
+            "key": "/openconfig-acl:acl/interfaces/interface/ingress-acl-sets/ingress-acl-set/config",
+            "keyQuery": "/openconfig-acl:acl/interfaces/interface/ingress-acl-sets/ingress-acl-set/state",
+            "keyElem": [
+              "set-name",
+              "type"
+            ],
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: Set Access Control List (ACL) rule used for identified interface.",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": true,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_networking__acl:n17",
+                "name": "rule-name",
+                "aliasName": "set-name",
+                "type": "leaf",
+                "path": [
+                  "acl",
+                  "interface",
+                  "ingress-rule",
+                  "rule-name"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: Reference to the ACL rule name applied on ingress. Value type: string",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__acl:n18",
+                "name": "type",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "acl",
+                  "interface",
+                  "ingress-rule",
+                  "type"
+                ],
+                "cmdTypeRaw": "show,set",
+                "cmdTypes": [
+                  "show",
+                  "set"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: Reference to the ACL type applied on ingress. Available input: - \"ACL_IPV4\": - \"ACL_IPV6\":.",
+                "unit": null,
+                "values": [
+                  "ACL_IPV4",
+                  "ACL_IPV6"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 18,
+    "leafCount": 13,
+    "maxDepth": 4
+  }
+}

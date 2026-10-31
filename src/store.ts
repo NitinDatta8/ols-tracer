@@ -35,12 +35,22 @@ const nextId = (prefix: string, items: { id: string }[]) =>
 
 /**
  * Ids renamed since files were saved: linecards C-1, C-9, C-11, MX-4 and MX-8 are now C25, C925, C1125, 400MX and 800MX,
- * and the 8-Slot Chassis is now the 2000.
+ * and older common chassis ids map to profile-backed slot-count ids.
  */
 const RENAMED: Record<string, string> = {
-  'lc-c1': 'lc-c25', 'lc-c9': 'lc-c925', 'lc-c11': 'lc-c1125', 'lc-mx4': 'lc-400mx', 'lc-mx8': 'lc-800mx', 'ch-8slot': 'ch-2000',
+  'lc-c1': 'lc-c25',
+  'lc-c9': 'lc-c925',
+  'lc-c11': 'lc-c1125',
+  'lc-mx4': 'lc-400mx',
+  'lc-mx8': 'lc-800mx',
+  'ch-2000': 'ch-8slot',
+  'ch-2026': 'ch-8slot',
+  'ch-2026-4ru': 'ch-16slot',
 };
+/** Earlier demo streams were corp-a/corp-b; profile-backed streams are now csp/ctc/polaris/tencent/ws. */
+const RENAMED_STREAMS: Record<string, string> = { 'corp-a': 'csp', 'corp-b': 'tencent' };
 const upgrade = (t: Topology | null) => {
+  if (t) t.stream = RENAMED_STREAMS[t.stream] ?? t.stream;
   for (const d of t?.devices ?? []) {
     d.chassis = RENAMED[d.chassis] ?? d.chassis;
     for (const s of Object.values(d.slots)) s.linecard = RENAMED[s.linecard] ?? s.linecard;

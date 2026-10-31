@@ -1,0 +1,749 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_eqpt__transceiver",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_eqpt.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_eqpt__transceiver:n1",
+    "name": "transceiver",
+    "aliasName": null,
+    "type": "list",
+    "path": [
+      "transceiver"
+    ],
+    "cmdTypeRaw": "set,show",
+    "cmdTypes": [
+      "set",
+      "show"
+    ],
+    "key": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/config",
+    "keyQuery": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/state",
+    "keyElem": [
+      "name"
+    ],
+    "idName": null,
+    "keyPattern": "TRANSCEIVER-",
+    "keyRegex": "TRANSCEIVER-(\\d)-(\\d+)-(\\d+|[CL]\\d+|SFP\\d+|S\\d+|OSC)",
+    "keyPrefixReplacement": null,
+    "permissionRule": "admin|rw,operation|rw,supervision|ro",
+    "helperInfo": "show transceiver",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__transceiver:n2",
+        "name": "tunable-wavelength",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "transceiver",
+          "tunable-wavelength"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/config",
+        "keyQuery": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": "^TRANSCEIVER-([0-9]+)-([0-9]+)-(SFP)([0-9]+)$",
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The specified channel frequency/wavelength name of transceiver. - \"none\": No specific channel, transceiver will work in the wavelength saved in itself. - &lt;frequency&gt;: The channel frequency. - &lt;wavelength&gt;: The channel wavelength.",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__transceiver:n3",
+        "name": "physical-channel",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "transceiver",
+          "physical-channel"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/physical-channels/channel/config",
+        "keyQuery": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/physical-channels/channel/state",
+        "keyElem": [
+          "index"
+        ],
+        "idName": "channel-id",
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "the state attributes of identified transceiver's channels or identified channel",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_eqpt__transceiver:n4",
+            "name": "channel-id",
+            "aliasName": "index",
+            "type": "leaf",
+            "path": [
+              "transceiver",
+              "physical-channel",
+              "channel-id"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The index of transceiver’s physical channel. The index starts from 1 and consecutive numbering. Value type: positive integer",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_eqpt__transceiver:n5",
+            "name": "transmitter-frequency",
+            "aliasName": "output-frequency",
+            "type": "leaf",
+            "path": [
+              "transceiver",
+              "physical-channel",
+              "transmitter-frequency"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: Statistics state of optical channel’s transferred signal optical frequency. Value type: positive integer Units: MHz",
+            "unit": "MHz",
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_eqpt__transceiver:n6",
+            "name": "output-power",
+            "aliasName": null,
+            "type": "container",
+            "path": [
+              "transceiver",
+              "physical-channel",
+              "output-power"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/physical-channels/channel/state/output-power",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: Statistics state of transceiver transferred total optical power, include instant, avg, min, max value Value type: 2-digit decimal Units: dBm",
+            "unit": "dBm",
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_eqpt__transceiver:n7",
+            "name": "input-power",
+            "aliasName": null,
+            "type": "container",
+            "path": [
+              "transceiver",
+              "physical-channel",
+              "input-power"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/physical-channels/channel/state/input-power",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: Statistics state of transceiver received total optical power, include instant, avg, min, max value Value type: 2-digit decimal Units: dBm",
+            "unit": "dBm",
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__transceiver:n8",
+        "name": "present",
+        "aliasName": "empty",
+        "type": "leaf",
+        "path": [
+          "transceiver",
+          "present"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The provisioned transceiver's hardware present state Possibility Value: - true: transceiver is present - false: transceiver is absent",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__transceiver:n9",
+        "name": "oper-status",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "transceiver",
+          "oper-status"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": "/openconfig-platform:components/component/config",
+        "keyQuery": "/openconfig-platform:components/component/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The operational status of identifier transceiver Value type: enumeration - active: card is admin-state enabled and active - inactive: card is admin-state enabled and inactive - disabled: card is admin-state disabled",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__transceiver:n10",
+        "name": "removable",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "transceiver",
+          "removable"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": "/openconfig-platform:components/component/config",
+        "keyQuery": "/openconfig-platform:components/component/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The transceiver is removeable or not Possibility Value: - \"true\": transceiver is removeable - \"false\": transceiver is fixed at parent",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__transceiver:n11",
+        "name": "rated-power",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "transceiver",
+          "rated-power"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": "/openconfig-platform:components/component/config",
+        "keyQuery": "/openconfig-platform:components/component/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The rated power for the component Value type: positive integer Units: W",
+        "unit": "W",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__transceiver:n12",
+        "name": "used-power",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "transceiver",
+          "used-power"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": "/openconfig-platform:components/component/config",
+        "keyQuery": "/openconfig-platform:components/component/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The used power for the component Value type: positive integer Units: W",
+        "unit": "W",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__transceiver:n13",
+        "name": "fec-corrected-bits",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "transceiver",
+          "fec-corrected-bits"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The number of bits that were corrected by the FEC Value type: positive integer Units: bits",
+        "unit": "bits",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__transceiver:n14",
+        "name": "firmware-version",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "transceiver",
+          "firmware-version"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": "/openconfig-platform:components/component/config",
+        "keyQuery": "/openconfig-platform:components/component/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The firmware version of present transceiver. If the transceiver hasn't firmware it will report empty Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__transceiver:n15",
+        "name": "pre-fec-ber",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "transceiver",
+          "pre-fec-ber"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/state/pre-fec-ber",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "TRANSCEIVER-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of transceiver received signal bit error rate before forward error correction, include instant, avg, min, max value. Value type: 2-digit decimal scientific notation: x.xxE±yy",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__transceiver:n16",
+        "name": "post-fec-ber",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "transceiver",
+          "post-fec-ber"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/state/post-fec-ber",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "TRANSCEIVER-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of transceiver received signal bit error rate after forward error correction, include instant, avg, min, max value Value type: 2-digit decimal scientific notation: x.xxE±yy",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__transceiver:n17",
+        "name": "output-power",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "transceiver",
+          "output-power"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/state/output-power",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "TRANSCEIVER-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of transceiver transferred total optical power, include instant, avg, min, max value Value type: 2-digit decimal Units: dBm",
+        "unit": "dBm",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__transceiver:n18",
+        "name": "input-power",
+        "aliasName": "input-power",
+        "type": "list",
+        "path": [
+          "transceiver",
+          "input-power"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/state/input-power",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "TRANSCEIVER-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of transceiver received total optical power, include instant, avg, min, max value Value type: 2-digit decimal Units: dBm",
+        "unit": "dBm",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__transceiver:n19",
+        "name": "laser-bias-current",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "transceiver",
+          "laser-bias-current"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/state/laser-bias-current",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "TRANSCEIVER-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of the current applied by the system to the transmit laser to achieve the output power, include instant, avg, min, max value Value type: positive integer Units: mA",
+        "unit": "mA",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__transceiver:n20",
+        "name": "temperature",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "transceiver",
+          "temperature"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/state/temperature",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "TRANSCEIVER-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of transceiver case temperature, include instant, avg, min, max value Value type: 1-digit decimal Units: °C Precision: 0.1",
+        "unit": "°C",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__transceiver:n21",
+        "name": "input-voltage",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "transceiver",
+          "input-voltage"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/state/input-voltage",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "TRANSCEIVER-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of transceiver input supply voltage, include instant, avg, min, max value Value type: 2-digit decimal Units: V Precision: 0.01",
+        "unit": "V",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 21,
+    "leafCount": 19,
+    "maxDepth": 3
+  }
+}

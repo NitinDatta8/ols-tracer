@@ -1,27 +1,27 @@
 {
   "version": 1,
-  "stream": "corp-a",
+  "stream": "csp",
   "devices": [
     {
-      "id": "d1", "chassis": "ch-2000", "name": "Site-A", "x": 0, "y": 0,
+      "id": "d1", "chassis": "ch-8slot", "name": "Site-A", "x": 0, "y": 0,
       "slots": {
-        "1": { "linecard": "lc-c925", "ports": {} },
+        "1": { "linecard": "lc-c925", "ports": { "LINE": { "pluggable": "60g700001" } } },
         "3": { "linecard": "lc-400mx",
-               "ports": { "C1": { "pluggable": "sfp28-25g-lr" }, "C2": { "pluggable": "dsfp-100g-lr" }, "L1": { "pluggable": "qsfp-dd-zr" } } }
+               "ports": { "C1": { "pluggable": "60g800001" }, "C2": { "pluggable": "60g810001" }, "L1": { "pluggable": "60s140001" } } }
       }
     },
     {
-      "id": "d2", "chassis": "ch-2000", "name": "Site-B", "x": 650, "y": 0,
+      "id": "d2", "chassis": "ch-8slot", "name": "Site-B", "x": 650, "y": 0,
       "slots": {
-        "1": { "linecard": "lc-c925", "ports": {} },
+        "1": { "linecard": "lc-c925", "ports": { "LINE": { "pluggable": "60g700001" } } },
         "3": { "linecard": "lc-400mx",
-               "ports": { "C1": { "pluggable": "sfp28-25g-lr" }, "C2": { "pluggable": "dsfp-100g-lr" }, "L1": { "pluggable": "qsfp-dd-zr" } } }
+               "ports": { "C1": { "pluggable": "60g800001" }, "C2": { "pluggable": "60g810001" }, "L1": { "pluggable": "60s140001" } } }
       }
     }
   ],
   "links": [
-    { "id": "f1", "type": "smf", "a": { "device": "d1", "slot": "1", "port": "L1" }, "b": { "device": "d2", "slot": "1", "port": "L1" } },
-    { "id": "f2", "type": "smf", "a": { "device": "d2", "slot": "1", "port": "L1" }, "b": { "device": "d1", "slot": "1", "port": "L1" } },
+    { "id": "f1", "type": "smf", "a": { "device": "d1", "slot": "1", "port": "LINE" }, "b": { "device": "d2", "slot": "1", "port": "LINE" } },
+    { "id": "f2", "type": "smf", "a": { "device": "d2", "slot": "1", "port": "LINE" }, "b": { "device": "d1", "slot": "1", "port": "LINE" } },
     { "id": "f3", "type": "smf", "a": { "device": "d1", "slot": "3", "port": "L1" }, "b": { "device": "d1", "slot": "3", "port": "L1" } },
     { "id": "f4", "type": "smf", "a": { "device": "d2", "slot": "3", "port": "L1" }, "b": { "device": "d2", "slot": "3", "port": "L1" } }
   ]

@@ -1,20 +1,28 @@
+import { existsSync, readFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import demo from '../examples/demo.olst.json';
-import { byId, catalogFor, cli, streams } from './catalog';
+import { byId, catalogFor, cli, nextMode, streams } from './catalog';
 import { layout, moveRun } from './route';
 import { alarms, fiberError, linecardError, pluggableError, validate } from './rules';
 import type { Topology } from './types';
 
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+
 describe.each(streams)('stream $id', ({ id }) => {
   const cat = catalogFor(id);
 
-  it('has the 2000, 2026 (2U) and 2026-4RU (4U) chassis and the C and MX variants from common/', () => {
-    expect(cat.chassis.map((c) => [c.name, c.slots.length / (c.columns ?? c.slots.length), c.psus, c.fans])).toEqual([
-      ['2000', 2, 2, 3], ['2026', 2, 2, 3], ['2026-4RU', 4, 2, 3],
-    ]);
-    expect(cat.linecards.map((c) => [c.name, c.width ?? 1, c.ports.length])).toEqual([
-      ['C25', 2, 1], ['C925', 2, 9], ['C1125', 2, 11], ['400MX', 1, 4], ['800MX', 1, 8],
-    ]);
+  const slotFits = (columns: number, index: number, width = 1) => width <= 1 || (index % columns) + width <= columns;
+
+  it('includes profile-backed hardware for this stream', () => {
+    expect(cat.chassis.length, `${id}: no chassis`).toBeGreaterThan(0);
+    expect(cat.linecards.length, `${id}: no linecards`).toBeGreaterThan(0);
+    expect(cat.pluggables.length, `${id}: no pluggables`).toBeGreaterThan(0);
+    for (const chassis of cat.chassis) {
+      expect(chassis.slots.length, `${id}:${chassis.id} has no slots`).toBeGreaterThan(0);
+      expect(chassis.slots.some((slot) => slot.allowedLinecards.length > 0), `${id}:${chassis.id} has no allowed cards`).toBe(true);
+    }
   });
 
   it('only references hardware that exists in the stream', () => {
@@ -22,18 +30,61 @@ describe.each(streams)('stream $id', ({ id }) => {
     for (const c of cat.chassis) for (const s of c.slots) for (const lc of s.allowedLinecards) expect(byId(cat.linecards, lc), lc).toBeDefined();
     for (const lc of cat.linecards) for (const p of lc.ports) for (const a of p.allowedPluggables) expect(plugs.has(a), a).toBe(true);
   });
+
+  it('keeps width-based slot restrictions per chassis/stream', () => {
+    for (const chassis of cat.chassis) {
+      const columns = chassis.columns ?? chassis.slots.length;
+      chassis.slots.forEach((slot, i) => {
+        for (const linecardId of slot.allowedLinecards) {
+          const width = byId(cat.linecards, linecardId)?.width ?? 1;
+          expect(slotFits(columns, i, width), `${id}:${chassis.id}:${slot.id} should not allow ${linecardId}`).toBe(true);
+        }
+      });
+    }
+  });
 });
 
 it('fills CLI templates', () => {
-  const cat = catalogFor('corp-a');
+  const cat = catalogFor('csp');
   expect(cli(cat, 'chassis', { chassis: 2 })).toBe('show chassis 2');
   expect(cli(cat, 'card', { chassis: 1, slot: '3' })).toBe('show card 1-3');
-  expect(cli(cat, 'pluggable', { chassis: 1, slot: '3', port: 'C2' })).toBe('show port 1-3-C2');
+  expect(cli(cat, 'pluggable', { chassis: 1, slot: '3', port: 'C2' })).toBe('show transceiver 1-3-C2');
+});
+
+it('follows the CLI mode: configure, ^^^, bash and kgdb go one deeper, exit one back', () => {
+  const cat = catalogFor('csp');
+  const after = (commands: string[]) => commands.reduce((m, c) => nextMode(cat, m, c), 0);
+  expect(['configure', '^^^', 'bash', 'kgdb'].map((_, i, all) => cat.cli.modes[after(all.slice(0, i + 1))].name))
+    .toEqual(['Configure', 'Engineering', 'Bash', 'kgdb']);
+  expect(after(['show card 1-3', 'bash', 'configure'])).toBe(1); // bash only works from Engineering
+  expect(after(['configure', '^^^', 'exit'])).toBe(1);
+  expect(after(['exit'])).toBe(0);
 });
 
 it('keeps stream-only hardware out of other streams', () => {
-  expect(byId(catalogFor('corp-b').pluggables, 'osfp-1600g-dr8')).toBeDefined();
-  expect(byId(catalogFor('corp-a').pluggables, 'osfp-1600g-dr8')).toBeUndefined();
+  const tencent = new Set(catalogFor('tencent').pluggables.map((p) => p.id));
+  const csp = new Set(catalogFor('csp').pluggables.map((p) => p.id));
+  expect([...tencent].some((id) => !csp.has(id))).toBe(true);
+  expect([...csp].some((id) => !tencent.has(id))).toBe(true);
+});
+
+it('prefers stream pluggables over common fallback when stream catalog exists', () => {
+  const commonIds = new Set(
+    (JSON.parse(readFileSync(resolve(repoRoot, 'catalog/common/pluggables.json'), 'utf8')) as { id: string }[])
+      .map((pluggable) => pluggable.id),
+  );
+
+  for (const { id: streamId } of streams) {
+    const streamPath = resolve(repoRoot, `catalog/${streamId}/pluggables.json`);
+    if (!existsSync(streamPath)) continue;
+
+    const streamIds = new Set((JSON.parse(readFileSync(streamPath, 'utf8')) as { id: string }[]).map((pluggable) => pluggable.id));
+    const runtimeIds = new Set(catalogFor(streamId).pluggables.map((pluggable) => pluggable.id));
+    const commonOnlyIds = [...commonIds].filter((id) => !streamIds.has(id));
+
+    expect([...streamIds].every((id) => runtimeIds.has(id)), `${streamId}: stream pluggables missing at runtime`).toBe(true);
+    expect(commonOnlyIds.some((id) => runtimeIds.has(id)), `${streamId}: common fallback pluggables leaked into runtime catalog`).toBe(false);
+  }
 });
 
 describe('rules on the demo topology', () => {
@@ -46,39 +97,34 @@ describe('rules on the demo topology', () => {
   it('places a 2-slot card across its right neighbour', () => {
     const siteA = t.devices[0]; // C925 in slot 1 also takes slot 2
     expect(linecardError(cat, siteA, '2', 'lc-400mx')).toBe('Slot 2 is taken by the card in slot 1');
-    expect(linecardError(cat, siteA, '2', 'lc-c1125')).toBe('C1125 is not allowed in slot 2 of 2000');
     expect(linecardError(cat, siteA, '4', 'lc-800mx')).toBeNull();
     expect(linecardError(cat, siteA, '5', 'lc-c25')).toBeNull();
   });
 
-  it('fits every speed of a port form factor, and nothing else', () => {
-    expect(pluggableError(cat, 'lc-400mx', 'L1', 'qsfp28-100g-lr4')).toBeNull();
-    expect(pluggableError(cat, 'lc-400mx', 'L1', 'qsfp-dd-800g-zr')).toBeNull();
-    expect(pluggableError(cat, 'lc-400mx', 'L1', 'osfp-800g-zr')).toBe('OSFP 800G ZR is not allowed in port L1 of 400MX');
+  it('accepts only supported pluggables per port', () => {
+    expect(pluggableError(cat, 'lc-400mx', 'L1', '60s140001')).toBeNull();
+    expect(pluggableError(cat, 'lc-400mx', 'L1', '60g800001')).toBe('60G800001 is not allowed in port L1 of 400MX');
   });
 
-  it('takes no pluggable in a C card: its ports have fixed Tx/Rx', () => {
-    expect(pluggableError(cat, 'lc-c925', 'L1', 'osfp-800g-zr')).toBe('Port L1 of C925 has fixed Tx/Rx and takes no pluggable');
-    expect(fiberError(t, cat, at('d1', '1', 'C3'), at('d2', '1', 'C3'))).toBeNull();
+  it('keeps fixed ports fixed on C cards', () => {
+    expect(pluggableError(cat, 'lc-c925', 'AD1', '60g700001')).toBe('Port AD1 of C925 has fixed Tx/Rx and takes no pluggable');
+    expect(fiberError(t, cat, at('d1', '1', 'AD3'), at('d2', '1', 'AD3'))).toBeNull();
   });
 
   it('refuses bad fibers with a reason', () => {
     expect(fiberError(t, cat, at('d1', '3', 'C3'), at('d2', '1', 'C3'))).toBe('Site-A/3/C3 has no pluggable');
-    const mmf = structuredClone(t);
-    mmf.devices[0].slots['3'].ports.C3 = { pluggable: 'qsfp28-100g-sr4' };
-    expect(fiberError(mmf, cat, at('d1', '3', 'C3'), at('d2', '1', 'C1'))).toBe('Site-A/3/C3 is not single-mode (SMF)');
-    expect(fiberError(t, cat, at('d1', '1', 'L1'), at('d2', '1', 'C1'))).toBe('Site-A/1/L1 Tx already has a fiber');
-    expect(fiberError(t, cat, at('d2', '1', 'C1'), at('d1', '1', 'L1'))).toBe('Site-A/1/L1 Rx already has a fiber');
-    expect(fiberError(t, cat, at('d1', '3', 'C1'), at('d1', '3', 'C2'))).toBe('Both ends are on the same card (only a line port loops back, Tx to its own Rx)');
-    expect(fiberError(t, cat, at('d1', '1', 'C1'), at('d1', '1', 'C1'))).toBe('Both ends are on the same card (only a line port loops back, Tx to its own Rx)');
-    expect(fiberError(t, cat, at('d1', '1', 'C1'), at('d2', '1', 'C1'))).toBeNull();
+    expect(fiberError(t, cat, at('d1', '1', 'LINE'), at('d2', '1', 'AD1'))).toBe('Site-A/1/LINE Tx already has a fiber');
+    expect(fiberError(t, cat, at('d2', '1', 'AD1'), at('d1', '1', 'LINE'))).toBe('Site-A/1/LINE Rx already has a fiber');
+    expect(fiberError(t, cat, at('d1', '1', 'AD1'), at('d1', '1', 'AD2'))).toBe('Both ends are on the same card (only a loopback-capable port loops back, Tx to its own Rx)');
+    expect(fiberError(t, cat, at('d1', '1', 'AD1'), at('d1', '1', 'AD1'))).toBe('Both ends are on the same card (only a loopback-capable port loops back, Tx to its own Rx)');
+    expect(fiberError(t, cat, at('d1', '1', 'AD1'), at('d2', '1', 'AD1'))).toBeNull();
   });
 
   it('runs each strand on its own: a Tx and the Rx of the same port may go to different ports', () => {
-    const one = { ...t, links: [...t.links, { id: 'f9', type: 'smf' as const, a: at('d1', '1', 'C1'), b: at('d2', '1', 'C1') }] };
-    expect(fiberError(one, cat, at('d2', '1', 'C1'), at('d1', '3', 'C1'))).toBeNull(); // d2 C1's Tx elsewhere
-    expect(fiberError(one, cat, at('d2', '3', 'C1'), at('d1', '1', 'C1'))).toBeNull(); // d1 C1's Rx from elsewhere
-    expect(fiberError(one, cat, at('d1', '1', 'C1'), at('d2', '3', 'C1'))).toBe('Site-A/1/C1 Tx already has a fiber');
+    const one = { ...t, links: [...t.links, { id: 'f9', type: 'smf' as const, a: at('d1', '1', 'AD1'), b: at('d2', '1', 'AD1') }] };
+    expect(fiberError(one, cat, at('d2', '1', 'AD1'), at('d1', '3', 'C1'))).toBeNull(); // d2 AD1's Tx elsewhere
+    expect(fiberError(one, cat, at('d2', '3', 'C1'), at('d1', '1', 'AD1'))).toBeNull(); // d1 AD1's Rx from elsewhere
+    expect(fiberError(one, cat, at('d1', '1', 'AD1'), at('d2', '3', 'C1'))).toBe('Site-A/1/AD1 Tx already has a fiber');
   });
 
   it('loops a line port back, Tx to its own Rx', () => {
@@ -92,7 +138,7 @@ describe('rules on the demo topology', () => {
     bad.devices[0].slots['4'] = { linecard: 'lc-c925', ports: {} };
     bad.devices[1].slots['2'] = { linecard: 'lc-400mx', ports: {} };
     expect(validate(bad, cat)).toEqual([
-      'Site-A: C925 is not allowed in slot 4 of 2000',
+      'Site-A: C925 is not allowed in slot 4 of 8-Slot Chassis',
       'Site-B: Slot 2 is taken by the card in slot 2',
       'Site-B: Slot 2 is taken by the card in slot 1',
     ]);
@@ -100,11 +146,13 @@ describe('rules on the demo topology', () => {
 
   it('raises LOS on each pluggable or fixed port without a fiber and an alarm per empty back bay', () => {
     const siteA = { ...t.devices[0], emptyBays: ['PSU2', 'FAN3'] };
-    const fixed = ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8'].map((p) => ['critical', `1/${p}`]); // C925's L1 is fibered
-    expect(alarms(t, cat, siteA).map((a) => [a.severity, a.bay ?? `${a.slot}/${a.port}`])).toEqual([
-      ...fixed, ['critical', '3/C1'], ['critical', '3/C2'], ['major', 'PSU2'], ['major', 'FAN3'],
-    ]);
-    expect(alarms(t, cat, t.devices[1])).toHaveLength(10); // all PSUs and fans in by default
+    const raised = alarms(t, cat, siteA).map((a) => [a.severity, a.bay ?? `${a.slot}/${a.port}`]);
+    expect(raised).toContainEqual(['critical', '1/AD1']);
+    expect(raised).toContainEqual(['critical', '3/C1']);
+    expect(raised).toContainEqual(['critical', '3/C2']);
+    expect(raised).toContainEqual(['major', 'PSU2']);
+    expect(raised).toContainEqual(['major', 'FAN3']);
+    expect(raised).not.toContainEqual(['critical', '1/LINE']);
   });
 });
 

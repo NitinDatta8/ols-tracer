@@ -1,0 +1,527 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_l0__aps",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_l0.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_l0__aps:n1",
+    "name": "aps",
+    "aliasName": null,
+    "type": "list",
+    "path": [
+      "aps"
+    ],
+    "cmdTypeRaw": "",
+    "cmdTypes": [],
+    "key": "/openconfig-transport-line-protection:aps/aps-modules/aps-module/config",
+    "keyQuery": "/openconfig-transport-line-protection:aps/aps-modules/aps-module/state",
+    "keyElem": [
+      "name"
+    ],
+    "idName": null,
+    "keyPattern": "APS-",
+    "keyRegex": "^APS-([0-9]+)-([0-9]+)-([0-9]+)$",
+    "keyPrefixReplacement": null,
+    "permissionRule": null,
+    "helperInfo": "show automated protection switching",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_l0__aps:n2",
+        "name": "revertive",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "aps",
+          "revertive"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Revertive behavior of the module. If True, then automatically revert after protection switch once the fault is restored. This leaf is not valid when the relative-switch-threshold is in effect. When the value changes, a notification is required. Value type: boolean",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__aps:n3",
+        "name": "wait-to-restore-time",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "aps",
+          "wait-to-restore-time"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Revertive behavior of the module. If True, then automatically revert after protection switch once the fault is restored. This leaf is not valid when the relative-switch-threshold is in effect. When the value changes, a notification is required. Value type: uint32 Range: 0..max Units: milliseconds",
+        "unit": "milliseconds",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__aps:n4",
+        "name": "hold-off-time",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "aps",
+          "hold-off-time"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The time delay between the declaration of an SF or SD condition and the initiation of the protection switching algorithm.When the value changes, a notification is required. Value type: uint32 Range: 0..max Units: milliseconds",
+        "unit": "milliseconds",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__aps:n5",
+        "name": "primary-switch-threshold",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "aps",
+          "primary-switch-threshold"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The threshold at which the primary line port will switch to the opposite line port in increments of 0.01 dBm. If the hardware supports only one switch threshold for primary and and secondary ports then it is recommended to set both primary-switch-threshold and secondary-switch-threshold to the same value to be explicit. When the relative switch threshold is enabled, i.e. set to a non-zero value, the primary switch threshold will be overridden. When the value changes, a notification is required. Value type: 2-digit decimal Range: 0..max Units: dBm",
+        "unit": "dBm",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__aps:n6",
+        "name": "primary-switch-hysteresis",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "aps",
+          "primary-switch-hysteresis"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The delta in 0.01 dB between the primary-switch-threshold and the signal received before initiating a reversion in order to prevent toggling between ports when an input signal is very close to threshold. If the hardware supports only one switch hysteresis for primary and secondary ports then it is recommended to set both primary-switch-threshold and secondary-switch-threshold to the same value to be explicit. When the value changes, a notification is required. Value type: 2-digit decimal Range: 0..max Units: dB",
+        "unit": "dB",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__aps:n7",
+        "name": "secondary-switch-threshold",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "aps",
+          "secondary-switch-threshold"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The threshold at which the secondary line port will switch to the opposite line port in increments of 0.01 dBm. If the hardware supports only one switch threshold for primary and and secondary ports then it is recommended to set both primary-switch-threshold and secondary-switch-threshold to the same value to be explicit. When the value changes, a notification is required. Value type: 2-digit decimal Range: 0..max Units: dBm",
+        "unit": "dBm",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__aps:n8",
+        "name": "relative-switch-threshold",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "aps",
+          "relative-switch-threshold"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Threshold of relative switch. When the value changes, a notification is required. \" Value type: 2-digit decimal Range: 0..max Units: dB",
+        "unit": "dB",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__aps:n9",
+        "name": "relative-switch-threshold-offset",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "aps",
+          "relative-switch-threshold-offset"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The offset of the relative switch threshold that compensates the normal difference of receiving power between the primary and secondary line ports. A negative offset corresponds to the situation where the secondary line port receives a higher power than the primary line port in normal condition, and a positive offset means the opposite. The offset will only work when the relative switch threshold is set to a non-zero value. When the value changes, a notification is required. Value type: 2-digit decimal Range: 0..max Units: dB",
+        "unit": "dB",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__aps:n10",
+        "name": "force-to-port",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "aps",
+          "force-to-port"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Explicitly set the switch to stay on a port regardless of its operational condition. When the value changes, a notification is required. Value type: 2-digit decimal.",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__aps:n11",
+        "name": "active-path",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "aps",
+          "active-path"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Indicates which line path on the automatic protection switch is currently the active path connected to the common port. When the value changes, a notification is required.",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__aps:n12",
+        "name": "och-ber-switch-mode",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "aps",
+          "och-ber-switch-mode"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: This is an enhanced mode for och 1+1 protection,which can quickly trigger the switching by monitoring pre-FEC BER. When the value changes, a notification is required. Value type: boolean",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__aps:n13",
+        "name": "aps-mode",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "aps",
+          "aps-mode"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Aps mode. Notification is required.",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__aps:n14",
+        "name": "och-ber-switch-threshold",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "aps",
+          "och-ber-switch-threshold"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: When och-ber-switch-mode is enabled,this value is required. The Threshold at which the port will switch to the opposite port. When the value changes, a notification is required. Value type: 18-digit decimal. Units: bit-errors-per-second",
+        "unit": "bit-errors-per-second",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__aps:n15",
+        "name": "protect-group-name",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "aps",
+          "protect-group-name"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Reference to protected group name. Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 15,
+    "leafCount": 14,
+    "maxDepth": 2
+  }
+}

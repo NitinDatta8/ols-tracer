@@ -1,0 +1,275 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_l1__port",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_l1.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_l1__port:n1",
+    "name": "port",
+    "aliasName": null,
+    "type": "list",
+    "path": [
+      "port"
+    ],
+    "cmdTypeRaw": "set,show",
+    "cmdTypes": [
+      "set",
+      "show"
+    ],
+    "key": "/openconfig-platform:components/component/config",
+    "keyQuery": null,
+    "keyElem": [
+      "name"
+    ],
+    "idName": null,
+    "keyPattern": "PORT-",
+    "keyRegex": "^PORT-([0-9]+)-([0-9]+)-(|C|L|SFP|CH)?([0-9]+)",
+    "keyPrefixReplacement": null,
+    "permissionRule": "admin|rw,operation|rw,supervision|ro",
+    "helperInfo": "port config",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_l1__port:n2",
+        "name": "admin-state",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "port",
+          "admin-state"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-platform:components/component/openconfig-transport-line-common:optical-port/config",
+        "keyQuery": "/openconfig-platform:components/component/openconfig-transport-line-common:optical-port/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "PORT-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The administrative state specifies the permission to use or prohibition. Available Value: - “in-service”: The resource is administratively permitted to perform services for its users - “out-of-service”: The resource is administratively prohibited from performing services for its users. The resource currently does not provide any service. The sub management statement/identifier under current identifier is also in administratively prohibited from performing services.The object in out-of-service won’t report any alarm. The Tx laser of line side will be shutdown default value: “out-of-service”",
+        "unit": null,
+        "values": [
+          "in-service",
+          "out-of-service"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__port:n3",
+        "name": "description",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "port",
+          "description"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Customer defined description for port. Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__port:n4",
+        "name": "laser",
+        "aliasName": "enabled",
+        "type": "leaf",
+        "path": [
+          "port",
+          "laser"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/config",
+        "keyQuery": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "TRANSCEIVER-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The switch of transceiver output laser under identified port. Linkage with the attribute laser of och at line side Available Value: - “enabled”: enable the Tx laser of transceiver - “disabled”: disable the Tx laser of transceiver default value: “enabled”",
+        "unit": null,
+        "values": [
+          "enabled",
+          "disabled"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__port:n5",
+        "name": "port-mode",
+        "aliasName": "layer-protocol-name",
+        "type": "leaf",
+        "path": [
+          "port",
+          "port-mode"
+        ],
+        "cmdTypeRaw": "show,set",
+        "cmdTypes": [
+          "show",
+          "set"
+        ],
+        "key": "/openconfig-platform:components/component/port/config",
+        "keyQuery": "/openconfig-platform:components/component/port/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "PORT-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The client service mode working in identifier port. This attribute used in client service port only. The specific port-mode of port will decide the service mode, service rate and logical management objects under this port. Available Value: - “PROT_100GE”: 100G Ethernet protocol - “PROT_IEEE100ZR_DQPSK_28G”: IEEE100GZR DQPSK 28G - “PROT_OTU2”: OTU 2 protocol - “PROT_10GE_LAN”: 10G Ethernet LAN protocol - “PROT_10GE_WAN”: 10G Ethernet WAN protocol - “PROT_OTU4”: OTU 4 protocol - “PROT_STM64”: STM 64 protocol - “PROT_400GE”: 400G Ethernet protocol - “PROT_ZR800_16QAMPS_123P8G”: ZR+800G 16QAM 123.8G - “PROT_ZR800_16QAM_118G”: ZR+800G 16QAM 118G - “PROT_ZR400_QPSK_118G”: ZR+400G QPSK 118G - “PROT_ZR400_8QAM_80G”: ZR+400G 8QAM 80G - “PROT_ZR400_16QAMSS_60G\": ZR+400G 16QAMSS 60G - “PROT_NA”: Remove the service from the port",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__port:n6",
+        "name": "parent",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "port",
+          "parent"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The parent module of identifier port subordinate to Value type: string Value Format: card identifier",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__port:n7",
+        "name": "oper-status",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "port",
+          "oper-status"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The operational status of identifier port Value type: enumeration - active: card is admin-state enabled and active - inactive: card is admin-state enabled and inactive - disabled: card is admin-state disabled",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 7,
+    "leafCount": 6,
+    "maxDepth": 2
+  }
+}

@@ -1,0 +1,233 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_l0__external-connection",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_l0.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_l0__external-connection:n1",
+    "name": "external-connection",
+    "aliasName": null,
+    "type": "list",
+    "path": [
+      "external-connection"
+    ],
+    "cmdTypeRaw": "set,show,delete",
+    "cmdTypes": [
+      "set",
+      "show",
+      "delete"
+    ],
+    "key": "/openconfig-platform-phycon:connections/external-connection/config",
+    "keyQuery": "/openconfig-platform-phycon:connections/external-connection/state",
+    "keyElem": [
+      "name"
+    ],
+    "idName": null,
+    "keyPattern": null,
+    "keyRegex": null,
+    "keyPrefixReplacement": null,
+    "permissionRule": null,
+    "helperInfo": "show external connection",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": true,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_l0__external-connection:n2",
+        "name": "description",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "external-connection",
+          "description"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Customer-defined description for the connection. Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__external-connection:n3",
+        "name": "connection-type",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "external-connection",
+          "connection-type"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The physical connection type. [data | management]",
+        "unit": null,
+        "values": [
+          "data",
+          "management"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__external-connection:n4",
+        "name": "source-port",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "external-connection",
+          "source-port"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": "^PORT-([0-9]+)-([0-9]+)-((EXP|MPO|AD)([0-9]+)|M([0-9]+)D([0-9]+)|LINE_EAST|LINE_WEST)$",
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The source port name, local port. Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": true,
+          "valueCaseSensitive": true
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__external-connection:n5",
+        "name": "dest-ne",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "external-connection",
+          "dest-ne"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The destination ne name, remote ne. Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__external-connection:n6",
+        "name": "dest-port",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "external-connection",
+          "dest-port"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": "^PORT-([0-9]+)-([0-9]+)-((EXP|MPO|AD)([0-9]+)|M([0-9]+)D([0-9]+)|LINE_EAST|LINE_WEST)$",
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The destination port name, remote port. Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": true,
+          "valueCaseSensitive": true
+        },
+        "children": []
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 6,
+    "leafCount": 5,
+    "maxDepth": 2
+  }
+}

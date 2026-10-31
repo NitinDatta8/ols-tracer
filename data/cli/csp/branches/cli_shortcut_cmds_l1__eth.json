@@ -1,0 +1,869 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_l1__eth",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_l1.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_l1__eth:n1",
+    "name": "eth",
+    "aliasName": null,
+    "type": "list",
+    "path": [
+      "eth"
+    ],
+    "cmdTypeRaw": "set,show",
+    "cmdTypes": [
+      "set",
+      "show"
+    ],
+    "key": "/openconfig-terminal-device:terminal-device/logical-channels/channel/config",
+    "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+    "keyElem": [
+      "index"
+    ],
+    "idName": null,
+    "keyPattern": null,
+    "keyRegex": "^((100|400|800)GE)-(?:[0-9]-[0-9]-((C[0-9]+)|[0-9]+)|[0-9]-[0-9]-[0-9]-([0-9]+))$",
+    "keyPrefixReplacement": null,
+    "permissionRule": "admin|rw,operation|rw,supervision|ro",
+    "helperInfo": "the config and state attributes of ethernet type client services or identifier one",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n2",
+        "name": "fec",
+        "aliasName": "client-fec",
+        "type": "leaf",
+        "path": [
+          "eth",
+          "fec"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-terminal-device:terminal-device/logical-channels/channel/ethernet/config",
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/ethernet/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The switch of Ethernet type signal’s fec function Available Value: - “enabled”: enable the FEC function at current Ethernet service interface - “disabled”: disable the FEC function at current Ethernet service interface default value: “disabled”",
+        "unit": null,
+        "values": [
+          "enabled",
+          "disabled"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n3",
+        "name": "loopback",
+        "aliasName": "loopback-mode",
+        "type": "leaf",
+        "path": [
+          "eth",
+          "loopback"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-terminal-device:terminal-device/logical-channels/channel/config",
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The switch of signal’s loopback mode Available Value - “facility”: enable the loopback which directs traffic normally transmitted on the port back to the device as if received on the same port from an external source. - “terminal”: enable the loopback which directs traffic received from an external source on the port back out the transmit side of the same port. - “none”: no loopback is applied default value: “none”",
+        "unit": null,
+        "values": [
+          "none",
+          "facility",
+          "terminal"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n4",
+        "name": "test-signal",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "eth",
+          "test-signal"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-terminal-device:terminal-device/logical-channels/channel/config",
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The switch of generating IDLE frame which can be used during testing on current instance Available Value - “enabled”: enable the test signal. - “disabled”: disabled the test signal. default value: “disabled”",
+        "unit": null,
+        "values": [
+          "enabled",
+          "disabled"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n5",
+        "name": "test-monitor",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "eth",
+          "test-monitor"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-terminal-device:terminal-device/logical-channels/channel/config",
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The switch of monitor IDLE frame stream which can be used during testing on current instance Available Value - “enabled”: Enable the test monitor - “disabled”: Disabled the test monitor. default mode: “disabled”",
+        "unit": null,
+        "values": [
+          "enabled",
+          "disabled"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n6",
+        "name": "test-monitor-time",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "eth",
+          "test-monitor-time"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-terminal-device:terminal-device/logical-channels/channel/config",
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The planned executed time for next turn test monitor. 0 means the test will not stop monitor until operator disable it manually. Value type: integer Value range: 0…604800 Granularity: 1 Units: seconds Default value: 0",
+        "unit": "seconds",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n7",
+        "name": "test-signal-status",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "eth",
+          "test-signal-status"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The result of IDLE frame stream testing on current instance Possibility Value: - \"in-sync\": the test signal sync up successes. - \"out-of-sync\": the test signal sync up failed, or test signal is disabled. - \"errored\": the test signal sync up with error code. - \"unmonitored\": Do not monitor the test signal",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n8",
+        "name": "test-monitor-time-countdown",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "eth",
+          "test-monitor-time-countdown"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The countdown to test monitor time completed. Possibility Output Value: - \"untimed\": The test monitor without planned execution time. - Value type: integer - Units : seconds",
+        "unit": "seconds",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n9",
+        "name": "test-total-received-bits",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "eth",
+          "test-total-received-bits"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The total bits of the received test signal. Value type: integer",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n10",
+        "name": "test-bit-errors",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "eth",
+          "test-bit-errors"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The bit errors of the received test signal. Value type: integer",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n11",
+        "name": "test-bit-error-ratio",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "eth",
+          "test-bit-error-ratio"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The bit error ratio of the received test signal. Value type: 17-digit decimal",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n12",
+        "name": "test-out-of-sync-seconds",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "eth",
+          "test-out-of-sync-seconds"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The seconds of the received out of sync test signal. Value type: integer",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n13",
+        "name": "trib-protocol",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "eth",
+          "trib-protocol"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The protocol of current ethernet service instance Possibility Value: - \"10GBE\": 10G Ethernet LAN protocol - \"100GBE\": 100G Ethernet protocol - \"400GBE\": 400G Ethernet protocol",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n14",
+        "name": "rx-pkts",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "eth",
+          "rx-pkts"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/ethernet/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Ethernet service performance monitor, received total packets Value type: positive integer Units: packet",
+        "unit": "packets",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n15",
+        "name": "tx-pkts",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "eth",
+          "tx-pkts"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/ethernet/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Ethernet service performance monitor, transferred total packets Value type: positive integer Units: packet",
+        "unit": "packets",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n16",
+        "name": "rx-bytes",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "eth",
+          "rx-bytes"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/ethernet/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Ethernet service performance monitor, received total bytes Value type: positive integer Units: byte",
+        "unit": "bytes",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n17",
+        "name": "tx-bytes",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "eth",
+          "tx-bytes"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/ethernet/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Ethernet service performance monitor, transferred total bytes Value type: positive integer Units: byte",
+        "unit": "bytes",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n18",
+        "name": "rx-crc-err-sum",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "eth",
+          "rx-crc-err-sum"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/ethernet/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Ethernet service performance monitor, received CRC errors count Value type: positive integer",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n19",
+        "name": "tx-crc-err-sum",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "eth",
+          "tx-crc-err-sum"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/ethernet/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Ethernet service performance monitor, transferred CRC errors count Value type: positive integer",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n20",
+        "name": "in-pcs-bip-errors",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "eth",
+          "in-pcs-bip-errors"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/ethernet/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Ethernet service performance monitor, received pcs layer BIP errors count Value type: positive integer Units: bit",
+        "unit": "bits",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n21",
+        "name": "out-pcs-bip-errors",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "eth",
+          "out-pcs-bip-errors"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/ethernet/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Ethernet service performance monitor, transferred pcs layer BIP errors count Value type: positive integer Units: bit",
+        "unit": "bits",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n22",
+        "name": "rx-jabber-frames",
+        "aliasName": "in-jabber-frames",
+        "type": "leaf",
+        "path": [
+          "eth",
+          "rx-jabber-frames"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/ethernet/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Ethernet service performance monitor, received over size frames with CRC errors Value type: positive integer Units: frames",
+        "unit": "frames",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n23",
+        "name": "rx-fragment-frames",
+        "aliasName": "in-fragment-frames",
+        "type": "leaf",
+        "path": [
+          "eth",
+          "rx-fragment-frames"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/ethernet/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Ethernet service performance monitor, received under size frames with fcs errors or alignment error Value type: positive integer Units: frames",
+        "unit": "frames",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n24",
+        "name": "pre-fec-ber",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "eth",
+          "pre-fec-ber"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/state/pre-fec-ber",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "TRANSCEIVER-",
+        "keyRegex": "^TRANSCEIVER-[0-9]-[0-9]-([0-9]+)$",
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of Ethernet client received signal bit error rate before forward error correction, include instant, avg, min, max value Value type: 2-digit decimal scientific notation: x.xxE±yy",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__eth:n25",
+        "name": "post-fec-ber",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "eth",
+          "post-fec-ber"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/state/post-fec-ber",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "TRANSCEIVER-",
+        "keyRegex": "^TRANSCEIVER-[0-9]-[0-9]-([0-9]+)$",
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of Ethernet client received signal bit error rate after forward error correction, include instant, avg, min, max value Value type: 2-digit decimal scientific notation: x.xxE±yy",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 25,
+    "leafCount": 24,
+    "maxDepth": 2
+  }
+}

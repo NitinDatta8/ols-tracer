@@ -1,0 +1,520 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_system__system",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_system.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_system__system:n1",
+    "name": "system",
+    "aliasName": null,
+    "type": "container",
+    "path": [
+      "system"
+    ],
+    "cmdTypeRaw": "set,show",
+    "cmdTypes": [
+      "set",
+      "show"
+    ],
+    "key": "/openconfig-system:system/config",
+    "keyQuery": "/openconfig-system:system/state",
+    "keyElem": null,
+    "idName": null,
+    "keyPattern": null,
+    "keyRegex": null,
+    "keyPrefixReplacement": null,
+    "permissionRule": "admin|rw,operation|rw,supervision|ro",
+    "helperInfo": "system config",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_system__system:n2",
+        "name": "hostname",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "system",
+          "hostname"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": "admin|rw,operation|ro,supervision|ro",
+        "helperInfo": "Description: Customer defined hostname of specific node. The hostname will be used as node index in most external communication, e.g., LLDP, telemetry, syslog forwarding, etc. Value type: string, Valid characters are ASCII(7) letters from a to z, the digits from 0 to 9, and the hyphen (-)",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_system__system:n3",
+        "name": "config-saving-mode",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "system",
+          "config-saving-mode"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: A global system configuration saving mode, the mode decides how and when to save running configuration into the persistent configuration. System requests all running configuration are saved into persistent configuration before config-saving-mode switching. Available Value: - \"manual\": The system work in manual config saving mode. In this mode, the user input configuration won’t be saved into persistent configuration along automatically with it activate in running configuration. The running configuration need be saved into persistent configuration by the manual command. Without manual saving, the system will load the persistent configuration after cold reboot or power cycle. The different between previous running configuration and persistent configuration will change to value of persistent configuration. - \"auto\": The system work in auto config saving mode. The running configuration will be triggered to save into persistent configuration when input configuration activates in running configuration. After system reboot or power cycle the configuration will be kept. default Value: \"manual\"",
+        "unit": null,
+        "values": [
+          "manual",
+          "auto"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_system__system:n4",
+        "name": "login-banner",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "system",
+          "login-banner"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Customer defined login banner for CLI. Value type: string The login banner input with space/enter symbol shall be enclosed in quotation marks. The enter symbol shall be transposed to \"\\n\".",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_system__system:n5",
+        "name": "motd-banner",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "system",
+          "motd-banner"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The console message displayed after a user logs into the system Value type: string The motd banner input with space/enter symbol shall be enclosed in quotation marks. The enter symbol shall be transposed to \"\\n\".",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_system__system:n6",
+        "name": "ne-type",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "system",
+          "ne-type"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The type of node platform for controller identifying the flavour of NE Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_system__system:n7",
+        "name": "clock",
+        "aliasName": null,
+        "type": "container",
+        "path": [
+          "system",
+          "clock"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-system:system/clock/config",
+        "keyQuery": "/openconfig-system:system/clock/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "system clock function layer attributes",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_system__system:n8",
+            "name": "daylight-saving",
+            "aliasName": "daylight-saving-enabled",
+            "type": "leaf",
+            "path": [
+              "system",
+              "clock",
+              "daylight-saving"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: daylight saving enable or disable at current time zone. Available input: - \"enabled\": The daylight saving function enabled - \"disabled\": The daylight saving function disabled Default Value: \"enabled\"",
+            "unit": null,
+            "values": [
+              "enabled",
+              "disabled"
+            ],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_system__system:n9",
+        "name": "ntp",
+        "aliasName": null,
+        "type": "container",
+        "path": [
+          "system",
+          "ntp"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-system:system/ntp/config",
+        "keyQuery": "/openconfig-system:system/ntp/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": "admin|rw,operation|rw,supervision|ro",
+        "helperInfo": "ntp function related attributes",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_system__system:n10",
+            "name": "ntp-client",
+            "aliasName": "enabled",
+            "type": "leaf",
+            "path": [
+              "system",
+              "ntp",
+              "ntp-client"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: System work as ntp client or not. Available Value: - \"enabled\": The system date and time follow external NTP source - \"disabled\": The system date and time use local time setting Default Value: \"disabled\"",
+            "unit": null,
+            "values": [
+              "enabled",
+              "disabled"
+            ],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__system:n11",
+            "name": "source-address",
+            "aliasName": "ntp-source-address",
+            "type": "leaf",
+            "path": [
+              "system",
+              "ntp",
+              "source-address"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: Source address to use on outgoing NTP packets. Available Value: - IPv4 address: The IPv4 source address which defined in outgoing NTP packets - \"\": The system auto fill the source address used in outgoing NTP packets Default Value: \"\"",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__system:n12",
+            "name": "server",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "system",
+              "ntp",
+              "server"
+            ],
+            "cmdTypeRaw": "set,show,delete",
+            "cmdTypes": [
+              "set",
+              "show",
+              "delete"
+            ],
+            "key": "/openconfig-system:system/ntp/servers/server/config",
+            "keyQuery": null,
+            "keyElem": [
+              "address"
+            ],
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: system ntp server address and attribute for identified one. The identifier format of server address is IPv4 address The maximum number of ntp servers that can be created is 3.",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_system__system:n13",
+                "name": "port",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "system",
+                  "ntp",
+                  "server",
+                  "port"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The port number of the NTP server. Value type: positive integer Value range: 1…65535 Granularity: 1 Default value: 123",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_system__system:n14",
+                "name": "prefer",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "system",
+                  "ntp",
+                  "server",
+                  "prefer"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: Indicates whether this server should be preferred or not. Available Value: - \"true\": current server is preferred - \"false\": current server is not preferred Default Value: \"false\"",
+                "unit": null,
+                "values": [
+                  "true",
+                  "false"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 14,
+    "leafCount": 10,
+    "maxDepth": 4
+  }
+}

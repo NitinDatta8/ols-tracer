@@ -1,0 +1,255 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_platform__profile-threshold",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_platform.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_platform__profile-threshold:n1",
+    "name": "profile-threshold",
+    "aliasName": null,
+    "type": "list",
+    "path": [
+      "profile-threshold"
+    ],
+    "cmdTypeRaw": "set",
+    "cmdTypes": [
+      "set"
+    ],
+    "key": "/co-profile-ext:profile/thresholds/threshold/config",
+    "keyQuery": "/co-profile-ext:profile/thresholds/threshold/state",
+    "keyElem": [
+      "name",
+      "resource",
+      "direction",
+      "time-period"
+    ],
+    "idName": null,
+    "keyPattern": null,
+    "keyRegex": null,
+    "keyPrefixReplacement": null,
+    "permissionRule": null,
+    "helperInfo": "threshold",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_platform__profile-threshold:n2",
+        "name": "name",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "profile-threshold",
+          "name"
+        ],
+        "cmdTypeRaw": "set",
+        "cmdTypes": [
+          "set"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The abbreviated name of the alarm. Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_platform__profile-threshold:n3",
+        "name": "resource",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "profile-threshold",
+          "resource"
+        ],
+        "cmdTypeRaw": "set",
+        "cmdTypes": [
+          "set"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The item that is under alarm within the device Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_platform__profile-threshold:n4",
+        "name": "direction",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "profile-threshold",
+          "direction"
+        ],
+        "cmdTypeRaw": "set",
+        "cmdTypes": [
+          "set"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Specifies the direction of an event/occurrence in the system, Tx, Rx, Bi-directional, NA. Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_platform__profile-threshold:n5",
+        "name": "time-period",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "profile-threshold",
+          "time-period"
+        ],
+        "cmdTypeRaw": "set",
+        "cmdTypes": [
+          "set"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The time period of TCA type alarm. Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_platform__profile-threshold:n6",
+        "name": "declare-threshold",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "profile-threshold",
+          "declare-threshold"
+        ],
+        "cmdTypeRaw": "set",
+        "cmdTypes": [
+          "set"
+        ],
+        "key": "/co-profile-ext:profile/thresholds/threshold/config",
+        "keyQuery": "/co-profile-ext:profile/thresholds/threshold/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: alarm or event delcare threshold. Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_platform__profile-threshold:n7",
+        "name": "clear-hysteresis",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "profile-threshold",
+          "clear-hysteresis"
+        ],
+        "cmdTypeRaw": "set",
+        "cmdTypes": [
+          "set"
+        ],
+        "key": "/co-profile-ext:profile/thresholds/threshold/config",
+        "keyQuery": "/co-profile-ext:profile/thresholds/threshold/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Hysteresis of alarm or event clear. Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 7,
+    "leafCount": 6,
+    "maxDepth": 2
+  }
+}

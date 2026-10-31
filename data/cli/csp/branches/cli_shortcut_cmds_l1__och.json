@@ -1,0 +1,1533 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_l1__och",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_l1.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_l1__och:n1",
+    "name": "och",
+    "aliasName": null,
+    "type": "list",
+    "path": [
+      "och"
+    ],
+    "cmdTypeRaw": "set,show",
+    "cmdTypes": [
+      "set",
+      "show"
+    ],
+    "key": "/openconfig-platform:components/component/openconfig-terminal-device:optical-channel/config",
+    "keyQuery": "/openconfig-platform:components/component/openconfig-terminal-device:optical-channel/state",
+    "keyElem": [
+      "name"
+    ],
+    "idName": null,
+    "keyPattern": "OCH-",
+    "keyRegex": "^OCH-([0-9]+)-([0-9]+)-([C|L])?([0-9]+)$",
+    "keyPrefixReplacement": null,
+    "permissionRule": "admin|rw,operation|rw,supervision|ro",
+    "helperInfo": "och config",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n2",
+        "name": "frequency",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "frequency"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Positive integer of optical channel laser frequency. This attribute work for both input and output laser Value type: positive integer Value range: 186050000…196100000 Units: MHz Granularity: 1 Default value: 193100000",
+        "unit": "MHz",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n3",
+        "name": "target-output-power",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "target-output-power"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The target output laser optical power of identifier optical channel. Value type: 2-digit decimal Value range: -10.00...5.00 Units: dBm Granularity: 0.01 Default value: -3",
+        "unit": "dBm",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n4",
+        "name": "operational-mode",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "operational-mode"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The specified operational mode index of optical channel. This attribute values and attribute operational-mode-name values are one-to-one correspondence, either one configuration will change the optical channel operational mode.",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n5",
+        "name": "operational-mode-name",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "operational-mode-name"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The specified operational mode name of optical channel. This attribute values and attribute operational-mode-index values are one-to-one correspondence, either one configuration will change the optical channel operational mode. Available Value - \"ZR400-16QAM-60G-OFEC\": operational mode 400G 16QAM OpenZR+ - \"ZR400-16QAMSS-60G-OFEC\": operational mode 400G 16QAM OpenZR+ (SS) - \"ZR300-8QAM-60G-OFEC\": operational mode 300G 8QAM Open ZR+ - \"ZR200-QPSK- 60G-OFEC\": operational mode 200G QPSK Open ZR+ - \"ZR200-QPSKSS-60G-OFEC\": operational mode 200G QPSK Open ZR+ (SS) - \"ZR100-QPSK-30G-OFEC\": operational mode 100G QPSK Open ZR+ - \"100G-dQPSK-30G-SCFEC\": operational mode 100G QPSK SC FEC - \"200G-16QAM-32G-SDFEC\": operational mode 200G 16QAM SD FEC - \"200G-QPSK-64G-SDFEC\": operational mode 200G QPSK SD FEC - \"200G-16QAMPS-41G-SDFEC\": operational mode 200G 16QAMPS SD FEC - \"1200G-64QAMPS-138G-SDFEC\": operational mode 1200G 64QAMPS SD FEC - \"400G-16QAMPS-109P8G-SDFEC\": operational mode 400G 16QAMPS SD FEC - \"600G-16QAMPS-107P7G-SDFEC\": operational mode 600G 16QAMPS SD FEC - \"800G-16QAMPS-138G-SDFEC\": operational mode 4800G 16QAMPS SD FEC Default value: ZR400-16QAMSS-60G-OFEC This attribute operation needs service-affection confirmation",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n6",
+        "name": "laser",
+        "aliasName": "enabled",
+        "type": "leaf",
+        "path": [
+          "och",
+          "laser"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/config",
+        "keyQuery": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "TRANSCEIVER-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The switch of transceiver output laser of identifier optical channel. Linkage with the attribute laser of port Available Value - enabled: enable the Tx laser of transceiver - disabled: disable the Tx laser of transceiver default mode: “enabled”",
+        "unit": null,
+        "values": [
+          "enabled",
+          "disabled"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n7",
+        "name": "loopback",
+        "aliasName": "loopback-mode",
+        "type": "leaf",
+        "path": [
+          "och",
+          "loopback"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-terminal-device:terminal-device/logical-channels/channel/config",
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The switch of signal’s loopback mode Available Value - “facility”: enable the loopback which directs traffic normally transmitted on the port back to the device as if received on the same port from an external source. - “terminal”: enable the loopback which directs traffic received from an external source on the port back out the transmit side of the same port. - “none”: no loopback is applied default mode: “none”",
+        "unit": null,
+        "values": [
+          "none",
+          "facility",
+          "terminal"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n8",
+        "name": "test-signal",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "test-signal"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-terminal-device:terminal-device/logical-channels/channel/config",
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The switch of generating a pseudo random bit stream (PRBS) which can be used during testing on current instance Possibility Value: - “enabled”: enable the test signal. - “disabled”: disabled the test signal. default mode: “disabled”",
+        "unit": null,
+        "values": [
+          "enabled",
+          "disabled"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n9",
+        "name": "test-monitor",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "test-monitor"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-terminal-device:terminal-device/logical-channels/channel/config",
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The switch of monitor a pseudo random bit stream (PRBS) which can be used during testing on current instance Available Value - “enabled”: Enable the test monitor - “disabled”: Disabled the test monitor. default mode: “disabled”",
+        "unit": null,
+        "values": [
+          "enabled",
+          "disabled"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n10",
+        "name": "test-monitor-time",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "test-monitor-time"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-terminal-device:terminal-device/logical-channels/channel/config",
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The planned executed time for next turn test monitor. 0 means the test will not stop monitor until operator disable it manually. Value type: integer Value range: 0…604800 Granularity: 1 Units: seconds Default value: 0",
+        "unit": "seconds",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n11",
+        "name": "test-signal-status",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "test-signal-status"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": "/openconfig-terminal-device:terminal-device/logical-channels/channel/config",
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The result of pseudo random bit stream (PRBS) testing on current instance Possibility Value: - “in-sync”: the test signal sync up successes. - “out-of-sync”: the test signal sync up failed or test signal disabled. - “errored”: ”: the test signal is synchronized with error counting. - “unmonitored“: Do not monitor the test signal",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n12",
+        "name": "test-monitor-time-countdown",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "test-monitor-time-countdown"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The countdown to test monitor time completed. Possibility Output Value: - \"untimed\": The test monitor without planned execution time. - Value type: integer - Units : seconds",
+        "unit": "seconds",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n13",
+        "name": "test-total-received-bits",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "test-total-received-bits"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The total bits of the received test signal. Value type: integer",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n14",
+        "name": "test-bit-errors",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "test-bit-errors"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The bit errors of the received test signal. Value type: integer",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n15",
+        "name": "test-bit-error-ratio",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "test-bit-error-ratio"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The bit error ratio of the received test signal. Value type: 17-digit decimal",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n16",
+        "name": "test-out-of-sync-seconds",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "test-out-of-sync-seconds"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-terminal-device:terminal-device/logical-channels/channel/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The seconds of the received out of sync test signal. Value type: integer",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n17",
+        "name": "bit-rate",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "bit-rate"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Rounded bit rate of the tributary signal delivered by the optical channel associated to the specific operational mode Units: Gbps",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n18",
+        "name": "bandwidth",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "bandwidth"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The signal bandwidth level after FEC Value type: positive integer Units: GHz",
+        "unit": "GHz",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n19",
+        "name": "baud-rate",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "baud-rate"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The symbol baud rate of identifier optical channel Value type: 2-digit decimal Units: GBd",
+        "unit": "GBd",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n20",
+        "name": "bits-per-symbol",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "bits-per-symbol"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The bits of per symbol coding Value type: 2-digit decimal Units: bits/symbol",
+        "unit": "bits/symbol",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n21",
+        "name": "modulation-type",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "modulation-type"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The coherent modulation format of signal Possibility Value: - QPSK - 8QAM - 16QAM - 64QAM - DP-dQPSK",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n22",
+        "name": "fec-mode",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "fec-mode"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Forward Error Correction code type of optical channel Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n23",
+        "name": "tx-spectral-shaping",
+        "aliasName": "pulse-shaping-type",
+        "type": "leaf",
+        "path": [
+          "och",
+          "tx-spectral-shaping"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The tx direction spectral shaping working mode Possibility Value: • “on”: enable the spectral shaping • “off”: disable the spectral shaping",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n24",
+        "name": "cd-range-min",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "cd-range-min"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The minimum threshold of CD scan range Value type: negative integer Range: -2147483648 ... 0 Units: ps/nm",
+        "unit": "ps/nm",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n25",
+        "name": "cd-range-max",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "cd-range-max"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The maximum threshold of CD scan range Value type: positive integer Range: 0 ... 2147483647 Units: ps/nm",
+        "unit": "ps/nm",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n26",
+        "name": "filter-roll-off",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "filter-roll-off"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The roll off factor of transmitter filter Value type: 1-digit decimal",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n27",
+        "name": "fec-uncorrectable-blocks",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "och",
+          "fec-uncorrectable-blocks"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Counter of optical channel’s receiver signal uncorrected blocks Value type: positive integer Units: blocks",
+        "unit": "blocks",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n28",
+        "name": "transmitter-frequency",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "och",
+          "transmitter-frequency"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-terminal-device:optical-channel/state/transmitter-frequency",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "OCH-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of optical channel’s transferred signal optical frequency, include instant, avg, min, max value Value type: positive integer Units: MHz",
+        "unit": "MHz",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n29",
+        "name": "output-power",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "och",
+          "output-power"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-terminal-device:optical-channel/state/output-power",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "OCH-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of optical channel transferred signal optical power, include instant, avg, min, max value Value type: 2-digit decimal Units: dBm",
+        "unit": "dBm",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n30",
+        "name": "total-input-power",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "och",
+          "total-input-power"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-terminal-device:optical-channel/state/input-power",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "OCH-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of optical channel received total optical power, include instant, avg, min, max value Value type: 2-digit decimal Units: dBm",
+        "unit": "dBm",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n31",
+        "name": "provisioned-channel-input-power",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "och",
+          "provisioned-channel-input-power"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-terminal-device:optical-channel/state/provisioned-channel-power",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "OCH-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of optical channel received signal channel power, include instant, avg, min, max value Value type: 2-digit decimal Units: dBm",
+        "unit": "dBm",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n32",
+        "name": "osnr",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "och",
+          "osnr"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-terminal-device:optical-channel/state/osnr",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "OCH-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of optical channel received signal channel optical signal noise ratio, include instant, avg, min, max value Value type: 2-digit decimal Units: dB",
+        "unit": "dB",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n33",
+        "name": "chromatic-dispersion",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "och",
+          "chromatic-dispersion"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-terminal-device:optical-channel/state/chromatic-dispersion",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "OCH-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of optical channel received signal chromatic dispersion, include instant, avg, min, max value Value type: positive integer Units: ps/nm",
+        "unit": "ps/nm",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n34",
+        "name": "polarization-mode-dispersion",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "och",
+          "polarization-mode-dispersion"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-terminal-device:optical-channel/state/polarization-mode-dispersion",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "OCH-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of optical channel received signal polarization mode dispersion, include instant, avg, min, max value Value type: 2-digit decimal Units: ps",
+        "unit": "ps",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n35",
+        "name": "second-order-polarization-mode-dispersion",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "och",
+          "second-order-polarization-mode-dispersion"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-terminal-device:optical-channel/state/second-order-polarization-mode-dispersion",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "OCH-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of optical channel received signal second order polarization mode dispersion, include instant, avg, min, max value Value type: 2-digit decimal Units: ps^2",
+        "unit": "ps^2",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n36",
+        "name": "polarization-dependent-loss",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "och",
+          "polarization-dependent-loss"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-terminal-device:optical-channel/state/polarization-dependent-loss",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "OCH-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of optical channel received signal polarization dependent loss, include instant, avg, min, max value Value type: 2-digit decimal Units: dB",
+        "unit": "dB",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n37",
+        "name": "state-of-polarization",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "och",
+          "state-of-polarization"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-terminal-device:optical-channel/state/state-of-polarization",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "OCH-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of optical channel received signal state of polarization change rate, include instant, avg, min, max value Value type: 2-digit decimal Units: rad/s",
+        "unit": "rad/s",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n38",
+        "name": "differential-group-delay",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "och",
+          "differential-group-delay"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-terminal-device:optical-channel/state/differentical-group-delay",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "OCH-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of optical channel differential group delay, include instant, avg, min, max value Value type: 2-digit decimal Units: ps",
+        "unit": "ps",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n39",
+        "name": "pre-fec-ber",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "och",
+          "pre-fec-ber"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/state/pre-fec-ber",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "TRANSCEIVER-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of optical channel received signal bit error rate before forward error correction, include instant, avg, min, max value Value type: 2-digit decimal scientific notation: x.xxE±yy",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n40",
+        "name": "post-fec-ber",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "och",
+          "post-fec-ber"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-platform-transceiver:transceiver/state/post-fec-ber",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "TRANSCEIVER-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of optical channel received signal bit error rate after forward error correction, include instant, avg, min, max value Value type: 2-digit decimal scientific notation: x.xxE±yy",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n41",
+        "name": "esnr",
+        "aliasName": "snr",
+        "type": "list",
+        "path": [
+          "och",
+          "esnr"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-terminal-device:optical-channel/state/snr",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "OCH-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of optical channel signal noise ratio, include instant, avg, min, max value Value type: 2-digit decimal Units: dB",
+        "unit": "dB",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n42",
+        "name": "q-value",
+        "aliasName": "q-factor",
+        "type": "list",
+        "path": [
+          "och",
+          "q-value"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-terminal-device:optical-channel/state/q-factor",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "OCH-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of optical channel quality factor, include instant, avg, min, max value Value type: 2-digit decimal Units: dB",
+        "unit": "dB",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n43",
+        "name": "q-margin",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "och",
+          "q-margin"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-terminal-device:optical-channel/state/q-margin",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "OCH-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of optical channel quality factor margin, units dB, include instant, avg, min, max value Value type: 2-digit decimal Units: dB",
+        "unit": "dB",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__och:n44",
+        "name": "carrier-frequency-offset",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "och",
+          "carrier-frequency-offset"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/openconfig-terminal-device:optical-channel/state/carrier-frequency-offset",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "OCH-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of optical channel carrier frequency offset, units MHz, include instant, avg, min, max value Value type: 1-digit decimal Units: MHz",
+        "unit": "MHz",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 44,
+    "leafCount": 43,
+    "maxDepth": 2
+  }
+}

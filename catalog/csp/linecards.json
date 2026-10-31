@@ -1,0 +1,5024 @@
+[
+  {
+    "id": "lc-c1125",
+    "name": "C1125",
+    "width": 2,
+    "ports": [
+      {
+        "id": "OSC",
+        "role": "osc",
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "BAIN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINEIN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINEOUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PAOUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "COM",
+        "role": "com",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINE",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "MON1",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON2",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD1",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD2",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD3",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD4",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD5",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD6",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD7",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD8",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD9",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD10",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD11",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-800mx",
+    "name": "800MX",
+    "ports": [
+      {
+        "id": "PORT1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "PORT2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "PORT3",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "PORT4",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "PORT5",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "PORT6",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "PORT7",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "PORT8",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "PORT9",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "PORT10",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "lc-c925",
+    "name": "C925",
+    "width": 2,
+    "ports": [
+      {
+        "id": "OSC",
+        "role": "osc",
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "BAIN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINEIN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINEOUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PAOUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "COM",
+        "role": "com",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINE",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "MON1",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON2",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD1",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD2",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD3",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD4",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD5",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD6",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD7",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD8",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD9",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-tmuxc935",
+    "name": "TMUXC935",
+    "width": 2,
+    "ports": [
+      {
+        "id": "OSC",
+        "role": "osc",
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "BAIN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINEIN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINEOUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PAOUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "COM",
+        "role": "com",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINE",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "MON1",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON2",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD1",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD2",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD3",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD4",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD5",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD6",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD7",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD8",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD9",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-c25",
+    "name": "C25",
+    "width": 2,
+    "ports": [
+      {
+        "id": "LINE",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "MON1",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON2",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "SIG",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-m4qd",
+    "name": "M4QD",
+    "ports": [
+      {
+        "id": "L1",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": [
+          "1506295",
+          "1518424",
+          "1641793",
+          "60s140001",
+          "60s190001",
+          "dp04cfp2-m30-00e",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl",
+          "ftcd3312o1bcl",
+          "ftcd3312r1bcl-wd",
+          "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
+          "ftcd3323r1pcl-wd",
+          "ftce3326s1ccl-by",
+          "ftce3326s1ccltcn",
+          "ftce3l26s1ccl-by",
+          "ftce3l26s1ccltcn"
+        ]
+      },
+      {
+        "id": "C1",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C2",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C3",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C4",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "lc-400mx",
+    "name": "400MX",
+    "ports": [
+      {
+        "id": "L1",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": [
+          "1506295",
+          "1518424",
+          "1641793",
+          "60s140001",
+          "60s190001",
+          "dp04cfp2-m30-00e",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl",
+          "ftcd3312o1bcl",
+          "ftcd3312r1bcl-wd",
+          "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
+          "ftcd3323r1pcl-wd",
+          "ftce3326s1ccl-by",
+          "ftce3326s1ccltcn",
+          "ftce3l26s1ccl-by",
+          "ftce3l26s1ccltcn"
+        ]
+      },
+      {
+        "id": "C1",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C2",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C3",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C4",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "lc-800tr",
+    "name": "800TR",
+    "ports": [
+      {
+        "id": "PORT1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "PORT2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "PORT3",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "PORT4",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "PORT5",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "PORT6",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "PORT7",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "PORT8",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "PORT9",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "PORT10",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "lc-m2cq",
+    "name": "M2CQ",
+    "width": 2,
+    "ports": [
+      {
+        "id": "L1",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": [
+          "1506295",
+          "1518424",
+          "1641793",
+          "60s140001",
+          "60s190001",
+          "60s200001",
+          "dp04cfp2-m30-00e",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl",
+          "ftcd3312o1bcl",
+          "ftcd3312r1bcl-wd",
+          "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
+          "ftcd3323r1pcl-wd",
+          "ftce3326s1ccl-by",
+          "ftce3326s1ccltcn",
+          "ftce3l26s1ccl-by",
+          "ftce3l26s1ccltcn"
+        ]
+      },
+      {
+        "id": "C1",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C5",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "1506295",
+          "1518424",
+          "1641793",
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "60g800001",
+          "60g810001",
+          "60s140001",
+          "60s190001",
+          "60s200001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "dp04cfp2-m30-00e",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "eshklb31-z010-c",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl",
+          "ftcd3312o1bcl",
+          "ftcd3312r1bcl-wd",
+          "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
+          "ftcd3323r1pcl-wd",
+          "ftce3326s1ccl-by",
+          "ftce3326s1ccltcn",
+          "ftce3l26s1ccl-by",
+          "ftce3l26s1ccltcn",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc3351s3pl1",
+          "ftlc3351s3pl1-wd",
+          "ftlc3352s3pl1",
+          "ftlc3353s3pl1",
+          "ftlc4353rjpl",
+          "ftlx1472m3bcl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "C11",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "C12",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "C13",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "C14",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "C15",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "C16",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "C17",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "C18",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "C19",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "C20",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "lc-m2cp",
+    "name": "M2CP",
+    "ports": [
+      {
+        "id": "L1",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": [
+          "1506295",
+          "1518424",
+          "1641793",
+          "60s140001",
+          "60s190001",
+          "dp04cfp2-m30-00e",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl",
+          "ftcd3312o1bcl",
+          "ftcd3312r1bcl-wd",
+          "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
+          "ftcd3323r1pcl-wd",
+          "ftce3326s1ccl-by",
+          "ftce3326s1ccltcn",
+          "ftce3l26s1ccl-by",
+          "ftce3l26s1ccltcn"
+        ]
+      },
+      {
+        "id": "C1",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C3",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "lc-oa25",
+    "name": "OA25",
+    "width": 2,
+    "ports": [
+      {
+        "id": "OSC",
+        "role": "osc",
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "BAIN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PAIN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "BAOUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PAOUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON1",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON2",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-oa35",
+    "name": "OA35",
+    "width": 2,
+    "ports": [
+      {
+        "id": "OSC",
+        "role": "osc",
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "BAIN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PAIN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "BAOUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PAOUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON1",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON2",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-ola25",
+    "name": "OLA25",
+    "width": 2,
+    "ports": [
+      {
+        "id": "OSC1",
+        "role": "osc",
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "OSC2",
+        "role": "osc",
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "LA1IN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LA2IN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LA1OUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LA2OUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON1",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON2",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR3",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR4",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-ola35a",
+    "name": "OLA35A",
+    "width": 2,
+    "ports": [
+      {
+        "id": "OSC1",
+        "role": "osc",
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "OSC2",
+        "role": "osc",
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "LA1IN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LA2IN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LA1OUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LA2OUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON1",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON2",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR3",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR4",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-ola35b",
+    "name": "OLA35B",
+    "width": 2,
+    "ports": [
+      {
+        "id": "OSC1",
+        "role": "osc",
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "OSC2",
+        "role": "osc",
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "LA1IN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LA2IN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LA1OUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LA2OUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON1",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON2",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR3",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR4",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-ptm-e",
+    "name": "PTM-E",
+    "ports": [
+      {
+        "id": "S60",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "S61",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "LINE",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "SIG",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "C61",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-ptm-w",
+    "name": "PTM-W",
+    "ports": [
+      {
+        "id": "S60",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "S61",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "LINE",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "SIG",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "C60",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-tff1619",
+    "name": "TFF1619",
+    "ports": [
+      {
+        "id": "CH1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH3",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH4",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PT1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MUX",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-tff2023",
+    "name": "TFF2023",
+    "ports": [
+      {
+        "id": "CH1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH3",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH4",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PT1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MUX",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-tff2528",
+    "name": "TFF2528",
+    "ports": [
+      {
+        "id": "CH1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH3",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH4",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PT1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MUX",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-tff2932",
+    "name": "TFF2932",
+    "ports": [
+      {
+        "id": "CH1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH3",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH4",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PT1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MUX",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-tff3437",
+    "name": "TFF3437",
+    "ports": [
+      {
+        "id": "CH1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH3",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH4",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PT1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MUX",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-tff3841",
+    "name": "TFF3841",
+    "ports": [
+      {
+        "id": "CH1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH3",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH4",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PT1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MUX",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-tff4346",
+    "name": "TFF4346",
+    "ports": [
+      {
+        "id": "CH1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH3",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH4",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PT1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MUX",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-tff4750",
+    "name": "TFF4750",
+    "ports": [
+      {
+        "id": "CH1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH3",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH4",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PT1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MUX",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-tff5255",
+    "name": "TFF5255",
+    "ports": [
+      {
+        "id": "CH1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH3",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH4",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PT1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MUX",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-tff5659",
+    "name": "TFF5659",
+    "ports": [
+      {
+        "id": "CH1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH3",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "CH4",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PT1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MUX",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-op1",
+    "name": "OP1",
+    "ports": [
+      {
+        "id": "1-APSP",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "1-APSS",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "1-APSC",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "APS1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-op2",
+    "name": "OP2",
+    "ports": [
+      {
+        "id": "1-APSP",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "1-APSS",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "1-APSC",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "2-APSP",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "2-APSS",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "2-APSC",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "APS1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "APS2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-t4b4",
+    "name": "T4B4",
+    "ports": [
+      {
+        "id": "L1",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": [
+          "1506295",
+          "1518424",
+          "1641793",
+          "60s140001",
+          "60s190001",
+          "dp04cfp2-m30-00e",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl",
+          "ftcd3312o1bcl",
+          "ftcd3312r1bcl-wd",
+          "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
+          "ftcd3323r1pcl-wd",
+          "ftce3326s1ccl-by",
+          "ftce3326s1ccltcn",
+          "ftce3l26s1ccl-by",
+          "ftce3l26s1ccltcn"
+        ]
+      },
+      {
+        "id": "C1",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C2",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C3",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C4",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "lc-t2b2",
+    "name": "T2B2",
+    "ports": [
+      {
+        "id": "L1",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": [
+          "1506295",
+          "1518424",
+          "1641793",
+          "60s140001",
+          "60s190001",
+          "dp04cfp2-m30-00e",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl",
+          "ftcd3312o1bcl",
+          "ftcd3312r1bcl-wd",
+          "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
+          "ftcd3323r1pcl-wd",
+          "ftce3326s1ccl-by",
+          "ftce3326s1ccltcn",
+          "ftce3l26s1ccl-by",
+          "ftce3l26s1ccltcn"
+        ]
+      },
+      {
+        "id": "C1",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C3",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "lc-m4cp",
+    "name": "M4CP",
+    "ports": [
+      {
+        "id": "L1",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": [
+          "1506295",
+          "1518424",
+          "1641793",
+          "60s140001",
+          "60s190001",
+          "dp04cfp2-m30-00e",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl",
+          "ftcd3312o1bcl",
+          "ftcd3312r1bcl-wd",
+          "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
+          "ftcd3323r1pcl-wd",
+          "ftce3326s1ccl-by",
+          "ftce3326s1ccltcn",
+          "ftce3l26s1ccl-by",
+          "ftce3l26s1ccltcn"
+        ]
+      },
+      {
+        "id": "C1",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C2",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C3",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C4",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "lc-m10q2b2",
+    "name": "M10Q2B2",
+    "width": 2,
+    "ports": [
+      {
+        "id": "L1",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": [
+          "1506295",
+          "1518424",
+          "1641793",
+          "60s140001",
+          "60s190001",
+          "60s200001",
+          "dp04cfp2-m30-00e",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl",
+          "ftcd3312o1bcl",
+          "ftcd3312r1bcl-wd",
+          "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
+          "ftcd3323r1pcl-wd",
+          "ftce3326s1ccl-by",
+          "ftce3326s1ccltcn",
+          "ftce3l26s1ccl-by",
+          "ftce3l26s1ccltcn"
+        ]
+      },
+      {
+        "id": "C1",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C5",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "1506295",
+          "1518424",
+          "1641793",
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "60g800001",
+          "60g810001",
+          "60s140001",
+          "60s190001",
+          "60s200001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "dp04cfp2-m30-00e",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "eshklb31-z010-c",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl",
+          "ftcd3312o1bcl",
+          "ftcd3312r1bcl-wd",
+          "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
+          "ftcd3323r1pcl-wd",
+          "ftce3326s1ccl-by",
+          "ftce3326s1ccltcn",
+          "ftce3l26s1ccl-by",
+          "ftce3l26s1ccltcn",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc3351s3pl1",
+          "ftlc3351s3pl1-wd",
+          "ftlc3352s3pl1",
+          "ftlc3353s3pl1",
+          "ftlc4353rjpl",
+          "ftlx1472m3bcl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "C11",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "C12",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "C13",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "C14",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "C15",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "C16",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "C17",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "C18",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "C19",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "C20",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "lc-t1x12c8",
+    "name": "T1X12C8",
+    "ports": [
+      {
+        "id": "L1",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": [
+          "1506295",
+          "1518424",
+          "1641793",
+          "60s140001",
+          "60s190001",
+          "dp04cfp2-m30-00e",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl",
+          "ftcd3312o1bcl",
+          "ftcd3312r1bcl-wd",
+          "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
+          "ftcd3323r1pcl-wd",
+          "ftce3326s1ccl-by",
+          "ftce3326s1ccltcn",
+          "ftce3l26s1ccl-by",
+          "ftce3l26s1ccltcn"
+        ]
+      },
+      {
+        "id": "C1",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C2",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C3",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C4",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C5",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C6",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C7",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C8",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "lc-t1x12c8l",
+    "name": "T1X12C8L",
+    "ports": [
+      {
+        "id": "L1",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": [
+          "1506295",
+          "1518424",
+          "1641793",
+          "60s140001",
+          "60s190001",
+          "dp04cfp2-m30-00e",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl",
+          "ftcd3312o1bcl",
+          "ftcd3312r1bcl-wd",
+          "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
+          "ftcd3323r1pcl-wd",
+          "ftce3326s1ccl-by",
+          "ftce3326s1ccltcn",
+          "ftce3l26s1ccl-by",
+          "ftce3l26s1ccltcn"
+        ]
+      },
+      {
+        "id": "C1",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C2",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C3",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C4",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C5",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C6",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C7",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      },
+      {
+        "id": "C8",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "lc-tws05oa25",
+    "name": "TWS05OA25",
+    "width": 2,
+    "ports": [
+      {
+        "id": "OSC",
+        "role": "osc",
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "BAIN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PAIN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "BAOUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PAOUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON1",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON2",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MUX",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD1",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD2",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD3",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD4",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD5",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OCM1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OCM22",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-tws05oa35",
+    "name": "TWS05OA35",
+    "width": 2,
+    "ports": [
+      {
+        "id": "OSC",
+        "role": "osc",
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "BAIN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PAIN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "BAOUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PAOUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON1",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON2",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MUX",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD1",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD2",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD3",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD4",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD5",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OCM1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OCM22",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-tws09oa25",
+    "name": "TWS09OA25",
+    "width": 2,
+    "ports": [
+      {
+        "id": "OSC",
+        "role": "osc",
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "BAIN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINEIN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINEOUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PAOUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "COM",
+        "role": "com",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINE",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "MON1",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON2",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD1",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD2",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD3",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD4",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD5",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD6",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD7",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD8",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD9",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OCM1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OCM22",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-tws09oa35",
+    "name": "TWS09OA35",
+    "width": 2,
+    "ports": [
+      {
+        "id": "OSC",
+        "role": "osc",
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "BAIN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PAIN",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "BAOUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PAOUT",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON1",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON2",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MUX",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD1",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD2",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD3",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD4",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD5",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD6",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD7",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD8",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD9",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OCM1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OCM22",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-ocm",
+    "name": "OCM",
+    "ports": [
+      {
+        "id": "OCM1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OCM2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OCM3",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OCM4",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OCM5",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OCM6",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OCM7",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OCM8",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OCM1-OCM",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-otdr",
+    "name": "OTDR",
+    "ports": [
+      {
+        "id": "OTDR1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR3",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR4",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR5",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR6",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR7",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR8",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR1-OTDR",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  }
+]

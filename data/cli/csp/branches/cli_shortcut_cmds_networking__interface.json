@@ -1,0 +1,282 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_networking__interface",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_networking.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_networking__interface:n1",
+    "name": "interface",
+    "aliasName": null,
+    "type": "list",
+    "path": [
+      "interface"
+    ],
+    "cmdTypeRaw": "set,show",
+    "cmdTypes": [
+      "set",
+      "show"
+    ],
+    "key": "/openconfig-interfaces:interfaces/interface/config",
+    "keyQuery": null,
+    "keyElem": [
+      "name"
+    ],
+    "idName": null,
+    "keyPattern": "INTERFACE-",
+    "keyRegex": "(.)*-(NM[0-9]*|OSC[1-2]?|ETH[1-2]?|SFP[1-2]?)$",
+    "keyPrefixReplacement": null,
+    "permissionRule": null,
+    "helperInfo": "the management interface layer attribute of identified one.",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_networking__interface:n2",
+        "name": "control",
+        "aliasName": "enabled",
+        "type": "leaf",
+        "path": [
+          "interface",
+          "control"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-interfaces:interfaces/interface/config",
+        "keyQuery": "/openconfig-interfaces:interfaces/interface/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "INTERFACE-",
+        "keyRegex": "(.)*-(NM[0-9]*|OSC[1-2]?|ETH[1-2]?|SFP[1-2]?)$",
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The configured, desired state of the interface Available Value - “enabled”: enable the interface, able to send and receive packets - “disabled”: disable the interface, block the packets sending and receiving default value: “enabled”",
+        "unit": null,
+        "values": [
+          "enabled",
+          "disabled"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_networking__interface:n3",
+        "name": "auto-negotiate",
+        "aliasName": "auto-negotiate",
+        "type": "leaf",
+        "path": [
+          "interface",
+          "auto-negotiate"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-interfaces:interfaces/interface/openconfig-if-ethernet:ethernet/config",
+        "keyQuery": "/openconfig-interfaces:interfaces/interface/openconfig-if-ethernet:ethernet/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "INTERFACE-",
+        "keyRegex": "(.)*-(NM[0-9]*|OSC[1-2]?|ETH[1-2]?|SFP[1-2]?)$",
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Set the interface to auto-negotiate function enabled or disabled Available Value - “enabled”: request the interface to auto-negotiate transmission parameters with its peer interface. - “disabled”: the transmission parameters are specified manually default value: “enabled”",
+        "unit": null,
+        "values": [
+          "enabled",
+          "disabled"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_networking__interface:n4",
+        "name": "port-speed",
+        "aliasName": "port-speed",
+        "type": "leaf",
+        "path": [
+          "interface",
+          "port-speed"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-interfaces:interfaces/interface/openconfig-if-ethernet:ethernet/config",
+        "keyQuery": "/openconfig-interfaces:interfaces/interface/openconfig-if-ethernet:ethernet/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "INTERFACE-",
+        "keyRegex": "(.)*-(NM[0-9]*|OSC[1-2]?|ETH[1-2]?|SFP[1-2]?)$",
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: When auto-negotiate is set to disabled, sets the link speed to the configured fixed value. Available Value - “10MB”: 10M bits per second. - “100MB”: 100M bits per second. - “1GB”: 1000M bits per second. default value: “1GB”",
+        "unit": null,
+        "values": [
+          "10MB",
+          "100MB",
+          "1GB"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_networking__interface:n5",
+        "name": "flow-control",
+        "aliasName": "enable-flow-control",
+        "type": "leaf",
+        "path": [
+          "interface",
+          "flow-control"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-interfaces:interfaces/interface/openconfig-if-ethernet:ethernet/config",
+        "keyQuery": "/openconfig-interfaces:interfaces/interface/openconfig-if-ethernet:ethernet/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "INTERFACE-",
+        "keyRegex": "(.)*-(NM[0-9]*|OSC[1-2]?|ETH[1-2]?|SFP[1-2]?)$",
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Enable or disable flow control for this interface. Ethernet flow control is a mechanism by which a receiver may send PAUSE frames to a sender to stop transmission for a specified time. Available Value - “enabled”: enable the flow control for this interface. - “disabled”: disable flow control for this interface. default value: “disabled”",
+        "unit": null,
+        "values": [
+          "enabled",
+          "disabled"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_networking__interface:n6",
+        "name": "oper-status",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "interface",
+          "oper-status"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-interfaces:interfaces/interface/state",
+        "keyElem": [
+          "oper-status"
+        ],
+        "idName": null,
+        "keyPattern": "INTERFACE-",
+        "keyRegex": "(.)*-(NM[0-9]*|OSC[1-2]?|ETH[1-2]?|SFP[1-2]?)$",
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: the operational status of identifier interface",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_networking__interface:n7",
+        "name": "mac-address",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "interface",
+          "mac-address"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-interfaces:interfaces/interface/openconfig-if-ethernet:ethernet/state",
+        "keyElem": [
+          "mac-address"
+        ],
+        "idName": null,
+        "keyPattern": "INTERFACE-",
+        "keyRegex": "(.)*-(NM[0-9]*|OSC[1-2]?|ETH[1-2]?|SFP[1-2]?)$",
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Hardware MAC address of the ethernet interface",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 7,
+    "leafCount": 6,
+    "maxDepth": 2
+  }
+}

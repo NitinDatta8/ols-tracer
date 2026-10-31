@@ -1,0 +1,258 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_l1__cross-connection",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_l1.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_l1__cross-connection:n1",
+    "name": "cross-connection",
+    "aliasName": null,
+    "type": "list",
+    "path": [
+      "cross-connection"
+    ],
+    "cmdTypeRaw": "set,show,delete",
+    "cmdTypes": [
+      "set",
+      "show",
+      "delete"
+    ],
+    "key": "/co-cross-connection:service/transport-cross-connections/transport-cross-connection/config",
+    "keyQuery": "/co-cross-connection:service/transport-cross-connections/transport-cross-connection/state",
+    "keyElem": [
+      "connection-name"
+    ],
+    "idName": "name",
+    "keyPattern": null,
+    "keyRegex": null,
+    "keyPrefixReplacement": null,
+    "permissionRule": "admin|rw,operation|rw,supervision|ro",
+    "helperInfo": "Description: set port-xc with client port and optical channel",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": true,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_l1__cross-connection:n2",
+        "name": "connection-name",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "cross-connection",
+          "connection-name"
+        ],
+        "cmdTypeRaw": "",
+        "cmdTypes": [],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The name of the identified cross-connection. Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__cross-connection:n3",
+        "name": "source-entity",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "cross-connection",
+          "source-entity"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/co-cross-connection:service/transport-cross-connections/transport-cross-connection/config",
+        "keyQuery": "/co-cross-connection:service/transport-cross-connections/transport-cross-connection/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: name of source eth",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__cross-connection:n4",
+        "name": "destination-entity",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "cross-connection",
+          "destination-entity"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/co-cross-connection:service/transport-cross-connections/transport-cross-connection/config",
+        "keyQuery": "/co-cross-connection:service/transport-cross-connections/transport-cross-connection/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: name of dest eth",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__cross-connection:n5",
+        "name": "description",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "cross-connection",
+          "description"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: addation description by operator",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__cross-connection:n6",
+        "name": "direction-type",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "cross-connection",
+          "direction-type"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description:",
+        "unit": null,
+        "values": [
+          "bidirection"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__cross-connection:n7",
+        "name": "management-type",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "cross-connection",
+          "management-type"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": "/co-cross-connection:service/transport-cross-connections/transport-cross-connection/config",
+        "keyQuery": "/co-cross-connection:service/transport-cross-connections/transport-cross-connection/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description:",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 7,
+    "leafCount": 6,
+    "maxDepth": 2
+  }
+}

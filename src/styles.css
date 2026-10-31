@@ -5,8 +5,9 @@
   --muted: #6b7785;
   --accent: #0f62fe;
   --fiber: #16a34a;
-  --client: #2563eb;
-  --line: #d97706;
+  --data: #2563eb;
+  --l1: #d97706;
+  --aux: #6b7280;
   --error: #b42318;
   --mono: 'JetBrains Mono', 'SF Mono', ui-monospace, Menlo, monospace;
   font: 13px/1.4 system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -64,8 +65,9 @@ main { position: relative; min-height: 0; }
 .device .model { color: var(--muted); font-size: 11px; }
 .device .ports { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin-top: 6px; }
 .device .port { display: grid; gap: 1px; padding: 1px 3px 3px; border-radius: 3px; color: #fff; font-size: 10px; line-height: 1.3; text-align: center; }
-.device .port.client { background: var(--client); }
-.device .port.line { background: var(--line); }
+.device .port.data { background: var(--data); }
+.device .port.l1 { background: var(--l1); }
+.device .port.aux { background: var(--aux); }
 .device .port.off { opacity: 0.2; pointer-events: none; }
 /* A port's Tx and Rx handles, drawn like the strands in the physical view (.strand). */
 .react-flow__handle.strand {
@@ -84,7 +86,7 @@ main { position: relative; min-height: 0; }
 .grip rect { fill: #fff; stroke: var(--accent); stroke-width: 1.5; }
 .grip.ns { cursor: ns-resize; }
 .grip.ew { cursor: ew-resize; }
-.react-flow__edge-path.service { stroke: var(--client); stroke-width: 2; stroke-dasharray: 6 4; }
+.react-flow__edge-path.service { stroke: var(--data); stroke-width: 2; stroke-dasharray: 6 4; }
 .edge-label {
   position: absolute; padding: 1px 5px; background: #fff; border: 1px solid var(--border); border-radius: 3px;
   font-size: 10px; pointer-events: none;
@@ -172,8 +174,9 @@ main { position: relative; min-height: 0; }
   display: grid; grid-template: 'id pic' 16px 'lc lc' auto / auto 1fr; gap: 1px 3px; width: 52px; padding: 1px 2px;
   border: 1px solid #52606d; border-top: 2px solid; border-radius: 2px;
 }
-.mini.client, .mini-dot.client { border-top-color: var(--client); }
-.mini.line, .mini-dot.line { border-top-color: var(--line); }
+.mini.data, .mini-dot.data { border-top-color: var(--data); }
+.mini.l1, .mini-dot.l1 { border-top-color: var(--l1); }
+.mini.aux, .mini-dot.aux { border-top-color: var(--aux); }
 .mini.filled { cursor: pointer; }
 .mini.filled:hover { border-color: var(--accent); }
 .mini .pic { grid-area: pic; height: 16px; font-size: 7px; }
@@ -193,8 +196,9 @@ main { position: relative; min-height: 0; }
   display: grid; gap: 4px; width: 120px; padding: 6px; background: linear-gradient(#27323d, #1b242c); border: 2px solid #52606d;
   border-top-width: 4px; border-radius: 6px; font-size: 12px; box-shadow: 0 2px 6px rgb(0 0 0 / 30%);
 }
-.cage.client { border-top-color: var(--client); }
-.cage.line { border-top-color: var(--line); }
+.cage.data { border-top-color: var(--data); }
+.cage.l1 { border-top-color: var(--l1); }
+.cage.aux { border-top-color: var(--aux); }
 .cage.fits { border-color: var(--fiber); border-style: dashed; background: #14532d; }
 .cage.filled { cursor: pointer; }
 .cage-head { display: flex; align-items: baseline; gap: 6px; }

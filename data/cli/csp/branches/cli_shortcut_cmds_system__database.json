@@ -1,0 +1,399 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_system__database",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_system.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_system__database:n1",
+    "name": "database",
+    "aliasName": null,
+    "type": "container",
+    "path": [
+      "database"
+    ],
+    "cmdTypeRaw": "set,show",
+    "cmdTypes": [
+      "set",
+      "show"
+    ],
+    "key": "/openconfig-system:system/database/config",
+    "keyQuery": "/openconfig-system:system/database/state",
+    "keyElem": null,
+    "idName": null,
+    "keyPattern": null,
+    "keyRegex": null,
+    "keyPrefixReplacement": null,
+    "permissionRule": "admin|rw,operation|rw,supervision|ro",
+    "helperInfo": "show database command will print the information of current active one and the candidate one which download without activate",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_system__database:n2",
+        "name": "candidate",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "database",
+          "candidate"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-system:system/database/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Downloaded database's full file name. Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_system__database:n3",
+        "name": "candidate-status",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "database",
+          "candidate-status"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-system:system/database/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The candidate database operation status. Possibility Value: - download-in-progress: the candidate database file is still in downloading from remote server - download-completed: the candidate database file complete downloading from remote server - copy-in-progress: the candidate database is still in copy process from local device - copy-completed: the candidate database complete copy process from local device - NULL, no candidate database operation and no candidate database",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_system__database:n4",
+        "name": "scheduled-backup-task",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "database",
+          "scheduled-backup-task"
+        ],
+        "cmdTypeRaw": "set,show,delete",
+        "cmdTypes": [
+          "set",
+          "show",
+          "delete"
+        ],
+        "key": "/openconfig-system:system/database/scheduled-backup-tasks/scheduled-backup-task/config",
+        "keyQuery": "/openconfig-system:system/database/scheduled-backup-tasks/scheduled-backup-task/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": "name",
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": "admin|rw,operation|rw,supervision|ro",
+        "helperInfo": "Description: Set identifier task attributes for scheduled database backup The identifier type of task is name The maximum number of scheduled database backup tasks that can be created is 2.",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": true,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_system__database:n5",
+            "name": "name",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "database",
+              "scheduled-backup-task",
+              "name"
+            ],
+            "cmdTypeRaw": "",
+            "cmdTypes": [],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The name of scheduled backup DB task Value type: string",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__database:n6",
+            "name": "path",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "database",
+              "scheduled-backup-task",
+              "path"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The path of the DB to be uploaded. When upload to a remote server, the path shall be a SFTP path. When copy to local device, the path shall be a local folder path.",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__database:n7",
+            "name": "username",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "database",
+              "scheduled-backup-task",
+              "username"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The username for remote SFTP server Value type: string",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__database:n8",
+            "name": "password",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "database",
+              "scheduled-backup-task",
+              "password"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The password for remote SFTP server Value type: string",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__database:n9",
+            "name": "file-name-prefix",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "database",
+              "scheduled-backup-task",
+              "file-name-prefix"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The user specific prefix name of backup DB file. System will fill the full file name with automatically generated part by the system. Value type: string",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__database:n10",
+            "name": "interval",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "database",
+              "scheduled-backup-task",
+              "interval"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The interval of cyclical scheduled DB backup task. 0 means the task will run at start datetime once. Other interval means backup DB after integer multiples of interval since start datetime. Value type: integer Value range: 0…10000 Granularity: 1 Units: hours",
+            "unit": "hours",
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__database:n11",
+            "name": "start-datetime",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "database",
+              "scheduled-backup-task",
+              "start-datetime"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The start datetime of the scheduled backup task. Without user configuration it will be the task created datetime Value type: Reference RFC3339 IETF standard data-and-time format. Date and time value in the form YYYY-MM-DDTHH:MM:SSZ | YYYY-MMDDTHH:MM:SS±HH:MM (year, month, day, hour, minute, second, time offset) The date type does not allow a negative year.",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 11,
+    "leafCount": 9,
+    "maxDepth": 3
+  }
+}

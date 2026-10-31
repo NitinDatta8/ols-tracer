@@ -1,0 +1,1252 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_system__aaa",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_system.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_system__aaa:n1",
+    "name": "aaa",
+    "aliasName": null,
+    "type": "container",
+    "path": [
+      "aaa"
+    ],
+    "cmdTypeRaw": "set,show",
+    "cmdTypes": [
+      "set",
+      "show"
+    ],
+    "key": "/openconfig-system:system/aaa/authentication/config",
+    "keyQuery": "/openconfig-system:system/aaa/authentication/state",
+    "keyElem": null,
+    "idName": null,
+    "keyPattern": null,
+    "keyRegex": null,
+    "keyPrefixReplacement": null,
+    "permissionRule": "admin|rw,operation|none,supervision|none",
+    "helperInfo": null,
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_system__aaa:n2",
+        "name": "auth-method",
+        "aliasName": "authentication-method",
+        "type": "leaf",
+        "path": [
+          "aaa",
+          "auth-method"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Ordered list of authentication methods for users. This can be either a reference to a server group, or a well-defined designation in the type. If authentication fails with one method, the next defined method is tried -- failure of all methods results in the user being denied access. Available Value: - \"local\": Locally configured method for AAA operations. - \"radius-all\": The group of all RADIUS servers. If all RADIUS servers are unreachable, authenticate locally. If all remote servers reject, then system rejects the authentication. - \"tacacs-all\": The group of all TACACS servers. If all TACACS servers are unreachable, authenticate locally. If all remote servers reject, then system rejects the authentication. Default Value: \"local\"",
+        "unit": null,
+        "values": [
+          "local",
+          "radius-all",
+          "tacacs-all"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_system__aaa:n3",
+        "name": "authz-method",
+        "aliasName": "authorization-method",
+        "type": "leaf",
+        "path": [
+          "aaa",
+          "authz-method"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-system:system/aaa/authorization/config",
+        "keyQuery": "/openconfig-system:system/aaa/authorization/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Ordered list of authorization methods for users. This can be either a reference to a server group, or a well-defined designation in the type. If authorization fails with one method, the next defined method is tried -- failure of all methods results in the user being denied access. Available Value: - \"local\": Locally configured method for AAA operations. - \"radius-all\": The group of all RADIUS servers. If all RADIUS servers are unreachable, authorize locally. If all remote servers reject, then system rejects the authorization. - \"tacacs-all\": The group of all TACACS servers. If all TACACS servers are unreachable, authorize locally. If all remote servers reject, then system rejects the authorization. Default Value: \"local\"",
+        "unit": null,
+        "values": [
+          "local",
+          "radius-all",
+          "tacacs-all"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_system__aaa:n4",
+        "name": "acct-method",
+        "aliasName": "accounting-method",
+        "type": "leaf",
+        "path": [
+          "aaa",
+          "acct-method"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-system:system/aaa/accounting/config",
+        "keyQuery": "/openconfig-system:system/aaa/accounting/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Ordered list of methods used for AAA accounting for this event type. The method is defined by the destination for accounting data, which may be specified as the group of all TACACS+/RADIUS servers, a defined server group, or the local system. Available input: - \"local\": Locally configured method for AAA operations. - \"radius-all\": The group of all RADIUS servers. - \"tacacs-all\": The group of all TACACS servers. Default Value: \"local\"",
+        "unit": null,
+        "values": [
+          "radius-all",
+          "tacacs-all",
+          "local"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_system__aaa:n5",
+        "name": "access-delineation",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "aaa",
+          "access-delineation"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-system:system/aaa/accounting/config",
+        "keyQuery": "/openconfig-system:system/aaa/accounting/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The switch to control whether send the access delineation info to accounting server or not Possibility Output Value: - \"enabled\": Send the access delineation info to accounting server. - \"disabled\": Don’t send the access delineation info to accounting server. - Default Value: \"enabled\"",
+        "unit": null,
+        "values": [
+          "enabled",
+          "disabled"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_system__aaa:n6",
+        "name": "user",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "aaa",
+          "user"
+        ],
+        "cmdTypeRaw": "set,show,delete",
+        "cmdTypes": [
+          "set",
+          "show",
+          "delete"
+        ],
+        "key": "/openconfig-system:system/aaa/authentication/users/user/config",
+        "keyQuery": "/openconfig-system:system/aaa/authentication/users/user/state",
+        "keyElem": [
+          "username"
+        ],
+        "idName": null,
+        "keyPattern": "*",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Local user's name. Value type: string, maximum 32 characters. Note: the username is case sensitivity",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": true,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_system__aaa:n7",
+            "name": "password",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "aaa",
+              "user",
+              "password"
+            ],
+            "cmdTypeRaw": "set",
+            "cmdTypes": [
+              "set"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The password of the identified user. Available Value: A string type password shall have following characters: - At least 8 characters length, string length 8~32 - At least a lower-case character and an upper-case character - At least one numeric character - At least special character of !#$%&@^*",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__aaa:n8",
+            "name": "role",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "aaa",
+              "user",
+              "role"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description:The role of the identified user. Available Value: - \"administrator\": current user is administrator - \"operation\": current user is operation - \"supervision\": current user is supervision Default Value: \"supervision\" Note: the default user’s role is always supervision",
+            "unit": null,
+            "values": [
+              "administrator",
+              "operation",
+              "supervision"
+            ],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__aaa:n9",
+            "name": "max-idle-time",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "aaa",
+              "user",
+              "max-idle-time"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: A user based configuration, the maximum idle time for all NBI session. When the session keeps at inactivity state over this time, system will force close this session. Value type: positive integer Value range: 5…30 Units: minutes Granularity: 1 Default value: 10",
+            "unit": "minutes",
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__aaa:n10",
+            "name": "max-continuous-invalid-login",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "aaa",
+              "user",
+              "max-continuous-invalid-login"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: A user based configuration, the maximum number of continuous invalid login times for each local user. When the user continuous local authenticate failed more than this times, system will refuse the other local authentications which used this user in the lockout interval. Value type: positive integer Value range: 1…10 Granularity: 1 Default value: 3",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__aaa:n11",
+            "name": "lockout-interval",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "aaa",
+              "user",
+              "lockout-interval"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: A user based configuration, the lockout interval for the user which continuous local authenticate failed more than maximum invalid login times. Value type: positive integer Value range: 1…60 Units: minutes Granularity: 1 Default value: 5",
+            "unit": "minutes",
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__aaa:n12",
+            "name": "user-status",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "aaa",
+              "user",
+              "user-status"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The state leaf of aaa user extension functions Possibility Output Value: - \"enabled\": Current user is enabled. - \"lockout\": Current user is in lockout state.",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_system__aaa:n13",
+        "name": "server-group",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "aaa",
+          "server-group"
+        ],
+        "cmdTypeRaw": "set,show,delete",
+        "cmdTypes": [
+          "set",
+          "show",
+          "delete"
+        ],
+        "key": "/openconfig-system:system/aaa/server-groups/server-group/config",
+        "keyQuery": "/openconfig-system:system/aaa/server-groups/server-group/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": "name",
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "The config and state attributes of all remote aaa server-group related attributes or identifier one.",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": true,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_system__aaa:n14",
+            "name": "name",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "aaa",
+              "server-group",
+              "name"
+            ],
+            "cmdTypeRaw": "",
+            "cmdTypes": [],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The name of the identified server group. Value type: string",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__aaa:n15",
+            "name": "type",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "aaa",
+              "server-group",
+              "type"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The remote server protocol type of the identified group. Available Value: - \"radius\": Remote Authentication Dial In User Service (RADIUS) AAA server. - \"tacacs\": Terminal Access Controller Access-Control System (TACACS) AAA server Default Value: “radius”",
+            "unit": null,
+            "values": [
+              "radius",
+              "tacacs"
+            ],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__aaa:n16",
+            "name": "server",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "aaa",
+              "server-group",
+              "server"
+            ],
+            "cmdTypeRaw": "set,show,delete",
+            "cmdTypes": [
+              "set",
+              "show",
+              "delete"
+            ],
+            "key": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/config",
+            "keyQuery": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/state",
+            "keyElem": [
+              "address"
+            ],
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "The config and state attributes of all remote aaa server-group server related attributes or identifier one. The maximum number of aaa server that can be created is 2.",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": true,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_system__aaa:n17",
+                "name": "address",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "aaa",
+                  "server-group",
+                  "server",
+                  "address"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The IP address of identified server Value type: - IPv4 address in dotted decimal notation, e.g., 192.168.1.5 - An IPv6 address represented as either a full address; shortened or mixed-shortened formats. E.g., - fe80:0000:0000:0000:0000:0000:0001:0000 - fe80::0001:0000",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_system__aaa:n18",
+                "name": "name",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "aaa",
+                  "server-group",
+                  "server",
+                  "name"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The name assigned to the remote AAA server. Value type: string",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_system__aaa:n19",
+                "name": "timeout",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "aaa",
+                  "server-group",
+                  "server",
+                  "timeout"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The timeout in seconds on responses from the AAA server. Value type: positive integer Value range: 3…60 Units: seconds Granularity: 1 Default value: 5",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_system__aaa:n20",
+                "name": "radius",
+                "aliasName": null,
+                "type": "container",
+                "path": [
+                  "aaa",
+                  "server-group",
+                  "server",
+                  "radius"
+                ],
+                "cmdTypeRaw": "set,show,delete",
+                "cmdTypes": [
+                  "set",
+                  "show",
+                  "delete"
+                ],
+                "key": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/radius/config",
+                "keyQuery": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/radius/state",
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The remote aaa server layer radius type server attributes for identified one.",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": [
+                  {
+                    "nodeId": "cli_shortcut_cmds_system__aaa:n21",
+                    "name": "auth-port",
+                    "aliasName": null,
+                    "type": "leaf",
+                    "path": [
+                      "aaa",
+                      "server-group",
+                      "server",
+                      "radius",
+                      "auth-port"
+                    ],
+                    "cmdTypeRaw": "set,show",
+                    "cmdTypes": [
+                      "set",
+                      "show"
+                    ],
+                    "key": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/radius/config",
+                    "keyQuery": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/radius/state",
+                    "keyElem": null,
+                    "idName": null,
+                    "keyPattern": null,
+                    "keyRegex": null,
+                    "keyPrefixReplacement": null,
+                    "permissionRule": null,
+                    "helperInfo": "Description: The port number for authentication requests at remote radius server. Value type: positive integer Value range: 1…65535 Granularity: 1 Default value: 1812",
+                    "unit": null,
+                    "values": [],
+                    "flags": {
+                      "keyPatternMatchOnly": false,
+                      "tableShowOnly": false,
+                      "noAutoCompletionForShow": false,
+                      "keyCaseSensitive": false,
+                      "valueCaseSensitive": false
+                    },
+                    "children": []
+                  },
+                  {
+                    "nodeId": "cli_shortcut_cmds_system__aaa:n22",
+                    "name": "acct-port",
+                    "aliasName": null,
+                    "type": "leaf",
+                    "path": [
+                      "aaa",
+                      "server-group",
+                      "server",
+                      "radius",
+                      "acct-port"
+                    ],
+                    "cmdTypeRaw": "set,show",
+                    "cmdTypes": [
+                      "set",
+                      "show"
+                    ],
+                    "key": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/radius/config",
+                    "keyQuery": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/radius/state",
+                    "keyElem": null,
+                    "idName": null,
+                    "keyPattern": null,
+                    "keyRegex": null,
+                    "keyPrefixReplacement": null,
+                    "permissionRule": null,
+                    "helperInfo": "Description: The port number for accounting requests at remote radius server. Value type: positive integer Value range: 1…65535 Granularity: 1 Default value: 1813",
+                    "unit": null,
+                    "values": [],
+                    "flags": {
+                      "keyPatternMatchOnly": false,
+                      "tableShowOnly": false,
+                      "noAutoCompletionForShow": false,
+                      "keyCaseSensitive": false,
+                      "valueCaseSensitive": false
+                    },
+                    "children": []
+                  },
+                  {
+                    "nodeId": "cli_shortcut_cmds_system__aaa:n23",
+                    "name": "secret-key",
+                    "aliasName": null,
+                    "type": "leaf",
+                    "path": [
+                      "aaa",
+                      "server-group",
+                      "server",
+                      "radius",
+                      "secret-key"
+                    ],
+                    "cmdTypeRaw": "set",
+                    "cmdTypes": [
+                      "set"
+                    ],
+                    "key": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/radius/config",
+                    "keyQuery": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/radius/state",
+                    "keyElem": null,
+                    "idName": null,
+                    "keyPattern": null,
+                    "keyRegex": null,
+                    "keyPrefixReplacement": null,
+                    "permissionRule": null,
+                    "helperInfo": "Description: The unencrypted shared key used between the authentication server and the device. Value type: string",
+                    "unit": null,
+                    "values": [],
+                    "flags": {
+                      "keyPatternMatchOnly": false,
+                      "tableShowOnly": false,
+                      "noAutoCompletionForShow": false,
+                      "keyCaseSensitive": false,
+                      "valueCaseSensitive": false
+                    },
+                    "children": []
+                  },
+                  {
+                    "nodeId": "cli_shortcut_cmds_system__aaa:n24",
+                    "name": "source-address",
+                    "aliasName": null,
+                    "type": "leaf",
+                    "path": [
+                      "aaa",
+                      "server-group",
+                      "server",
+                      "radius",
+                      "source-address"
+                    ],
+                    "cmdTypeRaw": "set,show",
+                    "cmdTypes": [
+                      "set",
+                      "show"
+                    ],
+                    "key": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/radius/config",
+                    "keyQuery": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/radius/state",
+                    "keyElem": null,
+                    "idName": null,
+                    "keyPattern": null,
+                    "keyRegex": null,
+                    "keyPrefixReplacement": null,
+                    "permissionRule": null,
+                    "helperInfo": "Description: The source IP address to use in messages to the RADIUS server Value type: - IPv4 address in dotted decimal notation, e.g., 192.168.1.5 - An IPv6 address represented as either a full address; shortened or mixed-shortened formats. E.g., - fe80:0000:0000:0000:0000:0000:0001:0000 - fe80::0001:0000",
+                    "unit": null,
+                    "values": [],
+                    "flags": {
+                      "keyPatternMatchOnly": false,
+                      "tableShowOnly": false,
+                      "noAutoCompletionForShow": false,
+                      "keyCaseSensitive": false,
+                      "valueCaseSensitive": false
+                    },
+                    "children": []
+                  },
+                  {
+                    "nodeId": "cli_shortcut_cmds_system__aaa:n25",
+                    "name": "retransmit-attempts",
+                    "aliasName": null,
+                    "type": "leaf",
+                    "path": [
+                      "aaa",
+                      "server-group",
+                      "server",
+                      "radius",
+                      "retransmit-attempts"
+                    ],
+                    "cmdTypeRaw": "set,show",
+                    "cmdTypes": [
+                      "set",
+                      "show"
+                    ],
+                    "key": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/radius/config",
+                    "keyQuery": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/radius/state",
+                    "keyElem": null,
+                    "idName": null,
+                    "keyPattern": null,
+                    "keyRegex": null,
+                    "keyPrefixReplacement": null,
+                    "permissionRule": null,
+                    "helperInfo": "Description: The number of times the system may resend a request to the RADIUS server when it is unresponsive. Value type: positive integer Value range: 1…255 Granularity: 1 Default value: 5",
+                    "unit": null,
+                    "values": [],
+                    "flags": {
+                      "keyPatternMatchOnly": false,
+                      "tableShowOnly": false,
+                      "noAutoCompletionForShow": false,
+                      "keyCaseSensitive": false,
+                      "valueCaseSensitive": false
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_system__aaa:n26",
+                "name": "tacacs",
+                "aliasName": null,
+                "type": "container",
+                "path": [
+                  "aaa",
+                  "server-group",
+                  "server",
+                  "tacacs"
+                ],
+                "cmdTypeRaw": "set,show,delete",
+                "cmdTypes": [
+                  "set",
+                  "show",
+                  "delete"
+                ],
+                "key": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/tacacs/config",
+                "keyQuery": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/tacacs/state",
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The remote AAA server group layer attributes for the one identified.",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": [
+                  {
+                    "nodeId": "cli_shortcut_cmds_system__aaa:n27",
+                    "name": "port",
+                    "aliasName": null,
+                    "type": "leaf",
+                    "path": [
+                      "aaa",
+                      "server-group",
+                      "server",
+                      "tacacs",
+                      "port"
+                    ],
+                    "cmdTypeRaw": "set,show",
+                    "cmdTypes": [
+                      "set",
+                      "show"
+                    ],
+                    "key": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/tacacs/config",
+                    "keyQuery": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/tacacs/state",
+                    "keyElem": null,
+                    "idName": null,
+                    "keyPattern": null,
+                    "keyRegex": null,
+                    "keyPrefixReplacement": null,
+                    "permissionRule": null,
+                    "helperInfo": "Description: The port number on the remote TACACS server. Value type: positive integer Value range: 1…65535 Granularity: 1 Default value: 49",
+                    "unit": null,
+                    "values": [],
+                    "flags": {
+                      "keyPatternMatchOnly": false,
+                      "tableShowOnly": false,
+                      "noAutoCompletionForShow": false,
+                      "keyCaseSensitive": false,
+                      "valueCaseSensitive": false
+                    },
+                    "children": []
+                  },
+                  {
+                    "nodeId": "cli_shortcut_cmds_system__aaa:n28",
+                    "name": "secret-key",
+                    "aliasName": null,
+                    "type": "leaf",
+                    "path": [
+                      "aaa",
+                      "server-group",
+                      "server",
+                      "tacacs",
+                      "secret-key"
+                    ],
+                    "cmdTypeRaw": "set,show",
+                    "cmdTypes": [
+                      "set",
+                      "show"
+                    ],
+                    "key": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/tacacs/config",
+                    "keyQuery": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/tacacs/state",
+                    "keyElem": null,
+                    "idName": null,
+                    "keyPattern": null,
+                    "keyRegex": null,
+                    "keyPrefixReplacement": null,
+                    "permissionRule": null,
+                    "helperInfo": "Description: The unencrypted shared key used between the authentication server and the device. Value type: string",
+                    "unit": null,
+                    "values": [],
+                    "flags": {
+                      "keyPatternMatchOnly": false,
+                      "tableShowOnly": false,
+                      "noAutoCompletionForShow": false,
+                      "keyCaseSensitive": false,
+                      "valueCaseSensitive": false
+                    },
+                    "children": []
+                  },
+                  {
+                    "nodeId": "cli_shortcut_cmds_system__aaa:n29",
+                    "name": "source-address",
+                    "aliasName": null,
+                    "type": "leaf",
+                    "path": [
+                      "aaa",
+                      "server-group",
+                      "server",
+                      "tacacs",
+                      "source-address"
+                    ],
+                    "cmdTypeRaw": "set,show",
+                    "cmdTypes": [
+                      "set",
+                      "show"
+                    ],
+                    "key": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/tacacs/config",
+                    "keyQuery": "/openconfig-system:system/aaa/server-groups/server-group/servers/server/tacacs/state",
+                    "keyElem": null,
+                    "idName": null,
+                    "keyPattern": null,
+                    "keyRegex": null,
+                    "keyPrefixReplacement": null,
+                    "permissionRule": null,
+                    "helperInfo": "Description: The source IP address to be used to remote TACACS server. Value type: - IPv4 address in dotted decimal notation, e.g., 192.168.1.5 - An IPv6 address represented as either a full address; shortened or mixed-shortened formats. E.g., - fe80:0000:0000:0000:0000:0000:0001:0000 - fe80::0001:0000",
+                    "unit": null,
+                    "values": [],
+                    "flags": {
+                      "keyPatternMatchOnly": false,
+                      "tableShowOnly": false,
+                      "noAutoCompletionForShow": false,
+                      "keyCaseSensitive": false,
+                      "valueCaseSensitive": false
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_system__aaa:n30",
+        "name": "session",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "aaa",
+          "session"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": "/openconfig-system:system/aaa/authentication/co-aaa-ext:sessions/session",
+        "keyQuery": "/openconfig-system:system/aaa/authentication/co-aaa-ext:sessions/session/state",
+        "keyElem": [
+          "session-id"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: the state attributes of all sessions or identifier one.",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_system__aaa:n31",
+            "name": "auth-user",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "aaa",
+              "session",
+              "auth-user"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The authenticated user name of this session. Value type: string",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__aaa:n32",
+            "name": "nbi-type",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "aaa",
+              "session",
+              "nbi-type"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The North band interface type of this session Possibility Output Value: -\"NETCONF\": Session over NETCONF protocol -\"CLI\": Session used CLI -\"CONSOLE\": Session by console port",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__aaa:n33",
+            "name": "remote-ip",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "aaa",
+              "session",
+              "remote-ip"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The IP address of remote terminal Value type: IPv4 address in dotted decimal notation. E.g., 192.168.1.5",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__aaa:n34",
+            "name": "created-time",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "aaa",
+              "session",
+              "created-time"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The created time of this session. Value type: Reference RFC3339 IETF standard data-and-time format. Date and time value in the form YYYY-MM-DDTHH:MM:SS (year, month, day, hour, minute, second) The date type does not allow a negative year.",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 34,
+    "leafCount": 27,
+    "maxDepth": 5
+  }
+}

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type DragEvent, type MouseEvent } from 'react';
 import { byId, cli } from './catalog';
 import { PipeLayer, type PipeEnds } from './Pipe';
+import { roleOf, toneOf } from './ports';
 import { alarms, bays, coverage, fiberable, fiberError, fibersAt, linecardError, path, pluggableError, resolve, sameEnd, span, touches } from './rules';
 import { useCatalog, useStore } from './store';
 import { BoxTerminal, type Keys } from './Terminal';
@@ -29,10 +30,15 @@ const portGrid = (lc: LinecardDef) => ({ gridTemplateColumns: `repeat(${lc.colum
 /** A link as is, or a file under public/. */
 const asset = (path: string) => (/^https?:/.test(path) ? path : import.meta.env.BASE_URL + path);
 
-/** Product photo, else a pluggable's form factor drawn as a label, else nothing. */
-const Pic = ({ p, big }: { p: Datasheet & { name: string; formFactor?: string }; big?: boolean }) =>
-  p.image ? <img className={`pic${big ? ' big' : ''}`} src={asset(p.image)} alt={p.name} draggable={false} />
-    : p.formFactor ? <div className={`pic none${big ? ' big' : ''}`}>{p.formFactor}</div> : null;
+/** Product photo, else a placeholder with its form factor (or "No image"). */
+const Pic = ({ p, big }: { p: Datasheet & { name: string; formFactor?: string }; big?: boolean }) => {
+  const [failed, setFailed] = useState(false);
+  useEffect(() => setFailed(false), [p.image]);
+  if (p.image && !failed) {
+    return <img className={`pic${big ? ' big' : ''}`} src={asset(p.image)} alt={p.name} draggable={false} onError={() => setFailed(true)} />;
+  }
+  return <div className={`pic none${big ? ' big' : ''}`}>{p.formFactor ?? 'No image'}</div>;
+};
 
 /** A strand's key for the pipes drawn over the faceplate. */
 const pin = (e: End, s: Strand) => `${s}:${e.slot}/${e.port}`;
@@ -298,8 +304,9 @@ export function PhysicalView() {
       onDragStart={(e) => { e.dataTransfer.setData('text/plain', lc.id); setDrag({ kind: 'card', id: lc.id }); }}
       onDragEnd={() => setDrag(null)}
       onClick={() => pick('card', lc.id)}>
-      <div className="mini-ports">{lc.ports.map((p) => <span key={p.id} className={`mini-dot ${p.role}`} />)}</div>
       <b>{lc.name}</b>
+      <small>{lc.width ?? 1} slot{(lc.width ?? 1) > 1 ? 's' : ''} · {lc.ports.length} port{lc.ports.length > 1 ? 's' : ''}</small>
+      <div className="mini-ports">{lc.ports.map((p) => <span key={p.id} className={`mini-dot ${toneOf(p)}`} />)}</div>
     </div>
   );
 
@@ -334,7 +341,7 @@ export function PhysicalView() {
                       const from = wire && sameEnd(wire.end, end);
                       const target = wire && !fiberError(t, cat, ...ends(wire, end));
                       return (
-                        <div key={p.id} className={`mini ${p.role}${pluggable ? ' filled' : ''}${from ? ' wiring' : ''}${target ? ' fits' : ''}`}
+                        <div key={p.id} className={`mini ${toneOf(p)}${pluggable ? ' filled' : ''}${from ? ' wiring' : ''}${target ? ' fits' : ''}`}
                           data-pipe-box {...hoverable(pluggable)}
                           onClick={pluggable ? (e) => { e.stopPropagation(); show('plug', pluggable.id, { slot: slot.id, port: p.id }); } : undefined}>
                           {pluggable ? <Pic p={pluggable} /> : <div className="pic empty">{p.allowedPluggables.length ? '' : 'LC'}</div>}
@@ -398,11 +405,11 @@ export function PhysicalView() {
             const inserted = device.slots[slotId].ports[p.id];
             const fits = part?.kind === 'plug' && !inserted && !pluggableError(cat, lc.id, p.id, part.id);
             return (
-              <div key={p.id} data-port={p.id} className={`cage ${p.role}${fits ? ' fits' : ''}${pluggable ? ' filled' : ''}${wire && sameEnd(wire.end, end) ? ' wiring' : ''}`}
+              <div key={p.id} data-port={p.id} className={`cage ${toneOf(p)}${fits ? ' fits' : ''}${pluggable ? ' filled' : ''}${wire && sameEnd(wire.end, end) ? ' wiring' : ''}`}
                 data-pipe-box {...hoverable(pluggable, { slot: slotId, port: p.id })}
                 onClick={pluggable ? () => show('plug', pluggable.id, { slot: slotId, port: p.id }) : fits ? () => insertPluggable(device.id, slotId, p.id, part.id) : undefined}>
                 <div className="cage-head">
-                  <b>{p.id}</b><small>{p.role}</small>
+                  <b>{p.id}</b><small>{roleOf(p)}</small>
                   {alarmButton({ slot: slotId, port: p.id })}
                   {inserted &&<span className="remove" onClick={(e) => { e.stopPropagation(); removeAt(slotId, p.id); }}>✕</span>}
                 </div>
@@ -471,8 +478,14 @@ export function PhysicalView() {
 
   /** The parts to drag in, in one strip under the faceplate: linecards for the chassis, pluggables (DCOs apart) for a card. */
   const tray = () => {
+    const supportedByCard = card && new Set(
+      cat.pluggables
+        .filter((plug) => card.ports.some((port) => port.allowedPluggables.some((a) => a === plug.id || a === plug.formFactor)))
+        .map((plug) => plug.id),
+    );
+    const pluggables = card ? cat.pluggables.filter((plug) => supportedByCard?.has(plug.id)) : [];
     const groups = card
-      ? Object.entries(Object.groupBy(cat.pluggables, (p) => (p.dco ? 'DCO · digital coherent optics' : 'Pluggable optics'))).map(([group, plugs]) => [group, plugs?.map((p) => (
+      ? Object.entries(Object.groupBy(pluggables, (p) => (p.dco ? 'DCO · digital coherent optics' : 'Pluggable optics'))).map(([group, plugs]) => [group, plugs?.map((p) => (
         <div key={p.id} className={`tile${p.dco ? ' dco' : ''}${shown('plug', p.id) ? ' on' : ''}`} draggable {...hoverable(p)}
           onDragStart={(e) => { e.dataTransfer.setData('text/plain', p.id); setTip(null); setDrag({ kind: 'plug', id: p.id }); }}
           onDragEnd={() => setDrag(null)}
@@ -484,7 +497,8 @@ export function PhysicalView() {
       : [['Linecards', cat.linecards.map(cardTile)] as const];
     // Always there, so the faceplate keeps its size: a card with built-in ports and the back get a note instead.
     const note = back ? 'Nothing to drag in at the rear.'
-      : builtIn ? `${card.name} has built-in ports: nothing to plug in.` : '';
+      : builtIn ? `${card.name} has built-in ports: nothing to plug in.`
+        : card && !pluggables.length ? `No pluggables are defined yet for ${card.name}.` : '';
     return (
       <div className="tray">
         {note ? <p className="muted">{note}</p> : groups.map(([group, tiles]) => (
@@ -506,7 +520,8 @@ export function PhysicalView() {
     }
     if (detail?.kind === 'card') {
       const lc = byId(cat.linecards, detail.id);
-      const roles = lc && Object.entries(Object.groupBy(lc.ports, (p) => p.role)).map(([role, ps]) => `${ps!.length} ${role}`).join(', ');
+      const roleCounts = lc?.ports.reduce((m, p) => m.set(roleOf(p), (m.get(roleOf(p)) ?? 0) + 1), new Map<string, number>());
+      const roles = roleCounts && [...roleCounts.entries()].map(([role, n]) => `${n} ${role}`).join(', ');
       return lc && { item: lc, tag: 'Linecard', facts: { Width: `${lc.width ?? 1} slot${(lc.width ?? 1) > 1 ? 's' : ''}`, Ports: `${lc.ports.length} (${roles})` },
         command: detail.at && command('card', detail.at) };
     }
@@ -520,8 +535,8 @@ export function PhysicalView() {
     : back
       ? '✕ pulls a PSU or fan out, which raises an alarm · Insert puts it back · Esc closes'
       : wire
-        ? `Running a fiber ${wire.strand === 'tx' ? 'from' : 'into'} ${farLabel(wire.end)} ${STRAND[wire.strand]}: click the ${STRAND[OTHER[wire.strand]]} at the other end (green = free; a line port may loop back to itself) · Esc cancels`
-        : 'Drag a linecard onto a slot, or click it, then a green slot · click a card to open it · click a Tx, then an Rx, to run a fiber · click a lit strand to remove it · click a fiber to move its runs · Esc closes';
+        ? `Running a fiber ${wire.strand === 'tx' ? 'from' : 'into'} ${farLabel(wire.end)} ${STRAND[wire.strand]}: click the ${STRAND[OTHER[wire.strand]]} at the other end (green = free; a loopback-capable port may loop back to itself) · Esc cancels`
+        : 'Drag a linecard onto a slot, or click it, then a green slot · click a card to open it, a tile or the name plate for a datasheet · click a Tx, then an Rx, to run a fiber · click a lit strand to remove it · click a fiber to move its runs · Esc closes';
 
   return (
     <div className="backdrop" onClick={() => setOpenDevice(null)}>

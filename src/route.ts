@@ -132,11 +132,16 @@ function nudge(routes: Pt[][], lane: number, rects: Rect[]) {
     const runs = routes.flatMap((r) => r.slice(1, -2).map((a, i) => ({ a, b: r[i + 2] })).filter(({ a, b }) => a[across] === b[across]));
     const lo = (s: (typeof runs)[number]) => Math.min(s.a[along], s.b[along]);
     const hi = (s: (typeof runs)[number]) => Math.max(s.a[along], s.b[along]);
-    for (const group of Object.values(Object.groupBy(runs, (s) => s.a[across]))) {
-      group!.sort((s, t) => lo(s) - lo(t));
+    const groups = new Map<number, typeof runs>();
+    for (const run of runs) {
+      const key = run.a[across];
+      groups.set(key, [...(groups.get(key) ?? []), run]);
+    }
+    for (const group of groups.values()) {
+      group.sort((s, t) => lo(s) - lo(t));
       let cluster: typeof runs = [];
       let end = -Infinity;
-      for (const s of [...group!, null]) {
+      for (const s of [...group, null]) {
         if (s && lo(s) < end) { cluster.push(s); end = Math.max(end, hi(s)); continue; }
         const n = cluster.length;
         const clearFrom = (k: number) => cluster.every((c, i) => rects.every((r) =>

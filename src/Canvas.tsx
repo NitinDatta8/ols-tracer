@@ -5,12 +5,13 @@ import {
 } from '@xyflow/react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { byId } from './catalog';
+import { behaviorOf, roleOf, showsInView, toneOf } from './ports';
 import { AlarmButton } from './PhysicalView';
 import { Pipe } from './Pipe';
 import { layout, moveRun, type Fiber, type Pt, type Rect, type Route } from './route';
 import { alarms, fiberable, fibersAt, path, resolve, sameEnd } from './rules';
 import { useCatalog, useStore } from './store';
-import type { Catalog, Device, End, Link, Role, Topology, View } from './types';
+import type { Catalog, Device, End, Link, Topology, View } from './types';
 
 export const CHASSIS_MIME = 'application/x-ols-chassis';
 
@@ -31,12 +32,9 @@ const endOf = (device: string, handle: string | null | undefined): End => {
 const bottoms = (hs?: { id?: string | null; x: number; y: number; width: number; height: number }[] | null) =>
   Object.fromEntries((hs ?? []).map((h) => [h.id, { x: h.x + h.width / 2, y: h.y + h.height }]));
 
-/** L0 shows every port, L1 only line ports, Data only client ports. */
-const shows = (view: View, role: Role | undefined) => view === 'L0' || role === (view === 'L1' ? 'line' : 'client');
-
-/** The fibers the view shows. */
+/** The fibers the view shows: L0 all, L1 only ports flagged showsInL1, Data only ports flagged showsInData. */
 const visibleLinks = (t: Topology, cat: Catalog, view: View) =>
-  t.links.filter((l) => [l.a, l.b].every((e) => shows(view, resolve(t, cat, e).port?.role)));
+  t.links.filter((l) => [l.a, l.b].every((e) => showsInView(view, resolve(t, cat, e).port)));
 
 /** Ports that can take a fiber: those with a pluggable or a fixed connector. */
 function portsOf(t: Topology, cat: Catalog, d: Device) {
@@ -44,7 +42,7 @@ function portsOf(t: Topology, cat: Catalog, d: Device) {
     (byId(cat.linecards, s.linecard)?.ports ?? []).flatMap((p) => {
       const end = { device: d.id, slot, port: p.id };
       const { pluggable, fixed } = resolve(t, cat, end);
-      return pluggable || fixed ? [{ end, role: p.role, pluggable }] : [];
+      return pluggable || fixed ? [{ end, port: p, pluggable }] : [];
     }),
   );
 }
@@ -86,10 +84,10 @@ function DeviceNode({ id }: NodeProps) {
       <div className="model">{byId(cat.chassis, device.chassis)?.name ?? `unknown chassis ${device.chassis}`}</div>
       {ports.length > 0 && (
         <div className="ports">
-          {ports.map(({ end, role, pluggable }) => {
+          {ports.map(({ end, port, pluggable }) => {
             const lit = fibersAt(t, end);
             return (
-              <div key={handleOf(end)} className={`port ${role}${shows(view, role) ? '' : ' off'}`} title={`${path(t, end)} · ${role} · ${pluggable?.name ?? 'fixed Tx/Rx'}`}>
+              <div key={handleOf(end)} className={`port ${toneOf(port)}${showsInView(view, port) ? '' : ' off'}`} title={`${path(t, end)} · ${roleOf(port)} · ${pluggable?.name ?? 'fixed Tx/Rx'}`}>
                 {handleOf(end)}
                 <div className="lc">
                   <Handle id={handleOf(end)} type="source" position={Position.Bottom} className={`strand${lit.tx ? ' lit' : ''}`}>Tx</Handle>
@@ -138,7 +136,7 @@ function FiberEdge({ id, sourceX, sourceY, targetX, targetY, selected, data }: E
 }
 
 function edgesFor(t: Topology, cat: Catalog, view: View, selected: string | null, fiber: (l: Link) => Partial<FiberData>): Edge<FiberData>[] {
-  const role = (e: End) => resolve(t, cat, e).port?.role;
+  const behavior = (e: End) => behaviorOf(resolve(t, cat, e).port);
   const lanes = new Map<string, number>(); // edges so far per device pair, so parallel ones get their own lane
   const edge = (id: string, a: End, b: End, data: FiberData): Edge<FiberData> => {
     const pair = [a.device, b.device].sort().join('~');
@@ -158,13 +156,13 @@ function edgesFor(t: Topology, cat: Catalog, view: View, selected: string | null
     }));
   if (view !== 'Data') return fibers;
 
-  // Data view: a dashed service between the client ports (paired in order) of two cards joined by a line-to-line
+  // Data view: a dashed service between the data ports (paired in order) of two cards joined by an L1-to-L1
   // fiber, in either direction; one service per pair, none for a loopback.
-  const clients = (e: End) =>
-    (resolve(t, cat, e).card?.ports ?? []).filter((p) => p.role === 'client').map((p) => ({ ...e, port: p.id }));
+  const dataPorts = (e: End) =>
+    (resolve(t, cat, e).card?.ports ?? []).filter((p) => behaviorOf(p).showsInData).map((p) => ({ ...e, port: p.id }));
   const services = t.links
-    .filter((l) => role(l.a) === 'line' && role(l.b) === 'line' && !sameEnd(l.a, l.b))
-    .flatMap((l) => clients(l.a).map((a, i) => [a, clients(l.b)[i]] as const))
+    .filter((l) => behavior(l.a).showsInL1 && behavior(l.b).showsInL1 && !sameEnd(l.a, l.b))
+    .flatMap((l) => dataPorts(l.a).map((a, i) => [a, dataPorts(l.b)[i]] as const))
     .filter(([a, b]) => b && fiberable(t, cat, a) && fiberable(t, cat, b))
     .map(([a, b]) => edge(`svc:${[`${a.device}/${handleOf(a)}`, `${b.device}/${handleOf(b)}`].sort().join('~')}`, a, b, {
       tip: `Service ${path(t, a)} ⇄ ${path(t, b)}`,
