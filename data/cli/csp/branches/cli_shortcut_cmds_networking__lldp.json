@@ -1,0 +1,583 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_networking__lldp",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_networking.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_networking__lldp:n1",
+    "name": "lldp",
+    "aliasName": null,
+    "type": "container",
+    "path": [
+      "lldp"
+    ],
+    "cmdTypeRaw": "set,show",
+    "cmdTypes": [
+      "set",
+      "show"
+    ],
+    "key": "/openconfig-lldp:lldp/config",
+    "keyQuery": null,
+    "keyElem": null,
+    "idName": null,
+    "keyPattern": null,
+    "keyRegex": null,
+    "keyPrefixReplacement": null,
+    "permissionRule": "admin|rw,operation|rw,supervision|ro",
+    "helperInfo": "the global layer lldp attributes",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_networking__lldp:n2",
+        "name": "control",
+        "aliasName": "enabled",
+        "type": "leaf",
+        "path": [
+          "lldp",
+          "control"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-lldp:lldp/config",
+        "keyQuery": "/openconfig-lldp:lldp/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The system lldp service enabled or disabled switch Available input Value - \"enabled\": Enable system lldp function - \"disabled\": Disable system lldp function default value: \"enabled\"",
+        "unit": null,
+        "values": [
+          "enabled",
+          "disabled"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_networking__lldp:n3",
+        "name": "hello-timer",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "lldp",
+          "hello-timer"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: System level hello timer for the LLDP protocol Value type: positive integer Value range: 1…65535 Granularity: 1 Units: seconds Default value: 30",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_networking__lldp:n4",
+        "name": "system-name",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "lldp",
+          "system-name"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The system's fully qualified domain name indicates the system's administratively assigned name. Value type: string Length: 0..255",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_networking__lldp:n5",
+        "name": "system-description",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "lldp",
+          "system-description"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The textual description of the network entity includes the full name and version identification of the system's hardware type, software operating system, and networking software Value type: string Length: 0..255",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_networking__lldp:n6",
+        "name": "chassis-id",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "lldp",
+          "chassis-id"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The mandatory TLV which identifies the chassis component of the endpoint identifier associated with the transmitting LLDP agent Value type: string Length: 0..255",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_networking__lldp:n7",
+        "name": "chassis-id-type",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "lldp",
+          "chassis-id-type"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The format and source of the chassis identifier string Available input value: - \"chassis-component\": based on the value of entPhysicalAlias object defined in IETF RFC 2737 - \"interface-alias\": based on the value of ifAlias object defined in IETF RFC 2737 - \"port-component\": based on the value of entPhysicalAlias object defined in IETF RFC 2737 for a port or backplane component - \"mac-address\": based on a unicast source address of a port on the containing chassis - \"network-address\": based on a network address, associated with a particular chassis - \"interface-name\": based on the name of the interface - \"local\": based on a locally defined value default: \"mac-address\"",
+        "unit": null,
+        "values": [
+          "chassis-component",
+          "interface-alias",
+          "port-component",
+          "mac-address",
+          "network-address",
+          "interface-name",
+          "local"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_networking__lldp:n8",
+        "name": "interface",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "lldp",
+          "interface"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-lldp:lldp/interfaces/interface/config",
+        "keyQuery": "/openconfig-lldp:lldp/interfaces/interface/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "INTERFACE-",
+        "keyRegex": "(.)*$",
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "the identifier interface lldp attributes",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_networking__lldp:n9",
+            "name": "control",
+            "aliasName": "enabled",
+            "type": "leaf",
+            "path": [
+              "lldp",
+              "interface",
+              "control"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The interface lldp service enabled or disabled switch Available input Value - \"enabled\": Enable identified interface lldp function - \"disabled\": Disable identified interface lldp function default value: - \"enabled\" for network management interface - \"disabled\" for other interfaces",
+            "unit": null,
+            "values": [
+              "enabled",
+              "disabled"
+            ],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_networking__lldp:n10",
+        "name": "neighbors",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "lldp",
+          "neighbors"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": "/openconfig-lldp:lldp/interfaces/interface/config",
+        "keyQuery": "/openconfig-lldp:lldp/interfaces/interface/neighbors",
+        "keyElem": [
+          "name"
+        ],
+        "idName": "interface",
+        "keyPattern": "INTERFACE-",
+        "keyRegex": "(.)*$",
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "print the state attributes of interface’s lldp neighbors attributes or identifier one",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": true,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_networking__lldp:n11",
+            "name": "system-name",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "lldp",
+              "neighbors",
+              "system-name"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The remote node fully qualified domain name",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__lldp:n12",
+            "name": "chassis-id",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "lldp",
+              "neighbors",
+              "chassis-id"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The chassis ID TLV which identifies the chassis component of the endpoint identifier associated with the transmitting LLDP agent",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__lldp:n13",
+            "name": "chassis-id-type",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "lldp",
+              "neighbors",
+              "chassis-id-type"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The format and source of the chassis identifier string",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__lldp:n14",
+            "name": "ttl",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "lldp",
+              "neighbors",
+              "ttl"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The time-to-live (TTL) TLV which indicates how long information from the neighbor should be considered valid",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__lldp:n15",
+            "name": "port-id",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "lldp",
+              "neighbors",
+              "port-id"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The Port ID TLV which identifies the port component of the endpoint identifier associated with the transmitting LLDP agent",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__lldp:n16",
+            "name": "management-address",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "lldp",
+              "neighbors",
+              "management-address"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The Management Address TLV which identifies a network address associated with the local LLDP agent",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 16,
+    "leafCount": 13,
+    "maxDepth": 3
+  }
+}

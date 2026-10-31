@@ -1,0 +1,122 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_rpc__delay-measurement",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_rpc.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_rpc__delay-measurement:n1",
+    "name": "delay-measurement",
+    "aliasName": null,
+    "type": "container",
+    "path": [
+      "delay-measurement"
+    ],
+    "cmdTypeRaw": "rpc",
+    "cmdTypes": [
+      "rpc"
+    ],
+    "key": null,
+    "keyQuery": null,
+    "keyElem": null,
+    "idName": null,
+    "keyPattern": null,
+    "keyRegex": null,
+    "keyPrefixReplacement": null,
+    "permissionRule": null,
+    "helperInfo": "enable delay measurement and response the delay measurement result for identifier logical channel",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_rpc__delay-measurement:n2",
+        "name": "logical-channel",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "delay-measurement",
+          "logical-channel"
+        ],
+        "cmdTypeRaw": "rpc",
+        "cmdTypes": [
+          "rpc"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": [
+          "index"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The identifier of logical channel will enable the delay measurement, need the logical channel configured \"near\" mode delay test mode",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_rpc__delay-measurement:n3",
+            "name": "times",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "delay-measurement",
+              "logical-channel",
+              "times"
+            ],
+            "cmdTypeRaw": "rpc",
+            "cmdTypes": [
+              "rpc"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The times of delay measurement Value type: positive integer Value range: 1…100 Granularity: 1 default: 10",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 3,
+    "leafCount": 1,
+    "maxDepth": 3
+  }
+}

@@ -1,0 +1,225 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_system__ztp",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_system.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_system__ztp:n1",
+    "name": "ztp",
+    "aliasName": null,
+    "type": "container",
+    "path": [
+      "ztp"
+    ],
+    "cmdTypeRaw": "set,show",
+    "cmdTypes": [
+      "set",
+      "show"
+    ],
+    "key": "/co-ztp:ztp/config",
+    "keyQuery": null,
+    "keyElem": null,
+    "idName": null,
+    "keyPattern": null,
+    "keyRegex": null,
+    "keyPrefixReplacement": null,
+    "permissionRule": null,
+    "helperInfo": "ztp config",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_system__ztp:n2",
+        "name": "admin-enable",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "ztp",
+          "admin-enable"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/co-ztp:ztp/config",
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: true: when NE boot from factory default or triggered by “clear database all” will set the default value to True false: upgrade from ZTP unsupported SW version to ZTP supported version, default value should set to False when doing DB migration",
+        "unit": null,
+        "values": [
+          "true",
+          "false"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_system__ztp:n3",
+        "name": "ztp-status",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "ztp",
+          "ztp-status"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: ZTP servive running status. Available Value: - \"BOOT\": Default status, Provided configuration is not yet applied. - \"IN-PROGRESS\": Provided configuration is currently being applied by the ZTP service. - \"SUCCESS\": Provided configuration is successfully applied by the ZTP service. - \"FAILED\": ZTP service encountered an error and failed to apply provided configuration. default Value: \"BOOT\"",
+        "unit": null,
+        "values": [
+          "manual",
+          "auto"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_system__ztp:n4",
+        "name": "ztp-primary-interface",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "ztp",
+          "ztp-primary-interface"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Displays the DHCP option and the interface name.",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_system__ztp:n5",
+        "name": "runtime",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "ztp",
+          "runtime"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The runtime of ZTP service.",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_system__ztp:n6",
+        "name": "timestamp",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "ztp",
+          "timestamp"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The start time of ZTP service.",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 6,
+    "leafCount": 5,
+    "maxDepth": 2
+  }
+}

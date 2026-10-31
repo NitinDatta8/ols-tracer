@@ -1,0 +1,1419 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_platform__pm",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_platform.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_platform__pm:n1",
+    "name": "pm",
+    "aliasName": null,
+    "type": "container",
+    "path": [
+      "pm"
+    ],
+    "cmdTypeRaw": "set,show",
+    "cmdTypes": [
+      "set",
+      "show"
+    ],
+    "key": null,
+    "keyQuery": null,
+    "keyElem": null,
+    "idName": null,
+    "keyPattern": null,
+    "keyRegex": null,
+    "keyPrefixReplacement": null,
+    "permissionRule": "admin|rw,operation|rw,supervision|ro",
+    "helperInfo": "bin pm",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_platform__pm:n2",
+        "name": "filter",
+        "aliasName": null,
+        "type": "container",
+        "path": [
+          "pm",
+          "filter"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "For attribute pm-entity pm-parameter pm-granularity, each field could be replaced by wildcard asterisk (*). The following filter criteria are supported: - \"=\": pm-entity pm-parameter pm-granularity e.g. show pm pm-entity=\"card 1-4*\" pm-parameter=\"temperature\" pm-granularity=\"15min\" - \"&gt;\": monitoring-date-time e.g. show pm monitoring-date-time&gt;2023-04-28T16:20:32+08:00 - \"&lt;\": monitoring-date-time e.g. show pm monitoring-date-time&lt;2023-04-28T16:20:32+08:00",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_platform__pm:n3",
+        "name": "pme",
+        "aliasName": null,
+        "type": "container",
+        "path": [
+          "pm",
+          "pme"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The full name of identifier which point pm parameter monitored. Value type: string Available print: - chassis - card 1-&lt;slot-id&gt; - transceiver 1-&lt;slot-id&gt;-&lt;port-name&gt; - physical-channel 1-&lt;slot-id&gt;-&lt;port-name&gt;-&lt;channel-id&gt; - och 1-&lt;slot-id&gt;-&lt;port-name&gt; - eth 1-&lt;slot-id&gt;-&lt;port-name&gt; - interface 1-&lt;slot-id&gt;-&lt;port-name&gt; - all operating target contain all pm-entity;",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_platform__pm:n4",
+            "name": "chassis",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "pm",
+              "pme",
+              "chassis"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": "/openconfig-performance:performance/pmps/pmp",
+            "keyQuery": "/openconfig-performance:performance/pmps/pmp",
+            "keyElem": [
+              "pm-point"
+            ],
+            "idName": null,
+            "keyPattern": "CHASSIS-",
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": null,
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n5",
+                "name": "pm-entity-type",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "chassis",
+                  "pm-entity-type"
+                ],
+                "cmdTypeRaw": "show",
+                "cmdTypes": [
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": null,
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n6",
+                "name": "monitor",
+                "aliasName": "pm-point-enable",
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "chassis",
+                  "monitor"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The pm parameters monitor switch of identified pm entity Available Value - \"enabled\": enable identified pm entity's all pm parameters monitoring - \"disabled\": disable identified pm entity's all pm parameters monitoring default value: \"disabled\"",
+                "unit": null,
+                "values": [
+                  "enabled",
+                  "disabled"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_platform__pm:n7",
+            "name": "card",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "pm",
+              "pme",
+              "card"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": "/openconfig-performance:performance/pmps/pmp",
+            "keyQuery": null,
+            "keyElem": [
+              "pm-point"
+            ],
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": "^([A-Z]+)-([0-9]+)-([0-9]+)$",
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "card 1-&lt;slot-id&gt;",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n8",
+                "name": "pm-entity-type",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "card",
+                  "pm-entity-type"
+                ],
+                "cmdTypeRaw": "show",
+                "cmdTypes": [
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": null,
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n9",
+                "name": "monitor",
+                "aliasName": "pm-point-enable",
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "card",
+                  "monitor"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The pm parameters monitor switch of identified pm entity Available Value - \"enabled\": enable identified pm entity's all pm parameters monitoring - \"disabled\": disable identified pm entity's all pm parameters monitoring default value: \"disabled\"",
+                "unit": null,
+                "values": [
+                  "enabled",
+                  "disabled"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_platform__pm:n10",
+            "name": "transceiver",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "pm",
+              "pme",
+              "transceiver"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": "/openconfig-performance:performance/pmps/pmp",
+            "keyQuery": "/openconfig-performance:performance/pmps/pmp",
+            "keyElem": [
+              "pm-point"
+            ],
+            "idName": null,
+            "keyPattern": "TRANSCEIVER-",
+            "keyRegex": "TRANSCEIVER-(\\d)-(\\d+)-(\\d+|[CL]\\d+|SFP\\d+|S\\d+|OSC)",
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "transceiver 1-&lt;slot-id&gt;-&lt;port-name&gt;",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n11",
+                "name": "pm-entity-type",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "transceiver",
+                  "pm-entity-type"
+                ],
+                "cmdTypeRaw": "show",
+                "cmdTypes": [
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": null,
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n12",
+                "name": "monitor",
+                "aliasName": "pm-point-enable",
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "transceiver",
+                  "monitor"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The pm parameters monitor switch of identified pm entity Available Value - \"enabled\": enable identified pm entity's all pm parameters monitoring - \"disabled\": disable identified pm entity's all pm parameters monitoring default value: \"disabled\"",
+                "unit": null,
+                "values": [
+                  "enabled",
+                  "disabled"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_platform__pm:n13",
+            "name": "physical-channel",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "pm",
+              "pme",
+              "physical-channel"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": "/openconfig-performance:performance/pmps/pmp",
+            "keyQuery": "/openconfig-performance:performance/pmps/pmp",
+            "keyElem": [
+              "pm-point"
+            ],
+            "idName": null,
+            "keyPattern": "PHYSICALCHANNEL-",
+            "keyRegex": "PHYSICALCHANNEL-([0-9]+)-([0-9]+)-((C|L|OSC|S)?([0-9]+))-([0-9]+)",
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "physical-channel 1-&lt;slot-id&gt;-&lt;port-name&gt;-&lt;channel-id&gt;",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n14",
+                "name": "pm-entity-type",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "physical-channel",
+                  "pm-entity-type"
+                ],
+                "cmdTypeRaw": "show",
+                "cmdTypes": [
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": null,
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n15",
+                "name": "monitor",
+                "aliasName": "pm-point-enable",
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "physical-channel",
+                  "monitor"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The pm parameters monitor switch of identified pm entity Available Value - \"enabled\": enable identified pm entity's all pm parameters monitoring - \"disabled\": disable identified pm entity's all pm parameters monitoring default value: \"disabled\"",
+                "unit": null,
+                "values": [
+                  "enabled",
+                  "disabled"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_platform__pm:n16",
+            "name": "och",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "pm",
+              "pme",
+              "och"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": "/openconfig-performance:performance/pmps/pmp",
+            "keyQuery": "/openconfig-performance:performance/pmps/pmp",
+            "keyElem": [
+              "pm-point"
+            ],
+            "idName": null,
+            "keyPattern": "OCH-",
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "och 1-&lt;slot-id&gt;-&lt;port-name&gt;",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n17",
+                "name": "pm-entity-type",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "och",
+                  "pm-entity-type"
+                ],
+                "cmdTypeRaw": "show",
+                "cmdTypes": [
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": null,
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n18",
+                "name": "monitor",
+                "aliasName": "pm-point-enable",
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "och",
+                  "monitor"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The pm parameters monitor switch of identified pm entity Available Value - \"enabled\": enable identified pm entity's all pm parameters monitoring - \"disabled\": disable identified pm entity's all pm parameters monitoring default value: \"disabled\"",
+                "unit": null,
+                "values": [
+                  "enabled",
+                  "disabled"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_platform__pm:n19",
+            "name": "otu",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "pm",
+              "pme",
+              "otu"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": "/openconfig-performance:performance/pmps/pmp",
+            "keyQuery": "/openconfig-performance:performance/pmps/pmp",
+            "keyElem": [
+              "pm-point"
+            ],
+            "idName": null,
+            "keyPattern": "OTU",
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "otu &lt;type&gt;-1-&lt;slot-id&gt;-&lt;port-name&gt;",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": true,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n20",
+                "name": "pm-entity-type",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "otu",
+                  "pm-entity-type"
+                ],
+                "cmdTypeRaw": "show",
+                "cmdTypes": [
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": null,
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n21",
+                "name": "monitor",
+                "aliasName": "pm-point-enable",
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "otu",
+                  "monitor"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The pm parameters monitor switch of identified pm entity Available Value - \"enabled\": enable identified pm entity's all pm parameters monitoring - \"disabled\": disable identified pm entity's all pm parameters monitoring default value: \"disabled\"",
+                "unit": null,
+                "values": [
+                  "enabled",
+                  "disabled"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_platform__pm:n22",
+            "name": "eth",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "pm",
+              "pme",
+              "eth"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": "/openconfig-performance:performance/pmps/pmp",
+            "keyQuery": "/openconfig-performance:performance/pmps/pmp",
+            "keyElem": [
+              "pm-point"
+            ],
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": "(100GE|400GE|800GE)-(\\d)-(\\d+)-(?:\\d+|C\\d+)(?:-(\\d+))?$",
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "eth 1-&lt;slot-id&gt;-&lt;port-name&gt;",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n23",
+                "name": "pm-entity-type",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "eth",
+                  "pm-entity-type"
+                ],
+                "cmdTypeRaw": "show",
+                "cmdTypes": [
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": null,
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n24",
+                "name": "monitor",
+                "aliasName": "pm-point-enable",
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "eth",
+                  "monitor"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The pm parameters monitor switch of identified pm entity Available Value - \"enabled\": enable identified pm entity's all pm parameters monitoring - \"disabled\": disable identified pm entity's all pm parameters monitoring default value: \"disabled\"",
+                "unit": null,
+                "values": [
+                  "enabled",
+                  "disabled"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_platform__pm:n25",
+            "name": "interface",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "pm",
+              "pme",
+              "interface"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": "/openconfig-performance:performance/pmps/pmp",
+            "keyQuery": "/openconfig-performance:performance/pmps/pmp",
+            "keyElem": [
+              "pm-point"
+            ],
+            "idName": null,
+            "keyPattern": "INTERFACE-",
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "interface 1-&lt;slot-id&gt;-&lt;port-name&gt;",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n26",
+                "name": "pm-entity-type",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "interface",
+                  "pm-entity-type"
+                ],
+                "cmdTypeRaw": "show",
+                "cmdTypes": [
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": null,
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n27",
+                "name": "monitor",
+                "aliasName": "pm-point-enable",
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "interface",
+                  "monitor"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The pm parameters monitor switch of identified pm entity Available Value - \"enabled\": enable identified pm entity's all pm parameters monitoring - \"disabled\": disable identified pm entity's all pm parameters monitoring default value: \"disabled\"",
+                "unit": null,
+                "values": [
+                  "enabled",
+                  "disabled"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_platform__pm:n28",
+            "name": "port",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "pm",
+              "pme",
+              "port"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": "/openconfig-performance:performance/pmps/pmp",
+            "keyQuery": "/openconfig-performance:performance/pmps/pmp",
+            "keyElem": [
+              "pm-point"
+            ],
+            "idName": null,
+            "keyPattern": "PORT-",
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "port 1-&lt;slot-id&gt;-&lt;port-name&gt;",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n29",
+                "name": "pm-entity-type",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "port",
+                  "pm-entity-type"
+                ],
+                "cmdTypeRaw": "show",
+                "cmdTypes": [
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": null,
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n30",
+                "name": "monitor",
+                "aliasName": "pm-point-enable",
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "port",
+                  "monitor"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The pm parameters monitor switch of identified pm entity Available Value - \"enabled\": enable identified pm entity's all pm parameters monitoring - \"disabled\": disable identified pm entity's all pm parameters monitoring default value: \"disabled\"",
+                "unit": null,
+                "values": [
+                  "enabled",
+                  "disabled"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_platform__pm:n31",
+            "name": "amplifier",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "pm",
+              "pme",
+              "amplifier"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": "/openconfig-performance:performance/pmps/pmp",
+            "keyQuery": "/openconfig-performance:performance/pmps/pmp",
+            "keyElem": [
+              "pm-point"
+            ],
+            "idName": null,
+            "keyPattern": "AMPLIFIER-",
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "amplifier 1-&lt;slot-id&gt;-&lt;port-name&gt;",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n32",
+                "name": "pm-entity-type",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "amplifier",
+                  "pm-entity-type"
+                ],
+                "cmdTypeRaw": "show",
+                "cmdTypes": [
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": null,
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n33",
+                "name": "monitor",
+                "aliasName": "pm-point-enable",
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "amplifier",
+                  "monitor"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The pm parameters monitor switch of identified pm entity Available Value - \"enabled\": enable identified pm entity's all pm parameters monitoring - \"disabled\": disable identified pm entity's all pm parameters monitoring default value: \"disabled\"",
+                "unit": null,
+                "values": [
+                  "enabled",
+                  "disabled"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_platform__pm:n34",
+            "name": "all",
+            "aliasName": null,
+            "type": "container",
+            "path": [
+              "pm",
+              "pme",
+              "all"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "operating target contain all pm-entity",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n35",
+                "name": "pm-entity-type",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "all",
+                  "pm-entity-type"
+                ],
+                "cmdTypeRaw": "show",
+                "cmdTypes": [
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": null,
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_platform__pm:n36",
+                "name": "monitor",
+                "aliasName": "pm-point-enable",
+                "type": "leaf",
+                "path": [
+                  "pm",
+                  "pme",
+                  "all",
+                  "monitor"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The pm parameters monitor switch of identified pm entity Available Value - \"enabled\": enable identified pm entity's all pm parameters monitoring - \"disabled\": disable identified pm entity's all pm parameters monitoring default value: \"disabled\"",
+                "unit": null,
+                "values": [
+                  "enabled",
+                  "disabled"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_platform__pm:n37",
+        "name": "history",
+        "aliasName": null,
+        "type": "container",
+        "path": [
+          "pm",
+          "history"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "the history bins pm",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_platform__pm:n38",
+            "name": "filter",
+            "aliasName": null,
+            "type": "container",
+            "path": [
+              "pm",
+              "history",
+              "filter"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "For attribute pm-entity pm-parameter pm-granularity, each field could be replaced by wildcard asterisk (*). The following filter criteria are supported: - \"=\": pm-entity pm-parameter pm-granularity e.g. show pm history pm-entity=\"card 1-4*\" pm-parameter=\"temperature\" pm-granularity=\"15min\" - \"&gt;\": monitoring-date-time e.g. show pm history monitoring-date-time&gt;2023-04-28T16:20:32+08:00 - \"&lt;\": monitoring-date-time bin e.g. show pm history monitoring-date-time&lt;2023-04-28T16:20:32+08:00 show pm history bin&lt;10",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 38,
+    "leafCount": 24,
+    "maxDepth": 4
+  }
+}

@@ -1,0 +1,2068 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_networking__ip",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_networking.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_networking__ip:n1",
+    "name": "ip",
+    "aliasName": null,
+    "type": "container",
+    "path": [
+      "ip"
+    ],
+    "cmdTypeRaw": "set,show",
+    "cmdTypes": [
+      "set",
+      "show"
+    ],
+    "key": null,
+    "keyQuery": null,
+    "keyElem": null,
+    "idName": null,
+    "keyPattern": null,
+    "keyRegex": null,
+    "keyPrefixReplacement": null,
+    "permissionRule": null,
+    "helperInfo": "ip address and gateway config",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_networking__ip:n2",
+        "name": "interface",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "ip",
+          "interface"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-interfaces:interfaces/interface/subinterfaces/subinterface/config",
+        "keyQuery": null,
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": "INTERFACE-",
+        "keyRegex": "(.)*-(NM[0-9]*|LOOPBACK|OSC[1-2]?|ETH[1-2]?|SFP[1-2]?)$",
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "ip address and gateway config",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n3",
+            "name": "address",
+            "aliasName": "ip",
+            "type": "leaf",
+            "path": [
+              "ip",
+              "interface",
+              "address"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": "/openconfig-interfaces:interfaces/interface/subinterfaces/subinterface/openconfig-if-ip:ipv4/addresses/address/config",
+            "keyQuery": "/openconfig-interfaces:interfaces/interface/subinterfaces/subinterface/openconfig-if-ip:ipv4/addresses/address/state",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The IP address of identifier interface Value type: IPv4 address form in dotted quad notation using the default zone xxx.xxx.xxx.xxx. E.g., 192.168.1.5",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n4",
+            "name": "prefix-length",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "ip",
+              "interface",
+              "prefix-length"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": "/openconfig-interfaces:interfaces/interface/subinterfaces/subinterface/openconfig-if-ip:ipv4/addresses/address/config",
+            "keyQuery": "/openconfig-interfaces:interfaces/interface/subinterfaces/subinterface/openconfig-if-ip:ipv4/addresses/address/state",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The IPv4 address prefix length Value type: IPv4 prefix-length, range 0-32",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n5",
+            "name": "gateway",
+            "aliasName": "gateway",
+            "type": "leaf",
+            "path": [
+              "ip",
+              "interface",
+              "gateway"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": "/openconfig-interfaces:interfaces/interface/subinterfaces/subinterface/openconfig-if-ip:ipv4/addresses/address/config",
+            "keyQuery": "/openconfig-interfaces:interfaces/interface/subinterfaces/subinterface/openconfig-if-ip:ipv4/addresses/address/state",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The gateway IP address of identifier interface Value type: IPv4 address form in dotted quad notation using the default zone xxx.xxx.xxx.xxx. E.g., 192.168.1.1",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n6",
+            "name": "dhcp-client",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "ip",
+              "interface",
+              "dhcp-client"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": "/openconfig-interfaces:interfaces/interface/subinterfaces/subinterface/openconfig-if-ip:ipv4/config",
+            "keyQuery": "/openconfig-interfaces:interfaces/interface/subinterfaces/subinterface/openconfig-if-ip:ipv4/state",
+            "keyElem": [
+              "name"
+            ],
+            "idName": null,
+            "keyPattern": "INTERFACE-",
+            "keyRegex": "(.)*-(NM[0-9]*|LOOPBACK|OSC[1-2]?|ETH[1-2]?|SFP[1-2]?)$",
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The interface DHCP Client application enabled or disabled switch Available input Value - \"enabled\": Enable interface DHCP Client - \"disabled\": Disable interface DHCP Client default value: \"enabled\"",
+            "unit": null,
+            "values": [
+              "enabled",
+              "disabled"
+            ],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n7",
+            "name": "dhcp-server",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "ip",
+              "interface",
+              "dhcp-server"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": "/openconfig-interfaces:interfaces/interface/subinterfaces/subinterface/openconfig-if-ip:ipv4/config",
+            "keyQuery": "/openconfig-interfaces:interfaces/interface/subinterfaces/subinterface/openconfig-if-ip:ipv4/state",
+            "keyElem": [
+              "name"
+            ],
+            "idName": null,
+            "keyPattern": "INTERFACE-",
+            "keyRegex": "(.)*-(NM[0-9]*|LOOPBACK|OSC[1-2]?|ETH[1-2]?|SFP[1-2]?)$",
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The interface DHCP server application enabled or disabled switch Available input Value - \"enabled\": Enable interface DHCP server - \"disabled\": Disable interface DHCP server default value: - \"enabled\" for interface 1-40-eth - \"disabled\" for other interfaces",
+            "unit": null,
+            "values": [
+              "enabled",
+              "disabled"
+            ],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n8",
+            "name": "interface-type",
+            "aliasName": "type",
+            "type": "leaf",
+            "path": [
+              "ip",
+              "interface",
+              "interface-type"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": "/openconfig-interfaces:interfaces/interface/state",
+            "keyElem": [
+              "name"
+            ],
+            "idName": null,
+            "keyPattern": "INTERFACE-",
+            "keyRegex": "(.)*-(NM[0-9]*|LOOPBACK|OSC[1-2]?|ETH[1-2]?|SFP[1-2]?)$",
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The management interface type . Value type: enumeration - “softwareloopback”: system loopback interface - “oscinterface”: optical supervisory channel interface - “nminterface”: network management ethernet interface",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_networking__ip:n9",
+        "name": "ospf",
+        "aliasName": null,
+        "type": "container",
+        "path": [
+          "ip",
+          "ospf"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/dynamic-routing:routing/ospf/config",
+        "keyQuery": "/dynamic-routing:routing/ospf/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: system ospf",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n10",
+            "name": "control",
+            "aliasName": "enabled",
+            "type": "leaf",
+            "path": [
+              "ip",
+              "ospf",
+              "control"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The system ospf protocol enabled or disabled switch Available input Value - “enabled”: enable system ospf function - “disabled”: disable system ospf function default value: “enabled”",
+            "unit": null,
+            "values": [
+              "enabled",
+              "disabled"
+            ],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n11",
+            "name": "router-id",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "ip",
+              "ospf",
+              "router-id"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The router ID of the remote system Value type: - IPv4 address in dotted decimal notation. E.g., 192.168.1.5 - “”: use system loopback IP as router-id default value: “”",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n12",
+            "name": "interface",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "ip",
+              "ospf",
+              "interface"
+            ],
+            "cmdTypeRaw": "set,show,delete",
+            "cmdTypes": [
+              "set",
+              "show",
+              "delete"
+            ],
+            "key": "/dynamic-routing:routing/ospf/areas/area/interfaces/interface/config",
+            "keyQuery": "/dynamic-routing:routing/ospf/areas/area/interfaces/interface/state",
+            "keyElem": [
+              "name"
+            ],
+            "idName": null,
+            "keyPattern": "INTERFACE-",
+            "keyRegex": "(.)*-(NM[0-9]*|LOOPBACK|OSC[1-2]?|ETH[1-2]?|SFP[1-2]?)$",
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: set identifier interface’s attribute for ospf protocol",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n13",
+                "name": "retransmit-interval",
+                "aliasName": "retransmission-interval",
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "ospf",
+                  "interface",
+                  "retransmit-interval"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The number of seconds that the local system waits before retransmitting an unacknowledged LSA. Value type: positive integer Value range: 1…65535 Granularity: 1 Units: seconds Default value: 5",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n14",
+                "name": "hello-interval",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "ospf",
+                  "interface",
+                  "hello-interval"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The number of seconds the local system waits between the transmission of subsequent Hello packets Value type: positive integer Value range: 1…65535 Granularity: 1 Units: seconds Default value: 10",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n15",
+                "name": "dead-interval",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "ospf",
+                  "interface",
+                  "dead-interval"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The number of seconds that the local system should let elapse before declaring a silent router down. Value type: positive integer Value range: 1…65535 Granularity: 1 Units: seconds Default value: 40",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n16",
+                "name": "cost",
+                "aliasName": "metric",
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "ospf",
+                  "interface",
+                  "cost"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The specifies cost of sending a packet on an OSPF interface. Value type: positive integer Value range: 1…65535 Granularity: 1 Default value: 1",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n17",
+                "name": "priority",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "ospf",
+                  "interface",
+                  "priority"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The priority to help determine the OSPF designated router for a network. Value type: integer Value range: 0…255 Granularity: 1 Default value: 1",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n18",
+                "name": "transmit-delay",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "ospf",
+                  "interface",
+                  "transmit-delay"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The estimated number of seconds required to send a link-state update packet on an OSPF interface. Value type: positive integer Value range: 1…65535 Granularity: 1 Units: seconds Default value: 1",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n19",
+                "name": "network-type",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "ospf",
+                  "interface",
+                  "network-type"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "The type of network that OSPFv2 should use for the specified interface. Value: point-to-point | broadcast | non-broadcast default: broadcast",
+                "unit": null,
+                "values": [
+                  "point-to-point",
+                  "broadcast",
+                  "non-broadcast"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n20",
+                "name": "area",
+                "aliasName": "id",
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "ospf",
+                  "interface",
+                  "area"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The OSPF area of identified OSPF interface Value type: IPv4 address with format xxx.xxx.xxx.xxx | 0 Default value: 0",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n21",
+            "name": "neighbor",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "ip",
+              "ospf",
+              "neighbor"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": "/dynamic-routing:routing/ospf/neighbors",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "The router ID of the neighbor router",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": true,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n22",
+                "name": "id",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "ospf",
+                  "neighbor",
+                  "id"
+                ],
+                "cmdTypeRaw": "show",
+                "cmdTypes": [
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "The router ID of the neighbor router",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n23",
+                "name": "priority",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "ospf",
+                  "neighbor",
+                  "priority"
+                ],
+                "cmdTypeRaw": "show",
+                "cmdTypes": [
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "The priority of the neighbor router",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n24",
+                "name": "state",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "ospf",
+                  "neighbor",
+                  "state"
+                ],
+                "cmdTypeRaw": "show",
+                "cmdTypes": [
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "The functional state of the neighbor router",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n25",
+                "name": "address",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "ospf",
+                  "neighbor",
+                  "address"
+                ],
+                "cmdTypeRaw": "show",
+                "cmdTypes": [
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "The ip address of the neighbor interface",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n26",
+                "name": "dead-time",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "ospf",
+                  "neighbor",
+                  "dead-time"
+                ],
+                "cmdTypeRaw": "show",
+                "cmdTypes": [
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "The amount of time that remains as the router waits to receive an OSPF hello packet from the neighbor before it declares the neighbor is down.",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n27",
+                "name": "interface",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "ospf",
+                  "neighbor",
+                  "interface"
+                ],
+                "cmdTypeRaw": "show",
+                "cmdTypes": [
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "The interface on which the OSPF neighbor has formed adjacency",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n28",
+            "name": "redistribute",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "ip",
+              "ospf",
+              "redistribute"
+            ],
+            "cmdTypeRaw": "set,show,delete",
+            "cmdTypes": [
+              "set",
+              "show",
+              "delete"
+            ],
+            "key": "/dynamic-routing:routing/ospf/redistribute/redistribute/config",
+            "keyQuery": "/dynamic-routing:routing/ospf/redistribute/redistribute/state",
+            "keyElem": [
+              "route-type"
+            ],
+            "idName": "proto",
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The ipv4 ospf redistribute.",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n29",
+                "name": "route-type",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "ospf",
+                  "redistribute",
+                  "route-type"
+                ],
+                "cmdTypeRaw": "",
+                "cmdTypes": [],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The protocol name of OSPF route redistributed to Available input value: - \"bgp\": BGP protocol",
+                "unit": null,
+                "values": [
+                  "bgp"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n30",
+                "name": "metric",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "ospf",
+                  "redistribute",
+                  "metric"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: A manual metric value for the redistributed route Value type: positive integer Value range: 0.. 16777214 Granularity: 1 Default value: 5",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_networking__ip:n31",
+        "name": "route",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "ip",
+          "route"
+        ],
+        "cmdTypeRaw": "set,show,delete",
+        "cmdTypes": [
+          "set",
+          "show",
+          "delete"
+        ],
+        "key": "/openconfig-local-routing:local-routes/static-routes/static/next-hops/next-hop/config",
+        "keyQuery": "/dynamic-routing:routing/route-table/state/route-entries",
+        "keyElem": [
+          "prefix"
+        ],
+        "idName": "dest-address",
+        "keyPattern": null,
+        "keyRegex": "^((25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))\\.){3}(25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))(/(3[0-2]|[1-2][0-9]|[0-9]))$",
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The system ospf protocol enabled or disabled switch",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": true,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n32",
+            "name": "dest-address",
+            "aliasName": "prefix",
+            "type": "leaf",
+            "path": [
+              "ip",
+              "route",
+              "dest-address"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The destination IP address of route with prefix",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n33",
+            "name": "next-hop",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "ip",
+              "route",
+              "next-hop"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The next hop IP address of route",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n34",
+            "name": "interface",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "ip",
+              "route",
+              "interface"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The interface of route",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n35",
+            "name": "metric",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "ip",
+              "route",
+              "metric"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The metric of route",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n36",
+            "name": "routing-protocol",
+            "aliasName": "protocol",
+            "type": "leaf",
+            "path": [
+              "ip",
+              "route",
+              "routing-protocol"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The protocol of route",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n37",
+            "name": "selected-route",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "ip",
+              "route",
+              "selected-route"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The route of the dest address forwarding selected or not",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n38",
+            "name": "fib-route",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "ip",
+              "route",
+              "fib-route"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The route is one of fib table or not",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_networking__ip:n39",
+        "name": "bgp",
+        "aliasName": null,
+        "type": "container",
+        "path": [
+          "ip",
+          "bgp"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/dynamic-routing:routing/bgp/global/config",
+        "keyQuery": "/dynamic-routing:routing/bgp/global/state",
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The system bgp.",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n40",
+            "name": "router-id",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "ip",
+              "bgp",
+              "router-id"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The router ID of the remote system. Value type: IPv4 address in dotted decimal notation, e.g., 192.168.1.5 Mandatory for add",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n41",
+            "name": "control",
+            "aliasName": "enabled",
+            "type": "leaf",
+            "path": [
+              "ip",
+              "bgp",
+              "control"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The switch to enable or disable the system BGP protocol Available input value: - \"enabled\": Enable system BGP function - \"disabled\": Disable system BGP function Default value: \"disabled\"",
+            "unit": null,
+            "values": [
+              "enabled",
+              "disabled"
+            ],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n42",
+            "name": "as-number",
+            "aliasName": "as",
+            "type": "leaf",
+            "path": [
+              "ip",
+              "bgp",
+              "as-number"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: A numeric identifier for an autonomous system (AS) Value type: positive integer Value range: 1.. 4294967295 Granularity: 1 Mandatory for add",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n43",
+            "name": "summary",
+            "aliasName": "global",
+            "type": "container",
+            "path": [
+              "ip",
+              "bgp",
+              "summary"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": "/dynamic-routing:routing/bgp/global/state",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The summary info of all bgp peer Value type: string",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n44",
+                "name": "bgp-summary",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "bgp",
+                  "summary",
+                  "bgp-summary"
+                ],
+                "cmdTypeRaw": "show",
+                "cmdTypes": [
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The summary info of all bgp peer Value type: string",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n45",
+            "name": "aggregate",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "ip",
+              "bgp",
+              "aggregate"
+            ],
+            "cmdTypeRaw": "set,show,delete",
+            "cmdTypes": [
+              "set",
+              "show",
+              "delete"
+            ],
+            "key": "/dynamic-routing:routing/bgp/ipv4_unicast/aggregate/config",
+            "keyQuery": "/dynamic-routing:routing/bgp/ipv4_unicast/aggregate/state",
+            "keyElem": [
+              "address-prefix-length"
+            ],
+            "idName": "address",
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The bgp aggregate.",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n46",
+                "name": "address-prefix-length",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "bgp",
+                  "aggregate",
+                  "address-prefix-length"
+                ],
+                "cmdTypeRaw": "",
+                "cmdTypes": [],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": "^(((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:)))(%.+)?)/(1[0-2][0-8]|[1-9][0-9]|[0-9])$",
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The IP address of the aggregate route with prefix. Value type: &lt;ipv4 address&gt;/&lt;prefix-length&gt; - An IPv4 address represented as either a full address; shortened or mixed-shortened formats. E.g., • fe80:0000:0000:0000:0000:0000:0001:0000 • fe80::0001:0000 - prefix-length 0..128 positive integer by 1",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n47",
+                "name": "summary-only",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "bgp",
+                  "aggregate",
+                  "summary-only"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: enable or disable aggregate with summary only mode Available input value: - \"enabled\": Enable summary-only aggregate mode - \"disabled\": Disable summary-only aggregate mode Default value: \"disabled\"",
+                "unit": null,
+                "values": [
+                  "enabled",
+                  "disabled"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n48",
+            "name": "neighbor",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "ip",
+              "bgp",
+              "neighbor"
+            ],
+            "cmdTypeRaw": "set,show,delete",
+            "cmdTypes": [
+              "set",
+              "show",
+              "delete"
+            ],
+            "key": "/dynamic-routing:routing/bgp/neighbors/neighbor/config",
+            "keyQuery": "/dynamic-routing:routing/bgp/neighbors/neighbor/state",
+            "keyElem": [
+              "neighbor-address"
+            ],
+            "idName": "peer-addr",
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The bgp neighbor.",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n49",
+                "name": "neighbor-address",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "bgp",
+                  "neighbor",
+                  "neighbor-address"
+                ],
+                "cmdTypeRaw": "",
+                "cmdTypes": [],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": "^(\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b)$|^((([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4})|(([0-9a-fA-F]{1,4}:){1,7}:)|(([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4})|(([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2})|(([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3})|(([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4})|(([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5})|([0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6}))|(::(:[0-9a-fA-F]{1,4}){1,7})|([0-9a-fA-F]{1,4}((:[0-9a-fA-F]{1,4}){1,7}|:(:[0-9a-fA-F]{1,4}){0,6}))|(::))(%[\\w]+)?$",
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The IP address of the BGP peer. Value type: - An IPv6 address represented as either a full address; shortened or mixed-shortened formats. E.g., • fe80:0000:0000:0000:0000:0000:0001:0000 • fe80::0001:0000",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n50",
+                "name": "peer-as-number",
+                "aliasName": "peer-as",
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "bgp",
+                  "neighbor",
+                  "peer-as-number"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: A numeric identifier for an autonomous system (AS) of peer neighbor Value type: positive integer Value range: 1.. 4294967295 Granularity: 1 Mandatory for add",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n51",
+                "name": "interface",
+                "aliasName": "local-interface",
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "bgp",
+                  "neighbor",
+                  "interface"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": "/dynamic-routing:routing/bgp/neighbors/neighbor/config",
+                "keyQuery": "/dynamic-routing:routing/bgp/neighbors/neighbor/state",
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": "INTERFACE-",
+                "keyRegex": "(.)*-(NMS[0-9]*|LOOPBACK|LINE(_WEST|_EAST)?OSC|ETH)$",
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The name of interface connected with peer neighbor Value type: string, format 1-&lt;slot-id&gt;-&lt;interface-name&gt; Mandatory for add",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n52",
+                "name": "connect-retry",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "bgp",
+                  "neighbor",
+                  "connect-retry"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The connection retries times of BGP session Value type: positive integer Value range: 1.. 64 Granularity: 1 Default: 15",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n53",
+                "name": "hold-time",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "bgp",
+                  "neighbor",
+                  "hold-time"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The negotiated hold-time for the BGP session Value type: positive integer Value range: 1.. 600 Granularity: 1 Units: second Default: 180",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n54",
+                "name": "keepalive-interval",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "bgp",
+                  "neighbor",
+                  "keepalive-interval"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The keepalive message sending interval for the BGP session Value type: positive integer Value range: 1.. 600 Granularity: 1 Units: second Default: 60",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_networking__ip:n55",
+            "name": "redistribute",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "ip",
+              "bgp",
+              "redistribute"
+            ],
+            "cmdTypeRaw": "set,show,delete",
+            "cmdTypes": [
+              "set",
+              "show",
+              "delete"
+            ],
+            "key": "/dynamic-routing:routing/bgp/ipv4_unicast/redistribute/config",
+            "keyQuery": "/dynamic-routing:routing/bgp/ipv4_unicast/redistribute/state",
+            "keyElem": [
+              "route-type"
+            ],
+            "idName": "proto",
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The bgp redistribute.",
+            "unit": null,
+            "values": [
+              "ospf"
+            ],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n56",
+                "name": "route-type",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "bgp",
+                  "redistribute",
+                  "route-type"
+                ],
+                "cmdTypeRaw": "",
+                "cmdTypes": [],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The protocol name of BGP route redistributed to Available input value: - \"ospf\": OSPFv3 protocol",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_networking__ip:n57",
+                "name": "metric",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "ip",
+                  "bgp",
+                  "redistribute",
+                  "metric"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: A manual metric value for the redistributed route Value type: positive integer Value range: 0.. 4294967295 Granularity: 1 Default value: 5",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 57,
+    "leafCount": 45,
+    "maxDepth": 4
+  }
+}

@@ -1,0 +1,582 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_rpc__clear",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_rpc.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_rpc__clear:n1",
+    "name": "clear",
+    "aliasName": null,
+    "type": "container",
+    "path": [
+      "clear"
+    ],
+    "cmdTypeRaw": "rpc",
+    "cmdTypes": [
+      "rpc"
+    ],
+    "key": null,
+    "keyQuery": null,
+    "keyElem": null,
+    "idName": null,
+    "keyPattern": null,
+    "keyRegex": null,
+    "keyPrefixReplacement": null,
+    "permissionRule": "admin|rw,operation|rw,supervision|none",
+    "helperInfo": "clear target object from system",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_rpc__clear:n2",
+        "name": "statistics",
+        "aliasName": null,
+        "type": "container",
+        "path": [
+          "clear",
+          "statistics"
+        ],
+        "cmdTypeRaw": "rpc",
+        "cmdTypes": [
+          "rpc"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": "admin|rw,operation|rw,supervision|none",
+        "helperInfo": "Description: The pm entity for the parameters request to reset Available Value: \"chassis\": reset the statistics under chassis \"card\": reset the statistics under all card \"transceiver\": reset the statistics under all transceiver, include the physical channel \"och\": reset the statistics under all och \"eth\": reset the statistics under all ethernet service \"interface\": reset the statistics under all interface service \"otu\": reset the statistics under all otu signal \"all\": reset all statistics",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_rpc__clear:n3",
+            "name": "chassis",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "clear",
+              "statistics",
+              "chassis"
+            ],
+            "cmdTypeRaw": "rpc",
+            "cmdTypes": [
+              "rpc"
+            ],
+            "key": "/openconfig-performance:performance/pmps/pmp",
+            "keyQuery": "/openconfig-performance:performance/pmps/pmp",
+            "keyElem": [
+              "pm-point"
+            ],
+            "idName": null,
+            "keyPattern": "CHASSIS-",
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "reset the statistics under chassis",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_rpc__clear:n4",
+            "name": "card",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "clear",
+              "statistics",
+              "card"
+            ],
+            "cmdTypeRaw": "rpc",
+            "cmdTypes": [
+              "rpc"
+            ],
+            "key": "/openconfig-performance:performance/pmps/pmp",
+            "keyQuery": null,
+            "keyElem": [
+              "pm-point"
+            ],
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": "^([A-Z]+)-([0-9]+)-([0-9]+)$",
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "reset the statistics under all card",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_rpc__clear:n5",
+            "name": "transceiver",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "clear",
+              "statistics",
+              "transceiver"
+            ],
+            "cmdTypeRaw": "rpc",
+            "cmdTypes": [
+              "rpc"
+            ],
+            "key": "/openconfig-performance:performance/pmps/pmp",
+            "keyQuery": "/openconfig-performance:performance/pmps/pmp",
+            "keyElem": [
+              "pm-point"
+            ],
+            "idName": null,
+            "keyPattern": "TRANSCEIVER-",
+            "keyRegex": "TRANSCEIVER-([0-9]+)-([0-9]+)-(C|L|OSC|S|SFP)([0-9]+)",
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "reset the statistics under all transceiver",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_rpc__clear:n6",
+            "name": "physical-channel",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "clear",
+              "statistics",
+              "physical-channel"
+            ],
+            "cmdTypeRaw": "rpc",
+            "cmdTypes": [
+              "rpc"
+            ],
+            "key": "/openconfig-performance:performance/pmps/pmp",
+            "keyQuery": "/openconfig-performance:performance/pmps/pmp",
+            "keyElem": [
+              "pm-point"
+            ],
+            "idName": null,
+            "keyPattern": "PHYSICALCHANNEL-",
+            "keyRegex": "PHYSICALCHANNEL-([0-9]+)-([0-9]+)-(C|L|OSC|S)([0-9]+)-([0-9]+)",
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "reset the statistics under all physical channel",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_rpc__clear:n7",
+            "name": "och",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "clear",
+              "statistics",
+              "och"
+            ],
+            "cmdTypeRaw": "rpc",
+            "cmdTypes": [
+              "rpc"
+            ],
+            "key": "/openconfig-performance:performance/pmps/pmp",
+            "keyQuery": "/openconfig-performance:performance/pmps/pmp",
+            "keyElem": [
+              "pm-point"
+            ],
+            "idName": null,
+            "keyPattern": "OCH-",
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "reset the statistics under all och",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_rpc__clear:n8",
+            "name": "otu",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "clear",
+              "statistics",
+              "otu"
+            ],
+            "cmdTypeRaw": "rpc",
+            "cmdTypes": [
+              "rpc"
+            ],
+            "key": "/openconfig-performance:performance/pmps/pmp",
+            "keyQuery": "/openconfig-performance:performance/pmps/pmp",
+            "keyElem": [
+              "pm-point"
+            ],
+            "idName": null,
+            "keyPattern": "OTU",
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "reset the statistics under all otu",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": true,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_rpc__clear:n9",
+            "name": "eth",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "clear",
+              "statistics",
+              "eth"
+            ],
+            "cmdTypeRaw": "rpc",
+            "cmdTypes": [
+              "rpc"
+            ],
+            "key": "/openconfig-performance:performance/pmps/pmp",
+            "keyQuery": "/openconfig-performance:performance/pmps/pmp",
+            "keyElem": [
+              "pm-point"
+            ],
+            "idName": null,
+            "keyPattern": "100GE-",
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "reset the statistics under all ethernet service",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_rpc__clear:n10",
+            "name": "interface",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "clear",
+              "statistics",
+              "interface"
+            ],
+            "cmdTypeRaw": "rpc",
+            "cmdTypes": [
+              "rpc"
+            ],
+            "key": "/openconfig-performance:performance/pmps/pmp",
+            "keyQuery": "/openconfig-performance:performance/pmps/pmp",
+            "keyElem": [
+              "pm-point"
+            ],
+            "idName": null,
+            "keyPattern": "INTERFACE-",
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "reset the statistics under all interface service",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_rpc__clear:n11",
+            "name": "port",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "clear",
+              "statistics",
+              "port"
+            ],
+            "cmdTypeRaw": "rpc",
+            "cmdTypes": [
+              "rpc"
+            ],
+            "key": "/openconfig-performance:performance/pmps/pmp",
+            "keyQuery": "/openconfig-performance:performance/pmps/pmp",
+            "keyElem": [
+              "pm-point"
+            ],
+            "idName": null,
+            "keyPattern": "PORT-",
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "reset the statistics under all port service",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_rpc__clear:n12",
+            "name": "amplifier",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "clear",
+              "statistics",
+              "amplifier"
+            ],
+            "cmdTypeRaw": "rpc",
+            "cmdTypes": [
+              "rpc"
+            ],
+            "key": "/openconfig-performance:performance/pmps/pmp",
+            "keyQuery": "/openconfig-performance:performance/pmps/pmp",
+            "keyElem": [
+              "pm-point"
+            ],
+            "idName": null,
+            "keyPattern": "AMPLIFIER-",
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "reset the statistics under all amplifier service",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_rpc__clear:n13",
+            "name": "all",
+            "aliasName": null,
+            "type": "container",
+            "path": [
+              "clear",
+              "statistics",
+              "all"
+            ],
+            "cmdTypeRaw": "rpc",
+            "cmdTypes": [
+              "rpc"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "reset all statistics, including chassis card transceiver physical-channel och eth.",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_rpc__clear:n14",
+        "name": "database",
+        "aliasName": null,
+        "type": "container",
+        "path": [
+          "clear",
+          "database"
+        ],
+        "cmdTypeRaw": "rpc",
+        "cmdTypes": [
+          "rpc"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": "admin|rw,operation|none,supervision|none",
+        "helperInfo": null,
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_rpc__clear:n15",
+            "name": "all",
+            "aliasName": null,
+            "type": "container",
+            "path": [
+              "clear",
+              "database",
+              "all"
+            ],
+            "cmdTypeRaw": "rpc",
+            "cmdTypes": [
+              "rpc"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": "admin|rw,operation|none,supervision|none",
+            "helperInfo": "clear all parts for target",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_rpc__clear:n16",
+            "name": "keep-networking",
+            "aliasName": null,
+            "type": "container",
+            "path": [
+              "clear",
+              "database",
+              "keep-networking"
+            ],
+            "cmdTypeRaw": "rpc",
+            "cmdTypes": [
+              "rpc"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": "admin|rw,operation|rw,supervision|none",
+            "helperInfo": "option for clear database only. This option will keep all network management related parts, include IP, routing protocol etc.",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 16,
+    "leafCount": 13,
+    "maxDepth": 3
+  }
+}

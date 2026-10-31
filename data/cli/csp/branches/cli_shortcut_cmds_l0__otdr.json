@@ -1,0 +1,232 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_l0__otdr",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_l0.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_l0__otdr:n1",
+    "name": "otdr",
+    "aliasName": null,
+    "type": "list",
+    "path": [
+      "otdr"
+    ],
+    "cmdTypeRaw": "set,show",
+    "cmdTypes": [
+      "set",
+      "show"
+    ],
+    "key": "/openconfig-otdr:otdrs/otdr/config",
+    "keyQuery": "/openconfig-otdr:otdrs/otdr/state",
+    "keyElem": [
+      "name"
+    ],
+    "idName": null,
+    "keyPattern": "OTDR-",
+    "keyRegex": null,
+    "keyPrefixReplacement": null,
+    "permissionRule": null,
+    "helperInfo": "show otdr",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_l0__otdr:n2",
+        "name": "monitor-port",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "otdr",
+          "monitor-port"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: OTDR Monitor Port",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__otdr:n3",
+        "name": "direction",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "otdr",
+          "direction"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: OTDR Monitor Direction",
+        "unit": null,
+        "values": [
+          "in",
+          "out"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__otdr:n4",
+        "name": "fiber-refractive",
+        "aliasName": "fiber-refractive-index",
+        "type": "leaf",
+        "path": [
+          "otdr",
+          "fiber-refractive"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The refractive of scan fiber, default 1.4682 4-digit decimal",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__otdr:n5",
+        "name": "measuring-state",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "otdr",
+          "measuring-state"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The otdr module scan stat [running | finished | fail]",
+        "unit": null,
+        "values": [
+          "running",
+          "finished",
+          "fail"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__otdr:n6",
+        "name": "result",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "otdr",
+          "result"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-otdr:otdrs/otdr/results/result",
+        "keyElem": [
+          "index"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "show otdr results",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 6,
+    "leafCount": 5,
+    "maxDepth": 2
+  }
+}

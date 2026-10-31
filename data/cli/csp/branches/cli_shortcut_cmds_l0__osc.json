@@ -1,0 +1,192 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_l0__osc",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_l0.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_l0__osc:n1",
+    "name": "osc",
+    "aliasName": null,
+    "type": "list",
+    "path": [
+      "osc"
+    ],
+    "cmdTypeRaw": "show",
+    "cmdTypes": [
+      "show"
+    ],
+    "key": "/openconfig-optical-amplifier:optical-amplifier/supervisory-channels/supervisory-channel/config",
+    "keyQuery": "/openconfig-optical-amplifier:optical-amplifier/supervisory-channels/supervisory-channel/state",
+    "keyElem": [
+      "interface"
+    ],
+    "idName": null,
+    "keyPattern": "INTERFACE-",
+    "keyRegex": "^INTERFACE-([0-9]+)-([0-9]+)-([A-Z]+)$",
+    "keyPrefixReplacement": null,
+    "permissionRule": null,
+    "helperInfo": "show optical supervisory channel",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_l0__osc:n2",
+        "name": "output-frequency",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "osc",
+          "output-frequency"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Center frequency of OSC channel Value type: 2-digit decimal Range: 0..max Units: MHz",
+        "unit": "MHz",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__osc:n3",
+        "name": "input-power",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "osc",
+          "input-power"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-optical-amplifier:optical-amplifier/supervisory-channels/supervisory-channel/state/input-power",
+        "keyElem": [
+          "interface"
+        ],
+        "idName": null,
+        "keyPattern": "INTERFACE-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Input optical power of amplifier, include instant, avg, min, max value Value type: 2-digit decimal Units: dBm",
+        "unit": "dBm",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__osc:n4",
+        "name": "output-power",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "osc",
+          "output-power"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-optical-amplifier:optical-amplifier/supervisory-channels/supervisory-channel/state/output-power",
+        "keyElem": [
+          "interface"
+        ],
+        "idName": null,
+        "keyPattern": "INTERFACE-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Output optical power of amplifier, include instant, avg, min, max value Value type: 2-digit decimal Units: dBm",
+        "unit": "dBm",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__osc:n5",
+        "name": "laser-bias-current",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "osc",
+          "laser-bias-current"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-optical-amplifier:optical-amplifier/supervisory-channels/supervisory-channel/state/laser-bias-current",
+        "keyElem": [
+          "interface"
+        ],
+        "idName": null,
+        "keyPattern": "INTERFACE-",
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of optical channel transferred signal optical power, include instant, avg, min, max value Value type: 2-digit decimal Units: mA",
+        "unit": "mA",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 5,
+    "leafCount": 4,
+    "maxDepth": 2
+  }
+}

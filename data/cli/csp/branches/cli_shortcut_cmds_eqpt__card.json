@@ -1,0 +1,1188 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_eqpt__card",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_eqpt.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_eqpt__card:n1",
+    "name": "card",
+    "aliasName": null,
+    "type": "list",
+    "path": [
+      "card"
+    ],
+    "cmdTypeRaw": "set,show",
+    "cmdTypes": [
+      "set",
+      "show"
+    ],
+    "key": "/openconfig-platform:components/component/config",
+    "keyQuery": "/openconfig-platform:components/component/state",
+    "keyElem": [
+      "name"
+    ],
+    "idName": null,
+    "keyPattern": null,
+    "keyRegex": "^([A-Z]+)-([0-9]+)-([0-9]+)$",
+    "keyPrefixReplacement": null,
+    "permissionRule": "admin|rw,operation|rw,supervision|ro",
+    "helperInfo": "card",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__card:n2",
+        "name": "admin-state",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "card",
+          "admin-state"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The administrative state specifies the permission to use or prohibition. Available input Value - “in-service”: The resource is administratively permitted to perform services for its users - “out-of-service”: The resource is administratively prohibited from performing services for its users. The resource currently does not provide any service. The sub management statement/identifier under current identifier is also in administratively prohibited from performing services. The object in out-of-service won’t report any alarm. The Tx laser of line side port will be shutdown default Value: “in-service”",
+        "unit": null,
+        "values": [
+          "in-service",
+          "out-of-service"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__card:n3",
+        "name": "module-type",
+        "aliasName": "vendor-type-preconf",
+        "type": "leaf",
+        "path": [
+          "card",
+          "module-type"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The provisioned module’s equipment type. Possibility Value: - \"M4CP\": The 400G line x 4*100G client OTN transponder module - \"400MXS\": 400G QSFPDD multiplexer module - \"800TR\": 800G QSFPDD Transponder - \"800MX\": 800G QSFPDD multiplexer module - \"NONE\": delete the module provision - \"FAN\": FAN module - \"PSU\": Power supply module - \"CIM\": Craft Interface Module - \"CU\": Controller unit",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__card:n4",
+        "name": "description",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "card",
+          "description"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Customer defined description for function and line card. Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__card:n5",
+        "name": "firmware-version",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "card",
+          "firmware-version"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The firmware version of present line card. If the card hasn't firmware report empty. Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__card:n6",
+        "name": "software-version",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "card",
+          "software-version"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The software version of present line card. If the card hasn't software report empty Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__card:n7",
+        "name": "present",
+        "aliasName": "empty",
+        "type": "leaf",
+        "path": [
+          "card",
+          "present"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The provisioned module's hardware present state Possibility Value: - true: module is present - false: module is absent",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__card:n8",
+        "name": "slot",
+        "aliasName": "location",
+        "type": "leaf",
+        "path": [
+          "card",
+          "slot"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The slot id of module provisioned Value type: positive integer - 1…8 service slots - 21, 22 power supply module slots - 31…33 FAN module slots - 40 CIM - 41, 42 system controller unit",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__card:n9",
+        "name": "oper-status",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "card",
+          "oper-status"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The operational status of identifier module Possibility Value: - active: card is admin-state enabled and active - inactive: card is admin-state enabled and inactive - disabled: card is admin-state disabled",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__card:n10",
+        "name": "removable",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "card",
+          "removable"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The module is removeable or not Possibility Value: - \"true\": transceiver is removeable - \"false\": transceiver is fixed at parent",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__card:n11",
+        "name": "used-power",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "card",
+          "used-power"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The used power for the component Value type: positive integer Units: W",
+        "unit": "W",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__card:n12",
+        "name": "rated-power",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "card",
+          "rated-power"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": "/openconfig-platform:components/component/config",
+        "keyQuery": "/openconfig-platform:components/component/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The rated power for the component Value type: positive integer Units: W",
+        "unit": "W",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__card:n13",
+        "name": "supported-module-types",
+        "aliasName": "supported-vendor-type",
+        "type": "leaf",
+        "path": [
+          "card",
+          "supported-module-types"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": "/openconfig-platform:components/component/state/supported-vendor-types",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": "^[A-Z]+-\\d+-\\d+$",
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The slot supported module types. Only offer the supported module type when current card module-type is NONE. Multi supported types will be contacted with \",\" Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__card:n14",
+        "name": "temperature",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "card",
+          "temperature"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": "/openconfig-platform:components/component/config",
+        "keyQuery": "/openconfig-platform:components/component/state/temperature",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": "^[A-Z]+-\\d+-\\d+$",
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Statistics state of module internal monitored temperature, include instant, avg, min, max value Value type: 1-digit decimal Units:°C Precision: 0.1",
+        "unit": "°C",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__card:n15",
+        "name": "cu",
+        "aliasName": null,
+        "type": "container",
+        "path": [
+          "card",
+          "cu"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": "/openconfig-platform:components/component/openconfig-platform-cu:cu",
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": null,
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_eqpt__card:n16",
+            "name": "total-memory",
+            "aliasName": "mcu-total-memory",
+            "type": "leaf",
+            "path": [
+              "card",
+              "cu",
+              "total-memory"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": "/openconfig-platform:components/component/openconfig-platform-cu:cu/state",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The total memory space of the control unit. Value type: positive integer Units: MB",
+            "unit": "MB",
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_eqpt__card:n17",
+            "name": "total-storage",
+            "aliasName": "total",
+            "type": "leaf",
+            "path": [
+              "card",
+              "cu",
+              "total-storage"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": "/openconfig-platform:components/component/storage/state",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The total storage space of the control unit. Value type: positive integer Units: MB",
+            "unit": "MB",
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_eqpt__card:n18",
+            "name": "current-role",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "card",
+              "cu",
+              "current-role"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": "/openconfig-platform:components/component/openconfig-platform-cu:cu/state",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The CU role in CU 1+1 protection group. Possibility Value: - \"active\": The cu is active one. - \"standby\": The cu is standby one. - \"unavailable\": The cu is unavailable, couldn’t support switch to it.",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_eqpt__card:n19",
+            "name": "cpu-utilization",
+            "aliasName": null,
+            "type": "container",
+            "path": [
+              "card",
+              "cu",
+              "cpu-utilization"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": "/openconfig-platform:components/component/cpu/openconfig-platform-cpu:utilization/state",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: Statistics state of utilization of CPU used, include instant, avg, min, max value Value type: integer Value range: 0..100 Units: %",
+            "unit": "%",
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_eqpt__card:n20",
+            "name": "memory-utilization",
+            "aliasName": null,
+            "type": "container",
+            "path": [
+              "card",
+              "cu",
+              "memory-utilization"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": "/openconfig-platform:components/component/openconfig-platform-memory:memory/state/utilization",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: Statistics state of utilization of memory used, include instant, avg, min, max value Value type: integer Value range: 0..100 Units: %",
+            "unit": "%",
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_eqpt__card:n21",
+            "name": "storage-utilization",
+            "aliasName": null,
+            "type": "container",
+            "path": [
+              "card",
+              "cu",
+              "storage-utilization"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": "/openconfig-platform:components/component/storage/state/openconfig-platform-storage:utilization",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: Statistics state of utilization of storage used, include instant, avg, min, max value Value type: integer Value range: 0..100 Units: %",
+            "unit": "%",
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__card:n22",
+        "name": "fan",
+        "aliasName": null,
+        "type": "container",
+        "path": [
+          "card",
+          "fan"
+        ],
+        "cmdTypeRaw": "show,set",
+        "cmdTypes": [
+          "show",
+          "set"
+        ],
+        "key": "/openconfig-platform:components/component/fan/config",
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "the config and state attributes of fan function by list",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_eqpt__card:n23",
+            "name": "mode",
+            "aliasName": "fan-mode",
+            "type": "leaf",
+            "path": [
+              "card",
+              "fan",
+              "mode"
+            ],
+            "cmdTypeRaw": "show,set",
+            "cmdTypes": [
+              "show",
+              "set"
+            ],
+            "key": null,
+            "keyQuery": "/openconfig-platform:components/component/fan/state",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The fan speed control mode. Possibility Value: - \"auto\": The fan speed is controlled by system automatically base on the system thermal state. - \"manual\": The fan speed follow manual configured speed ratio. default Value: “auto”",
+            "unit": null,
+            "values": [
+              "auto",
+              "manual"
+            ],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_eqpt__card:n24",
+            "name": "speed-ratio",
+            "aliasName": "fan-speed",
+            "type": "leaf",
+            "path": [
+              "card",
+              "fan",
+              "speed-ratio"
+            ],
+            "cmdTypeRaw": "show,set",
+            "cmdTypes": [
+              "show",
+              "set"
+            ],
+            "key": null,
+            "keyQuery": "/openconfig-platform:components/component/fan/state",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The expectation fan speed ratio in manual control mode. Possibility Value: - \"low\": The fan is expected running in low speed ratio, 30% of full speed. - \"middle\": The fan is expected running in middle speed ratio, 70% of full speed. - \"high\": The fan is expected running in high speed ratio, 100% of full speed. Default value: \"high\"",
+            "unit": null,
+            "values": [
+              "low",
+              "middle",
+              "high"
+            ],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_eqpt__card:n25",
+            "name": "speed-ratio-fan-1",
+            "aliasName": null,
+            "type": "container",
+            "path": [
+              "card",
+              "fan",
+              "speed-ratio-fan-1"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": "/openconfig-platform:components/component/fan/state/openconfig-platform-fan:speed-ratio-fan-1",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: Statistics state of the first fan subcomponent’s running speed ratio, include instant, avg, min, max value Value type: integer Value range: 0..100 Units: %",
+            "unit": "%",
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_eqpt__card:n26",
+            "name": "speed-ratio-fan-2",
+            "aliasName": null,
+            "type": "container",
+            "path": [
+              "card",
+              "fan",
+              "speed-ratio-fan-2"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": "/openconfig-platform:components/component/config",
+            "keyQuery": "/openconfig-platform:components/component/fan/state/openconfig-platform-fan:speed-ratio-fan-2",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: Statistics state of the second fan subcomponent’s running speed ratio, include instant, avg, min, max value Value type: integer Value range: 0..100 Units: %",
+            "unit": "%",
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_eqpt__card:n27",
+        "name": "psu",
+        "aliasName": null,
+        "type": "container",
+        "path": [
+          "card",
+          "psu"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": "/openconfig-platform:components/component/power-supply",
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "the config and state attributes of psu function by list",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_eqpt__card:n28",
+            "name": "capacity",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "card",
+              "psu",
+              "capacity"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": "/openconfig-platform:components/component/power-supply/state",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: Maximum power capacity of the power supply. Value type: 2-digit decimal Units: W",
+            "unit": "W",
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_eqpt__card:n29",
+            "name": "input-current",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "card",
+              "psu",
+              "input-current"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": "/openconfig-platform:components/component/power-supply/state",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The input current draw of the power supply. Value type: 2-digit decimal Units: mA",
+            "unit": "mA",
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_eqpt__card:n30",
+            "name": "input-voltage",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "card",
+              "psu",
+              "input-voltage"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": "/openconfig-platform:components/component/power-supply/state",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The input voltage draw of the power supply. Value type: 2-digit decimal Units: V",
+            "unit": "V",
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_eqpt__card:n31",
+            "name": "output-current",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "card",
+              "psu",
+              "output-current"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": "/openconfig-platform:components/component/power-supply/state",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The output current draw of the power supply. Value type: 2-digit decimal Units: mA",
+            "unit": "mA",
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_eqpt__card:n32",
+            "name": "output-voltage",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "card",
+              "psu",
+              "output-voltage"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": "/openconfig-platform:components/component/power-supply/state",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The output voltage draw of the power supply. Value type: 2-digit decimal Units: V",
+            "unit": "V",
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_eqpt__card:n33",
+            "name": "output-power",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "card",
+              "psu",
+              "output-power"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": "/openconfig-platform:components/component/power-supply/state",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The output power supplied by the power supply. Value type: 2-digit decimal Units: W",
+            "unit": "W",
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_eqpt__card:n34",
+            "name": "power-supply-mode",
+            "aliasName": "used-power-supply-mode",
+            "type": "leaf",
+            "path": [
+              "card",
+              "psu",
+              "power-supply-mode"
+            ],
+            "cmdTypeRaw": "show",
+            "cmdTypes": [
+              "show"
+            ],
+            "key": null,
+            "keyQuery": "/openconfig-platform:components/component/power-supply/state",
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The power mode of power supply. Possibility Value: - \"DC\": The power supply is direct current. - \"AC\": The power supply is alternating current. - \"HDC\": The power supply is high voltage direct current.",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 34,
+    "leafCount": 30,
+    "maxDepth": 3
+  }
+}

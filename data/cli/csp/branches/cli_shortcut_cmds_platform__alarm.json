@@ -1,0 +1,448 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_platform__alarm",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_platform.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_platform__alarm:n1",
+    "name": "alarm",
+    "aliasName": null,
+    "type": "list",
+    "path": [
+      "alarm"
+    ],
+    "cmdTypeRaw": "show",
+    "cmdTypes": [
+      "show"
+    ],
+    "key": "/openconfig-system:system/alarms/alarm",
+    "keyQuery": null,
+    "keyElem": null,
+    "idName": null,
+    "keyPattern": null,
+    "keyRegex": null,
+    "keyPrefixReplacement": null,
+    "permissionRule": null,
+    "helperInfo": "system alarm",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_platform__alarm:n2",
+        "name": "filter",
+        "aliasName": null,
+        "type": "container",
+        "path": [
+          "alarm",
+          "filter"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "For attribute resource, each field could be replaced by wildcard asterisk (*). The following filter criteria are supported: - \"=\": resource type-id severity alarm-abbreviate e.g. show alarm resource=\"card 1-1\" type-id=\"HARDWARE-ALARM\" severity=\"CRITICAL\" alarm-abbreviate=\"EQPT_ABSENCE\" - \"!=\": resource type-id severity alarm-abbreviate e.g. show alarm resource!=\"card 1-1\" - \"&gt;\": time-created e.g. show alarm time-created>2023-05-05T07:09:58+00:00 - \"&lt;\": time-created e.g. show alarm time-created&lt;2023-05-05T07:09:58+00:00",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_platform__alarm:n3",
+        "name": "resource",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "alarm",
+          "resource"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The full name of statement or identifier which alarm reported. Value type: string example: och 1-1-l1",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_platform__alarm:n4",
+        "name": "type-id",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "alarm",
+          "type-id"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The defect type of current alarm. Possibility Value: - EQPT: Equipment layer alarm - ENV: Environment layer alarm - SYS: System layer alarm - OP: Optical switch layer alarm - OA: Optical amplifier related alarm - OTS: Optical Transmission Section alarm - OSC: Optical Supervisory Channel alarm - PORT: Service port layer alarm - OPTICAL: Optical layer alarm - OCH: Optical Channel alarm - OTN: OTN protocol alarm - SDH: SDH signal alarm - ETH: Ethernet signal alarm - ZR: ZR and ZR+ signal alarm - STAT: State indication alarm",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_platform__alarm:n5",
+        "name": "alarm-abbreviate",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "alarm",
+          "alarm-abbreviate"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The abbreviated name of the alarm. Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_platform__alarm:n6",
+        "name": "severity",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "alarm",
+          "severity"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The severity level of alarm. Possibility Value: - CRITICAL - MAJOR - MINOR",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_platform__alarm:n7",
+        "name": "text",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "alarm",
+          "text"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The string used to inform operators about the alarm. It contains information for an operator to be able to understand the problem. Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_platform__alarm:n8",
+        "name": "time-created",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "alarm",
+          "time-created"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The time at which the alarm was raised by the system. Value type: uint expressed relative to the Unix Epoch. Units: ns",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_platform__alarm:n9",
+        "name": "direction",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "alarm",
+          "direction"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Specifics the direction of alarm. Possibility Value: - tx : Receiver direction - rx : Transmitter direction - bi-directional: Both Output and Input direction - na : Not applicable",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_platform__alarm:n10",
+        "name": "location",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "alarm",
+          "location"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: : Indicates the location of alarm. Possibility Value: - near-end: the alarm indicate defect at near end - far-end : The alarm indicate defect at far end - na : Not applicable",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_platform__alarm:n11",
+        "name": "alarm-type",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "alarm",
+          "alarm-type"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Indicates the condition type of alarm. Possibility Value: - standing : the alarm triggered condition is standing - transient: the alarm triggered condition is transient",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_platform__alarm:n12",
+        "name": "time-period",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "alarm",
+          "time-period"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Indicates the time-period of TCA type alarm. Possibility Value: - 15min: The TCA alarm indicate monitor over threshold at 15 minutes BIN - 24h : The TCA alarm indicate monitor over threshold at 24 hours BIN - na : None TCA alarm",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_platform__alarm:n13",
+        "name": "id",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "alarm",
+          "id"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Index of alarm. Value type: string",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 13,
+    "leafCount": 12,
+    "maxDepth": 2
+  }
+}

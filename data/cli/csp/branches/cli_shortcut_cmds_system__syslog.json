@@ -1,0 +1,319 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_system__syslog",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_system.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_system__syslog:n1",
+    "name": "syslog",
+    "aliasName": null,
+    "type": "container",
+    "path": [
+      "syslog"
+    ],
+    "cmdTypeRaw": "set,show",
+    "cmdTypes": [
+      "set",
+      "show"
+    ],
+    "key": null,
+    "keyQuery": null,
+    "keyElem": null,
+    "idName": null,
+    "keyPattern": null,
+    "keyRegex": null,
+    "keyPrefixReplacement": null,
+    "permissionRule": "admin|rw,operation|rw,supervision|ro",
+    "helperInfo": null,
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_system__syslog:n2",
+        "name": "remote-server",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "syslog",
+          "remote-server"
+        ],
+        "cmdTypeRaw": "set,show,delete",
+        "cmdTypes": [
+          "set",
+          "show",
+          "delete"
+        ],
+        "key": "/openconfig-system:system/logging/remote-servers/remote-server/config",
+        "keyQuery": "/openconfig-system:system/logging/remote-servers/remote-server/state",
+        "keyElem": [
+          "host"
+        ],
+        "idName": "hostname",
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: the identifier remote server attributes for syslog forwarding The identifier type of remote server is hostname(IPv4 format)",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_system__syslog:n3",
+            "name": "host",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "syslog",
+              "remote-server",
+              "host"
+            ],
+            "cmdTypeRaw": "",
+            "cmdTypes": [],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The IP address of identified destination syslog collector server Value type: IPv4 address in dotted decimal notation. E.g., 192.168.1.5",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__syslog:n4",
+            "name": "source-address",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "syslog",
+              "remote-server",
+              "source-address"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The IP address which will be the source of packets from the device to the remote server. Value type: - IPv4 address in dotted decimal notation. E.g., 192.168.1.5",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__syslog:n5",
+            "name": "remote-port",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "syslog",
+              "remote-server",
+              "remote-port"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The port of identified remote server Value type: integer Value range: 0…65535 Granularity: 1 Default value: 514",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__syslog:n6",
+            "name": "selector",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "syslog",
+              "remote-server",
+              "selector"
+            ],
+            "cmdTypeRaw": "set,show,delete",
+            "cmdTypes": [
+              "set",
+              "show",
+              "delete"
+            ],
+            "key": "/openconfig-system:system/logging/remote-servers/remote-server/selectors/selector/config",
+            "keyQuery": "/openconfig-system:system/logging/remote-servers/remote-server/selectors/selector/state",
+            "keyElem": [
+              "facility",
+              "severity"
+            ],
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The selected facility and security for syslog forwarding to identifier remote server The identifier type of remote server is host name and the identifier type of selector are facility severity",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_system__syslog:n7",
+                "name": "facility",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "syslog",
+                  "remote-server",
+                  "selector",
+                  "facility"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The facility type selected to be forwarded Available Value: - “security”: The security related events will be forwarded, code (10) - “configuration”: the configuration operations message will be forwarded, code (16) - “alarm”: the alarm notification will be forwarded, code (17) - “event”: the events reported by node will be forwarded, code (18)",
+                "unit": null,
+                "values": [
+                  "security",
+                  "configuration",
+                  "alarm",
+                  "event"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_system__syslog:n8",
+                "name": "severity",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "syslog",
+                  "remote-server",
+                  "selector",
+                  "severity"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The severity selected to be forwarded Available Value: - “emergency”: message report system is unusable, code (0) - “alert”: message report action must be taken immediately, code (1) - “critical”: message report critical conditions, code (2) - “error”: message report error conditions, code (3) - “warning”: message report warning conditions, code (4) - “notice”: message report normal but significant condition, code (5) - “informational”: informational messages, code (6) - “debug”: debug-level messages, code (7)",
+                "unit": null,
+                "values": [
+                  "emergency",
+                  "alert",
+                  "critical",
+                  "error",
+                  "warning",
+                  "notice",
+                  "informational",
+                  "debug"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 8,
+    "leafCount": 5,
+    "maxDepth": 4
+  }
+}

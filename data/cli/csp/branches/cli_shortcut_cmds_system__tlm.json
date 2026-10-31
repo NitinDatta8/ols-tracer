@@ -1,0 +1,871 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_system__tlm",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_system.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_system__tlm:n1",
+    "name": "tlm",
+    "aliasName": null,
+    "type": "container",
+    "path": [
+      "tlm"
+    ],
+    "cmdTypeRaw": "set,show",
+    "cmdTypes": [
+      "set",
+      "show"
+    ],
+    "key": "/openconfig-telemetry:telemetry-system",
+    "keyQuery": "/openconfig-telemetry:telemetry-system",
+    "keyElem": null,
+    "idName": null,
+    "keyPattern": null,
+    "keyRegex": null,
+    "keyPrefixReplacement": null,
+    "permissionRule": "admin|rw,operation|rw,supervision|ro",
+    "helperInfo": "Description: telemetry sensor group, dest group and subscription",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_system__tlm:n2",
+        "name": "snsr-group",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "tlm",
+          "snsr-group"
+        ],
+        "cmdTypeRaw": "set,show,delete",
+        "cmdTypes": [
+          "set",
+          "show",
+          "delete"
+        ],
+        "key": "/openconfig-telemetry:telemetry-system/sensor-groups/sensor-group/config",
+        "keyQuery": "/openconfig-telemetry:telemetry-system/sensor-groups/sensor-group/state",
+        "keyElem": [
+          "sensor-group-id"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: telemetry sensor group",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": true,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_system__tlm:n3",
+            "name": "sensor-group-id",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "tlm",
+              "snsr-group",
+              "sensor-group-id"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The index of identifier sensor group. Value type: string",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__tlm:n4",
+            "name": "target",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "tlm",
+              "snsr-group",
+              "target"
+            ],
+            "cmdTypeRaw": "set,show,delete",
+            "cmdTypes": [
+              "set",
+              "show",
+              "delete"
+            ],
+            "key": "/openconfig-telemetry:telemetry-system/sensor-groups/sensor-group/sensor-paths/sensor-path/config",
+            "keyQuery": "/openconfig-telemetry:telemetry-system/sensor-groups/sensor-group/sensor-paths/sensor-path/state",
+            "keyElem": [
+              "path"
+            ],
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The path of telemetry sensor monitor.",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": true,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_system__tlm:n5",
+                "name": "path",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "tlm",
+                  "snsr-group",
+                  "target",
+                  "path"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The target of telemetry sensor monitor. Available Value: - \"component\": The common monitor parameters of all type components:chassis, card and transceiver - \"psu\": The monitor parameters of power supplier - \"fan\": The monitor parameters of fan - \"cpu\": The monitor parameters of controller CPU - \"memory\": The monitor parameters of controller memory - \"storage\": The monitor parameters of controller storage - \"transceiver\": The monitor parameters under transceiver layer - \"physical-channel\": The monitor parameters under transceiver physical channel layer - \"eth\": The monitor parameters under identifier ethernet service layer - \"och\": The monitor parameters under identifier optical channel layer",
+                "unit": null,
+                "values": [
+                  "component",
+                  "fan",
+                  "cpu",
+                  "memory",
+                  "storage",
+                  "transceiver",
+                  "physical-channel",
+                  "eth",
+                  "och"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_system__tlm:n6",
+        "name": "dest-group",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "tlm",
+          "dest-group"
+        ],
+        "cmdTypeRaw": "set,show,delete",
+        "cmdTypes": [
+          "set",
+          "show",
+          "delete"
+        ],
+        "key": "/openconfig-telemetry:telemetry-system/destination-groups/destination-group/config",
+        "keyQuery": "/openconfig-telemetry:telemetry-system/destination-groups/destination-group/state",
+        "keyElem": [
+          "group-id"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: telemetry destination collector server group",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": true,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_system__tlm:n7",
+            "name": "group-id",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "tlm",
+              "dest-group",
+              "group-id"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The index of identifier destination collector server group. Value type: string",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": true,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__tlm:n8",
+            "name": "dest",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "tlm",
+              "dest-group",
+              "dest"
+            ],
+            "cmdTypeRaw": "set,show,delete",
+            "cmdTypes": [
+              "set",
+              "show",
+              "delete"
+            ],
+            "key": "/openconfig-telemetry:telemetry-system/destination-groups/destination-group/destinations/destination/config",
+            "keyQuery": "/openconfig-telemetry:telemetry-system/destination-groups/destination-group/destinations/destination/state",
+            "keyElem": [
+              "destination-address",
+              "destination-port"
+            ],
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The destination address and port into destination server group",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": true,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_system__tlm:n9",
+                "name": "destination-address",
+                "aliasName": "destination-address",
+                "type": "leaf",
+                "path": [
+                  "tlm",
+                  "dest-group",
+                  "dest",
+                  "destination-address"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The IP address of identified destination telemetry collector server Value type: IPv4 address in dotted decimal notation. E.g., 192.168.1.5",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_system__tlm:n10",
+                "name": "destination-port",
+                "aliasName": "destination-port",
+                "type": "leaf",
+                "path": [
+                  "tlm",
+                  "dest-group",
+                  "dest",
+                  "destination-port"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The port number for remote telemetry collector server. Value type: positive integer Value range: 1…65535 Granularity: 1",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_system__tlm:n11",
+        "name": "persistent-subscription",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "tlm",
+          "persistent-subscription"
+        ],
+        "cmdTypeRaw": "set,show,delete",
+        "cmdTypes": [
+          "set",
+          "show",
+          "delete"
+        ],
+        "key": "/openconfig-telemetry:telemetry-system/subscriptions/persistent/subscription/config",
+        "keyQuery": "/openconfig-telemetry:telemetry-system/subscriptions/persistent/subscription/state",
+        "keyElem": [
+          "subscription-name"
+        ],
+        "idName": "name",
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: telemetry persistent-subscription",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": true,
+          "valueCaseSensitive": false
+        },
+        "children": [
+          {
+            "nodeId": "cli_shortcut_cmds_system__tlm:n12",
+            "name": "subscription-name",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "tlm",
+              "persistent-subscription",
+              "subscription-name"
+            ],
+            "cmdTypeRaw": "",
+            "cmdTypes": [],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The name of identifier telemetry persistent-subscription. Value type: string",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__tlm:n13",
+            "name": "local-source-address",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "tlm",
+              "persistent-subscription",
+              "local-source-address"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The IP address which will be the source of packets from the device to a telemetry collector destination. Value type: IPv4 address in dotted decimal notation. E.g., 192.168.1.5",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__tlm:n14",
+            "name": "local-source-port",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "tlm",
+              "persistent-subscription",
+              "local-source-port"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The port number which will be the source of packets from the device to a telemetry collector destination. Value type: positive integer Value range: 1…65535 Granularity: 1",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__tlm:n15",
+            "name": "protocol",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "tlm",
+              "persistent-subscription",
+              "protocol"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The transport protocol for the telemetry stream. Available Value: - \"grpc \": Telemetry stream is carried over via the gRPC framework. default: \"grpc\"",
+            "unit": null,
+            "values": [
+              "grpc"
+            ],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__tlm:n16",
+            "name": "encoding",
+            "aliasName": null,
+            "type": "leaf",
+            "path": [
+              "tlm",
+              "persistent-subscription",
+              "encoding"
+            ],
+            "cmdTypeRaw": "set,show",
+            "cmdTypes": [
+              "set",
+              "show"
+            ],
+            "key": null,
+            "keyQuery": null,
+            "keyElem": null,
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: The specific encoding or RPC framework for telemetry messages to and from the network element. Available Value: - \"json-ietf\": JSON encoded based on IETF draft standard default: \"json-ietf\"",
+            "unit": null,
+            "values": [
+              "json-ietf"
+            ],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": false,
+              "valueCaseSensitive": false
+            },
+            "children": []
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__tlm:n17",
+            "name": "snsr-profile",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "tlm",
+              "persistent-subscription",
+              "snsr-profile"
+            ],
+            "cmdTypeRaw": "set,show,delete",
+            "cmdTypes": [
+              "set",
+              "show",
+              "delete"
+            ],
+            "key": "/openconfig-telemetry:telemetry-system/subscriptions/persistent/subscription/sensor-profiles/sensor-profile/config",
+            "keyQuery": "/openconfig-telemetry:telemetry-system/subscriptions/persistent/subscription/sensor-profiles/sensor-profile/state",
+            "keyElem": [
+              "sensor-group"
+            ],
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: the sensor profile attributes for an identifier telemetry persistent-subscription.",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": true,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_system__tlm:n18",
+                "name": "sensor-group",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "tlm",
+                  "persistent-subscription",
+                  "snsr-profile",
+                  "sensor-group"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The index of defined telemetry sensor group. Value type: string",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_system__tlm:n19",
+                "name": "sample-interval",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "tlm",
+                  "persistent-subscription",
+                  "snsr-profile",
+                  "sample-interval"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: Time in milliseconds between the device's sample of a telemetry data source. There can be latency or jitter in transmitting the data, but the sample must occur at the specified interval. Value type: positive integer Value range: 1000…3600000 Granularity: 1000 Units: milliseconds default: \"10000\"",
+                "unit": "milliseconds",
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_system__tlm:n20",
+                "name": "heartbeat-interval",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "tlm",
+                  "persistent-subscription",
+                  "snsr-profile",
+                  "heartbeat-interval"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: Maximum time interval in seconds that may pass between updates from a device to a telemetry collector. If this interval expires, but there is no updated data to send (such as if suppress_updates has been configured), the device will send a telemetry message to the collector. Value type: positive integer Value range: 10…7200 Granularity: 1 Units: seconds default: \"10\"",
+                "unit": "seconds",
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              },
+              {
+                "nodeId": "cli_shortcut_cmds_system__tlm:n21",
+                "name": "suppress-redundant",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "tlm",
+                  "persistent-subscription",
+                  "snsr-profile",
+                  "suppress-redundant"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The control of suppression of redundant telemetry updates to the collector platform. Available input Value: - \"enabled\": The collector will only send an update at the configured interval if a subscribed data value has changed - \"disabled\": The device will not send an update to the collector until expiration of the heartbeat interval. default mode: \"disabled\"",
+                "unit": null,
+                "values": [
+                  "enabled",
+                  "disabled"
+                ],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "nodeId": "cli_shortcut_cmds_system__tlm:n22",
+            "name": "dest-group",
+            "aliasName": null,
+            "type": "list",
+            "path": [
+              "tlm",
+              "persistent-subscription",
+              "dest-group"
+            ],
+            "cmdTypeRaw": "set,show,delete",
+            "cmdTypes": [
+              "set",
+              "show",
+              "delete"
+            ],
+            "key": "/openconfig-telemetry:telemetry-system/subscriptions/persistent/subscription/destination-groups/destination-group/config",
+            "keyQuery": "/openconfig-telemetry:telemetry-system/subscriptions/persistent/subscription/destination-groups/destination-group/state",
+            "keyElem": [
+              "group-id"
+            ],
+            "idName": null,
+            "keyPattern": null,
+            "keyRegex": null,
+            "keyPrefixReplacement": null,
+            "permissionRule": null,
+            "helperInfo": "Description: the destination group for an identifier telemetry persistent-subscription.",
+            "unit": null,
+            "values": [],
+            "flags": {
+              "keyPatternMatchOnly": false,
+              "tableShowOnly": false,
+              "noAutoCompletionForShow": false,
+              "keyCaseSensitive": true,
+              "valueCaseSensitive": false
+            },
+            "children": [
+              {
+                "nodeId": "cli_shortcut_cmds_system__tlm:n23",
+                "name": "group-id",
+                "aliasName": null,
+                "type": "leaf",
+                "path": [
+                  "tlm",
+                  "persistent-subscription",
+                  "dest-group",
+                  "group-id"
+                ],
+                "cmdTypeRaw": "set,show",
+                "cmdTypes": [
+                  "set",
+                  "show"
+                ],
+                "key": null,
+                "keyQuery": null,
+                "keyElem": null,
+                "idName": null,
+                "keyPattern": null,
+                "keyRegex": null,
+                "keyPrefixReplacement": null,
+                "permissionRule": null,
+                "helperInfo": "Description: The index of identified telemetry destination group. Value type: string",
+                "unit": null,
+                "values": [],
+                "flags": {
+                  "keyPatternMatchOnly": false,
+                  "tableShowOnly": false,
+                  "noAutoCompletionForShow": false,
+                  "keyCaseSensitive": false,
+                  "valueCaseSensitive": false
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 23,
+    "leafCount": 15,
+    "maxDepth": 4
+  }
+}

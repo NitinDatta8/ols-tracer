@@ -1,0 +1,694 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_l0__media-channel",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_l0.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_l0__media-channel:n1",
+    "name": "media-channel",
+    "aliasName": null,
+    "type": "list",
+    "path": [
+      "media-channel"
+    ],
+    "cmdTypeRaw": "set,show,delete",
+    "cmdTypes": [
+      "set",
+      "show",
+      "delete"
+    ],
+    "key": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/config",
+    "keyQuery": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/state",
+    "keyElem": [
+      "index"
+    ],
+    "idName": null,
+    "keyPattern": null,
+    "keyRegex": null,
+    "keyPrefixReplacement": null,
+    "permissionRule": null,
+    "helperInfo": "show media channel",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": true,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_l0__media-channel:n2",
+        "name": "name",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "media-channel",
+          "name"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Media-Channel name",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__media-channel:n3",
+        "name": "line-port",
+        "aliasName": "port-name",
+        "type": "leaf",
+        "path": [
+          "media-channel",
+          "line-port"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/dests/dest/config",
+        "keyQuery": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/dests/dest/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": "^PORT-([0-9]+)-([0-9]+)-((EXP|MPO)([0-9]+)|M([0-9]+)D([0-9]+)|LINE_EAST|LINE_WEST|LINE)$",
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The line port name of media-channel, for example port-1-1-line",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": true,
+          "valueCaseSensitive": true
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__media-channel:n4",
+        "name": "add-drop-port",
+        "aliasName": "port-name",
+        "type": "leaf",
+        "path": [
+          "media-channel",
+          "add-drop-port"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/sources/source/config",
+        "keyQuery": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/sources/source/state",
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": "^PORT-([0-9]+)-([0-9]+)-((EXP|MPO|AD)([0-9]+)|M([0-9]+)D([0-9]+)|LINE_EAST|LINE_WEST)$",
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The add/drop port name of media-channel, for example port-1-1-ad1",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": true,
+          "valueCaseSensitive": true
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__media-channel:n5",
+        "name": "admin-state",
+        "aliasName": "admin-status",
+        "type": "leaf",
+        "path": [
+          "media-channel",
+          "admin-state"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The administrative state specifies the permission to use or prohibition. [in-service | out-of-service]",
+        "unit": null,
+        "values": [
+          "in-service",
+          "out-of-service"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__media-channel:n6",
+        "name": "add-power-control-mode",
+        "aliasName": "attenuation-control-mode",
+        "type": "leaf",
+        "path": [
+          "media-channel",
+          "add-power-control-mode"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/source-to-dest/config",
+        "keyQuery": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/source-to-dest/state",
+        "keyElem": [
+          "index"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Power control mode of channel, target power or target attenuation. [auto | manual]",
+        "unit": null,
+        "values": [
+          "auto",
+          "manual"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__media-channel:n7",
+        "name": "drop-power-control-mode",
+        "aliasName": "attenuation-control-mode",
+        "type": "leaf",
+        "path": [
+          "media-channel",
+          "drop-power-control-mode"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/dest-to-source/config",
+        "keyQuery": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/dest-to-source/state",
+        "keyElem": [
+          "index"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Power control mode of channel, target power or target attenuation. [auto | manual]",
+        "unit": null,
+        "values": [
+          "auto",
+          "manual"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__media-channel:n8",
+        "name": "target-add-output-power",
+        "aliasName": "target-power",
+        "type": "leaf",
+        "path": [
+          "media-channel",
+          "target-add-output-power"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/source-to-dest/config",
+        "keyQuery": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/source-to-dest/state",
+        "keyElem": [
+          "index"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Target output optical power of channel at line out port 2-digit decimal, units dBm value range [-10,9]",
+        "unit": "dBm",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__media-channel:n9",
+        "name": "target-drop-output-power",
+        "aliasName": "target-power",
+        "type": "leaf",
+        "path": [
+          "media-channel",
+          "target-drop-output-power"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/dest-to-source/config",
+        "keyQuery": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/dest-to-source/state",
+        "keyElem": [
+          "index"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Target output optical power of channel at drop port 2-digit decimal, units dBm value range [-20,4]",
+        "unit": "dBm",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__media-channel:n10",
+        "name": "target-add-attenuation",
+        "aliasName": "target-voa-attenuation",
+        "type": "leaf",
+        "path": [
+          "media-channel",
+          "target-add-attenuation"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/source-to-dest/config",
+        "keyQuery": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/source-to-dest/state",
+        "keyElem": [
+          "index"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Target wss voa attenuation of channel from add port to line port 2-digit decimal, units dB value range [0,15]",
+        "unit": "dB",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__media-channel:n11",
+        "name": "target-drop-attenuation",
+        "aliasName": "target-voa-attenuation",
+        "type": "leaf",
+        "path": [
+          "media-channel",
+          "target-drop-attenuation"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/dest-to-source/config",
+        "keyQuery": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/dest-to-source/state",
+        "keyElem": [
+          "index"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Target wss voa attenuation of channel from line port to drop port 2-digit decimal, units dB value range [0,15]",
+        "unit": "dB",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__media-channel:n12",
+        "name": "actual-add-voa-attenuation",
+        "aliasName": "actual-voa-attenuation",
+        "type": "leaf",
+        "path": [
+          "media-channel",
+          "actual-add-voa-attenuation"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/source-to-dest/config",
+        "keyQuery": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/source-to-dest/state",
+        "keyElem": [
+          "index"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Actual voa attenuation of channel from add/drop port to line port 2-digit decimal, units dB",
+        "unit": "dB",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__media-channel:n13",
+        "name": "actual-drop-voa-attenuation",
+        "aliasName": "actual-voa-attenuation",
+        "type": "leaf",
+        "path": [
+          "media-channel",
+          "actual-drop-voa-attenuation"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/dest-to-source/config",
+        "keyQuery": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/dest-to-source/state",
+        "keyElem": [
+          "index"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Actual voa attenuation of channel from line port to add/drop port 2-digit decimal, units dB",
+        "unit": "dB",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__media-channel:n14",
+        "name": "center-frequency",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "media-channel",
+          "center-frequency"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Center frequency of media channel positive integer,units MHz",
+        "unit": "MHz",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__media-channel:n15",
+        "name": "bandwidth",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "media-channel",
+          "bandwidth"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Bandwidth of media channel positive integer,units MHz",
+        "unit": "MHz",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__media-channel:n16",
+        "name": "lower-frequency",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "media-channel",
+          "lower-frequency"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Lower frequency of media channel positive integer,units MHz",
+        "unit": "MHz",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__media-channel:n17",
+        "name": "upper-frequency",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "media-channel",
+          "upper-frequency"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Upper frequency of media channel positive integer,units MHz",
+        "unit": "MHz",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__media-channel:n18",
+        "name": "add-output-power",
+        "aliasName": "output-power",
+        "type": "leaf",
+        "path": [
+          "media-channel",
+          "add-output-power"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/source-to-dest/config",
+        "keyQuery": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/source-to-dest/state",
+        "keyElem": [
+          "index"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Output optical power of channel at line port 2-digit decimal, units dBm",
+        "unit": "dBm",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l0__media-channel:n19",
+        "name": "drop-output-power",
+        "aliasName": "output-power",
+        "type": "leaf",
+        "path": [
+          "media-channel",
+          "drop-output-power"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/dest-to-source/config",
+        "keyQuery": "/openconfig-wavelength-router:wavelength-router/media-channels/channel/dest-to-source/state",
+        "keyElem": [
+          "index"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Output optical power of channel at add/drop port 2-digit decimal, units dBm",
+        "unit": "dBm",
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 19,
+    "leafCount": 18,
+    "maxDepth": 2
+  }
+}

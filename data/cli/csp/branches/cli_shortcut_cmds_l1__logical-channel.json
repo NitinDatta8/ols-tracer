@@ -1,0 +1,306 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_l1__logical-channel",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_l1.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_l1__logical-channel:n1",
+    "name": "logical-channel",
+    "aliasName": null,
+    "type": "list",
+    "path": [
+      "logical-channel"
+    ],
+    "cmdTypeRaw": "set,show",
+    "cmdTypes": [
+      "set",
+      "show"
+    ],
+    "key": "/openconfig-terminal-device:terminal-device/logical-channels/channel/config",
+    "keyQuery": null,
+    "keyElem": [
+      "index"
+    ],
+    "idName": null,
+    "keyPattern": null,
+    "keyRegex": null,
+    "keyPrefixReplacement": null,
+    "permissionRule": "admin|rw,operation|rw,supervision|ro",
+    "helperInfo": "the state attributes of all service logical-channel or identifier one",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_l1__logical-channel:n2",
+        "name": "trib-protocol",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "logical-channel",
+          "trib-protocol"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The protocol of current logical-channel instance Possibility Value: - “OPENZRTS”: time slot of OpenZR - “OPENZR”: OpenZR or OpenZR plus protocol - “OTUCN”: OTU Cn protocol - “ODUCN”: ODU Cn protocol - “ODU4”: ODU 4 protocol",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__logical-channel:n3",
+        "name": "rate-class",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "logical-channel",
+          "rate-class"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The rate class of current logical-channel instance Possibility Value: - “100G”: 100Gbits/s base rate. - “200G”: 200Gbit/s base rate. - “400G”: 400Gbit/s base rate.",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__logical-channel:n4",
+        "name": "tributary-slot-index",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "logical-channel",
+          "tributary-slot-index"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The tributary slot used for the container type logical-channel: trib-protocol is openzrts or ODUk Possibility Value: Value type: positive integer Granularity: 1",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__logical-channel:n5",
+        "name": "assigned-channel",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "logical-channel",
+          "assigned-channel"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The logical-channel or och which is current logical-channel instance assigned Value type: string Value format: &lt;logical-channel | och&gt; &lt;identifier&gt;",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__logical-channel:n6",
+        "name": "delay-measurement-mode",
+        "aliasName": "delay-test-mode",
+        "type": "leaf",
+        "path": [
+          "logical-channel",
+          "delay-measurement-mode"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The mode of logical channel signal’s delay measurement function. This attribute exists in ODU type logical channel only. Available input Value - \"near\": Enable the ODU delay measurement - \"far\": Loopback the ODU delay measurement byte - \"disabled\": Disable the delay measurement function default mode: \"disabled\"",
+        "unit": null,
+        "values": [
+          "near",
+          "far",
+          "disabled"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__logical-channel:n7",
+        "name": "time-slot-type",
+        "aliasName": null,
+        "type": "leaf",
+        "path": [
+          "logical-channel",
+          "time-slot-type"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: The mapped time slot type for the logical channel which assigned to current one Available input Value - \"auto\": The mapping mode is system definied - \"no-map\": Remove child logical channel - \"otn-100g\": Mapping to nxODU4 logical channels - \"eth-100g\": Mapping to nx logical channels which terminal are all 100GE - \"eth-400g\": Mapping to nx logical channels which terminal are all 400GE - \"eth-800g\": Mapping to nx logical channels which terminal are all 800GE default mode: \"auto\"",
+        "unit": null,
+        "values": [
+          "auto",
+          "no-map",
+          "otn-100g",
+          "eth-100g",
+          "eth-400g",
+          "eth-800g"
+        ],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      },
+      {
+        "nodeId": "cli_shortcut_cmds_l1__logical-channel:n8",
+        "name": "description",
+        "aliasName": "user-description",
+        "type": "leaf",
+        "path": [
+          "logical-channel",
+          "description"
+        ],
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": [
+          "set",
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": [
+          "name"
+        ],
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": null,
+        "helperInfo": "Description: Customer defined description for target logical-channel",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 8,
+    "leafCount": 7,
+    "maxDepth": 2
+  }
+}

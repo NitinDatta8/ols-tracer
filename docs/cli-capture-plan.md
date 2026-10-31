@@ -1,6 +1,6 @@
 # OLS Tracer: capturing the CLI of box 3
 
-Round 1 of Goal 2.5: learn the CLI and what its output looks like on box 3, and store it so it can be reused, before choosing how to pull the link design. This page says exactly what to collect and in what format. Everything collected goes in `docs/internal/box3/`, which is git-ignored and never pushed.
+Round 1 of Goal 2.5: learn the CLI and what its output looks like on box 3, and store it so it can be reused, before choosing how to pull the link design. This page says exactly what to collect and in what format. Everything collected now goes in `data/boxes/box3/`.
 
 ## What to hand over
 
@@ -13,7 +13,7 @@ Round 1 of Goal 2.5: learn the CLI and what its output looks like on box 3, and 
 | 5 | Photos (optional) | `photos/*.jpg` of the rack's front and back | To check the fiber map and the labels |
 
 ```
-docs/internal/box3/
+data/boxes/box3/
   cli-reference.pdf
   setup.md
   wiring.csv
@@ -25,6 +25,9 @@ docs/internal/box3/
       raw/001_show-version.txt   # option B: one file per command
     run-02-pull-F03/
     run-03-restored/
+  ttp/
+    templates/
+    fixtures/
 ```
 
 The run layout matches the [ROADM diagnostic plan](../../../nitin/roadm-diagnostic-agent-plan.md) (`runs/run-XX/raw/`), so its collectors later write `observations.jsonl` into the same folders.
@@ -33,7 +36,7 @@ The run layout matches the [ROADM diagnostic plan](../../../nitin/roadm-diagnost
 
 - **The PDF unchanged.** Check its text can be selected in Preview. If it is a scan with no text layer, say so, because it then needs OCR first.
 - **Its version** in `setup.md`: document title, version or date, and the release it covers. Box 3's own release comes from `show version` in run 1. If the two differ, the PDF is suspect wherever the box disagrees.
-- **Better sources, if any exist:** HTML help, a man-page tree, or the table in the C++ source where commands are registered. Any of these beats the PDF. If the source is reachable, the same `cli-index.json` (below) can be generated from it.
+- **Better sources, if any exist:** HTML help, a man-page tree, or the table in the C++ source where commands are registered. Any of these beats the PDF. If the source is reachable, generate the `branch/index/observed/merged` artifacts from source (see [CLI data schemas](cli-data-schemas.md)).
 
 ## 2. `setup.md`
 
@@ -136,7 +139,7 @@ Use either option. Both have the same rules.
 
 **Option A, one session log per run (less work, preferred):**
 ```sh
-cd docs/internal/box3/runs/run-01-healthy/raw
+cd data/boxes/box3/runs/run-01-healthy/raw
 script -q session.log ssh <user>@<box3-ip>
 # turn paging off, run the commands, exit
 ```
@@ -176,37 +179,66 @@ I split the log into commands by its prompt lines.
 
 | Output | Where | What |
 | --- | --- | --- |
-| `cli-index.json` | `docs/internal/box3/` | Every command from the PDF, checked against the help tree and the captures |
-| Capability map | `docs/internal/box3/capability-map.md` | Which link-design questions the CLI can answer, which it can't, and the commands for each |
-| Fixtures and TTP templates | `bridge/fixtures/`, `bridge/templates/` | One per P1 command, from run 1 (and run 2 for alarms), tested by `npm test` |
+| `cli-index.source.json` | `data/cli/csp/` | Source-derived command index for CSP, flattened from CLI XML branches |
+| `cli-observed.json` | `data/boxes/box3/` | Per-box observed coverage from capture runs |
+| `cli-index.merged.json` | `data/boxes/box3/` | Source + observed merge used for poll/template prioritization |
+| Capability map | `data/boxes/box3/capability-map.md` | Which link-design questions the CLI can answer, which it can't, and the commands for each |
+| Fixtures and TTP templates | `data/boxes/box3/ttp/fixtures/`, `data/boxes/box3/ttp/templates/` | One per P1 command, from run 1 (and run 2 for alarms), tested by `npm test` |
 | `poll.json` | `bridge/` | The commands the poller runs, and how often |
 | How to pull the link design | a section in the capability map | OSC/TTI, power matching, or a hand-drawn map checked by pull tests |
 
-### `cli-index.json`
+### `cli-index.merged.json`
 
 ```json
 {
-  "source": { "doc": "cli-reference.pdf", "docVersion": "…", "docRelease": "5.2", "boxRelease": "5.2.1" },
-  "addressing": { "chassis": "{chassis}", "card": "{chassis}-{slot}", "port": "{chassis}-{slot}-{port}" },
-  "modes": [
-    { "id": "normal", "prompt": ">", "enter": null },
-    { "id": "configure", "prompt": "#", "enter": "configure" }
-  ],
+  "schemaVersion": "1.0",
+  "kind": "merged",
+  "stream": "csp",
+  "boxId": "box3",
+  "generatedAt": "2026-10-31T18:20:00Z",
+  "refs": {
+    "indexPath": "data/cli/csp/cli-index.source.json",
+    "observedPath": "data/boxes/box3/cli-observed.json"
+  },
   "commands": [
     {
-      "id": "show-port",
-      "syntax": "show port <port-address> [detail]",
-      "template": "show port {chassis}-{slot}-{port}",
-      "mode": "normal",
-      "kind": "show",
-      "safe": true,
-      "scope": ["box", "card", "port"],
-      "tags": ["port-state", "power"],
-      "fields": [{ "name": "rx", "label": "Rx Power", "unit": "dBm" }],
-      "page": 143,
-      "onBox": true,
-      "capture": "runs/run-01-healthy/raw/007_show-port-1-3-C2.txt",
-      "notes": ""
+      "commandId": "cli_shortcut_cmds_eqpt__chassis__show__chassis",
+      "branchId": "cli_shortcut_cmds_eqpt__chassis",
+      "op": "show",
+      "syntax": "show chassis <name>",
+      "onBox": "yes",
+      "observed": true,
+      "parseStatus": "parse-ok",
+      "coverage": {
+        "runsSeen": ["run-01-healthy"],
+        "captureCount": 1,
+        "parseOkCount": 1,
+        "parseErrorCount": 0
+      },
+      "sourceMeta": {
+        "nodeType": "list",
+        "cmdTypeRaw": "set,show",
+        "cmdTypes": ["set", "show"],
+        "keyPattern": "CHASSIS-",
+        "keyRegex": "^CHASSIS-(\\d+)$",
+        "helperInfo": "show chassis",
+        "permissionRule": "admin|rw,operation|rw,supervision|ro"
+      },
+      "runtime": {
+        "safe": true,
+        "tags": ["inventory"]
+      },
+      "pollCandidate": {
+        "eligible": true,
+        "reason": "show command observed and parse-ok",
+        "templateId": "cli_shortcut_cmds_eqpt__chassis__show__chassis",
+        "everySec": 30
+      },
+      "template": {
+        "templatePath": "data/boxes/box3/ttp/templates/cli_shortcut_cmds_eqpt__chassis__show__chassis.ttp",
+        "fixtureTxtPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_eqpt__chassis__show__chassis.txt",
+        "fixtureJsonPath": "data/boxes/box3/ttp/fixtures/cli_shortcut_cmds_eqpt__chassis__show__chassis.json"
+      }
     }
   ]
 }
@@ -219,4 +251,4 @@ I split the log into commands by its prompt lines.
 
 ## Open question
 
-Real outputs carry serials and hostnames. Should `bridge/fixtures/` (which is pushed) get redacted copies, or should the template tests read the captures from `docs/internal/box3/` and skip when they are missing?
+Real outputs carry serials and hostnames. Should `data/boxes/box3/ttp/fixtures/` get redacted committed copies, or should template tests read local captures from `data/boxes/box3/` and skip when they are missing?

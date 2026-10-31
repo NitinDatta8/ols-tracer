@@ -1,8 +1,8 @@
-# OLS Tracer: command book, Run on a lab box and the C++ CLI
+# OLS Tracer: command index, Run on a lab box and the C++ CLI
 
 Follows the [MVP plan](mvp-plan.md). Hovering hardware in the physical view shows its command from `catalog/<stream>/cli.json` (`show chassis 1`, `show card 1-3`, `show port 1-3-C2`, pluggable `show transceiver 1-3-C2`). **Copy** copies it and **Run** runs it on the lab box.
 
-**Status:** step 2 (Run on one box over SSH) is built. Step 1 is waiting for the command book, and steps 3 and 4 come later.
+**Status:** step 2 (Run on one box over SSH) is built. Step 1 is now the CLI extraction + capture pipeline under `data/`, and steps 3 and 4 come later.
 
 ## Decisions (2026-10-29)
 
@@ -12,16 +12,64 @@ Follows the [MVP plan](mvp-plan.md). Hovering hardware in the physical view show
 | Login | SSH first, with a password or a key. RADIUS, TACACS+ and AAA come later (step 4) |
 | Commands | Run may send any command, config included |
 | Boxes | One box for now; get it right on one box first. More boxes come later, which turns this into network management |
+| Capture and generated data location | `data/` is the source of truth for raw captures, TTP templates and generated CLI index artifacts |
 
-## Step 1: the command book in the catalog (waiting for the book in `docs/internal/`)
+## Step 1: build a CLI index from source XML and captures (under `data/`)
 
-- Turn the command book into `cli.json`. Each level becomes a list, and the first command is the one shown on hover:
-  ```json
-  { "card": ["show card {chassis}-{slot}", "show card {chassis}-{slot} detail", "show alarms card {chassis}-{slot}"] }
-  ```
-- If the book has commands for only one card type, that linecard gets its own `cli`, which overrides the level.
-- The inspector lists every command for the selected hardware, each with Copy and Run.
-- A test checks that every template fills in and that every command is in the book.
+Use the IIVI CLI XML as the command source of truth. PDF docs are optional references, not the primary source.
+
+- Parse all stream files matching `cli_shortcut_cmds_*.xml` (not only `eqpt` and `l1`).
+- Extract full branch trees (top-level `<cmd-node>` roots with all descendants).
+- Generate stream-wide command indexes and per-box observed overlays.
+- Keep raw run captures prompt-preserving and unedited, with paging off and wide terminal.
+- Keep generated TTP templates and parser outputs in `data/` too.
+
+### Data layout (current working plan)
+
+```text
+data/
+  cli/
+    <stream>/
+      branches/
+        <source-file>__<root-name>.json
+      cli-index.source.json
+  boxes/
+    <box-id>/
+      runs/
+        run-01-healthy/
+          meta.json
+          raw/session.log
+          parsed/
+            <command-id>.json
+      cli-observed.json
+      cli-index.merged.json
+      ttp/
+        templates/
+          <template-id>.ttp
+        fixtures/
+          <template-id>.txt
+          <template-id>.json
+```
+
+### Output model
+
+- **Branch** (`branches/*.json`): one top-level XML branch with full tree and node metadata (`cmd-type`, `type`, `key-pattern`, `helper-info`, etc.).
+- **Index** (`cli-index.source.json`): flattened stream command catalog built from all branches.
+- **Observed** (`boxes/<box-id>/cli-observed.json`): what is actually present/captured on a specific box and run set.
+- **Merged** (`boxes/<box-id>/cli-index.merged.json`): index + observed overlay, used to choose poll commands and template priorities.
+- **Schema reference:** exact JSON schemas are in [CLI data schemas](cli-data-schemas.md).
+
+### CSP-only first implementation
+
+- Start with stream `csp` only.
+- Run `npm run sync:cli-data:csp` to generate `branch`, `index`, `observed` and `merged` outputs under `data/`.
+- Keep extending this pipeline in place until CSP is stable, then fan out to other streams.
+
+### UI compatibility path
+
+- Keep `catalog/<stream>/cli.json` for hover/run compatibility.
+- Derive this simple map from `cli-index.merged.json` (first preferred command per level).
+- Extend inspector command lists from merged data once stable.
 
 ## Step 2: Run on one box (built)
 
@@ -42,7 +90,7 @@ Browser ──HTTP (/bridge, proxied by Vite)──> CLI bridge (Node + ssh2) �
 
 ## Step 3: deeper integration with the C++ CLI (later)
 
-- **Generate the command book from the CLI profile XML.** `npm run sync:cli` reads `../IIVI_Platform/profile/cu/cli/<stream>/cli_shortcut_cmds_eqpt.xml` and `../IIVI_Platform/profile/cu/cli/<stream>/cli_shortcut_cmds_l1.xml` and rewrites `catalog/<stream>/cli.json`.
+- **Generate from the full XML command tree.** Replace the shallow sync with full extraction from `../IIVI_Platform/profile/cu/cli/<stream>/cli_shortcut_cmds_*.xml` into `data/cli/<stream>/...`, then derive `catalog/<stream>/cli.json` from merged results.
 - **Structured output.** A JSON output mode in the C++ CLI, or an API (gRPC, NETCONF/YANG), would let the tracer read the box's real state: cards in slots, pluggables and alarms. The tracer could then draw the physical view from the box and show live alarms instead of simulated ones.
 - The bridge stays the only thing that talks to boxes, so swapping SSH for an API changes only the bridge.
 
@@ -54,7 +102,7 @@ Browser ──HTTP (/bridge, proxied by Vite)──> CLI bridge (Node + ssh2) �
 
 ## Open questions
 
-1. Where in the C++ codebase are CLI commands registered, and can we read that repo?
-2. Does the C++ CLI have a JSON or other structured output mode?
+1. Should `data/` be fully committed, or should only redacted/stable subsets be committed while raw captures stay local?
+2. Should merged indexes carry one `pollCandidate` per command now, or should poll selection live in a separate generated file?
 3. Does the login land in the CLI, or does it need a command such as `cliclient -n`? That sets `BOX_INIT`.
 4. Should config commands ask for confirmation before Run sends them?

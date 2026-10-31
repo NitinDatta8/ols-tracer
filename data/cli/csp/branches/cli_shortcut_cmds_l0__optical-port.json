@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "branch",
+  "stream": "csp",
+  "branchId": "cli_shortcut_cmds_l0__optical-port",
+  "source": {
+    "iiviRoot": "../IIVI_Platform",
+    "profileDir": "../IIVI_Platform/profile/cu/cli/csp",
+    "sourceFile": "../IIVI_Platform/profile/cu/cli/csp/cli_shortcut_cmds_l0.xml",
+    "generatedAt": "2026-10-31T02:49:05.177Z",
+    "extractor": "scripts/sync-cli-index-csp.mjs",
+    "extractorVersion": "1.0"
+  },
+  "root": {
+    "nodeId": "cli_shortcut_cmds_l0__optical-port:n1",
+    "name": "optical-port",
+    "aliasName": null,
+    "type": "list",
+    "path": [
+      "optical-port"
+    ],
+    "cmdTypeRaw": "show",
+    "cmdTypes": [
+      "show"
+    ],
+    "key": "/openconfig-platform:components/component/config",
+    "keyQuery": null,
+    "keyElem": [
+      "name"
+    ],
+    "idName": null,
+    "keyPattern": "PORT-",
+    "keyRegex": "^PORT-([0-9]+)-([0-9]+)-(AD([0-9]+)|LINE(IN|OUT)?|SIG)$",
+    "keyPrefixReplacement": null,
+    "permissionRule": "admin|rw,operation|rw,supervision|ro",
+    "helperInfo": "show optical port",
+    "unit": null,
+    "values": [],
+    "flags": {
+      "keyPatternMatchOnly": false,
+      "tableShowOnly": false,
+      "noAutoCompletionForShow": false,
+      "keyCaseSensitive": false,
+      "valueCaseSensitive": false
+    },
+    "children": [
+      {
+        "nodeId": "cli_shortcut_cmds_l0__optical-port:n2",
+        "name": "channel-power",
+        "aliasName": null,
+        "type": "list",
+        "path": [
+          "optical-port",
+          "channel-power"
+        ],
+        "cmdTypeRaw": "show",
+        "cmdTypes": [
+          "show"
+        ],
+        "key": null,
+        "keyQuery": null,
+        "keyElem": null,
+        "idName": null,
+        "keyPattern": null,
+        "keyRegex": null,
+        "keyPrefixReplacement": null,
+        "permissionRule": "admin|rw,operation|rw,supervision|ro",
+        "helperInfo": "Description: Media-channel which through this port",
+        "unit": null,
+        "values": [],
+        "flags": {
+          "keyPatternMatchOnly": false,
+          "tableShowOnly": false,
+          "noAutoCompletionForShow": false,
+          "keyCaseSensitive": false,
+          "valueCaseSensitive": false
+        },
+        "children": []
+      }
+    ]
+  },
+  "stats": {
+    "nodeCount": 2,
+    "leafCount": 1,
+    "maxDepth": 2
+  }
+}
