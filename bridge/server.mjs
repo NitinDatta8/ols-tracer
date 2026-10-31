@@ -8,6 +8,7 @@
 import { execFile } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { createServer } from 'node:http';
+import { isAbsolute, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import ssh2 from 'ssh2';
@@ -19,8 +20,15 @@ const PORT = Number(env.BRIDGE_PORT ?? 8022);
 const INIT = (env.BOX_INIT ?? '').split(';').map((c) => c.trim()).filter(Boolean);
 /** How much of the session a terminal that attaches is shown again, in bytes. */
 const LOG = 256 * 1024;
+const BRIDGE_DIR = fileURLToPath(new URL('.', import.meta.url));
+const REPO_ROOT = resolve(BRIDGE_DIR, '..');
 const here = (p) => fileURLToPath(new URL(p, import.meta.url));
-/** What the poller runs: [{ cmd, template, every }], `template` a file in templates/ (no .ttp), `every` in s (0 = once). */
+const BOX_DATA_BOX = (env.BOX_DATA_BOX ?? 'box3').trim() || 'box3';
+const BOX_DATA_ROOT = env.BOX_DATA_ROOT
+  ? (isAbsolute(env.BOX_DATA_ROOT) ? env.BOX_DATA_ROOT : resolve(REPO_ROOT, env.BOX_DATA_ROOT))
+  : resolve(REPO_ROOT, 'data', 'boxes', BOX_DATA_BOX);
+const TEMPLATES_DIR = join(BOX_DATA_ROOT, 'ttp', 'templates');
+/** What the poller runs: [{ cmd, template, every }], `template` a file in data/boxes/<box>/ttp/templates/ (no .ttp), `every` in s (0 = once). */
 const POLLS = existsSync(here('poll.json')) ? JSON.parse(readFileSync(here('poll.json'), 'utf8')) : [];
 /** The box's prompt: a regex the last line of output matches once a command is done. */
 const PROMPT = new RegExp(env.BOX_PROMPT ?? '[#>$] ?$');
@@ -102,7 +110,9 @@ const run = promisify(execFile);
 
 /** Turns a command's output into JSON with its TTP template. */
 async function parse(template, raw) {
-  const p = run(PYTHON, [here('parse.py'), here(`templates/${template}.ttp`)], { timeout: 10000 });
+  const templatePath = join(TEMPLATES_DIR, `${template}.ttp`);
+  if (!existsSync(templatePath)) throw new Error(`template not found: ${templatePath}`);
+  const p = run(PYTHON, [here('parse.py'), templatePath], { timeout: 10000 });
   p.child.stdin.end(raw);
   return JSON.parse((await p).stdout);
 }
