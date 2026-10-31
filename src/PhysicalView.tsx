@@ -30,10 +30,15 @@ const portGrid = (lc: LinecardDef) => ({ gridTemplateColumns: `repeat(${lc.colum
 /** A link as is, or a file under public/. */
 const asset = (path: string) => (/^https?:/.test(path) ? path : import.meta.env.BASE_URL + path);
 
-/** Product photo, else a pluggable's form factor drawn as a label, else nothing. */
-const Pic = ({ p, big }: { p: Datasheet & { name: string; formFactor?: string }; big?: boolean }) =>
-  p.image ? <img className={`pic${big ? ' big' : ''}`} src={asset(p.image)} alt={p.name} draggable={false} />
-    : p.formFactor ? <div className={`pic none${big ? ' big' : ''}`}>{p.formFactor}</div> : null;
+/** Product photo, else a placeholder with its form factor (or "No image"). */
+const Pic = ({ p, big }: { p: Datasheet & { name: string; formFactor?: string }; big?: boolean }) => {
+  const [failed, setFailed] = useState(false);
+  useEffect(() => setFailed(false), [p.image]);
+  if (p.image && !failed) {
+    return <img className={`pic${big ? ' big' : ''}`} src={asset(p.image)} alt={p.name} draggable={false} onError={() => setFailed(true)} />;
+  }
+  return <div className={`pic none${big ? ' big' : ''}`}>{p.formFactor ?? 'No image'}</div>;
+};
 
 /** A strand's key for the pipes drawn over the faceplate. */
 const pin = (e: End, s: Strand) => `${s}:${e.slot}/${e.port}`;
@@ -473,8 +478,14 @@ export function PhysicalView() {
 
   /** The parts to drag in, in one strip under the faceplate: linecards for the chassis, pluggables (DCOs apart) for a card. */
   const tray = () => {
+    const supportedByCard = card && new Set(
+      cat.pluggables
+        .filter((plug) => card.ports.some((port) => port.allowedPluggables.some((a) => a === plug.id || a === plug.formFactor)))
+        .map((plug) => plug.id),
+    );
+    const pluggables = card ? cat.pluggables.filter((plug) => supportedByCard?.has(plug.id)) : [];
     const groups = card
-      ? Object.entries(Object.groupBy(cat.pluggables, (p) => (p.dco ? 'DCO · digital coherent optics' : 'Pluggable optics'))).map(([group, plugs]) => [group, plugs?.map((p) => (
+      ? Object.entries(Object.groupBy(pluggables, (p) => (p.dco ? 'DCO · digital coherent optics' : 'Pluggable optics'))).map(([group, plugs]) => [group, plugs?.map((p) => (
         <div key={p.id} className={`tile${p.dco ? ' dco' : ''}${shown('plug', p.id) ? ' on' : ''}`} draggable {...hoverable(p)}
           onDragStart={(e) => { e.dataTransfer.setData('text/plain', p.id); setTip(null); setDrag({ kind: 'plug', id: p.id }); }}
           onDragEnd={() => setDrag(null)}
@@ -486,7 +497,8 @@ export function PhysicalView() {
       : [['Linecards', cat.linecards.map(cardTile)] as const];
     // Always there, so the faceplate keeps its size: a card with built-in ports and the back get a note instead.
     const note = back ? 'Nothing to drag in at the rear.'
-      : builtIn ? `${card.name} has built-in ports: nothing to plug in.` : '';
+      : builtIn ? `${card.name} has built-in ports: nothing to plug in.`
+        : card && !pluggables.length ? `No pluggables are defined yet for ${card.name}.` : '';
     return (
       <div className="tray">
         {note ? <p className="muted">{note}</p> : groups.map(([group, tiles]) => (

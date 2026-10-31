@@ -10,15 +10,115 @@ const cliFiles = import.meta.glob<Catalog['cli']>('../catalog/*/cli.json', { eag
 const cache = new Map<string, Catalog>();
 const dirsFor = (stream: string) => ['common', stream];
 
-/** catalog/common merged with catalog/<stream>. Stream items override common items with the same id, stream CLI templates common ones. */
+type VendorMap = { vendorType?: string; linecardId?: string };
+type StreamChassis = Catalog['chassis'][number] & { supportedVendorTypes?: string[]; vendorTypeMap?: VendorMap[] };
+
+const slug = (text: string) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'unknown';
+const nameFromId = (id: string) => id.replace(/^lc-/, '').split(/[-_]+/).map((part) => part.toUpperCase()).join(' ');
+
+const placeholderLinecard = (id: string, name: string): Catalog['linecards'][number] => ({
+  id,
+  name,
+  ports: [
+    { id: 'P1', role: 'client', behavior: { showsInData: true }, allowedPluggables: ['SFP'] },
+    { id: 'L1', role: 'line', behavior: { showsInL1: true, canLoopback: true }, allowedPluggables: ['QSFP'] },
+  ],
+});
+
+const placeholderPluggable = (family: string): Catalog['pluggables'][number] => ({
+  id: `${slug(family)}-placeholder`,
+  name: `${family} placeholder`,
+  formFactor: family,
+  speed: 'N/A',
+  fiber: 'SMF',
+  about: `Temporary placeholder optics for ${family} ports.`,
+});
+
+const fitsAt = (chassis: Catalog['chassis'][number], index: number, width = 1) => {
+  if (width <= 1) return true;
+  const columns = chassis.columns ?? chassis.slots.length;
+  if ((index % columns) + width > columns || index + width > chassis.slots.length) return false;
+  const start = Number(chassis.slots[index].id);
+  return Number.isFinite(start)
+    && Array.from({ length: width }, (_, offset) => Number(chassis.slots[index + offset]?.id) === start + offset).every(Boolean);
+};
+
+function hydrate(chassis: Catalog['chassis'], linecards: Catalog['linecards'], pluggables: Catalog['pluggables']) {
+  const nextChassis = chassis.map((c) => ({ ...c, slots: c.slots.map((s) => ({ ...s, allowedLinecards: [...s.allowedLinecards] })) }));
+  const nextLinecards = [...linecards];
+  const nextPluggables = [...pluggables];
+  const knownLinecards = new Set(nextLinecards.map((card) => card.id));
+  const widths = new Map(nextLinecards.map((card) => [card.id, card.width ?? 1]));
+  const knownPluggables = new Set(nextPluggables.map((plug) => plug.id));
+  const knownFamilies = new Set(nextPluggables.map((plug) => plug.formFactor));
+
+  for (const chassisDef of nextChassis as StreamChassis[]) {
+    const mapByVendor = new Map((chassisDef.vendorTypeMap ?? [])
+      .filter((entry): entry is Required<Pick<VendorMap, 'vendorType' | 'linecardId'>> => !!entry.vendorType && !!entry.linecardId)
+      .map((entry) => [entry.vendorType, entry.linecardId]));
+
+    const supported = (chassisDef.supportedVendorTypes ?? []).filter((type): type is string => typeof type === 'string' && !!type);
+    const linecardsForStream = supported.map((vendorType) => ({ id: mapByVendor.get(vendorType) ?? `lc-${slug(vendorType)}`, name: vendorType }));
+    if (!linecardsForStream.length) continue;
+
+    for (const card of linecardsForStream) {
+      if (!knownLinecards.has(card.id)) {
+        nextLinecards.push(placeholderLinecard(card.id, card.name));
+        knownLinecards.add(card.id);
+        widths.set(card.id, 1);
+      }
+    }
+
+    for (const [index, slot] of chassisDef.slots.entries()) {
+      const allowedByFit = linecardsForStream
+        .map((card) => card.id)
+        .filter((linecardId) => fitsAt(chassisDef, index, widths.get(linecardId) ?? 1));
+      slot.allowedLinecards = [...new Set([...slot.allowedLinecards, ...allowedByFit])];
+    }
+  }
+
+  for (const slot of nextChassis.flatMap((c) => c.slots)) {
+    for (const linecardId of slot.allowedLinecards) {
+      if (!knownLinecards.has(linecardId)) {
+        nextLinecards.push(placeholderLinecard(linecardId, nameFromId(linecardId)));
+        knownLinecards.add(linecardId);
+        widths.set(linecardId, 1);
+      }
+    }
+  }
+
+  const missingFamilies = new Set(nextLinecards.flatMap((card) => card.ports.flatMap((port) => port.allowedPluggables))
+    .filter((entry) => !knownPluggables.has(entry) && !knownFamilies.has(entry)));
+
+  for (const family of missingFamilies) {
+    const placeholder = placeholderPluggable(family);
+    if (!knownPluggables.has(placeholder.id)) {
+      nextPluggables.push(placeholder);
+      knownPluggables.add(placeholder.id);
+      knownFamilies.add(placeholder.formFactor);
+    }
+  }
+
+  return { chassis: nextChassis, linecards: nextLinecards, pluggables: nextPluggables };
+}
+
+/**
+ * For hardware (chassis/linecards/pluggables), stream catalogs are the source of truth when present.
+ * Common files remain as a fallback for legacy or partial streams.
+ */
 export function catalogFor(stream: string): Catalog {
-  const merge = (kind: keyof Catalog) => {
+  const merge = <K extends keyof Pick<Catalog, 'chassis' | 'linecards' | 'pluggables'>>(kind: K): Catalog[K] => {
+    const streamOnly = files[`../catalog/${stream}/${kind}.json`];
+    if (streamOnly) return streamOnly as Catalog[K];
     const items = dirsFor(stream).flatMap((dir) => files[`../catalog/${dir}/${kind}.json`] ?? []);
-    return [...new Map(items.map((x) => [x.id, x])).values()];
+    return [...new Map(items.map((x) => [x.id, x])).values()] as Catalog[K];
   };
   if (!cache.has(stream)) {
-    cache.set(stream, { chassis: merge('chassis'), linecards: merge('linecards'), pluggables: merge('pluggables'),
-      cli: { ...cliFiles['../catalog/common/cli.json'], ...cliFiles[`../catalog/${stream}/cli.json`] } } as Catalog);
+    const base = hydrate(merge('chassis'), merge('linecards'), merge('pluggables'));
+    cache.set(stream, {
+      ...base,
+      cli: { ...cliFiles['../catalog/common/cli.json'], ...cliFiles[`../catalog/${stream}/cli.json`] },
+    } as Catalog);
   }
   return cache.get(stream)!;
 }
@@ -28,3 +128,7 @@ export const byId = <T extends { id: string }>(items: T[], id: string | undefine
 /** The CLI command for one level, e.g. `show card 1-3`. */
 export const cli = (cat: Catalog, level: CliLevel, vars: { chassis?: number; slot?: string; port?: string }) =>
   cat.cli[level]?.replace(/\{(\w+)\}/g, (m, k: string) => String(vars[k as keyof typeof vars] ?? m)) ?? '';
+
+/** The CLI mode (index into `cli.modes`) after `command` ran in `mode`: next mode's `enter` goes one deeper, `exit` goes one back. */
+export const nextMode = (cat: Catalog, mode: number, command: string) =>
+  command === cat.cli.modes[mode + 1]?.enter ? mode + 1 : command === 'exit' ? Math.max(0, mode - 1) : mode;

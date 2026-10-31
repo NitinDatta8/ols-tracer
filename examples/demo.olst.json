@@ -3,19 +3,19 @@
   "stream": "csp",
   "devices": [
     {
-      "id": "d1", "chassis": "ch-2000", "name": "Site-A", "x": 0, "y": 0,
+      "id": "d1", "chassis": "ch-8slot", "name": "Site-A", "x": 0, "y": 0,
       "slots": {
-        "1": { "linecard": "lc-c925", "ports": {} },
+        "1": { "linecard": "lc-c925", "ports": { "LINE": { "pluggable": "60g700001" } } },
         "3": { "linecard": "lc-400mx",
-               "ports": { "C1": { "pluggable": "sfp28-25g-lr" }, "C2": { "pluggable": "dsfp-100g-lr" }, "L1": { "pluggable": "qsfp-dd-zr" } } }
+               "ports": { "C1": { "pluggable": "60g800001" }, "C2": { "pluggable": "60g810001" }, "L1": { "pluggable": "60s140001" } } }
       }
     },
     {
-      "id": "d2", "chassis": "ch-2000", "name": "Site-B", "x": 650, "y": 0,
+      "id": "d2", "chassis": "ch-8slot", "name": "Site-B", "x": 650, "y": 0,
       "slots": {
-        "1": { "linecard": "lc-c925", "ports": {} },
+        "1": { "linecard": "lc-c925", "ports": { "LINE": { "pluggable": "60g700001" } } },
         "3": { "linecard": "lc-400mx",
-               "ports": { "C1": { "pluggable": "sfp28-25g-lr" }, "C2": { "pluggable": "dsfp-100g-lr" }, "L1": { "pluggable": "qsfp-dd-zr" } } }
+               "ports": { "C1": { "pluggable": "60g800001" }, "C2": { "pluggable": "60g810001" }, "L1": { "pluggable": "60s140001" } } }
       }
     }
   ],
