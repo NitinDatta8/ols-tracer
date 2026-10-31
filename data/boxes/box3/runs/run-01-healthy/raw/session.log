@@ -1,0 +1,1955 @@
+Script started on 2026-10-31 10:48:05-04:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="140" LINES="16"]
+The authenticity of host '10.111.25.12 (10.111.25.12)' can't be established.
+RSA key fingerprint is SHA256:UnpPGZFlwvJ61zJYHQNJvwDZCfU2LHrC7GwDJ2Nxmeo.
+This host key is known by the following other names/addresses:
+    ~/.ssh/known_hosts:10: [hashed name]
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.111.25.12' (RSA) to the list of known hosts.
+
+admin@10.111.25.12's password: 
+Linux PAHO-GS2000-03 4.14.207-10.22.03 #1 SMP PREEMPT Mon Jan 15 12:53:43 CST 2024 aarch64 GNU/Linux
+ _      __    __                  
+| | /| / /__ / /______  __ _  ___ 
+| |/ |/ / -_) / __/ _ \/  ' \/ -_)
+|__/|__/\__/_/\__/\___/_/_/_/\__/ 
+
+======================================
+   Copyright 2021-2022
+======================================
+ 
+
+admin@PAHO-GS2000-03> ci onfigure
+
+admin@PAHO-GS2000-03# set cli lenlength 0
+
+admin@PAHO-GS2000-03# set cli auto-width disabled
+invalid command
+
+
+admin@PAHO-GS2000-03# set cli widwidth 1024
+
+admin@PAHO-GS2000-03# exit
+
+admin@PAHO-GS2000-03> show cli
+[config]
+width                                   1024
+length                                  0
+confirmation-required                   yes
+
+
+[state]
+width                                   1024
+length                                  0
+confirmation-required                   yes
+
+
+admin@PAHO-GS2000-03> date-time
+2021-07-26T18:16:06 UTC
+
+
+admin@PAHO-GS2000-03> help
+
+Commands available:
+quit                               Disconnect
+logout                             Disconnect
+exit                               Exit from current mode
+enable                             Turn on privileged commands
+disable                            Turn off privileged commands
+configure                          Enter configuration mode
+get-config                         Netconf get-config operation
+get                                Netconf get operation
+show                               The "show" command is used to retrieve information from the system
+help                               Show available commands
+ping                               Ping remote target and feedback the result
+traceroute                         Trace the route of remote target and feedback the result
+date-time                          Set system datetime and time zone or show current system datetime.
+cls                                renew and clear current CLI window display
+history                            Output history inputted commands of current session.
+change-password                    Change current login user’s password
+
+admin@PAHO-GS2000-03> help show
+show                               Description: The "show" command is used to retrieve information from the system. Show command support
+                                   retrieve the state and running configuration attributes for input statement or identifier.
+                                   
+                                   Command syntax: show [statement-path] [identifier] [attribute] [option]
+                                   
+                                   Wildcard: The show command support wildcard "*" replace full or part of followed index: slot-id,
+                                   port-name, interface-name. The "*" will replace all the characters of current index after the pre
+                                   one.
+                                   e.g., 
+                                   port 1-1-c* 
+                                   och 1-*-l* 
+                                   eth 1-1-* 
+                                   
+                                   Command environment: show mode, configuration mode 
+                                   
+                                   Output format: 
+                                   Output data by table format when show multiple same type identifiers info. The units of attribute
+                                   shall be mark at the title. Config and state attributes are displayed in two table. If one table include
+                                   too many attributes to cause out of window width, it shall decouple to multi table, each one has the
+                                   identifier column. If one table hasn�t any data, it shall still output the title of the table.
+                                   Output data by list format when show one identifier or statement. The units of attribute shall be
+                                   mark after the value.
+                                   Show multiple same type identifiers info by table, show one identifier by list
+                                   To show not existed identifier shall report failure, error message "target not found"
+                                   Output statistics data with standalone table format <instant> | <avg> | <min> | <max> <units>
+                                   
+                                   Option:
+                                   -c show configure value
+                                   -s show state value
+                                   -t show statistics only
+                                   w/o option show both configure and state value
+
+admin@PAHO-GS2000-03> show system
+[config]
+hostname                  PAHO-GS2000-03
+config-saving-mode        auto
+login-banner              
+motd-banner               
+
+
+[state]
+hostname                  PAHO-GS2000-03
+config-saving-mode        auto
+login-banner              
+motd-banner               
+ne-type                   COHERENT-GS2000
+
+
+admin@PAHO-GS2000-03> show software
+
+[state]
+active                  CSP-2.10.100.10_20261013
+active-status           active
+candidate               Release_CSP-2.9.0.235_20260209.tar
+candidate-status        inactive
+
+
+admin@PAHO-GS2000-03> show cas  haschassis       assis
+[config]
+
+id    description    
+--    -----------    
+1     CHASSIS        
+
+
+[state]
+
+id    description    
+--    -----------    
+1     CHASSIS        
+
+
+id    inlet-temperature                 
+      instant | avg | min | max (°C)   
+--    ------------------------------    
+1     23.6 | 23.6 | 23.6 | 23.6         
+
+
+admin@PAHO-GS2000-03> show card
+[config]
+
+id      admin-state    module-type    description                                           
+----    -----------    -----------    --------------------------------------------------    
+1-1     in-service     TMUXC1125      Terminal MUX/DMUX module with integrated optical a    
+                                      mplifiers and 11 add/drop ports
+1-2                    NONE           SLOT                                                  
+1-3                    NONE           SLOT                                                  
+1-4     in-service     800MX          LINECARD                                              
+1-5                    NONE           SLOT                                                  
+1-6                    NONE           SLOT                                                  
+1-7     in-service     800MX          LINECARD                                              
+1-8     in-service     800MX          LINECARD                                              
+1-21    in-service     PSU            PSU                                                   
+1-22    in-service     PSU            PSU                                                   
+1-31    in-service     FAN            FAN                                                   
+1-32    in-service     FAN            FAN                                                   
+1-33    in-service     FAN            FAN                                                   
+1-40    in-service     CIM            CIM                                                   
+1-41    in-service     CU             CU                                                    
+1-42    in-service     CU             CU                                                    
+
+
+[state]
+
+id      admin-state    module-type    description                                           firmware-version    software-version                                   present    slot    oper-status    removable    used-power    rated-power    supported-module-types                                
+                                                                                                                                                                                                                  (W)           (W)                                                                  
+----    -----------    -----------    --------------------------------------------------    ----------------    -----------------------------------------------    -------    ----    -----------    ---------    ----------    -----------    --------------------------------------------------    
+1-1     in-service     TMUXC1125      Terminal MUX/DMUX module with integrated optical a    0.00                TWSOA25_OS_GE_2.6.1.B20241130 (2.6.1.B20241130)    true       1-1     active         true         34            70             Terminal MUX/DMUX module with integrated optical a    
+                                      mplifiers and 11 add/drop ports
+                                      TMUXC1125,800MX,TMUXC925,TMUXC935,TMUXC_25,400MXS,
+                                      800TR,M4CP,TWS09OA25
+1-2                    NONE           SLOT                                                                                                                         false      1-2     inactive       true         0             0              TMUXC1125,800MX,TMUXC925,TMUXC935,TMUXC_25,400MXS,    
+                                                                                                                                                                                                                                               800TR,M4CP,TWS09OA25
+1-3                    NONE           SLOT                                                                                                                         false      1-3     inactive       true         0             0              TMUXC1125,800MX,TMUXC925,TMUXC935,TMUXC_25,400MXS,    
+                                                                                                                                                                                                                                               800TR,M4CP,TWS09OA25
+1-4     in-service     800MX          LINECARD                                                                                                                     false      1-4     inactive       true         0             250            800MX,400MXS,800TR,M4CP                               
+1-5                    NONE           SLOT                                                                                                                         false      1-5     inactive       true         0             0              TMUXC1125,800MX,TMUXC925,TMUXC935,TMUXC_25,400MXS,    
+                                                                                                                                                                                                                                               800TR,M4CP,TWS09OA25
+1-6                    NONE           SLOT                                                                                                                         false      1-6     inactive       true         0             0              TMUXC1125,800MX,TMUXC925,TMUXC935,TMUXC_25,400MXS,    
+                                                                                                                                                                                                                                               800TR,M4CP,TWS09OA25
+1-7     in-service     800MX          LINECARD                                              0.00                800mx_CSP-2.10.100.10_20261013                     true       1-7     active         true         71            250            TMUXC1125,800MX,TMUXC925,TMUXC935,TMUXC_25,400MXS,    
+                                                                                                                                                                                                                                               800TR,M4CP,TWS09OA25
+1-8     in-service     800MX          LINECARD                                              0.00                800mx_CSP-2.10.100.10_20261013                     true       1-8     active         true         21            250            800MX,400MXS,800TR,M4CP                               
+1-21    in-service     PSU            PSU                                                   0.00                CSP-2.10.100.10_20261013                           true       1-21    inactive       true         24            1400           PSU                                                   
+1-22    in-service     PSU            PSU                                                   0.00                CSP-2.10.100.10_20261013                           true       1-22    active         true         0             2000           PSU                                                   
+1-31    in-service     FAN            FAN                                                   0.00                CSP-2.10.100.10_20261013                           true       1-31    active         true         9             85             FAN                                                   
+1-32    in-service     FAN            FAN                                                   0.00                CSP-2.10.100.10_20261013                           true       1-32    active         true         10            85             FAN                                                   
+1-33    in-service     FAN            FAN                                                   0.00                CSP-2.10.100.10_20261013                           true       1-33    active         true         9             85             FAN                                                   
+1-40    in-service     CIM            CIM                                                   0.00                CSP-2.10.100.10_20261013                           true       1-40    active         true         2             6              CIM                                                   
+1-41    in-service     CU             CU                                                    0.00                CSP-2.10.100.10_20261013                           true       1-41    active         true         9             15             CU                                                    
+1-42    in-service     CU             CU                                                    0.00                CSP-2.10.100.10_20261013                           true       1-42    active         true         10            15             CU                                                    
+
+
+id      temperature                       
+        instant | avg | min | max (°C)   
+----    ------------------------------    
+1-1     30.6 | 30.6 | 30.6 | 30.6         
+1-2     -99.9 | -99.9 | -99.9 | -99.9     
+1-3     -99.9 | -99.9 | -99.9 | -99.9     
+1-4     -99.9 | -99.9 | -99.9 | -99.9     
+1-5     -99.9 | -99.9 | -99.9 | -99.9     
+1-6     -99.9 | -99.9 | -99.9 | -99.9     
+1-7     42.0 | 42.0 | 42.0 | 42.0         
+1-8     33.0 | 33.0 | 33.0 | 33.0         
+1-21    43.4 | 43.4 | 43.4 | 43.4         
+1-22    29.1 | 29.1 | 29.1 | 29.1         
+1-31    21.6 | 21.6 | 21.6 | 21.6         
+1-32    21.1 | 21.1 | 21.1 | 21.1         
+1-33    23.6 | 23.6 | 23.6 | 23.6         
+1-40    25.8 | 25.8 | 25.8 | 25.8         
+1-41    26.5 | 26.5 | 26.5 | 26.5         
+1-42    31.0 | 31.0 | 31.0 | 31.0         
+
+
+admin@PAHO-GS2000-03> show inventory
+chassis
+
+
+id    module-type    mfg-name    mfg-date      hardware-version    serial-no    part-no      
+--    -----------    --------    ----------    ----------------    ---------    ---------    
+1     chassis        COHERENT    2026-10-12    1.0                 GCATA000G    60GCA0001    
+
+card
+
+
+id      module-type    mfg-name    mfg-date      hardware-version    serial-no    part-no      
+----    -----------    --------    ----------    ----------------    ---------    ---------    
+1-1     TMUXC1125      COHERENT    2026-09-11    1.0                 G2PTA0006    60G2P0001    
+1-7     800MX          COHERENT    2025-08-26    1.0                 G6E3A000D    60G6E0001    
+1-8     800MX          COHERENT    2026-05-29    1.0                 G6ETA0007    60G6E0001    
+1-21    2000-AC        Artesyn     2026-09-28                        G00TA000S    60G000001    
+1-22    2000-AC        Artesyn     2026-09-20                        G00TA000R    60G000001    
+1-31    FANSU          COHERENT    2026-10-12    1.0                 GCBTA003V    60GCB0001    
+1-32    FANSU          COHERENT    2026-10-12    1.0                 GCBTA003W    60GCB0001    
+1-33    FANSU          COHERENT    2026-10-12    1.0                 GCBTA003X    60GCB0001    
+1-40    CIM            COHERENT    2026-10-12    1.0                 GC3TA000G    60GC30001    
+1-41    CU             COHERENT    2026-10-12    1.0                 GC5KAT01Y    60GC50001    
+1-42    CU             COHERENT    2026-10-12    1.0                 GC5KAT020    60GC50001    
+
+transceiver
+
+
+id       module-type    mfg-name         mfg-date      hardware-version    serial-no           part-no             form-factor    connector-type    compliance-code    transmission-distance    
+-----    -----------    -------------    ----------    ----------------    ----------------    ----------------    -----------    --------------    ---------------    ---------------------    
+1-7-4    transceiver    FS               2025-06-17    01                  S2514909571         QSFP-LR4-100G       QSFP28         LC_CONNECTOR      100GBASE-LR4       10km                     
+1-7-5    transceiver    FINISAR CORP.    2026-03-05    01.01               2610M015R           FTCD3323R1PCL-1Y    QSFPDD_DCO     LC_CONNECTOR                                                  
+
+
+admin@PAHO-GS2000-03> show port
+[config]
+
+id        admin-state       description    laser      port-mode                    
+------    --------------    -----------    -------    -------------------------    
+1-4-1     out-of-service    PORT           enabled    PROT_NA                      
+1-4-2     out-of-service    PORT           enabled    PROT_NA                      
+1-4-3     out-of-service    PORT           enabled    PROT_NA                      
+1-4-4     out-of-service    PORT           enabled    PROT_NA                      
+1-4-5     out-of-service    PORT           enabled    PROT_NA                      
+1-4-6     out-of-service    PORT           enabled    PROT_NA                      
+1-4-7     out-of-service    PORT           enabled    PROT_NA                      
+1-4-8     out-of-service    PORT           enabled    PROT_NA                      
+1-4-9     out-of-service    PORT           enabled    PROT_NA                      
+1-4-10    out-of-service    PORT           enabled    PROT_NA                      
+1-7-1     out-of-service    PORT           enabled    PROT_ZR400_16QAMSS_60G       
+1-7-2     out-of-service    PORT           enabled    PROT_NA                      
+1-7-3     out-of-service    PORT           enabled    PROT_NA                      
+1-7-4     in-service        PORT           enabled    PROT_100GE                   
+1-7-5     in-service        PORT           enabled    PROT_ZR400_16QAMSS_60G       
+1-7-6     out-of-service    PORT           enabled    PROT_NA                      
+1-7-7     out-of-service    PORT           enabled    PROT_NA                      
+1-7-8     out-of-service    PORT           enabled    PROT_NA                      
+1-7-9     out-of-service    PORT           enabled    PROT_NA                      
+1-7-10    out-of-service    PORT           enabled    PROT_NA                      
+1-8-1     in-service        PORT           enabled    PROT_ZR800_16QAMPS_123P8G    
+1-8-2     out-of-service    PORT           enabled    PROT_NA                      
+1-8-3     out-of-service    PORT           enabled    PROT_NA                      
+1-8-4     in-service        PORT           enabled    PROT_100GE                   
+1-8-5     out-of-service    PORT           enabled    PROT_NA                      
+1-8-6     out-of-service    PORT           enabled    PROT_NA                      
+1-8-7     out-of-service    PORT           enabled    PROT_NA                      
+1-8-8     out-of-service    PORT           enabled    PROT_NA                      
+1-8-9     out-of-service    PORT           enabled    PROT_NA                      
+1-8-10    out-of-service    PORT           enabled    PROT_NA                      
+
+
+[state]
+
+id        admin-state       description    laser       port-mode                    parent      oper-status    
+------    --------------    -----------    --------    -------------------------    --------    -----------    
+1-4-1     out-of-service    PORT           disabled    PROT_NA                      card 1-4    disabled       
+1-4-2     out-of-service    PORT           disabled    PROT_NA                      card 1-4    disabled       
+1-4-3     out-of-service    PORT           disabled    PROT_NA                      card 1-4    disabled       
+1-4-4     out-of-service    PORT           disabled    PROT_NA                      card 1-4    disabled       
+1-4-5     out-of-service    PORT           disabled    PROT_NA                      card 1-4    disabled       
+1-4-6     out-of-service    PORT           disabled    PROT_NA                      card 1-4    disabled       
+1-4-7     out-of-service    PORT           disabled    PROT_NA                      card 1-4    disabled       
+1-4-8     out-of-service    PORT           disabled    PROT_NA                      card 1-4    disabled       
+1-4-9     out-of-service    PORT           disabled    PROT_NA                      card 1-4    disabled       
+1-4-10    out-of-service    PORT           disabled    PROT_NA                      card 1-4    disabled       
+1-7-1     out-of-service    PORT           disabled    PROT_ZR400_16QAMSS_60G       card 1-7    disabled       
+1-7-2     out-of-service    PORT           disabled    PROT_NA                      card 1-7    disabled       
+1-7-3     out-of-service    PORT           disabled    PROT_NA                      card 1-7    disabled       
+1-7-4     in-service        PORT           enabled     PROT_100GE                   card 1-7    active         
+1-7-5     in-service        PORT           enabled     PROT_ZR400_16QAMSS_60G       card 1-7    active         
+1-7-6     out-of-service    PORT           disabled    PROT_NA                      card 1-7    disabled       
+1-7-7     out-of-service    PORT           disabled    PROT_NA                      card 1-7    disabled       
+1-7-8     out-of-service    PORT           disabled    PROT_NA                      card 1-7    disabled       
+1-7-9     out-of-service    PORT           disabled    PROT_NA                      card 1-7    disabled       
+1-7-10    out-of-service    PORT           disabled    PROT_NA                      card 1-7    disabled       
+1-8-1     in-service        PORT           disabled    PROT_ZR800_16QAMPS_123P8G    card 1-8    inactive       
+1-8-2     out-of-service    PORT           disabled    PROT_NA                      card 1-8    disabled       
+1-8-3     out-of-service    PORT           disabled    PROT_NA                      card 1-8    disabled       
+1-8-4     in-service        PORT           disabled    PROT_100GE                   card 1-8    inactive       
+1-8-5     out-of-service    PORT           disabled    PROT_NA                      card 1-8    disabled       
+1-8-6     out-of-service    PORT           disabled    PROT_NA                      card 1-8    disabled       
+1-8-7     out-of-service    PORT           disabled    PROT_NA                      card 1-8    disabled       
+1-8-8     out-of-service    PORT           disabled    PROT_NA                      card 1-8    disabled       
+1-8-9     out-of-service    PORT           disabled    PROT_NA                      card 1-8    disabled       
+1-8-10    out-of-service    PORT           disabled    PROT_NA                      card 1-8    disabled       
+
+
+admin@PAHO-GS2000-03> show port 1-7-*
+[config]
+
+id        admin-state       description    laser      port-mode                 
+------    --------------    -----------    -------    ----------------------    
+1-7-1     out-of-service    PORT           enabled    PROT_ZR400_16QAMSS_60G    
+1-7-2     out-of-service    PORT           enabled    PROT_NA                   
+1-7-3     out-of-service    PORT           enabled    PROT_NA                   
+1-7-4     in-service        PORT           enabled    PROT_100GE                
+1-7-5     in-service        PORT           enabled    PROT_ZR400_16QAMSS_60G    
+1-7-6     out-of-service    PORT           enabled    PROT_NA                   
+1-7-7     out-of-service    PORT           enabled    PROT_NA                   
+1-7-8     out-of-service    PORT           enabled    PROT_NA                   
+1-7-9     out-of-service    PORT           enabled    PROT_NA                   
+1-7-10    out-of-service    PORT           enabled    PROT_NA                   
+
+
+[state]
+
+id        admin-state       description    laser       port-mode                 parent      oper-status    
+------    --------------    -----------    --------    ----------------------    --------    -----------    
+1-7-1     out-of-service    PORT           disabled    PROT_ZR400_16QAMSS_60G    card 1-7    disabled       
+1-7-2     out-of-service    PORT           disabled    PROT_NA                   card 1-7    disabled       
+1-7-3     out-of-service    PORT           disabled    PROT_NA                   card 1-7    disabled       
+1-7-4     in-service        PORT           enabled     PROT_100GE                card 1-7    active         
+1-7-5     in-service        PORT           enabled     PROT_ZR400_16QAMSS_60G    card 1-7    active         
+1-7-6     out-of-service    PORT           disabled    PROT_NA                   card 1-7    disabled       
+1-7-7     out-of-service    PORT           disabled    PROT_NA                   card 1-7    disabled       
+1-7-8     out-of-service    PORT           disabled    PROT_NA                   card 1-7    disabled       
+1-7-9     out-of-service    PORT           disabled    PROT_NA                   card 1-7    disabled       
+1-7-10    out-of-service    PORT           disabled    PROT_NA                   card 1-7    disabled       
+
+
+admin@PAHO-GS2000-03> so how port 1-7-5
+[config]
+admin-state        in-service
+description        PORT
+laser              enabled
+port-mode          PROT_ZR400_16QAMSS_60G
+
+
+[state]
+admin-state        in-service
+description        PORT
+laser              enabled
+port-mode          PROT_ZR400_16QAMSS_60G
+parent             card 1-7
+oper-status        active
+
+
+admin@PAHO-GS2000-03> show transceiver
+[config]
+
+id         tunable-wavelength    
+-------    ------------------    
+1-1-osc                          
+1-4-1      none                  
+1-4-2      none                  
+1-4-3      none                  
+1-4-4      none                  
+1-4-5      none                  
+1-4-6      none                  
+1-4-7      none                  
+1-4-8      none                  
+1-4-9      none                  
+1-4-10     none                  
+1-7-1      none                  
+1-7-2      none                  
+1-7-3      none                  
+1-7-4      none                  
+1-7-5      none                  
+1-7-6      none                  
+1-7-7      none                  
+1-7-8      none                  
+1-7-9      none                  
+1-7-10     none                  
+1-8-1      none                  
+1-8-2      none                  
+1-8-3      none                  
+1-8-4      none                  
+1-8-5      none                  
+1-8-6      none                  
+1-8-7      none                  
+1-8-8      none                  
+1-8-9      none                  
+1-8-10     none                  
+
+
+[state]
+
+id         tunable-wavelength    present    oper-status    removable    rated-power    used-power    fec-corrected-bits    firmware-version    
+                                                                        (W)            (W)           (bits)                                    
+-------    ------------------    -------    -----------    ---------    -----------    ----------    ------------------    ----------------    
+1-1-osc                          true       active         false                                                                               
+1-4-1      none                  false      disabled       true         0              0             0                                         
+1-4-2      none                  false      disabled       true         0              0             0                                         
+1-4-3      none                  false      disabled       true         0              0             0                                         
+1-4-4      none                  false      disabled       true         0              0             0                                         
+1-4-5      none                  false      disabled       true         0              0             0                                         
+1-4-6      none                  false      disabled       true         0              0             0                                         
+1-4-7      none                  false      disabled       true         0              0             0                                         
+1-4-8      none                  false      disabled       true         0              0             0                                         
+1-4-9      none                  false      disabled       true         0              0             0                                         
+1-4-10     none                  false      disabled       true         0              0             0                                         
+1-7-1      none                  false      disabled       true         0              0             0                                         
+1-7-2      none                  false      disabled       true         0              0             0                                         
+1-7-3      none                  false      disabled       true         0              0             0                                         
+1-7-4      none                  true       active         true         0              0             0                     01                  
+1-7-5      none                  true       active         true         0              0             39865215340050        02.15-01            
+1-7-6      none                  false      disabled       true         0              0             0                                         
+1-7-7      none                  false      disabled       true         0              0             0                                         
+1-7-8      none                  false      disabled       true         0              0             0                                         
+1-7-9      none                  false      disabled       true         0              0             0                                         
+1-7-10     none                  false      disabled       true         0              0             0                                         
+1-8-1      none                  false      inactive       true         0              0             0                                         
+1-8-2      none                  false      disabled       true         0              0             0                                         
+1-8-3      none                  false      disabled       true         0              0             0                                         
+1-8-4      none                  false      inactive       true         0              0             0                                         
+1-8-5      none                  false      disabled       true         0              0             0                                         
+1-8-6      none                  false      disabled       true         0              0             0                                         
+1-8-7      none                  false      disabled       true         0              0             0                                         
+1-8-8      none                  false      disabled       true         0              0             0                                         
+1-8-9      none                  false      disabled       true         0              0             0                                         
+1-8-10     none                  false      disabled       true         0              0             0                                         
+
+
+id         pre-fec-ber                                  post-fec-ber                                 output-power                       input-power                        laser-bias-current                   temperature                       input-voltage                    
+           instant | avg | min | max                    instant | avg | min | max                    instant | avg | min | max (dBm)    instant | avg | min | max (dBm)    instant | avg | min | max (mA)       instant | avg | min | max (°C)   instant | avg | min | max (V)    
+-------    -----------------------------------------    -----------------------------------------    -------------------------------    -------------------------------    ---------------------------------    ------------------------------    -----------------------------    
+1-1-osc                                                                                              1.83 | 1.83 | 1.82 | 1.83          -9.21 | -9.21 | -9.22 | -9.21      4.10 | 4.10 | 4.10 | 4.10            37.0 | 37.0 | 37.0 | 37.0                                          
+1-4-1                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-4-2                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-4-3                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-4-4                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-4-5                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-4-6                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-4-7                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-4-8                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-4-9                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-4-10                                                                                                                                                                                                          -99.9 | -99.9 | -99.9 | -99.9                                      
+1-7-1                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-7-2                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-7-3                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-7-4      0.00E+00 | 0.00E+00 | 0.00E+00 | 0.00E+00    0.00E+00 | 0.00E+00 | 0.00E+00 | 0.00E+00    7.67 | 7.67 | 7.67 | 7.67          7.80 | 7.79 | 7.79 | 7.80          279.52 | 279.51 | 279.50 | 279.52    37.1 | 37.2 | 37.1 | 37.2         3.29 | 3.29 | 3.29 | 3.29        
+1-7-5      1.21E-03 | 1.23E-03 | 1.19E-03 | 1.28E-03    0.00E+00 | 0.00E+00 | 0.00E+00 | 0.00E+00    -2.98 | -2.97 | -2.99 | -2.97      -7.51 | -7.51 | -7.63 | -7.38      99.90 | 99.90 | 99.90 | 99.90        67.6 | 67.6 | 67.6 | 67.6         3.28 | 3.28 | 3.28 | 3.29        
+1-7-6                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-7-7                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-7-8                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-7-9                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-7-10                                                                                                                                                                                                          -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-1                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-2                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-3                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-4                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-5                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-6                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-7                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-8                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-9                                                                                                                                                                                                           -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-10                                                                                                                                                                                                          -99.9 | -99.9 | -99.9 | -99.9                                      
+
+
+admin@PAHO-GS2000-03> show transciever 1-7-* physical-channel
+Invalid name: transciever
+Problem parsing command setting statement-path with value transciever
+
+admin@PAHO-GS2000-03> show transciever 1-7-* physical-channels                                       configure         show transceiver 1-7-* physical-channel
+
+[state]
+
+channel-id    transmitter-frequency    
+              (MHz)                    
+----------    ---------------------    
+1             0                        
+1             0                        
+1             0                        
+1             0                        
+1             0                        
+1             0                        
+1             0                        
+1             229007633                
+1             0                        
+1             0                        
+2             0                        
+2             0                        
+2             0                        
+2             0                        
+2             0                        
+2             0                        
+2             0                        
+2             0                        
+2             0                        
+2             229007633                
+3             0                        
+3             229007633                
+3             0                        
+3             0                        
+3             0                        
+3             0                        
+3             0                        
+3             0                        
+3             0                        
+3             0                        
+4             0                        
+4             0                        
+4             0                        
+4             0                        
+4             0                        
+4             0                        
+4             229007633                
+4             0                        
+4             0                        
+4             0                        
+
+
+channel-id    output-power                         input-power                          
+              instant | avg | min | max (dBm)      instant | avg | min | max (dBm)      
+----------    ---------------------------------    ---------------------------------    
+1                                                                                       
+1                                                                                       
+1                                                                                       
+1                                                                                       
+1             -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    
+1                                                                                       
+1                                                                                       
+1             2.05 | 2.05 | 2.05 | 2.05            2.30 | 2.30 | 2.29 | 2.31            
+1                                                                                       
+1                                                                                       
+2             -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    
+2                                                                                       
+2                                                                                       
+2                                                                                       
+2                                                                                       
+2                                                                                       
+2                                                                                       
+2                                                                                       
+2                                                                                       
+2             1.79 | 1.79 | 1.79 | 1.80            1.50 | 1.51 | 1.50 | 1.52            
+3                                                                                       
+3             1.15 | 1.15 | 1.15 | 1.15            1.56 | 1.55 | 1.54 | 1.56            
+3                                                                                       
+3                                                                                       
+3             -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    
+3                                                                                       
+3                                                                                       
+3                                                                                       
+3                                                                                       
+3                                                                                       
+4                                                                                       
+4                                                                                       
+4                                                                                       
+4                                                                                       
+4             -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    
+4                                                                                       
+4             1.54 | 1.54 | 1.54 | 1.54            1.68 | 1.68 | 1.67 | 1.69            
+4                                                                                       
+4                                                                                       
+4                                                                                       
+
+
+admin@PAHO-GS2000-03> show transceiver 1-7-4
+[config]
+tunable-wavelength        none
+
+
+[state]
+tunable-wavelength        none
+present                   true
+oper-status               active
+removable                 true
+rated-power               0 W
+used-power                0 W
+fec-corrected-bits        0 bits
+firmware-version          01
+
+statistics                instant | avg | min | max units                  
+------------------        -----------------------------------------        
+pre-fec-ber               0.00E+00 | 0.00E+00 | 0.00E+00 | 0.00E+00
+post-fec-ber              0.00E+00 | 0.00E+00 | 0.00E+00 | 0.00E+00
+output-power              7.67 | 7.67 | 7.67 | 7.67 dBm
+input-power               7.79 | 7.79 | 7.79 | 7.79 dBm
+laser-bias-current        279.38 | 279.38 | 279.38 | 279.40 mA
+temperature               37.2 | 37.2 | 37.1 | 37.2 °C
+input-voltage             3.29 | 3.29 | 3.29 | 3.29 V
+
+
+admin@PAHO-GS2000-03> show transceiver 1-7-4 physicall -channel 1
+
+[state]
+channel-id                   1
+transmitter-frequency        229007633 MHz
+
+statistics          instant | avg | min | max units        
+------------        -------------------------------        
+output-power        2.05 | 2.05 | 2.05 | 2.05 dBm
+input-power         2.31 | 2.31 | 2.31 | 2.32 dBm
+
+
+admin@PAHO-GS2000-03> show och
+[config]
+
+id       frequency    target-output-power    operational-mode-name         laser      loopback    test-signal    test-monitor    test-monitor-time    cd-range-min    cd-range-max    
+         (MHz)        (dBm)                                                                                                      (seconds)            (ps/nm)         (ps/nm)         
+-----    ---------    -------------------    --------------------------    -------    --------    -----------    ------------    -----------------    ------------    ------------    
+1-7-1    190875000    0.00                   ZR400-16QAMSS-60G-OFEC        enabled    none        disabled       disabled        0                    -20000          20000           
+1-7-5    193500000    -3.00                  ZR400-16QAMSS-60G-OFEC        enabled    none        disabled       disabled        0                    -20000          20000           
+1-8-1    186050000    0.00                   ZR800-16QAMPS-123P8G-SDFEC    enabled    none        disabled       disabled        0                    -20000          20000           
+
+
+[state]
+
+id       frequency    target-output-power    operational-mode    operational-mode-name         laser       loopback    test-signal    test-monitor    test-monitor-time    test-signal-status    test-monitor-time-countdown    test-total-received-bits    test-bit-errors    test-bit-error-ratio    test-out-of-sync-seconds    bit-rate          bandwidth    baud-rate    bits-per-symbol    modulation-type    fec-mode    tx-spectral-shaping    cd-range-min    cd-range-max    filter-roll-off    fec-uncorrectable-blocks    
+         (MHz)        (dBm)                                                                                                                           (seconds)                                  (seconds)                                                                                                                                           (GHz)        (GBd)        (bits/symbol)                                                            (ps/nm)         (ps/nm)                            (blocks)                    
+-----    ---------    -------------------    ----------------    --------------------------    --------    --------    -----------    ------------    -----------------    ------------------    ---------------------------    ------------------------    ---------------    --------------------    ------------------------    --------------    ---------    ---------    ---------------    ---------------    --------    -------------------    ------------    ------------    ---------------    ------------------------    
+1-7-1    190875000    0.00                   102                 ZR400-16QAMSS-60G-OFEC        disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           TRIB_RATE_400G    72           60           4                  DP-16QAM           OFEC        on                     -20000          20000           0.2                0                           
+1-7-5    193500000    -3.00                  102                 ZR400-16QAMSS-60G-OFEC        enabled     none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           TRIB_RATE_400G    72           60           4                  DP-16QAM           OFEC        on                     -20000          20000           0.2                3515                        
+1-8-1    186050000    0.00                   140                 ZR800-16QAMPS-123P8G-SDFEC    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           TRIB_RATE_800G    150          123.8        4                  DP-16QAM-PS        SDFEC       on                     -20000          20000           0.1                0                           
+
+
+id       transmitter-frequency                            output-power                       total-input-power                  provisioned-channel-input-power    osnr                              chromatic-dispersion                 polarization-mode-dispersion      second-order-polarization-mode-dispersion    polarization-dependent-loss       state-of-polarization                differential-group-delay          pre-fec-ber                                  post-fec-ber                                 esnr                              q-value                           q-margin                          carrier-frequency-offset           
+         instant | avg | min | max (MHz)                  instant | avg | min | max (dBm)    instant | avg | min | max (dBm)    instant | avg | min | max (dBm)    instant | avg | min | max (dB)    instant | avg | min | max (ps/nm)    instant | avg | min | max (ps)    instant | avg | min | max (ps^2)             instant | avg | min | max (dB)    instant | avg | min | max (rad/s)    instant | avg | min | max (ps)    instant | avg | min | max                    instant | avg | min | max                    instant | avg | min | max (dB)    instant | avg | min | max (dB)    instant | avg | min | max (dB)    instant | avg | min | max (MHz)    
+-----    ---------------------------------------------    -------------------------------    -------------------------------    -------------------------------    ------------------------------    ---------------------------------    ------------------------------    -----------------------------------------    ------------------------------    ---------------------------------    ------------------------------    -----------------------------------------    -----------------------------------------    ------------------------------    ------------------------------    ------------------------------    -------------------------------    
+1-7-1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+1-7-5    193500000 | 193500000 | 193500000 | 193500000    -2.98 | -2.97 | -2.98 | -2.97      -7.47 | -7.47 | -7.55 | -7.42      -7.47 | -7.47 | -7.55 | -7.42      29.70 | 29.70 | 29.70 | 29.70     0.00 | 0.00 | 0.00 | 0.00            0.42 | 0.42 | 0.35 | 0.46         25.43 | 25.43 | 16.93 | 33.81                0.20 | 0.20 | 0.10 | 0.40         1.00 | 1.00 | 0.00 | 1.00            1.25 | 1.25 | 1.06 | 1.37         1.21E-03 | 1.22E-03 | 1.18E-03 | 1.26E-03    0.00E+00 | 0.00E+00 | 0.00E+00 | 0.00E+00    16.60 | 16.60 | 16.50 | 16.60     9.60 | 9.60 | 9.60 | 9.60         3.40 | 3.40 | 3.40 | 3.40         0.0 | 0.0 | -2.0 | 1.0             
+1-8-1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+
+
+admin@PAHO-GS2000-03> show transceiver 1-7-5
+[config]
+tunable-wavelength        none
+
+
+[state]
+tunable-wavelength        none
+present                   true
+oper-status               active
+removable                 true
+rated-power               0 W
+used-power                0 W
+fec-corrected-bits        39920297909802 bits
+firmware-version          02.15-01
+
+statistics                instant | avg | min | max units                  
+------------------        -----------------------------------------        
+pre-fec-ber               1.23E-03 | 1.21E-03 | 1.17E-03 | 1.25E-03
+post-fec-ber              0.00E+00 | 0.00E+00 | 0.00E+00 | 0.00E+00
+output-power              -2.98 | -2.97 | -2.98 | -2.97 dBm
+input-power               -7.44 | -7.38 | -7.44 | -7.33 dBm
+laser-bias-current        99.90 | 99.90 | 99.90 | 99.90 mA
+temperature               67.7 | 67.7 | 67.7 | 67.8 °C
+input-voltage             3.28 | 3.29 | 3.28 | 3.29 V
+
+
+admin@PAHO-GS2000-03> show transceiver 1-7-5 physical-channel 1
+
+[state]
+channel-id                   1
+transmitter-frequency        0 MHz
+
+statistics          instant | avg | min | max units              
+------------        -------------------------------------        
+output-power        -99.99 | -99.99 | -99.99 | -99.99 dBm
+input-power         -99.99 | -99.99 | -99.99 | -99.99 dBm
+
+
+admin@PAHO-GS2000-03> show och
+[config]
+
+id       frequency    target-output-power    operational-mode-name         laser      loopback    test-signal    test-monitor    test-monitor-time    cd-range-min    cd-range-max    
+         (MHz)        (dBm)                                                                                                      (seconds)            (ps/nm)         (ps/nm)         
+-----    ---------    -------------------    --------------------------    -------    --------    -----------    ------------    -----------------    ------------    ------------    
+1-7-1    190875000    0.00                   ZR400-16QAMSS-60G-OFEC        enabled    none        disabled       disabled        0                    -20000          20000           
+1-7-5    193500000    -3.00                  ZR400-16QAMSS-60G-OFEC        enabled    none        disabled       disabled        0                    -20000          20000           
+1-8-1    186050000    0.00                   ZR800-16QAMPS-123P8G-SDFEC    enabled    none        disabled       disabled        0                    -20000          20000           
+
+
+[state]
+
+id       frequency    target-output-power    operational-mode    operational-mode-name         laser       loopback    test-signal    test-monitor    test-monitor-time    test-signal-status    test-monitor-time-countdown    test-total-received-bits    test-bit-errors    test-bit-error-ratio    test-out-of-sync-seconds    bit-rate          bandwidth    baud-rate    bits-per-symbol    modulation-type    fec-mode    tx-spectral-shaping    cd-range-min    cd-range-max    filter-roll-off    fec-uncorrectable-blocks    
+         (MHz)        (dBm)                                                                                                                           (seconds)                                  (seconds)                                                                                                                                           (GHz)        (GBd)        (bits/symbol)                                                            (ps/nm)         (ps/nm)                            (blocks)                    
+-----    ---------    -------------------    ----------------    --------------------------    --------    --------    -----------    ------------    -----------------    ------------------    ---------------------------    ------------------------    ---------------    --------------------    ------------------------    --------------    ---------    ---------    ---------------    ---------------    --------    -------------------    ------------    ------------    ---------------    ------------------------    
+1-7-1    190875000    0.00                   102                 ZR400-16QAMSS-60G-OFEC        disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           TRIB_RATE_400G    72           60           4                  DP-16QAM           OFEC        on                     -20000          20000           0.2                0                           
+1-7-5    193500000    -3.00                  102                 ZR400-16QAMSS-60G-OFEC        enabled     none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           TRIB_RATE_400G    72           60           4                  DP-16QAM           OFEC        on                     -20000          20000           0.2                3515                        
+1-8-1    186050000    0.00                   140                 ZR800-16QAMPS-123P8G-SDFEC    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           TRIB_RATE_800G    150          123.8        4                  DP-16QAM-PS        SDFEC       on                     -20000          20000           0.1                0                           
+
+
+id       transmitter-frequency                            output-power                       total-input-power                  provisioned-channel-input-power    osnr                              chromatic-dispersion                 polarization-mode-dispersion      second-order-polarization-mode-dispersion    polarization-dependent-loss       state-of-polarization                differential-group-delay          pre-fec-ber                                  post-fec-ber                                 esnr                              q-value                           q-margin                          carrier-frequency-offset           
+         instant | avg | min | max (MHz)                  instant | avg | min | max (dBm)    instant | avg | min | max (dBm)    instant | avg | min | max (dBm)    instant | avg | min | max (dB)    instant | avg | min | max (ps/nm)    instant | avg | min | max (ps)    instant | avg | min | max (ps^2)             instant | avg | min | max (dB)    instant | avg | min | max (rad/s)    instant | avg | min | max (ps)    instant | avg | min | max                    instant | avg | min | max                    instant | avg | min | max (dB)    instant | avg | min | max (dB)    instant | avg | min | max (dB)    instant | avg | min | max (MHz)    
+-----    ---------------------------------------------    -------------------------------    -------------------------------    -------------------------------    ------------------------------    ---------------------------------    ------------------------------    -----------------------------------------    ------------------------------    ---------------------------------    ------------------------------    -----------------------------------------    -----------------------------------------    ------------------------------    ------------------------------    ------------------------------    -------------------------------    
+1-7-1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+1-7-5    193500000 | 193500000 | 193500000 | 193500000    -2.97 | -2.97 | -2.99 | -2.97      -7.37 | -7.38 | -7.42 | -7.30      -7.37 | -7.38 | -7.42 | -7.30      29.70 | 29.70 | 29.70 | 29.70     0.00 | 0.00 | 0.00 | 0.00            0.46 | 0.48 | 0.39 | 0.58         35.25 | 37.03 | 9.87 | 54.12                 0.30 | 0.30 | 0.20 | 0.40         1.00 | 1.00 | 0.00 | 1.00            1.37 | 1.43 | 1.18 | 1.75         1.20E-03 | 1.21E-03 | 1.17E-03 | 1.25E-03    0.00E+00 | 0.00E+00 | 0.00E+00 | 0.00E+00    16.60 | 16.60 | 16.50 | 16.60     9.60 | 9.60 | 9.60 | 9.60         3.40 | 3.40 | 3.40 | 3.40         0.0 | 0.0 | -1.0 | 2.0             
+1-8-1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+
+
+admin@PAHO-GS2000-03> show och 1-7-5
+[config]
+frequency                    193500000 MHz
+target-output-power          -3.00 dBm
+operational-mode-name        ZR400-16QAMSS-60G-OFEC
+laser                        enabled
+loopback                     none
+test-signal                  disabled
+test-monitor                 disabled
+test-monitor-time            0 seconds
+cd-range-min                 -20000 ps/nm
+cd-range-max                 20000 ps/nm
+
+
+[state]
+frequency                          193500000 MHz
+target-output-power                -3.00 dBm
+operational-mode                   102
+operational-mode-name              ZR400-16QAMSS-60G-OFEC
+laser                              enabled
+loopback                           none
+test-signal                        disabled
+test-monitor                       disabled
+test-monitor-time                  0 seconds
+test-signal-status                 unmonitored
+test-monitor-time-countdown        0 seconds
+test-total-received-bits           0
+test-bit-errors                    0
+test-bit-error-ratio               0.00E+00
+test-out-of-sync-seconds           0
+bit-rate                           TRIB_RATE_400G
+bandwidth                          72 GHz
+baud-rate                          60 GBd
+bits-per-symbol                    4 bits/symbol
+modulation-type                    DP-16QAM
+fec-mode                           OFEC
+tx-spectral-shaping                on
+cd-range-min                       -20000 ps/nm
+cd-range-max                       20000 ps/nm
+filter-roll-off                    0.2
+fec-uncorrectable-blocks           3515 blocks
+
+optical statistics                               instant | avg | min | max units                          
+-----------------------------------------        -------------------------------------------------        
+transmitter-frequency                            193500000 | 193500000 | 193500000 | 193500000 MHz
+output-power                                     -2.97 | -2.97 | -2.99 | -2.97 dBm
+total-input-power                                -7.43 | -7.37 | -7.51 | -7.32 dBm
+provisioned-channel-input-power                  -7.43 | -7.37 | -7.51 | -7.32 dBm
+osnr                                             29.70 | 29.70 | 29.70 | 29.70 dB
+chromatic-dispersion                             0.00 | 0.00 | 0.00 | 0.00 ps/nm
+polarization-mode-dispersion                     0.44 | 0.46 | 0.33 | 0.54 ps
+second-order-polarization-mode-dispersion        29.62 | 36.84 | 16.68 | 64.43 ps^2
+polarization-dependent-loss                      0.30 | 0.30 | 0.20 | 0.40 dB
+state-of-polarization                            1.00 | 1.00 | 0.00 | 1.00 rad/s
+differential-group-delay                         1.31 | 1.37 | 1.00 | 1.62 ps
+carrier-frequency-offset                         0.0 | 0.0 | -1.0 | 3.0 MHz
+
+DSP statistics        instant | avg | min | max units                  
+--------------        -----------------------------------------        
+pre-fec-ber           1.21E-03 | 1.23E-03 | 1.18E-03 | 1.31E-03
+post-fec-ber          0.00E+00 | 0.00E+00 | 0.00E+00 | 0.00E+00
+esnr                  16.60 | 16.60 | 16.50 | 16.60 dB
+q-value               9.60 | 9.60 | 9.50 | 9.60 dB
+q-margin              3.40 | 3.40 | 3.30 | 3.40 dB
+
+
+admin@PAHO-GS2000-03> show eth
+[config]
+
+id         fec         loopback    test-signal    test-monitor    test-monitor-time    
+                                                                  (seconds)            
+-------    --------    --------    -----------    ------------    -----------------    
+1-7-1-1    disabled    none        disabled       disabled        0                    
+1-7-1-2    disabled    none        disabled       disabled        0                    
+1-7-1-3    disabled    none        disabled       disabled        0                    
+1-7-1-4    disabled    none        disabled       disabled        0                    
+1-7-4      disabled    none        disabled       disabled        0                    
+1-7-5-1    disabled    none        disabled       disabled        0                    
+1-7-5-2    disabled    none        disabled       disabled        0                    
+1-7-5-3    disabled    none        disabled       disabled        0                    
+1-7-5-4    disabled    none        disabled       disabled        0                    
+1-8-1-1    disabled    none        disabled       disabled        0                    
+1-8-1-2    disabled    none        disabled       disabled        0                    
+1-8-1-3    disabled    none        disabled       disabled        0                    
+1-8-1-4    disabled    none        disabled       disabled        0                    
+1-8-1-5    disabled    none        disabled       disabled        0                    
+1-8-1-6    disabled    none        disabled       disabled        0                    
+1-8-1-7    disabled    none        disabled       disabled        0                    
+1-8-1-8    disabled    none        disabled       disabled        0                    
+1-8-4      disabled    none        disabled       disabled        0                    
+
+
+[state]
+
+id         fec         loopback    test-signal    test-monitor    test-monitor-time    test-signal-status    test-monitor-time-countdown    test-total-received-bits    test-bit-errors    test-bit-error-ratio    test-out-of-sync-seconds    trib-protocol    rx-pkts      tx-pkts      rx-bytes    tx-bytes    rx-crc-err-sum    tx-crc-err-sum    in-pcs-bip-errors    out-pcs-bip-errors    rx-jabber-frames    rx-fragment-frames    
+                                                                  (seconds)                                  (seconds)                                                                                                                                          (packets)    (packets)    (bytes)     (bytes)                                         (bits)               (bits)                (frames)            (frames)              
+-------    --------    --------    -----------    ------------    -----------------    ------------------    ---------------------------    ------------------------    ---------------    --------------------    ------------------------    -------------    ---------    ---------    --------    --------    --------------    --------------    -----------------    ------------------    ----------------    ------------------    
+1-7-1-1    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-7-1-2    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-7-1-3    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-7-1-4    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-7-4      disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           24950        1            4242605     10138       17850             0                 44                   4410                  0                   6296                  
+1-7-5-1    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 5993                 0                     0                   0                     
+1-7-5-2    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 5993                 0                     0                   0                     
+1-7-5-3    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 5993                 0                     0                   0                     
+1-7-5-4    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           1            24950        10138       4242605     0                 17850             4410                 24                    0                   0                     
+1-8-1-1    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-8-1-2    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-8-1-3    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-8-1-4    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-8-1-5    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-8-1-6    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-8-1-7    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-8-1-8    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-8-4      disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+
+
+id         pre-fec-ber                                  post-fec-ber                                 
+           instant | avg | min | max                    instant | avg | min | max                    
+-------    -----------------------------------------    -----------------------------------------    
+1-7-1-1                                                                                              
+1-7-1-2                                                                                              
+1-7-1-3                                                                                              
+1-7-1-4                                                                                              
+1-7-4      0.00E+00 | 0.00E+00 | 0.00E+00 | 0.00E+00    0.00E+00 | 0.00E+00 | 0.00E+00 | 0.00E+00    
+1-7-5-1                                                                                              
+1-7-5-2                                                                                              
+1-7-5-3                                                                                              
+1-7-5-4                                                                                              
+1-8-1-1                                                                                              
+1-8-1-2                                                                                              
+1-8-1-3                                                                                              
+1-8-1-4                                                                                              
+1-8-1-5                                                                                              
+1-8-1-6                                                                                              
+1-8-1-7                                                                                              
+1-8-1-8                                                                                              
+1-8-4                                                                                                
+
+
+admin@PAHO-GS2000-03> show eth 1-7-4
+[config]
+fec                      disabled
+loopback                 none
+test-signal              disabled
+test-monitor             disabled
+test-monitor-time        0 seconds
+
+
+[state]
+fec                                disabled
+loopback                           none
+test-signal                        disabled
+test-monitor                       disabled
+test-monitor-time                  0 seconds
+test-signal-status                 unmonitored
+test-monitor-time-countdown        0 seconds
+test-total-received-bits           0
+test-bit-errors                    0
+test-bit-error-ratio               0.00E+00
+test-out-of-sync-seconds           0
+trib-protocol                      100GBE
+rx-pkts                            24950 packets
+tx-pkts                            1 packets
+rx-bytes                           4242605 bytes
+tx-bytes                           10138 bytes
+rx-crc-err-sum                     17850
+tx-crc-err-sum                     0
+in-pcs-bip-errors                  44 bits
+out-pcs-bip-errors                 4410 bits
+rx-jabber-frames                   0 frames
+rx-fragment-frames                 6296 frames
+
+statistics          instant | avg | min | max units                  
+------------        -----------------------------------------        
+pre-fec-ber         0.00E+00 | 0.00E+00 | 0.00E+00 | 0.00E+00
+post-fec-ber        0.00E+00 | 0.00E+00 | 0.00E+00 | 0.00E+00
+
+
+admin@PAHO-GS2000-03> z show logiv cal-channel
+[config]
+id                 delay-measurement-mode    description    
+---------------    ----------------------    -----------    
+flexgo-1-7-1       disabled                                 
+flexgdu-1-7-1-1    disabled                                 
+flexgdu-1-7-1-2    disabled                                 
+flexgdu-1-7-1-3    disabled                                 
+flexgdu-1-7-1-4    disabled                                 
+flexgo-1-7-5       disabled                                 
+flexgdu-1-7-5-1    disabled                                 
+flexgdu-1-7-5-2    disabled                                 
+flexgdu-1-7-5-3    disabled                                 
+flexgdu-1-7-5-4    disabled                                 
+flexgo-1-8-1       disabled                                 
+flexgdu-1-8-1-1    disabled                                 
+flexgdu-1-8-1-2    disabled                                 
+flexgdu-1-8-1-3    disabled                                 
+flexgdu-1-8-1-4    disabled                                 
+flexgdu-1-8-1-5    disabled                                 
+flexgdu-1-8-1-6    disabled                                 
+flexgdu-1-8-1-7    disabled                                 
+flexgdu-1-8-1-8    disabled                                 
+
+[state]
+id                 index         trib-protocol    rate-class    assigned-channel                tributary-slot-index    time-slot-type    delay-measurement-mode    description    
+---------------    ----------    -------------    ----------    ----------------------------    --------------------    --------------    ----------------------    -----------    
+flexgo-1-7-1       1073741920    OPENZR           400G          och 1-7-1                                               ETH_100G          disabled                                 
+flexgdu-1-7-1-1    1073807456    OPENZRTS         100G          logical-channel flexgo-1-7-1    1                       AUTO              disabled                                 
+flexgdu-1-7-1-2    1073872992    OPENZRTS         100G          logical-channel flexgo-1-7-1    2                       AUTO              disabled                                 
+flexgdu-1-7-1-3    1073938528    OPENZRTS         100G          logical-channel flexgo-1-7-1    3                       AUTO              disabled                                 
+flexgdu-1-7-1-4    1074004064    OPENZRTS         100G          logical-channel flexgo-1-7-1    4                       AUTO              disabled                                 
+flexgo-1-7-5       1073742944    OPENZR           400G          och 1-7-5                                               ETH_100G          disabled                                 
+flexgdu-1-7-5-1    1073808480    OPENZRTS         100G          logical-channel flexgo-1-7-5    1                       AUTO              disabled                                 
+flexgdu-1-7-5-2    1073874016    OPENZRTS         100G          logical-channel flexgo-1-7-5    2                       AUTO              disabled                                 
+flexgdu-1-7-5-3    1073939552    OPENZRTS         100G          logical-channel flexgo-1-7-5    3                       AUTO              disabled                                 
+flexgdu-1-7-5-4    1074005088    OPENZRTS         100G          logical-channel flexgo-1-7-5    4                       AUTO              disabled                                 
+flexgo-1-8-1       1073741936    OPENZR           800G          och 1-8-1                                               ETH_100G          disabled                                 
+flexgdu-1-8-1-1    1073807472    OPENZRTS         100G          logical-channel flexgo-1-8-1    1                       AUTO              disabled                                 
+flexgdu-1-8-1-2    1073873008    OPENZRTS         100G          logical-channel flexgo-1-8-1    2                       AUTO              disabled                                 
+flexgdu-1-8-1-3    1073938544    OPENZRTS         100G          logical-channel flexgo-1-8-1    3                       AUTO              disabled                                 
+flexgdu-1-8-1-4    1074004080    OPENZRTS         100G          logical-channel flexgo-1-8-1    4                       AUTO              disabled                                 
+flexgdu-1-8-1-5    1074069616    OPENZRTS         100G          logical-channel flexgo-1-8-1    5                       AUTO              disabled                                 
+flexgdu-1-8-1-6    1074135152    OPENZRTS         100G          logical-channel flexgo-1-8-1    6                       AUTO              disabled                                 
+flexgdu-1-8-1-7    1074200688    OPENZRTS         100G          logical-channel flexgo-1-8-1    7                       AUTO              disabled                                 
+flexgdu-1-8-1-8    1074266224    OPENZRTS         100G          logical-channel flexgo-1-8-1    8                       AUTO              disabled                                 
+
+
+admin@PAHO-GS2000-03> show assignment
+[state]
+end-a        assignment-hierarchy(logical-channels)                end-z        
+---------    --------------------------------------------------    ---------    
+och 1-7-1    flexgo-1-7-1(#1)<-flexgdu-1-7-1-1(#1)<-eth 1-7-1-1                 
+och 1-7-1    flexgo-1-7-1(#2)<-flexgdu-1-7-1-2(#1)<-eth 1-7-1-2                 
+och 1-7-1    flexgo-1-7-1(#3)<-flexgdu-1-7-1-3(#1)<-eth 1-7-1-3                 
+och 1-7-1    flexgo-1-7-1(#4)<-flexgdu-1-7-1-4(#1)<-eth 1-7-1-4                 
+eth 1-7-4    eth 1-7-5-4->flexgdu-1-7-5-4(#1)->flexgo-1-7-5(#4)    och 1-7-5    
+och 1-7-5    flexgo-1-7-5(#1)<-flexgdu-1-7-5-1(#1)<-eth 1-7-5-1                 
+och 1-7-5    flexgo-1-7-5(#2)<-flexgdu-1-7-5-2(#1)<-eth 1-7-5-2                 
+och 1-7-5    flexgo-1-7-5(#3)<-flexgdu-1-7-5-3(#1)<-eth 1-7-5-3                 
+och 1-8-1    flexgo-1-8-1(#1)<-flexgdu-1-8-1-1(#1)<-eth 1-8-1-1                 
+och 1-8-1    flexgo-1-8-1(#2)<-flexgdu-1-8-1-2(#1)<-eth 1-8-1-2                 
+och 1-8-1    flexgo-1-8-1(#3)<-flexgdu-1-8-1-3(#1)<-eth 1-8-1-3    eth 1-8-4    
+och 1-8-1    flexgo-1-8-1(#4)<-flexgdu-1-8-1-4(#1)<-eth 1-8-1-4                 
+och 1-8-1    flexgo-1-8-1(#5)<-flexgdu-1-8-1-5(#1)<-eth 1-8-1-5                 
+och 1-8-1    flexgo-1-8-1(#6)<-flexgdu-1-8-1-6(#1)<-eth 1-8-1-6                 
+och 1-8-1    flexgo-1-8-1(#7)<-flexgdu-1-8-1-7(#1)<-eth 1-8-1-7                 
+och 1-8-1    flexgo-1-8-1(#8)<-flexgdu-1-8-1-8(#1)<-eth 1-8-1-8                 
+
+
+admin@PAHO-GS2000-03> show cross-connection
+[config]
+
+name     source-entity    destination-entity    description    direction-type    
+-----    -------------    ------------------    -----------    --------------    
+CC5_4    100GE-1-7-5-4    100GE-1-7-4                          bidirection       
+CC_1     100GE-1-8-4      100GE-1-8-1-3                        bidirection       
+
+
+[state]
+
+name     source-entity    destination-entity    description    direction-type    management-type    
+-----    -------------    ------------------    -----------    --------------    ---------------    
+CC5_4    100GE-1-7-5-4    100GE-1-7-4                          bidirection                          
+CC_1     100GE-1-8-4      100GE-1-8-1-3                        bidirection                          
+
+
+admin@PAHO-GS2000-03> shw   pw  ow lldp-  -a
+[config]
+control                   enabled
+hello-timer               30
+system-name               PAHO-GS2000-03
+system-description        GCATA000G
+chassis-id                
+chassis-id-type           mac-address
+
+
+[state]
+control                   enabled
+hello-timer               30
+system-name               PAHO-GS2000-03
+system-description        GCATA000G
+chassis-id                
+chassis-id-type           mac-address
+
+[interface]
+[config]
+
+id          control     
+--------    --------    
+1-1-osc     enabled     
+1-40-eth    disabled    
+1-43-nm     enabled     
+1-43-nm1    enabled     
+1-43-nm2    enabled     
+1-7-4       disabled    
+1-8-4       disabled    
+
+[interface]
+[state]
+
+id          control     
+--------    --------    
+1-1-osc     enabled     
+1-40-eth    disabled    
+1-43-nm     enabled     
+1-43-nm1    enabled     
+1-43-nm2    enabled     
+1-7-4       disabled    
+1-8-4       disabled    
+
+[neighbors]
+[state]
+
+interface    system-name       chassis-id           chassis-id-type    ttl    port-id    management-address                                    
+---------    --------------    -----------------    ---------------    ---    -------    --------------------------------------------------    
+1-1-osc      PAHO-GS2000-03    c4:ee:f5:07:07:fc    MAC_ADDRESS        120    1-1-osc    169.254.0.1,INTERFACE-1-40-ETH;10.111.25.12,INTERF    
+                                                                                         ACE-1-43-NM2
+1-43-nm2     PAHO-A04          24:71:21:a8:9a:81    MAC_ADDRESS        120    gi4        10.111.254.8                                          
+
+
+admin@PAHO-GS2000-03> show lldp neighbors
+
+interface    system-name       chassis-id           chassis-id-type    ttl    port-id    management-address                                    
+---------    --------------    -----------------    ---------------    ---    -------    --------------------------------------------------    
+1-1-osc      PAHO-GS2000-03    c4:ee:f5:07:07:fc    MAC_ADDRESS        120    1-1-osc    169.254.0.1,INTERFACE-1-40-ETH;10.111.25.12,INTERF    
+                                                                                         ACE-1-43-NM2
+1-43-nm2     PAHO-A04          24:71:21:a8:9a:81    MAC_ADDRESS        120    gi4        10.111.254.8                                          
+
+
+admin@PAHO-GS2000-03> show interfact
+Invalid name: interfact
+Problem parsing command setting statement-path with value interfact
+
+admin@PAHO-GS2000-03> show interface
+[config]
+
+id          control    auto-negotiate    port-speed    flow-control    
+--------    -------    --------------    ----------    ------------    
+1-1-osc     enabled    disabled          1GB           disabled        
+1-40-eth    enabled    enabled           1GB           disabled        
+1-43-nm     enabled    enabled           1GB           disabled        
+1-43-nm1    enabled    enabled           1GB           disabled        
+1-43-nm2    enabled    enabled           1GB           disabled        
+
+
+[state]
+
+id          control    auto-negotiate    port-speed    flow-control    oper-status    mac-address          
+--------    -------    --------------    ----------    ------------    -----------    -----------------    
+1-1-osc     enabled    disabled          1GB           disabled        up             c4:ee:f5:07:07:fc    
+1-40-eth    enabled    enabled           1GB           disabled        down           c4:ee:f5:07:07:fb    
+1-43-nm     enabled    enabled           1GB           disabled        down           c4:ee:f5:07:07:f8    
+1-43-nm1    enabled    enabled           1GB           disabled        down           c4:ee:f5:07:07:f9    
+1-43-nm2    enabled    enabled           1GB           disabled        up             c4:ee:f5:07:07:fa    
+
+
+admin@PAHO-GS2000-03> show alarms
+Invalid name: alarms
+Problem parsing command setting statement-path with value alarms
+
+admin@PAHO-GS2000-03> show alarm
+
+resource             type-id    alarm-abbreviate             severity    text                                                  time-created               direction         location    alarm-type    time-period    id                           
+-----------------    -------    -------------------------    --------    --------------------------------------------------    -----------------------    --------------    --------    ----------    -----------    -------------------------    
+software             SYS        NO_CMT_SW                    WARNING     No committed software                                 2021-07-25T18:45:53 UTC    na                na          standing      na             034591627238781336232520     
+port 1-43-nm         SYS        LINK_DOWN                    MINOR       Management port link down                             2021-07-25T18:46:20 UTC    bi-directional    near-end    standing      na             3127871627238760257873280    
+port 1-43-nm1        SYS        LINK_DOWN                    MINOR       Management port link down                             2021-07-25T18:46:20 UTC    bi-directional    near-end    standing      na             312787162723875978202040     
+system               SYS        DATETIME_UNCHANGED           WARNING     Datetime unchanged                                    2021-07-25T18:46:35 UTC    na                na          standing      na             0193941627238781359781440    
+card 1-4             EQPT       EQPT_ABSENCE                 CRITICAL    No present equipment                                  2021-07-25T18:46:41 UTC    na                na          standing      na             0113341627238764613758400    
+card 1-21            EQPT       EQPT_MISMATCH                CRITICAL    Present equipment type mismatch                       2021-07-25T18:46:45 UTC    na                na          standing      na             0165051627238759198922400    
+card 1-22            ENV        PWR_NO_INPUT                 MINOR       No power input                                        2021-07-25T18:47:07 UTC    rx                near-end    standing      na             1211221627238759106547480    
+transceiver 1-8-1    EQPT       TRANSCEIVER_MISSING          CRITICAL    No present transceiver                                2021-07-25T18:49:59 UTC    na                na          standing      na             0100621627238764299292600    
+transceiver 1-8-4    EQPT       TRANSCEIVER_MISSING          CRITICAL    No present transceiver                                2021-07-25T18:49:59 UTC    na                na          standing      na             01006216272387633288560      
+port 1-1-ad1         OPTICAL    IN_OPTICAL_HIGH_WARNING      MAJOR       Input Optical Power higher than warning threshold     2021-07-25T19:23:50 UTC    rx                near-end    standing      na             184651627238759566364240     
+ch-1                 OPTICAL    REACH_MAX_ATT_SRC_TO_DEST    MAJOR       Channel add direction attenuation reach to maximum    2021-07-25T19:24:23 UTC    na                na          standing      na             0112381627240980728472040    
+                                                                          working range
+
+
+admin@PAHO-GS2000-03> show alarm history
+error: invalid parameter:history
+supported filtering criteria: ['resource', 'type-id','severity', 'alarm-abbreviate', 'direction', 'location', 'time-period', 'time-created']
+The operator must be one of the following: ['=', '!=', '>', '<']
+
+admin@PAHO-GS2000-03> show alarm 
+[filter] 
+
+admin@PAHO-GS2000-03> show alarm filter 
+invalid identifier
+
+
+admin@PAHO-GS2000-03> show log alarm -l 200
+time-stamp                   action    resource                        alarm-abbreviate             severity    direction         service-affect    type-id    time-created           
+-------------------------    ------    ----------------------------    -------------------------    --------    --------------    --------------    -------    -------------------    
+2021-07-25T19:28:54+00:00    CLEAR     port 1-1-ad1                    IN_OPTICAL_HIGH_FAILURE      CRITICAL    rx                false             OPTICAL    1627241039958498816    
+2021-07-25T19:28:54+00:00    CREATE    port 1-1-ad1                    IN_OPTICAL_HIGH_WARNING      MAJOR       rx                false             OPTICAL    1627241030396705024    
+2021-07-25T19:25:05+00:00    CLEAR     mediach-ch-1                    REACH_MAX_ATT_DEST_TO_SRC    MAJOR       na                false             OPTICAL    1627241054111619520    
+2021-07-25T19:24:27+00:00    CREATE    mediach-ch-1                    REACH_MAX_ATT_SRC_TO_DEST    MAJOR       na                false             OPTICAL    1627241063093635320    
+2021-07-25T19:24:17+00:00    CREATE    mediach-ch-1                    REACH_MAX_ATT_DEST_TO_SRC    MAJOR       na                false             OPTICAL    1627241054111619520    
+2021-07-25T19:24:08+00:00    CLEAR     och 1-7-5                       INPUT_POWER_HIGH             MAJOR       rx                true              OPTICAL    1627241034853281400    
+2021-07-25T19:24:03+00:00    CREATE    port 1-1-ad1                    IN_OPTICAL_HIGH_FAILURE      CRITICAL    rx                false             OPTICAL    1627241039958498816    
+2021-07-25T19:24:03+00:00    CLEAR     port 1-1-ad1                    IN_OPTICAL_HIGH_WARNING      MAJOR       rx                false             OPTICAL    1627241030396705024    
+2021-07-25T19:24:03+00:00    CLEAR     och 1-7-5                       POST-FEC_DEGRADE             MAJOR       rx                true              OCH        1627241026928501200    
+2021-07-25T19:24:00+00:00    CLEAR     port 1-1-ad1                    OUT_OPTICAL_HIGH_WARNING     MAJOR       tx                false             OPTICAL    1627241030411150080    
+2021-07-25T19:24:00+00:00    CLEAR     logical-channel flexgo-1-7-5    LOF                          CRITICAL    rx                true              ZR         1627241026920482840    
+2021-07-25T19:24:00+00:00    CLEAR     100ge 1-7-4                     LINK_RF                      WARNING     rx                false             ETH        1627241026933101160    
+2021-07-25T19:23:59+00:00    CLEAR     och 1-7-5                       PRE-FEC_DEGRADE              MINOR       rx                false             OCH        1627241026924231280    
+2021-07-25T19:23:57+00:00    CREATE    och 1-7-5                       INPUT_POWER_HIGH             MAJOR       rx                true              OPTICAL    1627241034853281400    
+2021-07-25T19:23:53+00:00    CREATE    port 1-1-ad1                    IN_OPTICAL_HIGH_WARNING      MAJOR       rx                false             OPTICAL    1627241030396705024    
+2021-07-25T19:23:53+00:00    CREATE    port 1-1-ad1                    OUT_OPTICAL_HIGH_WARNING     MAJOR       tx                false             OPTICAL    1627241030411150080    
+2021-07-25T19:23:53+00:00    CLEAR     amplifier 1-1-pa                IN_LOS                       CRITICAL    rx                true              OPTICAL    1627238814753487320    
+2021-07-25T19:23:53+00:00    CLEAR     amplifier 1-1-ba                IN_LOS                       CRITICAL    rx                true              OPTICAL    1627238814811685520    
+2021-07-25T19:23:51+00:00    CLEAR     port 1-1-line                   OUT_OPTICAL_LOW_WARNING      MAJOR       tx                false             OPTICAL    1627238811845441536    
+2021-07-25T19:23:51+00:00    CLEAR     port 1-1-line                   IN_OPTICAL_LOW_FAILURE       CRITICAL    rx                false             OPTICAL    1627238811826888704    
+2021-07-25T19:23:51+00:00    CLEAR     port 1-1-ad1                    OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627240984536139760    
+2021-07-25T19:23:51+00:00    CLEAR     port 1-1-ad1                    IN_LOS                       CRITICAL    rx                true              OPTICAL    1627240984519062040    
+2021-07-25T19:23:51+00:00    CLEAR     och 1-7-5                       RX_LOS                       CRITICAL    rx                true              OPTICAL    1627241026903826480    
+2021-07-25T19:23:51+00:00    CREATE    och 1-7-5                       POST-FEC_DEGRADE             MAJOR       rx                true              OCH        1627241026928501200    
+2021-07-25T19:23:51+00:00    CREATE    och 1-7-5                       PRE-FEC_DEGRADE              MINOR       rx                false             OCH        1627241026924231280    
+2021-07-25T19:23:51+00:00    CREATE    logical-channel flexgo-1-7-5    LOF                          CRITICAL    rx                true              ZR         1627241026920482840    
+2021-07-25T19:23:51+00:00    CLEAR     amplifier 1-1-pa                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627238811905615480    
+2021-07-25T19:23:51+00:00    CLEAR     amplifier 1-1-ba                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627238811836316560    
+2021-07-25T19:23:48+00:00    CREATE    och 1-7-5                       RX_LOS                       CRITICAL    rx                true              OPTICAL    1627241026903826480    
+2021-07-25T19:23:48+00:00    CREATE    100ge 1-7-4                     LINK_RF                      WARNING     rx                false             ETH        1627241026933101160    
+2021-07-25T19:23:26+00:00    CLEAR     100ge 1-7-4                     ETH_LOS_SYN                  CRITICAL    rx                true              ETH        1627240850452827440    
+2021-07-25T19:23:25+00:00    CLEAR     transceiver 1-7-4               RX_LOS                       CRITICAL    rx                true              OPTICAL    1627240860447160320    
+2021-07-25T19:23:25+00:00    CREATE    100ge 1-7-4                     ETH_LOS_SYN                  CRITICAL    rx                true              ETH        1627240850452827440    
+2021-07-25T19:23:07+00:00    CREATE    port 1-1-ad1                    OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627240984536139760    
+2021-07-25T19:23:07+00:00    CREATE    port 1-1-ad1                    IN_LOS                       CRITICAL    rx                true              OPTICAL    1627240984519062040    
+2021-07-25T19:22:05+00:00    CLEAR     port 1-1-ad1                    OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627238814918731280    
+2021-07-25T19:22:05+00:00    CLEAR     port 1-1-ad1                    IN_LOS                       CRITICAL    rx                true              OPTICAL    1627238814883548720    
+2021-07-25T19:21:02+00:00    CREATE    transceiver 1-7-4               RX_LOS                       CRITICAL    rx                true              OPTICAL    1627240860447160320    
+2021-07-25T19:21:02+00:00    CLEAR     100ge 1-7-4                     ETH_LOS_SYN                  CRITICAL    rx                true              ETH        1627240850452827440    
+2021-07-25T19:20:59+00:00    CLEAR     transceiver 1-7-4               RX_LOS                       CRITICAL    rx                true              OPTICAL    1627240850437000680    
+2021-07-25T19:20:59+00:00    CREATE    100ge 1-7-4                     ETH_LOS_SYN                  CRITICAL    rx                true              ETH        1627240850452827440    
+2021-07-25T19:20:53+00:00    CREATE    transceiver 1-7-4               RX_LOS                       CRITICAL    rx                true              OPTICAL    1627240850437000680    
+2021-07-25T19:20:47+00:00    CLEAR     card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627240767469000000    
+2021-07-25T19:19:30+00:00    CREATE    card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627240767469000000    
+2021-07-25T19:19:20+00:00    CLEAR     transceiver 1-7-4               RX_LOS                       CRITICAL    rx                true              OPTICAL    1627240430448845360    
+2021-07-25T19:13:53+00:00    CREATE    transceiver 1-7-4               RX_LOS                       CRITICAL    rx                true              OPTICAL    1627240430448845360    
+2021-07-25T19:13:44+00:00    CLEAR     100ge 1-7-4                     ETH_LOS_SYN                  CRITICAL    rx                true              ETH        1627240420498212160    
+2021-07-25T19:13:43+00:00    CREATE    100ge 1-7-4                     ETH_LOS_SYN                  CRITICAL    rx                true              ETH        1627240420498212160    
+2021-07-25T19:05:45+00:00    CLEAR     100ge 1-7-4                     ETH_LOS_SYN                  CRITICAL    rx                true              ETH        1627239942204774080    
+2021-07-25T19:05:44+00:00    CREATE    100ge 1-7-4                     ETH_LOS_SYN                  CRITICAL    rx                true              ETH        1627239942204774080    
+2021-07-25T19:02:16+00:00    CLEAR     transceiver 1-7-1               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627239556303000000    
+2021-07-25T19:02:06+00:00    CLEAR     och 1-7-5                       TX_DISABLE                   WARNING     tx                false             STAT       1627239713897286760    
+2021-07-25T19:02:05+00:00    CREATE    och 1-7-5                       TX_DISABLE                   WARNING     tx                false             STAT       1627239713897286760    
+2021-07-25T18:59:19+00:00    CREATE    transceiver 1-7-1               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627239556303000000    
+2021-07-25T18:59:16+00:00    CLEAR     och 1-7-1                       RX_LOS                       CRITICAL    rx                true              OPTICAL    1627238813859223400    
+2021-07-25T18:50:02+00:00    CREATE    transceiver 1-8-4               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627238999104000000    
+2021-07-25T18:50:02+00:00    CREATE    transceiver 1-8-1               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627238999079000000    
+2021-07-25T18:49:51+00:00    CLEAR     card 1-8                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627238821155000000    
+2021-07-25T18:47:12+00:00    CLEAR     card 1-33                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627238810500125696    
+2021-07-25T18:47:12+00:00    CLEAR     card 1-32                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627238810354099200    
+2021-07-25T18:47:12+00:00    CLEAR     card 1-31                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627238810205328640    
+2021-07-25T18:47:10+00:00    CREATE    card 1-22                       PWR_NO_INPUT                 MINOR       rx                false             ENV        1627238827742211840    
+2021-07-25T18:47:04+00:00    CREATE    card 1-8                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627238821155000000    
+2021-07-25T18:46:57+00:00    CREATE    port 1-1-ad1                    OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627238814918731280    
+2021-07-25T18:46:57+00:00    CREATE    port 1-1-ad1                    IN_LOS                       CRITICAL    rx                true              OPTICAL    1627238814883548720    
+2021-07-25T18:46:57+00:00    CREATE    amplifier 1-1-pa                IN_LOS                       CRITICAL    rx                true              OPTICAL    1627238814753487320    
+2021-07-25T18:46:57+00:00    CREATE    amplifier 1-1-ba                IN_LOS                       CRITICAL    rx                true              OPTICAL    1627238814811685520    
+2021-07-25T18:46:56+00:00    CREATE    och 1-7-1                       RX_LOS                       CRITICAL    rx                true              OPTICAL    1627238813859223400    
+2021-07-25T18:46:54+00:00    CREATE    port 1-1-line                   OUT_OPTICAL_LOW_WARNING      MAJOR       tx                false             OPTICAL    1627238811845441536    
+2021-07-25T18:46:54+00:00    CREATE    port 1-1-line                   IN_OPTICAL_LOW_FAILURE       CRITICAL    rx                false             OPTICAL    1627238811826888704    
+2021-07-25T18:46:54+00:00    CREATE    amplifier 1-1-pa                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627238811905615480    
+2021-07-25T18:46:54+00:00    CREATE    amplifier 1-1-ba                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627238811836316560    
+2021-07-25T18:46:53+00:00    CREATE    card 1-33                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627238810500125696    
+2021-07-25T18:46:53+00:00    CREATE    card 1-32                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627238810354099200    
+2021-07-25T18:46:53+00:00    CREATE    card 1-31                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627238810205328640    
+2021-07-25T18:46:48+00:00    CREATE    card 1-21                       EQPT_MISMATCH                CRITICAL    na                true              EQPT       1627238805765246464    
+2021-07-25T18:46:44+00:00    CREATE    card 1-4                        EQPT_ABSENCE                 CRITICAL    na                true              EQPT       1627238801734143744    
+2021-07-25T18:46:39+00:00    CREATE    system                          DATETIME_UNCHANGED           WARNING     na                false             SYS        1627238795980000000    
+2021-07-25T18:46:24+00:00    CREATE    software                        NO_CMT_SW                    WARNING     na                false             SYS        1627238753897000000    
+2021-07-25T18:46:24+00:00    CREATE    port 1-43-nm1                   LINK_DOWN                    MINOR       bi-directional    false             SYS        1627238780451884640    
+2021-07-25T18:46:24+00:00    CREATE    port 1-43-nm                    LINK_DOWN                    MINOR       bi-directional    false             SYS        1627238780090361880    
+2021-07-25T18:44:26+00:00    CLEAR     system                          DATETIME_UNCHANGED           WARNING     na                false             SYS        1627084108266000000    
+2021-07-25T18:44:26+00:00    CLEAR     software                        NO_CMT_SW                    WARNING     na                false             SYS        1627084069181000000    
+2021-07-25T18:44:26+00:00    CLEAR     card 1-22                       PWR_NO_INPUT                 MINOR       rx                false             ENV        1627084142016105216    
+2021-07-25T18:44:26+00:00    CLEAR     card 1-21                       EQPT_MISMATCH                CRITICAL    na                true              EQPT       1627084120263454464    
+2021-07-25T18:44:26+00:00    CLEAR     port 1-43-nm1                   LINK_DOWN                    MINOR       bi-directional    false             SYS        1627084097416733960    
+2021-07-25T18:44:26+00:00    CLEAR     port 1-43-nm                    LINK_DOWN                    MINOR       bi-directional    false             SYS        1627084097232726840    
+2021-07-25T18:44:25+00:00    CLEAR     mediach-ch-1                    DEST_IN_LOS                  CRITICAL    rx                true              OPTICAL    1627084128090226680    
+2021-07-25T18:44:25+00:00    CLEAR     mediach-ch-1                    SRC_IN_LOS                   CRITICAL    rx                true              OPTICAL    1627084128090148760    
+2021-07-25T18:44:25+00:00    CLEAR     card 1-8                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627238647373000000    
+2021-07-25T18:44:25+00:00    CLEAR     card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627238648018000000    
+2021-07-25T18:44:25+00:00    CLEAR     card 1-4                        EQPT_ABSENCE                 CRITICAL    na                true              EQPT       1627084116652453120    
+2021-07-25T18:44:11+00:00    CREATE    card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627238648018000000    
+2021-07-25T18:44:10+00:00    CREATE    card 1-8                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627238647373000000    
+2021-07-25T18:44:08+00:00    CLEAR     transceiver 1-8-4               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627084133909000000    
+2021-07-25T18:44:08+00:00    CLEAR     transceiver 1-8-1               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627084133890000000    
+2021-07-25T18:44:08+00:00    CLEAR     och 1-7-1                       RX_LOS                       CRITICAL    rx                true              OPTICAL    1627237421702591320    
+2021-07-25T18:43:57+00:00    CLEAR     port 1-1-line                   OUT_OPTICAL_LOW_WARNING      MAJOR       tx                false             OPTICAL    1627084126853630720    
+2021-07-25T18:43:57+00:00    CLEAR     port 1-1-line                   IN_OPTICAL_LOW_FAILURE       CRITICAL    rx                false             OPTICAL    1627084126836722432    
+2021-07-25T18:43:57+00:00    CLEAR     port 1-1-ad1                    OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627084129785052120    
+2021-07-25T18:43:57+00:00    CLEAR     port 1-1-ad1                    IN_LOS                       CRITICAL    rx                true              OPTICAL    1627084129768291920    
+2021-07-25T18:43:57+00:00    CREATE    mediach-ch-1                    DEST_IN_LOS                  CRITICAL    rx                true              OPTICAL    1627084128090226680    
+2021-07-25T18:43:57+00:00    CREATE    mediach-ch-1                    SRC_IN_LOS                   CRITICAL    rx                true              OPTICAL    1627084128090148760    
+2021-07-25T18:43:57+00:00    CLEAR     amplifier 1-1-pa                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627084126917062120    
+2021-07-25T18:43:57+00:00    CLEAR     amplifier 1-1-pa                IN_LOS                       CRITICAL    rx                true              OPTICAL    1627084129694980320    
+2021-07-25T18:43:57+00:00    CLEAR     amplifier 1-1-ba                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627084126848185920    
+2021-07-25T18:43:56+00:00    CLEAR     amplifier 1-1-ba                IN_LOS                       CRITICAL    rx                true              OPTICAL    1627084129711485480    
+2021-07-25T18:39:47+00:00    CREATE    och 1-7-1                       RX_LOS                       CRITICAL    rx                true              OPTICAL    1627237421702591320    
+2021-07-25T18:39:47+00:00    CLEAR     card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627238307320000000    
+2021-07-25T18:38:30+00:00    CREATE    card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627238307320000000    
+2021-07-25T18:38:28+00:00    CLEAR     och 1-7-1                       RX_LOS                       CRITICAL    rx                true              OPTICAL    1627237421702591320    
+2021-07-25T18:23:44+00:00    CREATE    och 1-7-1                       RX_LOS                       CRITICAL    rx                true              OPTICAL    1627237421702591320    
+2021-07-25T18:22:06+00:00    CLEAR     transceiver 1-7-1               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627237280998000000    
+2021-07-25T18:21:24+00:00    CREATE    transceiver 1-7-1               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627237280998000000    
+2021-07-25T18:21:20+00:00    CLEAR     och 1-7-1                       RX_LOS                       CRITICAL    rx                true              OPTICAL    1627236381504609200    
+2021-07-25T18:14:44+00:00    CLEAR     transceiver 1-7-4               RX_LOS                       CRITICAL    rx                true              OPTICAL    1627236621748096320    
+2021-07-25T18:10:24+00:00    CREATE    transceiver 1-7-4               RX_LOS                       CRITICAL    rx                true              OPTICAL    1627236621748096320    
+2021-07-25T18:10:21+00:00    CLEAR     transceiver 1-7-4               RX_LOS                       CRITICAL    rx                true              OPTICAL    1627234391176244400    
+2021-07-25T18:06:24+00:00    CREATE    och 1-7-1                       RX_LOS                       CRITICAL    rx                true              OPTICAL    1627236381504609200    
+2021-07-25T18:04:44+00:00    CLEAR     transceiver 1-7-1               TRANSCEIVER_MISMATCH         CRITICAL    na                true              EQPT       1627234525708000000    
+2021-07-25T17:39:26+00:00    CREATE    transceiver 1-7-4               RX_LOS                       CRITICAL    rx                true              OPTICAL    1627234391176244400    
+2021-07-25T17:35:41+00:00    CLEAR     och 1-7-1                       TX_DISABLE                   WARNING     tx                false             STAT       1627234526155656560    
+2021-07-25T17:35:40+00:00    CREATE    transceiver 1-7-1               TRANSCEIVER_MISMATCH         CRITICAL    na                true              EQPT       1627234525708000000    
+2021-07-25T17:35:40+00:00    CREATE    och 1-7-1                       TX_DISABLE                   WARNING     tx                false             STAT       1627234526155656560    
+2021-07-23T23:57:38+00:00    CLEAR     card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627084477470000000    
+2021-07-23T23:54:55+00:00    CLEAR     card 1-6                        EQPT_ABSENCE                 CRITICAL    na                true              EQPT       1627084430361644032    
+2021-07-23T23:54:40+00:00    CREATE    card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627084477470000000    
+2021-07-23T23:53:52+00:00    CREATE    card 1-6                        EQPT_ABSENCE                 CRITICAL    na                true              EQPT       1627084430361644032    
+2021-07-23T23:53:50+00:00    CLEAR     card 1-6                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627084135241000000    
+2021-07-23T23:49:07+00:00    CLEAR     card 1-33                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627084124947486464    
+2021-07-23T23:49:07+00:00    CLEAR     card 1-32                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627084124814992896    
+2021-07-23T23:49:07+00:00    CLEAR     card 1-31                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627084124682132480    
+2021-07-23T23:49:05+00:00    CREATE    card 1-22                       PWR_NO_INPUT                 MINOR       rx                false             ENV        1627084142016105216    
+2021-07-23T23:48:58+00:00    CREATE    card 1-6                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627084135241000000    
+2021-07-23T23:48:56+00:00    CREATE    transceiver 1-8-4               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627084133909000000    
+2021-07-23T23:48:56+00:00    CREATE    transceiver 1-8-1               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627084133890000000    
+2021-07-23T23:48:52+00:00    CREATE    port 1-1-ad1                    OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627084129785052120    
+2021-07-23T23:48:52+00:00    CREATE    port 1-1-ad1                    IN_LOS                       CRITICAL    rx                true              OPTICAL    1627084129768291920    
+2021-07-23T23:48:52+00:00    CREATE    amplifier 1-1-pa                IN_LOS                       CRITICAL    rx                true              OPTICAL    1627084129694980320    
+2021-07-23T23:48:52+00:00    CREATE    amplifier 1-1-ba                IN_LOS                       CRITICAL    rx                true              OPTICAL    1627084129711485480    
+2021-07-23T23:48:49+00:00    CREATE    port 1-1-line                   OUT_OPTICAL_LOW_WARNING      MAJOR       tx                false             OPTICAL    1627084126853630720    
+2021-07-23T23:48:49+00:00    CREATE    port 1-1-line                   IN_OPTICAL_LOW_FAILURE       CRITICAL    rx                false             OPTICAL    1627084126836722432    
+2021-07-23T23:48:49+00:00    CREATE    amplifier 1-1-pa                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627084126917062120    
+2021-07-23T23:48:49+00:00    CREATE    amplifier 1-1-ba                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627084126848185920    
+2021-07-23T23:48:48+00:00    CREATE    card 1-33                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627084124947486464    
+2021-07-23T23:48:47+00:00    CREATE    card 1-32                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627084124814992896    
+2021-07-23T23:48:47+00:00    CREATE    card 1-31                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627084124682132480    
+2021-07-23T23:48:43+00:00    CREATE    card 1-21                       EQPT_MISMATCH                CRITICAL    na                true              EQPT       1627084120263454464    
+2021-07-23T23:48:39+00:00    CREATE    card 1-4                        EQPT_ABSENCE                 CRITICAL    na                true              EQPT       1627084116652453120    
+2021-07-23T23:48:31+00:00    CREATE    system                          DATETIME_UNCHANGED           WARNING     na                false             SYS        1627084108266000000    
+2021-07-23T23:48:19+00:00    CREATE    port 1-43-nm1                   LINK_DOWN                    MINOR       bi-directional    false             SYS        1627084097416733960    
+2021-07-23T23:48:19+00:00    CREATE    port 1-43-nm                    LINK_DOWN                    MINOR       bi-directional    false             SYS        1627084097232726840    
+2021-07-23T23:48:18+00:00    CREATE    software                        NO_CMT_SW                    WARNING     na                false             SYS        1627084069181000000    
+2021-07-23T23:46:21+00:00    CLEAR     system                          DATETIME_UNCHANGED           WARNING     na                false             SYS        1627083017962000000    
+2021-07-23T23:46:21+00:00    CLEAR     software                        NO_CMT_SW                    WARNING     na                false             SYS        1627082978596000000    
+2021-07-23T23:46:21+00:00    CLEAR     card 1-22                       PWR_NO_INPUT                 MINOR       rx                false             ENV        1627083051517116928    
+2021-07-23T23:46:21+00:00    CLEAR     card 1-21                       EQPT_MISMATCH                CRITICAL    na                true              EQPT       1627083030012378624    
+2021-07-23T23:46:21+00:00    CLEAR     port 1-43-nm1                   LINK_DOWN                    MINOR       bi-directional    false             SYS        1627083005029001640    
+2021-07-23T23:46:21+00:00    CLEAR     port 1-43-nm                    LINK_DOWN                    MINOR       bi-directional    false             SYS        1627083004687176080    
+2021-07-23T23:46:21+00:00    CLEAR     card 1-8                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627083962246000000    
+2021-07-23T23:46:21+00:00    CLEAR     card 1-6                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627083932877000000    
+2021-07-23T23:46:21+00:00    CLEAR     card 1-4                        EQPT_ABSENCE                 CRITICAL    na                true              EQPT       1627083026094304256    
+2021-07-23T23:46:05+00:00    CREATE    card 1-8                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627083962246000000    
+2021-07-23T23:46:02+00:00    CLEAR     transceiver 1-8-4               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627083724577000000    
+2021-07-23T23:46:02+00:00    CLEAR     transceiver 1-8-1               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627083724555000000    
+2021-07-23T23:45:52+00:00    CLEAR     port 1-1-line                   OUT_OPTICAL_LOW_WARNING      MAJOR       tx                false             OPTICAL    1627083036852766464    
+2021-07-23T23:45:52+00:00    CLEAR     port 1-1-line                   IN_OPTICAL_LOW_FAILURE       CRITICAL    rx                false             OPTICAL    1627083036749288960    
+2021-07-23T23:45:52+00:00    CLEAR     port 1-1-ad1                    OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627083039806486120    
+2021-07-23T23:45:52+00:00    CLEAR     port 1-1-ad1                    IN_LOS                       CRITICAL    rx                true              OPTICAL    1627083039785576440    
+2021-07-23T23:45:52+00:00    CLEAR     amplifier 1-1-pa                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627083036927211600    
+2021-07-23T23:45:52+00:00    CLEAR     amplifier 1-1-pa                IN_LOS                       CRITICAL    rx                true              OPTICAL    1627083039677692880    
+2021-07-23T23:45:52+00:00    CLEAR     amplifier 1-1-ba                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627083036796163760    
+2021-07-23T23:45:52+00:00    CLEAR     amplifier 1-1-ba                IN_LOS                       CRITICAL    rx                true              OPTICAL    1627083039721281480    
+2021-07-23T23:45:35+00:00    CREATE    card 1-6                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627083932877000000    
+2021-07-23T23:45:11+00:00    CLEAR     card 1-6                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627083694033000000    
+2021-07-23T23:42:07+00:00    CREATE    transceiver 1-8-4               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627083724577000000    
+2021-07-23T23:42:07+00:00    CREATE    transceiver 1-8-1               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627083724555000000    
+2021-07-23T23:41:58+00:00    CLEAR     card 1-8                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627083667885000000    
+2021-07-23T23:41:37+00:00    CREATE    card 1-6                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627083694033000000    
+2021-07-23T23:41:23+00:00    CLEAR     card 1-6                        EQPT_ABSENCE                 CRITICAL    na                true              EQPT       1627083615264462336    
+2021-07-23T23:41:10+00:00    CREATE    card 1-8                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627083667885000000    
+2021-07-23T23:40:57+00:00    CLEAR     card 1-8                        EQPT_ABSENCE                 CRITICAL    na                true              EQPT       1627083631562280192    
+2021-07-23T23:40:34+00:00    CREATE    card 1-8                        EQPT_ABSENCE                 CRITICAL    na                true              EQPT       1627083631562280192    
+2021-07-23T23:40:31+00:00    CLEAR     transceiver 1-8-4               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627083041761000000    
+2021-07-23T23:40:31+00:00    CLEAR     transceiver 1-8-1               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627083041741000000    
+2021-07-23T23:40:18+00:00    CREATE    card 1-6                        EQPT_ABSENCE                 CRITICAL    na                true              EQPT       1627083615264462336    
+2021-07-23T23:40:15+00:00    CLEAR     card 1-6                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627083203238000000    
+2021-07-23T23:33:26+00:00    CREATE    card 1-6                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627083203238000000    
+2021-07-23T23:33:23+00:00    CLEAR     transceiver 1-6-4               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627083043913000000    
+2021-07-23T23:33:23+00:00    CLEAR     transceiver 1-6-1               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627083043894000000    
+2021-07-23T23:30:56+00:00    CLEAR     card 1-33                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627083034739177472    
+2021-07-23T23:30:56+00:00    CLEAR     card 1-32                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627083034536315904    
+2021-07-23T23:30:56+00:00    CLEAR     card 1-31                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627083034386610688    
+2021-07-23T23:30:54+00:00    CREATE    card 1-22                       PWR_NO_INPUT                 MINOR       rx                false             ENV        1627083051517116928    
+2021-07-23T23:30:46+00:00    CREATE    transceiver 1-6-4               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627083043913000000    
+2021-07-23T23:30:46+00:00    CREATE    transceiver 1-6-1               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627083043894000000    
+2021-07-23T23:30:44+00:00    CREATE    transceiver 1-8-4               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627083041761000000    
+2021-07-23T23:30:44+00:00    CREATE    transceiver 1-8-1               TRANSCEIVER_MISSING          CRITICAL    na                true              EQPT       1627083041741000000    
+2021-07-23T23:30:42+00:00    CREATE    port 1-1-ad1                    OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627083039806486120    
+2021-07-23T23:30:42+00:00    CREATE    port 1-1-ad1                    IN_LOS                       CRITICAL    rx                true              OPTICAL    1627083039785576440    
+
+
+admin@PAHO-GS2000-03> show log even  t -l 200
+time-stamp                   resource     event-abbreviate    text                     severity       type-id    
+-------------------------    ---------    ----------------    ---------------------    -----------    -------    
+2021-07-25T19:19:18+00:00    card 1-7     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-25T18:46:45+00:00    card 1-22    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-25T18:46:45+00:00    card 1-21    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-25T18:46:45+00:00    card 1-33    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-25T18:46:45+00:00    card 1-32    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-25T18:46:45+00:00    card 1-31    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-25T18:46:43+00:00    card 1-40    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-25T18:46:42+00:00    card 1-42    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-25T18:46:42+00:00    card 1-41    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-25T18:46:35+00:00    chassis 1    SYS_STARTUP         System start up          NOT-ALARMED    SYS        
+2021-07-25T18:46:34+00:00    card 1-8     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-25T18:46:29+00:00    card 1-7     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-25T18:43:58+00:00    card 1-7     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-25T18:43:58+00:00    card 1-8     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-25T18:38:18+00:00    card 1-7     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-23T23:56:23+00:00    card 1-7     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-23T23:54:16+00:00    card 1-7     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:53:50+00:00    card 1-6     CARD_PULLOUT        Card is pulled out       NOT-ALARMED    EQPT       
+2021-07-23T23:48:40+00:00    card 1-22    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:48:40+00:00    card 1-21    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:48:39+00:00    card 1-33    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:48:39+00:00    card 1-32    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:48:39+00:00    card 1-31    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:48:37+00:00    card 1-40    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:48:35+00:00    card 1-41    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:48:35+00:00    card 1-42    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:48:28+00:00    card 1-8     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:48:28+00:00    chassis 1    SYS_STARTUP         System start up          NOT-ALARMED    SYS        
+2021-07-23T23:48:23+00:00    card 1-6     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:45:53+00:00    card 1-8     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-23T23:45:53+00:00    card 1-6     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-23T23:45:12+00:00    card 1-6     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:45:10+00:00    card 1-6     CARD_PULLOUT        Card is pulled out       NOT-ALARMED    EQPT       
+2021-07-23T23:43:13+00:00    card 1-6     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-23T23:41:23+00:00    card 1-6     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:40:56+00:00    card 1-8     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:40:31+00:00    card 1-8     CARD_PULLOUT        Card is pulled out       NOT-ALARMED    EQPT       
+2021-07-23T23:40:15+00:00    card 1-6     CARD_PULLOUT        Card is pulled out       NOT-ALARMED    EQPT       
+2021-07-23T23:30:30+00:00    card 1-22    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:30:29+00:00    card 1-21    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:30:29+00:00    card 1-33    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:30:29+00:00    card 1-31    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:30:29+00:00    card 1-32    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:30:27+00:00    card 1-40    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:30:25+00:00    card 1-41    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:30:25+00:00    card 1-42    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:30:18+00:00    card 1-8     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:30:17+00:00    chassis 1    SYS_STARTUP         System start up          NOT-ALARMED    SYS        
+2021-07-23T23:30:13+00:00    card 1-6     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:27:42+00:00    card 1-8     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-23T23:27:42+00:00    card 1-6     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-23T23:26:58+00:00    card 1-6     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-23T23:25:35+00:00    card 1-6     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-23T23:23:55+00:00    card 1-6     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:06:58+00:00    card 1-6     CARD_PULLOUT        Card is pulled out       NOT-ALARMED    EQPT       
+2021-07-23T22:52:49+00:00    card 1-6     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-23T22:38:46+00:00    card 1-22    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T22:38:46+00:00    card 1-21    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T22:38:45+00:00    card 1-33    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T22:38:45+00:00    card 1-32    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T22:38:45+00:00    card 1-31    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T22:38:43+00:00    card 1-40    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T22:38:42+00:00    card 1-42    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T22:38:42+00:00    card 1-41    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T22:38:38+00:00    chassis 1    SYS_STARTUP         System start up          NOT-ALARMED    SYS        
+2021-07-23T22:38:34+00:00    card 1-8     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T22:38:29+00:00    card 1-6     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T22:35:56+00:00    card 1-8     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-23T22:35:56+00:00    card 1-6     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-23T22:34:41+00:00    card 1-6     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-23T22:19:57+00:00    card 1-6     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-23T22:13:30+00:00    card 1-22    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T22:13:30+00:00    card 1-21    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T22:13:30+00:00    card 1-40    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T22:13:30+00:00    card 1-33    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T22:13:30+00:00    card 1-32    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T22:13:29+00:00    card 1-31    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T22:13:26+00:00    card 1-42    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T22:13:26+00:00    card 1-41    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T22:13:22+00:00    chassis 1    SYS_STARTUP         System start up          NOT-ALARMED    SYS        
+2021-07-23T22:13:19+00:00    card 1-8     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T22:13:13+00:00    card 1-6     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+
+
+admin@PAHO-GS2000-03> show pm
+None
+
+admin@PAHO-GS2000-03> show pm history
+None
+
+admin@PAHO-GS2000-03> show pm pme
+[chassis]
+[config]
+
+id    monitor     
+--    --------    
+1     disabled    
+
+[chassis]
+[state]
+
+id    pm-entity-type    monitor     
+--    --------------    --------    
+1     chassis           disabled    
+
+[card]
+[config]
+
+id      monitor     
+----    --------    
+1-1     disabled    
+1-21    disabled    
+1-22    disabled    
+1-31    disabled    
+1-32    disabled    
+1-33    disabled    
+1-4     disabled    
+1-40    disabled    
+1-41    disabled    
+1-42    disabled    
+1-7     disabled    
+1-8     disabled    
+
+[card]
+[state]
+
+id      pm-entity-type    monitor     
+----    --------------    --------    
+1-1     card              disabled    
+1-21    card              disabled    
+1-22    card              disabled    
+1-31    card              disabled    
+1-32    card              disabled    
+1-33    card              disabled    
+1-4     card              disabled    
+1-40    card              disabled    
+1-41    card              disabled    
+1-42    card              disabled    
+1-7     card              disabled    
+1-8     card              disabled    
+
+[transceiver]
+[config]
+
+id         monitor     
+-------    --------    
+1-1-osc    disabled    
+1-4-1      disabled    
+1-4-10     disabled    
+1-4-2      disabled    
+1-4-3      disabled    
+1-4-4      disabled    
+1-4-5      disabled    
+1-4-6      disabled    
+1-4-7      disabled    
+1-4-8      disabled    
+1-4-9      disabled    
+1-7-1      disabled    
+1-7-10     disabled    
+1-7-2      disabled    
+1-7-3      disabled    
+1-7-4      disabled    
+1-7-5      disabled    
+1-7-6      disabled    
+1-7-7      disabled    
+1-7-8      disabled    
+1-7-9      disabled    
+1-8-1      disabled    
+1-8-10     disabled    
+1-8-2      disabled    
+1-8-3      disabled    
+1-8-4      disabled    
+1-8-5      disabled    
+1-8-6      disabled    
+1-8-7      disabled    
+1-8-8      disabled    
+1-8-9      disabled    
+
+[transceiver]
+[state]
+
+id         pm-entity-type    monitor     
+-------    --------------    --------    
+1-1-osc    transceiver       disabled    
+1-4-1      transceiver       disabled    
+1-4-10     transceiver       disabled    
+1-4-2      transceiver       disabled    
+1-4-3      transceiver       disabled    
+1-4-4      transceiver       disabled    
+1-4-5      transceiver       disabled    
+1-4-6      transceiver       disabled    
+1-4-7      transceiver       disabled    
+1-4-8      transceiver       disabled    
+1-4-9      transceiver       disabled    
+1-7-1      transceiver       disabled    
+1-7-10     transceiver       disabled    
+1-7-2      transceiver       disabled    
+1-7-3      transceiver       disabled    
+1-7-4      transceiver       disabled    
+1-7-5      transceiver       disabled    
+1-7-6      transceiver       disabled    
+1-7-7      transceiver       disabled    
+1-7-8      transceiver       disabled    
+1-7-9      transceiver       disabled    
+1-8-1      transceiver       disabled    
+1-8-10     transceiver       disabled    
+1-8-2      transceiver       disabled    
+1-8-3      transceiver       disabled    
+1-8-4      transceiver       disabled    
+1-8-5      transceiver       disabled    
+1-8-6      transceiver       disabled    
+1-8-7      transceiver       disabled    
+1-8-8      transceiver       disabled    
+1-8-9      transceiver       disabled    
+
+[physical-channel]
+[config]
+
+id          monitor     
+--------    --------    
+1-4-1-1     disabled    
+1-4-1-2     disabled    
+1-4-1-3     disabled    
+1-4-1-4     disabled    
+1-4-10-1    disabled    
+1-4-10-2    disabled    
+1-4-10-3    disabled    
+1-4-10-4    disabled    
+1-4-2-1     disabled    
+1-4-2-2     disabled    
+1-4-2-3     disabled    
+1-4-2-4     disabled    
+1-4-3-1     disabled    
+1-4-3-2     disabled    
+1-4-3-3     disabled    
+1-4-3-4     disabled    
+1-4-4-1     disabled    
+1-4-4-2     disabled    
+1-4-4-3     disabled    
+1-4-4-4     disabled    
+1-4-5-1     disabled    
+1-4-5-2     disabled    
+1-4-5-3     disabled    
+1-4-5-4     disabled    
+1-4-6-1     disabled    
+1-4-6-2     disabled    
+1-4-6-3     disabled    
+1-4-6-4     disabled    
+1-4-7-1     disabled    
+1-4-7-2     disabled    
+1-4-7-3     disabled    
+1-4-7-4     disabled    
+1-4-8-1     disabled    
+1-4-8-2     disabled    
+1-4-8-3     disabled    
+1-4-8-4     disabled    
+1-4-9-1     disabled    
+1-4-9-2     disabled    
+1-4-9-3     disabled    
+1-4-9-4     disabled    
+1-7-1-1     disabled    
+1-7-1-2     disabled    
+1-7-1-3     disabled    
+1-7-1-4     disabled    
+1-7-10-1    disabled    
+1-7-10-2    disabled    
+1-7-10-3    disabled    
+1-7-10-4    disabled    
+1-7-2-1     disabled    
+1-7-2-2     disabled    
+1-7-2-3     disabled    
+1-7-2-4     disabled    
+1-7-3-1     disabled    
+1-7-3-2     disabled    
+1-7-3-3     disabled    
+1-7-3-4     disabled    
+1-7-4-1     disabled    
+1-7-4-2     disabled    
+1-7-4-3     disabled    
+1-7-4-4     disabled    
+1-7-5-1     disabled    
+1-7-5-2     disabled    
+1-7-5-3     disabled    
+1-7-5-4     disabled    
+1-7-6-1     disabled    
+1-7-6-2     disabled    
+1-7-6-3     disabled    
+1-7-6-4     disabled    
+1-7-7-1     disabled    
+1-7-7-2     disabled    
+1-7-7-3     disabled    
+1-7-7-4     disabled    
+1-7-8-1     disabled    
+1-7-8-2     disabled    
+1-7-8-3     disabled    
+1-7-8-4     disabled    
+1-7-9-1     disabled    
+1-7-9-2     disabled    
+1-7-9-3     disabled    
+1-7-9-4     disabled    
+1-8-1-1     disabled    
+1-8-1-2     disabled    
+1-8-1-3     disabled    
+1-8-1-4     disabled    
+1-8-10-1    disabled    
+1-8-10-2    disabled    
+1-8-10-3    disabled    
+1-8-10-4    disabled    
+1-8-2-1     disabled    
+1-8-2-2     disabled    
+1-8-2-3     disabled    
+1-8-2-4     disabled    
+1-8-3-1     disabled    
+1-8-3-2     disabled    
+1-8-3-3     disabled    
+1-8-3-4     disabled    
+1-8-4-1     disabled    
+1-8-4-2     disabled    
+1-8-4-3     disabled    
+1-8-4-4     disabled    
+1-8-5-1     disabled    
+1-8-5-2     disabled    
+1-8-5-3     disabled    
+1-8-5-4     disabled    
+1-8-6-1     disabled    
+1-8-6-2     disabled    
+1-8-6-3     disabled    
+1-8-6-4     disabled    
+1-8-7-1     disabled    
+1-8-7-2     disabled    
+1-8-7-3     disabled    
+1-8-7-4     disabled    
+1-8-8-1     disabled    
+1-8-8-2     disabled    
+1-8-8-3     disabled    
+1-8-8-4     disabled    
+1-8-9-1     disabled    
+1-8-9-2     disabled    
+1-8-9-3     disabled    
+1-8-9-4     disabled    
+
+[physical-channel]
+[state]
+
+id          pm-entity-type      monitor     
+--------    ----------------    --------    
+1-4-1-1     physical-channel    disabled    
+1-4-1-2     physical-channel    disabled    
+1-4-1-3     physical-channel    disabled    
+1-4-1-4     physical-channel    disabled    
+1-4-10-1    physical-channel    disabled    
+1-4-10-2    physical-channel    disabled    
+1-4-10-3    physical-channel    disabled    
+1-4-10-4    physical-channel    disabled    
+1-4-2-1     physical-channel    disabled    
+1-4-2-2     physical-channel    disabled    
+1-4-2-3     physical-channel    disabled    
+1-4-2-4     physical-channel    disabled    
+1-4-3-1     physical-channel    disabled    
+1-4-3-2     physical-channel    disabled    
+1-4-3-3     physical-channel    disabled    
+1-4-3-4     physical-channel    disabled    
+1-4-4-1     physical-channel    disabled    
+1-4-4-2     physical-channel    disabled    
+1-4-4-3     physical-channel    disabled    
+1-4-4-4     physical-channel    disabled    
+1-4-5-1     physical-channel    disabled    
+1-4-5-2     physical-channel    disabled    
+1-4-5-3     physical-channel    disabled    
+1-4-5-4     physical-channel    disabled    
+1-4-6-1     physical-channel    disabled    
+1-4-6-2     physical-channel    disabled    
+1-4-6-3     physical-channel    disabled    
+1-4-6-4     physical-channel    disabled    
+1-4-7-1     physical-channel    disabled    
+1-4-7-2     physical-channel    disabled    
+1-4-7-3     physical-channel    disabled    
+1-4-7-4     physical-channel    disabled    
+1-4-8-1     physical-channel    disabled    
+1-4-8-2     physical-channel    disabled    
+1-4-8-3     physical-channel    disabled    
+1-4-8-4     physical-channel    disabled    
+1-4-9-1     physical-channel    disabled    
+1-4-9-2     physical-channel    disabled    
+1-4-9-3     physical-channel    disabled    
+1-4-9-4     physical-channel    disabled    
+1-7-1-1     physical-channel    disabled    
+1-7-1-2     physical-channel    disabled    
+1-7-1-3     physical-channel    disabled    
+1-7-1-4     physical-channel    disabled    
+1-7-10-1    physical-channel    disabled    
+1-7-10-2    physical-channel    disabled    
+1-7-10-3    physical-channel    disabled    
+1-7-10-4    physical-channel    disabled    
+1-7-2-1     physical-channel    disabled    
+1-7-2-2     physical-channel    disabled    
+1-7-2-3     physical-channel    disabled    
+1-7-2-4     physical-channel    disabled    
+1-7-3-1     physical-channel    disabled    
+1-7-3-2     physical-channel    disabled    
+1-7-3-3     physical-channel    disabled    
+1-7-3-4     physical-channel    disabled    
+1-7-4-1     physical-channel    disabled    
+1-7-4-2     physical-channel    disabled    
+1-7-4-3     physical-channel    disabled    
+1-7-4-4     physical-channel    disabled    
+1-7-5-1     physical-channel    disabled    
+1-7-5-2     physical-channel    disabled    
+1-7-5-3     physical-channel    disabled    
+1-7-5-4     physical-channel    disabled    
+1-7-6-1     physical-channel    disabled    
+1-7-6-2     physical-channel    disabled    
+1-7-6-3     physical-channel    disabled    
+1-7-6-4     physical-channel    disabled    
+1-7-7-1     physical-channel    disabled    
+1-7-7-2     physical-channel    disabled    
+1-7-7-3     physical-channel    disabled    
+1-7-7-4     physical-channel    disabled    
+1-7-8-1     physical-channel    disabled    
+1-7-8-2     physical-channel    disabled    
+1-7-8-3     physical-channel    disabled    
+1-7-8-4     physical-channel    disabled    
+1-7-9-1     physical-channel    disabled    
+1-7-9-2     physical-channel    disabled    
+1-7-9-3     physical-channel    disabled    
+1-7-9-4     physical-channel    disabled    
+1-8-1-1     physical-channel    disabled    
+1-8-1-2     physical-channel    disabled    
+1-8-1-3     physical-channel    disabled    
+1-8-1-4     physical-channel    disabled    
+1-8-10-1    physical-channel    disabled    
+1-8-10-2    physical-channel    disabled    
+1-8-10-3    physical-channel    disabled    
+1-8-10-4    physical-channel    disabled    
+1-8-2-1     physical-channel    disabled    
+1-8-2-2     physical-channel    disabled    
+1-8-2-3     physical-channel    disabled    
+1-8-2-4     physical-channel    disabled    
+1-8-3-1     physical-channel    disabled    
+1-8-3-2     physical-channel    disabled    
+1-8-3-3     physical-channel    disabled    
+1-8-3-4     physical-channel    disabled    
+1-8-4-1     physical-channel    disabled    
+1-8-4-2     physical-channel    disabled    
+1-8-4-3     physical-channel    disabled    
+1-8-4-4     physical-channel    disabled    
+1-8-5-1     physical-channel    disabled    
+1-8-5-2     physical-channel    disabled    
+1-8-5-3     physical-channel    disabled    
+1-8-5-4     physical-channel    disabled    
+1-8-6-1     physical-channel    disabled    
+1-8-6-2     physical-channel    disabled    
+1-8-6-3     physical-channel    disabled    
+1-8-6-4     physical-channel    disabled    
+1-8-7-1     physical-channel    disabled    
+1-8-7-2     physical-channel    disabled    
+1-8-7-3     physical-channel    disabled    
+1-8-7-4     physical-channel    disabled    
+1-8-8-1     physical-channel    disabled    
+1-8-8-2     physical-channel    disabled    
+1-8-8-3     physical-channel    disabled    
+1-8-8-4     physical-channel    disabled    
+1-8-9-1     physical-channel    disabled    
+1-8-9-2     physical-channel    disabled    
+1-8-9-3     physical-channel    disabled    
+1-8-9-4     physical-channel    disabled    
+
+[och]
+[config]
+
+id       monitor     
+-----    --------    
+1-7-1    disabled    
+1-7-5    disabled    
+1-8-1    disabled    
+
+[och]
+[state]
+
+id       pm-entity-type    monitor     
+-----    --------------    --------    
+1-7-1    och               disabled    
+1-7-5    och               disabled    
+1-8-1    och               disabled    
+
+[eth]
+[config]
+
+id         monitor     
+-------    --------    
+1-7-1-1    disabled    
+1-7-1-2    disabled    
+1-7-1-3    disabled    
+1-7-1-4    disabled    
+1-7-4      disabled    
+1-7-5-1    disabled    
+1-7-5-2    disabled    
+1-7-5-3    disabled    
+1-7-5-4    disabled    
+1-8-1-1    disabled    
+1-8-1-2    disabled    
+1-8-1-3    disabled    
+1-8-1-4    disabled    
+1-8-1-5    disabled    
+1-8-1-6    disabled    
+1-8-1-7    disabled    
+1-8-1-8    disabled    
+1-8-4      disabled    
+
+[eth]
+[state]
+
+id         pm-entity-type    monitor     
+-------    --------------    --------    
+1-7-1-1    eth               disabled    
+1-7-1-2    eth               disabled    
+1-7-1-3    eth               disabled    
+1-7-1-4    eth               disabled    
+1-7-4      eth               disabled    
+1-7-5-1    eth               disabled    
+1-7-5-2    eth               disabled    
+1-7-5-3    eth               disabled    
+1-7-5-4    eth               disabled    
+1-8-1-1    eth               disabled    
+1-8-1-2    eth               disabled    
+1-8-1-3    eth               disabled    
+1-8-1-4    eth               disabled    
+1-8-1-5    eth               disabled    
+1-8-1-6    eth               disabled    
+1-8-1-7    eth               disabled    
+1-8-1-8    eth               disabled    
+1-8-4      eth               disabled    
+
+[interface]
+[config]
+
+id          monitor     
+--------    --------    
+1-40-eth    disabled    
+1-43-nm     disabled    
+1-43-nm1    disabled    
+1-43-nm2    disabled    
+
+[interface]
+[state]
+
+id          pm-entity-type    monitor     
+--------    --------------    --------    
+1-40-eth    interface         disabled    
+1-43-nm     interface         disabled    
+1-43-nm1    interface         disabled    
+1-43-nm2    interface         disabled    
+
+[port]
+[config]
+
+id          monitor     
+--------    --------    
+1-1-line    disabled    
+
+[port]
+[state]
+
+id          pm-entity-type    monitor     
+--------    --------------    --------    
+1-1-line    port              disabled    
+
+[amplifier]
+[config]
+
+id        monitor     
+------    --------    
+1-1-ba    disabled    
+1-1-pa    disabled    
+
+[amplifier]
+[state]
+
+id        pm-entity-type    monitor     
+------    --------------    --------    
+1-1-ba    amplifier         disabled    
+1-1-pa    amplifier         disabled    
+
+
+admin@PAHO-GS2000-03> show pm threshold
+invalid command
+
+
+admin@PAHO-GS2000-03> show card 1-* fan
+[config]
+
+id           mode    speed-ratio    
+---------    ----    -----------    
+card 1-32    auto    high           
+card 1-33    auto    high           
+card 1-31    auto    high           
+
+
+[state]
+
+id           mode    speed-ratio    
+---------    ----    -----------    
+card 1-32    auto    middle         
+card 1-33    auto    middle         
+card 1-31    auto    middle         
+
+
+id           speed-ratio-fan-1                speed-ratio-fan-2                
+             instant | avg | min | max (%)    instant | avg | min | max (%)    
+---------    -----------------------------    -----------------------------    
+card 1-32    40 | 40 | 40 | 40                40 | 40 | 40 | 40                
+card 1-33    40 | 40 | 40 | 40                40 | 40 | 40 | 40                
+card 1-31    40 | 40 | 40 | 40                40 | 40 | 40 | 40                
+
+
+admin@PAHO-GS2000-03> show card 1-* psu
+
+[state]
+
+id           capacity    input-current    input-voltage    output-current    output-voltage    output-power    power-supply-mode    
+             (W)         (mA)             (V)              (mA)              (V)               (W)                                  
+---------    --------    -------------    -------------    --------------    --------------    ------------    -----------------    
+card 1-22    2000.00     0.00             0.00             0.00              0.00              0.00            AC                   
+card 1-21    1400.00     1800.00          122.00           15880.00          12.21             193.25          AC                   
+
+
+admin@PAHO-GS2000-03> exit
+
+Exit From CLI
+Connection to 10.111.25.12 closed.
+
+Script done on 2026-10-31 10:56:14-04:00 [COMMAND_EXIT_CODE="0"]
