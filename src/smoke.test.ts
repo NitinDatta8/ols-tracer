@@ -68,22 +68,15 @@ it('keeps stream-only hardware out of other streams', () => {
   expect([...csp].some((id) => !tencent.has(id))).toBe(true);
 });
 
-it('prefers stream pluggables over common fallback when stream catalog exists', () => {
-  const commonIds = new Set(
-    (JSON.parse(readFileSync(resolve(repoRoot, 'catalog/common/pluggables.json'), 'utf8')) as { id: string }[])
-      .map((pluggable) => pluggable.id),
-  );
-
+it('loads every stream pluggable at runtime', () => {
   for (const { id: streamId } of streams) {
     const streamPath = resolve(repoRoot, `catalog/${streamId}/pluggables.json`);
     if (!existsSync(streamPath)) continue;
 
     const streamIds = new Set((JSON.parse(readFileSync(streamPath, 'utf8')) as { id: string }[]).map((pluggable) => pluggable.id));
     const runtimeIds = new Set(catalogFor(streamId).pluggables.map((pluggable) => pluggable.id));
-    const commonOnlyIds = [...commonIds].filter((id) => !streamIds.has(id));
 
     expect([...streamIds].every((id) => runtimeIds.has(id)), `${streamId}: stream pluggables missing at runtime`).toBe(true);
-    expect(commonOnlyIds.some((id) => runtimeIds.has(id)), `${streamId}: common fallback pluggables leaked into runtime catalog`).toBe(false);
   }
 });
 

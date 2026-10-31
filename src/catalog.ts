@@ -8,7 +8,6 @@ const files = import.meta.glob<{ id: string }[]>('../catalog/*/*.json', { eager:
 const cliFiles = import.meta.glob<Catalog['cli']>('../catalog/*/cli.json', { eager: true, import: 'default' });
 
 const cache = new Map<string, Catalog>();
-const dirsFor = (stream: string) => ['common', stream];
 
 type VendorMap = { vendorType?: string; linecardId?: string };
 type StreamChassis = Catalog['chassis'][number] & { supportedVendorTypes?: string[]; vendorTypeMap?: VendorMap[] };
@@ -102,17 +101,10 @@ function hydrate(chassis: Catalog['chassis'], linecards: Catalog['linecards'], p
   return { chassis: nextChassis, linecards: nextLinecards, pluggables: nextPluggables };
 }
 
-/**
- * For hardware (chassis/linecards/pluggables), stream catalogs are the source of truth when present.
- * Common files remain as a fallback for legacy or partial streams.
- */
+/** A stream's hardware (chassis/linecards/pluggables) is its own files only; `common/` holds just `cli.json`. */
 export function catalogFor(stream: string): Catalog {
-  const merge = <K extends keyof Pick<Catalog, 'chassis' | 'linecards' | 'pluggables'>>(kind: K): Catalog[K] => {
-    const streamOnly = files[`../catalog/${stream}/${kind}.json`];
-    if (streamOnly) return streamOnly as Catalog[K];
-    const items = dirsFor(stream).flatMap((dir) => files[`../catalog/${dir}/${kind}.json`] ?? []);
-    return [...new Map(items.map((x) => [x.id, x])).values()] as Catalog[K];
-  };
+  const merge = <K extends keyof Pick<Catalog, 'chassis' | 'linecards' | 'pluggables'>>(kind: K) =>
+    (files[`../catalog/${stream}/${kind}.json`] ?? []) as Catalog[K];
   if (!cache.has(stream)) {
     const base = hydrate(merge('chassis'), merge('linecards'), merge('pluggables'));
     cache.set(stream, {
