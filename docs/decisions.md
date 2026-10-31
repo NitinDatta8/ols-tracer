@@ -11,6 +11,7 @@ The decisions that shape the tracer, newest first, each with where it was argued
 | Terminal output is never saved. The recorder re-runs typed `show` commands on the poller's clean shell, and never `set`, `delete`, `clear`, `commit` or `rpc` | The terminal shell has Tab completion, backspaces and panel-width wrapping | [Box 3 capture](plans/box3-capture.md#the-recorder) |
 | The prerequisites (`set cli length 0`, `set cli width 1024`) run on every login and their results are recorded, even though box 3 may save them to its config | Paging would cut the output | [Box 3 capture](plans/box3-capture.md#decided) |
 | Raw captures, with their serials, hostnames and IPs, are committed as they are for now and cleaned up later | Answers the CLI plan's open question 1 | [Box 3 capture](plans/box3-capture.md#decided) |
+| `cli-observed.json` and `cli-index.merged.json` are git-ignored and rebuilt by `npm run sync:cli-data:csp`. `branch` and `index` stay committed | Nothing reads the derived two (the recorder reads the index), they rebuild byte for byte apart from `generatedAt`, and committing them rewrote 1.5 MB per sync. The IIVI XML behind the index is not on every machine | [CLI data schemas](reference/cli-data-schemas.md#artifacts) |
 
 ## 2026-10-30
 

@@ -11,6 +11,8 @@ Current rollout scope: **CSP only** (`stream = "csp"`).
 - `data/boxes/<box-id>/cli-observed.json` uses `observed` schema.
 - `data/boxes/<box-id>/cli-index.merged.json` uses `merged` schema.
 
+`branch` and `index` are committed, because they come from the IIVI XML, which other machines may not have. `observed` and `merged` are git-ignored: `npm run sync:cli-data:csp` builds them from the committed index and the runs, so they are the same on every machine apart from `generatedAt`.
+
 ## `branch` schema (`cli-branch.schema.json`)
 
 ```json

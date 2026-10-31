@@ -39,7 +39,7 @@ npm run build      # typecheck and production build in dist/
 npm run sync:auto  # run all catalog sync steps (platform + linecards + CLI)
 npm run sync:platform  # regenerate catalog/streams.json and catalog/<stream>/chassis.json from ../IIVI_Platform profiles
 npm run sync:cli       # regenerate catalog/<stream>/cli.json from ../IIVI_Platform profile XML
-npm run sync:cli-data:csp # generate CSP branch/index/observed/merged artifacts under data/
+npm run sync:cli-data:csp # generate CSP branch/index (committed) and observed/merged (git-ignored) under data/
 npm run sync:linecards # regenerate catalog/<stream>/linecards.json and catalog/<stream>/pluggables.json from ../IIVI_Platform profiles
 ```
 
