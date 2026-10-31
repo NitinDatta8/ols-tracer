@@ -25,6 +25,7 @@ Click **Open** and pick `examples/demo.olst.json` to see a ready-made topology.
 
 ```sh
 cp bridge/.env.example bridge/.env   # then set BOX_USER and BOX_PASSWORD (or BOX_KEY)
+npm run bridge:setup                 # once: a Python venv with TTP, for the poller
 npm run bridge                       # keep it running next to npm run dev
 ```
 

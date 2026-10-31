@@ -75,6 +75,23 @@ Photos live in `public/pluggables/<pluggable id>.jpg`. They and the specs come f
 - `validate` re-checks a whole topology. It runs on every change, so an opened file's problems are listed.
 - `alarms` raises a device's alarms from the topology: LOS on each pluggable with no fiber into its Rx and one per empty PSU or fan bay. They are never saved, so they always match the build.
 
+## Poller
+
+The bridge polls the box for its live state, so the canvas can show it later.
+
+- `bridge/poll.json` lists what to poll: `[{ "cmd": "show optics", "template": "optics", "every": 10 }]`. `every` is in seconds, and `0` runs a command once per session (for inventory). The list is empty until the real commands are in, and while it is empty the poller is off.
+- While a box is connected, the poller runs the commands that are due one at a time, on its own shell of the session, so it never types into the terminal. That shell is a dumb terminal 10000 rows tall, so nothing pages. A command is done when the last line of its output matches `BOX_PROMPT`. If that takes longer than `BOX_TIMEOUT`, the poller sends Ctrl-C and records an error.
+- `bridge/parse.py` takes each output, without its echo and prompt, and turns it into JSON with the TTP template `bridge/templates/<template>.ttp`. Templates key their results by CLI address (`1-3-C1`), so each value finds its port.
+- `GET /bridge/state` returns the latest result per command: `{ at, raw, data }`, or `{ at, raw, error }`. Disconnecting clears it. The app doesn't read it yet.
+- Set up once with `npm run bridge:setup`, which makes `bridge/.venv` with TTP in it.
+- **To add a command:**
+  1. Run it in the terminal and paste its output into `bridge/fixtures/<name>.txt`.
+  2. Write `bridge/templates/<name>.ttp`: copy one line of the output and replace each value with `{{ name }}`. `example.ttp` shows the shape.
+  3. Put the JSON you expect in `bridge/fixtures/<name>.json`.
+  4. Add the command to `poll.json`.
+
+  `npm test` checks every template against its fixture.
+
 ## Code
 
 | File | What |
@@ -86,7 +103,8 @@ Photos live in `public/pluggables/<pluggable id>.jpg`. They and the specs come f
 | `src/Canvas.tsx` | Logical canvas: device nodes, port handles, fibers, views |
 | `src/PhysicalView.tsx` | Physical view: chassis slot grid (SVG) and its back (PSU and fan bays), then one linecard's faceplate, pluggable tray, hover card, detail and alarm panels, alarm bells |
 | `src/App.tsx` | Top bar, palette, new-project dialog, fiber panel, problems, toast |
-| `bridge/server.mjs` | CLI bridge: one persistent SSH session to the box the physical view connects to, whose shell the view's terminal attaches to over a WebSocket (`/connect`, `/term`, `/disconnect`, `/status`; Vite proxies them under `/bridge`, and it answers only the app: a header on requests, the page's Origin on the WebSocket) |
+| `bridge/server.mjs` | CLI bridge: one persistent SSH session to the box the physical view connects to, whose shell the view's terminal attaches to over a WebSocket (`/connect`, `/term`, `/disconnect`, `/status`; Vite proxies them under `/bridge`, and it answers only the app: a header on requests, the page's Origin on the WebSocket). Also the poller, on a second shell, and its `/state` |
+| `bridge/parse.py`, `bridge/templates/` | Turns a command's output into JSON with its TTP template; `bridge/fixtures/` holds sample outputs for the tests |
 | `src/Terminal.tsx` | The CLI terminal: xterm.js on the bridge's `/term` WebSocket |
 
 ## Choices the plan left open

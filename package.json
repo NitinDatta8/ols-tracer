@@ -11,7 +11,8 @@
     "bridge": "node --env-file-if-exists=bridge/.env bridge/server.mjs",
     "sync:platform": "node scripts/sync-streams-chassis-from-iivi.mjs",
     "sync:cli": "node scripts/sync-cli-from-iivi.mjs",
-    "sync:linecards": "node scripts/sync-linecards-from-iivi.mjs"
+    "sync:linecards": "node scripts/sync-linecards-from-iivi.mjs",
+    "bridge:setup": "python3 -m venv bridge/.venv && bridge/.venv/bin/pip install -r bridge/requirements.txt"
   },
   "dependencies": {
     "@xterm/addon-fit": "^0.11.0",

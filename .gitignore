@@ -3,3 +3,5 @@ dist
 docs/internal
 *.tsbuildinfo
 bridge/.env
+bridge/.venv
+__pycache__
