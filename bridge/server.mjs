@@ -2,17 +2,16 @@
 // A browser cannot speak SSH, so the app posts the box's IP to /bridge/connect, attaches its terminal (xterm.js) to the
 // session's shell over a WebSocket at /bridge/term, and posts /bridge/disconnect when the view closes. The shell gets
 // keystrokes as they are typed, so the box's own Tab completion, history, Ctrl-C and modes work as they do over ssh.
-// A poller runs the commands in poll.json on a second shell of the session, parses their output with TTP (parse.py)
-// and serves the latest results at /bridge/state.
+// A poller runs the commands in poll.json on a second shell of the session, records them as runs under
+// data/boxes/<box>/runs/ (recorder.mjs), parses their output with TTP (parse.py) and serves the latest results at
+// /bridge/state.
 // Login settings come from bridge/.env (see .env.example). Listens on localhost only.
-import { execFile } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { createServer } from 'node:http';
-import { isAbsolute, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { promisify } from 'node:util';
 import ssh2 from 'ssh2';
 import { WebSocketServer } from 'ws';
+import { Run } from './recorder.mjs';
 
 const env = process.env;
 const PORT = Number(env.BRIDGE_PORT ?? 8022);
@@ -20,21 +19,18 @@ const PORT = Number(env.BRIDGE_PORT ?? 8022);
 const INIT = (env.BOX_INIT ?? '').split(';').map((c) => c.trim()).filter(Boolean);
 /** How much of the session a terminal that attaches is shown again, in bytes. */
 const LOG = 256 * 1024;
-const BRIDGE_DIR = fileURLToPath(new URL('.', import.meta.url));
-const REPO_ROOT = resolve(BRIDGE_DIR, '..');
 const here = (p) => fileURLToPath(new URL(p, import.meta.url));
-const BOX_DATA_BOX = (env.BOX_DATA_BOX ?? 'box3').trim() || 'box3';
-const BOX_DATA_ROOT = env.BOX_DATA_ROOT
-  ? (isAbsolute(env.BOX_DATA_ROOT) ? env.BOX_DATA_ROOT : resolve(REPO_ROOT, env.BOX_DATA_ROOT))
-  : resolve(REPO_ROOT, 'data', 'boxes', BOX_DATA_BOX);
-const TEMPLATES_DIR = join(BOX_DATA_ROOT, 'ttp', 'templates');
-/** What the poller runs: [{ cmd, template, every }], `template` a file in data/boxes/<box>/ttp/templates/ (no .ttp), `every` in s (0 = once). */
-const POLLS = existsSync(here('poll.json')) ? JSON.parse(readFileSync(here('poll.json'), 'utf8')) : [];
+/**
+ * What the poller runs (poll.json): `prereqs` once per session before anything else, then `commands`, [{ cmd, every }].
+ * Each snapshot runs every command once; those with `every` > 0 are also polled that often, in s.
+ */
+const { prereqs: PREREQS = [], commands: POLLS = [] } = existsSync(here('poll.json')) ? JSON.parse(readFileSync(here('poll.json'), 'utf8')) : {};
+/** The template of `show alarm`, whose result changing starts a new snapshot. */
+const ALARMS = 'cli_shortcut_cmds_platform__alarm__show__alarm';
 /** The box's prompt: a regex the last line of output matches once a command is done. */
 const PROMPT = new RegExp(env.BOX_PROMPT ?? '[#>$] ?$');
 /** How long the poller waits for a command's prompt before it sends Ctrl-C, in ms. */
 const TIMEOUT = Number(env.BOX_TIMEOUT ?? 20000);
-const PYTHON = env.PYTHON ?? here('.venv/bin/python');
 
 let host = ''; // the box asked for, '' once disconnected
 let conn = null; // its SSH connection
@@ -106,18 +102,10 @@ function disconnect() {
   c?.end();
 }
 
-const run = promisify(execFile);
-
-/** Turns a command's output into JSON with its TTP template. */
-async function parse(template, raw) {
-  const templatePath = join(TEMPLATES_DIR, `${template}.ttp`);
-  if (!existsSync(templatePath)) throw new Error(`template not found: ${templatePath}`);
-  const p = run(PYTHON, [here('parse.py'), templatePath], { timeout: 10000 });
-  p.child.stdin.end(raw);
-  return JSON.parse((await p).stdout);
-}
-
-/** Runs the commands in poll.json as they fall due, one at a time on the shell `ch` of session `c`, until it closes. */
+/**
+ * Records the session and polls the box, one command at a time on the shell `ch` of session `c`, until it closes: a
+ * snapshot into a new run when the session opens and whenever the active alarms change, and the polls as they fall due.
+ */
 async function poll(c, ch) {
   let buf = '';
   let open = true;
@@ -135,32 +123,57 @@ async function poll(c, ch) {
     };
     wake();
   });
-  /** A command's output: the lines between its echo and the next prompt. */
+  /** A command's output, the lines between its echo and the next prompt, and whether the prompt came back. */
   const output = async (cmd) => {
     buf = '';
     ch.write(cmd + '\n');
-    if (await prompt(TIMEOUT)) return lines().slice(1, -1).join('\n');
+    if (await prompt(TIMEOUT)) return { raw: lines().slice(1, -1).join('\n'), ok: true };
+    const raw = lines().slice(1).join('\n');
     ch.write('\x03'); // Ctrl-C, so a hung command does not spill into the next one
     await prompt(TIMEOUT);
-    throw new Error(`no prompt within ${TIMEOUT / 1000} s`);
+    return { raw, ok: false };
+  };
+  const live = () => open && c === conn;
+  let run; // the run being recorded
+  let alarms; // the active alarm ids last seen
+  let changed = false; // a poll saw them change
+  const last = {}; // command → when it last ran
+
+  /** Runs `cmd`, records it in the run as `source` (prereq, snapshot or poll), and keeps its result for /bridge/state. */
+  const take = async (cmd, source) => {
+    const at = (last[cmd] = Date.now());
+    const { raw, ok } = await output(cmd);
+    const { template, data = null, error } = source === 'poll' ? await run.poll(cmd, at, raw) : await run.record(cmd, at, raw, ok, source);
+    if (c === conn) polled[cmd] = { at, raw, ...(ok ? (error ? { error } : { data }) : { error: `no prompt within ${TIMEOUT / 1000} s` }) };
+    if (template !== ALARMS || !data) return;
+    const ids = Object.keys(data.alarms ?? {}).sort().join(' ');
+    if (source === 'poll' && alarms !== undefined && ids !== alarms) changed = true;
+    alarms = ids;
+  };
+  /** A new run: the prerequisites if the session just opened, then every command once. False if a prerequisite failed. */
+  const snapshot = async (trigger) => {
+    run = new Run(trigger, host);
+    for (const cmd of trigger === 'connect' ? PREREQS : []) if (live()) await take(cmd, 'prereq');
+    if (run.meta.prereqs.some((p) => !p.ok)) return false;
+    for (const { cmd } of POLLS) if (live()) await take(cmd, 'snapshot');
+    console.log(`recorded ${run.dir}`);
+    return true;
   };
 
   if (INIT.length) ch.write(INIT.map((cmd) => cmd + '\n').join(''));
   await prompt(TIMEOUT, 2000); // logged in and through INIT
-  const last = {}; // command → when it last ran
-  while (open && c === conn) {
-    const now = Date.now();
-    const p = POLLS.find(({ cmd, every }) => !(cmd in last) || (every > 0 && now - last[cmd] >= every * 1000));
-    if (!p) { await new Promise((r) => setTimeout(r, 1000)); continue; }
-    last[p.cmd] = now;
-    let raw = '', result;
-    try {
-      raw = await output(p.cmd);
-      result = { at: now, raw, data: await parse(p.template, raw) };
-    } catch (e) {
-      result = { at: now, raw, error: e.message };
+  // Paging left on could cut any output short, so after a failed prerequisite nothing more is recorded or polled.
+  if (!(await snapshot('connect'))) return console.log(`a prerequisite failed on ${host}, so it is not polled: see ${run.dir}/meta.json`);
+  while (live()) {
+    if (changed) {
+      changed = false;
+      await snapshot('alarms');
+      continue;
     }
-    if (c === conn) polled[p.cmd] = result;
+    const now = Date.now();
+    const p = POLLS.find(({ cmd, every }) => every > 0 && now - last[cmd] >= every * 1000);
+    if (p) await take(p.cmd, 'poll');
+    else await new Promise((r) => setTimeout(r, 1000));
   }
 }
 

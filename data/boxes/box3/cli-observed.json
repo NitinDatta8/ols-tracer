@@ -3,7 +3,7 @@
   "kind": "observed",
   "stream": "csp",
   "boxId": "box3",
-  "generatedAt": "2026-10-31T16:04:47.053Z",
+  "generatedAt": "2026-10-31T16:26:03.531Z",
   "source": {
     "runsRoot": "data/boxes/box3/runs",
     "runIds": [
@@ -30,7 +30,7 @@
     },
     {
       "commandId": "cli_shortcut_cmds_eqpt__transceiver__show__transceiver",
-      "status": "captured",
+      "status": "parse-ok",
       "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
@@ -48,9 +48,9 @@
           "terminalCols": 250,
           "redacted": false,
           "parse": {
-            "status": "not-attempted",
+            "status": "ok",
             "templateId": "cli_shortcut_cmds_eqpt__transceiver__show__transceiver",
-            "resultPath": null,
+            "resultPath": "data/boxes/box3/runs/run-01-healthy/parsed/017_show-transceiver.json",
             "error": null
           }
         },
@@ -65,9 +65,9 @@
           "terminalCols": 250,
           "redacted": false,
           "parse": {
-            "status": "not-attempted",
+            "status": "ok",
             "templateId": "cli_shortcut_cmds_eqpt__transceiver__show__transceiver",
-            "resultPath": null,
+            "resultPath": "data/boxes/box3/runs/run-01-healthy/parsed/020_show-transceiver-1-7-4.json",
             "error": null
           }
         },
@@ -82,9 +82,9 @@
           "terminalCols": 250,
           "redacted": false,
           "parse": {
-            "status": "not-attempted",
+            "status": "ok",
             "templateId": "cli_shortcut_cmds_eqpt__transceiver__show__transceiver",
-            "resultPath": null,
+            "resultPath": "data/boxes/box3/runs/run-01-healthy/parsed/023_show-transceiver-1-7-5.json",
             "error": null
           }
         }
@@ -115,7 +115,7 @@
     },
     {
       "commandId": "cli_shortcut_cmds_eqpt__transceiver__show__transceiver__physical-channel",
-      "status": "captured",
+      "status": "parse-ok",
       "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
@@ -133,9 +133,9 @@
           "terminalCols": 250,
           "redacted": false,
           "parse": {
-            "status": "not-attempted",
+            "status": "ok",
             "templateId": "cli_shortcut_cmds_eqpt__transceiver__show__transceiver__physical-channel",
-            "resultPath": null,
+            "resultPath": "data/boxes/box3/runs/run-01-healthy/parsed/019_show-transceiver-1-7-all-physical-channel.json",
             "error": null
           }
         },
@@ -150,9 +150,9 @@
           "terminalCols": 250,
           "redacted": false,
           "parse": {
-            "status": "not-attempted",
+            "status": "ok",
             "templateId": "cli_shortcut_cmds_eqpt__transceiver__show__transceiver__physical-channel",
-            "resultPath": null,
+            "resultPath": "data/boxes/box3/runs/run-01-healthy/parsed/021_show-transceiver-1-7-4-physical-channel-1.json",
             "error": null
           }
         },
@@ -167,9 +167,9 @@
           "terminalCols": 250,
           "redacted": false,
           "parse": {
-            "status": "not-attempted",
+            "status": "ok",
             "templateId": "cli_shortcut_cmds_eqpt__transceiver__show__transceiver__physical-channel",
-            "resultPath": null,
+            "resultPath": "data/boxes/box3/runs/run-01-healthy/parsed/024_show-transceiver-1-7-5-physical-channel-1.json",
             "error": null
           }
         }
@@ -2699,7 +2699,7 @@
     },
     {
       "commandId": "cli_shortcut_cmds_l1__och__show__och",
-      "status": "captured",
+      "status": "parse-ok",
       "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
@@ -2717,9 +2717,9 @@
           "terminalCols": 250,
           "redacted": false,
           "parse": {
-            "status": "not-attempted",
+            "status": "ok",
             "templateId": "cli_shortcut_cmds_l1__och__show__och",
-            "resultPath": null,
+            "resultPath": "data/boxes/box3/runs/run-01-healthy/parsed/022_show-och.json",
             "error": null
           }
         },
@@ -2734,9 +2734,9 @@
           "terminalCols": 250,
           "redacted": false,
           "parse": {
-            "status": "not-attempted",
+            "status": "ok",
             "templateId": "cli_shortcut_cmds_l1__och__show__och",
-            "resultPath": null,
+            "resultPath": "data/boxes/box3/runs/run-01-healthy/parsed/025_show-och.json",
             "error": null
           }
         },
@@ -2751,9 +2751,9 @@
           "terminalCols": 250,
           "redacted": false,
           "parse": {
-            "status": "not-attempted",
+            "status": "ok",
             "templateId": "cli_shortcut_cmds_l1__och__show__och",
-            "resultPath": null,
+            "resultPath": "data/boxes/box3/runs/run-01-healthy/parsed/026_show-och-1-7-5.json",
             "error": null
           }
         }
@@ -3356,7 +3356,7 @@
     },
     {
       "commandId": "cli_shortcut_cmds_l1__eth__show__eth",
-      "status": "captured",
+      "status": "parse-ok",
       "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
@@ -3374,9 +3374,9 @@
           "terminalCols": 250,
           "redacted": false,
           "parse": {
-            "status": "not-attempted",
+            "status": "ok",
             "templateId": "cli_shortcut_cmds_l1__eth__show__eth",
-            "resultPath": null,
+            "resultPath": "data/boxes/box3/runs/run-01-healthy/parsed/027_show-eth.json",
             "error": null
           }
         },
@@ -3391,9 +3391,9 @@
           "terminalCols": 250,
           "redacted": false,
           "parse": {
-            "status": "not-attempted",
+            "status": "ok",
             "templateId": "cli_shortcut_cmds_l1__eth__show__eth",
-            "resultPath": null,
+            "resultPath": "data/boxes/box3/runs/run-01-healthy/parsed/028_show-eth-1-7-4.json",
             "error": null
           }
         }
@@ -3732,7 +3732,7 @@
     },
     {
       "commandId": "cli_shortcut_cmds_l1__port__show__port",
-      "status": "captured",
+      "status": "parse-ok",
       "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
@@ -3750,9 +3750,9 @@
           "terminalCols": 250,
           "redacted": false,
           "parse": {
-            "status": "not-attempted",
+            "status": "ok",
             "templateId": "cli_shortcut_cmds_l1__port__show__port",
-            "resultPath": null,
+            "resultPath": "data/boxes/box3/runs/run-01-healthy/parsed/014_show-port.json",
             "error": null
           }
         },
@@ -3767,9 +3767,9 @@
           "terminalCols": 250,
           "redacted": false,
           "parse": {
-            "status": "not-attempted",
+            "status": "ok",
             "templateId": "cli_shortcut_cmds_l1__port__show__port",
-            "resultPath": null,
+            "resultPath": "data/boxes/box3/runs/run-01-healthy/parsed/015_show-port-1-7-all.json",
             "error": null
           }
         },
@@ -3784,9 +3784,9 @@
           "terminalCols": 250,
           "redacted": false,
           "parse": {
-            "status": "not-attempted",
+            "status": "ok",
             "templateId": "cli_shortcut_cmds_l1__port__show__port",
-            "resultPath": null,
+            "resultPath": "data/boxes/box3/runs/run-01-healthy/parsed/016_show-port-1-7-5.json",
             "error": null
           }
         }
@@ -4055,7 +4055,7 @@
     },
     {
       "commandId": "cli_shortcut_cmds_l1__assignment__show__assignment",
-      "status": "captured",
+      "status": "parse-ok",
       "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
@@ -4073,9 +4073,9 @@
           "terminalCols": 250,
           "redacted": false,
           "parse": {
-            "status": "not-attempted",
+            "status": "ok",
             "templateId": "cli_shortcut_cmds_l1__assignment__show__assignment",
-            "resultPath": null,
+            "resultPath": "data/boxes/box3/runs/run-01-healthy/parsed/030_show-assignment.json",
             "error": null
           }
         }
@@ -4128,7 +4128,7 @@
     },
     {
       "commandId": "cli_shortcut_cmds_l1__cross-connection__show__cross-connection",
-      "status": "captured",
+      "status": "parse-ok",
       "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
@@ -4146,9 +4146,9 @@
           "terminalCols": 250,
           "redacted": false,
           "parse": {
-            "status": "not-attempted",
+            "status": "ok",
             "templateId": "cli_shortcut_cmds_l1__cross-connection__show__cross-connection",
-            "resultPath": null,
+            "resultPath": "data/boxes/box3/runs/run-01-healthy/parsed/031_show-cross-connection.json",
             "error": null
           }
         }
@@ -7445,7 +7445,7 @@
     },
     {
       "commandId": "cli_shortcut_cmds_platform__alarm__show__alarm",
-      "status": "captured",
+      "status": "parse-ok",
       "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
@@ -7463,9 +7463,9 @@
           "terminalCols": 250,
           "redacted": false,
           "parse": {
-            "status": "not-attempted",
+            "status": "ok",
             "templateId": "cli_shortcut_cmds_platform__alarm__show__alarm",
-            "resultPath": null,
+            "resultPath": "data/boxes/box3/runs/run-01-healthy/parsed/037_show-alarm.json",
             "error": null
           }
         },
@@ -7480,9 +7480,9 @@
           "terminalCols": 250,
           "redacted": false,
           "parse": {
-            "status": "not-attempted",
+            "status": "ok",
             "templateId": "cli_shortcut_cmds_platform__alarm__show__alarm",
-            "resultPath": null,
+            "resultPath": "data/boxes/box3/runs/run-01-healthy/parsed/038_show-alarm-history.json",
             "error": null
           }
         },
@@ -7497,9 +7497,9 @@
           "terminalCols": 250,
           "redacted": false,
           "parse": {
-            "status": "not-attempted",
+            "status": "ok",
             "templateId": "cli_shortcut_cmds_platform__alarm__show__alarm",
-            "resultPath": null,
+            "resultPath": "data/boxes/box3/runs/run-01-healthy/parsed/039_show-alarm.json",
             "error": null
           }
         },
@@ -7514,9 +7514,9 @@
           "terminalCols": 250,
           "redacted": false,
           "parse": {
-            "status": "not-attempted",
+            "status": "ok",
             "templateId": "cli_shortcut_cmds_platform__alarm__show__alarm",
-            "resultPath": null,
+            "resultPath": "data/boxes/box3/runs/run-01-healthy/parsed/040_show-alarm-filter.json",
             "error": null
           }
         }
@@ -10855,7 +10855,7 @@
     },
     {
       "commandId": "cli_shortcut_cmds_system__log__show__log__alarm",
-      "status": "captured",
+      "status": "parse-ok",
       "onBox": "yes",
       "helpEvidence": {
         "sourcePath": null,
@@ -10873,9 +10873,9 @@
           "terminalCols": 250,
           "redacted": false,
           "parse": {
-            "status": "not-attempted",
+            "status": "ok",
             "templateId": "cli_shortcut_cmds_system__log__show__log__alarm",
-            "resultPath": null,
+            "resultPath": "data/boxes/box3/runs/run-01-healthy/parsed/041_show-log-alarm--l-200.json",
             "error": null
           }
         }
@@ -11567,7 +11567,7 @@
     "onBoxNo": 0,
     "onBoxUnknown": 957,
     "capturedCount": 28,
-    "parseOkCount": 0,
+    "parseOkCount": 9,
     "parseErrorCount": 0
   }
 }

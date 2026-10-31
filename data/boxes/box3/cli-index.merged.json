@@ -3,7 +3,7 @@
   "kind": "merged",
   "stream": "csp",
   "boxId": "box3",
-  "generatedAt": "2026-10-31T16:04:47.053Z",
+  "generatedAt": "2026-10-31T16:26:03.531Z",
   "refs": {
     "indexPath": "data/cli/csp/cli-index.source.json",
     "observedPath": "data/boxes/box3/cli-observed.json"
@@ -60,13 +60,13 @@
       "syntax": "show transceiver <name>",
       "onBox": "yes",
       "observed": true,
-      "parseStatus": "no-template",
+      "parseStatus": "parse-ok",
       "coverage": {
         "runsSeen": [
           "run-01-healthy"
         ],
         "captureCount": 3,
-        "parseOkCount": 0,
+        "parseOkCount": 3,
         "parseErrorCount": 0
       },
       "sourceMeta": {
@@ -88,10 +88,10 @@
         ]
       },
       "pollCandidate": {
-        "eligible": false,
-        "reason": "missing parse-ok capture",
-        "templateId": null,
-        "everySec": null
+        "eligible": true,
+        "reason": "show command observed and parse-ok",
+        "templateId": "cli_shortcut_cmds_eqpt__transceiver__show__transceiver",
+        "everySec": 30
       },
       "template": {
         "templatePath": "data/boxes/box3/ttp/templates/cli_shortcut_cmds_eqpt__transceiver__show__transceiver.ttp",
@@ -194,13 +194,13 @@
       "syntax": "show transceiver <name> physical-channel <index>",
       "onBox": "yes",
       "observed": true,
-      "parseStatus": "no-template",
+      "parseStatus": "parse-ok",
       "coverage": {
         "runsSeen": [
           "run-01-healthy"
         ],
         "captureCount": 3,
-        "parseOkCount": 0,
+        "parseOkCount": 3,
         "parseErrorCount": 0
       },
       "sourceMeta": {
@@ -221,10 +221,10 @@
         ]
       },
       "pollCandidate": {
-        "eligible": false,
-        "reason": "missing parse-ok capture",
-        "templateId": null,
-        "everySec": null
+        "eligible": true,
+        "reason": "show command observed and parse-ok",
+        "templateId": "cli_shortcut_cmds_eqpt__transceiver__show__transceiver__physical-channel",
+        "everySec": 30
       },
       "template": {
         "templatePath": "data/boxes/box3/ttp/templates/cli_shortcut_cmds_eqpt__transceiver__show__transceiver__physical-channel.ttp",
@@ -9693,13 +9693,13 @@
       "syntax": "show och <name>",
       "onBox": "yes",
       "observed": true,
-      "parseStatus": "no-template",
+      "parseStatus": "parse-ok",
       "coverage": {
         "runsSeen": [
           "run-01-healthy"
         ],
         "captureCount": 3,
-        "parseOkCount": 0,
+        "parseOkCount": 3,
         "parseErrorCount": 0
       },
       "sourceMeta": {
@@ -9719,10 +9719,10 @@
         "tags": []
       },
       "pollCandidate": {
-        "eligible": false,
-        "reason": "missing parse-ok capture",
-        "templateId": null,
-        "everySec": null
+        "eligible": true,
+        "reason": "show command observed and parse-ok",
+        "templateId": "cli_shortcut_cmds_l1__och__show__och",
+        "everySec": 30
       },
       "template": {
         "templatePath": "data/boxes/box3/ttp/templates/cli_shortcut_cmds_l1__och__show__och.ttp",
@@ -11984,13 +11984,13 @@
       "syntax": "show eth <index>",
       "onBox": "yes",
       "observed": true,
-      "parseStatus": "no-template",
+      "parseStatus": "parse-ok",
       "coverage": {
         "runsSeen": [
           "run-01-healthy"
         ],
         "captureCount": 2,
-        "parseOkCount": 0,
+        "parseOkCount": 2,
         "parseErrorCount": 0
       },
       "sourceMeta": {
@@ -12012,10 +12012,10 @@
         ]
       },
       "pollCandidate": {
-        "eligible": false,
-        "reason": "missing parse-ok capture",
-        "templateId": null,
-        "everySec": null
+        "eligible": true,
+        "reason": "show command observed and parse-ok",
+        "templateId": "cli_shortcut_cmds_l1__eth__show__eth",
+        "everySec": 30
       },
       "template": {
         "templatePath": "data/boxes/box3/ttp/templates/cli_shortcut_cmds_l1__eth__show__eth.ttp",
@@ -13331,13 +13331,13 @@
       "syntax": "show port <name>",
       "onBox": "yes",
       "observed": true,
-      "parseStatus": "no-template",
+      "parseStatus": "parse-ok",
       "coverage": {
         "runsSeen": [
           "run-01-healthy"
         ],
         "captureCount": 3,
-        "parseOkCount": 0,
+        "parseOkCount": 3,
         "parseErrorCount": 0
       },
       "sourceMeta": {
@@ -13359,10 +13359,10 @@
         ]
       },
       "pollCandidate": {
-        "eligible": false,
-        "reason": "missing parse-ok capture",
-        "templateId": null,
-        "everySec": null
+        "eligible": true,
+        "reason": "show command observed and parse-ok",
+        "templateId": "cli_shortcut_cmds_l1__port__show__port",
+        "everySec": 30
       },
       "template": {
         "templatePath": "data/boxes/box3/ttp/templates/cli_shortcut_cmds_l1__port__show__port.ttp",
@@ -14317,13 +14317,13 @@
       "syntax": "show assignment <assignment-id>",
       "onBox": "yes",
       "observed": true,
-      "parseStatus": "no-template",
+      "parseStatus": "parse-ok",
       "coverage": {
         "runsSeen": [
           "run-01-healthy"
         ],
         "captureCount": 1,
-        "parseOkCount": 0,
+        "parseOkCount": 1,
         "parseErrorCount": 0
       },
       "sourceMeta": {
@@ -14342,10 +14342,10 @@
         "tags": []
       },
       "pollCandidate": {
-        "eligible": false,
-        "reason": "missing parse-ok capture",
-        "templateId": null,
-        "everySec": null
+        "eligible": true,
+        "reason": "show command observed and parse-ok",
+        "templateId": "cli_shortcut_cmds_l1__assignment__show__assignment",
+        "everySec": 30
       },
       "template": {
         "templatePath": "data/boxes/box3/ttp/templates/cli_shortcut_cmds_l1__assignment__show__assignment.ttp",
@@ -14526,13 +14526,13 @@
       "syntax": "show cross-connection <connection-name>",
       "onBox": "yes",
       "observed": true,
-      "parseStatus": "no-template",
+      "parseStatus": "parse-ok",
       "coverage": {
         "runsSeen": [
           "run-01-healthy"
         ],
         "captureCount": 1,
-        "parseOkCount": 0,
+        "parseOkCount": 1,
         "parseErrorCount": 0
       },
       "sourceMeta": {
@@ -14553,10 +14553,10 @@
         "tags": []
       },
       "pollCandidate": {
-        "eligible": false,
-        "reason": "missing parse-ok capture",
-        "templateId": null,
-        "everySec": null
+        "eligible": true,
+        "reason": "show command observed and parse-ok",
+        "templateId": "cli_shortcut_cmds_l1__cross-connection__show__cross-connection",
+        "everySec": 30
       },
       "template": {
         "templatePath": "data/boxes/box3/ttp/templates/cli_shortcut_cmds_l1__cross-connection__show__cross-connection.ttp",
@@ -27076,13 +27076,13 @@
       "syntax": "show alarm <alarm-id>",
       "onBox": "yes",
       "observed": true,
-      "parseStatus": "no-template",
+      "parseStatus": "parse-ok",
       "coverage": {
         "runsSeen": [
           "run-01-healthy"
         ],
         "captureCount": 4,
-        "parseOkCount": 0,
+        "parseOkCount": 4,
         "parseErrorCount": 0
       },
       "sourceMeta": {
@@ -27103,10 +27103,10 @@
         ]
       },
       "pollCandidate": {
-        "eligible": false,
-        "reason": "missing parse-ok capture",
-        "templateId": null,
-        "everySec": null
+        "eligible": true,
+        "reason": "show command observed and parse-ok",
+        "templateId": "cli_shortcut_cmds_platform__alarm__show__alarm",
+        "everySec": 30
       },
       "template": {
         "templatePath": "data/boxes/box3/ttp/templates/cli_shortcut_cmds_platform__alarm__show__alarm.ttp",
@@ -39388,13 +39388,13 @@
       "syntax": "show log alarm",
       "onBox": "yes",
       "observed": true,
-      "parseStatus": "no-template",
+      "parseStatus": "parse-ok",
       "coverage": {
         "runsSeen": [
           "run-01-healthy"
         ],
         "captureCount": 1,
-        "parseOkCount": 0,
+        "parseOkCount": 1,
         "parseErrorCount": 0
       },
       "sourceMeta": {
@@ -39415,10 +39415,10 @@
         ]
       },
       "pollCandidate": {
-        "eligible": false,
-        "reason": "missing parse-ok capture",
-        "templateId": null,
-        "everySec": null
+        "eligible": true,
+        "reason": "show command observed and parse-ok",
+        "templateId": "cli_shortcut_cmds_system__log__show__log__alarm",
+        "everySec": 30
       },
       "template": {
         "templatePath": "data/boxes/box3/ttp/templates/cli_shortcut_cmds_system__log__show__log__alarm.ttp",
@@ -41979,7 +41979,7 @@
     "onBoxNo": 0,
     "onBoxUnknown": 957,
     "observedYes": 28,
-    "parseOkCount": 0,
-    "pollEligibleCount": 0
+    "parseOkCount": 9,
+    "pollEligibleCount": 9
   }
 }

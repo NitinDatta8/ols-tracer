@@ -132,7 +132,7 @@ The commands are the real ones from run 1. **Snapshot** commands run in every sn
 | Client | `show eth 1-7-4` | every 30 s |
 | Line optics | `show transceiver 1-7-5`, `show och 1-7-5` | every 10 s |
 | Alarms | `show alarm` (its changes trigger snapshots) | every 10 s |
-| Alarm history | `show log alarm -l 50` (`-l 200` in snapshots) | every 30 s |
+| Alarm history | `show log alarm -l 20` (`-l 200` in snapshots) | every 30 s |
 | Events | `show log event -l 200` | snapshot |
 
 - The per-port commands are hard-coded to 1-7-4 and 1-7-5 for box 3. Later the poller takes the in-service ports from `show port` and `show assignment`.
@@ -185,7 +185,7 @@ Hovering a fiber shows what the box measures at its ends. These are run 1's valu
 
 1. **Done (2026-10-31).** Split run 1 into the recorder's layout (50 commands), write its `meta.json`, `setup.md` and `wiring.csv`, make the sync read `raw/index.jsonl`, and run `npm run sync:cli-data:csp` again (28 index commands observed).
 2. **Done (2026-10-31).** The nine templates and their fixtures from run 1, with `npm test` passing (38 tests). The merged index still says `no-template` for them, because its parse status comes from a run's `parsed/` files: the recorder writes those, and run 1 gets its own in step 3.
-3. The recorder, parts 1 to 4, and `poll.json` from the capture list.
+3. **Done (2026-10-31).** The recorder, parts 1 to 4 (`bridge/recorder.mjs`), and `poll.json` from the capture list. A command's template is found by its id, so `poll.json` has no template names. Run 1 got its `parsed/` (`node bridge/recorder.mjs data/boxes/box3/runs/run-01-healthy`), so the merged index shows the nine as parse-ok and poll-eligible. It was tested against a fake ssh box that replays run 1: the connect snapshot (4 prerequisites and 31 commands, meta.json complete), an `alarms` run when one alarm went away (11 to 10), and a new `connect` run after the box dropped and the bridge reconnected. It hasn't run on box 3 yet.
 4. The hovers.
 5. Typed commands (part 5) and marking a pulled fiber (part 6).
 

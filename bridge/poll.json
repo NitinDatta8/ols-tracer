@@ -1,1 +1,36 @@
-[]
+{
+  "prereqs": ["configure", "set cli length 0", "set cli width 1024", "exit"],
+  "commands": [
+    { "cmd": "show system", "every": 0 },
+    { "cmd": "show software", "every": 0 },
+    { "cmd": "date-time", "every": 0 },
+    { "cmd": "help", "every": 0 },
+    { "cmd": "help show", "every": 0 },
+    { "cmd": "show cli", "every": 0 },
+    { "cmd": "show chassis", "every": 0 },
+    { "cmd": "show card", "every": 0 },
+    { "cmd": "show inventory", "every": 0 },
+    { "cmd": "show card 1-* fan", "every": 0 },
+    { "cmd": "show card 1-* psu", "every": 0 },
+    { "cmd": "show port", "every": 0 },
+    { "cmd": "show port 1-7-*", "every": 0 },
+    { "cmd": "show assignment", "every": 0 },
+    { "cmd": "show cross-connection", "every": 0 },
+    { "cmd": "show lldp neighbors", "every": 0 },
+    { "cmd": "show transceiver", "every": 0 },
+    { "cmd": "show och", "every": 0 },
+    { "cmd": "show eth", "every": 0 },
+    { "cmd": "show log alarm -l 200", "every": 0 },
+    { "cmd": "show log event -l 200", "every": 0 },
+    { "cmd": "show transceiver 1-7-4", "every": 10 },
+    { "cmd": "show transceiver 1-7-4 physical-channel 1", "every": 10 },
+    { "cmd": "show transceiver 1-7-4 physical-channel 2", "every": 10 },
+    { "cmd": "show transceiver 1-7-4 physical-channel 3", "every": 10 },
+    { "cmd": "show transceiver 1-7-4 physical-channel 4", "every": 10 },
+    { "cmd": "show eth 1-7-4", "every": 30 },
+    { "cmd": "show transceiver 1-7-5", "every": 10 },
+    { "cmd": "show och 1-7-5", "every": 10 },
+    { "cmd": "show alarm", "every": 10 },
+    { "cmd": "show log alarm -l 20", "every": 30 }
+  ]
+}

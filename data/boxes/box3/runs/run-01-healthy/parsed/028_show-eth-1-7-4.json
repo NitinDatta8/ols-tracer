@@ -1,0 +1,47 @@
+{
+  "config": {
+    "fec": "disabled",
+    "loopback": "none",
+    "test-signal": "disabled",
+    "test-monitor": "disabled",
+    "test-monitor-time": "0 seconds"
+  },
+  "state": {
+    "fec": "disabled",
+    "loopback": "none",
+    "test-signal": "disabled",
+    "test-monitor": "disabled",
+    "test-monitor-time": "0 seconds",
+    "test-signal-status": "unmonitored",
+    "test-monitor-time-countdown": "0 seconds",
+    "test-total-received-bits": "0",
+    "test-bit-errors": "0",
+    "test-bit-error-ratio": "0.00E+00",
+    "test-out-of-sync-seconds": "0",
+    "trib-protocol": "100GBE",
+    "rx-pkts": "24950 packets",
+    "tx-pkts": "1 packets",
+    "rx-bytes": "4242605 bytes",
+    "tx-bytes": "10138 bytes",
+    "rx-crc-err-sum": "17850",
+    "tx-crc-err-sum": "0",
+    "in-pcs-bip-errors": "44 bits",
+    "out-pcs-bip-errors": "4410 bits",
+    "rx-jabber-frames": "0 frames",
+    "rx-fragment-frames": "6296 frames",
+    "stats": {
+      "pre-fec-ber": {
+        "instant": 0,
+        "avg": 0,
+        "min": 0,
+        "max": 0
+      },
+      "post-fec-ber": {
+        "instant": 0,
+        "avg": 0,
+        "min": 0,
+        "max": 0
+      }
+    }
+  }
+}

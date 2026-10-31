@@ -77,20 +77,22 @@ Photos live in `public/pluggables/<pluggable id>.jpg`. They and the specs come f
 
 ## Poller
 
-The bridge polls the box for its live state, so the canvas can show it later.
+The bridge polls the box for its live state, so the canvas can show it later, and records every session as runs under `data/boxes/<box-id>/runs/` (default box id `box3`, configurable with `BOX_DATA_BOX` or `BOX_DATA_ROOT`). Nobody has to capture anything by hand.
 
-- `bridge/poll.json` lists what to poll: `[{ "cmd": "show optics", "template": "optics", "every": 10 }]`. `every` is in seconds, and `0` runs a command once per session (for inventory). The list is empty until the real commands are in, and while it is empty the poller is off.
-- While a box is connected, the poller runs the commands that are due one at a time, on its own shell of the session, so it never types into the terminal. That shell is a dumb terminal 10000 rows tall, so nothing pages. A command is done when the last line of its output matches `BOX_PROMPT`. If that takes longer than `BOX_TIMEOUT`, the poller sends Ctrl-C and records an error.
-- `bridge/parse.py` takes each output, without its echo and prompt, and turns it into JSON with the TTP template `data/boxes/<box-id>/ttp/templates/<template>.ttp` (default box id `box3`, configurable with `BOX_DATA_BOX` or `BOX_DATA_ROOT`). A template is named after its command's id in `data/cli/csp/cli-index.source.json` (`cli_shortcut_cmds_l1__och__show__och`), so the merged index links them. Results keep the CLI's own sections and names:
+- `bridge/poll.json` lists what to run: `{ "prereqs": ["configure", "set cli length 0", …], "commands": [{ "cmd": "show och 1-7-5", "every": 10 }, …] }`. `prereqs` run once per session, first. Every snapshot runs all the `commands` once, and those with `every` > 0 are also polled that often, in seconds. With no commands the poller is off.
+- While a box is connected, the poller runs one command at a time, on its own shell of the session, so it never types into the terminal. That shell is a dumb terminal 500 columns wide and 10000 rows tall, so nothing wraps or pages. A command is done when the last line of its output matches `BOX_PROMPT`. If that takes longer than `BOX_TIMEOUT`, the poller sends Ctrl-C and records that the prompt never came.
+- `bridge/recorder.mjs` writes a new run folder, `<YYYYMMDD-HHMMSS>-connect`, when the session opens (and when it opens again after a drop), and `<YYYYMMDD-HHMMSS>-alarms` whenever a poll of `show alarm` sees the active alarms change. Each folder holds one snapshot: `raw/NNN_<slug>.txt` per command, `raw/index.jsonl`, `parsed/` and `meta.json` (host name, release, box clock and its offset, prerequisites). The polls until the next snapshot go into its `poll.jsonl`. If a prerequisite fails, nothing is polled, because paging could cut output short. The layout is in the [capture plan](cli-capture-plan.md#run-layout).
+- `node bridge/recorder.mjs <run folder>` parses a run's raw output again into `parsed/`, e.g. after a template changed or for a hand capture.
+- `bridge/parse.py` takes each output, without its echo and prompt, and turns it into JSON with the TTP template `data/boxes/<box-id>/ttp/templates/<id>.ttp`, where `<id>` is the command's id in `data/cli/csp/cli-index.source.json` (`show och 1-7-5` runs `cli_shortcut_cmds_l1__och__show__och`). `bridge/cli-index.mjs` finds the id, and a command with no template is recorded without a parse. Results keep the CLI's own sections and names:
   - A command for one entity (`show och 1-7-5`, `show transceiver 1-7-4`) gives `{ config: {…}, state: { …, stats: {…} } }`. Its `key value` lines are strings as printed (`"193500000 MHz"`), and its `instant | avg | min | max` lines are numbers (`stats["q-margin"]` is `{ instant: 3.4, avg: 3.4, min: 3.3, max: 3.4, unit: "dB" }`). Its address is in the command, not in the output. These templates are a single `<extend template="_detail.ttp"/>`.
   - A list is keyed by CLI address or name (`state.ports["1-7-5"]`, `config["cross-connections"].CC5_4`, `alarms[<id>]`), or is a list in order where rows have no key (`state.assignments`, `events`).
-- `GET /bridge/state` returns the latest result per command: `{ at, raw, data }`, or `{ at, raw, error }`. Disconnecting clears it. The app doesn't read it yet.
+- `GET /bridge/state` returns the latest result per command: `{ at, raw, data }` (`data` null with no template), or `{ at, raw, error }`. Disconnecting clears it. The app doesn't read it yet.
 - Set up once with `npm run bridge:setup`, which makes `bridge/.venv` with TTP in it.
 - **To add a command:**
   1. Copy its output from a run (`data/boxes/<box-id>/runs/<run>/raw/NNN_<slug>.txt`) to `data/boxes/<box-id>/ttp/fixtures/<name>.txt`, where `<name>` is the command's id.
   2. Write `data/boxes/<box-id>/ttp/templates/<name>.ttp`. For a command that shows one entity, `<extend template="_detail.ttp"/>` is the whole template. For a table, copy one row and replace each value with `{{ column-name }}`, as in `cli_shortcut_cmds_l1__port__show__port.ttp`. Give a value a regex when spaces alone can't tell the columns apart.
   3. Put the JSON you expect in `data/boxes/<box-id>/ttp/fixtures/<name>.json`.
-  4. Add the command to `poll.json`.
+  4. Add the command to `poll.json`; its template is found by its id.
 
   `npm test` checks every template against its fixture.
 
@@ -106,6 +108,8 @@ The bridge polls the box for its live state, so the canvas can show it later.
 | `src/PhysicalView.tsx` | Physical view: chassis slot grid (SVG) and its back (PSU and fan bays), then one linecard's faceplate, pluggable tray, hover card, detail and alarm panels, alarm bells |
 | `src/App.tsx` | Top bar, palette, new-project dialog, fiber panel, problems, toast |
 | `bridge/server.mjs` | CLI bridge: one persistent SSH session to the box the physical view connects to, whose shell the view's terminal attaches to over a WebSocket (`/connect`, `/term`, `/disconnect`, `/status`; Vite proxies them under `/bridge`, and it answers only the app: a header on requests, the page's Origin on the WebSocket). Also the poller, on a second shell, and its `/state` |
+| `bridge/recorder.mjs` | Writes the poller's snapshots and polls as run folders under `data/boxes/<box-id>/runs/`; run on its own, parses a run's raw output again |
+| `bridge/cli-index.mjs` | Which command of the CLI index a command line runs, for its template (and for the sync's counts) |
 | `bridge/parse.py`, `data/boxes/<box-id>/ttp/templates/` | Turns a command's output into JSON with its TTP template; `data/boxes/<box-id>/ttp/fixtures/` holds sample outputs for the tests |
 | `src/Terminal.tsx` | The CLI terminal: xterm.js on the bridge's `/term` WebSocket |
 

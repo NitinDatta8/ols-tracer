@@ -2,6 +2,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { commandFor } from '../bridge/cli-index.mjs';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const argv = process.argv.slice(2);
@@ -464,26 +465,6 @@ const runIds = existsSync(runsRoot)
   ? readdirSync(runsRoot, { withFileTypes: true }).filter((entry) => entry.isDirectory()).map((entry) => entry.name).sort()
   : [];
 
-/**
- * The index command a command line runs. The syntax's words match the line's, a <key> matches any word, and a list's
- * last key may be left out (`show och` lists them all); only options (`-l 200`) may follow. An rpc is typed without
- * its `rpc`. The match with the most literal words wins, so typos and commands the index lacks match nothing.
- */
-function commandFor(line) {
-  const typed = line.trim().split(/\s+/);
-  const key = (word) => word.startsWith('<');
-  let best = null;
-  let bestScore = -1;
-  for (const command of uniqueCommands) {
-    const words = command.syntax.split(' ').slice(command.op === 'rpc' && typed[0] !== 'rpc' ? 1 : 0);
-    const fits = words.every((word, i) => (i < typed.length ? key(word) || word === typed[i] : key(word) && i === words.length - 1))
-      && (typed.length <= words.length || typed[words.length].startsWith('-'));
-    const score = words.filter((word) => !key(word)).length;
-    if (fits && score > bestScore) [best, bestScore] = [command, score];
-  }
-  return best;
-}
-
 /** Each run's raw/index.jsonl, one { n, cmd, at, source, file, ok } per command run, grouped by the index command. */
 const runCaptures = new Map();
 for (const runId of runIds) {
@@ -492,7 +473,7 @@ for (const runId of runIds) {
   if (!existsSync(indexFile)) continue;
   const meta = readJson(join(runRoot, 'meta.json'), {});
   for (const entry of readFileSync(indexFile, 'utf8').split('\n').filter(Boolean).map((line) => JSON.parse(line))) {
-    const command = commandFor(entry.cmd);
+    const command = commandFor(uniqueCommands, entry.cmd);
     if (!command) continue;
     if (!runCaptures.has(command.commandId)) runCaptures.set(command.commandId, []);
     runCaptures.get(command.commandId).push({ runId, runRoot, meta, entry });
