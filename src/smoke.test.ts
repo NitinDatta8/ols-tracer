@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
+import box3 from '../examples/box3.olst.json';
 import demo from '../examples/demo.olst.json';
 import { byId, catalogFor, cli, cliAddress, nextMode, streams } from './catalog';
 import { layout, moveRun } from './route';
@@ -83,6 +84,12 @@ it('loads every stream pluggable at runtime', () => {
 
     expect([...streamIds].every((id) => runtimeIds.has(id)), `${streamId}: stream pluggables missing at runtime`).toBe(true);
   }
+});
+
+// Box 3 as drawn. The one problem is the catalog's: its 800MX takes no QSFP-DD, but box 3 runs a DCO in 1-7-5.
+it('draws box 3 with its real parts', () => {
+  const t = box3 as unknown as Topology;
+  expect(validate(t, catalogFor(t.stream))).toEqual(['PAHO-GS2000-03: FTCD3323R1PCL-1Y is not allowed in port PORT5 of 800MX']);
 });
 
 describe('rules on the demo topology', () => {

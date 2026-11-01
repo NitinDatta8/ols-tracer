@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "stream": "csp",
+  "devices": [
+    {
+      "id": "d1",
+      "chassis": "ch-8slot",
+      "name": "PAHO-GS2000-03",
+      "chassisNo": 1,
+      "host": "10.111.25.12",
+      "x": 0,
+      "y": 0,
+      "slots": {
+        "1": { "linecard": "lc-c1125", "ports": {} },
+        "7": {
+          "linecard": "lc-800mx",
+          "ports": {
+            "PORT4": { "pluggable": "c100q10000lr402f" },
+            "PORT5": { "pluggable": "ftcd3323r1pcl-1y" }
+          }
+        },
+        "8": { "linecard": "lc-800mx", "ports": {} }
+      }
+    }
+  ],
+  "links": [
+    { "id": "F03", "type": "smf", "a": { "device": "d1", "slot": "7", "port": "PORT5" }, "b": { "device": "d1", "slot": "1", "port": "AD1" } },
+    { "id": "F04", "type": "smf", "a": { "device": "d1", "slot": "1", "port": "AD1" }, "b": { "device": "d1", "slot": "7", "port": "PORT5" } }
+  ]
+}
