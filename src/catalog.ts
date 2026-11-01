@@ -118,8 +118,16 @@ export function catalogFor(stream: string): Catalog {
 export const byId = <T extends { id: string }>(items: T[], id: string | undefined) => items.find((x) => x.id === id);
 
 /** The CLI command for one level, e.g. `show card 1-3`. */
-export const cli = (cat: Catalog, level: CliLevel, vars: { chassis?: number; slot?: string; port?: string }) =>
-  cat.cli[level]?.replace(/\{(\w+)\}/g, (m, k: string) => String(vars[k as keyof typeof vars] ?? m)) ?? '';
+export const cli = (cat: Catalog, level: CliLevel, vars: { chassis?: number; slot?: string; port?: string }) => {
+  const v = { ...vars, port: vars.port && cliPort(vars.port) };
+  return cat.cli[level]?.replace(/\{(\w+)\}/g, (m, k: string) => String(v[k as keyof typeof v] ?? m)) ?? '';
+};
+
+/** A catalog port id as the box's CLI names it: an 800MX's PORT4 is 4, a C1125's AD1 is ad1 (as box 3 prints them). */
+export const cliPort = (id: string) => id.replace(/^PORT(\d+)$/, '$1').toLowerCase();
+
+/** Where something is in the box's CLI: 1-7 for a card, 1-7-4 for a port. Live values are keyed by it. */
+export const cliAddress = (chassis: number, slot: string, port?: string) => [chassis, slot, ...(port ? [cliPort(port)] : [])].join('-');
 
 /** The CLI mode (index into `cli.modes`) after `command` ran in `mode`: next mode's `enter` goes one deeper, `exit` goes one back. */
 export const nextMode = (cat: Catalog, mode: number, command: string) =>

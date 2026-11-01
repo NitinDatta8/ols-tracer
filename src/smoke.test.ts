@@ -3,7 +3,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import demo from '../examples/demo.olst.json';
-import { byId, catalogFor, cli, nextMode, streams } from './catalog';
+import { byId, catalogFor, cli, cliAddress, nextMode, streams } from './catalog';
 import { layout, moveRun } from './route';
 import { alarms, fiberError, linecardError, pluggableError, validate } from './rules';
 import type { Topology } from './types';
@@ -48,7 +48,12 @@ it('fills CLI templates', () => {
   const cat = catalogFor('csp');
   expect(cli(cat, 'chassis', { chassis: 2 })).toBe('show chassis 2');
   expect(cli(cat, 'card', { chassis: 1, slot: '3' })).toBe('show card 1-3');
-  expect(cli(cat, 'pluggable', { chassis: 1, slot: '3', port: 'C2' })).toBe('show transceiver 1-3-C2');
+  // The box's own port names (box 3): an 800MX's PORT4 is 4, a C1125's AD1 is ad1.
+  expect(cli(cat, 'pluggable', { chassis: 1, slot: '7', port: 'PORT4' })).toBe('show transceiver 1-7-4');
+  expect(cli(cat, 'port', { chassis: 1, slot: '7', port: 'PORT5' })).toBe('show port 1-7-5');
+  expect(cliAddress(1, '1', 'AD1')).toBe('1-1-ad1');
+  expect(cliAddress(1, '1', 'LINE')).toBe('1-1-line');
+  expect(cliAddress(1, '7')).toBe('1-7');
 });
 
 it('follows the CLI mode: configure, ^^^, bash and kgdb go one deeper, exit one back', () => {
