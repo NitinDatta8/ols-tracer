@@ -121,13 +121,20 @@ The commands are the real ones from run 1. **Snapshot** commands run in every sn
 | Group | Command | When |
 | --- | --- | --- |
 | Prerequisites | `configure`, `set cli length 0`, `set cli width 1024`, `exit` | login |
-| Identity | `show system`, `show software`, `date-time` (the box clock) | snapshot |
+| Identity | `show system`, `show software`, `date-time` (the box clock), `show system clock` | snapshot |
 | Help tree | `help`, `help show`, `show cli` | snapshot |
-| Inventory | `show chassis`, `show card`, `show inventory`, `show card 1-* fan`, `show card 1-* psu` | snapshot |
-| Port state | `show port`, `show port 1-7-*` | snapshot |
-| Path config | `show assignment`, `show cross-connection` | snapshot |
-| Neighbors | `show lldp neighbors` | snapshot |
+| Inventory | `show chassis`, `show card`, `show inventory`, `show card 1-* fan`, `show card 1-* psu`, `show card 1-1`, `1-4` (provisioned, not present), `1-7`, `1-8` | snapshot |
+| Port state | `show port`, `show port 1-4-*`, `1-7-*`, `1-8-*` | snapshot |
+| Path config | `show assignment`, `show cross-connection`, `show logical-channel`, `show logical-channel flexgo-1-7-5`, `flexgdu-1-7-5-4` | snapshot |
+| Neighbors | `show interface`, `show lldp neighbors` | snapshot |
 | Lists | `show transceiver`, `show och`, `show eth` (ids only; values come from the per-port commands) | snapshot |
+| Multi-entity | `show transceiver 1-7-* physical-channel`, `show transceiver 1-7-5 physical-channel 1` | snapshot |
+| Dark and empty | `show och 1-7-1`, `show och 1-8-1` (provisioned, no optics), `show transceiver 1-8-1` (no transceiver), `show eth 1-8-4` | snapshot |
+| Line-side client | `show eth 1-7-5-4` (the cross-connect's far end) | snapshot |
+| Thresholds | `show profile-threshold` (`show pm threshold` is invalid; this is the index's other threshold command) | snapshot |
+| Config history | `show log configuration -l 50` | snapshot |
+| L0, read-only (2026-11-01) | `show optical-port`, `show amplifier`, `show osc`, `show external-connection`, `show internal-connection`; raw only until they have templates, nothing modelled | snapshot |
+| L0 ends of F03–F05 | `show optical-port 1-1-ad1`, `show optical-port 1-1-line` | every 10 s |
 | Client optics | `show transceiver 1-7-4`, `show transceiver 1-7-4 physical-channel 1` to `4` | every 10 s |
 | Client | `show eth 1-7-4` | every 30 s |
 | Line optics | `show transceiver 1-7-5`, `show och 1-7-5` | every 10 s |
@@ -186,8 +193,7 @@ Hovering a fiber shows what the box measures at its ends. These are run 1's valu
 1. **Done (2026-10-31).** Split run 1 into the recorder's layout (50 commands), write its `meta.json`, `setup.md` and `wiring.csv`, make the sync read `raw/index.jsonl`, and run `npm run sync:cli-data:csp` again (28 index commands observed).
 2. **Done (2026-10-31).** The nine templates and their fixtures from run 1, with `npm test` passing (38 tests). The merged index still says `no-template` for them, because its parse status comes from a run's `parsed/` files: the recorder writes those, and run 1 gets its own in step 3.
 3. **Done (2026-10-31).** The recorder, parts 1 to 4 (`bridge/recorder.mjs`), and `poll.json` from the capture list. A command's template is found by its id, so `poll.json` has no template names. Run 1 got its `parsed/` (`node bridge/recorder.mjs data/boxes/box3/runs/run-01-healthy`), so the merged index shows the nine as parse-ok and poll-eligible. It was tested against a fake ssh box that replays run 1: the connect snapshot (4 prerequisites and 31 commands, meta.json complete), an `alarms` run when one alarm went away (11 to 10), and a new `connect` run after the box dropped and the bridge reconnected. It hasn't run on box 3 yet.
-4. The hovers.
-5. Typed commands (part 5) and marking a pulled fiber (part 6).
+4. Everything after this is in the [plan of 2026-11-01](plan-2026-11-01.md#order), in its order.
 
 ## Decided
 
