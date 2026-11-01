@@ -11,7 +11,7 @@ import { createServer } from 'node:http';
 import { fileURLToPath } from 'node:url';
 import ssh2 from 'ssh2';
 import { WebSocketServer } from 'ws';
-import { Run } from './recorder.mjs';
+import { latest, Run } from './recorder.mjs';
 
 const env = process.env;
 const PORT = Number(env.BRIDGE_PORT ?? 8022);
@@ -194,9 +194,10 @@ const server = createServer(async (req, res) => {
     res.setHeader('content-type', 'application/json');
     return res.end(JSON.stringify({ state, host, error }));
   }
+  // While connected, what the poller read this session; otherwise the last state on disk, so the view still has values.
   if (req.url === '/state') {
     res.setHeader('content-type', 'application/json');
-    return res.end(JSON.stringify(polled));
+    return res.end(JSON.stringify(state === 'connected' ? { live: true, commands: polled } : { live: false, ...(latest() ?? { run: null, commands: {} }) }));
   }
   if (req.url === '/connect' && req.method === 'POST') {
     const to = await body(req);
