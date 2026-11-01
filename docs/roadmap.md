@@ -2,6 +2,8 @@
 
 Where the tracer is going, iteration by iteration, and the ideas not scheduled yet. What is built is in the [guide](guide.md), and why it is built that way is in the [decision log](decisions.md). It is a pet project: everything stays in this repo and nothing changes in the product.
 
+**The current order of work is the [plan of 2026-11-01](plans/plan-2026-11-01.md).**
+
 ## Iterations
 
 | Iter | Goal | Status |
