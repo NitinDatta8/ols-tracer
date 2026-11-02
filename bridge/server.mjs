@@ -11,7 +11,7 @@ import { createServer } from 'node:http';
 import { fileURLToPath } from 'node:url';
 import ssh2 from 'ssh2';
 import { WebSocketServer } from 'ws';
-import { latest, Run } from './recorder.mjs';
+import { latest, PYTHON, Run } from './recorder.mjs';
 
 const env = process.env;
 const PORT = Number(env.BRIDGE_PORT ?? 8022);
@@ -237,4 +237,8 @@ server.on('upgrade', (req, socket, head) => {
   });
 });
 
+if (!existsSync(PYTHON)) {
+  console.error(`bridge: no Python at ${PYTHON}, so nothing would parse. Run npm run bridge:setup first.`);
+  process.exit(1);
+}
 server.listen(PORT, '127.0.0.1', () => console.log(`bridge on http://127.0.0.1:${PORT}: connect to a box from its physical view`));

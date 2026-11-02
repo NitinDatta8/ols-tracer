@@ -17,7 +17,7 @@ const BOX = (env.BOX_DATA_BOX ?? 'box3').trim() || 'box3';
 const BOX_DATA_ROOT = resolve(REPO_ROOT, env.BOX_DATA_ROOT ?? join('data', 'boxes', BOX));
 const TEMPLATES_DIR = join(BOX_DATA_ROOT, 'ttp', 'templates');
 const RUNS_DIR = join(BOX_DATA_ROOT, 'runs');
-const PYTHON = env.PYTHON ?? here('.venv/bin/python');
+export const PYTHON = env.PYTHON ?? here('.venv/bin/python');
 /** The CLI index's commands. A command's template is named after its id. */
 const COMMANDS = JSON.parse(readFileSync(join(REPO_ROOT, 'data', 'cli', 'csp', 'cli-index.source.json'), 'utf8')).commands;
 /** What the box prints when it rejects a command. */
@@ -47,6 +47,9 @@ export async function parse(cmd, raw) {
     return { template: id, error: e.message };
   }
 }
+
+/** A poll.jsonl line: { at, cmd, data }, or { at, cmd, raw } (and its error) so a failed parse can be redone. */
+const pollLine = (at, cmd, raw, { template, data, error }) => ({ at: typeof at === 'string' ? at : iso(at), cmd, ...(template && !error ? { data } : { raw, error }) });
 
 /** Writes a parse into the run's parsed/, named after its raw file: the data, or { error }. */
 function keep(dir, file, { data, error }) {
@@ -98,23 +101,24 @@ export class Run {
     return parsed;
   }
 
-  /** A poll, run at `at`: its parse appended to poll.jsonl, or its output when it has no template. Returns the parse. */
+  /** A poll, run at `at`: its parse appended to poll.jsonl, and its output too when it has no template or the parse failed. Returns the parse. */
   async poll(cmd, at, raw) {
     const parsed = await parse(cmd, raw);
-    const { template, data, error } = parsed;
-    appendFileSync(join(this.dir, 'poll.jsonl'), `${JSON.stringify({ at: iso(at), cmd, ...(template ? { data, error } : { raw }) })}\n`);
+    appendFileSync(join(this.dir, 'poll.jsonl'), `${JSON.stringify(pollLine(at, cmd, raw, parsed))}\n`);
     this.save();
     return parsed;
   }
 }
 
+/** A JSON-lines file's lines, or none. */
+const lines = (f) => (existsSync(f) ? readFileSync(f, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)) : []);
+
 /**
  * The last state on disk, for /bridge/state while no box is connected: the latest run's snapshot, each command updated
  * by its last poll. { host, run, at, commands: { [cmd]: { at, data } | { at, error } | { at, raw } } }, times in ms;
- * raw only for a command with no template. Null with no runs. `name` picks a run instead of the latest.
+ * raw for a command with no template, or whose poll failed to parse. Null with no runs. `name` picks a run instead of the latest.
  */
 export function latest(name) {
-  const lines = (f) => (existsSync(f) ? readFileSync(f, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)) : []);
   const metas = (existsSync(RUNS_DIR) ? readdirSync(RUNS_DIR) : [])
     .filter((r) => (!name || r === name) && existsSync(join(RUNS_DIR, r, 'meta.json')))
     .map((r) => JSON.parse(readFileSync(join(RUNS_DIR, r, 'meta.json'), 'utf8')));
@@ -147,5 +151,14 @@ if (process.argv[1] && resolve(process.argv[1]) === here('recorder.mjs')) {
     keep(dir, file, parsed);
     count++;
   }
-  console.log(`${count} commands parsed → ${join(dir, 'parsed')}`);
+  // Polls kept as raw (no template then, or a failed parse) are parsed again too.
+  const polls = [];
+  for (const line of lines(join(dir, 'poll.jsonl'))) {
+    if (line.raw === undefined) { polls.push(line); continue; }
+    const parsed = await parse(line.cmd, line.raw);
+    polls.push(parsed.template ? pollLine(line.at, line.cmd, line.raw, parsed) : line);
+    if (parsed.template && !parsed.error) count++;
+  }
+  if (polls.length) writeFileSync(join(dir, 'poll.jsonl'), polls.map((l) => `${JSON.stringify(l)}\n`).join(''));
+  console.log(`${count} outputs parsed → ${join(dir, 'parsed')} and poll.jsonl`);
 }
