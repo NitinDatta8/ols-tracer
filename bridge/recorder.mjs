@@ -138,12 +138,15 @@ const lines = (f) => (existsSync(f) ? readFileSync(f, 'utf8').split('\n').filter
 /**
  * The last state on disk, for /bridge/state while no box is connected: the latest run's snapshot, each command updated
  * by its last poll. { host, run, at, commands: { [cmd]: { at, data } | { at, error } | { at, raw } } }, times in ms;
- * raw for a command with no template, or whose poll failed to parse. Null with no runs. `name` picks a run instead of the latest.
+ * raw for a command with no template, or whose poll failed to parse. Null with no runs. A run whose snapshot was cut
+ * short (meta.json's `snapshot.done` < `of`: the session closed, or a prerequisite failed) is skipped, so it never hides
+ * the whole run before it. `name` picks a run instead of the latest, whole or not.
  */
 export function latest(name) {
   const metas = (existsSync(RUNS_DIR) ? readdirSync(RUNS_DIR) : [])
     .filter((r) => (!name || r === name) && existsSync(join(RUNS_DIR, r, 'meta.json')))
-    .map((r) => JSON.parse(readFileSync(join(RUNS_DIR, r, 'meta.json'), 'utf8')));
+    .map((r) => JSON.parse(readFileSync(join(RUNS_DIR, r, 'meta.json'), 'utf8')))
+    .filter((m) => name || !m.snapshot || m.snapshot.done === m.snapshot.of);
   const meta = metas.sort((a, b) => Date.parse(a.ended) - Date.parse(b.ended)).at(-1);
   if (!meta) return null;
   const dir = join(RUNS_DIR, meta.run);

@@ -171,12 +171,13 @@ async function poll(c, ch) {
    */
   const snapshot = async (trigger, mark) => {
     run = new Run(trigger, host);
+    const p = (run.meta.snapshot = { done: 0, of: POLLS.length }); // saved with each command, so a cut-short run says so
     if (mark) run.answer(mark, mark.at);
     for (const cmd of trigger === 'connect' ? PREREQS : []) if (live()) await take(cmd, 'prereq');
     if (run.meta.prereqs.some((p) => !p.ok)) return false;
-    const p = { done: 0, of: POLLS.length };
     if (c === conn) taking = p;
     for (const { cmd } of POLLS) if (live()) { await take(cmd, 'snapshot'); p.done++; }
+    run.save();
     if (taking === p) taking = null;
     console.log(`recorded ${run.dir}`);
     return true;
