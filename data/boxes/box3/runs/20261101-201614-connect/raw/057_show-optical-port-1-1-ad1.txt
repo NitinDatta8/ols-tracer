@@ -1,0 +1,7 @@
+[state]
+name            direction    optical-power(dBm)    description                                flag    
+------------    ---------    ------------------    ---------------------------------------    ----    
+port-1-1-ad1    in           2.91                  total input optical power at add port      C       
+port-1-1-ad1    out          -10.10                total output optical power at drop port    C       
+
+

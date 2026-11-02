@@ -1,0 +1,246 @@
+{
+  "state": {
+    "ports": {
+      "1-4-1": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-4",
+        "oper-status": "disabled"
+      },
+      "1-4-2": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-4",
+        "oper-status": "disabled"
+      },
+      "1-4-3": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-4",
+        "oper-status": "disabled"
+      },
+      "1-4-4": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-4",
+        "oper-status": "disabled"
+      },
+      "1-4-5": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-4",
+        "oper-status": "disabled"
+      },
+      "1-4-6": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-4",
+        "oper-status": "disabled"
+      },
+      "1-4-7": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-4",
+        "oper-status": "disabled"
+      },
+      "1-4-8": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-4",
+        "oper-status": "disabled"
+      },
+      "1-4-9": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-4",
+        "oper-status": "disabled"
+      },
+      "1-4-10": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-4",
+        "oper-status": "disabled"
+      },
+      "1-7-1": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_ZR400_16QAMSS_60G",
+        "parent": "card 1-7",
+        "oper-status": "disabled"
+      },
+      "1-7-2": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-7",
+        "oper-status": "disabled"
+      },
+      "1-7-3": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-7",
+        "oper-status": "disabled"
+      },
+      "1-7-4": {
+        "admin-state": "in-service",
+        "description": "PORT",
+        "laser": "enabled",
+        "port-mode": "PROT_100GE",
+        "parent": "card 1-7",
+        "oper-status": "active"
+      },
+      "1-7-5": {
+        "admin-state": "in-service",
+        "description": "PORT",
+        "laser": "enabled",
+        "port-mode": "PROT_ZR400_16QAMSS_60G",
+        "parent": "card 1-7",
+        "oper-status": "active"
+      },
+      "1-7-6": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-7",
+        "oper-status": "disabled"
+      },
+      "1-7-7": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-7",
+        "oper-status": "disabled"
+      },
+      "1-7-8": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-7",
+        "oper-status": "disabled"
+      },
+      "1-7-9": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-7",
+        "oper-status": "disabled"
+      },
+      "1-7-10": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-7",
+        "oper-status": "disabled"
+      },
+      "1-8-1": {
+        "admin-state": "in-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_ZR800_16QAMPS_123P8G",
+        "parent": "card 1-8",
+        "oper-status": "inactive"
+      },
+      "1-8-2": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-8",
+        "oper-status": "disabled"
+      },
+      "1-8-3": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-8",
+        "oper-status": "disabled"
+      },
+      "1-8-4": {
+        "admin-state": "in-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_100GE",
+        "parent": "card 1-8",
+        "oper-status": "inactive"
+      },
+      "1-8-5": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-8",
+        "oper-status": "disabled"
+      },
+      "1-8-6": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-8",
+        "oper-status": "disabled"
+      },
+      "1-8-7": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-8",
+        "oper-status": "disabled"
+      },
+      "1-8-8": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-8",
+        "oper-status": "disabled"
+      },
+      "1-8-9": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-8",
+        "oper-status": "disabled"
+      },
+      "1-8-10": {
+        "admin-state": "out-of-service",
+        "description": "PORT",
+        "laser": "disabled",
+        "port-mode": "PROT_NA",
+        "parent": "card 1-8",
+        "oper-status": "disabled"
+      }
+    }
+  }
+}

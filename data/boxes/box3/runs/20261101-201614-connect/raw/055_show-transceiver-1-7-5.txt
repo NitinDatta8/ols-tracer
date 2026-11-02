@@ -1,0 +1,25 @@
+[config]
+tunable-wavelength        none
+
+
+[state]
+tunable-wavelength        none
+present                   true
+oper-status               active
+removable                 true
+rated-power               0 W
+used-power                0 W
+fec-corrected-bits        101767195133466 bits
+firmware-version          02.15-01
+
+statistics                instant | avg | min | max units                  
+------------------        -----------------------------------------        
+pre-fec-ber               1.26E-03 | 1.27E-03 | 1.23E-03 | 1.33E-03
+post-fec-ber              0.00E+00 | 0.00E+00 | 0.00E+00 | 0.00E+00
+output-power              -2.98 | -2.97 | -2.99 | -2.97 dBm
+input-power               -7.57 | -7.50 | -7.59 | -7.47 dBm
+laser-bias-current        99.90 | 99.90 | 99.90 | 99.90 mA
+temperature               68.2 | 68.2 | 68.2 | 68.2 °C
+input-voltage             3.28 | 3.29 | 3.28 | 3.29 V
+
+
