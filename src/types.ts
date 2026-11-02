@@ -1,12 +1,62 @@
 // Catalog (per stream, read-only JSON in /catalog)
 
-export type Role = 'line' | 'client' | 'adddrop' | 'com' | 'osc' | 'monitor' | 'port';
+export type Role = 'line' | 'client' | 'adddrop' | 'com' | 'osc' | 'monitor' | 'port' | 'ampin' | 'ampout';
 
 export interface PortBehavior {
   showsInL1?: boolean;
   showsInData?: boolean;
   canLoopback?: boolean;
   serviceGroup?: string;
+}
+
+export interface L0Range { min?: number; max?: number }
+
+export interface L0AmplifierDef {
+  id: string;
+  type?: string;
+  ingressPort?: string;
+  egressPort?: string;
+  lineRole?: 'ingress' | 'egress';
+  targetGain?: number;
+  gainRange?: L0Range;
+  targetGainTilt?: number;
+  targetGainTiltRange?: L0Range;
+  targetOutputPower?: number;
+  maxOutputPower?: number;
+  ingressVoaAtten?: number;
+  ingressVoaAttenRange?: L0Range;
+  targetSpanLossOffset?: number;
+  targetSpanLossOffsetRange?: L0Range;
+}
+
+export interface L0InternalPathDef { fromPort: string; toPort: string; via: string[] }
+
+export interface L0ChannelMonitorMap {
+  mapIndex?: number;
+  provisionMode?: string;
+  channelNumber?: number;
+  channelSpacing?: string;
+  bandLowerFrequency?: number;
+  bandUpperFrequency?: number;
+}
+
+export interface L0ChannelPlan {
+  frequencyRange?: L0Range;
+  bandwidthRange?: L0Range;
+  gridMHz?: number;
+  supportedProvisionModes?: string[];
+  supportedMapIndexes?: number[];
+  monitorMaps?: L0ChannelMonitorMap[];
+}
+
+export type L0ThresholdValue = number | [number, number];
+export type L0PortThresholdEnvelope = Record<string, L0ThresholdValue>;
+
+export interface L0CardMetadata {
+  internalPaths?: L0InternalPathDef[];
+  amplifiers?: L0AmplifierDef[];
+  opticalThresholdEnvelopes?: Record<string, L0PortThresholdEnvelope>;
+  channelPlan?: L0ChannelPlan;
 }
 
 export interface Stream { id: string; name: string }
@@ -44,7 +94,14 @@ export interface PortDef { id: string; role: Role; behavior?: PortBehavior; allo
  * Ports are laid out row by row, `columns` to a row, in the chassis and card views alike (default: one row of up to
  * five per slot of width, else two rows, as in its 1U slot: an 800MX's ten ports five over five).
  */
-export interface LinecardDef extends Datasheet { id: string; name: string; width?: number; columns?: number; ports: PortDef[] }
+export interface LinecardDef extends Datasheet {
+  id: string;
+  name: string;
+  width?: number;
+  columns?: number;
+  ports: PortDef[];
+  l0?: L0CardMetadata;
+}
 
 /** `formFactor` is the family (SFP, QSFP, OSFP); its variants differ by `speed`. `dco` marks digital coherent optics. */
 export interface PluggableDef extends Datasheet {

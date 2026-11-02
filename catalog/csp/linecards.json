@@ -18,7 +18,7 @@
       },
       {
         "id": "BAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -26,7 +26,7 @@
       },
       {
         "id": "LINEIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -34,7 +34,7 @@
       },
       {
         "id": "LINEOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -42,7 +42,7 @@
       },
       {
         "id": "PAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -183,7 +183,692 @@
         },
         "allowedPluggables": []
       }
-    ]
+    ],
+    "l0": {
+      "internalPaths": [
+        {
+          "fromPort": "AD1",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD10",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD11",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD2",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD3",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD4",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD5",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD6",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD7",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD8",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD9",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD1",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD10",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD11",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD2",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD3",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD4",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD5",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD6",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD7",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD8",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD9",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        }
+      ],
+      "amplifiers": [
+        {
+          "id": "BA",
+          "type": "EDFA",
+          "ingressPort": "COM",
+          "egressPort": "LINE",
+          "lineRole": "egress",
+          "targetGain": 23,
+          "gainRange": {
+            "min": 15,
+            "max": 25
+          },
+          "targetGainTilt": 0,
+          "targetGainTiltRange": {
+            "min": -3,
+            "max": 0
+          },
+          "targetOutputPower": 21,
+          "maxOutputPower": 24,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          },
+          "targetSpanLossOffset": 0,
+          "targetSpanLossOffsetRange": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "PA",
+          "type": "EDFA",
+          "ingressPort": "LINE",
+          "egressPort": "COM",
+          "lineRole": "ingress",
+          "targetGain": 25,
+          "gainRange": {
+            "min": 15,
+            "max": 25
+          },
+          "targetGainTilt": -1,
+          "targetGainTiltRange": {
+            "min": -3,
+            "max": 0
+          },
+          "targetOutputPower": 21,
+          "maxOutputPower": 24,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 25
+          },
+          "targetSpanLossOffset": 0,
+          "targetSpanLossOffsetRange": {
+            "min": -5,
+            "max": 5
+          }
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "AD1": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD10": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD11": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD2": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD3": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD4": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD5": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD6": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD7": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD8": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD9": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "BAIN": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -25,
+            -24.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -28,
+            -27.5
+          ],
+          "input-optical-high-warning-threshold": [
+            22,
+            21.5
+          ],
+          "input-optical-high-failure-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-warning-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-failure-threshold": [
+            28,
+            27.5
+          ]
+        },
+        "COM": {
+          "power-offset": 0
+        },
+        "LINE": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -25,
+            -24.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -28,
+            -27.5
+          ],
+          "input-optical-high-warning-threshold": [
+            22,
+            21.5
+          ],
+          "input-optical-high-failure-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-warning-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-failure-threshold": [
+            28,
+            27.5
+          ],
+          "output-optical-low-warning-threshold": [
+            0,
+            0.5
+          ],
+          "output-optical-high-warning-threshold": [
+            22,
+            21.5
+          ]
+        },
+        "LINEIN": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -25,
+            -24.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -28,
+            -27.5
+          ],
+          "input-optical-high-warning-threshold": [
+            22,
+            21.5
+          ],
+          "input-optical-high-failure-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-warning-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-failure-threshold": [
+            28,
+            27.5
+          ]
+        },
+        "LINEOUT": {
+          "power-offset": 0,
+          "output-optical-low-warning-threshold": [
+            0,
+            0.5
+          ],
+          "output-optical-high-warning-threshold": [
+            22,
+            21.5
+          ]
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "OSC": {
+          "power-offset": 0
+        },
+        "PAOUT": {
+          "power-offset": 0,
+          "output-optical-low-warning-threshold": [
+            0,
+            0.5
+          ],
+          "output-optical-high-warning-threshold": [
+            22,
+            21.5
+          ]
+        }
+      },
+      "channelPlan": {
+        "frequencyRange": {
+          "min": 191350000,
+          "max": 196150000
+        },
+        "bandwidthRange": {
+          "min": 100000,
+          "max": 500000
+        },
+        "gridMHz": 12500,
+        "supportedProvisionModes": [
+          "AUTO"
+        ],
+        "supportedMapIndexes": [
+          65535
+        ],
+        "monitorMaps": [
+          {
+            "mapIndex": 65535,
+            "provisionMode": "AUTO"
+          }
+        ]
+      }
+    }
   },
   {
     "id": "lc-800mx",
@@ -490,7 +1175,7 @@
       },
       {
         "id": "BAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -498,7 +1183,7 @@
       },
       {
         "id": "LINEIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -506,7 +1191,7 @@
       },
       {
         "id": "LINEOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -514,7 +1199,7 @@
       },
       {
         "id": "PAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -637,7 +1322,606 @@
         },
         "allowedPluggables": []
       }
-    ]
+    ],
+    "l0": {
+      "internalPaths": [
+        {
+          "fromPort": "AD1",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD2",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD3",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD4",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD5",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD6",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD7",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD8",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD9",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD1",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD2",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD3",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD4",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD5",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD6",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD7",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD8",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD9",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        }
+      ],
+      "amplifiers": [
+        {
+          "id": "BA",
+          "type": "EDFA",
+          "ingressPort": "COM",
+          "egressPort": "LINE",
+          "lineRole": "egress",
+          "targetGain": 23,
+          "gainRange": {
+            "min": 15,
+            "max": 25
+          },
+          "targetGainTilt": 0,
+          "targetGainTiltRange": {
+            "min": -3,
+            "max": 0
+          },
+          "targetOutputPower": 21,
+          "maxOutputPower": 24,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          },
+          "targetSpanLossOffset": 0,
+          "targetSpanLossOffsetRange": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "PA",
+          "type": "EDFA",
+          "ingressPort": "LINE",
+          "egressPort": "COM",
+          "lineRole": "ingress",
+          "targetGain": 25,
+          "gainRange": {
+            "min": 15,
+            "max": 25
+          },
+          "targetGainTilt": -1,
+          "targetGainTiltRange": {
+            "min": -3,
+            "max": 0
+          },
+          "targetOutputPower": 21,
+          "maxOutputPower": 24,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 25
+          },
+          "targetSpanLossOffset": 0,
+          "targetSpanLossOffsetRange": {
+            "min": -5,
+            "max": 5
+          }
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "AD1": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD2": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD3": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD4": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD5": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD6": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD7": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD8": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD9": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "BAIN": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -25,
+            -24.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -28,
+            -27.5
+          ],
+          "input-optical-high-warning-threshold": [
+            22,
+            21.5
+          ],
+          "input-optical-high-failure-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-warning-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-failure-threshold": [
+            28,
+            27.5
+          ]
+        },
+        "COM": {
+          "power-offset": 0
+        },
+        "LINE": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -25,
+            -24.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -28,
+            -27.5
+          ],
+          "input-optical-high-warning-threshold": [
+            22,
+            21.5
+          ],
+          "input-optical-high-failure-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-warning-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-failure-threshold": [
+            28,
+            27.5
+          ],
+          "output-optical-low-warning-threshold": [
+            0,
+            0.5
+          ],
+          "output-optical-high-warning-threshold": [
+            22,
+            21.5
+          ]
+        },
+        "LINEIN": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -25,
+            -24.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -28,
+            -27.5
+          ],
+          "input-optical-high-warning-threshold": [
+            22,
+            21.5
+          ],
+          "input-optical-high-failure-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-warning-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-failure-threshold": [
+            28,
+            27.5
+          ]
+        },
+        "LINEOUT": {
+          "power-offset": 0,
+          "output-optical-low-warning-threshold": [
+            0,
+            0.5
+          ],
+          "output-optical-high-warning-threshold": [
+            22,
+            21.5
+          ]
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "OSC": {
+          "power-offset": 0
+        },
+        "PAOUT": {
+          "power-offset": 0,
+          "output-optical-low-warning-threshold": [
+            0,
+            0.5
+          ],
+          "output-optical-high-warning-threshold": [
+            22,
+            21.5
+          ]
+        }
+      },
+      "channelPlan": {
+        "frequencyRange": {
+          "min": 191350000,
+          "max": 196150000
+        },
+        "bandwidthRange": {
+          "min": 100000,
+          "max": 500000
+        },
+        "gridMHz": 12500,
+        "supportedProvisionModes": [
+          "AUTO"
+        ],
+        "supportedMapIndexes": [
+          65535
+        ],
+        "monitorMaps": [
+          {
+            "mapIndex": 65535,
+            "provisionMode": "AUTO"
+          }
+        ]
+      }
+    }
   },
   {
     "id": "lc-tmuxc935",
@@ -658,7 +1942,7 @@
       },
       {
         "id": "BAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -666,7 +1950,7 @@
       },
       {
         "id": "LINEIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -674,7 +1958,7 @@
       },
       {
         "id": "LINEOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -682,7 +1966,7 @@
       },
       {
         "id": "PAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -805,7 +2089,597 @@
         },
         "allowedPluggables": []
       }
-    ]
+    ],
+    "l0": {
+      "internalPaths": [
+        {
+          "fromPort": "AD1",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD2",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD3",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD4",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD5",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD6",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD7",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD8",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "AD9",
+          "toPort": "LINE",
+          "via": [
+            "wss:mux",
+            "amplifier:BA"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD1",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD2",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD3",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD4",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD5",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD6",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD7",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD8",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "AD9",
+          "via": [
+            "amplifier:PA",
+            "wss:demux"
+          ]
+        }
+      ],
+      "amplifiers": [
+        {
+          "id": "BA",
+          "type": "EDFA",
+          "ingressPort": "COM",
+          "egressPort": "LINE",
+          "lineRole": "egress",
+          "targetGain": 23,
+          "gainRange": {
+            "min": 15,
+            "max": 25
+          },
+          "targetGainTilt": 0,
+          "targetGainTiltRange": {
+            "min": -3,
+            "max": 0
+          },
+          "targetOutputPower": 21,
+          "maxOutputPower": 24,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          },
+          "targetSpanLossOffset": 0,
+          "targetSpanLossOffsetRange": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "PA",
+          "type": "EDFA",
+          "ingressPort": "LINE",
+          "egressPort": "COM",
+          "lineRole": "ingress",
+          "targetGain": 35,
+          "gainRange": {
+            "min": 22,
+            "max": 35
+          },
+          "targetGainTilt": -1,
+          "targetGainTiltRange": {
+            "min": -3,
+            "max": 0
+          },
+          "targetOutputPower": 21,
+          "maxOutputPower": 24,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 25
+          },
+          "targetSpanLossOffset": 0,
+          "targetSpanLossOffsetRange": {
+            "min": -5,
+            "max": 5
+          }
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "AD1": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD2": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD3": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD4": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD5": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD6": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD7": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD8": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD9": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "BAIN": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -25,
+            -24.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -28,
+            -27.5
+          ],
+          "input-optical-high-warning-threshold": [
+            22,
+            21.5
+          ],
+          "input-optical-high-failure-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-warning-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-failure-threshold": [
+            28,
+            27.5
+          ]
+        },
+        "COM": {
+          "power-offset": 0
+        },
+        "LINE": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -25,
+            -24.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -28,
+            -27.5
+          ],
+          "input-optical-high-warning-threshold": [
+            22,
+            21.5
+          ],
+          "input-optical-high-failure-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-warning-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-failure-threshold": [
+            28,
+            27.5
+          ],
+          "output-optical-low-warning-threshold": [
+            0,
+            0.5
+          ],
+          "output-optical-high-warning-threshold": [
+            22,
+            21.5
+          ]
+        },
+        "LINEIN": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -25,
+            -24.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -28,
+            -27.5
+          ],
+          "input-optical-high-warning-threshold": [
+            22,
+            21.5
+          ],
+          "input-optical-high-failure-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-warning-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-failure-threshold": [
+            28,
+            27.5
+          ]
+        },
+        "LINEOUT": {
+          "power-offset": 0,
+          "output-optical-low-warning-threshold": [
+            0,
+            0.5
+          ],
+          "output-optical-high-warning-threshold": [
+            22,
+            21.5
+          ]
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "OSC": {
+          "power-offset": 0
+        },
+        "PAOUT": {
+          "power-offset": 0,
+          "output-optical-low-warning-threshold": [
+            0,
+            0.5
+          ],
+          "output-optical-high-warning-threshold": [
+            22,
+            21.5
+          ]
+        }
+      },
+      "channelPlan": {
+        "supportedProvisionModes": [
+          "AUTO"
+        ],
+        "supportedMapIndexes": [
+          65535
+        ],
+        "monitorMaps": [
+          {
+            "mapIndex": 65535,
+            "provisionMode": "AUTO"
+          }
+        ]
+      }
+    }
   },
   {
     "id": "lc-c25",
@@ -847,7 +2721,157 @@
         },
         "allowedPluggables": []
       }
-    ]
+    ],
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "BA",
+          "type": "EDFA",
+          "ingressPort": "SIG",
+          "egressPort": "LINE",
+          "lineRole": "egress",
+          "targetGain": 8,
+          "gainRange": {
+            "min": 7,
+            "max": 25
+          },
+          "targetGainTilt": 0,
+          "targetGainTiltRange": {
+            "min": -3,
+            "max": 0
+          },
+          "targetOutputPower": 21,
+          "maxOutputPower": 24,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          },
+          "targetSpanLossOffset": 0,
+          "targetSpanLossOffsetRange": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "PA",
+          "type": "EDFA",
+          "ingressPort": "LINE",
+          "egressPort": "SIG",
+          "lineRole": "ingress",
+          "targetGain": 23,
+          "gainRange": {
+            "min": 15,
+            "max": 25
+          },
+          "targetGainTilt": -1,
+          "targetGainTiltRange": {
+            "min": -3,
+            "max": 0
+          },
+          "targetOutputPower": 21,
+          "maxOutputPower": 24,
+          "ingressVoaAtten": 15,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 25
+          },
+          "targetSpanLossOffset": 2,
+          "targetSpanLossOffsetRange": {
+            "min": -5,
+            "max": 5
+          }
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "LINE": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -25,
+            -24.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -28,
+            -27.5
+          ],
+          "input-optical-high-warning-threshold": [
+            22,
+            21.5
+          ],
+          "input-optical-high-failure-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-warning-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-failure-threshold": [
+            28,
+            27.5
+          ],
+          "output-optical-low-warning-threshold": [
+            0,
+            0.5
+          ],
+          "output-optical-high-warning-threshold": [
+            22,
+            21.5
+          ]
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "SIG": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        }
+      },
+      "channelPlan": {
+        "supportedProvisionModes": [
+          "CHANNEL_MAP"
+        ],
+        "supportedMapIndexes": [
+          1
+        ],
+        "monitorMaps": [
+          {
+            "mapIndex": 1,
+            "provisionMode": "CHANNEL_MAP",
+            "channelNumber": 48,
+            "channelSpacing": "CHANNEL_100G",
+            "bandLowerFrequency": 191350000,
+            "bandUpperFrequency": 196150000
+          }
+        ]
+      }
+    }
   },
   {
     "id": "lc-m4qd",
@@ -1806,7 +3830,7 @@
       },
       {
         "id": "BAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -1814,7 +3838,7 @@
       },
       {
         "id": "PAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -1822,7 +3846,7 @@
       },
       {
         "id": "BAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -1830,7 +3854,7 @@
       },
       {
         "id": "PAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -1862,7 +3886,50 @@
         },
         "allowedPluggables": []
       }
-    ]
+    ],
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "BA",
+          "ingressPort": "BAIN",
+          "egressPort": "BAOUT"
+        },
+        {
+          "id": "PA",
+          "ingressPort": "PAIN",
+          "egressPort": "PAOUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "BAIN": {
+          "power-offset": 0
+        },
+        "BAOUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "OSC": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "PAIN": {
+          "power-offset": 0
+        },
+        "PAOUT": {
+          "power-offset": 0
+        }
+      }
+    }
   },
   {
     "id": "lc-oa35",
@@ -1883,7 +3950,7 @@
       },
       {
         "id": "BAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -1891,7 +3958,7 @@
       },
       {
         "id": "PAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -1899,7 +3966,7 @@
       },
       {
         "id": "BAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -1907,7 +3974,7 @@
       },
       {
         "id": "PAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -1939,7 +4006,50 @@
         },
         "allowedPluggables": []
       }
-    ]
+    ],
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "BA",
+          "ingressPort": "BAIN",
+          "egressPort": "BAOUT"
+        },
+        {
+          "id": "PA",
+          "ingressPort": "PAIN",
+          "egressPort": "PAOUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "BAIN": {
+          "power-offset": 0
+        },
+        "BAOUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "OSC": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "PAIN": {
+          "power-offset": 0
+        },
+        "PAOUT": {
+          "power-offset": 0
+        }
+      }
+    }
   },
   {
     "id": "lc-ola25",
@@ -1972,7 +4082,7 @@
       },
       {
         "id": "LA1IN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -1980,7 +4090,7 @@
       },
       {
         "id": "LA2IN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -1988,7 +4098,7 @@
       },
       {
         "id": "LA1OUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -1996,7 +4106,7 @@
       },
       {
         "id": "LA2OUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -2044,7 +4154,59 @@
         },
         "allowedPluggables": []
       }
-    ]
+    ],
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "LA1",
+          "ingressPort": "LA1IN",
+          "egressPort": "LA1OUT"
+        },
+        {
+          "id": "LA2",
+          "ingressPort": "LA2IN",
+          "egressPort": "LA2OUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "LA1IN": {
+          "power-offset": 0
+        },
+        "LA1OUT": {
+          "power-offset": 0
+        },
+        "LA2IN": {
+          "power-offset": 0
+        },
+        "LA2OUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "OSC1": {
+          "power-offset": 0
+        },
+        "OSC2": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "OTDR3": {
+          "power-offset": 0
+        },
+        "OTDR4": {
+          "power-offset": 0
+        }
+      }
+    }
   },
   {
     "id": "lc-ola35a",
@@ -2077,7 +4239,7 @@
       },
       {
         "id": "LA1IN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -2085,7 +4247,7 @@
       },
       {
         "id": "LA2IN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -2093,7 +4255,7 @@
       },
       {
         "id": "LA1OUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -2101,7 +4263,7 @@
       },
       {
         "id": "LA2OUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -2149,7 +4311,59 @@
         },
         "allowedPluggables": []
       }
-    ]
+    ],
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "LA1",
+          "ingressPort": "LA1IN",
+          "egressPort": "LA1OUT"
+        },
+        {
+          "id": "LA2",
+          "ingressPort": "LA2IN",
+          "egressPort": "LA2OUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "LA1IN": {
+          "power-offset": 0
+        },
+        "LA1OUT": {
+          "power-offset": 0
+        },
+        "LA2IN": {
+          "power-offset": 0
+        },
+        "LA2OUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "OSC1": {
+          "power-offset": 0
+        },
+        "OSC2": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "OTDR3": {
+          "power-offset": 0
+        },
+        "OTDR4": {
+          "power-offset": 0
+        }
+      }
+    }
   },
   {
     "id": "lc-ola35b",
@@ -2182,7 +4396,7 @@
       },
       {
         "id": "LA1IN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -2190,7 +4404,7 @@
       },
       {
         "id": "LA2IN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -2198,7 +4412,7 @@
       },
       {
         "id": "LA1OUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -2206,7 +4420,7 @@
       },
       {
         "id": "LA2OUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -2254,7 +4468,59 @@
         },
         "allowedPluggables": []
       }
-    ]
+    ],
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "LA1",
+          "ingressPort": "LA1IN",
+          "egressPort": "LA1OUT"
+        },
+        {
+          "id": "LA2",
+          "ingressPort": "LA2IN",
+          "egressPort": "LA2OUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "LA1IN": {
+          "power-offset": 0
+        },
+        "LA1OUT": {
+          "power-offset": 0
+        },
+        "LA2IN": {
+          "power-offset": 0
+        },
+        "LA2OUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "OSC1": {
+          "power-offset": 0
+        },
+        "OSC2": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "OTDR3": {
+          "power-offset": 0
+        },
+        "OTDR4": {
+          "power-offset": 0
+        }
+      }
+    }
   },
   {
     "id": "lc-ptm-e",
@@ -4215,7 +6481,7 @@
       },
       {
         "id": "BAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -4223,7 +6489,7 @@
       },
       {
         "id": "PAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -4231,7 +6497,7 @@
       },
       {
         "id": "BAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -4239,7 +6505,7 @@
       },
       {
         "id": "PAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -4341,7 +6607,68 @@
         },
         "allowedPluggables": []
       }
-    ]
+    ],
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "BA",
+          "ingressPort": "BAIN",
+          "egressPort": "BAOUT"
+        },
+        {
+          "id": "PA",
+          "ingressPort": "PAIN",
+          "egressPort": "PAOUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "AD1": {
+          "power-offset": 0
+        },
+        "AD2": {
+          "power-offset": 0
+        },
+        "AD3": {
+          "power-offset": 0
+        },
+        "AD4": {
+          "power-offset": 0
+        },
+        "AD5": {
+          "power-offset": 0
+        },
+        "BAIN": {
+          "power-offset": 0
+        },
+        "BAOUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "MUX": {
+          "power-offset": 0
+        },
+        "OSC": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "PAIN": {
+          "power-offset": 0
+        },
+        "PAOUT": {
+          "power-offset": 0
+        }
+      }
+    }
   },
   {
     "id": "lc-tws05oa35",
@@ -4362,7 +6689,7 @@
       },
       {
         "id": "BAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -4370,7 +6697,7 @@
       },
       {
         "id": "PAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -4378,7 +6705,7 @@
       },
       {
         "id": "BAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -4386,7 +6713,7 @@
       },
       {
         "id": "PAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -4488,7 +6815,68 @@
         },
         "allowedPluggables": []
       }
-    ]
+    ],
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "BA",
+          "ingressPort": "BAIN",
+          "egressPort": "BAOUT"
+        },
+        {
+          "id": "PA",
+          "ingressPort": "PAIN",
+          "egressPort": "PAOUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "AD1": {
+          "power-offset": 0
+        },
+        "AD2": {
+          "power-offset": 0
+        },
+        "AD3": {
+          "power-offset": 0
+        },
+        "AD4": {
+          "power-offset": 0
+        },
+        "AD5": {
+          "power-offset": 0
+        },
+        "BAIN": {
+          "power-offset": 0
+        },
+        "BAOUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "MUX": {
+          "power-offset": 0
+        },
+        "OSC": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "PAIN": {
+          "power-offset": 0
+        },
+        "PAOUT": {
+          "power-offset": 0
+        }
+      }
+    }
   },
   {
     "id": "lc-tws09oa25",
@@ -4509,7 +6897,7 @@
       },
       {
         "id": "BAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -4517,7 +6905,7 @@
       },
       {
         "id": "LINEIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -4525,7 +6913,7 @@
       },
       {
         "id": "LINEOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -4533,7 +6921,7 @@
       },
       {
         "id": "PAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -4680,7 +7068,434 @@
         },
         "allowedPluggables": []
       }
-    ]
+    ],
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "BA",
+          "type": "EDFA",
+          "ingressPort": "COM",
+          "egressPort": "LINE",
+          "gainRange": {
+            "min": 15,
+            "max": 25
+          },
+          "targetGainTiltRange": {
+            "min": -3,
+            "max": 0
+          },
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          },
+          "targetSpanLossOffsetRange": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "PA",
+          "type": "EDFA",
+          "ingressPort": "LINE",
+          "egressPort": "COM",
+          "gainRange": {
+            "min": 15,
+            "max": 25
+          },
+          "targetGainTiltRange": {
+            "min": -3,
+            "max": 0
+          },
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 25
+          },
+          "targetSpanLossOffsetRange": {
+            "min": -5,
+            "max": 5
+          }
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "AD1": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD2": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD3": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD4": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD5": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD6": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD7": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD8": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "AD9": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -18,
+            -17.5
+          ],
+          "input-optical-high-warning-threshold": [
+            3,
+            2.5
+          ],
+          "input-optical-high-failure-threshold": [
+            6,
+            5.5
+          ],
+          "output-optical-low-warning-threshold": [
+            -15,
+            -14.5
+          ],
+          "output-optical-high-warning-threshold": [
+            0,
+            -0.5
+          ]
+        },
+        "BAIN": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -25,
+            -24.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -28,
+            -27.5
+          ],
+          "input-optical-high-warning-threshold": [
+            22,
+            21.5
+          ],
+          "input-optical-high-failure-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-warning-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-failure-threshold": [
+            28,
+            27.5
+          ]
+        },
+        "COM": {
+          "power-offset": 0
+        },
+        "LINE": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -25,
+            -24.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -28,
+            -27.5
+          ],
+          "input-optical-high-warning-threshold": [
+            22,
+            21.5
+          ],
+          "input-optical-high-failure-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-warning-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-failure-threshold": [
+            28,
+            27.5
+          ],
+          "output-optical-low-warning-threshold": [
+            0,
+            0.5
+          ],
+          "output-optical-high-warning-threshold": [
+            22,
+            21.5
+          ]
+        },
+        "LINEIN": {
+          "power-offset": 0,
+          "input-optical-low-warning-threshold": [
+            -25,
+            -24.5
+          ],
+          "input-optical-low-failure-threshold": [
+            -28,
+            -27.5
+          ],
+          "input-optical-high-warning-threshold": [
+            22,
+            21.5
+          ],
+          "input-optical-high-failure-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-warning-threshold": [
+            25,
+            24.5
+          ],
+          "ingress-span-loss-failure-threshold": [
+            28,
+            27.5
+          ]
+        },
+        "LINEOUT": {
+          "power-offset": 0,
+          "output-optical-low-warning-threshold": [
+            0,
+            0.5
+          ],
+          "output-optical-high-warning-threshold": [
+            22,
+            21.5
+          ]
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "OSC": {
+          "power-offset": 0
+        },
+        "PAOUT": {
+          "power-offset": 0,
+          "output-optical-low-warning-threshold": [
+            0,
+            0.5
+          ],
+          "output-optical-high-warning-threshold": [
+            22,
+            21.5
+          ]
+        }
+      },
+      "channelPlan": {
+        "frequencyRange": {
+          "min": 191350000,
+          "max": 196150000
+        },
+        "bandwidthRange": {
+          "min": 100000,
+          "max": 500000
+        },
+        "gridMHz": 12500
+      }
+    }
   },
   {
     "id": "lc-tws09oa35",
@@ -4701,7 +7516,7 @@
       },
       {
         "id": "BAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -4709,7 +7524,7 @@
       },
       {
         "id": "PAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -4717,7 +7532,7 @@
       },
       {
         "id": "BAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -4725,7 +7540,7 @@
       },
       {
         "id": "PAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
