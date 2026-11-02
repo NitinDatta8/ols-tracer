@@ -65,14 +65,7 @@
           "canLoopback": true,
           "serviceGroup": "line"
         },
-        "allowedPluggables": [
-          "60g700001",
-          "60g710001",
-          "60g720001",
-          "eshklb31-z010-c",
-          "ftlx1472m3bcl",
-          "yv02-c02"
-        ]
+        "allowedPluggables": []
       },
       {
         "id": "MON1",
@@ -1011,7 +1004,10 @@
           "ftlc1157rgpl-tf",
           "ftlc4353rjpl",
           "trq5e14enf-lf000",
-          "trq5e14enf-lf002-m"
+          "trq5e14enf-lf002-m",
+          "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
+          "ftcd3323r1pcl-wd"
         ]
       },
       {

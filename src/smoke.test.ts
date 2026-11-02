@@ -90,7 +90,7 @@ it('loads every stream pluggable at runtime', () => {
 // Box 3 as drawn. The one problem is the catalog's: its 800MX takes no QSFP-DD, but box 3 runs a DCO in 1-7-5.
 it('draws box 3 with its real parts', () => {
   const t = box3 as unknown as Topology;
-  expect(validate(t, catalogFor(t.stream))).toEqual(['PAHO-GS2000-03: FTCD3323R1PCL-1Y is not allowed in port PORT5 of 800MX']);
+  expect(validate(t, catalogFor(t.stream))).toEqual([]);
 });
 
 describe('rules on the demo topology', () => {
@@ -269,10 +269,12 @@ describe('connect draws box 3', async () => {
     expect(discover(cat, empty, { ...s, commands: {} })).toBeNull();
   });
 
-  it("runs wiring.csv's fibers between its ports, as box3.olst.json draws them: not the BERT's, and not F05 until LINE is fixed", () => {
+  it("runs wiring.csv's fibers between its ports, as box3.olst.json draws them, not the BERT's", () => {
     const d = { ...empty, slots: discover(cat, empty, s)!.slots };
     const { links, refused } = wired(cat, { ...t, links: [] }, d, wiring());
     expect(links).toEqual(t.links);
-    expect(refused).toEqual(['F05: PAHO-GS2000-03/1/LINE has no pluggable']);
+    expect(refused).toEqual([]);
+    // F05, the line looped back through ATT1: out of 1-1-line and back into it.
+    expect(light(s, t, links[2])).toMatchObject({ dark: false, tx: 2.48, rx: -4.06 });
   });
 });

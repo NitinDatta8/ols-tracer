@@ -86,6 +86,18 @@ const defaultBehaviorByRole = {
   ampout: { showsInData: true },
 };
 
+/**
+ * Ports whose allowed pluggables the profiles get wrong, as box 3 shows them, by stream, linecard and port: each maps
+ * the profile's list to the right one. A C1125's LINE is a plain LC and takes no pluggable. An 800MX's PORT5 takes the
+ * QSFP-DD DCO FTCD3323R1PCL (box 3 runs the -1Y in 1-7-5), which the service-type match misses.
+ */
+const PORT_FIXES = {
+  csp: {
+    'lc-c1125': { LINE: () => [] },
+    'lc-800mx': { PORT5: (allowed) => [...allowed, ...['ftcd3323r1pcl', 'ftcd3323r1pcl-1y', 'ftcd3323r1pcl-wd'].filter((id) => !allowed.includes(id))] },
+  },
+};
+
 const cleanBehavior = (behavior) => {
   const out = {};
   if (behavior.showsInL1 !== undefined) out.showsInL1 = !!behavior.showsInL1;
@@ -976,11 +988,12 @@ for (const stream of streamIds) {
         }
 
         const behavior = cleanBehavior(defaultBehaviorByRole[role] ?? {});
+        const fix = PORT_FIXES[stream.toLowerCase()]?.[linecardIdForVendorType(vendorType)]?.[id];
         ports.push({
           id,
           role,
           ...(Object.keys(behavior).length ? { behavior } : {}),
-          allowedPluggables,
+          allowedPluggables: fix ? fix(allowedPluggables) : allowedPluggables,
         });
       }
     }
