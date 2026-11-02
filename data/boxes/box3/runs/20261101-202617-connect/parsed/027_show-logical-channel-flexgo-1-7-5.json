@@ -1,3 +1,13 @@
 {
-  "state": {}
+  "state": {
+    "index": "1073742944",
+    "trib-protocol": "OPENZR",
+    "rate-class": "400G",
+    "assigned-channel": "och 1-7-5",
+    "time-slot-type": "ETH_100G",
+    "delay-measurement-mode": "disabled"
+  },
+  "config": {
+    "delay-measurement-mode": "disabled"
+  }
 }

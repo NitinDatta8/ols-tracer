@@ -28,5 +28,9 @@
     }
   ],
   "state": "unknown",
-  "notes": ""
+  "notes": "Cut short: the session closed 31 s in, during the snapshot, at show transceiver 1-8-1 (its prompt never came back). 32 of 57 commands, no polls.",
+  "snapshot": {
+    "done": 32,
+    "of": 57
+  }
 }

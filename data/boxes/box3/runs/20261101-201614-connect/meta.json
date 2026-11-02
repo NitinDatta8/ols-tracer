@@ -27,6 +27,10 @@
       "ok": true
     }
   ],
-  "state": "unknown",
-  "notes": ""
+  "state": "healthy",
+  "notes": "Run A. 10 min, 52 readings of each 10 s poll, no ok:false. The same 11 standing alarms as 200025 throughout, no LOS. Light steady: och 1-7-5 in -7.59..-7.38 dBm, OSNR 29.7 dB, Q-margin 3.3..3.4 dB, post-FEC BER 0, fec-uncorrectable-blocks stays 3515. eth 1-7-4 counters do not move (rx-pkts 24950, tx-pkts 1, rx-crc-err-sum 17850 from first poll to last), so they do not show the BERT traffic: either it was stopped or it is not counted there.",
+  "snapshot": {
+    "done": 57,
+    "of": 57
+  }
 }
