@@ -1,0 +1,10 @@
+<!-- show chassis: its [state] description and inlet temperature, by chassis number. The config table repeats the description. -->
+<group name="state">
+[state] {{ _start_ }}
+<group name="chassis.{{ id }}">
+{{ id | re("\\d+") | _start_ }}  {{ description | re("[A-Za-z]\\S*(?: [A-Za-z]\\S*)*") }}
+</group>
+<group name="inlet-temperature.{{ id }}">
+{{ id | re("\\d+") | _start_ }}  {{ instant | re("-?\\d+(?:\\.\\d+)?") | to_float }} | {{ avg | re("-?\\d+(?:\\.\\d+)?") | to_float }} | {{ min | re("-?\\d+(?:\\.\\d+)?") | to_float }} | {{ max | re("-?\\d+(?:\\.\\d+)?") | to_float }}
+</group>
+</group>

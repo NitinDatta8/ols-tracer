@@ -1,0 +1,21 @@
+<!--
+show card: its [state] table, one entry per slot by address. module-type is NONE in an empty slot; present and
+oper-status say whether what is provisioned is there. A cell too long for its column wraps onto an indented line,
+which is skipped, so description and supported-module-types are their first line only. The temperature table follows.
+Empty cells leave a column out, hence three row forms: with firmware and software versions, without, and an empty slot.
+-->
+<vars>
+ADMIN = "in-service|out-of-service|maintenance"
+BOOL = "true|false"
+</vars>
+<group name="state">
+[state] {{ _start_ }}
+<group name="cards.{{ id }}">
+{{ id | re("\\d+-\\d+") | _start_ }}  {{ admin-state | re("ADMIN") }}  {{ module-type }}  {{ description | ORPHRASE }}  {{ firmware-version }}  {{ software-version | ORPHRASE }}  {{ present | re("BOOL") }}  {{ slot | re("\\d+-\\d+") }}  {{ oper-status }}  {{ removable }}  {{ used-power | to_float }}  {{ rated-power | to_float }}  {{ supported-module-types | ORPHRASE }}
+{{ id | re("\\d+-\\d+") | _start_ }}  {{ admin-state | re("ADMIN") }}  {{ module-type }}  {{ description | ORPHRASE }}  {{ present | re("BOOL") }}  {{ slot | re("\\d+-\\d+") }}  {{ oper-status }}  {{ removable }}  {{ used-power | to_float }}  {{ rated-power | to_float }}  {{ supported-module-types | ORPHRASE }}
+{{ id | re("\\d+-\\d+") | _start_ }}  {{ module-type }}  {{ description | ORPHRASE }}  {{ present | re("BOOL") }}  {{ slot | re("\\d+-\\d+") }}  {{ oper-status }}  {{ removable }}  {{ used-power | to_float }}  {{ rated-power | to_float }}  {{ supported-module-types | ORPHRASE }}
+</group>
+<group name="temperature.{{ id }}">
+{{ id | re("\\d+-\\d+") | _start_ }}  {{ instant | re("-?\\d+(?:\\.\\d+)?") | to_float }} | {{ avg | re("-?\\d+(?:\\.\\d+)?") | to_float }} | {{ min | re("-?\\d+(?:\\.\\d+)?") | to_float }} | {{ max | re("-?\\d+(?:\\.\\d+)?") | to_float }}
+</group>
+</group>

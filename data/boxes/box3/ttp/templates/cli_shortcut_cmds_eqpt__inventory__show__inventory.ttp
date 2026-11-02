@@ -1,0 +1,19 @@
+<!--
+show inventory: three tables, chassis, card and transceiver, each by address: what it is, who made it, its serial and
+part number. A PSU has no hardware version. A transceiver also has its form factor and connector, and a client optic its
+compliance code and reach (a DCO leaves both blank). Matching an address's shape keeps the three tables apart.
+-->
+<vars>
+DATE = "\\d{4}-\\d\\d-\\d\\d"
+</vars>
+<group name="chassis.{{ id }}">
+{{ id | re("\\d+") | _start_ }}  chassis  {{ mfg-name | ORPHRASE }}  {{ mfg-date | re("DATE") }}  {{ hardware-version }}  {{ serial-no }}  {{ part-no }}
+</group>
+<group name="cards.{{ id }}">
+{{ id | re("\\d+-\\d+") | _start_ }}  {{ module-type }}  {{ mfg-name | ORPHRASE }}  {{ mfg-date | re("DATE") }}  {{ hardware-version }}  {{ serial-no }}  {{ part-no }}
+{{ id | re("\\d+-\\d+") | _start_ }}  {{ module-type }}  {{ mfg-name | ORPHRASE }}  {{ mfg-date | re("DATE") }}  {{ serial-no }}  {{ part-no }}
+</group>
+<group name="transceivers.{{ id }}">
+{{ id | re("\\d+-\\d+-\\S+") | _start_ }}  transceiver  {{ mfg-name | ORPHRASE }}  {{ mfg-date | re("DATE") }}  {{ hardware-version }}  {{ serial-no }}  {{ part-no }}  {{ form-factor }}  {{ connector-type }}  {{ compliance-code | ORPHRASE }}  {{ transmission-distance }}
+{{ id | re("\\d+-\\d+-\\S+") | _start_ }}  transceiver  {{ mfg-name | ORPHRASE }}  {{ mfg-date | re("DATE") }}  {{ hardware-version }}  {{ serial-no }}  {{ part-no }}  {{ form-factor }}  {{ connector-type }}
+</group>

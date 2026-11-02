@@ -1,0 +1,7 @@
+<!-- show card 1-* psu: each power supply's [state] capacity, input and output (W, mA, V) and mode, by card address. -->
+<group name="state">
+[state] {{ _start_ }}
+<group name="psus.{{ id }}">
+card {{ id | re("\\d+-\\d+") | _start_ }}  {{ capacity | re("-?\\d+(?:\\.\\d+)?") | to_float }}  {{ input-current | re("-?\\d+(?:\\.\\d+)?") | to_float }}  {{ input-voltage | re("-?\\d+(?:\\.\\d+)?") | to_float }}  {{ output-current | re("-?\\d+(?:\\.\\d+)?") | to_float }}  {{ output-voltage | re("-?\\d+(?:\\.\\d+)?") | to_float }}  {{ output-power | re("-?\\d+(?:\\.\\d+)?") | to_float }}  {{ power-supply-mode }}
+</group>
+</group>

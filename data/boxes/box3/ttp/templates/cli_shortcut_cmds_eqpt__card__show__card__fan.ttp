@@ -1,0 +1,10 @@
+<!-- show card 1-* fan: each fan tray's [state] mode and speed ratio, and its two fans' speed in %, by card address. -->
+<group name="state">
+[state] {{ _start_ }}
+<group name="fans.{{ id }}">
+card {{ id | re("\\d+-\\d+") | _start_ }}  {{ mode }}  {{ speed-ratio | re("[a-z]+") }}
+</group>
+<group name="speed.{{ id }}">
+card {{ id | re("\\d+-\\d+") | _start_ }}  {{ fan-1 | re("-?\\d+(?:\\.\\d+)?") | to_float }} | {{ ignore }} | {{ ignore }} | {{ ignore }}  {{ fan-2 | re("-?\\d+(?:\\.\\d+)?") | to_float }} | {{ ignore }} | {{ ignore }} | {{ ignore }}
+</group>
+</group>

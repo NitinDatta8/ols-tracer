@@ -1,4 +1,5 @@
-// Each TTP template in data/boxes/<box>/ttp/templates turns its fixture text into fixture JSON.
+// Each TTP template in data/boxes/<box>/ttp/templates turns its fixture text into fixture JSON. A fixture is named after
+// its command's id, the template's name; `<id>~<form>` is another form of the same command (its list, a wildcard).
 import { execFileSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { isAbsolute, join, resolve } from 'node:path';
@@ -20,7 +21,7 @@ const names = existsSync(fixturesDir)
 
 describe.skipIf(!existsSync(python) || !existsSync(fixturesDir) || !existsSync(templatesDir))('TTP templates (needs npm run bridge:setup)', () => {
   it.each(names)('%s', (name) => {
-    const out = execFileSync(python, [here('parse.py'), join(templatesDir, `${name}.ttp`)], { input: readFileSync(join(fixturesDir, `${name}.txt`)) });
+    const out = execFileSync(python, [here('parse.py'), join(templatesDir, `${name.split('~')[0]}.ttp`)], { input: readFileSync(join(fixturesDir, `${name}.txt`)) });
     expect(JSON.parse(out)).toEqual(JSON.parse(readFileSync(join(fixturesDir, `${name}.json`), 'utf8')));
   });
 });
