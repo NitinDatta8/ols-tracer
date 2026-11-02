@@ -123,6 +123,10 @@ main { position: relative; min-height: 0; }
 .physical header .box small { width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 /* Where the fibers' light comes from (Live, or Last state · time): fixed width, so the header never shifts. */
 .physical header .light-state { width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Marks a pulled strand: fixed width too. */
+.physical header .pull { display: flex; align-items: center; }
+.physical header .pull select { width: 200px; padding: 4px 6px; border: 1px solid var(--border); border-radius: 6px 0 0 6px; background: #fff; font: 13px var(--mono); }
+.physical header .pull button { margin-left: -1px; border-radius: 0 6px 6px 0; white-space: nowrap; }
 .seg { display: inline-flex; }
 .seg button:first-child { border-radius: 6px 0 0 6px; }
 .seg button:last-child { margin-left: -1px; border-radius: 0 6px 6px 0; }

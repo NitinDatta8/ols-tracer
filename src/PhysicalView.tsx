@@ -190,6 +190,16 @@ function useLight() {
   }, []);
 }
 
+/** A strand of the box's fiber map (its wiring.csv, through the bridge), to mark as pulled. */
+interface BoxStrand { strand: string; from: string; to: string; via: string }
+
+/** The box's strands, fetched once when the view opens: none while the bridge is down. */
+function useStrands() {
+  const [strands, setStrands] = useState<BoxStrand[]>([]);
+  useEffect(() => { bridge('wiring').then((r) => r.json()).then(setStrands, () => setStrands([])); }, []);
+  return strands;
+}
+
 /** Where the light on the fibers comes from: the box now, its last run, or nowhere. */
 const lightLabel = (s: BoxState | null) => !s ? 'No light data for this box'
   : s.live ? 'Live' : `Last state · ${new Date(s.at ?? 0).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}`;
@@ -210,6 +220,8 @@ export function PhysicalView() {
   const [alarmsFor, setAlarmsFor] = useState<Where | null>(null); // level whose alarms the side panel lists
   const [box, checkBox] = useBox();
   useLight();
+  const strands = useStrands();
+  const [pulled, setPulled] = useState(''); // the strand picked to mark as pulled
   const keys = useRef<Keys>(null); // types into the CLI terminal
   const { setOpenDevice, updateDevice, insertLinecard, insertPluggable, remove, notify, connect, deleteLink } = useStore.getState();
 
@@ -251,6 +263,11 @@ export function PhysicalView() {
     const host = device.host?.trim();
     if (host) bridge(linked ? 'disconnect' : 'connect', linked ? '' : host).then(checkBox, () => notify(NO_BRIDGE.error!));
   };
+  /** Labels a pull for scoring: the bridge takes a snapshot of the box with the strand's answer.json in its run. */
+  const markPull = () => bridge('pull', pulled).then(async (r) => {
+    notify(r.ok ? `${pulled} marked as pulled: a snapshot with its answer.json is being recorded` : await r.text());
+    if (r.ok) setPulled('');
+  }, () => notify(NO_BRIDGE.error!));
 
   /** "3", or "1–2" for a card that spans slots. */
   const slotLabel = (slot: string, width?: number) => {
@@ -588,6 +605,15 @@ export function PhysicalView() {
             <small className="muted" title={here.error}>{here.state === 'down' ? here.error : here.state === 'connecting' ? 'connecting…' : 'connected'}</small>
           </form>
           <small className="muted light-state" title={boxState?.run ? `From run ${boxState.run}` : undefined}>{lightLabel(boxState)}</small>
+          {/* After pulling a fiber on the box, label it for scoring. There while disconnected too, so the header never shifts. */}
+          <form className="pull" onSubmit={(e) => { e.preventDefault(); markPull(); }}
+            title="After pulling a fiber on the box, pick its strand: the bridge records a snapshot with its answer.json">
+            <select value={pulled} onChange={(e) => setPulled(e.target.value)} aria-label="Pulled strand" disabled={here.state !== 'connected' || !strands.length}>
+              <option value="">Pulled strand…</option>
+              {strands.map((s) => <option key={s.strand} value={s.strand}>{s.strand}: {s.from} → {s.to}{s.via ? ` via ${s.via}` : ''}</option>)}
+            </select>
+            <button disabled={here.state !== 'connected' || !pulled}>Mark pulled</button>
+          </form>
           <span className="spacer" />
           {/* There at a card too, so the header never shifts: either one goes back to that side of the chassis. */}
           {psus.length + fans.length > 0 && (

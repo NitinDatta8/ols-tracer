@@ -57,7 +57,7 @@ function keep(dir, file, { data, error }) {
   writeFileSync(join(dir, 'parsed', file.replace(/\.txt$/, '.json')), `${JSON.stringify(data ?? { error }, null, 2)}\n`);
 }
 
-/** A run folder, named after when its snapshot started and why: <YYYYMMDD-HHMMSS>-connect or -alarms. */
+/** A run folder, named after when its snapshot started and why: <YYYYMMDD-HHMMSS>-connect, -alarms or -pull. */
 export class Run {
   constructor(trigger, host) {
     const at = Date.now();
@@ -108,6 +108,28 @@ export class Run {
     this.save();
     return parsed;
   }
+
+  /**
+   * Labels the run as the pull of `strand` (a wiring.csv row), marked in the UI at `at`: its answer.json, for scoring
+   * only (the agent never reads it), and `state: fault`. The box can see a pull only when the strand's Rx end is one of
+   * its ports, so a strand into the BERT is not `detectable`, and "insufficient evidence" is its right answer.
+   */
+  answer({ strand, from, to, via }, at) {
+    const answer = { fault: 'pull', strand, from, to, via, markedAt: iso(at), detectable: /^\d+-\d+-\w+$/.test(to) };
+    writeFileSync(join(this.dir, 'answer.json'), `${JSON.stringify(answer, null, 2)}\n`);
+    this.meta.state = 'fault';
+    this.save();
+  }
+}
+
+/** The box's strands, from its wiring.csv: [{ strand, from, to, via, length_km, loss_db, notes }], or none. */
+export function wiring() {
+  const f = join(BOX_DATA_ROOT, 'wiring.csv');
+  if (!existsSync(f)) return [];
+  const [head, ...rows] = readFileSync(f, 'utf8').split(/\r?\n/).filter((l) => l.trim());
+  const keys = head.split(',');
+  // The last column, notes, may hold commas.
+  return rows.map((r) => Object.fromEntries(keys.map((k, i, all) => [k, (i < all.length - 1 ? r.split(',')[i] : r.split(',').slice(i).join(',')) ?? ''])));
 }
 
 /** A JSON-lines file's lines, or none. */

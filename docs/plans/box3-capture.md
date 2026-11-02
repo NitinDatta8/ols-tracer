@@ -48,8 +48,8 @@ The bridge (`bridge/server.mjs`) already holds the box's SSH session, with two s
 2. **A snapshot when the session opens.** It runs every snapshot command in the capture list once, into a new run folder.
 3. **Polls.** The periodic polls append their parsed results to the latest run's `poll.jsonl`, one line per command per poll. Raw output goes to disk only in snapshots, so a long session stays small.
 4. **A snapshot when the alarms change.** When the parsed `show alarm` set changes, it takes another snapshot into a new run folder. A pull and its restore are each recorded without anyone typing.
-5. **Typed commands.** When someone runs a `show` command in the UI's terminal, the recorder reads the final command line (after Tab completion and backspaces) from a headless xterm (`@xterm/headless`) fed with the same output, runs it again on the poller's shell, and saves that clean output in the latest run. It only re-runs `show` commands, never `set`, `delete`, `clear`, `commit` or `rpc`.
-6. **The answer.** The only step a person does is labelling, for scoring. Marking a fiber as pulled in the UI writes `answer.json` into the run that the alarm change created. The agent never reads it.
+5. **Typed commands.** When someone runs a `show` command in the UI's terminal, the recorder reads the final command line (after Tab completion and backspaces) from a headless xterm (`@xterm/headless`) fed with the same output, runs it again on the poller's shell, and saves that clean output in the latest run. It only re-runs `show` commands at the operational prompt, never `set`, `delete`, `clear`, `commit` or `rpc`, and never a `?` help or a `|` pipe. **Built (2026-11-01):** `bridge/typed.mjs`.
+6. **The answer.** The only step a person does is labelling, for scoring. Marking a fiber as pulled in the UI takes a snapshot of its own, `<YYYYMMDD-HHMMSS>-pull`, and writes `answer.json` into it. The agent never reads it. **Built (2026-11-01),** with one change from "into the run that the alarm change created": a pull of F02 changes no alarm, so it would have no run to score, and a mark made before the next 10 s poll would land in the previous run.
 
 > **Laser safety:** never look into a pulled connector or a port, and cap the open ends. Avoid an amplifier's output, whose power can be high. Don't rely on ALS to shut the laser off.
 
@@ -60,14 +60,20 @@ Each run folder is one snapshot, plus the polls that follow it until the next on
 ```
 data/boxes/box3/runs/
   run-01-healthy/                      run 1, the hand capture, converted to this layout
-  20261031-145210-connect/             <YYYYMMDD-HHMMSS>-<trigger>: connect | alarms
+  20261031-145210-connect/             <YYYYMMDD-HHMMSS>-<trigger>: connect | alarms | pull
     meta.json
     raw/index.jsonl                    one line per command
     raw/000_configure.txt              prerequisites first
     raw/007_show-och-1-7-5.txt         the exact output, prompt lines cut
     parsed/007_show-och-1-7-5.json     its TTP result, or { "error": … }
     poll.jsonl                         the polls until the next snapshot
-    answer.json                        only when a fault was marked
+    answer.json                        only in a pull run: the marked strand
+```
+
+`answer.json`, from the strand's row in `wiring.csv`. `detectable` is false when its Rx end is not a box port (F02), where the right answer is "insufficient evidence":
+
+```json
+{ "fault": "pull", "strand": "F04", "from": "1-1-ad1", "to": "1-7-5", "via": "", "markedAt": "2026-11-01T19:55:39-05:00", "detectable": true }
 ```
 
 - **File names:** `NNN_<slug>.txt`, where NNN is the order they ran and the slug is the command with spaces turned into `-`. The address keeps its case, `*` becomes `all` and `?` becomes `help`: `show port 1-7-*` is `004_show-port-1-7-all.txt`.
@@ -75,7 +81,7 @@ data/boxes/box3/runs/
   ```json
   {"n": 7, "cmd": "show och 1-7-5", "at": "2026-10-31T14:52:10Z", "source": "snapshot", "file": "007_show-och-1-7-5.txt", "ok": true}
   ```
-  `source` is `prereq`, `snapshot`, `typed` or `hand`. The sync works out which command of the [CLI index](../reference/cli-data-schemas.md) each line ran: `show och 1-7-5` is `show och <name>`, `show och` (a list without its key) is the same command, and `-l 200` is an option. Typos and commands the index lacks match nothing.
+  `source` is `prereq`, `snapshot`, `typed` or `hand`. A typed command is appended to the latest run, after its snapshot. The sync works out which command of the [CLI index](../reference/cli-data-schemas.md) each line ran: `show och 1-7-5` is `show och <name>`, `show och` (a list without its key) is the same command, and `-l 200` is an option. Typos and commands the index lacks match nothing.
 - **Errors and empty output still count.** `Invalid name: alarms` shows the box doesn't have that command (`onBox: no`), and empty output is data.
 
 ### `meta.json`

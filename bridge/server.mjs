@@ -4,14 +4,16 @@
 // keystrokes as they are typed, so the box's own Tab completion, history, Ctrl-C and modes work as they do over ssh.
 // A poller runs the commands in poll.json on a second shell of the session, records them as runs under
 // data/boxes/<box>/runs/ (recorder.mjs), parses their output with TTP (parse.py) and serves the latest results at
-// /bridge/state.
+// /bridge/state. A `show` command typed in the terminal is run again there and saved in the latest run (typed.mjs), and
+// a pull marked in the view (/bridge/pull) takes a snapshot with its answer.json.
 // Login settings come from bridge/.env (see .env.example). Listens on localhost only.
 import { existsSync, readFileSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { fileURLToPath } from 'node:url';
 import ssh2 from 'ssh2';
 import { WebSocketServer } from 'ws';
-import { latest, PYTHON, Run } from './recorder.mjs';
+import { latest, PYTHON, Run, wiring } from './recorder.mjs';
+import { Screen } from './typed.mjs';
 
 const env = process.env;
 const PORT = Number(env.BRIDGE_PORT ?? 8022);
@@ -41,14 +43,20 @@ let size = { cols: 120, rows: 30 }; // the terminal's, which the box wraps and p
 let log = Buffer.alloc(0); // the session's output so far (its last LOG bytes)
 let polled = {}; // command → its latest { at, raw, data } or { at, raw, error }
 let retry;
+let typed = []; // show commands typed in the terminal, waiting to run again on the poller's shell
+let marks = []; // strands marked as pulled, { strand, from, to, via, at }, waiting for their snapshot
+/** The terminal's screen, read back for the commands typed in it. */
+const newScreen = () => new Screen(size, (cmd) => { if (POLLS.length && state === 'connected') typed.push(cmd); });
+let screen = newScreen();
 
 const terminals = new WebSocketServer({ noServer: true });
 
-/** Output for the terminals: to every one attached, and kept for those that attach later. */
+/** Output for the terminals: to every one attached, kept for those that attach later, and on the screen. */
 const out = (d) => {
   const b = Buffer.from(d);
   log = Buffer.concat([log, b]).subarray(-LOG);
   for (const ws of terminals.clients) ws.send(b);
+  screen.write(b);
 };
 
 /** Opens the session to `host`, and opens it again with backoff whenever it drops, until disconnect(). */
@@ -99,6 +107,10 @@ function disconnect() {
   state = 'down';
   log = Buffer.alloc(0);
   polled = {};
+  typed = [];
+  marks = [];
+  screen.dispose();
+  screen = newScreen();
   c?.end();
 }
 
@@ -139,20 +151,25 @@ async function poll(c, ch) {
   let changed = false; // a poll saw them change
   const last = {}; // command → when it last ran
 
-  /** Runs `cmd`, records it in the run as `source` (prereq, snapshot or poll), and keeps its result for /bridge/state. */
+  /** Runs `cmd`, records it in the run as `source` (prereq, snapshot, poll or typed), and keeps its result for /bridge/state. */
   const take = async (cmd, source) => {
     const at = (last[cmd] = Date.now());
     const { raw, ok } = await output(cmd);
     const { template, data = null, error } = source === 'poll' ? await run.poll(cmd, at, raw) : await run.record(cmd, at, raw, ok, source);
     if (c === conn) polled[cmd] = { at, raw, ...(ok ? (error ? { error } : { data }) : { error: `no prompt within ${TIMEOUT / 1000} s` }) };
-    if (template !== ALARMS || !data) return;
+    // A typed `show alarm` doesn't move the alarms the polls compare against, so it never hides a change from them.
+    if (template !== ALARMS || !data || source === 'typed') return;
     const ids = Object.keys(data.alarms ?? {}).sort().join(' ');
     if (source === 'poll' && alarms !== undefined && ids !== alarms) changed = true;
     alarms = ids;
   };
-  /** A new run: the prerequisites if the session just opened, then every command once. False if a prerequisite failed. */
-  const snapshot = async (trigger) => {
+  /**
+   * A new run: the prerequisites if the session just opened, then every command once. A `pull` run gets the marked
+   * strand's answer.json first. False if a prerequisite failed.
+   */
+  const snapshot = async (trigger, mark) => {
     run = new Run(trigger, host);
+    if (mark) run.answer(mark, mark.at);
     for (const cmd of trigger === 'connect' ? PREREQS : []) if (live()) await take(cmd, 'prereq');
     if (run.meta.prereqs.some((p) => !p.ok)) return false;
     for (const { cmd } of POLLS) if (live()) await take(cmd, 'snapshot');
@@ -168,6 +185,16 @@ async function poll(c, ch) {
     if (changed) {
       changed = false;
       await snapshot('alarms');
+      continue;
+    }
+    // A typed command first: it is one command, and belongs in the run it was typed during.
+    if (typed.length) {
+      await take(typed.shift(), 'typed');
+      continue;
+    }
+    // A marked pull gets its own snapshot, so even a pull the box can't see (no alarm changes) has a run to score.
+    if (marks.length) {
+      await snapshot('pull', marks.shift());
       continue;
     }
     const now = Date.now();
@@ -213,6 +240,20 @@ const server = createServer(async (req, res) => {
     disconnect();
     return res.end();
   }
+  // The box's strands (wiring.csv), to mark one as pulled.
+  if (req.url === '/wiring') {
+    res.setHeader('content-type', 'application/json');
+    return res.end(JSON.stringify(wiring()));
+  }
+  // A strand pulled on the box, by its wiring.csv name: recorded in a snapshot of its own, with its answer.json.
+  if (req.url === '/pull' && req.method === 'POST') {
+    const id = await body(req);
+    const strand = wiring().find((s) => s.strand === id);
+    if (!strand) return res.writeHead(400).end('A strand from wiring.csv\n');
+    if (state !== 'connected' || !POLLS.length) return res.writeHead(409).end('Connect to the box first: a pull is recorded in a snapshot\n');
+    marks.push({ ...strand, at: Date.now() });
+    return res.end();
+  }
   res.writeHead(404).end();
 });
 
@@ -232,7 +273,11 @@ server.on('upgrade', (req, socket, head) => {
       if (msg.cols > 0 && msg.rows > 0) {
         size = { cols: msg.cols, rows: msg.rows };
         shell?.setWindow(size.rows, size.cols, 0, 0);
-      } else if (typeof msg.d === 'string') shell?.write(msg.d);
+        screen.resize(size);
+      } else if (typeof msg.d === 'string' && shell) {
+        shell.write(msg.d);
+        if (msg.d.includes('\r')) screen.enter(); // the line it ends is read back once the box echoes it
+      }
     });
   });
 });
