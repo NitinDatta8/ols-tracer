@@ -3,6 +3,7 @@ import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { byId, catalogFor, streams } from './catalog';
 import { fiberError, linecardError, pluggableError, touches, validate } from './rules';
+import type { BoxState } from './live';
 import type { Device, End, Link, Topology, View } from './types';
 
 interface State {
@@ -12,6 +13,7 @@ interface State {
   openDevice: string | null; // device shown in the physical view
   toast: string | null;
   session: number; // bumped on new/open so the canvas remounts and fits the view
+  live: BoxState | null; // what the CLI bridge read from the box, never saved
 
   load: (topology: Topology | null) => void;
   open: (json: string) => void;
@@ -19,6 +21,7 @@ interface State {
   select: (id: string, on: boolean) => void;
   setOpenDevice: (id: string | null) => void;
   notify: (msg: string) => void;
+  setLive: (live: BoxState | null) => void;
   addDevice: (chassis: string, x: number, y: number) => void;
   updateDevice: (id: string, patch: Partial<Pick<Device, 'host' | 'x' | 'y' | 'emptyBays'>>) => void;
   deleteDevice: (id: string) => void;
@@ -68,6 +71,7 @@ export const useStore = create<State>()(
       openDevice: null,
       toast: null,
       session: 0,
+      live: null,
 
       load: (topology) => set((s) => {
         s.topology = topology;
@@ -88,6 +92,8 @@ export const useStore = create<State>()(
       },
 
       setView: (view) => set({ view }),
+
+      setLive: (live) => set({ live }),
 
       select: (id, on) => set((s) => {
         if (on) s.selected = id;

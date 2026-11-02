@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type DragEvent, type MouseEvent } from 'react';
 import { byId, cli } from './catalog';
+import { light, stateFor, type BoxState } from './live';
 import { PipeLayer, type PipeEnds } from './Pipe';
 import { roleOf, toneOf } from './ports';
 import { alarms, bays, coverage, fiberable, fiberError, fibersAt, linecardError, path, pluggableError, resolve, sameEnd, span, touches } from './rules';
 import { useCatalog, useStore } from './store';
 import { BoxTerminal, type Keys } from './Terminal';
-import type { Alarm, Catalog, CliLevel, Datasheet, End, LinecardDef, PluggableDef, PortDef, Strand, Topology } from './types';
+import type { Alarm, Catalog, CliLevel, Datasheet, End, LinecardDef, Link, PluggableDef, PortDef, Strand, Topology } from './types';
 
 type Drag = { kind: 'card' | 'plug'; id: string };
 type At = { slot: string; port?: string };
@@ -178,8 +179,24 @@ function useBox() {
   return [box, check] as const;
 }
 
+/** The box's light, fetched every 10 s while the view is open: live while connected, else the last run on disk. */
+function useLight() {
+  useEffect(() => {
+    const { setLive } = useStore.getState();
+    const get = () => bridge('state').then((r) => r.json()).then(setLive, () => setLive(null));
+    get();
+    const id = setInterval(get, 10000);
+    return () => clearInterval(id);
+  }, []);
+}
+
+/** Where the light on the fibers comes from: the box now, its last run, or nowhere. */
+const lightLabel = (s: BoxState | null) => !s ? 'No light data for this box'
+  : s.live ? 'Live' : `Last state · ${new Date(s.at ?? 0).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}`;
+
 export function PhysicalView() {
   const t = useStore((s) => s.topology)!;
+  const live = useStore((s) => s.live);
   const openId = useStore((s) => s.openDevice);
   const [stage, fit] = useFit();
   const cat = useCatalog();
@@ -192,6 +209,7 @@ export function PhysicalView() {
   const [back, setBack] = useState(false); // chassis seen from the back: PSUs and fans
   const [alarmsFor, setAlarmsFor] = useState<Where | null>(null); // level whose alarms the side panel lists
   const [box, checkBox] = useBox();
+  useLight();
   const keys = useRef<Keys>(null); // types into the CLI terminal
   const { setOpenDevice, updateDevice, insertLinecard, insertPluggable, remove, notify, connect, deleteLink } = useStore.getState();
 
@@ -220,6 +238,8 @@ export function PhysicalView() {
   const card = cardSlot ? byId(cat.linecards, device.slots[cardSlot]?.linecard) : undefined;
   const builtIn = card && !card.ports.some((p) => p.allowedPluggables.length); // a card with fixed ports only
   const command = (level: CliLevel, at?: At) => cli(cat, level, { chassis: device.chassisNo ?? 1, ...at });
+  const boxState = stateFor(live, device);
+  const lightOf = (l: Link) => light(boxState, t, l);
   const at = focus ?? (cardSlot ? { slot: cardSlot } : undefined);
   const strip = command(at?.port ? 'port' : at ? 'card' : 'chassis', at);
 
@@ -364,7 +384,7 @@ export function PhysicalView() {
         </div>
         </div>
         {/* Fibers between two cards of this chassis, and loopbacks; the rest show their far end in the strand's tooltip. */}
-        <PipeLayer view={`chassis:${device.id}`} spacing={{ margin: 2, lane: 7, hop: 3 }} width={5}
+        <PipeLayer view={`chassis:${device.id}`} spacing={{ margin: 2, lane: 7, hop: 3 }} width={5} light={lightOf}
           ends={t.links.filter((l) => l.a.device === device.id && l.b.device === device.id).map((link) => ({ link, a: pin(link.a, 'tx'), b: pin(link.b, 'rx') }))} />
       </div>
     );
@@ -458,7 +478,7 @@ export function PhysicalView() {
             </div>
           ))}
         </div>
-        <PipeLayer view={`card:${device.id}/${slotId}`} spacing={{ margin: 10, lane: 18, hop: 9 }} width={14} ends={fibers} />
+        <PipeLayer view={`card:${device.id}/${slotId}`} spacing={{ margin: 10, lane: 18, hop: 9 }} width={14} ends={fibers} light={lightOf} />
       </div>
     );
   };
@@ -567,6 +587,7 @@ export function PhysicalView() {
             </button>
             <small className="muted" title={here.error}>{here.state === 'down' ? here.error : here.state === 'connecting' ? 'connecting…' : 'connected'}</small>
           </form>
+          <small className="muted light-state" title={boxState?.run ? `From run ${boxState.run}` : undefined}>{lightLabel(boxState)}</small>
           <span className="spacer" />
           {/* There at a card too, so the header never shifts: either one goes back to that side of the chassis. */}
           {psus.length + fans.length > 0 && (

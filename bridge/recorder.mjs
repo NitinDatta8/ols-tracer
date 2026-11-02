@@ -110,13 +110,13 @@ export class Run {
 
 /**
  * The last state on disk, for /bridge/state while no box is connected: the latest run's snapshot, each command updated
- * by its last poll. { run, at, commands: { [cmd]: { at, data } | { at, error } | { at, raw } } }, times in ms;
- * raw only for a command with no template. Null with no runs.
+ * by its last poll. { host, run, at, commands: { [cmd]: { at, data } | { at, error } | { at, raw } } }, times in ms;
+ * raw only for a command with no template. Null with no runs. `name` picks a run instead of the latest.
  */
-export function latest() {
+export function latest(name) {
   const lines = (f) => (existsSync(f) ? readFileSync(f, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)) : []);
   const metas = (existsSync(RUNS_DIR) ? readdirSync(RUNS_DIR) : [])
-    .filter((r) => existsSync(join(RUNS_DIR, r, 'meta.json')))
+    .filter((r) => (!name || r === name) && existsSync(join(RUNS_DIR, r, 'meta.json')))
     .map((r) => JSON.parse(readFileSync(join(RUNS_DIR, r, 'meta.json'), 'utf8')));
   const meta = metas.sort((a, b) => Date.parse(a.ended) - Date.parse(b.ended)).at(-1);
   if (!meta) return null;
@@ -134,7 +134,7 @@ export function latest() {
   for (const { at, cmd, data, error, raw } of lines(join(dir, 'poll.jsonl'))) {
     commands[cmd] = { at: Date.parse(at), ...(raw !== undefined ? { raw } : error ? { error } : { data }) };
   }
-  return { run: meta.run, at: Date.parse(meta.ended), commands };
+  return { host: meta.host, run: meta.run, at: Date.parse(meta.ended), commands };
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === here('recorder.mjs')) {

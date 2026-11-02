@@ -197,7 +197,7 @@ const server = createServer(async (req, res) => {
   // While connected, what the poller read this session; otherwise the last state on disk, so the view still has values.
   if (req.url === '/state') {
     res.setHeader('content-type', 'application/json');
-    return res.end(JSON.stringify(state === 'connected' ? { live: true, commands: polled } : { live: false, ...(latest() ?? { run: null, commands: {} }) }));
+    return res.end(JSON.stringify(state === 'connected' ? { live: true, host, commands: polled } : { live: false, ...(latest() ?? { run: null, commands: {} }) }));
   }
   if (req.url === '/connect' && req.method === 'POST') {
     const to = await body(req);

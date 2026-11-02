@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest';
 import box3 from '../examples/box3.olst.json';
 import demo from '../examples/demo.olst.json';
 import { byId, catalogFor, cli, cliAddress, nextMode, streams } from './catalog';
+import { light, stateFor, type BoxState } from './live';
 import { layout, moveRun } from './route';
 import { alarms, fiberError, linecardError, pluggableError, validate } from './rules';
 import type { Topology } from './types';
@@ -181,4 +182,39 @@ it('routes fibers in straight runs around devices, spreads shared runs, hops cro
   const run = pts.findIndex((p, i) => i && p.y === pts[i + 1]?.y && p.y === low('f1'));
   expect(moveRun(f1, pts, run, 0, -60, [a, b, c])).toBeNull();
   expect(moveRun(f1, pts, run, 0, 40, [a, b, c])!.some((p) => p.y === low('f1') + 40)).toBe(true);
+});
+
+describe('light on box 3 from run 1', async () => {
+  // The bridge's own reader of a run, as /bridge/state serves it with no box connected.
+  const { latest } = await import(/* @vite-ignore */ resolve(repoRoot, 'bridge/recorder.mjs'));
+  const s: BoxState = { live: false, ...latest('run-01-healthy') };
+  const t = box3 as unknown as Topology;
+  const [f03, f04] = t.links;
+
+  it('belongs to box 3 only', () => {
+    expect(stateFor(s, t.devices[0])).toBe(s);
+    expect(stateFor(s, { ...t.devices[0], host: '10.0.0.1' })).toBeNull();
+  });
+
+  it('puts the line Tx on F03 and the line Rx, OSNR, Q-margin and BER on F04', () => {
+    const lit03 = light(s, t, f03)!;
+    expect(lit03).toMatchObject({ dark: false, tx: -2.97, rx: undefined });
+    // 1-1-ad1 is L0, with no value yet. (Its standing IN_OPTICAL_HIGH_WARNING is lost in run 1: the hand capture's
+    // last `show alarm` line was a completion listing, `[filter]`, which parses empty.)
+    expect(lit03.notes).toEqual(['Tx 1-7-5: -2.97 dBm']);
+    const lit04 = light(s, t, f04)!;
+    expect(lit04).toMatchObject({ dark: false, tx: undefined, rx: -7.43 });
+    expect(lit04.notes).toEqual(expect.arrayContaining(['OSNR 29.7 dB', 'Q-margin 3.4 dB']));
+  });
+
+  it('goes dark on a loss of signal at the Rx end, or with the laser off at the Tx end', () => {
+    const alarm = { resource: 'och 1-7-5', severity: 'CRITICAL', 'alarm-abbreviate': 'LOS', text: 'Loss of signal' };
+    const los: BoxState = { ...s, commands: { ...s.commands, 'show alarm': { at: 0, data: { alarms: { x: alarm } } } } };
+    expect(light(los, t, f04)!.dark).toBe(true);
+    expect(light(los, t, f03)!.dark).toBe(false);
+    const ports = structuredClone(s.commands['show port'].data);
+    ports.state.ports['1-7-5'].laser = 'disabled';
+    const off: BoxState = { ...s, commands: { ...s.commands, 'show port': { at: 0, data: ports } } };
+    expect(light(off, t, f03)!.dark).toBe(true);
+  });
 });

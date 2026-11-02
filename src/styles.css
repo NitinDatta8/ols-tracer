@@ -81,6 +81,10 @@ main { position: relative; min-height: 0; }
 .pipe-g:hover .pipe, .pipe-g.selected .pipe { stroke: var(--accent); }
 .react-flow__edge-path.hit { stroke: none; }
 .flow { fill: #713f12; dominant-baseline: central; pointer-events: none; }
+/* The box's light: a dark fiber is grey with no arrows; the dBm it measures sit beside the ends. */
+.pipe-g.dark .pipe { stroke: #6b7280; }
+.pipe-g.dark .pipe-fill { stroke: #d1d5db; }
+.dbm { fill: #fef08a; font-family: var(--mono); font-weight: 600; pointer-events: none; }
 .grip path { fill: none; stroke: transparent; pointer-events: stroke; }
 .grip rect { fill: #fff; stroke: var(--accent); stroke-width: 1.5; }
 .grip.ns { cursor: ns-resize; }
@@ -117,6 +121,8 @@ main { position: relative; min-height: 0; }
 .physical header .box button { width: 104px; margin-left: -1px; border-radius: 0 6px 6px 0; }
 .physical header .box small { margin-left: 10px; }
 .physical header .box small { width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Where the fibers' light comes from (Live, or Last state · time): fixed width, so the header never shifts. */
+.physical header .light-state { width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .seg { display: inline-flex; }
 .seg button:first-child { border-radius: 6px 0 0 6px; }
 .seg button:last-child { margin-left: -1px; border-radius: 0 6px 6px 0; }
