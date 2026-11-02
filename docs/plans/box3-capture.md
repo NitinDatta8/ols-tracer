@@ -128,7 +128,7 @@ The commands are the real ones from run 1. **Snapshot** commands run in every sn
 | Path config | `show assignment`, `show cross-connection`, `show logical-channel`, `show logical-channel flexgo-1-7-5`, `flexgdu-1-7-5-4` | snapshot |
 | Neighbors | `show interface`, `show lldp neighbors` | snapshot |
 | Lists | `show transceiver`, `show och`, `show eth` (ids only; values come from the per-port commands) | snapshot |
-| Multi-entity | `show transceiver 1-7-* physical-channel`, `show transceiver 1-7-5 physical-channel 1` | snapshot |
+| Line lane | `show transceiver 1-7-5 physical-channel 1` (`show transceiver 1-7-* physical-channel` was dropped: its table has no transceiver address, so its lanes can't be told apart) | snapshot |
 | Dark and empty | `show och 1-7-1`, `show och 1-8-1` (provisioned, no optics), `show transceiver 1-8-1` (no transceiver), `show eth 1-8-4` | snapshot |
 | Line-side client | `show eth 1-7-5-4` (the cross-connect's far end) | snapshot |
 | Thresholds | `show profile-threshold` (`show pm threshold` is invalid; this is the index's other threshold command) | snapshot |

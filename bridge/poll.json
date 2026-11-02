@@ -31,7 +31,6 @@
     { "cmd": "show transceiver", "every": 0 },
     { "cmd": "show och", "every": 0 },
     { "cmd": "show eth", "every": 0 },
-    { "cmd": "show transceiver 1-7-* physical-channel", "every": 0 },
     { "cmd": "show transceiver 1-7-5 physical-channel 1", "every": 0 },
     { "cmd": "show transceiver 1-8-1", "every": 0 },
     { "cmd": "show och 1-7-1", "every": 0 },

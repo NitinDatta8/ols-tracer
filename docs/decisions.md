@@ -9,7 +9,7 @@ The decisions that shape the tracer, newest first, each with where it was argued
 | The work left in Goal 2.5, Goal 1 and Iter 3 is done in one order, the 2026-11-01 plan, top to bottom | One list both machines follow | [Plan 2026-11-01](plans/plan-2026-11-01.md#order) |
 | Two machines: the work machine runs box 3 and commits only `data/boxes/box3/runs/**`, `setup.md` and `wiring.csv`; this Mac builds every step that doesn't need the box. Both on `main`, `git pull --rebase` before each push | Work in parallel without conflicts | [Plan 2026-11-01](plans/plan-2026-11-01.md#two-machines) |
 | L0's `show` commands are captured read-only (`show optical-port`, `amplifier`, `osc`, `external-connection`, `internal-connection`), and `show optical-port 1-1-ad1` and `1-1-line` are polled. Nothing in L0 is modelled and GNPy stays parked. Narrows 2026-10-30's "no L0" to "no L0 modelling" | F03–F05 get both ends measured, and `show external-connection` may hold the box's own fiber map | [Plan 2026-11-01](plans/plan-2026-11-01.md#6-light-on-the-wires) |
-| The connect snapshot takes every command discovery and the wires need (58 commands, 12 polled), including dark and empty entities (`show och 1-7-1`, `show transceiver 1-8-1`) | Templates need fixtures for every shape, and a dark port's output before any pull | [Box 3 capture](plans/box3-capture.md#capture-list) |
+| The connect snapshot takes every command discovery and the wires need (57 commands, 12 polled), including dark and empty entities (`show och 1-7-1`, `show transceiver 1-8-1`) | Templates need fixtures for every shape, and a dark port's output before any pull | [Box 3 capture](plans/box3-capture.md#capture-list) |
 
 ## 2026-10-31
 
