@@ -1,19 +1,11 @@
 [
   {
-    "id": "csm",
-    "name": "CSM"
-  },
-  {
     "id": "csp",
     "name": "CSP"
   },
   {
     "id": "ctc",
     "name": "CTC"
-  },
-  {
-    "id": "kpl",
-    "name": "KPL"
   },
   {
     "id": "polaris",

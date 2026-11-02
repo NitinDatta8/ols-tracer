@@ -1,6 +1,0 @@
-{
-  "chassis": "show chassis {chassis}",
-  "card": "show card {chassis}-{slot}",
-  "port": "show port {chassis}-{slot}-{port}",
-  "pluggable": "show transceiver {chassis}-{slot}-{port}"
-}

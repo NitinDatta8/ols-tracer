@@ -378,15 +378,6 @@
     "about": "Synced from l1_profile.xml supported-part-no."
   },
   {
-    "id": "trq5h10enf-lf000",
-    "name": "TRQ5H10ENF-LF000",
-    "part": "TRQ5H10ENF-LF000",
-    "formFactor": "QSFP",
-    "speed": "400G",
-    "fiber": "SMF",
-    "about": "Synced from l1_profile.xml supported-part-no."
-  },
-  {
     "id": "yv02-c02",
     "name": "YV02-C02",
     "part": "YV02-C02",

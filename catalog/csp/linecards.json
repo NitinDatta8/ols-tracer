@@ -1,291 +1,5 @@
 [
   {
-    "id": "lc-800mx-sec",
-    "name": "800MX_SEC",
-    "ports": [
-      {
-        "id": "PORT1",
-        "role": "port",
-        "behavior": {
-          "showsInData": true
-        },
-        "allowedPluggables": [
-          "60g800001",
-          "60g810001",
-          "ab-qt0613c4nl",
-          "c100q00100sr402a",
-          "c100q020cwdm402h",
-          "c100q10000lr402f",
-          "ctq1mcw4cs3-01",
-          "ctq1mlr4cs1-01",
-          "ctq1xcr4cs1-01",
-          "esbqlc29-z010-c",
-          "esbqlc29-z010c",
-          "ftlc1154rdpl",
-          "ftlc1156sdpl",
-          "ftlc1157rgpl",
-          "ftlc1157rgpl-te",
-          "ftlc1157rgpl-tf",
-          "ftlc4353rjpl",
-          "trq5e14enf-lf000",
-          "trq5e14enf-lf002-m"
-        ]
-      },
-      {
-        "id": "PORT2",
-        "role": "port",
-        "behavior": {
-          "showsInData": true
-        },
-        "allowedPluggables": [
-          "60g800001",
-          "60g810001",
-          "ab-qt0613c4nl",
-          "c100q00100sr402a",
-          "c100q020cwdm402h",
-          "c100q10000lr402f",
-          "ctq1mcw4cs3-01",
-          "ctq1mlr4cs1-01",
-          "ctq1xcr4cs1-01",
-          "esbqlc29-z010-c",
-          "esbqlc29-z010c",
-          "ftlc1154rdpl",
-          "ftlc1156sdpl",
-          "ftlc1157rgpl",
-          "ftlc1157rgpl-te",
-          "ftlc1157rgpl-tf",
-          "ftlc4353rjpl",
-          "trq5e14enf-lf000",
-          "trq5e14enf-lf002-m"
-        ]
-      },
-      {
-        "id": "PORT3",
-        "role": "port",
-        "behavior": {
-          "showsInData": true
-        },
-        "allowedPluggables": [
-          "60g800001",
-          "60g810001",
-          "ab-qt0613c4nl",
-          "c100q00100sr402a",
-          "c100q020cwdm402h",
-          "c100q10000lr402f",
-          "ctq1mcw4cs3-01",
-          "ctq1mlr4cs1-01",
-          "ctq1xcr4cs1-01",
-          "esbqlc29-z010-c",
-          "esbqlc29-z010c",
-          "ftlc1154rdpl",
-          "ftlc1156sdpl",
-          "ftlc1157rgpl",
-          "ftlc1157rgpl-te",
-          "ftlc1157rgpl-tf",
-          "ftlc4353rjpl",
-          "trq5e14enf-lf000",
-          "trq5e14enf-lf002-m"
-        ]
-      },
-      {
-        "id": "PORT4",
-        "role": "port",
-        "behavior": {
-          "showsInData": true
-        },
-        "allowedPluggables": [
-          "60g800001",
-          "60g810001",
-          "ab-qt0613c4nl",
-          "c100q00100sr402a",
-          "c100q020cwdm402h",
-          "c100q10000lr402f",
-          "ctq1mcw4cs3-01",
-          "ctq1mlr4cs1-01",
-          "ctq1xcr4cs1-01",
-          "esbqlc29-z010-c",
-          "esbqlc29-z010c",
-          "ftlc1154rdpl",
-          "ftlc1156sdpl",
-          "ftlc1157rgpl",
-          "ftlc1157rgpl-te",
-          "ftlc1157rgpl-tf",
-          "ftlc4353rjpl",
-          "trq5e14enf-lf000",
-          "trq5e14enf-lf002-m"
-        ]
-      },
-      {
-        "id": "PORT5",
-        "role": "port",
-        "behavior": {
-          "showsInData": true
-        },
-        "allowedPluggables": [
-          "60g800001",
-          "60g810001",
-          "ab-qt0613c4nl",
-          "c100q00100sr402a",
-          "c100q020cwdm402h",
-          "c100q10000lr402f",
-          "ctq1mcw4cs3-01",
-          "ctq1mlr4cs1-01",
-          "ctq1xcr4cs1-01",
-          "esbqlc29-z010-c",
-          "esbqlc29-z010c",
-          "ftlc1154rdpl",
-          "ftlc1156sdpl",
-          "ftlc1157rgpl",
-          "ftlc1157rgpl-te",
-          "ftlc1157rgpl-tf",
-          "ftlc4353rjpl",
-          "trq5e14enf-lf000",
-          "trq5e14enf-lf002-m"
-        ]
-      },
-      {
-        "id": "PORT6",
-        "role": "port",
-        "behavior": {
-          "showsInData": true
-        },
-        "allowedPluggables": [
-          "60g800001",
-          "60g810001",
-          "ab-qt0613c4nl",
-          "c100q00100sr402a",
-          "c100q020cwdm402h",
-          "c100q10000lr402f",
-          "ctq1mcw4cs3-01",
-          "ctq1mlr4cs1-01",
-          "ctq1xcr4cs1-01",
-          "esbqlc29-z010-c",
-          "esbqlc29-z010c",
-          "ftlc1154rdpl",
-          "ftlc1156sdpl",
-          "ftlc1157rgpl",
-          "ftlc1157rgpl-te",
-          "ftlc1157rgpl-tf",
-          "ftlc4353rjpl",
-          "trq5e14enf-lf000",
-          "trq5e14enf-lf002-m"
-        ]
-      },
-      {
-        "id": "PORT7",
-        "role": "port",
-        "behavior": {
-          "showsInData": true
-        },
-        "allowedPluggables": [
-          "60g800001",
-          "60g810001",
-          "ab-qt0613c4nl",
-          "c100q00100sr402a",
-          "c100q020cwdm402h",
-          "c100q10000lr402f",
-          "ctq1mcw4cs3-01",
-          "ctq1mlr4cs1-01",
-          "ctq1xcr4cs1-01",
-          "esbqlc29-z010-c",
-          "esbqlc29-z010c",
-          "ftlc1154rdpl",
-          "ftlc1156sdpl",
-          "ftlc1157rgpl",
-          "ftlc1157rgpl-te",
-          "ftlc1157rgpl-tf",
-          "ftlc4353rjpl",
-          "trq5e14enf-lf000",
-          "trq5e14enf-lf002-m"
-        ]
-      },
-      {
-        "id": "PORT8",
-        "role": "port",
-        "behavior": {
-          "showsInData": true
-        },
-        "allowedPluggables": [
-          "60g800001",
-          "60g810001",
-          "ab-qt0613c4nl",
-          "c100q00100sr402a",
-          "c100q020cwdm402h",
-          "c100q10000lr402f",
-          "ctq1mcw4cs3-01",
-          "ctq1mlr4cs1-01",
-          "ctq1xcr4cs1-01",
-          "esbqlc29-z010-c",
-          "esbqlc29-z010c",
-          "ftlc1154rdpl",
-          "ftlc1156sdpl",
-          "ftlc1157rgpl",
-          "ftlc1157rgpl-te",
-          "ftlc1157rgpl-tf",
-          "ftlc4353rjpl",
-          "trq5e14enf-lf000",
-          "trq5e14enf-lf002-m"
-        ]
-      },
-      {
-        "id": "PORT9",
-        "role": "port",
-        "behavior": {
-          "showsInData": true
-        },
-        "allowedPluggables": [
-          "60g800001",
-          "60g810001",
-          "ab-qt0613c4nl",
-          "c100q00100sr402a",
-          "c100q020cwdm402h",
-          "c100q10000lr402f",
-          "ctq1mcw4cs3-01",
-          "ctq1mlr4cs1-01",
-          "ctq1xcr4cs1-01",
-          "esbqlc29-z010-c",
-          "esbqlc29-z010c",
-          "ftlc1154rdpl",
-          "ftlc1156sdpl",
-          "ftlc1157rgpl",
-          "ftlc1157rgpl-te",
-          "ftlc1157rgpl-tf",
-          "ftlc4353rjpl",
-          "trq5e14enf-lf000",
-          "trq5e14enf-lf002-m"
-        ]
-      },
-      {
-        "id": "PORT10",
-        "role": "port",
-        "behavior": {
-          "showsInData": true
-        },
-        "allowedPluggables": [
-          "60g800001",
-          "60g810001",
-          "ab-qt0613c4nl",
-          "c100q00100sr402a",
-          "c100q020cwdm402h",
-          "c100q10000lr402f",
-          "ctq1mcw4cs3-01",
-          "ctq1mlr4cs1-01",
-          "ctq1xcr4cs1-01",
-          "esbqlc29-z010-c",
-          "esbqlc29-z010c",
-          "ftlc1154rdpl",
-          "ftlc1156sdpl",
-          "ftlc1157rgpl",
-          "ftlc1157rgpl-te",
-          "ftlc1157rgpl-tf",
-          "ftlc4353rjpl",
-          "trq5e14enf-lf000",
-          "trq5e14enf-lf002-m"
-        ]
-      }
-    ]
-  },
-  {
     "id": "lc-c1125",
     "name": "C1125",
     "width": 2,
@@ -1159,6 +873,7 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -1304,6 +1019,7 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -1737,6 +1453,7 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -1806,6 +1523,7 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -2003,6 +1721,7 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -3333,6 +3052,7 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -3478,6 +3198,7 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -3567,6 +3288,7 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -3714,6 +3436,7 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -3783,6 +3506,7 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -3980,6 +3704,7 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -4237,6 +3962,7 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
+          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
