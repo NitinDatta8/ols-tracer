@@ -948,5 +948,437 @@
         "allowedPluggables": []
       }
     ]
+  },
+  {
+    "id": "lc-dge",
+    "name": "DGE",
+    "width": 4,
+    "ports": [
+      {
+        "id": "LINE_EAST",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINE_WEST",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-fmux-32",
+    "name": "FMUX_32",
+    "width": 2,
+    "ports": [
+      {
+        "id": "SIGA",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "SIGB",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "COM1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "COM2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "SIG",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "EXP33",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MPO1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MPO2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MPO3",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MPO4",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-ira-32",
+    "name": "IRA_32",
+    "width": 4,
+    "ports": [
+      {
+        "id": "LINE",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "EXP1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "EXP2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "EXP3",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "EXP4",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "EXP5",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "EXP6",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "EXP7",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "EXP8",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "EXP33",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "SIG",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MPO1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MPO2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MPO3",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-tila",
+    "name": "TILA",
+    "width": 2,
+    "ports": [
+      {
+        "id": "LINE_EAST",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINE_WEST",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-l1x8c8x8",
+    "name": "L1X8C8X8",
+    "ports": [
+      {
+        "id": "L1",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": [
+          "60s140001",
+          "60s190001",
+          "60s200001",
+          "dp04cfp2-m30-00e",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl"
+        ]
+      },
+      {
+        "id": "C1",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "C2",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "C3",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "C4",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "C5",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "C6",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "C7",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "C8",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-l1x8c8x8l",
+    "name": "L1X8C8X8L",
+    "ports": [
+      {
+        "id": "L1",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": [
+          "60s140001",
+          "60s190001",
+          "60s200001",
+          "dp04cfp2-m30-00e",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl"
+        ]
+      },
+      {
+        "id": "C1",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "C2",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "C3",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "C4",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "C5",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "C6",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "C7",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "C8",
+        "role": "client",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
   }
 ]

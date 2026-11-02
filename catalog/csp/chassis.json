@@ -53,6 +53,7 @@
       ]
     },
     "supportedVendorTypes": [
+      "800MX_SEC",
       "TMUXC1125",
       "800MX",
       "TMUXC925",
@@ -96,6 +97,11 @@
       "OTDR"
     ],
     "vendorTypeMap": [
+      {
+        "vendorType": "800MX_SEC",
+        "linecardId": "lc-800mx-sec",
+        "profile": "800MX_SEC.json"
+      },
       {
         "vendorType": "TMUXC1125",
         "linecardId": "lc-c1125",
@@ -304,12 +310,13 @@
     ],
     "linecardMappingComplete": true,
     "knownLinecardMappings": 5,
-    "fallbackLinecardMappings": 36,
+    "fallbackLinecardMappings": 37,
     "knownMappingComplete": false,
     "slots": [
       {
         "id": "1",
         "allowedLinecards": [
+          "lc-800mx-sec",
           "lc-c1125",
           "lc-800mx",
           "lc-c925",
@@ -356,6 +363,7 @@
       {
         "id": "2",
         "allowedLinecards": [
+          "lc-800mx-sec",
           "lc-800mx",
           "lc-m4qd",
           "lc-400mx",
@@ -387,6 +395,7 @@
       {
         "id": "3",
         "allowedLinecards": [
+          "lc-800mx-sec",
           "lc-c1125",
           "lc-800mx",
           "lc-c925",
@@ -433,6 +442,7 @@
       {
         "id": "4",
         "allowedLinecards": [
+          "lc-800mx-sec",
           "lc-800mx",
           "lc-m4qd",
           "lc-400mx",
@@ -464,6 +474,7 @@
       {
         "id": "5",
         "allowedLinecards": [
+          "lc-800mx-sec",
           "lc-c1125",
           "lc-800mx",
           "lc-c925",
@@ -510,6 +521,7 @@
       {
         "id": "6",
         "allowedLinecards": [
+          "lc-800mx-sec",
           "lc-800mx",
           "lc-m4qd",
           "lc-400mx",
@@ -541,6 +553,7 @@
       {
         "id": "7",
         "allowedLinecards": [
+          "lc-800mx-sec",
           "lc-c1125",
           "lc-800mx",
           "lc-c925",
@@ -587,6 +600,7 @@
       {
         "id": "8",
         "allowedLinecards": [
+          "lc-800mx-sec",
           "lc-800mx",
           "lc-m4qd",
           "lc-400mx",

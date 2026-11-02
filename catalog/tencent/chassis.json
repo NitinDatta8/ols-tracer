@@ -53,6 +53,7 @@
       ]
     },
     "supportedVendorTypes": [
+      "LCH08",
       "FGA",
       "T1X8C8",
       "T1X8C8L",
@@ -77,9 +78,15 @@
       "OTDR",
       "T1X12C8",
       "T1X12C8L",
-      "OCM"
+      "OCM",
+      "AOM"
     ],
     "vendorTypeMap": [
+      {
+        "vendorType": "LCH08",
+        "linecardId": "lc-lch08",
+        "profile": "LCH08.json"
+      },
       {
         "vendorType": "FGA",
         "linecardId": "lc-fga",
@@ -204,16 +211,22 @@
         "vendorType": "OCM",
         "linecardId": "lc-ocm",
         "profile": "OCM.json"
+      },
+      {
+        "vendorType": "AOM",
+        "linecardId": "lc-aom",
+        "profile": "AOM.json"
       }
     ],
     "linecardMappingComplete": true,
     "knownLinecardMappings": 0,
-    "fallbackLinecardMappings": 25,
+    "fallbackLinecardMappings": 27,
     "knownMappingComplete": false,
     "slots": [
       {
         "id": "1",
         "allowedLinecards": [
+          "lc-lch08",
           "lc-fga",
           "lc-t1x8c8",
           "lc-t1x8c8l",
@@ -238,12 +251,14 @@
           "lc-otdr",
           "lc-t1x12c8",
           "lc-t1x12c8l",
-          "lc-ocm"
+          "lc-ocm",
+          "lc-aom"
         ]
       },
       {
         "id": "2",
         "allowedLinecards": [
+          "lc-lch08",
           "lc-fga",
           "lc-t1x8c8",
           "lc-t1x8c8l",
@@ -254,12 +269,14 @@
           "lc-otdr",
           "lc-t1x12c8",
           "lc-t1x12c8l",
-          "lc-ocm"
+          "lc-ocm",
+          "lc-aom"
         ]
       },
       {
         "id": "3",
         "allowedLinecards": [
+          "lc-lch08",
           "lc-fga",
           "lc-t1x8c8",
           "lc-t1x8c8l",
@@ -281,12 +298,14 @@
           "lc-otdr",
           "lc-t1x12c8",
           "lc-t1x12c8l",
-          "lc-ocm"
+          "lc-ocm",
+          "lc-aom"
         ]
       },
       {
         "id": "4",
         "allowedLinecards": [
+          "lc-lch08",
           "lc-fga",
           "lc-t1x8c8",
           "lc-t1x8c8l",
@@ -297,12 +316,14 @@
           "lc-otdr",
           "lc-t1x12c8",
           "lc-t1x12c8l",
-          "lc-ocm"
+          "lc-ocm",
+          "lc-aom"
         ]
       },
       {
         "id": "5",
         "allowedLinecards": [
+          "lc-lch08",
           "lc-fga",
           "lc-t1x8c8",
           "lc-t1x8c8l",
@@ -327,12 +348,14 @@
           "lc-otdr",
           "lc-t1x12c8",
           "lc-t1x12c8l",
-          "lc-ocm"
+          "lc-ocm",
+          "lc-aom"
         ]
       },
       {
         "id": "6",
         "allowedLinecards": [
+          "lc-lch08",
           "lc-fga",
           "lc-t1x8c8",
           "lc-t1x8c8l",
@@ -343,12 +366,14 @@
           "lc-otdr",
           "lc-t1x12c8",
           "lc-t1x12c8l",
-          "lc-ocm"
+          "lc-ocm",
+          "lc-aom"
         ]
       },
       {
         "id": "7",
         "allowedLinecards": [
+          "lc-lch08",
           "lc-fga",
           "lc-t1x8c8",
           "lc-t1x8c8l",
@@ -370,12 +395,14 @@
           "lc-otdr",
           "lc-t1x12c8",
           "lc-t1x12c8l",
-          "lc-ocm"
+          "lc-ocm",
+          "lc-aom"
         ]
       },
       {
         "id": "8",
         "allowedLinecards": [
+          "lc-lch08",
           "lc-fga",
           "lc-t1x8c8",
           "lc-t1x8c8l",
@@ -386,7 +413,8 @@
           "lc-otdr",
           "lc-t1x12c8",
           "lc-t1x12c8l",
-          "lc-ocm"
+          "lc-ocm",
+          "lc-aom"
         ]
       }
     ]

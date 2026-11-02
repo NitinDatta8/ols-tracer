@@ -66,7 +66,13 @@
       "OLP3_3",
       "L3X8C7",
       "L1X12C8",
-      "L1X12C8L"
+      "L1X12C8L",
+      "DGE",
+      "FMUX_32",
+      "IRA_32",
+      "TILA",
+      "L1X8C8X8",
+      "L1X8C8X8L"
     ],
     "vendorTypeMap": [
       {
@@ -138,11 +144,41 @@
         "vendorType": "L1X12C8L",
         "linecardId": "lc-l1x12c8l",
         "profile": "L1X12C8L.json"
+      },
+      {
+        "vendorType": "DGE",
+        "linecardId": "lc-dge",
+        "profile": "DGE.json"
+      },
+      {
+        "vendorType": "FMUX_32",
+        "linecardId": "lc-fmux-32",
+        "profile": "FMUX_32.json"
+      },
+      {
+        "vendorType": "IRA_32",
+        "linecardId": "lc-ira-32",
+        "profile": "IRA_32.json"
+      },
+      {
+        "vendorType": "TILA",
+        "linecardId": "lc-tila",
+        "profile": "TILA.json"
+      },
+      {
+        "vendorType": "L1X8C8X8",
+        "linecardId": "lc-l1x8c8x8",
+        "profile": "L1X8C8X8.json"
+      },
+      {
+        "vendorType": "L1X8C8X8L",
+        "linecardId": "lc-l1x8c8x8l",
+        "profile": "L1X8C8X8L.json"
       }
     ],
     "linecardMappingComplete": true,
     "knownLinecardMappings": 0,
-    "fallbackLinecardMappings": 14,
+    "fallbackLinecardMappings": 20,
     "knownMappingComplete": false,
     "slots": [
       {
@@ -161,7 +197,13 @@
           "lc-olp3-3",
           "lc-l3x8c7",
           "lc-l1x12c8",
-          "lc-l1x12c8l"
+          "lc-l1x12c8l",
+          "lc-dge",
+          "lc-fmux-32",
+          "lc-ira-32",
+          "lc-tila",
+          "lc-l1x8c8x8",
+          "lc-l1x8c8x8l"
         ]
       },
       {
@@ -172,7 +214,9 @@
           "lc-olp3-3",
           "lc-l3x8c7",
           "lc-l1x12c8",
-          "lc-l1x12c8l"
+          "lc-l1x12c8l",
+          "lc-l1x8c8x8",
+          "lc-l1x8c8x8l"
         ]
       },
       {
@@ -186,7 +230,11 @@
           "lc-olp3-3",
           "lc-l3x8c7",
           "lc-l1x12c8",
-          "lc-l1x12c8l"
+          "lc-l1x12c8l",
+          "lc-fmux-32",
+          "lc-tila",
+          "lc-l1x8c8x8",
+          "lc-l1x8c8x8l"
         ]
       },
       {
@@ -197,7 +245,9 @@
           "lc-olp3-3",
           "lc-l3x8c7",
           "lc-l1x12c8",
-          "lc-l1x12c8l"
+          "lc-l1x12c8l",
+          "lc-l1x8c8x8",
+          "lc-l1x8c8x8l"
         ]
       },
       {
@@ -216,7 +266,13 @@
           "lc-olp3-3",
           "lc-l3x8c7",
           "lc-l1x12c8",
-          "lc-l1x12c8l"
+          "lc-l1x12c8l",
+          "lc-dge",
+          "lc-fmux-32",
+          "lc-ira-32",
+          "lc-tila",
+          "lc-l1x8c8x8",
+          "lc-l1x8c8x8l"
         ]
       },
       {
@@ -227,7 +283,9 @@
           "lc-olp3-3",
           "lc-l3x8c7",
           "lc-l1x12c8",
-          "lc-l1x12c8l"
+          "lc-l1x12c8l",
+          "lc-l1x8c8x8",
+          "lc-l1x8c8x8l"
         ]
       },
       {
@@ -241,7 +299,11 @@
           "lc-olp3-3",
           "lc-l3x8c7",
           "lc-l1x12c8",
-          "lc-l1x12c8l"
+          "lc-l1x12c8l",
+          "lc-fmux-32",
+          "lc-tila",
+          "lc-l1x8c8x8",
+          "lc-l1x8c8x8l"
         ]
       },
       {
@@ -252,7 +314,9 @@
           "lc-olp3-3",
           "lc-l3x8c7",
           "lc-l1x12c8",
-          "lc-l1x12c8l"
+          "lc-l1x12c8l",
+          "lc-l1x8c8x8",
+          "lc-l1x8c8x8l"
         ]
       }
     ]

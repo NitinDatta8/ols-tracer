@@ -1,0 +1,83 @@
+[
+  {
+    "id": "60g700001",
+    "name": "60G700001",
+    "part": "60G700001",
+    "formFactor": "SFP",
+    "speed": "10G",
+    "fiber": "SMF",
+    "about": "Synced from l1_profile.xml supported-part-no."
+  },
+  {
+    "id": "60g710001",
+    "name": "60G710001",
+    "part": "60G710001",
+    "formFactor": "SFP",
+    "speed": "10G",
+    "fiber": "SMF",
+    "about": "Synced from l1_profile.xml supported-part-no."
+  },
+  {
+    "id": "cthoss800szrta00",
+    "name": "CTHOSS800SZRTA00",
+    "part": "CTHOSS800SZRTA00",
+    "formFactor": "OSFP",
+    "speed": "10G",
+    "fiber": "SMF",
+    "about": "Synced from l1_profile.xml supported-part-no."
+  },
+  {
+    "id": "ftcc1112e2pcl-te",
+    "name": "FTCC1112E2PCL-TE",
+    "part": "FTCC1112E2PCL-TE",
+    "formFactor": "QSFP",
+    "speed": "200G",
+    "fiber": "SMF",
+    "about": "Synced from l1_profile.xml supported-part-no."
+  },
+  {
+    "id": "ftce3317d1ccl-te",
+    "name": "FTCE3317D1CCL-TE",
+    "part": "FTCE3317D1CCL-TE",
+    "formFactor": "OSFP",
+    "speed": "10G",
+    "fiber": "SMF",
+    "about": "Synced from l1_profile.xml supported-part-no."
+  },
+  {
+    "id": "ftce3317r1ccl",
+    "name": "FTCE3317R1CCL",
+    "part": "FTCE3317R1CCL",
+    "formFactor": "OSFP",
+    "speed": "10G",
+    "fiber": "SMF",
+    "about": "Synced from l1_profile.xml supported-part-no."
+  },
+  {
+    "id": "ftce3327r2ccl",
+    "name": "FTCE3327R2CCL",
+    "part": "FTCE3327R2CCL",
+    "formFactor": "OSFP",
+    "speed": "10G",
+    "fiber": "SMF",
+    "about": "Synced from l1_profile.xml supported-part-no."
+  },
+  {
+    "id": "t-fx4fnt-ntc",
+    "name": "T-FX4FNT-NTC",
+    "part": "T-FX4FNT-NTC",
+    "formFactor": "QSFP",
+    "speed": "200G",
+    "fiber": "SMF",
+    "about": "Synced from l1_profile.xml supported-part-no."
+  },
+  {
+    "id": "t-gq4cnt-ntc",
+    "name": "T-GQ4CNT-NTC",
+    "part": "T-GQ4CNT-NTC",
+    "formFactor": "QSFP",
+    "speed": "400G",
+    "fiber": "SMF",
+    "about": "Synced from l1_profile.xml supported-part-no."
+  }
+]
