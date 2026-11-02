@@ -1,3 +1,42 @@
 {
-  "error": "spawn /home/nmovva/Code/ols-tracer/bridge/.venv/bin/python ENOENT"
+  "config": {
+    "frequency": "186050000 MHz",
+    "target-output-power": "0.00 dBm",
+    "operational-mode-name": "ZR800-16QAMPS-123P8G-SDFEC",
+    "laser": "enabled",
+    "loopback": "none",
+    "test-signal": "disabled",
+    "test-monitor": "disabled",
+    "test-monitor-time": "0 seconds",
+    "cd-range-min": "-20000 ps/nm",
+    "cd-range-max": "20000 ps/nm"
+  },
+  "state": {
+    "frequency": "186050000 MHz",
+    "target-output-power": "0.00 dBm",
+    "operational-mode": "140",
+    "operational-mode-name": "ZR800-16QAMPS-123P8G-SDFEC",
+    "laser": "disabled",
+    "loopback": "none",
+    "test-signal": "disabled",
+    "test-monitor": "disabled",
+    "test-monitor-time": "0 seconds",
+    "test-signal-status": "unmonitored",
+    "test-monitor-time-countdown": "0 seconds",
+    "test-total-received-bits": "0",
+    "test-bit-errors": "0",
+    "test-bit-error-ratio": "0.00E+00",
+    "test-out-of-sync-seconds": "0",
+    "bit-rate": "TRIB_RATE_800G",
+    "bandwidth": "150 GHz",
+    "baud-rate": "123.8 GBd",
+    "bits-per-symbol": "4 bits/symbol",
+    "modulation-type": "DP-16QAM-PS",
+    "fec-mode": "SDFEC",
+    "tx-spectral-shaping": "on",
+    "cd-range-min": "-20000 ps/nm",
+    "cd-range-max": "20000 ps/nm",
+    "filter-roll-off": "0.1",
+    "fec-uncorrectable-blocks": "0 blocks"
+  }
 }

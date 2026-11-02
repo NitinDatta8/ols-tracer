@@ -1,3 +1,17 @@
 {
-  "error": "spawn /home/nmovva/Code/ols-tracer/bridge/.venv/bin/python ENOENT"
+  "state": {
+    "chassis": {
+      "1": {
+        "description": "CHASSIS"
+      }
+    },
+    "inlet-temperature": {
+      "1": {
+        "instant": 23.6,
+        "avg": 23.6,
+        "min": 23.6,
+        "max": 23.6
+      }
+    }
+  }
 }

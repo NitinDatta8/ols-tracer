@@ -1,3 +1,121 @@
 {
-  "error": "spawn /home/nmovva/Code/ols-tracer/bridge/.venv/bin/python ENOENT"
+  "chassis": {
+    "1": {
+      "mfg-name": "COHERENT",
+      "mfg-date": "2026-10-12",
+      "hardware-version": "1.0",
+      "serial-no": "GCATA000G",
+      "part-no": "60GCA0001"
+    }
+  },
+  "cards": {
+    "1-1": {
+      "module-type": "TMUXC1125",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2026-09-11",
+      "hardware-version": "1.0",
+      "serial-no": "G2PTA0006",
+      "part-no": "60G2P0001"
+    },
+    "1-7": {
+      "module-type": "800MX",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2025-08-26",
+      "hardware-version": "1.0",
+      "serial-no": "G6E3A000D",
+      "part-no": "60G6E0001"
+    },
+    "1-8": {
+      "module-type": "800MX",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2026-05-29",
+      "hardware-version": "1.0",
+      "serial-no": "G6ETA0007",
+      "part-no": "60G6E0001"
+    },
+    "1-21": {
+      "module-type": "2000-AC",
+      "mfg-name": "Artesyn",
+      "mfg-date": "2026-09-28",
+      "serial-no": "G00TA000S",
+      "part-no": "60G000001"
+    },
+    "1-22": {
+      "module-type": "2000-AC",
+      "mfg-name": "Artesyn",
+      "mfg-date": "2026-09-20",
+      "serial-no": "G00TA000R",
+      "part-no": "60G000001"
+    },
+    "1-31": {
+      "module-type": "FANSU",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2026-10-12",
+      "hardware-version": "1.0",
+      "serial-no": "GCBTA003V",
+      "part-no": "60GCB0001"
+    },
+    "1-32": {
+      "module-type": "FANSU",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2026-10-12",
+      "hardware-version": "1.0",
+      "serial-no": "GCBTA003W",
+      "part-no": "60GCB0001"
+    },
+    "1-33": {
+      "module-type": "FANSU",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2026-10-12",
+      "hardware-version": "1.0",
+      "serial-no": "GCBTA003X",
+      "part-no": "60GCB0001"
+    },
+    "1-40": {
+      "module-type": "CIM",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2026-10-12",
+      "hardware-version": "1.0",
+      "serial-no": "GC3TA000G",
+      "part-no": "60GC30001"
+    },
+    "1-41": {
+      "module-type": "CU",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2026-10-12",
+      "hardware-version": "1.0",
+      "serial-no": "GC5KAT01Y",
+      "part-no": "60GC50001"
+    },
+    "1-42": {
+      "module-type": "CU",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2026-10-12",
+      "hardware-version": "1.0",
+      "serial-no": "GC5KAT020",
+      "part-no": "60GC50001"
+    }
+  },
+  "transceivers": {
+    "1-7-4": {
+      "mfg-name": "FS",
+      "mfg-date": "2025-06-17",
+      "hardware-version": "01",
+      "serial-no": "S2514909571",
+      "part-no": "QSFP-LR4-100G",
+      "form-factor": "QSFP28",
+      "connector-type": "LC_CONNECTOR",
+      "compliance-code": "100GBASE-LR4",
+      "transmission-distance": "10km"
+    },
+    "1-7-5": {
+      "mfg-name": "FINISAR CORP.",
+      "mfg-date": "2026-03-05",
+      "hardware-version": "01.01",
+      "serial-no": "2610M015R",
+      "part-no": "FTCD3323R1PCL-1Y",
+      "form-factor": "QSFPDD_DCO",
+      "connector-type": "LC_CONNECTOR"
+    }
+  }
 }

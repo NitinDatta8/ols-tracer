@@ -1,3 +1,22 @@
 {
-  "error": "spawn /home/nmovva/Code/ols-tracer/bridge/.venv/bin/python ENOENT"
+  "state": {
+    "channel-id": "1",
+    "transmitter-frequency": "0 MHz",
+    "stats": {
+      "output-power": {
+        "instant": -99.99,
+        "avg": -99.99,
+        "min": -99.99,
+        "max": -99.99,
+        "unit": "dBm"
+      },
+      "input-power": {
+        "instant": -99.99,
+        "avg": -99.99,
+        "min": -99.99,
+        "max": -99.99,
+        "unit": "dBm"
+      }
+    }
+  }
 }

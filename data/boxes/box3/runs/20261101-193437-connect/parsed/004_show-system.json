@@ -1,3 +1,11 @@
 {
-  "error": "spawn /home/nmovva/Code/ols-tracer/bridge/.venv/bin/python ENOENT"
+  "config": {
+    "hostname": "PAHO-GS2000-03",
+    "config-saving-mode": "auto"
+  },
+  "state": {
+    "hostname": "PAHO-GS2000-03",
+    "config-saving-mode": "auto",
+    "ne-type": "COHERENT-GS2000"
+  }
 }

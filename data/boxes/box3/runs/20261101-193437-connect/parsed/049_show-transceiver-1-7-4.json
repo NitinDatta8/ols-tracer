@@ -1,3 +1,64 @@
 {
-  "error": "spawn /home/nmovva/Code/ols-tracer/bridge/.venv/bin/python ENOENT"
+  "config": {
+    "tunable-wavelength": "none"
+  },
+  "state": {
+    "tunable-wavelength": "none",
+    "present": "true",
+    "oper-status": "active",
+    "removable": "true",
+    "rated-power": "0 W",
+    "used-power": "0 W",
+    "fec-corrected-bits": "0 bits",
+    "firmware-version": "01",
+    "stats": {
+      "pre-fec-ber": {
+        "instant": 0,
+        "avg": 0,
+        "min": 0,
+        "max": 0
+      },
+      "post-fec-ber": {
+        "instant": 0,
+        "avg": 0,
+        "min": 0,
+        "max": 0
+      },
+      "output-power": {
+        "instant": 7.67,
+        "avg": 7.67,
+        "min": 7.67,
+        "max": 7.67,
+        "unit": "dBm"
+      },
+      "input-power": {
+        "instant": 7.8,
+        "avg": 7.8,
+        "min": 7.8,
+        "max": 7.81,
+        "unit": "dBm"
+      },
+      "laser-bias-current": {
+        "instant": 279.38,
+        "avg": 279.38,
+        "min": 279.36,
+        "max": 279.38,
+        "unit": "mA"
+      },
+      "temperature": {
+        "instant": 37.7,
+        "avg": 37.7,
+        "min": 37.7,
+        "max": 37.7,
+        "unit": "°C"
+      },
+      "input-voltage": {
+        "instant": 3.29,
+        "avg": 3.29,
+        "min": 3.29,
+        "max": 3.29,
+        "unit": "V"
+      }
+    }
+  }
 }
