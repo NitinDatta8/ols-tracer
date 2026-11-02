@@ -7,7 +7,7 @@ import demo from '../examples/demo.olst.json';
 import { byId, catalogFor, cli, cliAddress, nextMode, streams } from './catalog';
 import { discover, light, stateFor, type BoxState } from './live';
 import { layout, moveRun } from './route';
-import { alarms, fiberError, linecardError, pluggableError, validate } from './rules';
+import { alarms, fiberError, linecardError, pluggableError, validate, wired } from './rules';
 import type { Topology } from './types';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -252,7 +252,7 @@ describe('light on box 3 from run A', async () => {
 
 describe('connect draws box 3', async () => {
   // The first connect run with every command in, as /bridge/state serves the poller's results while connected.
-  const { latest } = await import(/* @vite-ignore */ resolve(repoRoot, 'bridge/recorder.mjs'));
+  const { latest, wiring } = await import(/* @vite-ignore */ resolve(repoRoot, 'bridge/recorder.mjs'));
   const s: BoxState = { ...latest('20261101-200025-connect'), live: true };
   const t = box3 as unknown as Topology;
   const cat = catalogFor(t.stream);
@@ -267,5 +267,12 @@ describe('connect draws box 3', async () => {
 
   it('waits for show card and show inventory', () => {
     expect(discover(cat, empty, { ...s, commands: {} })).toBeNull();
+  });
+
+  it("runs wiring.csv's fibers between its ports, as box3.olst.json draws them: not the BERT's, and not F05 until LINE is fixed", () => {
+    const d = { ...empty, slots: discover(cat, empty, s)!.slots };
+    const { links, refused } = wired(cat, { ...t, links: [] }, d, wiring());
+    expect(links).toEqual(t.links);
+    expect(refused).toEqual(['F05: PAHO-GS2000-03/1/LINE has no pluggable']);
   });
 });

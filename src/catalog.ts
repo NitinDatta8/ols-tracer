@@ -1,5 +1,5 @@
 import streamsJson from '../catalog/streams.json';
-import type { Catalog, CliLevel, Stream } from './types';
+import type { Catalog, CliLevel, Device, End, Stream } from './types';
 
 export const streams: Stream[] = streamsJson;
 
@@ -132,6 +132,13 @@ export const cliPort = (id: string) => id.replace(/^PORT(\d+)$/, '$1').toLowerCa
 
 /** Where something is in the box's CLI: 1-7 for a card, 1-7-4 for a port. Live values are keyed by it. */
 export const cliAddress = (chassis: number, slot: string, port?: string) => [chassis, slot, ...(port ? [cliPort(port)] : [])].join('-');
+
+/** The port of device `d` at a CLI address (1-7-5 → slot 7, PORT5), or null when it is not one of d's ports (BERT:P1). */
+export function endAt(cat: Catalog, d: Device, address: string): End | null {
+  const [no, slot, port, ...rest] = address.split('-');
+  const p = byId(cat.linecards, d.slots[slot]?.linecard)?.ports.find((x) => cliPort(x.id) === port);
+  return p && !rest.length && Number(no) === (d.chassisNo ?? 1) ? { device: d.id, slot, port: p.id } : null;
+}
 
 /** The CLI mode (index into `cli.modes`) after `command` ran in `mode`: next mode's `enter` goes one deeper, `exit` goes one back. */
 export const nextMode = (cat: Catalog, mode: number, command: string) =>

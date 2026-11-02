@@ -62,7 +62,7 @@ From step 3 and step 4 of the [CLI plan](archive/cli-run-plan.md#step-3-deeper-i
 
 Notes on live sync:
 
-- A box knows its ports, not where the glass goes. Fibers stay hand-drawn unless a command gives neighbour data (OSC, LLDP or a trace id).
+- A box knows its ports, not where the glass goes. Fibers come from the box's `wiring.csv`, written once by hand, unless a command gives neighbour data (OSC, LLDP or a trace id).
 - Values are keyed by CLI address (`1-3-C2`), which the canvas already uses, so a value finds its port without a mapping table, and a later gNMI swap only touches the bridge.
 - Live values sit in their own store slice and are never saved in `.olst.json`, just like alarms.
 

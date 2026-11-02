@@ -6,6 +6,7 @@ import {
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { byId } from './catalog';
 import { behaviorOf, roleOf, showsInView, toneOf } from './ports';
+import { light, stateFor, type Light } from './live';
 import { AlarmButton } from './PhysicalView';
 import { Pipe } from './Pipe';
 import { layout, moveRun, type Fiber, type Pt, type Rect, type Route } from './route';
@@ -16,7 +17,7 @@ import type { Catalog, Device, End, Link, Topology, View } from './types';
 export const CHASSIS_MIME = 'application/x-ols-chassis';
 
 type FiberData = {
-  tip: string; label?: string; service?: boolean; lane?: number;
+  tip: string; label?: string; service?: boolean; lane?: number; light?: Light | null;
   route?: Route; onMove?: (pts: Pt[], run: number, dx: number, dy: number) => void; onReset?: () => void;
 };
 
@@ -123,7 +124,7 @@ function FiberEdge({ id, sourceX, sourceY, targetX, targetY, selected, data }: E
   return (
     <>
       <BaseEdge id={id} path={route.d} className="hit" interactionWidth={14} />
-      <Pipe id={id} route={route} tip={data.tip} width={14} selected={selected} scale={getZoom} onMove={data.onMove} onReset={data.onReset} />
+      <Pipe id={id} route={route} tip={data.tip} width={14} light={data.light} selected={selected} scale={getZoom} onMove={data.onMove} onReset={data.onReset} />
       {data.label && (
         <EdgeLabelRenderer>
           <div className="edge-label" style={{ transform: `translate(-50%, -50%) translate(${(pts[m].x + pts[m + 1].x) / 2}px, ${(pts[m].y + pts[m + 1].y) / 2}px)` }}>
@@ -150,9 +151,9 @@ function edgesFor(t: Topology, cat: Catalog, view: View, selected: string | null
 
   const fibers = visibleLinks(t, cat, view)
     .map((l) => edge(l.id, l.a, l.b, {
-      ...fiber(l),
       tip: `${path(t, l.a)} Tx → ${path(t, l.b)} Rx`,
       label: view === 'L1' ? (sameEnd(l.a, l.b) ? `${path(t, l.a)} loopback` : `${path(t, l.a)} → ${path(t, l.b)}`) : undefined,
+      ...fiber(l),
     }));
   if (view !== 'Data') return fibers;
 
@@ -180,6 +181,7 @@ export function Canvas() {
   const view = useStore((s) => s.view);
   const selected = useStore((s) => s.selected);
   const modalOpen = useStore((s) => !!s.openDevice);
+  const live = useStore((s) => s.live);
   const cat = useCatalog();
   const { addDevice, updateDevice, deleteDevice, select, connect, deleteLink, setOpenDevice, setRoute } = useStore.getState();
   const { screenToFlowPosition } = useReactFlow();
@@ -211,12 +213,21 @@ export function Canvas() {
       return [[l.id, { id: l.id, src: port(srcBox, pa), dst: port(dstBox, pb), srcBox, dstBox, manual: l.routes?.canvas }]];
     }));
     const routes = layout([...fibers.values()], rects);
-    return edgesFor(t, cat, view, selected, (l) => ({
-      route: routes.get(l.id),
-      onMove: (pts, run, dx, dy) => { const r = moveRun(fibers.get(l.id)!, pts, run, dx, dy, rects); if (r) setRoute(l.id, 'canvas', r); },
-      onReset: () => setRoute(l.id, 'canvas'),
-    }));
-  }, [t, cat, view, selected, geometry, setRoute]);
+    // The box's light, on a fiber whose two ends are both on the box the state is from. Its ends sit under the device's
+    // ports, so their dBm go in the fiber's label (outside L1, whose label is the path) instead of beside the ends.
+    const boxOf = (l: Link) => { const s = stateFor(live, byId(t.devices, l.a.device)); return s && stateFor(s, byId(t.devices, l.b.device)); };
+    const dBm = (v?: number) => v?.toFixed(2) ?? '?';
+    return edgesFor(t, cat, view, selected, (l) => {
+      const lit = light(boxOf(l), t, l);
+      return {
+        ...(lit && view !== 'L1' && (lit.tx ?? lit.rx) !== undefined ? { label: `${dBm(lit.tx)} → ${dBm(lit.rx)} dBm` } : {}),
+        light: lit && { ...lit, tx: undefined, rx: undefined },
+        route: routes.get(l.id),
+        onMove: (pts, run, dx, dy) => { const r = moveRun(fibers.get(l.id)!, pts, run, dx, dy, rects); if (r) setRoute(l.id, 'canvas', r); },
+        onReset: () => setRoute(l.id, 'canvas'),
+      };
+    });
+  }, [t, cat, view, selected, geometry, setRoute, live]);
 
   return (
     <div

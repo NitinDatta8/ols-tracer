@@ -3,7 +3,7 @@ import { byId, cli } from './catalog';
 import { discover, light, stateFor, type BoxState } from './live';
 import { PipeLayer, type PipeEnds } from './Pipe';
 import { roleOf, toneOf } from './ports';
-import { alarms, bays, coverage, fiberable, fiberError, fibersAt, linecardError, path, pluggableError, resolve, sameEnd, span, touches } from './rules';
+import { alarms, bays, coverage, fiberable, fiberError, fibersAt, linecardError, path, pluggableError, resolve, sameEnd, span, touches, wired } from './rules';
 import { useCatalog, useStore } from './store';
 import { BoxTerminal, type Keys } from './Terminal';
 import type { Alarm, Catalog, CliLevel, Datasheet, End, LinecardDef, Link, PluggableDef, PortDef, Strand, Topology } from './types';
@@ -193,10 +193,10 @@ function useLight() {
 /** A strand of the box's fiber map (its wiring.csv, through the bridge), to mark as pulled. */
 interface BoxStrand { strand: string; from: string; to: string; via: string }
 
-/** The box's strands, fetched once when the view opens: none while the bridge is down. */
-function useStrands() {
+/** The box's strands, fetched when the view opens and whenever the box's state changes: none while the bridge is down. */
+function useStrands(state: Box['state']) {
   const [strands, setStrands] = useState<BoxStrand[]>([]);
-  useEffect(() => { bridge('wiring').then((r) => r.json()).then(setStrands, () => setStrands([])); }, []);
+  useEffect(() => { bridge('wiring').then((r) => r.json()).then(setStrands, () => setStrands([])); }, [state]);
   return strands;
 }
 
@@ -220,13 +220,14 @@ export function PhysicalView() {
   const [alarmsFor, setAlarmsFor] = useState<Where | null>(null); // level whose alarms the side panel lists
   const [box, checkBox] = useBox();
   useLight();
-  const strands = useStrands();
+  const strands = useStrands(box.state);
   const [pulled, setPulled] = useState(''); // the strand picked to mark as pulled
   const keys = useRef<Keys>(null); // types into the CLI terminal
   const { setOpenDevice, updateDevice, insertLinecard, insertPluggable, remove, notify, connect, deleteLink, fill } = useStore.getState();
   const drawn = useRef(false); // this session's box has been drawn, or found to have nothing to draw
 
-  // Connect on a device with no cards draws them from the box, once its show card and show inventory have come in.
+  // Connect on a device with no cards draws them from the box, once its show card and show inventory have come in,
+  // with the fibers of its wiring.csv that run between its own ports.
   useEffect(() => {
     if (box.state !== 'connected') drawn.current = false;
     const d = byId(t.devices, openId ?? undefined);
@@ -235,9 +236,11 @@ export function PhysicalView() {
     const found = discover(cat, d, s);
     if (!found) return;
     drawn.current = true;
-    fill(d.id, found.slots);
-    notify(`Drawn from the box${found.missing.length ? `. Not in the catalog, so left out: ${found.missing.join(', ')}` : ''}`);
-  }, [box.state, live, t, openId, cat, fill, notify]);
+    const { links, refused } = wired(cat, t, { ...d, slots: found.slots }, strands);
+    fill(d.id, found.slots, links);
+    notify(`Drawn from the box${links.length ? `, with fibers ${links.map((l) => l.id).join(', ')} from wiring.csv` : ''}`
+      + `${found.missing.length ? `. Not in the catalog, so left out: ${found.missing.join(', ')}` : ''}${refused.map((r) => `. Fiber ${r}`).join('')}`);
+  }, [box.state, live, t, openId, cat, fill, notify, strands]);
 
   // Escape goes up one level: fiber being run → picked part or side panel → linecard → chassis → canvas.
   useEffect(() => {
