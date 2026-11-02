@@ -1,0 +1,8 @@
+<!--
+show lldp neighbors: who each interface sees, by interface. On box 3, 1-1-osc sees the box itself (its line side is
+looped back). A management address too long for its column wraps onto an indented line, which is joined on.
+-->
+<group name="neighbors.{{ interface }}">
+{{ interface | re("\\d+-\\d+-\\S+") | _start_ }}  {{ system-name }}  {{ chassis-id }}  {{ chassis-id-type }}  {{ ttl | to_int }}  {{ port-id }}  {{ management-address | joinmatches("") }}
+ {{ management-address | re(" *\\S+") | strip | joinmatches("") }}
+</group>

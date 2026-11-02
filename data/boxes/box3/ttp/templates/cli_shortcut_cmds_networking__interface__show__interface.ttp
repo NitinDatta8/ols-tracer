@@ -1,0 +1,7 @@
+<!-- show interface: the management and OSC Ethernet interfaces' [state] table, by id: speed, oper-status and MAC. -->
+<group name="state">
+[state] {{ _start_ }}
+<group name="interfaces.{{ id }}">
+{{ id | re("\\d+-\\d+-\\S+") | _start_ }}  {{ control }}  {{ auto-negotiate }}  {{ port-speed }}  {{ flow-control }}  {{ oper-status }}  {{ mac-address | MAC }}
+</group>
+</group>

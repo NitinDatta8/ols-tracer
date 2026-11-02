@@ -1,0 +1,4 @@
+<!-- show log event -l <n>: the box's events (card plug-ins, reboots, start-ups), newest first. -->
+<group name="events*">
+{{ time-stamp | re("\\d+-\\d+-\\d+T\\S+") | _start_ }}  {{ resource | ORPHRASE }}  {{ event-abbreviate | re("[A-Z][A-Z0-9_-]*") }}  {{ text | ORPHRASE }}  {{ severity | re("[A-Z][A-Z-]*") }}  {{ type-id | re("[A-Z]+") }}
+</group>
