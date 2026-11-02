@@ -42,6 +42,7 @@ let shell = null;
 let size = { cols: 120, rows: 30 }; // the terminal's, which the box wraps and pages its output to
 let log = Buffer.alloc(0); // the session's output so far (its last LOG bytes)
 let polled = {}; // command → its latest { at, raw, data } or { at, raw, error }
+let taking = null; // the snapshot being taken, { done, of } commands, for /status
 let retry;
 let typed = []; // show commands typed in the terminal, waiting to run again on the poller's shell
 let marks = []; // strands marked as pulled, { strand, from, to, via, at }, waiting for their snapshot
@@ -107,6 +108,7 @@ function disconnect() {
   state = 'down';
   log = Buffer.alloc(0);
   polled = {};
+  taking = null;
   typed = [];
   marks = [];
   screen.dispose();
@@ -172,7 +174,10 @@ async function poll(c, ch) {
     if (mark) run.answer(mark, mark.at);
     for (const cmd of trigger === 'connect' ? PREREQS : []) if (live()) await take(cmd, 'prereq');
     if (run.meta.prereqs.some((p) => !p.ok)) return false;
-    for (const { cmd } of POLLS) if (live()) await take(cmd, 'snapshot');
+    const p = { done: 0, of: POLLS.length };
+    if (c === conn) taking = p;
+    for (const { cmd } of POLLS) if (live()) { await take(cmd, 'snapshot'); p.done++; }
+    if (taking === p) taking = null;
     console.log(`recorded ${run.dir}`);
     return true;
   };
@@ -219,7 +224,7 @@ const server = createServer(async (req, res) => {
   if (req.headers['x-ols-tracer'] !== '1' || !LOCAL.test(req.headers.host ?? '')) return res.writeHead(403).end();
   if (req.url === '/status') {
     res.setHeader('content-type', 'application/json');
-    return res.end(JSON.stringify({ state, host, error }));
+    return res.end(JSON.stringify({ state, host, error, snapshot: taking }));
   }
   // While connected, what the poller read this session; otherwise the last state on disk, so the view still has values.
   if (req.url === '/state') {

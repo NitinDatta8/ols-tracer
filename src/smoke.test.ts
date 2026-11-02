@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import box3 from '../examples/box3.olst.json';
 import demo from '../examples/demo.olst.json';
 import { byId, catalogFor, cli, cliAddress, nextMode, streams } from './catalog';
-import { light, stateFor, type BoxState } from './live';
+import { discover, light, stateFor, type BoxState } from './live';
 import { layout, moveRun } from './route';
 import { alarms, fiberError, linecardError, pluggableError, validate } from './rules';
 import type { Topology } from './types';
@@ -216,5 +216,25 @@ describe('light on box 3 from run 1', async () => {
     ports.state.ports['1-7-5'].laser = 'disabled';
     const off: BoxState = { ...s, commands: { ...s.commands, 'show port': { at: 0, data: ports } } };
     expect(light(off, t, f03)!.dark).toBe(true);
+  });
+});
+
+describe('connect draws box 3', async () => {
+  // The first connect run with every command in, as /bridge/state serves the poller's results while connected.
+  const { latest } = await import(/* @vite-ignore */ resolve(repoRoot, 'bridge/recorder.mjs'));
+  const s: BoxState = { ...latest('20261101-200025-connect'), live: true };
+  const t = box3 as unknown as Topology;
+  const cat = catalogFor(t.stream);
+  const empty = { ...t.devices[0], slots: {} };
+
+  it('puts in the cards and pluggables the catalog has, as box3.olst.json draws them, and lists the rest', () => {
+    const { PORT4: _standIn, ...ports7 } = t.devices[0].slots['7'].ports; // the example's 1-7-4 is a stand-in
+    const found = discover(cat, empty, s)!;
+    expect(found.slots).toEqual({ ...t.devices[0].slots, 7: { linecard: 'lc-800mx', ports: ports7 } });
+    expect(found.missing).toEqual(['1-7-4 FS QSFP-LR4-100G']);
+  });
+
+  it('waits for show card and show inventory', () => {
+    expect(discover(cat, empty, { ...s, commands: {} })).toBeNull();
   });
 });

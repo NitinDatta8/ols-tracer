@@ -137,7 +137,9 @@ main { position: relative; min-height: 0; }
  */
 .dialog.physical { display: flex; flex-direction: column; width: 96vw; height: 94vh; overflow: hidden; background: #f4f6f9; }
 .physical .body { flex: 1; min-height: 0; display: grid; grid-template: 'tray tray' 74px 'stage stage' 3fr 'term side' 2fr / 1fr 440px; gap: 12px; }
-.stage { grid-area: stage; min-width: 0; min-height: 0; overflow: hidden; border-radius: 10px; background: #2c3640; box-shadow: 0 2px 8px rgb(15 23 42 / 18%); }
+.stage { position: relative; grid-area: stage; min-width: 0; min-height: 0; overflow: hidden; border-radius: 10px; background: #2c3640; box-shadow: 0 2px 8px rgb(15 23 42 / 18%); }
+/* Over the chassis while Connect draws it from the box (discover in live.ts). */
+.stage .fetching { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; background: rgb(44 54 64 / 75%); color: #fff; font-weight: 600; }
 .fit { width: max-content; transform-origin: 0 0; }
 .physical .hint { flex: none; margin-top: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } /* one line, whichever hint */
 

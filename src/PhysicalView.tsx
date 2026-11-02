@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type DragEvent, type MouseEvent } from 'react';
 import { byId, cli } from './catalog';
-import { light, stateFor, type BoxState } from './live';
+import { discover, light, stateFor, type BoxState } from './live';
 import { PipeLayer, type PipeEnds } from './Pipe';
 import { roleOf, toneOf } from './ports';
 import { alarms, bays, coverage, fiberable, fiberError, fibersAt, linecardError, path, pluggableError, resolve, sameEnd, span, touches } from './rules';
@@ -10,8 +10,8 @@ import type { Alarm, Catalog, CliLevel, Datasheet, End, LinecardDef, Link, Plugg
 
 type Drag = { kind: 'card' | 'plug'; id: string };
 type At = { slot: string; port?: string };
-/** The box as the CLI bridge sees it (bridge/server.mjs). */
-type Box = { state: 'connected' | 'connecting' | 'down'; host?: string; error?: string };
+/** The box as the CLI bridge sees it (bridge/server.mjs), and how far its snapshot is while one is being taken. */
+type Box = { state: 'connected' | 'connecting' | 'down'; host?: string; error?: string; snapshot?: { done: number; of: number } | null };
 /** The hardware whose datasheet the inspector shows, and where it sits (for its CLI command). */
 type Detail = { kind: 'card' | 'plug'; id: string; at?: At };
 /** A level whose alarms to list: {} the chassis, { slot } a card, { slot, port } a port, { bay } a PSU or fan. */
@@ -223,7 +223,21 @@ export function PhysicalView() {
   const strands = useStrands();
   const [pulled, setPulled] = useState(''); // the strand picked to mark as pulled
   const keys = useRef<Keys>(null); // types into the CLI terminal
-  const { setOpenDevice, updateDevice, insertLinecard, insertPluggable, remove, notify, connect, deleteLink } = useStore.getState();
+  const { setOpenDevice, updateDevice, insertLinecard, insertPluggable, remove, notify, connect, deleteLink, fill } = useStore.getState();
+  const drawn = useRef(false); // this session's box has been drawn, or found to have nothing to draw
+
+  // Connect on a device with no cards draws them from the box, once its show card and show inventory have come in.
+  useEffect(() => {
+    if (box.state !== 'connected') drawn.current = false;
+    const d = byId(t.devices, openId ?? undefined);
+    const s = stateFor(live, d);
+    if (!d || !s?.live || drawn.current || Object.keys(d.slots).length) return;
+    const found = discover(cat, d, s);
+    if (!found) return;
+    drawn.current = true;
+    fill(d.id, found.slots);
+    notify(`Drawn from the box${found.missing.length ? `. Not in the catalog, so left out: ${found.missing.join(', ')}` : ''}`);
+  }, [box.state, live, t, openId, cat, fill, notify]);
 
   // Escape goes up one level: fiber being run → picked part or side panel → linecard → chassis → canvas.
   useEffect(() => {
@@ -259,6 +273,8 @@ export function PhysicalView() {
   const here: Box = device.host && box.host === device.host ? box
     : { state: 'down', error: device.host ? `Not connected to ${device.host}: click Connect` : 'Enter the box IP, then Connect' };
   const linked = here.state !== 'down' || !!here.host; // connected to this box, or trying to
+  /** Connecting to an empty device, or connected before its cards have come in: the chassis waits, greyed out. */
+  const fetching = here.state !== 'down' && !Object.keys(device.slots).length && !(boxState?.live && discover(cat, device, boxState));
   const connectBox = () => {
     const host = device.host?.trim();
     if (host) bridge(linked ? 'disconnect' : 'connect', linked ? '' : host).then(checkBox, () => notify(NO_BRIDGE.error!));
@@ -633,6 +649,7 @@ export function PhysicalView() {
           {/* The chassis is scaled to fit; a card's plate fills the stage as laid out, its cages sized to it. */}
           <div ref={stage} className="stage">
             {card && cardSlot ? cardLevel(cardSlot, card) : <div className="fit" style={fit}>{back ? backLevel() : chassisLevel()}</div>}
+            {fetching && <div className="fetching">Fetching data from box{here.snapshot ? ` · ${here.snapshot.done} of ${here.snapshot.of} commands` : ''}</div>}
           </div>
           {/*
             * The box's CLI, typed into as over ssh (Tab, ↑, Ctrl-C and Escape go to the box while it has focus), and under

@@ -25,6 +25,7 @@ interface State {
   addDevice: (chassis: string, x: number, y: number) => void;
   updateDevice: (id: string, patch: Partial<Pick<Device, 'host' | 'x' | 'y' | 'emptyBays'>>) => void;
   deleteDevice: (id: string) => void;
+  fill: (device: string, slots: Device['slots']) => void;
   insertLinecard: (device: string, slot: string, linecard: string) => void;
   insertPluggable: (device: string, slot: string, port: string, pluggable: string) => void;
   remove: (at: { device: string; slot: string; port?: string }) => void;
@@ -123,6 +124,12 @@ export const useStore = create<State>()(
         t.devices = t.devices.filter((d) => d.id !== id);
         t.links = t.links.filter((l) => !touches(l, { device: id }));
         if (s.openDevice === id) s.openDevice = null;
+      }),
+
+      // A device with no cards, drawn as the box has it (discover in live.ts); one with cards is left alone.
+      fill: (device, slots) => set((s) => {
+        const d = byId(s.topology!.devices, device);
+        if (d && !Object.keys(d.slots).length) d.slots = slots;
       }),
 
       insertLinecard: (device, slot, linecard) => {

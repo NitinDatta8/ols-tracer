@@ -1,7 +1,7 @@
 // The box's light on the fibers, from what the CLI bridge read (GET /bridge/state, bridge/server.mjs): the poller's
 // results while a box is connected, else the last run on disk. Never saved in the .olst.json, like the alarms.
-import { byId, cliAddress } from './catalog';
-import type { Device, End, Link, Topology } from './types';
+import { byId, cliAddress, linecardFor } from './catalog';
+import type { Catalog, Device, End, Link, SlotState, Topology } from './types';
 
 /** One command's latest result: its TTP parse, its parse error, or its output when it has no template. Times in ms. */
 export interface Result { at: number; data?: any; error?: string; raw?: string }
@@ -59,4 +59,37 @@ export function light(s: BoxState | null, t: Topology, l: Link): Light | null {
       ...alarms.map((x) => `${x.severity} ${x['alarm-abbreviate']} at ${b}: ${x.text}`),
     ],
   };
+}
+
+type BoxCard = { 'module-type': string; present: string };
+type BoxPart = { 'mfg-name'?: string; 'part-no': string };
+
+/**
+ * What is in device `d`'s box, from `show card` and `show inventory`, as its slots: each card that is present, and each
+ * transceiver in it by part number. What the catalog has no part for is listed in `missing`, not guessed; a part it has
+ * but doesn't allow there is drawn as the box has it, and the problems list says so. Null until both have come in.
+ */
+export function discover(cat: Catalog, d: Device, s: BoxState) {
+  const cards: Record<string, BoxCard> | undefined = s.commands['show card']?.data?.state?.cards;
+  const parts: Record<string, BoxPart> | undefined = s.commands['show inventory']?.data?.transceivers;
+  const chassis = byId(cat.chassis, d.chassis);
+  if (!cards || !parts || !chassis) return null;
+  const no = d.chassisNo ?? 1;
+  const slots: Record<string, SlotState> = {};
+  const missing: string[] = [];
+  for (const { id: slot } of chassis.slots) {
+    const at = cliAddress(no, slot);
+    const c = cards[at];
+    if (c?.present !== 'true') continue; // empty, or provisioned but not there
+    const card = byId(cat.linecards, linecardFor(chassis, c['module-type']));
+    if (!card) { missing.push(`${at} ${c['module-type']}`); continue; }
+    slots[slot] = { linecard: card.id, ports: {} };
+    for (const [where, p] of Object.entries(parts).filter(([where]) => where.startsWith(`${at}-`))) {
+      const port = card.ports.find((x) => cliAddress(no, slot, x.id) === where);
+      const plug = cat.pluggables.find((x) => x.part === p['part-no']);
+      if (port && plug) slots[slot].ports[port.id] = { pluggable: plug.id };
+      else missing.push(`${where} ${[p['mfg-name'], p['part-no']].filter(Boolean).join(' ')}`);
+    }
+  }
+  return { slots, missing };
 }
