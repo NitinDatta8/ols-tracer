@@ -84,7 +84,7 @@ main { position: relative; min-height: 0; }
 /* The box's light: a dark fiber is grey with no arrows; the dBm it measures sit beside the ends. */
 .pipe-g.dark .pipe { stroke: #6b7280; }
 .pipe-g.dark .pipe-fill { stroke: #d1d5db; }
-.dbm { fill: #fef08a; font-family: var(--mono); font-weight: 600; pointer-events: none; }
+.dbm { fill: #fef08a; font-family: var(--mono); font-weight: 600; pointer-events: none; paint-order: stroke; stroke: #111820; stroke-width: 3px; }
 .grip path { fill: none; stroke: transparent; pointer-events: stroke; }
 .grip rect { fill: #fff; stroke: var(--accent); stroke-width: 1.5; }
 .grip.ns { cursor: ns-resize; }

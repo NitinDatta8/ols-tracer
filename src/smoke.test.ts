@@ -191,6 +191,11 @@ describe('light on box 3 from run 1', async () => {
   const t = box3 as unknown as Topology;
   const [f03, f04] = t.links;
 
+  it('is never a run whose snapshot was cut short', () => {
+    expect(latest().run).not.toBe('20261101-202617-connect'); // the session closed 32 commands in
+    expect(latest('20261101-202617-connect').run).toBe('20261101-202617-connect'); // unless asked for by name
+  });
+
   it('belongs to box 3 only', () => {
     expect(stateFor(s, t.devices[0])).toBe(s);
     expect(stateFor(s, { ...t.devices[0], host: '10.0.0.1' })).toBeNull();
@@ -199,8 +204,8 @@ describe('light on box 3 from run 1', async () => {
   it('puts the line Tx on F03 and the line Rx, OSNR, Q-margin and BER on F04', () => {
     const lit03 = light(s, t, f03)!;
     expect(lit03).toMatchObject({ dark: false, tx: -2.97, rx: undefined });
-    // 1-1-ad1 is L0, with no value yet. (Its standing IN_OPTICAL_HIGH_WARNING is lost in run 1: the hand capture's
-    // last `show alarm` line was a completion listing, `[filter]`, which parses empty.)
+    // Run 1 has no `show optical-port`, so 1-1-ad1 (L0) has no value. (Its standing IN_OPTICAL_HIGH_WARNING is lost in
+    // run 1: the hand capture's last `show alarm` line was a completion listing, `[filter]`, which parses empty.)
     expect(lit03.notes).toEqual(['Tx 1-7-5: -2.97 dBm']);
     const lit04 = light(s, t, f04)!;
     expect(lit04).toMatchObject({ dark: false, tx: undefined, rx: -7.43 });
@@ -216,6 +221,32 @@ describe('light on box 3 from run 1', async () => {
     ports.state.ports['1-7-5'].laser = 'disabled';
     const off: BoxState = { ...s, commands: { ...s.commands, 'show port': { at: 0, data: ports } } };
     expect(light(off, t, f03)!.dark).toBe(true);
+  });
+});
+
+describe('light on box 3 from run A', async () => {
+  const { latest } = await import(/* @vite-ignore */ resolve(repoRoot, 'bridge/recorder.mjs'));
+  const s: BoxState = { live: false, ...latest('20261101-201614-connect') };
+  const t = box3 as unknown as Topology;
+  const [f03, f04] = t.links;
+
+  it('reads the C1125 ends from show optical-port, with its flag, and the alarm there', () => {
+    const lit03 = light(s, t, f03)!;
+    expect(lit03).toMatchObject({ dark: false, tx: -2.98, rx: 3.01 });
+    expect(lit03.notes).toEqual([
+      'Tx 1-7-5: -2.98 dBm', 'Rx 1-1-ad1: 3.01 dBm, flag C', 'Tx − Rx: -5.99 dB',
+      'MAJOR IN_OPTICAL_HIGH_WARNING at 1-1-ad1: Input Optical Power higher than warning threshold',
+    ]);
+    const lit04 = light(s, t, f04)!;
+    expect(lit04).toMatchObject({ dark: false, tx: -10.1, rx: -7.44 });
+    expect(lit04.notes.slice(0, 3)).toEqual(['Tx 1-1-ad1: -10.10 dBm, flag C', 'Rx 1-7-5: -7.44 dBm', 'Tx − Rx: -2.66 dB']);
+  });
+
+  it('goes dark on a loss of signal at the C1125', () => {
+    const alarm = { resource: 'port 1-1-ad1', severity: 'CRITICAL', 'alarm-abbreviate': 'LOS', text: 'Loss of signal' };
+    const los: BoxState = { ...s, commands: { ...s.commands, 'show alarm': { at: 0, data: { alarms: { x: alarm } } } } };
+    expect(light(los, t, f03)!.dark).toBe(true);
+    expect(light(los, t, f04)!.dark).toBe(false);
   });
 });
 

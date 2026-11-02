@@ -18,6 +18,8 @@ export interface PipeProps {
   reverse?: boolean;
   /** The light the box reports on it: dark stops the arrows and greys the pipe; its dBm show at the ends. */
   light?: Light | null;
+  /** How far right its dBm may go: the width it is drawn in. */
+  room?: number;
   selected?: boolean;
   /** Screen pixels per route unit, read when a drag starts (the canvas zoom). */
   scale?: () => number;
@@ -26,17 +28,24 @@ export interface PipeProps {
   onSelect?: () => void;
 }
 
-/** A power at a pipe's end, left of its pin. Only on pipes wide enough to read it by (the card level); thinner ones have it in their tooltip. */
-const End = ({ p, w, v }: { p: Pt; w: number; v?: number }) => v === undefined || w < 10 ? null : (
-  <text className="dbm" x={p.x - w} y={p.y + w * 1.6} textAnchor="end" fontSize={Math.max(9, w * 0.9)}>{v.toFixed(2)} dBm</text>
-);
+/**
+ * A power at a pipe's end: left of a Tx pin, right of an Rx pin, so a port's pair never overlap; an Rx power with no
+ * room on the right (past `room`) goes left a line lower. Only on pipes wide enough to read it by (the card level);
+ * thinner ones have it in their tooltip.
+ */
+function End({ p, w, v, rx, room = Infinity }: { p: Pt; w: number; v?: number; rx?: boolean; room?: number }) {
+  if (v === undefined || w < 10) return null;
+  const [text, size] = [`${v.toFixed(2)} dBm`, Math.max(9, w * 0.9)];
+  const right = rx && p.x + 2 * w + text.length * size * 0.6 <= room; // a monospace character is about 0.6 em wide
+  return <text className="dbm" x={right ? p.x + w : p.x - w} y={p.y + w * (rx && !right ? 2.8 : 1.6)} textAnchor={right ? 'start' : 'end'} fontSize={size}>{text}</text>;
+}
 
 /**
  * A fiber as a yellow pipe along its route. Big arrows inside it flow from Tx to Rx, filling the pipe.
  * A selected pipe shows a grip on each run it can move: drag it sideways,
  * double-click it to route the fiber automatically again. Used on the canvas and in the physical view.
  */
-export function Pipe({ id: key, route, tip, width: w, reverse, light, selected, scale = () => 1, onMove, onReset, onSelect }: PipeProps) {
+export function Pipe({ id: key, route, tip, width: w, reverse, light, room, selected, scale = () => 1, onMove, onReset, onSelect }: PipeProps) {
   const id = key.replace(/\W/g, '_'); // for the arrow paths' element ids
   const grab = (e: ReactPointerEvent, run: number) => {
     e.stopPropagation();
@@ -65,7 +74,7 @@ export function Pipe({ id: key, route, tip, width: w, reverse, light, selected, 
         </textPath>
       </text>}
       <End p={reverse ? pts.at(-1)! : pts[0]} w={w} v={light?.tx} />
-      <End p={reverse ? pts[0] : pts.at(-1)!} w={w} v={light?.rx} />
+      <End p={reverse ? pts[0] : pts.at(-1)!} w={w} v={light?.rx} rx room={room} />
       {selected && onMove && pts.slice(1, -2).map((a, k) => {
         const b = pts[k + 2];
         return (
@@ -138,7 +147,7 @@ export function PipeLayer({ view, ends, spacing, width, light }: { view: string;
         const far = b.startsWith('far:');
         const shown = lit && { ...lit, tx: far && reverse ? undefined : lit.tx, rx: far && !reverse ? undefined : lit.rx };
         return route && (
-          <Pipe key={link.id} id={`${view}-${link.id}`} route={route} width={width} reverse={reverse} light={shown} selected={selected === link.id} scale={() => k}
+          <Pipe key={link.id} id={`${view}-${link.id}`} route={route} width={width} reverse={reverse} light={shown} room={w} selected={selected === link.id} scale={() => k}
             tip={`${path(t, link.a)} Tx → ${path(t, link.b)} Rx`}
             onSelect={() => setSelected(link.id)}
             onMove={(pts, run, dx, dy) => { const r = moveRun(fibers.get(link.id)!, pts, run, dx, dy, boxes, spacing); if (r) setRoute(link.id, view, r); }}
