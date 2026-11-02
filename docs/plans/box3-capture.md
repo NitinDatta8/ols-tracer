@@ -102,11 +102,13 @@ Filled in by the recorder from the prerequisites and the identity commands:
   "boxClockOffsetSec": -166216868,
   "prereqs": [{ "cmd": "set cli length 0", "ok": true }, { "cmd": "set cli width 1024", "ok": true }],
   "state": "unknown",
-  "notes": ""
+  "notes": "",
+  "snapshot": { "done": 57, "of": 57 }
 }
 ```
 
 - `boxClockOffsetSec` is the box clock minus the Mac clock. It lines alarm timestamps up with the pull times.
+- `snapshot` is how many of `poll.json`'s commands the snapshot ran. `done` < `of` means it was cut short (the session closed, or a prerequisite failed), and the last state on disk skips that run. Runs before 2026-11-01 20:40 have no `snapshot`; the cut-short `20261101-202617-connect` got it by hand.
 - `state` stays `unknown` until a run is labelled (`healthy`, `fault`, `restored`).
 
 ### Run 1
