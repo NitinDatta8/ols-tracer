@@ -1,0 +1,24 @@
+time-stamp                   action    resource                        alarm-abbreviate             severity    direction    service-affect    type-id    time-created           
+-------------------------    ------    ----------------------------    -------------------------    --------    ---------    --------------    -------    -------------------    
+2021-07-25T19:28:54+00:00    CLEAR     port 1-1-ad1                    IN_OPTICAL_HIGH_FAILURE      CRITICAL    rx           false             OPTICAL    1627241039958498816    
+2021-07-25T19:28:54+00:00    CREATE    port 1-1-ad1                    IN_OPTICAL_HIGH_WARNING      MAJOR       rx           false             OPTICAL    1627241030396705024    
+2021-07-25T19:25:05+00:00    CLEAR     mediach-ch-1                    REACH_MAX_ATT_DEST_TO_SRC    MAJOR       na           false             OPTICAL    1627241054111619520    
+2021-07-25T19:24:27+00:00    CREATE    mediach-ch-1                    REACH_MAX_ATT_SRC_TO_DEST    MAJOR       na           false             OPTICAL    1627241063093635320    
+2021-07-25T19:24:17+00:00    CREATE    mediach-ch-1                    REACH_MAX_ATT_DEST_TO_SRC    MAJOR       na           false             OPTICAL    1627241054111619520    
+2021-07-25T19:24:08+00:00    CLEAR     och 1-7-5                       INPUT_POWER_HIGH             MAJOR       rx           true              OPTICAL    1627241034853281400    
+2021-07-25T19:24:03+00:00    CREATE    port 1-1-ad1                    IN_OPTICAL_HIGH_FAILURE      CRITICAL    rx           false             OPTICAL    1627241039958498816    
+2021-07-25T19:24:03+00:00    CLEAR     port 1-1-ad1                    IN_OPTICAL_HIGH_WARNING      MAJOR       rx           false             OPTICAL    1627241030396705024    
+2021-07-25T19:24:03+00:00    CLEAR     och 1-7-5                       POST-FEC_DEGRADE             MAJOR       rx           true              OCH        1627241026928501200    
+2021-07-25T19:24:00+00:00    CLEAR     port 1-1-ad1                    OUT_OPTICAL_HIGH_WARNING     MAJOR       tx           false             OPTICAL    1627241030411150080    
+2021-07-25T19:24:00+00:00    CLEAR     logical-channel flexgo-1-7-5    LOF                          CRITICAL    rx           true              ZR         1627241026920482840    
+2021-07-25T19:24:00+00:00    CLEAR     100ge 1-7-4                     LINK_RF                      WARNING     rx           false             ETH        1627241026933101160    
+2021-07-25T19:23:59+00:00    CLEAR     och 1-7-5                       PRE-FEC_DEGRADE              MINOR       rx           false             OCH        1627241026924231280    
+2021-07-25T19:23:57+00:00    CREATE    och 1-7-5                       INPUT_POWER_HIGH             MAJOR       rx           true              OPTICAL    1627241034853281400    
+2021-07-25T19:23:53+00:00    CREATE    port 1-1-ad1                    IN_OPTICAL_HIGH_WARNING      MAJOR       rx           false             OPTICAL    1627241030396705024    
+2021-07-25T19:23:53+00:00    CREATE    port 1-1-ad1                    OUT_OPTICAL_HIGH_WARNING     MAJOR       tx           false             OPTICAL    1627241030411150080    
+2021-07-25T19:23:53+00:00    CLEAR     amplifier 1-1-pa                IN_LOS                       CRITICAL    rx           true              OPTICAL    1627238814753487320    
+2021-07-25T19:23:53+00:00    CLEAR     amplifier 1-1-ba                IN_LOS                       CRITICAL    rx           true              OPTICAL    1627238814811685520    
+2021-07-25T19:23:51+00:00    CLEAR     port 1-1-line                   OUT_OPTICAL_LOW_WARNING      MAJOR       tx           false             OPTICAL    1627238811845441536    
+2021-07-25T19:23:51+00:00    CLEAR     port 1-1-line                   IN_OPTICAL_LOW_FAILURE       CRITICAL    rx           false             OPTICAL    1627238811826888704    
+
+

@@ -1,0 +1,64 @@
+{
+  "config": {
+    "tunable-wavelength": "none"
+  },
+  "state": {
+    "tunable-wavelength": "none",
+    "present": "true",
+    "oper-status": "active",
+    "removable": "true",
+    "rated-power": "0 W",
+    "used-power": "0 W",
+    "fec-corrected-bits": "101283685899090 bits",
+    "firmware-version": "02.15-01",
+    "stats": {
+      "pre-fec-ber": {
+        "instant": 0.00125,
+        "avg": 0.00126,
+        "min": 0.00124,
+        "max": 0.0013
+      },
+      "post-fec-ber": {
+        "instant": 0,
+        "avg": 0,
+        "min": 0,
+        "max": 0
+      },
+      "output-power": {
+        "instant": -2.97,
+        "avg": -2.98,
+        "min": -2.99,
+        "max": -2.97,
+        "unit": "dBm"
+      },
+      "input-power": {
+        "instant": -7.42,
+        "avg": -7.48,
+        "min": -7.53,
+        "max": -7.41,
+        "unit": "dBm"
+      },
+      "laser-bias-current": {
+        "instant": 99.9,
+        "avg": 99.9,
+        "min": 99.9,
+        "max": 99.9,
+        "unit": "mA"
+      },
+      "temperature": {
+        "instant": 68.4,
+        "avg": 68.4,
+        "min": 68.4,
+        "max": 68.4,
+        "unit": "°C"
+      },
+      "input-voltage": {
+        "instant": 3.28,
+        "avg": 3.28,
+        "min": 3.28,
+        "max": 3.29,
+        "unit": "V"
+      }
+    }
+  }
+}
