@@ -1,0 +1,14 @@
+<!--
+show optical-port, and show optical-port <name>: an L0 card's total power per port and direction, by the port's name as
+printed (port-1-1-ad1) and then in or out, in dBm. A dark port reads -99.99. flag is as printed (C on an add/drop port,
+M on the line).
+-->
+<vars>
+DIRECTION = "in|out"
+</vars>
+<group name="state">
+[state] {{ _start_ }}
+<group name="ports.{{ name }}.{{ direction }}">
+{{ name | re("port-\\S+") | _start_ }}  {{ direction | re("DIRECTION") }}  {{ optical-power | to_float }}  {{ description | ORPHRASE }}  {{ flag }}
+</group>
+</group>

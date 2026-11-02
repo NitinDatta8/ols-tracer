@@ -1,0 +1,11 @@
+<!-- show osc: the optical supervisory channel by id (1-1-osc): its frequency in MHz, then its powers and laser bias as stats. -->
+<extend template="_stats.ttp"/>
+<group name="state">
+[state] {{ _start_ }}
+<group name="oscs.{{ id }}">
+{{ id | re("\\d+-\\d+-[a-z]+") | _start_ }}  {{ output-frequency | to_int }}
+</group>
+<group name="oscs.{{ id }}.stats">
+{{ id | re("\\d+-\\d+-[a-z]+") | _start_ }}  {{ input-power | re("STAT") | macro("dBm") }}  {{ output-power | re("STAT") | macro("dBm") }}  {{ laser-bias-current | re("STAT") | macro("mA") }}
+</group>
+</group>

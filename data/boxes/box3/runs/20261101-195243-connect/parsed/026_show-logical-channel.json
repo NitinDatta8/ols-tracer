@@ -170,5 +170,6 @@
         "delay-measurement-mode": "disabled"
       }
     }
-  }
+  },
+  "config": {}
 }

@@ -1,0 +1,18 @@
+<!--
+Shared by the L0 tables whose cells are "instant | avg | min | max" (show amplifier, show osc): a cell becomes
+{ instant, avg, min, max, unit } as _detail.ttp's stats do, with its unit from the column's header. Templates take it in
+with <extend template="_stats.ttp"/> and read a cell with re("STAT") | macro("dB"), "dBm" or "mA".
+-->
+<vars>
+STAT = "-?\\d+(?:\\.\\d+)? \\x7c -?\\d+(?:\\.\\d+)? \\x7c -?\\d+(?:\\.\\d+)? \\x7c -?\\d+(?:\\.\\d+)?"
+</vars>
+<macro>
+def stat(cell, unit):
+    return dict(zip(("instant", "avg", "min", "max"), (float(v) for v in cell.split("|"))), unit=unit)
+def dB(cell):
+    return stat(cell, "dB")
+def dBm(cell):
+    return stat(cell, "dBm")
+def mA(cell):
+    return stat(cell, "mA")
+</macro>

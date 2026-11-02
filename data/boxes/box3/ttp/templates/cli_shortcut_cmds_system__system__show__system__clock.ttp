@@ -1,0 +1,2 @@
+<!-- show system clock: its [config] and [state] key value lines (daylight-saving). The time itself is date-time's. -->
+<extend template="_detail.ttp"/>

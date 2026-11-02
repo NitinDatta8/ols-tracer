@@ -1,19 +1,20 @@
 <!--
 Shared by the commands that show one entity (show och 1-7-5, show transceiver 1-7-4): each section's "key value" lines
 as strings, as printed, and its "name instant | avg | min | max unit" lines as numbers under stats. The entity's address
-is in the command, not in its output. Templates take it in with <extend template="_detail.ttp"/>.
+is in the command, not in its output. Templates take it in with <extend template="_detail.ttp"/>. A key has no digits and
+is never id, so the rows and header of a list form's tables (show card, show logical-channel) are not read as keys.
 -->
 <group name="config**">
 [config] {{ _start_ }}
 [state] {{ _end_ }}
 <group items2dict="key, value">
-{{ key | re("[a-z][a-z0-9-]*") }}  {{ value | re("[^\\x7c\\s]+(?: [^\\x7c\\s]+)*") }}
+{{ key | re("(?!id\\s)[a-z]+(?:-[a-z]+)*") }}  {{ value | re("[^\\x7c\\s]+(?: [^\\x7c\\s]+)*") }}
 </group>
 </group>
 <group name="state**">
 [state] {{ _start_ }}
 <group items2dict="key, value">
-{{ key | re("[a-z][a-z0-9-]*") }}  {{ value | re("[^\\x7c\\s]+(?: [^\\x7c\\s]+)*") }}
+{{ key | re("(?!id\\s)[a-z]+(?:-[a-z]+)*") }}  {{ value | re("[^\\x7c\\s]+(?: [^\\x7c\\s]+)*") }}
 </group>
 <group name="stats.{{ name }}">
 {{ name | re("[a-z][a-z0-9-]*") | _start_ }}  {{ instant | re("-?\\d+(?:\\.\\d+)?(?:E[-+]\\d+)?") | to_float }} | {{ avg | re("-?\\d+(?:\\.\\d+)?(?:E[-+]\\d+)?") | to_float }} | {{ min | re("-?\\d+(?:\\.\\d+)?(?:E[-+]\\d+)?") | to_float }} | {{ max | re("-?\\d+(?:\\.\\d+)?(?:E[-+]\\d+)?") | to_float }} {{ unit }}

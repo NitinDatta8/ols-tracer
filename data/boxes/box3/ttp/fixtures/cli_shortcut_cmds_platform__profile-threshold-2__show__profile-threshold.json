@@ -1,0 +1,448 @@
+{
+  "thresholds": {
+    "OCH-1-7-5": {
+      "TCA_OPT_OUTPUT_POWER_H_15MIN": {
+        "direction": "TX",
+        "time-period": "15MIN",
+        "declare-threshold": 3.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_LASER_BIAS_CURRENT_L_24H": {
+        "direction": "NA",
+        "time-period": "24H",
+        "declare-threshold": 30.0,
+        "clear-hysteresis": 0.0,
+        "units": "MA"
+      },
+      "TCA_PROV_CHAN_INPUT_POWER_L_24H": {
+        "direction": "RX",
+        "time-period": "24H",
+        "declare-threshold": -20.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_FEC_PRE_H_15MIN": {
+        "direction": "RX",
+        "time-period": "15MIN",
+        "declare-threshold": 0.0198,
+        "clear-hysteresis": 0.0,
+        "units": "BIT"
+      },
+      "TCA_FEC_UNCORRECTED_BLOCKS_H_24H": {
+        "direction": "RX",
+        "time-period": "24H",
+        "declare-threshold": 3864.0,
+        "clear-hysteresis": 0.0,
+        "units": "PACKET"
+      },
+      "TCA_OPT_INPUT_POWER_H_24H": {
+        "direction": "RX",
+        "time-period": "24H",
+        "declare-threshold": 6.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_LASER_BIAS_CURRENT_H_24H": {
+        "direction": "NA",
+        "time-period": "24H",
+        "declare-threshold": 300.0,
+        "clear-hysteresis": 0.0,
+        "units": "MA"
+      },
+      "TCA_LASER_BIAS_CURRENT_L_15MIN": {
+        "direction": "NA",
+        "time-period": "15MIN",
+        "declare-threshold": 30.0,
+        "clear-hysteresis": 0.0,
+        "units": "MA"
+      },
+      "TCA_FEC_PRE_H_24H": {
+        "direction": "RX",
+        "time-period": "24H",
+        "declare-threshold": 0.0198,
+        "clear-hysteresis": 0.0,
+        "units": "BIT"
+      },
+      "TCA_LASER_BIAS_CURRENT_H_15MIN": {
+        "direction": "NA",
+        "time-period": "15MIN",
+        "declare-threshold": 300.0,
+        "clear-hysteresis": 0.0,
+        "units": "MA"
+      },
+      "TCA_PROV_CHAN_INPUT_POWER_L_15MIN": {
+        "direction": "RX",
+        "time-period": "15MIN",
+        "declare-threshold": -20.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_INPUT_POWER_L_24H": {
+        "direction": "RX",
+        "time-period": "24H",
+        "declare-threshold": -20.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_OUTPUT_POWER_L_24H": {
+        "direction": "TX",
+        "time-period": "24H",
+        "declare-threshold": -6.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_INPUT_POWER_L_15MIN": {
+        "direction": "RX",
+        "time-period": "15MIN",
+        "declare-threshold": -20.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_OUTPUT_POWER_H_24H": {
+        "direction": "TX",
+        "time-period": "24H",
+        "declare-threshold": 3.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_OUTPUT_POWER_L_15MIN": {
+        "direction": "TX",
+        "time-period": "15MIN",
+        "declare-threshold": -6.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_PROV_CHAN_INPUT_POWER_H_24H": {
+        "direction": "RX",
+        "time-period": "24H",
+        "declare-threshold": 6.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_INPUT_POWER_H_15MIN": {
+        "direction": "RX",
+        "time-period": "15MIN",
+        "declare-threshold": 6.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_FEC_UNCORRECTED_BLOCKS_H_15MIN": {
+        "direction": "RX",
+        "time-period": "15MIN",
+        "declare-threshold": 40.0,
+        "clear-hysteresis": 0.0,
+        "units": "PACKET"
+      },
+      "TCA_PROV_CHAN_INPUT_POWER_H_15MIN": {
+        "direction": "RX",
+        "time-period": "15MIN",
+        "declare-threshold": 6.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      }
+    },
+    "PORT-1-1-LINE": {
+      "TCA_OPT_OUTPUT_POWER_L_24H": {
+        "direction": "TX",
+        "time-period": "24H",
+        "declare-threshold": -3.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_INPUT_POWER_L_24H": {
+        "direction": "RX",
+        "time-period": "24H",
+        "declare-threshold": -28.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_OUTPUT_POWER_H_15MIN": {
+        "direction": "TX",
+        "time-period": "15MIN",
+        "declare-threshold": 21.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "OUT_OPTICAL_LOW_WARNING": {
+        "direction": "TX",
+        "time-period": "NA",
+        "declare-threshold": 0.0,
+        "clear-hysteresis": 0.5,
+        "units": "DBM"
+      },
+      "IN_OPTICAL_HIGH_FAILURE": {
+        "direction": "RX",
+        "time-period": "NA",
+        "declare-threshold": 25.0,
+        "clear-hysteresis": 0.5,
+        "units": "DBM"
+      },
+      "OUT_OPTICAL_HIGH_WARNING": {
+        "direction": "TX",
+        "time-period": "NA",
+        "declare-threshold": 22.0,
+        "clear-hysteresis": 0.5,
+        "units": "DBM"
+      },
+      "IN_OPTICAL_LOW_WARNING": {
+        "direction": "RX",
+        "time-period": "NA",
+        "declare-threshold": -25.0,
+        "clear-hysteresis": 0.5,
+        "units": "DBM"
+      },
+      "TCA_OPT_OUTPUT_POWER_L_15MIN": {
+        "direction": "TX",
+        "time-period": "15MIN",
+        "declare-threshold": -3.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_INPUT_POWER_L_15MIN": {
+        "direction": "RX",
+        "time-period": "15MIN",
+        "declare-threshold": -28.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_OUTPUT_POWER_H_24H": {
+        "direction": "TX",
+        "time-period": "24H",
+        "declare-threshold": 21.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_INPUT_POWER_H_15MIN": {
+        "direction": "RX",
+        "time-period": "15MIN",
+        "declare-threshold": 6.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_INPUT_POWER_H_24H": {
+        "direction": "RX",
+        "time-period": "24H",
+        "declare-threshold": 6.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "IN_SPAN_LOSS_WARNING": {
+        "direction": "RX",
+        "time-period": "NA",
+        "declare-threshold": 25.0,
+        "clear-hysteresis": 0.5,
+        "units": "DB"
+      },
+      "IN_OPTICAL_HIGH_WARNING": {
+        "direction": "RX",
+        "time-period": "NA",
+        "declare-threshold": 22.0,
+        "clear-hysteresis": 0.5,
+        "units": "DBM"
+      },
+      "IN_OPTICAL_LOW_FAILURE": {
+        "direction": "RX",
+        "time-period": "NA",
+        "declare-threshold": -28.0,
+        "clear-hysteresis": 0.5,
+        "units": "DBM"
+      },
+      "IN_SPAN_LOSS_FAILURE": {
+        "direction": "RX",
+        "time-period": "NA",
+        "declare-threshold": 28.0,
+        "clear-hysteresis": 0.5,
+        "units": "DB"
+      }
+    },
+    "PORT-1-1-AD1": {
+      "IN_OPTICAL_LOW_WARNING": {
+        "direction": "RX",
+        "time-period": "NA",
+        "declare-threshold": -15.0,
+        "clear-hysteresis": 0.5,
+        "units": "DBM"
+      },
+      "IN_OPTICAL_HIGH_WARNING": {
+        "direction": "RX",
+        "time-period": "NA",
+        "declare-threshold": 3.0,
+        "clear-hysteresis": 0.5,
+        "units": "DBM"
+      },
+      "OUT_OPTICAL_LOW_WARNING": {
+        "direction": "TX",
+        "time-period": "NA",
+        "declare-threshold": -15.0,
+        "clear-hysteresis": 0.5,
+        "units": "DBM"
+      },
+      "IN_OPTICAL_LOW_FAILURE": {
+        "direction": "RX",
+        "time-period": "NA",
+        "declare-threshold": -18.0,
+        "clear-hysteresis": 0.5,
+        "units": "DBM"
+      },
+      "OUT_OPTICAL_HIGH_WARNING": {
+        "direction": "TX",
+        "time-period": "NA",
+        "declare-threshold": 0.0,
+        "clear-hysteresis": 0.5,
+        "units": "DBM"
+      },
+      "IN_OPTICAL_HIGH_FAILURE": {
+        "direction": "RX",
+        "time-period": "NA",
+        "declare-threshold": 6.0,
+        "clear-hysteresis": 0.5,
+        "units": "DBM"
+      }
+    },
+    "AMPLIFIER-1-1-BA": {
+      "TCA_OPT_OUTPUT_POWER_H_24H": {
+        "direction": "TX",
+        "time-period": "24H",
+        "declare-threshold": 21.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_INPUT_POWER_H_15MIN": {
+        "direction": "RX",
+        "time-period": "15MIN",
+        "declare-threshold": 14.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_OUTPUT_POWER_L_15MIN": {
+        "direction": "TX",
+        "time-period": "15MIN",
+        "declare-threshold": -3.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_OUTPUT_POWER_L_24H": {
+        "direction": "TX",
+        "time-period": "24H",
+        "declare-threshold": -3.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_INPUT_POWER_L_15MIN": {
+        "direction": "RX",
+        "time-period": "15MIN",
+        "declare-threshold": -20.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_INPUT_POWER_H_24H": {
+        "direction": "RX",
+        "time-period": "24H",
+        "declare-threshold": 14.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_INPUT_POWER_L_24H": {
+        "direction": "RX",
+        "time-period": "24H",
+        "declare-threshold": -20.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_OUTPUT_POWER_H_15MIN": {
+        "direction": "TX",
+        "time-period": "15MIN",
+        "declare-threshold": 21.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      }
+    },
+    "TRANSCEIVER-1-7-4": {
+      "TCA_OPT_TOTAL_OUTPUT_POWER_H_24H": {
+        "direction": "TX",
+        "time-period": "24H",
+        "declare-threshold": 12.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_TOTAL_OUTPUT_POWER_L_15MIN": {
+        "direction": "TX",
+        "time-period": "15MIN",
+        "declare-threshold": -3.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_TOTAL_INPUT_POWER_H_24H": {
+        "direction": "RX",
+        "time-period": "24H",
+        "declare-threshold": 11.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_TOTAL_OUTPUT_POWER_H_15MIN": {
+        "direction": "TX",
+        "time-period": "15MIN",
+        "declare-threshold": 12.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_TEMPERATURE_L_15MIN": {
+        "direction": "NA",
+        "time-period": "15MIN",
+        "declare-threshold": 0.0,
+        "clear-hysteresis": 0.0,
+        "units": "C"
+      },
+      "TCA_TEMPERATURE_H_24H": {
+        "direction": "NA",
+        "time-period": "24H",
+        "declare-threshold": 70.0,
+        "clear-hysteresis": 0.0,
+        "units": "C"
+      },
+      "TCA_TEMPERATURE_H_15MIN": {
+        "direction": "NA",
+        "time-period": "15MIN",
+        "declare-threshold": 70.0,
+        "clear-hysteresis": 0.0,
+        "units": "C"
+      },
+      "TCA_OPT_TOTAL_INPUT_POWER_L_24H": {
+        "direction": "RX",
+        "time-period": "24H",
+        "declare-threshold": -20.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_TOTAL_OUTPUT_POWER_L_24H": {
+        "direction": "TX",
+        "time-period": "24H",
+        "declare-threshold": -3.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_TOTAL_INPUT_POWER_H_15MIN": {
+        "direction": "RX",
+        "time-period": "15MIN",
+        "declare-threshold": 11.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_OPT_TOTAL_INPUT_POWER_L_15MIN": {
+        "direction": "RX",
+        "time-period": "15MIN",
+        "declare-threshold": -20.0,
+        "clear-hysteresis": 0.0,
+        "units": "DBM"
+      },
+      "TCA_TEMPERATURE_L_24H": {
+        "direction": "NA",
+        "time-period": "24H",
+        "declare-threshold": 0.0,
+        "clear-hysteresis": 0.0,
+        "units": "C"
+      }
+    }
+  }
+}

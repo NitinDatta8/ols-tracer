@@ -1,0 +1,9 @@
+<!--
+show log configuration -l <n>: the commands run on the box (set, delete, rpc), newest first, by user and session. A
+command too long for its column wraps onto an indented line. The box cuts it at the column's width, mid-word or at a
+space, and the two look the same, so the pieces keep the break as a newline instead of guessing.
+-->
+<group name="entries*">
+{{ time-stamp | re("\\d+-\\d+-\\d+T\\S+") | _start_ }}  {{ nbi }}  {{ user-name }}  {{ session-id | to_int }}  {{ user-ip }}  {{ type | re("[a-z]+") }}  {{ details | ORPHRASE | joinmatches }}
+ {{ details | re(" *\\S+(?: \\S+)*") | strip | joinmatches }}
+</group>

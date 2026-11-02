@@ -1,3 +1,14 @@
 {
-  "state": {}
+  "state": {
+    "index": "1074005088",
+    "trib-protocol": "OPENZRTS",
+    "rate-class": "100G",
+    "assigned-channel": "logical-channel flexgo-1-7-5",
+    "tributary-slot-index": "4",
+    "time-slot-type": "AUTO",
+    "delay-measurement-mode": "disabled"
+  },
+  "config": {
+    "delay-measurement-mode": "disabled"
+  }
 }

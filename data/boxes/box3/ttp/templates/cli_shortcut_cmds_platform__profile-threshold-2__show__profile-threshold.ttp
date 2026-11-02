@@ -1,0 +1,8 @@
+<!--
+show profile-threshold: the box's alarm and TCA thresholds, by resource as printed (PORT-1-1-AD1, OCH-1-7-5) and then by
+name (IN_OPTICAL_HIGH_WARNING, TCA_OPT_OUTPUT_POWER_H_15MIN). A resource and name pair is one row. time-period is NA
+for a standing alarm's threshold and 15MIN or 24H for a TCA's.
+-->
+<group name="thresholds.{{ resource }}.{{ name }}">
+{{ name | re("[A-Z][A-Z0-9_]+") | _start_ }}  {{ resource | re("[A-Z0-9]+(?:-[A-Z0-9]+)+") }}  {{ direction }}  {{ time-period }}  {{ declare-threshold | to_float }}  {{ clear-hysteresis | to_float }}  {{ units }}
+</group>

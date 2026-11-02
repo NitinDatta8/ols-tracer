@@ -1,6 +1,7 @@
 <!--
 show logical-channel: its [state] table, one entry per logical channel by id. A flexgo sits on an och; a flexgdu sits
 on a flexgo, in tributary slot tributary-slot-index. The config table repeats the delay-measurement mode.
+show logical-channel <index> (flexgo-1-7-5) is one channel's key value lines, read by _detail.ttp.
 -->
 <group name="state">
 [state] {{ _start_ }}
@@ -9,3 +10,4 @@ on a flexgo, in tributary slot tributary-slot-index. The config table repeats th
 {{ id | re("flex\\S+") | _start_ }}  {{ index | re("\\d+") }}  {{ trib-protocol }}  {{ rate-class }}  {{ assigned-channel | ORPHRASE }}  {{ time-slot-type }}  {{ delay-measurement-mode }}
 </group>
 </group>
+<extend template="_detail.ttp"/>

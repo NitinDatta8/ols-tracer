@@ -3,6 +3,7 @@ show card: its [state] table, one entry per slot by address. module-type is NONE
 oper-status say whether what is provisioned is there. A cell too long for its column wraps onto an indented line,
 which is skipped, so description and supported-module-types are their first line only. The temperature table follows.
 Empty cells leave a column out, hence three row forms: with firmware and software versions, without, and an empty slot.
+show card <name> (show card 1-7) is one card's key value lines, read by _detail.ttp, with the same first-line-only cells.
 -->
 <vars>
 ADMIN = "in-service|out-of-service|maintenance"
@@ -19,3 +20,4 @@ BOOL = "true|false"
 {{ id | re("\\d+-\\d+") | _start_ }}  {{ instant | re("-?\\d+(?:\\.\\d+)?") | to_float }} | {{ avg | re("-?\\d+(?:\\.\\d+)?") | to_float }} | {{ min | re("-?\\d+(?:\\.\\d+)?") | to_float }} | {{ max | re("-?\\d+(?:\\.\\d+)?") | to_float }}
 </group>
 </group>
+<extend template="_detail.ttp"/>

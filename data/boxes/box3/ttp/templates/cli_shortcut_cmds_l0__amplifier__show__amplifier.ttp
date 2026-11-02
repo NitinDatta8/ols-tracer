@@ -1,0 +1,21 @@
+<!--
+show amplifier: the booster (1-1-ba) and preamp (1-1-pa) by id. [config] is what is set; [state] adds the mode, the gain
+range and the ports each one runs from and to, then a table of measured gain, tilt, powers and laser bias as stats.
+Numbers stay as printed; their units are in the header (dB, and dBm for powers).
+-->
+<extend template="_stats.ttp"/>
+<group name="config">
+[config] {{ _start_ }}
+<group name="amplifiers.{{ id }}">
+{{ id | re("\\d+-\\d+-[a-z]+") | _start_ }}  {{ target-gain }}  {{ target-gain-tilt }}  {{ amp-enable }}  {{ auto-span-loss-adaptation }}  {{ nominal-ingress-span-loss }}  {{ target-voa-attenuation }}  {{ apr-enable }}  {{ target-span-loss-offset }}
+</group>
+</group>
+<group name="state">
+[state] {{ _start_ }}
+<group name="amplifiers.{{ id }}">
+{{ id | re("\\d+-\\d+-[a-z]+") | _start_ }}  {{ amp-mode }}  {{ gain-type }}  {{ target-gain }}  {{ target-gain-tilt }}  {{ amp-enable }}  {{ auto-span-loss-adaptation }}  {{ nominal-ingress-span-loss }}  {{ target-voa-attenuation }}  {{ apr-enable }}  {{ target-span-loss-offset }}  {{ min-gain }}  {{ max-gain }}  {{ ingress-port }}  {{ egress-port }}  {{ ingress-span-loss }}  {{ actual-voa-attenuation }}  {{ fiber-type-profile }}
+</group>
+<group name="amplifiers.{{ id }}.stats">
+{{ id | re("\\d+-\\d+-[a-z]+") | _start_ }}  {{ actual-gain | re("STAT") | macro("dB") }}  {{ actual-gain-tilt | re("STAT") | macro("dB") }}  {{ input-power | re("STAT") | macro("dBm") }}  {{ output-power | re("STAT") | macro("dBm") }}  {{ laser-bias-current | re("STAT") | macro("mA") }}
+</group>
+</group>
