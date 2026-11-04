@@ -1,0 +1,47 @@
+[config]
+id                 delay-measurement-mode    description    
+---------------    ----------------------    -----------    
+flexgo-1-7-1       disabled                                 
+flexgdu-1-7-1-1    disabled                                 
+flexgdu-1-7-1-2    disabled                                 
+flexgdu-1-7-1-3    disabled                                 
+flexgdu-1-7-1-4    disabled                                 
+flexgo-1-7-5       disabled                                 
+flexgdu-1-7-5-1    disabled                                 
+flexgdu-1-7-5-2    disabled                                 
+flexgdu-1-7-5-3    disabled                                 
+flexgdu-1-7-5-4    disabled                                 
+flexgo-1-8-1       disabled                                 
+flexgdu-1-8-1-1    disabled                                 
+flexgdu-1-8-1-2    disabled                                 
+flexgdu-1-8-1-3    disabled                                 
+flexgdu-1-8-1-4    disabled                                 
+flexgdu-1-8-1-5    disabled                                 
+flexgdu-1-8-1-6    disabled                                 
+flexgdu-1-8-1-7    disabled                                 
+flexgdu-1-8-1-8    disabled                                 
+
+[state]
+id                 index         trib-protocol    rate-class    assigned-channel                tributary-slot-index    time-slot-type    delay-measurement-mode    description    
+---------------    ----------    -------------    ----------    ----------------------------    --------------------    --------------    ----------------------    -----------    
+flexgo-1-7-1       1073741920    OPENZR           400G          och 1-7-1                                               ETH_100G          disabled                                 
+flexgdu-1-7-1-1    1073807456    OPENZRTS         100G          logical-channel flexgo-1-7-1    1                       AUTO              disabled                                 
+flexgdu-1-7-1-2    1073872992    OPENZRTS         100G          logical-channel flexgo-1-7-1    2                       AUTO              disabled                                 
+flexgdu-1-7-1-3    1073938528    OPENZRTS         100G          logical-channel flexgo-1-7-1    3                       AUTO              disabled                                 
+flexgdu-1-7-1-4    1074004064    OPENZRTS         100G          logical-channel flexgo-1-7-1    4                       AUTO              disabled                                 
+flexgo-1-7-5       1073742944    OPENZR           400G          och 1-7-5                                               ETH_100G          disabled                                 
+flexgdu-1-7-5-1    1073808480    OPENZRTS         100G          logical-channel flexgo-1-7-5    1                       AUTO              disabled                                 
+flexgdu-1-7-5-2    1073874016    OPENZRTS         100G          logical-channel flexgo-1-7-5    2                       AUTO              disabled                                 
+flexgdu-1-7-5-3    1073939552    OPENZRTS         100G          logical-channel flexgo-1-7-5    3                       AUTO              disabled                                 
+flexgdu-1-7-5-4    1074005088    OPENZRTS         100G          logical-channel flexgo-1-7-5    4                       AUTO              disabled                                 
+flexgo-1-8-1       1073741936    OPENZR           800G          och 1-8-1                                               ETH_100G          disabled                                 
+flexgdu-1-8-1-1    1073807472    OPENZRTS         100G          logical-channel flexgo-1-8-1    1                       AUTO              disabled                                 
+flexgdu-1-8-1-2    1073873008    OPENZRTS         100G          logical-channel flexgo-1-8-1    2                       AUTO              disabled                                 
+flexgdu-1-8-1-3    1073938544    OPENZRTS         100G          logical-channel flexgo-1-8-1    3                       AUTO              disabled                                 
+flexgdu-1-8-1-4    1074004080    OPENZRTS         100G          logical-channel flexgo-1-8-1    4                       AUTO              disabled                                 
+flexgdu-1-8-1-5    1074069616    OPENZRTS         100G          logical-channel flexgo-1-8-1    5                       AUTO              disabled                                 
+flexgdu-1-8-1-6    1074135152    OPENZRTS         100G          logical-channel flexgo-1-8-1    6                       AUTO              disabled                                 
+flexgdu-1-8-1-7    1074200688    OPENZRTS         100G          logical-channel flexgo-1-8-1    7                       AUTO              disabled                                 
+flexgdu-1-8-1-8    1074266224    OPENZRTS         100G          logical-channel flexgo-1-8-1    8                       AUTO              disabled                                 
+
+

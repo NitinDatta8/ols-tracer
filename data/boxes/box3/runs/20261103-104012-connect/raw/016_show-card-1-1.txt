@@ -1,0 +1,26 @@
+[config]
+admin-state        in-service
+module-type        TMUXC_25
+description        OA
+
+
+[state]
+admin-state                   in-service
+module-type                   TMUXC_25
+description                   OA
+firmware-version              0.00
+software-version              TWSOA25_OS_GE_2.6.1.B20241130 (2.6.1.B20241130)
+present                       true
+slot                          1-1
+oper-status                   active
+removable                     true
+used-power                    15 W
+rated-power                   30 W
+supported-module-types        TMUXC1125,800MX,TMUXC925,TMUXC935,TMUXC_25,400MXS,
+                              800TR,M4CP,TWS09OA25
+
+statistics         instant | avg | min | max units        
+-----------        -------------------------------        
+temperature        31.3 | 31.3 | 31.3 | 31.3 °C
+
+

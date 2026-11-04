@@ -1,0 +1,30 @@
+{
+  "state": {
+    "admin-state": "in-service",
+    "module-type": "800MX",
+    "description": "LINECARD",
+    "firmware-version": "0.00",
+    "software-version": "800mx_CSP-2.10.100.10_20261013",
+    "present": "true",
+    "slot": "1-8",
+    "oper-status": "active",
+    "removable": "true",
+    "used-power": "38 W",
+    "rated-power": "250 W",
+    "supported-module-types": "800MX,400MXS,800TR,M4CP",
+    "stats": {
+      "temperature": {
+        "instant": 35,
+        "avg": 35,
+        "min": 35,
+        "max": 35,
+        "unit": "°C"
+      }
+    }
+  },
+  "config": {
+    "admin-state": "in-service",
+    "module-type": "800MX",
+    "description": "LINECARD"
+  }
+}

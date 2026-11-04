@@ -1,0 +1,6 @@
+
+[state]
+channel-id                   4
+transmitter-frequency        229007633 MHz
+
+

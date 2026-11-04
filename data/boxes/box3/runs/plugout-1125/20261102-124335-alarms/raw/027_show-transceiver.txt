@@ -1,0 +1,111 @@
+[config]
+
+id         tunable-wavelength    
+-------    ------------------    
+1-1-osc                          
+1-4-1      none                  
+1-4-2      none                  
+1-4-3      none                  
+1-4-4      none                  
+1-4-5      none                  
+1-4-6      none                  
+1-4-7      none                  
+1-4-8      none                  
+1-4-9      none                  
+1-4-10     none                  
+1-7-1      none                  
+1-7-2      none                  
+1-7-3      none                  
+1-7-4      none                  
+1-7-5      none                  
+1-7-6      none                  
+1-7-7      none                  
+1-7-8      none                  
+1-7-9      none                  
+1-7-10     none                  
+1-8-1      none                  
+1-8-2      none                  
+1-8-3      none                  
+1-8-4      none                  
+1-8-5      none                  
+1-8-6      none                  
+1-8-7      none                  
+1-8-8      none                  
+1-8-9      none                  
+1-8-10     none                  
+
+
+[state]
+
+id         tunable-wavelength    present    oper-status    removable    rated-power    used-power    fec-corrected-bits    firmware-version    
+                                                                        (W)            (W)           (bits)                                    
+-------    ------------------    -------    -----------    ---------    -----------    ----------    ------------------    ----------------    
+1-1-osc                          false      inactive       false                                                                               
+1-4-1      none                  false      disabled       true         0              0             0                                         
+1-4-2      none                  false      disabled       true         0              0             0                                         
+1-4-3      none                  false      disabled       true         0              0             0                                         
+1-4-4      none                  false      disabled       true         0              0             0                                         
+1-4-5      none                  false      disabled       true         0              0             0                                         
+1-4-6      none                  false      disabled       true         0              0             0                                         
+1-4-7      none                  false      disabled       true         0              0             0                                         
+1-4-8      none                  false      disabled       true         0              0             0                                         
+1-4-9      none                  false      disabled       true         0              0             0                                         
+1-4-10     none                  false      disabled       true         0              0             0                                         
+1-7-1      none                  false      disabled       true         0              0             0                                         
+1-7-2      none                  false      disabled       true         0              0             0                                         
+1-7-3      none                  false      disabled       true         0              0             0                                         
+1-7-4      none                  true       active         true         0              0             0                     01                  
+1-7-5      none                  true       active         true         0              0             73215128266           02.15-01            
+1-7-6      none                  false      disabled       true         0              0             0                                         
+1-7-7      none                  false      disabled       true         0              0             0                                         
+1-7-8      none                  false      disabled       true         0              0             0                                         
+1-7-9      none                  false      disabled       true         0              0             0                                         
+1-7-10     none                  false      disabled       true         0              0             0                                         
+1-8-1      none                  false      inactive       true         0              0             0                                         
+1-8-2      none                  false      disabled       true         0              0             0                                         
+1-8-3      none                  false      disabled       true         0              0             0                                         
+1-8-4      none                  false      inactive       true         0              0             0                                         
+1-8-5      none                  false      disabled       true         0              0             0                                         
+1-8-6      none                  false      disabled       true         0              0             0                                         
+1-8-7      none                  false      disabled       true         0              0             0                                         
+1-8-8      none                  false      disabled       true         0              0             0                                         
+1-8-9      none                  false      disabled       true         0              0             0                                         
+1-8-10     none                  false      disabled       true         0              0             0                                         
+
+
+id         pre-fec-ber                                  post-fec-ber                                 output-power                         input-power                          laser-bias-current                   temperature                       input-voltage                    
+           instant | avg | min | max                    instant | avg | min | max                    instant | avg | min | max (dBm)      instant | avg | min | max (dBm)      instant | avg | min | max (mA)       instant | avg | min | max (°C)   instant | avg | min | max (V)    
+-------    -----------------------------------------    -----------------------------------------    ---------------------------------    ---------------------------------    ---------------------------------    ------------------------------    -----------------------------    
+1-1-osc                                                                                              -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    -99.9 | -99.9 | -99.9 | -99.9                                      
+1-4-1                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-4-2                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-4-3                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-4-4                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-4-5                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-4-6                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-4-7                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-4-8                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-4-9                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-4-10                                                                                                                                                                                                              -99.9 | -99.9 | -99.9 | -99.9                                      
+1-7-1                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-7-2                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-7-3                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-7-4      0.00E+00 | 0.00E+00 | 0.00E+00 | 0.00E+00    0.00E+00 | 0.00E+00 | 0.00E+00 | 0.00E+00    7.67 | 7.67 | 7.67 | 7.67            7.82 | 7.81 | 7.81 | 7.82            279.94 | 279.94 | 279.92 | 279.94    35.0 | 34.9 | 34.9 | 35.0         3.29 | 3.29 | 3.29 | 3.29        
+1-7-5      1.00E+00 | 1.00E+00 | 1.00E+00 | 1.00E+00    1.00E+00 | 1.00E+00 | 1.00E+00 | 1.00E+00    -2.96 | -2.96 | -2.97 | -2.96        -45.74 | -44.57 | -45.74 | -40.06    99.90 | 99.90 | 99.90 | 99.90        61.8 | 61.8 | 61.8 | 61.8         3.31 | 3.30 | 3.30 | 3.31        
+1-7-6                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-7-7                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-7-8                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-7-9                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-7-10                                                                                                                                                                                                              -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-1                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-2                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-3                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-4                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-5                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-6                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-7                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-8                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-9                                                                                                                                                                                                               -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-10                                                                                                                                                                                                              -99.9 | -99.9 | -99.9 | -99.9                                      
+
+

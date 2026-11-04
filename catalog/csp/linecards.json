@@ -1,182 +1,294 @@
 [
   {
-    "id": "lc-c1125",
-    "name": "C1125",
-    "width": 2,
+    "id": "lc-800mx-sec",
+    "name": "800MX_SEC",
     "ports": [
       {
-        "id": "OSC",
-        "role": "osc",
+        "id": "PORT1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
         "allowedPluggables": [
-          "60g700001",
-          "60g710001",
-          "60g720001",
-          "eshklb31-z010-c",
-          "ftlx1472m3bcl",
-          "yv02-c02"
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
         ]
       },
       {
-        "id": "BAIN",
-        "role": "ampin",
+        "id": "PORT2",
+        "role": "port",
         "behavior": {
           "showsInData": true
         },
-        "allowedPluggables": []
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
       },
       {
-        "id": "LINEIN",
-        "role": "ampin",
+        "id": "PORT3",
+        "role": "port",
         "behavior": {
           "showsInData": true
         },
-        "allowedPluggables": []
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
       },
       {
-        "id": "LINEOUT",
-        "role": "ampout",
+        "id": "PORT4",
+        "role": "port",
         "behavior": {
           "showsInData": true
         },
-        "allowedPluggables": []
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
       },
       {
-        "id": "PAOUT",
-        "role": "ampout",
+        "id": "PORT5",
+        "role": "port",
         "behavior": {
           "showsInData": true
         },
-        "allowedPluggables": []
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
       },
       {
-        "id": "COM",
-        "role": "com",
+        "id": "PORT6",
+        "role": "port",
         "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
+          "showsInData": true
         },
-        "allowedPluggables": []
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
       },
       {
-        "id": "LINE",
-        "role": "line",
+        "id": "PORT7",
+        "role": "port",
         "behavior": {
-          "showsInL1": true,
-          "canLoopback": true,
-          "serviceGroup": "line"
+          "showsInData": true
         },
-        "allowedPluggables": []
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
       },
       {
-        "id": "MON1",
-        "role": "monitor",
-        "allowedPluggables": []
-      },
-      {
-        "id": "MON2",
-        "role": "monitor",
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD1",
-        "role": "adddrop",
+        "id": "PORT8",
+        "role": "port",
         "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
+          "showsInData": true
         },
-        "allowedPluggables": []
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
       },
       {
-        "id": "AD2",
-        "role": "adddrop",
+        "id": "PORT9",
+        "role": "port",
         "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
+          "showsInData": true
         },
-        "allowedPluggables": []
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
       },
       {
-        "id": "AD3",
-        "role": "adddrop",
+        "id": "PORT10",
+        "role": "port",
         "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
+          "showsInData": true
         },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD4",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD5",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD6",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD7",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD8",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD9",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD10",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD11",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
+        "allowedPluggables": [
+          "60g800001",
+          "60g810001",
+          "ab-qt0613c4nl",
+          "c100q00100sr402a",
+          "c100q020cwdm402h",
+          "c100q10000lr402f",
+          "ctq1mcw4cs3-01",
+          "ctq1mlr4cs1-01",
+          "ctq1xcr4cs1-01",
+          "esbqlc29-z010-c",
+          "esbqlc29-z010c",
+          "ftlc1154rdpl",
+          "ftlc1156sdpl",
+          "ftlc1157rgpl",
+          "ftlc1157rgpl-te",
+          "ftlc1157rgpl-tf",
+          "ftlc4353rjpl",
+          "trq5e14enf-lf000",
+          "trq5e14enf-lf002-m"
+        ]
       }
-    ],
+    ]
+  },
+  {
+    "id": "lc-c1125",
+    "name": "C1125",
+    "width": 2,
     "l0": {
       "internalPaths": [
         {
@@ -861,7 +973,181 @@
           }
         ]
       }
-    }
+    },
+    "ports": [
+      {
+        "id": "OSC",
+        "role": "osc",
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "BAIN",
+        "role": "ampin",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINEIN",
+        "role": "ampin",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINEOUT",
+        "role": "ampout",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PAOUT",
+        "role": "ampout",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "COM",
+        "role": "com",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINE",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON1",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON2",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD1",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD2",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD3",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD4",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD5",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD6",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD7",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD8",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD9",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD10",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD11",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      }
+    ]
   },
   {
     "id": "lc-800mx",
@@ -1156,169 +1442,6 @@
     "id": "lc-c925",
     "name": "C925",
     "width": 2,
-    "ports": [
-      {
-        "id": "OSC",
-        "role": "osc",
-        "allowedPluggables": [
-          "60g700001",
-          "60g710001",
-          "60g720001",
-          "eshklb31-z010-c",
-          "ftlx1472m3bcl",
-          "yv02-c02"
-        ]
-      },
-      {
-        "id": "BAIN",
-        "role": "ampin",
-        "behavior": {
-          "showsInData": true
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "LINEIN",
-        "role": "ampin",
-        "behavior": {
-          "showsInData": true
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "LINEOUT",
-        "role": "ampout",
-        "behavior": {
-          "showsInData": true
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "PAOUT",
-        "role": "ampout",
-        "behavior": {
-          "showsInData": true
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "COM",
-        "role": "com",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "LINE",
-        "role": "line",
-        "behavior": {
-          "showsInL1": true,
-          "canLoopback": true,
-          "serviceGroup": "line"
-        },
-        "allowedPluggables": [
-          "60g700001",
-          "60g710001",
-          "60g720001",
-          "eshklb31-z010-c",
-          "ftlx1472m3bcl",
-          "yv02-c02"
-        ]
-      },
-      {
-        "id": "MON1",
-        "role": "monitor",
-        "allowedPluggables": []
-      },
-      {
-        "id": "MON2",
-        "role": "monitor",
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD1",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD2",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD3",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD4",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD5",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD6",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD7",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD8",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD9",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      }
-    ],
     "l0": {
       "internalPaths": [
         {
@@ -1917,12 +2040,7 @@
           }
         ]
       }
-    }
-  },
-  {
-    "id": "lc-tmuxc935",
-    "name": "TMUXC935",
-    "width": 2,
+    },
     "ports": [
       {
         "id": "OSC",
@@ -2085,7 +2203,12 @@
         },
         "allowedPluggables": []
       }
-    ],
+    ]
+  },
+  {
+    "id": "lc-tmuxc935",
+    "name": "TMUXC935",
+    "width": 2,
     "l0": {
       "internalPaths": [
         {
@@ -2675,13 +2798,61 @@
           }
         ]
       }
-    }
-  },
-  {
-    "id": "lc-c25",
-    "name": "C25",
-    "width": 2,
+    },
     "ports": [
+      {
+        "id": "OSC",
+        "role": "osc",
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "BAIN",
+        "role": "ampin",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINEIN",
+        "role": "ampin",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINEOUT",
+        "role": "ampout",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PAOUT",
+        "role": "ampout",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "COM",
+        "role": "com",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
       {
         "id": "LINE",
         "role": "line",
@@ -2710,14 +2881,92 @@
         "allowedPluggables": []
       },
       {
-        "id": "SIG",
-        "role": "port",
+        "id": "AD1",
+        "role": "adddrop",
         "behavior": {
-          "showsInData": true
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD2",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD3",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD4",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD5",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD6",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD7",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD8",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD9",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
         },
         "allowedPluggables": []
       }
-    ],
+    ]
+  },
+  {
+    "id": "lc-c25",
+    "name": "C25",
+    "width": 2,
     "l0": {
       "amplifiers": [
         {
@@ -2867,7 +3116,44 @@
           }
         ]
       }
-    }
+    },
+    "ports": [
+      {
+        "id": "LINE",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "MON1",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON2",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "SIG",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
   },
   {
     "id": "lc-m4qd",
@@ -2893,7 +3179,6 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
-          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -3039,7 +3324,6 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
-          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -3473,7 +3757,6 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
-          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -3543,7 +3826,6 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
-          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -3741,7 +4023,6 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
-          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -3811,6 +4092,49 @@
     "id": "lc-oa25",
     "name": "OA25",
     "width": 2,
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "BA",
+          "ingressPort": "BAIN",
+          "egressPort": "BAOUT"
+        },
+        {
+          "id": "PA",
+          "ingressPort": "PAIN",
+          "egressPort": "PAOUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "BAIN": {
+          "power-offset": 0
+        },
+        "BAOUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "OSC": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "PAIN": {
+          "power-offset": 0
+        },
+        "PAOUT": {
+          "power-offset": 0
+        }
+      }
+    },
     "ports": [
       {
         "id": "OSC",
@@ -3882,55 +4206,55 @@
         },
         "allowedPluggables": []
       }
-    ],
-    "l0": {
-      "amplifiers": [
-        {
-          "id": "BA",
-          "ingressPort": "BAIN",
-          "egressPort": "BAOUT"
-        },
-        {
-          "id": "PA",
-          "ingressPort": "PAIN",
-          "egressPort": "PAOUT"
-        }
-      ],
-      "opticalThresholdEnvelopes": {
-        "BAIN": {
-          "power-offset": 0
-        },
-        "BAOUT": {
-          "power-offset": 0
-        },
-        "MON1": {
-          "power-offset": 0
-        },
-        "MON2": {
-          "power-offset": 0
-        },
-        "OSC": {
-          "power-offset": 0
-        },
-        "OTDR1": {
-          "power-offset": 0
-        },
-        "OTDR2": {
-          "power-offset": 0
-        },
-        "PAIN": {
-          "power-offset": 0
-        },
-        "PAOUT": {
-          "power-offset": 0
-        }
-      }
-    }
+    ]
   },
   {
     "id": "lc-oa35",
     "name": "OA35",
     "width": 2,
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "BA",
+          "ingressPort": "BAIN",
+          "egressPort": "BAOUT"
+        },
+        {
+          "id": "PA",
+          "ingressPort": "PAIN",
+          "egressPort": "PAOUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "BAIN": {
+          "power-offset": 0
+        },
+        "BAOUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "OSC": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "PAIN": {
+          "power-offset": 0
+        },
+        "PAOUT": {
+          "power-offset": 0
+        }
+      }
+    },
     "ports": [
       {
         "id": "OSC",
@@ -4002,55 +4326,64 @@
         },
         "allowedPluggables": []
       }
-    ],
-    "l0": {
-      "amplifiers": [
-        {
-          "id": "BA",
-          "ingressPort": "BAIN",
-          "egressPort": "BAOUT"
-        },
-        {
-          "id": "PA",
-          "ingressPort": "PAIN",
-          "egressPort": "PAOUT"
-        }
-      ],
-      "opticalThresholdEnvelopes": {
-        "BAIN": {
-          "power-offset": 0
-        },
-        "BAOUT": {
-          "power-offset": 0
-        },
-        "MON1": {
-          "power-offset": 0
-        },
-        "MON2": {
-          "power-offset": 0
-        },
-        "OSC": {
-          "power-offset": 0
-        },
-        "OTDR1": {
-          "power-offset": 0
-        },
-        "OTDR2": {
-          "power-offset": 0
-        },
-        "PAIN": {
-          "power-offset": 0
-        },
-        "PAOUT": {
-          "power-offset": 0
-        }
-      }
-    }
+    ]
   },
   {
     "id": "lc-ola25",
     "name": "OLA25",
     "width": 2,
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "LA1",
+          "ingressPort": "LA1IN",
+          "egressPort": "LA1OUT"
+        },
+        {
+          "id": "LA2",
+          "ingressPort": "LA2IN",
+          "egressPort": "LA2OUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "LA1IN": {
+          "power-offset": 0
+        },
+        "LA1OUT": {
+          "power-offset": 0
+        },
+        "LA2IN": {
+          "power-offset": 0
+        },
+        "LA2OUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "OSC1": {
+          "power-offset": 0
+        },
+        "OSC2": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "OTDR3": {
+          "power-offset": 0
+        },
+        "OTDR4": {
+          "power-offset": 0
+        }
+      }
+    },
     "ports": [
       {
         "id": "OSC1",
@@ -4150,64 +4483,64 @@
         },
         "allowedPluggables": []
       }
-    ],
-    "l0": {
-      "amplifiers": [
-        {
-          "id": "LA1",
-          "ingressPort": "LA1IN",
-          "egressPort": "LA1OUT"
-        },
-        {
-          "id": "LA2",
-          "ingressPort": "LA2IN",
-          "egressPort": "LA2OUT"
-        }
-      ],
-      "opticalThresholdEnvelopes": {
-        "LA1IN": {
-          "power-offset": 0
-        },
-        "LA1OUT": {
-          "power-offset": 0
-        },
-        "LA2IN": {
-          "power-offset": 0
-        },
-        "LA2OUT": {
-          "power-offset": 0
-        },
-        "MON1": {
-          "power-offset": 0
-        },
-        "MON2": {
-          "power-offset": 0
-        },
-        "OSC1": {
-          "power-offset": 0
-        },
-        "OSC2": {
-          "power-offset": 0
-        },
-        "OTDR1": {
-          "power-offset": 0
-        },
-        "OTDR2": {
-          "power-offset": 0
-        },
-        "OTDR3": {
-          "power-offset": 0
-        },
-        "OTDR4": {
-          "power-offset": 0
-        }
-      }
-    }
+    ]
   },
   {
     "id": "lc-ola35a",
     "name": "OLA35A",
     "width": 2,
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "LA1",
+          "ingressPort": "LA1IN",
+          "egressPort": "LA1OUT"
+        },
+        {
+          "id": "LA2",
+          "ingressPort": "LA2IN",
+          "egressPort": "LA2OUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "LA1IN": {
+          "power-offset": 0
+        },
+        "LA1OUT": {
+          "power-offset": 0
+        },
+        "LA2IN": {
+          "power-offset": 0
+        },
+        "LA2OUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "OSC1": {
+          "power-offset": 0
+        },
+        "OSC2": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "OTDR3": {
+          "power-offset": 0
+        },
+        "OTDR4": {
+          "power-offset": 0
+        }
+      }
+    },
     "ports": [
       {
         "id": "OSC1",
@@ -4307,64 +4640,64 @@
         },
         "allowedPluggables": []
       }
-    ],
-    "l0": {
-      "amplifiers": [
-        {
-          "id": "LA1",
-          "ingressPort": "LA1IN",
-          "egressPort": "LA1OUT"
-        },
-        {
-          "id": "LA2",
-          "ingressPort": "LA2IN",
-          "egressPort": "LA2OUT"
-        }
-      ],
-      "opticalThresholdEnvelopes": {
-        "LA1IN": {
-          "power-offset": 0
-        },
-        "LA1OUT": {
-          "power-offset": 0
-        },
-        "LA2IN": {
-          "power-offset": 0
-        },
-        "LA2OUT": {
-          "power-offset": 0
-        },
-        "MON1": {
-          "power-offset": 0
-        },
-        "MON2": {
-          "power-offset": 0
-        },
-        "OSC1": {
-          "power-offset": 0
-        },
-        "OSC2": {
-          "power-offset": 0
-        },
-        "OTDR1": {
-          "power-offset": 0
-        },
-        "OTDR2": {
-          "power-offset": 0
-        },
-        "OTDR3": {
-          "power-offset": 0
-        },
-        "OTDR4": {
-          "power-offset": 0
-        }
-      }
-    }
+    ]
   },
   {
     "id": "lc-ola35b",
     "name": "OLA35B",
     "width": 2,
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "LA1",
+          "ingressPort": "LA1IN",
+          "egressPort": "LA1OUT"
+        },
+        {
+          "id": "LA2",
+          "ingressPort": "LA2IN",
+          "egressPort": "LA2OUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "LA1IN": {
+          "power-offset": 0
+        },
+        "LA1OUT": {
+          "power-offset": 0
+        },
+        "LA2IN": {
+          "power-offset": 0
+        },
+        "LA2OUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "OSC1": {
+          "power-offset": 0
+        },
+        "OSC2": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "OTDR3": {
+          "power-offset": 0
+        },
+        "OTDR4": {
+          "power-offset": 0
+        }
+      }
+    },
     "ports": [
       {
         "id": "OSC1",
@@ -4464,59 +4797,7 @@
         },
         "allowedPluggables": []
       }
-    ],
-    "l0": {
-      "amplifiers": [
-        {
-          "id": "LA1",
-          "ingressPort": "LA1IN",
-          "egressPort": "LA1OUT"
-        },
-        {
-          "id": "LA2",
-          "ingressPort": "LA2IN",
-          "egressPort": "LA2OUT"
-        }
-      ],
-      "opticalThresholdEnvelopes": {
-        "LA1IN": {
-          "power-offset": 0
-        },
-        "LA1OUT": {
-          "power-offset": 0
-        },
-        "LA2IN": {
-          "power-offset": 0
-        },
-        "LA2OUT": {
-          "power-offset": 0
-        },
-        "MON1": {
-          "power-offset": 0
-        },
-        "MON2": {
-          "power-offset": 0
-        },
-        "OSC1": {
-          "power-offset": 0
-        },
-        "OSC2": {
-          "power-offset": 0
-        },
-        "OTDR1": {
-          "power-offset": 0
-        },
-        "OTDR2": {
-          "power-offset": 0
-        },
-        "OTDR3": {
-          "power-offset": 0
-        },
-        "OTDR4": {
-          "power-offset": 0
-        }
-      }
-    }
+    ]
   },
   {
     "id": "lc-ptm-e",
@@ -5314,7 +5595,6 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
-          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -5460,7 +5740,6 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
-          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -5550,7 +5829,6 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
-          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -5698,7 +5976,6 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
-          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -5768,7 +6045,6 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
-          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -5966,7 +6242,6 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
-          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -6224,7 +6499,6 @@
           "ftcd3312o1bcl",
           "ftcd3312r1bcl-wd",
           "ftcd3323r1pcl",
-          "ftcd3323r1pcl-1y",
           "ftcd3323r1pcl-wd",
           "ftce3326s1ccl-by",
           "ftce3326s1ccltcn",
@@ -6462,6 +6736,67 @@
     "id": "lc-tws05oa25",
     "name": "TWS05OA25",
     "width": 2,
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "BA",
+          "ingressPort": "BAIN",
+          "egressPort": "BAOUT"
+        },
+        {
+          "id": "PA",
+          "ingressPort": "PAIN",
+          "egressPort": "PAOUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "AD1": {
+          "power-offset": 0
+        },
+        "AD2": {
+          "power-offset": 0
+        },
+        "AD3": {
+          "power-offset": 0
+        },
+        "AD4": {
+          "power-offset": 0
+        },
+        "AD5": {
+          "power-offset": 0
+        },
+        "BAIN": {
+          "power-offset": 0
+        },
+        "BAOUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "MUX": {
+          "power-offset": 0
+        },
+        "OSC": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "PAIN": {
+          "power-offset": 0
+        },
+        "PAOUT": {
+          "power-offset": 0
+        }
+      }
+    },
     "ports": [
       {
         "id": "OSC",
@@ -6603,73 +6938,73 @@
         },
         "allowedPluggables": []
       }
-    ],
-    "l0": {
-      "amplifiers": [
-        {
-          "id": "BA",
-          "ingressPort": "BAIN",
-          "egressPort": "BAOUT"
-        },
-        {
-          "id": "PA",
-          "ingressPort": "PAIN",
-          "egressPort": "PAOUT"
-        }
-      ],
-      "opticalThresholdEnvelopes": {
-        "AD1": {
-          "power-offset": 0
-        },
-        "AD2": {
-          "power-offset": 0
-        },
-        "AD3": {
-          "power-offset": 0
-        },
-        "AD4": {
-          "power-offset": 0
-        },
-        "AD5": {
-          "power-offset": 0
-        },
-        "BAIN": {
-          "power-offset": 0
-        },
-        "BAOUT": {
-          "power-offset": 0
-        },
-        "MON1": {
-          "power-offset": 0
-        },
-        "MON2": {
-          "power-offset": 0
-        },
-        "MUX": {
-          "power-offset": 0
-        },
-        "OSC": {
-          "power-offset": 0
-        },
-        "OTDR1": {
-          "power-offset": 0
-        },
-        "OTDR2": {
-          "power-offset": 0
-        },
-        "PAIN": {
-          "power-offset": 0
-        },
-        "PAOUT": {
-          "power-offset": 0
-        }
-      }
-    }
+    ]
   },
   {
     "id": "lc-tws05oa35",
     "name": "TWS05OA35",
     "width": 2,
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "BA",
+          "ingressPort": "BAIN",
+          "egressPort": "BAOUT"
+        },
+        {
+          "id": "PA",
+          "ingressPort": "PAIN",
+          "egressPort": "PAOUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "AD1": {
+          "power-offset": 0
+        },
+        "AD2": {
+          "power-offset": 0
+        },
+        "AD3": {
+          "power-offset": 0
+        },
+        "AD4": {
+          "power-offset": 0
+        },
+        "AD5": {
+          "power-offset": 0
+        },
+        "BAIN": {
+          "power-offset": 0
+        },
+        "BAOUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "MUX": {
+          "power-offset": 0
+        },
+        "OSC": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "PAIN": {
+          "power-offset": 0
+        },
+        "PAOUT": {
+          "power-offset": 0
+        }
+      }
+    },
     "ports": [
       {
         "id": "OSC",
@@ -6811,260 +7146,12 @@
         },
         "allowedPluggables": []
       }
-    ],
-    "l0": {
-      "amplifiers": [
-        {
-          "id": "BA",
-          "ingressPort": "BAIN",
-          "egressPort": "BAOUT"
-        },
-        {
-          "id": "PA",
-          "ingressPort": "PAIN",
-          "egressPort": "PAOUT"
-        }
-      ],
-      "opticalThresholdEnvelopes": {
-        "AD1": {
-          "power-offset": 0
-        },
-        "AD2": {
-          "power-offset": 0
-        },
-        "AD3": {
-          "power-offset": 0
-        },
-        "AD4": {
-          "power-offset": 0
-        },
-        "AD5": {
-          "power-offset": 0
-        },
-        "BAIN": {
-          "power-offset": 0
-        },
-        "BAOUT": {
-          "power-offset": 0
-        },
-        "MON1": {
-          "power-offset": 0
-        },
-        "MON2": {
-          "power-offset": 0
-        },
-        "MUX": {
-          "power-offset": 0
-        },
-        "OSC": {
-          "power-offset": 0
-        },
-        "OTDR1": {
-          "power-offset": 0
-        },
-        "OTDR2": {
-          "power-offset": 0
-        },
-        "PAIN": {
-          "power-offset": 0
-        },
-        "PAOUT": {
-          "power-offset": 0
-        }
-      }
-    }
+    ]
   },
   {
     "id": "lc-tws09oa25",
     "name": "TWS09OA25",
     "width": 2,
-    "ports": [
-      {
-        "id": "OSC",
-        "role": "osc",
-        "allowedPluggables": [
-          "60g700001",
-          "60g710001",
-          "60g720001",
-          "eshklb31-z010-c",
-          "ftlx1472m3bcl",
-          "yv02-c02"
-        ]
-      },
-      {
-        "id": "BAIN",
-        "role": "ampin",
-        "behavior": {
-          "showsInData": true
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "LINEIN",
-        "role": "ampin",
-        "behavior": {
-          "showsInData": true
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "LINEOUT",
-        "role": "ampout",
-        "behavior": {
-          "showsInData": true
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "PAOUT",
-        "role": "ampout",
-        "behavior": {
-          "showsInData": true
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "COM",
-        "role": "com",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "LINE",
-        "role": "line",
-        "behavior": {
-          "showsInL1": true,
-          "canLoopback": true,
-          "serviceGroup": "line"
-        },
-        "allowedPluggables": [
-          "60g700001",
-          "60g710001",
-          "60g720001",
-          "eshklb31-z010-c",
-          "ftlx1472m3bcl",
-          "yv02-c02"
-        ]
-      },
-      {
-        "id": "MON1",
-        "role": "monitor",
-        "allowedPluggables": []
-      },
-      {
-        "id": "MON2",
-        "role": "monitor",
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD1",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD2",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD3",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD4",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD5",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD6",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD7",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD8",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "AD9",
-        "role": "adddrop",
-        "behavior": {
-          "showsInData": true,
-          "serviceGroup": "adddrop"
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "OTDR1",
-        "role": "port",
-        "behavior": {
-          "showsInData": true
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "OCM1",
-        "role": "port",
-        "behavior": {
-          "showsInData": true
-        },
-        "allowedPluggables": []
-      },
-      {
-        "id": "OCM22",
-        "role": "port",
-        "behavior": {
-          "showsInData": true
-        },
-        "allowedPluggables": []
-      }
-    ],
     "l0": {
       "amplifiers": [
         {
@@ -7491,7 +7578,194 @@
         },
         "gridMHz": 12500
       }
-    }
+    },
+    "ports": [
+      {
+        "id": "OSC",
+        "role": "osc",
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "BAIN",
+        "role": "ampin",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINEIN",
+        "role": "ampin",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINEOUT",
+        "role": "ampout",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "PAOUT",
+        "role": "ampout",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "COM",
+        "role": "com",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINE",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": [
+          "60g700001",
+          "60g710001",
+          "60g720001",
+          "eshklb31-z010-c",
+          "ftlx1472m3bcl",
+          "yv02-c02"
+        ]
+      },
+      {
+        "id": "MON1",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "MON2",
+        "role": "monitor",
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD1",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD2",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD3",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD4",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD5",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD6",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD7",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD8",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "AD9",
+        "role": "adddrop",
+        "behavior": {
+          "showsInData": true,
+          "serviceGroup": "adddrop"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OTDR1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OCM1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OCM22",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      }
+    ]
   },
   {
     "id": "lc-tws09oa35",

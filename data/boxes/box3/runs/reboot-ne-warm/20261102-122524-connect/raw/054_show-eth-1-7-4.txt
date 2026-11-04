@@ -1,0 +1,38 @@
+[config]
+fec                      disabled
+loopback                 none
+test-signal              disabled
+test-monitor             disabled
+test-monitor-time        0 seconds
+
+
+[state]
+fec                                disabled
+loopback                           none
+test-signal                        disabled
+test-monitor                       disabled
+test-monitor-time                  0 seconds
+test-signal-status                 unmonitored
+test-monitor-time-countdown        0 seconds
+test-total-received-bits           0
+test-bit-errors                    0
+test-bit-error-ratio               0.00E+00
+test-out-of-sync-seconds           0
+trib-protocol                      100GBE
+rx-pkts                            0 packets
+tx-pkts                            0 packets
+rx-bytes                           0 bytes
+tx-bytes                           0 bytes
+rx-crc-err-sum                     0
+tx-crc-err-sum                     0
+in-pcs-bip-errors                  0 bits
+out-pcs-bip-errors                 0 bits
+rx-jabber-frames                   0 frames
+rx-fragment-frames                 0 frames
+
+statistics          instant | avg | min | max units                  
+------------        -----------------------------------------        
+pre-fec-ber         0.00E+00 | 0.00E+00 | 0.00E+00 | 0.00E+00
+post-fec-ber        0.00E+00 | 0.00E+00 | 0.00E+00 | 0.00E+00
+
+

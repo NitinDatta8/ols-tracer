@@ -1,0 +1,8 @@
+[state]
+name             direction    optical-power(dBm)    description                                  flag    
+-------------    ---------    ------------------    -----------------------------------------    ----    
+port-1-1-line    in           -3.57                 line input total aggregate optical power     M       
+port-1-1-line    out          2.32                  line output total aggregate optical power    M       
+
+
+admin@PAHO-GS2000-03> 

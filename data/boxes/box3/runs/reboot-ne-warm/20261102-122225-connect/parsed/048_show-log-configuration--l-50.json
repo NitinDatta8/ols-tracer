@@ -1,0 +1,454 @@
+{
+  "entries": [
+    {
+      "time-stamp": "2021-07-28T20:49:09+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 44,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-28T20:49:09+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 44,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-28T20:47:05+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "set",
+      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad1\n1 admin-state in-service center-frequency 193500000 bandwidth 100000"
+    },
+    {
+      "time-stamp": "2021-07-28T20:46:58+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "delete",
+      "details": "delete media-channel 6"
+    },
+    {
+      "time-stamp": "2021-07-28T20:46:38+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "set",
+      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad1\n0 admin-state in-service center-frequency 193500000 bandwidth 100000"
+    },
+    {
+      "time-stamp": "2021-07-28T20:46:35+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "delete",
+      "details": "delete media-channel 6"
+    },
+    {
+      "time-stamp": "2021-07-28T20:46:30+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "set",
+      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad9\nadmin-state in-service center-frequency 193500000 bandwidth 100000"
+    },
+    {
+      "time-stamp": "2021-07-28T20:46:17+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "delete",
+      "details": "delete media-channel 6"
+    },
+    {
+      "time-stamp": "2021-07-28T20:45:49+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "set",
+      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad9\nadmin-state in-service center-frequency 193500000 bandwidth 100000"
+    },
+    {
+      "time-stamp": "2021-07-28T20:45:39+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "delete",
+      "details": "delete media-channel 6"
+    },
+    {
+      "time-stamp": "2021-07-28T20:45:19+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "set",
+      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad8\nadmin-state in-service center-frequency 193500000 bandwidth 100000"
+    },
+    {
+      "time-stamp": "2021-07-28T20:45:08+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "delete",
+      "details": "delete media-channel 6"
+    },
+    {
+      "time-stamp": "2021-07-28T20:44:47+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "set",
+      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad7\nadmin-state in-service center-frequency 193500000 bandwidth 100000"
+    },
+    {
+      "time-stamp": "2021-07-28T20:44:40+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "delete",
+      "details": "delete media-channel 6"
+    },
+    {
+      "time-stamp": "2021-07-28T20:44:13+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "set",
+      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad6\nadmin-state in-service center-frequency 193500000 bandwidth 100000"
+    },
+    {
+      "time-stamp": "2021-07-28T20:44:00+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "delete",
+      "details": "delete media-channel 5"
+    },
+    {
+      "time-stamp": "2021-07-28T20:43:49+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "set",
+      "details": "set media-channel 5 line-port port-1-1-line add-drop-port port-1-1-ad5\nadmin-state in-service center-frequency 193500000 bandwidth 100000"
+    },
+    {
+      "time-stamp": "2021-07-28T20:43:29+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "delete",
+      "details": "delete media-channel 4"
+    },
+    {
+      "time-stamp": "2021-07-28T20:42:38+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 41,
+      "user-ip": "10.111.0.43",
+      "type": "set",
+      "details": "set media-channel 4 line-port port-1-1-line add-drop-port port-1-1-ad4\nadmin-state in-service center-frequency 193500000 bandwidth 100000"
+    },
+    {
+      "time-stamp": "2021-07-28T20:42:01+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 41,
+      "user-ip": "10.111.0.43",
+      "type": "delete",
+      "details": "delete media-channel 3"
+    },
+    {
+      "time-stamp": "2021-07-28T20:41:56+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 42,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-28T20:41:55+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 42,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-28T20:41:03+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 39,
+      "user-ip": "10.111.0.43",
+      "type": "set",
+      "details": "set media-channel 3 line-port port-1-1-line add-drop-port port-1-1-ad3\nadmin-state in-service center-frequency 193500000 bandwidth 100000"
+    },
+    {
+      "time-stamp": "2021-07-28T20:40:23+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 39,
+      "user-ip": "10.111.0.43",
+      "type": "delete",
+      "details": "delete media-channel 2"
+    },
+    {
+      "time-stamp": "2021-07-28T20:39:57+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 40,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-28T20:39:57+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 40,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-28T20:38:02+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "set",
+      "details": "set media-channel 2 line-port port-1-1-line add-drop-port port-1-1-ad2\nadmin-state in-service center-frequency 193500000 bandwidth 100000"
+    },
+    {
+      "time-stamp": "2021-07-28T20:37:32+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "delete",
+      "details": "delete media-channel 2"
+    },
+    {
+      "time-stamp": "2021-07-28T20:37:05+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "delete",
+      "details": "delete media-channel 1"
+    },
+    {
+      "time-stamp": "2021-07-28T20:34:32+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "rpc",
+      "details": "reboot card 1-1 cold"
+    },
+    {
+      "time-stamp": "2021-07-28T20:33:37+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "rpc",
+      "details": "reboot card 1-1 warm"
+    },
+    {
+      "time-stamp": "2021-07-28T20:28:12+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 38,
+      "user-ip": "10.111.12.184",
+      "type": "set",
+      "details": "set media-channel 2 line-port port-1-1-line add-drop-port port-1-1-ad2\nadmin-state in-service center-frequency 193600000 bandwidth 100000"
+    },
+    {
+      "time-stamp": "2021-07-28T20:25:37+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 37,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-28T20:25:37+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 37,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-28T20:24:14+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 34,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-28T20:24:14+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 34,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-28T19:00:30+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 30,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set port 1-4-6 admin-state in-service"
+    },
+    {
+      "time-stamp": "2021-07-28T18:05:52+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 28,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-28T18:05:52+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 28,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-28T18:02:26+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 27,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-28T18:02:26+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 27,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-28T17:59:40+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 24,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-28T17:59:40+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 24,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-28T17:49:21+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 23,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-28T17:49:21+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 23,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-28T17:38:24+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 20,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-28T17:38:24+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 20,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-28T05:08:37+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 18,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-28T05:08:36+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 18,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-28T04:53:01+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 17,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    }
+  ]
+}

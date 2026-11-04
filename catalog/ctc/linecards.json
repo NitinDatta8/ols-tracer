@@ -3,6 +3,49 @@
     "id": "lc-oa25",
     "name": "OA25",
     "width": 2,
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "BA",
+          "ingressPort": "BAIN",
+          "egressPort": "BAOUT"
+        },
+        {
+          "id": "PA",
+          "ingressPort": "PAIN",
+          "egressPort": "PAOUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "BAIN": {
+          "power-offset": 0
+        },
+        "BAOUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "OSC": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "PAIN": {
+          "power-offset": 0
+        },
+        "PAOUT": {
+          "power-offset": 0
+        }
+      }
+    },
     "ports": [
       {
         "id": "OSC",
@@ -19,7 +62,7 @@
       },
       {
         "id": "BAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -27,7 +70,7 @@
       },
       {
         "id": "PAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -35,7 +78,7 @@
       },
       {
         "id": "BAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -43,7 +86,7 @@
       },
       {
         "id": "PAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -81,6 +124,49 @@
     "id": "lc-oa35",
     "name": "OA35",
     "width": 2,
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "BA",
+          "ingressPort": "BAIN",
+          "egressPort": "BAOUT"
+        },
+        {
+          "id": "PA",
+          "ingressPort": "PAIN",
+          "egressPort": "PAOUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "BAIN": {
+          "power-offset": 0
+        },
+        "BAOUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "OSC": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "PAIN": {
+          "power-offset": 0
+        },
+        "PAOUT": {
+          "power-offset": 0
+        }
+      }
+    },
     "ports": [
       {
         "id": "OSC",
@@ -97,7 +183,7 @@
       },
       {
         "id": "BAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -105,7 +191,7 @@
       },
       {
         "id": "PAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -113,7 +199,7 @@
       },
       {
         "id": "BAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -121,7 +207,7 @@
       },
       {
         "id": "PAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -159,6 +245,58 @@
     "id": "lc-ola25",
     "name": "OLA25",
     "width": 2,
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "LA1",
+          "ingressPort": "LA1IN",
+          "egressPort": "LA1OUT"
+        },
+        {
+          "id": "LA2",
+          "ingressPort": "LA2IN",
+          "egressPort": "LA2OUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "LA1IN": {
+          "power-offset": 0
+        },
+        "LA1OUT": {
+          "power-offset": 0
+        },
+        "LA2IN": {
+          "power-offset": 0
+        },
+        "LA2OUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "OSC1": {
+          "power-offset": 0
+        },
+        "OSC2": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "OTDR3": {
+          "power-offset": 0
+        },
+        "OTDR4": {
+          "power-offset": 0
+        }
+      }
+    },
     "ports": [
       {
         "id": "OSC1",
@@ -188,7 +326,7 @@
       },
       {
         "id": "LA1IN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -196,7 +334,7 @@
       },
       {
         "id": "LA2IN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -204,7 +342,7 @@
       },
       {
         "id": "LA1OUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -212,7 +350,7 @@
       },
       {
         "id": "LA2OUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -266,6 +404,58 @@
     "id": "lc-ola35a",
     "name": "OLA35A",
     "width": 2,
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "LA1",
+          "ingressPort": "LA1IN",
+          "egressPort": "LA1OUT"
+        },
+        {
+          "id": "LA2",
+          "ingressPort": "LA2IN",
+          "egressPort": "LA2OUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "LA1IN": {
+          "power-offset": 0
+        },
+        "LA1OUT": {
+          "power-offset": 0
+        },
+        "LA2IN": {
+          "power-offset": 0
+        },
+        "LA2OUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "OSC1": {
+          "power-offset": 0
+        },
+        "OSC2": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "OTDR3": {
+          "power-offset": 0
+        },
+        "OTDR4": {
+          "power-offset": 0
+        }
+      }
+    },
     "ports": [
       {
         "id": "OSC1",
@@ -295,7 +485,7 @@
       },
       {
         "id": "LA1IN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -303,7 +493,7 @@
       },
       {
         "id": "LA2IN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -311,7 +501,7 @@
       },
       {
         "id": "LA1OUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -319,7 +509,7 @@
       },
       {
         "id": "LA2OUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -373,6 +563,58 @@
     "id": "lc-ola35b",
     "name": "OLA35B",
     "width": 2,
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "LA1",
+          "ingressPort": "LA1IN",
+          "egressPort": "LA1OUT"
+        },
+        {
+          "id": "LA2",
+          "ingressPort": "LA2IN",
+          "egressPort": "LA2OUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "LA1IN": {
+          "power-offset": 0
+        },
+        "LA1OUT": {
+          "power-offset": 0
+        },
+        "LA2IN": {
+          "power-offset": 0
+        },
+        "LA2OUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "OSC1": {
+          "power-offset": 0
+        },
+        "OSC2": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "OTDR3": {
+          "power-offset": 0
+        },
+        "OTDR4": {
+          "power-offset": 0
+        }
+      }
+    },
     "ports": [
       {
         "id": "OSC1",
@@ -402,7 +644,7 @@
       },
       {
         "id": "LA1IN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -410,7 +652,7 @@
       },
       {
         "id": "LA2IN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -418,7 +660,7 @@
       },
       {
         "id": "LA1OUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -426,7 +668,7 @@
       },
       {
         "id": "LA2OUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -1739,6 +1981,67 @@
     "id": "lc-tws05oa25",
     "name": "TWS05OA25",
     "width": 2,
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "BA",
+          "ingressPort": "BAIN",
+          "egressPort": "BAOUT"
+        },
+        {
+          "id": "PA",
+          "ingressPort": "PAIN",
+          "egressPort": "PAOUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "AD1": {
+          "power-offset": 0
+        },
+        "AD2": {
+          "power-offset": 0
+        },
+        "AD3": {
+          "power-offset": 0
+        },
+        "AD4": {
+          "power-offset": 0
+        },
+        "AD5": {
+          "power-offset": 0
+        },
+        "BAIN": {
+          "power-offset": 0
+        },
+        "BAOUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "MUX": {
+          "power-offset": 0
+        },
+        "OSC": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "PAIN": {
+          "power-offset": 0
+        },
+        "PAOUT": {
+          "power-offset": 0
+        }
+      }
+    },
     "ports": [
       {
         "id": "OSC",
@@ -1755,7 +2058,7 @@
       },
       {
         "id": "BAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -1763,7 +2066,7 @@
       },
       {
         "id": "PAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -1771,7 +2074,7 @@
       },
       {
         "id": "BAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -1779,7 +2082,7 @@
       },
       {
         "id": "PAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -1887,6 +2190,67 @@
     "id": "lc-tws05oa35",
     "name": "TWS05OA35",
     "width": 2,
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "BA",
+          "ingressPort": "BAIN",
+          "egressPort": "BAOUT"
+        },
+        {
+          "id": "PA",
+          "ingressPort": "PAIN",
+          "egressPort": "PAOUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "AD1": {
+          "power-offset": 0
+        },
+        "AD2": {
+          "power-offset": 0
+        },
+        "AD3": {
+          "power-offset": 0
+        },
+        "AD4": {
+          "power-offset": 0
+        },
+        "AD5": {
+          "power-offset": 0
+        },
+        "BAIN": {
+          "power-offset": 0
+        },
+        "BAOUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "MUX": {
+          "power-offset": 0
+        },
+        "OSC": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "PAIN": {
+          "power-offset": 0
+        },
+        "PAOUT": {
+          "power-offset": 0
+        }
+      }
+    },
     "ports": [
       {
         "id": "OSC",
@@ -1903,7 +2267,7 @@
       },
       {
         "id": "BAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -1911,7 +2275,7 @@
       },
       {
         "id": "PAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -1919,7 +2283,7 @@
       },
       {
         "id": "BAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -1927,7 +2291,7 @@
       },
       {
         "id": "PAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -2035,6 +2399,81 @@
     "id": "lc-tws09oa25",
     "name": "TWS09OA25",
     "width": 2,
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "BA",
+          "type": "EDFA",
+          "ingressPort": "BAIN",
+          "egressPort": "BAOUT"
+        },
+        {
+          "id": "PA",
+          "type": "EDFA",
+          "ingressPort": "PAIN",
+          "egressPort": "PAOUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "AD1": {
+          "power-offset": 0
+        },
+        "AD2": {
+          "power-offset": 0
+        },
+        "AD3": {
+          "power-offset": 0
+        },
+        "AD4": {
+          "power-offset": 0
+        },
+        "AD5": {
+          "power-offset": 0
+        },
+        "AD6": {
+          "power-offset": 0
+        },
+        "AD7": {
+          "power-offset": 0
+        },
+        "AD8": {
+          "power-offset": 0
+        },
+        "AD9": {
+          "power-offset": 0
+        },
+        "BAIN": {
+          "power-offset": 0
+        },
+        "BAOUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "MUX": {
+          "power-offset": 0
+        },
+        "OSC": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "PAIN": {
+          "power-offset": 0
+        },
+        "PAOUT": {
+          "power-offset": 0
+        }
+      }
+    },
     "ports": [
       {
         "id": "OSC",
@@ -2051,7 +2490,7 @@
       },
       {
         "id": "BAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -2059,7 +2498,7 @@
       },
       {
         "id": "PAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -2067,7 +2506,7 @@
       },
       {
         "id": "BAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -2075,7 +2514,7 @@
       },
       {
         "id": "PAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -2219,6 +2658,79 @@
     "id": "lc-tws09oa35",
     "name": "TWS09OA35",
     "width": 2,
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "BA",
+          "ingressPort": "BAIN",
+          "egressPort": "BAOUT"
+        },
+        {
+          "id": "PA",
+          "ingressPort": "PAIN",
+          "egressPort": "PAOUT"
+        }
+      ],
+      "opticalThresholdEnvelopes": {
+        "AD1": {
+          "power-offset": 0
+        },
+        "AD2": {
+          "power-offset": 0
+        },
+        "AD3": {
+          "power-offset": 0
+        },
+        "AD4": {
+          "power-offset": 0
+        },
+        "AD5": {
+          "power-offset": 0
+        },
+        "AD6": {
+          "power-offset": 0
+        },
+        "AD7": {
+          "power-offset": 0
+        },
+        "AD8": {
+          "power-offset": 0
+        },
+        "AD9": {
+          "power-offset": 0
+        },
+        "BAIN": {
+          "power-offset": 0
+        },
+        "BAOUT": {
+          "power-offset": 0
+        },
+        "MON1": {
+          "power-offset": 0
+        },
+        "MON2": {
+          "power-offset": 0
+        },
+        "MUX": {
+          "power-offset": 0
+        },
+        "OSC": {
+          "power-offset": 0
+        },
+        "OTDR1": {
+          "power-offset": 0
+        },
+        "OTDR2": {
+          "power-offset": 0
+        },
+        "PAIN": {
+          "power-offset": 0
+        },
+        "PAOUT": {
+          "power-offset": 0
+        }
+      }
+    },
     "ports": [
       {
         "id": "OSC",
@@ -2235,7 +2747,7 @@
       },
       {
         "id": "BAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -2243,7 +2755,7 @@
       },
       {
         "id": "PAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -2251,7 +2763,7 @@
       },
       {
         "id": "BAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -2259,7 +2771,7 @@
       },
       {
         "id": "PAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },

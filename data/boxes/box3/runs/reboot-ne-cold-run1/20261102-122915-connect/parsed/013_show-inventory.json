@@ -1,0 +1,21 @@
+{
+  "chassis": {
+    "1": {
+      "mfg-name": "COHERENT",
+      "mfg-date": "2026-10-12",
+      "hardware-version": "1.0",
+      "serial-no": "GCATA000G",
+      "part-no": "60GCA0001"
+    }
+  },
+  "cards": {
+    "1-1": {
+      "module-type": "TMUXC1125",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2026-09-11",
+      "hardware-version": "1.0",
+      "serial-no": "G2PTA0006",
+      "part-no": "60G2P0001"
+    }
+  }
+}

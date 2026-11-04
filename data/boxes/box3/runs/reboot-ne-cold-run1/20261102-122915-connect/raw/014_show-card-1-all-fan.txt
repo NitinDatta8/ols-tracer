@@ -1,0 +1,9 @@
+[config]
+
+id           mode    speed-ratio    
+---------    ----    -----------    
+card 1-31    auto    high           
+card 1-32    auto    high           
+card 1-33    auto    high           
+
+

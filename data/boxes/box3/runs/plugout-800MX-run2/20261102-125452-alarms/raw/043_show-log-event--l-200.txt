@@ -1,0 +1,76 @@
+time-stamp                   resource     event-abbreviate    text                     severity       type-id    
+-------------------------    ---------    ----------------    ---------------------    -----------    -------    
+2021-07-28T21:21:35+00:00    card 1-7     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T21:21:31+00:00    card 1-7     CARD_PULLOUT        Card is pulled out       NOT-ALARMED    EQPT       
+2021-07-28T21:14:43+00:00    card 1-7     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T21:14:24+00:00    card 1-7     CARD_PULLOUT        Card is pulled out       NOT-ALARMED    EQPT       
+2021-07-28T21:04:39+00:00    card 1-22    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T21:04:39+00:00    card 1-21    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T21:04:38+00:00    card 1-33    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T21:04:38+00:00    card 1-32    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T21:04:38+00:00    card 1-31    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T21:04:37+00:00    card 1-40    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T21:04:34+00:00    card 1-42    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T21:04:34+00:00    card 1-41    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T21:04:26+00:00    chassis 1    SYS_STARTUP         System start up          NOT-ALARMED    SYS        
+2021-07-28T21:04:24+00:00    card 1-8     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T21:04:18+00:00    card 1-7     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T21:01:47+00:00    card 1-7     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-28T21:01:47+00:00    card 1-8     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-28T20:56:34+00:00    card 1-22    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T20:56:34+00:00    card 1-21    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T20:56:33+00:00    card 1-33    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T20:56:33+00:00    card 1-32    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T20:56:33+00:00    card 1-31    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T20:56:31+00:00    card 1-40    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T20:56:29+00:00    card 1-41    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T20:56:29+00:00    card 1-42    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T20:56:20+00:00    chassis 1    SYS_STARTUP         System start up          NOT-ALARMED    SYS        
+2021-07-28T20:56:20+00:00    card 1-8     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T20:56:14+00:00    card 1-7     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T20:53:42+00:00    card 1-7     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-28T20:53:42+00:00    card 1-8     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-28T20:52:43+00:00    card 1-22    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T20:52:42+00:00    card 1-21    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T20:52:42+00:00    card 1-33    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T20:52:42+00:00    card 1-32    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T20:52:42+00:00    card 1-31    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T20:52:40+00:00    card 1-40    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T20:52:39+00:00    card 1-42    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T20:52:38+00:00    card 1-41    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T20:52:29+00:00    chassis 1    SYS_STARTUP         System start up          NOT-ALARMED    SYS        
+2021-07-28T20:52:29+00:00    card 1-8     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T20:52:23+00:00    card 1-7     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-28T20:49:52+00:00    card 1-7     CARD_WARM_REBOOT    Line card reboot-warm    NOT-ALARMED    EQPT       
+2021-07-28T20:49:51+00:00    card 1-8     CARD_WARM_REBOOT    Line card reboot-warm    NOT-ALARMED    EQPT       
+2021-07-25T19:19:18+00:00    card 1-7     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-25T18:46:45+00:00    card 1-22    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-25T18:46:45+00:00    card 1-21    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-25T18:46:45+00:00    card 1-33    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-25T18:46:45+00:00    card 1-32    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-25T18:46:45+00:00    card 1-31    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-25T18:46:43+00:00    card 1-40    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-25T18:46:42+00:00    card 1-42    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-25T18:46:42+00:00    card 1-41    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-25T18:46:35+00:00    chassis 1    SYS_STARTUP         System start up          NOT-ALARMED    SYS        
+2021-07-25T18:46:34+00:00    card 1-8     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-25T18:46:29+00:00    card 1-7     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-25T18:43:58+00:00    card 1-7     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-25T18:43:58+00:00    card 1-8     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-25T18:38:18+00:00    card 1-7     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-23T23:56:23+00:00    card 1-7     CARD_COLD_REBOOT    Line card reboot-cold    NOT-ALARMED    EQPT       
+2021-07-23T23:54:16+00:00    card 1-7     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:53:50+00:00    card 1-6     CARD_PULLOUT        Card is pulled out       NOT-ALARMED    EQPT       
+2021-07-23T23:48:40+00:00    card 1-22    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:48:40+00:00    card 1-21    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:48:39+00:00    card 1-33    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:48:39+00:00    card 1-32    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:48:39+00:00    card 1-31    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:48:37+00:00    card 1-40    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:48:35+00:00    card 1-41    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:48:35+00:00    card 1-42    CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:48:28+00:00    card 1-8     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+2021-07-23T23:48:28+00:00    chassis 1    SYS_STARTUP         System start up          NOT-ALARMED    SYS        
+2021-07-23T23:48:23+00:00    card 1-6     CARD_PLUGIN         Card is inserted         NOT-ALARMED    EQPT       
+
+

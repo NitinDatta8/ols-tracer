@@ -1,0 +1,42 @@
+{
+  "config": {
+    "frequency": "193500000 MHz",
+    "target-output-power": "-3.00 dBm",
+    "operational-mode-name": "ZR400-16QAMSS-60G-OFEC",
+    "laser": "enabled",
+    "loopback": "none",
+    "test-signal": "disabled",
+    "test-monitor": "disabled",
+    "test-monitor-time": "0 seconds",
+    "cd-range-min": "-20000 ps/nm",
+    "cd-range-max": "20000 ps/nm"
+  },
+  "state": {
+    "frequency": "193500000 MHz",
+    "target-output-power": "-3.00 dBm",
+    "operational-mode": "102",
+    "operational-mode-name": "ZR400-16QAMSS-60G-OFEC",
+    "laser": "disabled",
+    "loopback": "none",
+    "test-signal": "disabled",
+    "test-monitor": "disabled",
+    "test-monitor-time": "0 seconds",
+    "test-signal-status": "unmonitored",
+    "test-monitor-time-countdown": "0 seconds",
+    "test-total-received-bits": "0",
+    "test-bit-errors": "0",
+    "test-bit-error-ratio": "0.00E+00",
+    "test-out-of-sync-seconds": "0",
+    "bit-rate": "TRIB_RATE_400G",
+    "bandwidth": "72 GHz",
+    "baud-rate": "60 GBd",
+    "bits-per-symbol": "4 bits/symbol",
+    "modulation-type": "DP-16QAM",
+    "fec-mode": "OFEC",
+    "tx-spectral-shaping": "on",
+    "cd-range-min": "-20000 ps/nm",
+    "cd-range-max": "20000 ps/nm",
+    "filter-roll-off": "0.2",
+    "fec-uncorrectable-blocks": "231 blocks"
+  }
+}

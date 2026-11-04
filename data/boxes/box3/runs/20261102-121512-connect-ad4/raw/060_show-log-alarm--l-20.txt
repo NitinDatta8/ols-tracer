@@ -1,0 +1,24 @@
+time-stamp                   action    resource            alarm-abbreviate           severity    direction    service-affect    type-id    time-created           
+-------------------------    ------    ----------------    -----------------------    --------    ---------    --------------    -------    -------------------    
+2021-07-28T20:42:41+00:00    CLEAR     och 1-7-5           RX_LOS                     CRITICAL    rx           true              OPTICAL    1627504874071311440    
+2021-07-28T20:42:41+00:00    CREATE    och 1-7-5           POST-FEC_DEGRADE           MAJOR       rx           true              OCH        1627504875076473800    
+2021-07-28T20:42:41+00:00    CLEAR     100ge 1-7-4         LINK_RF                    WARNING     rx           false             ETH        1627504874084152560    
+2021-07-28T20:42:06+00:00    CLEAR     port 1-1-ad3        OUT_LOS                    CRITICAL    tx           true              OPTICAL    1627504876039691960    
+2021-07-28T20:42:06+00:00    CLEAR     port 1-1-ad3        IN_LOS                     CRITICAL    rx           true              OPTICAL    1627504876019050520    
+2021-07-28T20:41:21+00:00    CREATE    amplifier 1-1-pa    IN_LOS                     CRITICAL    rx           true              OPTICAL    1627504878078066000    
+2021-07-28T20:41:21+00:00    CREATE    amplifier 1-1-ba    IN_LOS                     CRITICAL    rx           true              OPTICAL    1627504878098593520    
+2021-07-28T20:41:19+00:00    CREATE    port 1-1-line       OUT_OPTICAL_LOW_WARNING    MAJOR       tx           false             OPTICAL    1627504875948456448    
+2021-07-28T20:41:19+00:00    CREATE    port 1-1-ad3        OUT_LOS                    CRITICAL    tx           true              OPTICAL    1627504876039691960    
+2021-07-28T20:41:19+00:00    CREATE    port 1-1-ad3        IN_LOS                     CRITICAL    rx           true              OPTICAL    1627504876019050520    
+2021-07-28T20:41:19+00:00    CREATE    amplifier 1-1-pa    OUT_LOS                    CRITICAL    tx           true              OPTICAL    1627504876006095480    
+2021-07-28T20:41:19+00:00    CREATE    amplifier 1-1-ba    OUT_LOS                    CRITICAL    tx           true              OPTICAL    1627504875944404400    
+2021-07-28T20:41:18+00:00    CREATE    port 1-1-line       IN_OPTICAL_LOW_FAILURE     CRITICAL    rx           false             OPTICAL    1627504875938544896    
+2021-07-28T20:41:17+00:00    CREATE    och 1-7-5           RX_LOS                     CRITICAL    rx           true              OPTICAL    1627504874071311440    
+2021-07-28T20:41:17+00:00    CREATE    100ge 1-7-4         LINK_RF                    WARNING     rx           false             ETH        1627504874084152560    
+2021-07-28T20:41:16+00:00    CLEAR     port 1-1-ad3        IN_OPTICAL_HIGH_WARNING    MAJOR       rx           false             OPTICAL    1627504870860259328    
+2021-07-28T20:41:15+00:00    CLEAR     mediach-ch-3        DEST_IN_LOS                CRITICAL    rx           true              OPTICAL    1627504869007631920    
+2021-07-28T20:41:13+00:00    CREATE    port 1-1-ad3        IN_OPTICAL_HIGH_WARNING    MAJOR       rx           false             OPTICAL    1627504870860259328    
+2021-07-28T20:41:13+00:00    CLEAR     port 1-1-ad3        OUT_LOS                    CRITICAL    tx           true              OPTICAL    1627504866614605240    
+2021-07-28T20:41:12+00:00    CREATE    mediach-ch-3        DEST_IN_LOS                CRITICAL    rx           true              OPTICAL    1627504869007631920    
+
+

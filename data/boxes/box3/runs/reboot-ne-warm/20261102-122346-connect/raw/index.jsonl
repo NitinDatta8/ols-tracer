@@ -1,0 +1,2 @@
+{"n":0,"cmd":"configure","at":"2026-11-02T12:23:46-05:00","source":"prereq","file":"000_configure.txt","ok":false}
+{"n":1,"cmd":"set cli length 0","at":"2026-11-02T12:24:26-05:00","source":"prereq","file":"001_set-cli-length-0.txt","ok":false}

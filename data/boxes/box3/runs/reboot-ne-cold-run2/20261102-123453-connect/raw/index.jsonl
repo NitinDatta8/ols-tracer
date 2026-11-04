@@ -1,0 +1,19 @@
+{"n":0,"cmd":"configure","at":"2026-11-02T12:34:53-05:00","source":"prereq","file":"000_configure.txt","ok":true}
+{"n":1,"cmd":"set cli length 0","at":"2026-11-02T12:34:53-05:00","source":"prereq","file":"001_set-cli-length-0.txt","ok":true}
+{"n":2,"cmd":"set cli width 1024","at":"2026-11-02T12:34:54-05:00","source":"prereq","file":"002_set-cli-width-1024.txt","ok":true}
+{"n":3,"cmd":"exit","at":"2026-11-02T12:34:54-05:00","source":"prereq","file":"003_exit.txt","ok":true}
+{"n":4,"cmd":"show system","at":"2026-11-02T12:34:54-05:00","source":"snapshot","file":"004_show-system.txt","ok":true}
+{"n":5,"cmd":"show software","at":"2026-11-02T12:34:55-05:00","source":"snapshot","file":"005_show-software.txt","ok":true}
+{"n":6,"cmd":"date-time","at":"2026-11-02T12:34:55-05:00","source":"snapshot","file":"006_date-time.txt","ok":true}
+{"n":7,"cmd":"show system clock","at":"2026-11-02T12:34:55-05:00","source":"snapshot","file":"007_show-system-clock.txt","ok":true}
+{"n":8,"cmd":"help","at":"2026-11-02T12:34:56-05:00","source":"snapshot","file":"008_help.txt","ok":true}
+{"n":9,"cmd":"help show","at":"2026-11-02T12:34:56-05:00","source":"snapshot","file":"009_help-show.txt","ok":true}
+{"n":10,"cmd":"show cli","at":"2026-11-02T12:34:56-05:00","source":"snapshot","file":"010_show-cli.txt","ok":true}
+{"n":11,"cmd":"show chassis","at":"2026-11-02T12:34:57-05:00","source":"snapshot","file":"011_show-chassis.txt","ok":true}
+{"n":12,"cmd":"show card","at":"2026-11-02T12:34:57-05:00","source":"snapshot","file":"012_show-card.txt","ok":false}
+{"n":13,"cmd":"show inventory","at":"2026-11-02T12:35:17-05:00","source":"snapshot","file":"013_show-inventory.txt","ok":true}
+{"n":14,"cmd":"show card 1-* fan","at":"2026-11-02T12:35:20-05:00","source":"snapshot","file":"014_show-card-1-all-fan.txt","ok":true}
+{"n":15,"cmd":"show card 1-* psu","at":"2026-11-02T12:35:20-05:00","source":"snapshot","file":"015_show-card-1-all-psu.txt","ok":true}
+{"n":16,"cmd":"show card 1-1","at":"2026-11-02T12:35:21-05:00","source":"snapshot","file":"016_show-card-1-1.txt","ok":true}
+{"n":17,"cmd":"show card 1-4","at":"2026-11-02T12:35:21-05:00","source":"snapshot","file":"017_show-card-1-4.txt","ok":true}
+{"n":18,"cmd":"show card 1-7","at":"2026-11-02T12:35:22-05:00","source":"snapshot","file":"018_show-card-1-7.txt","ok":false}

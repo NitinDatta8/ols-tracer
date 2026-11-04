@@ -1,0 +1,24 @@
+time-stamp                   action    resource            alarm-abbreviate           severity    direction    service-affect    type-id    time-created           
+-------------------------    ------    ----------------    -----------------------    --------    ---------    --------------    -------    -------------------    
+2021-07-28T21:23:06+00:00    CLEAR     card 1-7            COMMUNICATION_FAILURE      CRITICAL    na           false             EQPT       1627507306271000000    
+2021-07-28T21:21:49+00:00    CREATE    card 1-7            COMMUNICATION_FAILURE      CRITICAL    na           false             EQPT       1627507306271000000    
+2021-07-28T21:21:36+00:00    CLEAR     card 1-7            EQPT_ABSENCE               CRITICAL    na           true              EQPT       1627507291991758080    
+2021-07-28T21:21:35+00:00    CREATE    port 1-1-line       OUT_OPTICAL_LOW_WARNING    MAJOR       tx           false             OPTICAL    1627507292562595584    
+2021-07-28T21:21:35+00:00    CREATE    port 1-1-line       IN_OPTICAL_LOW_FAILURE     CRITICAL    rx           false             OPTICAL    1627507292547644416    
+2021-07-28T21:21:35+00:00    CREATE    port 1-1-ad11       OUT_OPTICAL_LOW_WARNING    MAJOR       tx           false             OPTICAL    1627507292664448256    
+2021-07-28T21:21:35+00:00    CREATE    port 1-1-ad11       IN_OPTICAL_LOW_FAILURE     CRITICAL    rx           false             OPTICAL    1627507292640802816    
+2021-07-28T21:21:35+00:00    CREATE    card 1-7            EQPT_ABSENCE               CRITICAL    na           true              EQPT       1627507291991758080    
+2021-07-28T21:21:35+00:00    CREATE    amplifier 1-1-pa    OUT_LOS                    CRITICAL    tx           true              OPTICAL    1627507292624831080    
+2021-07-28T21:21:35+00:00    CREATE    amplifier 1-1-pa    IN_LOS                     CRITICAL    rx           true              OPTICAL    1627507292516182760    
+2021-07-28T21:21:35+00:00    CREATE    amplifier 1-1-ba    OUT_LOS                    CRITICAL    tx           true              OPTICAL    1627507292557373120    
+2021-07-28T21:21:35+00:00    CREATE    amplifier 1-1-ba    IN_LOS                     CRITICAL    rx           true              OPTICAL    1627507292534087720    
+2021-07-28T21:19:23+00:00    CLEAR     mediach-ch-6        DEST_IN_LOS                CRITICAL    rx           true              OPTICAL    1627506865011429040    
+2021-07-28T21:19:23+00:00    CLEAR     mediach-ch-6        SRC_IN_LOS                 CRITICAL    rx           true              OPTICAL    1627506865011368320    
+2021-07-28T21:19:22+00:00    CLEAR     port 1-1-ad11       OUT_OPTICAL_LOW_WARNING    MAJOR       tx           false             OPTICAL    1627506864818782464    
+2021-07-28T21:19:22+00:00    CLEAR     port 1-1-ad11       IN_OPTICAL_LOW_FAILURE     CRITICAL    rx           false             OPTICAL    1627506864804329472    
+2021-07-28T21:19:20+00:00    CLEAR     och 1-7-5           POST-FEC_DEGRADE           MAJOR       rx           true              OCH        1627507154470400200    
+2021-07-28T21:19:20+00:00    CLEAR     amplifier 1-1-pa    OUT_LOS                    CRITICAL    tx           true              OPTICAL    1627506864737005120    
+2021-07-28T21:19:19+00:00    CLEAR     port 1-1-line       OUT_OPTICAL_LOW_WARNING    MAJOR       tx           false             OPTICAL    1627506864655503360    
+2021-07-28T21:19:19+00:00    CLEAR     port 1-1-line       IN_OPTICAL_LOW_FAILURE     CRITICAL    rx           false             OPTICAL    1627506864628863744    
+
+

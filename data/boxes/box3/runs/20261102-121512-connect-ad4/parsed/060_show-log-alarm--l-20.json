@@ -1,0 +1,224 @@
+{
+  "events": [
+    {
+      "time-stamp": "2021-07-28T20:42:41+00:00",
+      "action": "CLEAR",
+      "resource": "och 1-7-5",
+      "alarm-abbreviate": "RX_LOS",
+      "severity": "CRITICAL",
+      "direction": "rx",
+      "service-affect": "true",
+      "type-id": "OPTICAL",
+      "time-created": "1627504874071311440"
+    },
+    {
+      "time-stamp": "2021-07-28T20:42:41+00:00",
+      "action": "CREATE",
+      "resource": "och 1-7-5",
+      "alarm-abbreviate": "POST-FEC_DEGRADE",
+      "severity": "MAJOR",
+      "direction": "rx",
+      "service-affect": "true",
+      "type-id": "OCH",
+      "time-created": "1627504875076473800"
+    },
+    {
+      "time-stamp": "2021-07-28T20:42:41+00:00",
+      "action": "CLEAR",
+      "resource": "100ge 1-7-4",
+      "alarm-abbreviate": "LINK_RF",
+      "severity": "WARNING",
+      "direction": "rx",
+      "service-affect": "false",
+      "type-id": "ETH",
+      "time-created": "1627504874084152560"
+    },
+    {
+      "time-stamp": "2021-07-28T20:42:06+00:00",
+      "action": "CLEAR",
+      "resource": "port 1-1-ad3",
+      "alarm-abbreviate": "OUT_LOS",
+      "severity": "CRITICAL",
+      "direction": "tx",
+      "service-affect": "true",
+      "type-id": "OPTICAL",
+      "time-created": "1627504876039691960"
+    },
+    {
+      "time-stamp": "2021-07-28T20:42:06+00:00",
+      "action": "CLEAR",
+      "resource": "port 1-1-ad3",
+      "alarm-abbreviate": "IN_LOS",
+      "severity": "CRITICAL",
+      "direction": "rx",
+      "service-affect": "true",
+      "type-id": "OPTICAL",
+      "time-created": "1627504876019050520"
+    },
+    {
+      "time-stamp": "2021-07-28T20:41:21+00:00",
+      "action": "CREATE",
+      "resource": "amplifier 1-1-pa",
+      "alarm-abbreviate": "IN_LOS",
+      "severity": "CRITICAL",
+      "direction": "rx",
+      "service-affect": "true",
+      "type-id": "OPTICAL",
+      "time-created": "1627504878078066000"
+    },
+    {
+      "time-stamp": "2021-07-28T20:41:21+00:00",
+      "action": "CREATE",
+      "resource": "amplifier 1-1-ba",
+      "alarm-abbreviate": "IN_LOS",
+      "severity": "CRITICAL",
+      "direction": "rx",
+      "service-affect": "true",
+      "type-id": "OPTICAL",
+      "time-created": "1627504878098593520"
+    },
+    {
+      "time-stamp": "2021-07-28T20:41:19+00:00",
+      "action": "CREATE",
+      "resource": "port 1-1-line",
+      "alarm-abbreviate": "OUT_OPTICAL_LOW_WARNING",
+      "severity": "MAJOR",
+      "direction": "tx",
+      "service-affect": "false",
+      "type-id": "OPTICAL",
+      "time-created": "1627504875948456448"
+    },
+    {
+      "time-stamp": "2021-07-28T20:41:19+00:00",
+      "action": "CREATE",
+      "resource": "port 1-1-ad3",
+      "alarm-abbreviate": "OUT_LOS",
+      "severity": "CRITICAL",
+      "direction": "tx",
+      "service-affect": "true",
+      "type-id": "OPTICAL",
+      "time-created": "1627504876039691960"
+    },
+    {
+      "time-stamp": "2021-07-28T20:41:19+00:00",
+      "action": "CREATE",
+      "resource": "port 1-1-ad3",
+      "alarm-abbreviate": "IN_LOS",
+      "severity": "CRITICAL",
+      "direction": "rx",
+      "service-affect": "true",
+      "type-id": "OPTICAL",
+      "time-created": "1627504876019050520"
+    },
+    {
+      "time-stamp": "2021-07-28T20:41:19+00:00",
+      "action": "CREATE",
+      "resource": "amplifier 1-1-pa",
+      "alarm-abbreviate": "OUT_LOS",
+      "severity": "CRITICAL",
+      "direction": "tx",
+      "service-affect": "true",
+      "type-id": "OPTICAL",
+      "time-created": "1627504876006095480"
+    },
+    {
+      "time-stamp": "2021-07-28T20:41:19+00:00",
+      "action": "CREATE",
+      "resource": "amplifier 1-1-ba",
+      "alarm-abbreviate": "OUT_LOS",
+      "severity": "CRITICAL",
+      "direction": "tx",
+      "service-affect": "true",
+      "type-id": "OPTICAL",
+      "time-created": "1627504875944404400"
+    },
+    {
+      "time-stamp": "2021-07-28T20:41:18+00:00",
+      "action": "CREATE",
+      "resource": "port 1-1-line",
+      "alarm-abbreviate": "IN_OPTICAL_LOW_FAILURE",
+      "severity": "CRITICAL",
+      "direction": "rx",
+      "service-affect": "false",
+      "type-id": "OPTICAL",
+      "time-created": "1627504875938544896"
+    },
+    {
+      "time-stamp": "2021-07-28T20:41:17+00:00",
+      "action": "CREATE",
+      "resource": "och 1-7-5",
+      "alarm-abbreviate": "RX_LOS",
+      "severity": "CRITICAL",
+      "direction": "rx",
+      "service-affect": "true",
+      "type-id": "OPTICAL",
+      "time-created": "1627504874071311440"
+    },
+    {
+      "time-stamp": "2021-07-28T20:41:17+00:00",
+      "action": "CREATE",
+      "resource": "100ge 1-7-4",
+      "alarm-abbreviate": "LINK_RF",
+      "severity": "WARNING",
+      "direction": "rx",
+      "service-affect": "false",
+      "type-id": "ETH",
+      "time-created": "1627504874084152560"
+    },
+    {
+      "time-stamp": "2021-07-28T20:41:16+00:00",
+      "action": "CLEAR",
+      "resource": "port 1-1-ad3",
+      "alarm-abbreviate": "IN_OPTICAL_HIGH_WARNING",
+      "severity": "MAJOR",
+      "direction": "rx",
+      "service-affect": "false",
+      "type-id": "OPTICAL",
+      "time-created": "1627504870860259328"
+    },
+    {
+      "time-stamp": "2021-07-28T20:41:15+00:00",
+      "action": "CLEAR",
+      "resource": "mediach-ch-3",
+      "alarm-abbreviate": "DEST_IN_LOS",
+      "severity": "CRITICAL",
+      "direction": "rx",
+      "service-affect": "true",
+      "type-id": "OPTICAL",
+      "time-created": "1627504869007631920"
+    },
+    {
+      "time-stamp": "2021-07-28T20:41:13+00:00",
+      "action": "CREATE",
+      "resource": "port 1-1-ad3",
+      "alarm-abbreviate": "IN_OPTICAL_HIGH_WARNING",
+      "severity": "MAJOR",
+      "direction": "rx",
+      "service-affect": "false",
+      "type-id": "OPTICAL",
+      "time-created": "1627504870860259328"
+    },
+    {
+      "time-stamp": "2021-07-28T20:41:13+00:00",
+      "action": "CLEAR",
+      "resource": "port 1-1-ad3",
+      "alarm-abbreviate": "OUT_LOS",
+      "severity": "CRITICAL",
+      "direction": "tx",
+      "service-affect": "true",
+      "type-id": "OPTICAL",
+      "time-created": "1627504866614605240"
+    },
+    {
+      "time-stamp": "2021-07-28T20:41:12+00:00",
+      "action": "CREATE",
+      "resource": "mediach-ch-3",
+      "alarm-abbreviate": "DEST_IN_LOS",
+      "severity": "CRITICAL",
+      "direction": "rx",
+      "service-affect": "true",
+      "type-id": "OPTICAL",
+      "time-created": "1627504869007631920"
+    }
+  ]
+}

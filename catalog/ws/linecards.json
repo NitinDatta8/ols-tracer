@@ -145,7 +145,7 @@
       },
       {
         "id": "BAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -153,7 +153,7 @@
       },
       {
         "id": "PAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -161,7 +161,7 @@
       },
       {
         "id": "BAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -169,7 +169,7 @@
       },
       {
         "id": "PAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -222,7 +222,7 @@
       },
       {
         "id": "BAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -230,7 +230,7 @@
       },
       {
         "id": "PAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -238,7 +238,7 @@
       },
       {
         "id": "BAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -246,7 +246,7 @@
       },
       {
         "id": "PAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -311,7 +311,7 @@
       },
       {
         "id": "LA1IN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -319,7 +319,7 @@
       },
       {
         "id": "LA2IN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -327,7 +327,7 @@
       },
       {
         "id": "LA1OUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -335,7 +335,7 @@
       },
       {
         "id": "LA2OUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -416,7 +416,7 @@
       },
       {
         "id": "LA1IN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -424,7 +424,7 @@
       },
       {
         "id": "LA2IN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -432,7 +432,7 @@
       },
       {
         "id": "LA1OUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -440,7 +440,7 @@
       },
       {
         "id": "LA2OUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -521,7 +521,7 @@
       },
       {
         "id": "LA1IN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -529,7 +529,7 @@
       },
       {
         "id": "LA2IN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -537,7 +537,7 @@
       },
       {
         "id": "LA1OUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -545,7 +545,7 @@
       },
       {
         "id": "LA2OUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -1947,7 +1947,7 @@
       },
       {
         "id": "BAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -1955,7 +1955,7 @@
       },
       {
         "id": "PAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -1963,7 +1963,7 @@
       },
       {
         "id": "BAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -1971,7 +1971,7 @@
       },
       {
         "id": "PAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -2094,7 +2094,7 @@
       },
       {
         "id": "BAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -2102,7 +2102,7 @@
       },
       {
         "id": "PAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -2110,7 +2110,7 @@
       },
       {
         "id": "BAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -2118,7 +2118,7 @@
       },
       {
         "id": "PAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -2241,7 +2241,7 @@
       },
       {
         "id": "BAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -2249,7 +2249,7 @@
       },
       {
         "id": "PAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -2257,7 +2257,7 @@
       },
       {
         "id": "BAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -2265,7 +2265,7 @@
       },
       {
         "id": "PAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -2424,7 +2424,7 @@
       },
       {
         "id": "BAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -2432,7 +2432,7 @@
       },
       {
         "id": "PAIN",
-        "role": "port",
+        "role": "ampin",
         "behavior": {
           "showsInData": true
         },
@@ -2440,7 +2440,7 @@
       },
       {
         "id": "BAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },
@@ -2448,7 +2448,7 @@
       },
       {
         "id": "PAOUT",
-        "role": "port",
+        "role": "ampout",
         "behavior": {
           "showsInData": true
         },

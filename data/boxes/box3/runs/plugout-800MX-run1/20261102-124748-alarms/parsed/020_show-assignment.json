@@ -1,0 +1,72 @@
+{
+  "state": {
+    "assignments": [
+      {
+        "end-a": "och 1-7-1",
+        "assignment-hierarchy": "flexgo-1-7-1(#1)<-flexgdu-1-7-1-1(#1)<-eth 1-7-1-1"
+      },
+      {
+        "end-a": "och 1-7-1",
+        "assignment-hierarchy": "flexgo-1-7-1(#2)<-flexgdu-1-7-1-2(#1)<-eth 1-7-1-2"
+      },
+      {
+        "end-a": "och 1-7-1",
+        "assignment-hierarchy": "flexgo-1-7-1(#3)<-flexgdu-1-7-1-3(#1)<-eth 1-7-1-3"
+      },
+      {
+        "end-a": "och 1-7-1",
+        "assignment-hierarchy": "flexgo-1-7-1(#4)<-flexgdu-1-7-1-4(#1)<-eth 1-7-1-4"
+      },
+      {
+        "end-a": "eth 1-7-4",
+        "assignment-hierarchy": "eth 1-7-5-4->flexgdu-1-7-5-4(#1)->flexgo-1-7-5(#4)",
+        "end-z": "och 1-7-5"
+      },
+      {
+        "end-a": "och 1-7-5",
+        "assignment-hierarchy": "flexgo-1-7-5(#1)<-flexgdu-1-7-5-1(#1)<-eth 1-7-5-1"
+      },
+      {
+        "end-a": "och 1-7-5",
+        "assignment-hierarchy": "flexgo-1-7-5(#2)<-flexgdu-1-7-5-2(#1)<-eth 1-7-5-2"
+      },
+      {
+        "end-a": "och 1-7-5",
+        "assignment-hierarchy": "flexgo-1-7-5(#3)<-flexgdu-1-7-5-3(#1)<-eth 1-7-5-3"
+      },
+      {
+        "end-a": "och 1-8-1",
+        "assignment-hierarchy": "flexgo-1-8-1(#1)<-flexgdu-1-8-1-1(#1)<-eth 1-8-1-1"
+      },
+      {
+        "end-a": "och 1-8-1",
+        "assignment-hierarchy": "flexgo-1-8-1(#2)<-flexgdu-1-8-1-2(#1)<-eth 1-8-1-2"
+      },
+      {
+        "end-a": "och 1-8-1",
+        "assignment-hierarchy": "flexgo-1-8-1(#3)<-flexgdu-1-8-1-3(#1)<-eth 1-8-1-3",
+        "end-z": "eth 1-8-4"
+      },
+      {
+        "end-a": "och 1-8-1",
+        "assignment-hierarchy": "flexgo-1-8-1(#4)<-flexgdu-1-8-1-4(#1)<-eth 1-8-1-4"
+      },
+      {
+        "end-a": "och 1-8-1",
+        "assignment-hierarchy": "flexgo-1-8-1(#5)<-flexgdu-1-8-1-5(#1)<-eth 1-8-1-5"
+      },
+      {
+        "end-a": "och 1-8-1",
+        "assignment-hierarchy": "flexgo-1-8-1(#6)<-flexgdu-1-8-1-6(#1)<-eth 1-8-1-6"
+      },
+      {
+        "end-a": "och 1-8-1",
+        "assignment-hierarchy": "flexgo-1-8-1(#7)<-flexgdu-1-8-1-7(#1)<-eth 1-8-1-7"
+      },
+      {
+        "end-a": "och 1-8-1",
+        "assignment-hierarchy": "flexgo-1-8-1(#8)<-flexgdu-1-8-1-8(#1)<-eth 1-8-1-8"
+      }
+    ]
+  }
+}

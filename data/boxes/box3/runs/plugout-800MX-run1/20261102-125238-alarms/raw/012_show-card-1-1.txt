@@ -1,0 +1,7 @@
+[config]
+admin-state        in-service
+module-type        TMUXC1125
+description        Terminal MUX/DMUX module with integrated optical a
+                   mplifiers and 11 add/drop ports
+
+

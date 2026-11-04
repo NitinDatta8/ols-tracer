@@ -1,0 +1,8 @@
+
+interface    system-name       chassis-id           chassis-id-type    ttl    port-id    management-address                                    
+---------    --------------    -----------------    ---------------    ---    -------    --------------------------------------------------    
+1-1-osc      PAHO-GS2000-03    c4:ee:f5:07:07:fc    MAC_ADDRESS        120    1-1-osc    10.111.25.12,INTERFACE-1-43-NM2;169.254.0.1,INTERF    
+                                                                                         ACE-1-40-ETH
+1-43-nm2     PAHO-A04          24:71:21:a8:9a:81    MAC_ADDRESS        120    gi4        10.111.254.8                                          
+
+

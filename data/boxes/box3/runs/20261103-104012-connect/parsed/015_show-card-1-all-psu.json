@@ -1,0 +1,24 @@
+{
+  "state": {
+    "psus": {
+      "1-21": {
+        "capacity": 1400,
+        "input-current": 1520,
+        "input-voltage": 121,
+        "output-current": 12530,
+        "output-voltage": 12.29,
+        "output-power": 153.25,
+        "power-supply-mode": "AC"
+      },
+      "1-22": {
+        "capacity": 2000,
+        "input-current": 0,
+        "input-voltage": 0,
+        "output-current": 0,
+        "output-voltage": 0,
+        "output-power": 0,
+        "power-supply-mode": "AC"
+      }
+    }
+  }
+}

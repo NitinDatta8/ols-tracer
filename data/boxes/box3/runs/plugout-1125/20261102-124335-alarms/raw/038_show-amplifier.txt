@@ -1,0 +1,25 @@
+[config]
+
+id        target-gain    target-gain-tilt    amp-enable    auto-span-loss-adaptation    nominal-ingress-span-loss    target-voa-attenuation    apr-enable    target-span-loss-offset    
+          (dB)           (dB)                                                           (dB)                         (dB)                                    (dB)                       
+------    -----------    ----------------    ----------    -------------------------    -------------------------    ----------------------    ----------    -----------------------    
+1-1-ba    23.00          0.00                enabled       disabled                     0.00                         0.00                      disabled      0.00                       
+1-1-pa    25.00          -1.00               enabled       enabled                      0.00                         0.00                      disabled      0.00                       
+
+
+[state]
+
+id        amp-mode    gain-type     target-gain    target-gain-tilt    amp-enable    auto-span-loss-adaptation    nominal-ingress-span-loss    target-voa-attenuation    apr-enable    target-span-loss-offset    min-gain    max-gain    ingress-port     egress-port      ingress-span-loss    actual-voa-attenuation    fiber-type-profile    
+                                    (dB)           (dB)                                                           (dB)                         (dB)                                    (dB)                       (dB)        (dB)                                          (dB)                 (dB)                                            
+------    --------    ----------    -----------    ----------------    ----------    -------------------------    -------------------------    ----------------------    ----------    -----------------------    --------    --------    -------------    -------------    -----------------    ----------------------    ------------------    
+1-1-ba    gain        fixed-gain    23.00          0.00                enabled       disabled                     0.00                         0.00                      disabled      0.00                       15.00       25.00       port-1-1-com     port-1-1-line    -99.99               0.00                      ssmf                  
+1-1-pa    gain        fixed-gain    25.00          -1.00               enabled       enabled                      0.00                         0.00                      disabled      0.00                       15.00       25.00       port-1-1-line    port-1-1-com     -99.99               0.00                      ssmf                  
+
+
+id        actual-gain                          actual-gain-tilt                     input-power                          output-power                         laser-bias-current                   
+          instant | avg | min | max (dB)       instant | avg | min | max (dB)       instant | avg | min | max (dBm)      instant | avg | min | max (dBm)      instant | avg | min | max (mA)       
+------    ---------------------------------    ---------------------------------    ---------------------------------    ---------------------------------    ---------------------------------    
+1-1-ba    -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    
+1-1-pa    -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    
+
+

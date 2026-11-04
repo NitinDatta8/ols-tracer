@@ -1,0 +1,11 @@
+
+[state]
+channel-id                   2
+transmitter-frequency        229007633 MHz
+
+statistics          instant | avg | min | max units        
+------------        -------------------------------        
+output-power        1.79 | 1.78 | 1.78 | 1.79 dBm
+input-power         1.52 | 1.52 | 1.50 | 1.52 dBm
+
+

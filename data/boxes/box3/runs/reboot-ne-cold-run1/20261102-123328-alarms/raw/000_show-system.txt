@@ -1,0 +1,15 @@
+[config]
+hostname                  PAHO-GS2000-03
+config-saving-mode        auto
+login-banner              
+motd-banner               
+
+
+[state]
+hostname                  PAHO-GS2000-03
+config-saving-mode        auto
+login-banner              
+motd-banner               
+ne-type                   COHERENT-GS2000
+
+

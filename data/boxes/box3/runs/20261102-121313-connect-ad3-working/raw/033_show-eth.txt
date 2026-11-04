@@ -1,0 +1,73 @@
+[config]
+
+id         fec         loopback    test-signal    test-monitor    test-monitor-time    
+                                                                  (seconds)            
+-------    --------    --------    -----------    ------------    -----------------    
+1-7-1-1    disabled    none        disabled       disabled        0                    
+1-7-1-2    disabled    none        disabled       disabled        0                    
+1-7-1-3    disabled    none        disabled       disabled        0                    
+1-7-1-4    disabled    none        disabled       disabled        0                    
+1-7-4      disabled    none        disabled       disabled        0                    
+1-7-5-1    disabled    none        disabled       disabled        0                    
+1-7-5-2    disabled    none        disabled       disabled        0                    
+1-7-5-3    disabled    none        disabled       disabled        0                    
+1-7-5-4    disabled    none        disabled       disabled        0                    
+1-8-1-1    disabled    none        disabled       disabled        0                    
+1-8-1-2    disabled    none        disabled       disabled        0                    
+1-8-1-3    disabled    none        disabled       disabled        0                    
+1-8-1-4    disabled    none        disabled       disabled        0                    
+1-8-1-5    disabled    none        disabled       disabled        0                    
+1-8-1-6    disabled    none        disabled       disabled        0                    
+1-8-1-7    disabled    none        disabled       disabled        0                    
+1-8-1-8    disabled    none        disabled       disabled        0                    
+1-8-4      disabled    none        disabled       disabled        0                    
+
+
+[state]
+
+id         fec         loopback    test-signal    test-monitor    test-monitor-time    test-signal-status    test-monitor-time-countdown    test-total-received-bits    test-bit-errors    test-bit-error-ratio    test-out-of-sync-seconds    trib-protocol    rx-pkts      tx-pkts      rx-bytes    tx-bytes    rx-crc-err-sum    tx-crc-err-sum    in-pcs-bip-errors    out-pcs-bip-errors    rx-jabber-frames    rx-fragment-frames    
+                                                                  (seconds)                                  (seconds)                                                                                                                                          (packets)    (packets)    (bytes)     (bytes)                                         (bits)               (bits)                (frames)            (frames)              
+-------    --------    --------    -----------    ------------    -----------------    ------------------    ---------------------------    ------------------------    ---------------    --------------------    ------------------------    -------------    ---------    ---------    --------    --------    --------------    --------------    -----------------    ------------------    ----------------    ------------------    
+1-7-1-1    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-7-1-2    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-7-1-3    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-7-1-4    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-7-4      disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           120979       1274         20549103    335446      86636             1004              195                  5619                  0                   30346                 
+1-7-5-1    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 6325                 0                     0                   0                     
+1-7-5-2    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 6325                 0                     0                   0                     
+1-7-5-3    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 6325                 0                     0                   0                     
+1-7-5-4    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           1274         120979       335446      20549103    1004              86636             5619                 55                    0                   221                   
+1-8-1-1    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-8-1-2    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-8-1-3    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-8-1-4    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-8-1-5    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-8-1-6    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-8-1-7    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-8-1-8    disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+1-8-4      disabled    none        disabled       disabled        0                    unmonitored           0                              0                           0                  0.00E+00                0                           100GBE           0            0            0           0           0                 0                 0                    0                     0                   0                     
+
+
+id         pre-fec-ber                                  post-fec-ber                                 
+           instant | avg | min | max                    instant | avg | min | max                    
+-------    -----------------------------------------    -----------------------------------------    
+1-7-1-1                                                                                              
+1-7-1-2                                                                                              
+1-7-1-3                                                                                              
+1-7-1-4                                                                                              
+1-7-4      0.00E+00 | 0.00E+00 | 0.00E+00 | 0.00E+00    0.00E+00 | 0.00E+00 | 0.00E+00 | 0.00E+00    
+1-7-5-1                                                                                              
+1-7-5-2                                                                                              
+1-7-5-3                                                                                              
+1-7-5-4                                                                                              
+1-8-1-1                                                                                              
+1-8-1-2                                                                                              
+1-8-1-3                                                                                              
+1-8-1-4                                                                                              
+1-8-1-5                                                                                              
+1-8-1-6                                                                                              
+1-8-1-7                                                                                              
+1-8-1-8                                                                                              
+1-8-4                                                                                                
+
+

@@ -1,0 +1,15 @@
+
+[state]
+
+id         output-frequency    
+           (MHz)               
+-------    ----------------    
+1-1-osc    198675000           
+
+
+id         input-power                        output-power                       laser-bias-current                
+           instant | avg | min | max (dBm)    instant | avg | min | max (dBm)    instant | avg | min | max (mA)    
+-------    -------------------------------    -------------------------------    ------------------------------    
+1-1-osc    -8.87 | -8.87 | -8.87 | -8.87      1.71 | 1.71 | 1.71 | 1.71          4.35 | 4.35 | 4.35 | 4.35         
+
+

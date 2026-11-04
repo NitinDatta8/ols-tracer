@@ -1,7 +1,215 @@
 [
   {
+    "id": "lc-lch08",
+    "name": "LCH08",
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "BA",
+          "type": "EDFA",
+          "ingressPort": "SIG",
+          "egressPort": "LINE",
+          "gainRange": {
+            "min": 20,
+            "max": 25
+          },
+          "targetGainTiltRange": {
+            "min": 0,
+            "max": 0
+          },
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "PA",
+          "type": "EDFA",
+          "ingressPort": "LINE",
+          "egressPort": "SIG",
+          "gainRange": {
+            "min": 3,
+            "max": 16
+          },
+          "targetGainTiltRange": {
+            "min": -4,
+            "max": 1
+          },
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        }
+      ]
+    },
+    "ports": [
+      {
+        "id": "PORT1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60s140001",
+          "60s190001",
+          "60s200001",
+          "dp04cfp2-m30-00e",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl"
+        ]
+      },
+      {
+        "id": "PORT2",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60s140001",
+          "60s190001",
+          "60s200001",
+          "dp04cfp2-m30-00e",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl"
+        ]
+      },
+      {
+        "id": "PORT3",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60s140001",
+          "60s190001",
+          "60s200001",
+          "dp04cfp2-m30-00e",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl"
+        ]
+      },
+      {
+        "id": "PORT4",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60s140001",
+          "60s190001",
+          "60s200001",
+          "dp04cfp2-m30-00e",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl"
+        ]
+      },
+      {
+        "id": "PORT5",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60s140001",
+          "60s190001",
+          "60s200001",
+          "dp04cfp2-m30-00e",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl"
+        ]
+      },
+      {
+        "id": "PORT6",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60s140001",
+          "60s190001",
+          "60s200001",
+          "dp04cfp2-m30-00e",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl"
+        ]
+      },
+      {
+        "id": "PORT7",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60s140001",
+          "60s190001",
+          "60s200001",
+          "dp04cfp2-m30-00e",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl"
+        ]
+      },
+      {
+        "id": "PORT8",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60s140001",
+          "60s190001",
+          "60s200001",
+          "dp04cfp2-m30-00e",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl"
+        ]
+      }
+    ]
+  },
+  {
     "id": "lc-fga",
     "name": "FGA",
+    "l0": {
+      "internalPaths": [
+        {
+          "fromPort": "LINE",
+          "toPort": "SIG",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "SIG",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        }
+      ],
+      "amplifiers": [
+        {
+          "id": "ADD",
+          "type": "EDFA",
+          "ingressPort": "SIG",
+          "egressPort": "LINE",
+          "targetGain": 10,
+          "gainRange": {
+            "min": 10,
+            "max": 10
+          },
+          "targetGainTilt": 0,
+          "targetGainTiltRange": {
+            "min": 0,
+            "max": 0
+          },
+          "targetOutputPower": -10,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        }
+      ]
+    },
     "ports": [
       {
         "id": "LINE",
@@ -208,6 +416,46 @@
     "id": "lc-oa-swg",
     "name": "OA-SWG",
     "width": 2,
+    "l0": {
+      "internalPaths": [
+        {
+          "fromPort": "LINE",
+          "toPort": "SIG",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "SIG",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        }
+      ],
+      "amplifiers": [
+        {
+          "id": "BA",
+          "type": "EDFA",
+          "ingressPort": "SIG",
+          "egressPort": "LINE",
+          "targetGain": 15,
+          "targetGainTilt": 0,
+          "targetOutputPower": -23,
+          "ingressVoaAtten": 15
+        },
+        {
+          "id": "PA",
+          "type": "EDFA",
+          "ingressPort": "LINE",
+          "egressPort": "SIG",
+          "targetGain": 20,
+          "targetGainTilt": 0,
+          "targetOutputPower": -14,
+          "ingressVoaAtten": 15
+        }
+      ]
+    },
     "ports": [
       {
         "id": "LINE",
@@ -240,6 +488,26 @@
     "id": "lc-ila-swg",
     "name": "ILA-SWG",
     "width": 2,
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "ILAA",
+          "type": "EDFA",
+          "ingressPort": "LINEA",
+          "egressPort": "LINEB",
+          "targetGain": 15,
+          "targetGainTilt": 0,
+          "targetOutputPower": -23,
+          "ingressVoaAtten": 15
+        },
+        {
+          "id": "ILAB",
+          "type": "EDFA",
+          "ingressPort": "LINEB",
+          "egressPort": "LINEA"
+        }
+      ]
+    },
     "ports": [
       {
         "id": "LINEA",
@@ -277,6 +545,90 @@
     "id": "lc-ila-swg-cl",
     "name": "ILA-SWG-CL",
     "width": 2,
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "ILACA",
+          "type": "EDFA",
+          "ingressPort": "LINEA",
+          "egressPort": "LINEB",
+          "targetGain": 20,
+          "gainRange": {
+            "min": 10,
+            "max": 24
+          },
+          "targetGainTilt": -1,
+          "targetGainTiltRange": {
+            "min": -4,
+            "max": 1
+          },
+          "targetOutputPower": -10,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "ILACB",
+          "type": "EDFA",
+          "ingressPort": "LINEB",
+          "egressPort": "LINEA",
+          "gainRange": {
+            "min": 10,
+            "max": 24
+          },
+          "targetGainTiltRange": {
+            "min": -4,
+            "max": 1
+          },
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "ILALA",
+          "type": "EDFA",
+          "ingressPort": "LINEA",
+          "egressPort": "LINEB",
+          "targetGain": 20,
+          "gainRange": {
+            "min": 10,
+            "max": 24
+          },
+          "targetGainTilt": 0,
+          "targetGainTiltRange": {
+            "min": -4,
+            "max": 1
+          },
+          "targetOutputPower": -10,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "ILALB",
+          "type": "EDFA",
+          "ingressPort": "LINEB",
+          "egressPort": "LINEA",
+          "gainRange": {
+            "min": 10,
+            "max": 24
+          },
+          "targetGainTiltRange": {
+            "min": -4,
+            "max": 1
+          },
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        }
+      ]
+    },
     "ports": [
       {
         "id": "LINEA",
@@ -308,6 +660,50 @@
     "id": "lc-ila-swg-l",
     "name": "ILA-SWG-L",
     "width": 2,
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "ILALA",
+          "type": "EDFA",
+          "ingressPort": "LINEA",
+          "egressPort": "LINEB",
+          "targetGain": 20,
+          "gainRange": {
+            "min": 10,
+            "max": 24
+          },
+          "targetGainTilt": 0,
+          "targetGainTiltRange": {
+            "min": -4,
+            "max": 1
+          },
+          "targetOutputPower": -10,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "ILALB",
+          "type": "EDFA",
+          "ingressPort": "LINEB",
+          "egressPort": "LINEA",
+          "gainRange": {
+            "min": 10,
+            "max": 24
+          },
+          "targetGainTiltRange": {
+            "min": -4,
+            "max": 1
+          },
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        }
+      ]
+    },
     "ports": [
       {
         "id": "AUX",
@@ -343,6 +739,90 @@
     "id": "lc-ilae-swg-cl",
     "name": "ILAE-SWG-CL",
     "width": 2,
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "ILACA",
+          "type": "EDFA",
+          "ingressPort": "LINEA",
+          "egressPort": "LINEB",
+          "targetGain": 20,
+          "gainRange": {
+            "min": 10,
+            "max": 24
+          },
+          "targetGainTilt": -1,
+          "targetGainTiltRange": {
+            "min": -4,
+            "max": 1
+          },
+          "targetOutputPower": -10,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "ILACB",
+          "type": "EDFA",
+          "ingressPort": "LINEB",
+          "egressPort": "LINEA",
+          "gainRange": {
+            "min": 10,
+            "max": 24
+          },
+          "targetGainTiltRange": {
+            "min": -4,
+            "max": 1
+          },
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "ILALA",
+          "type": "EDFA",
+          "ingressPort": "LINEA",
+          "egressPort": "LINEB",
+          "targetGain": 20,
+          "gainRange": {
+            "min": 10,
+            "max": 24
+          },
+          "targetGainTilt": 0,
+          "targetGainTiltRange": {
+            "min": -4,
+            "max": 1
+          },
+          "targetOutputPower": -10,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "ILALB",
+          "type": "EDFA",
+          "ingressPort": "LINEB",
+          "egressPort": "LINEA",
+          "gainRange": {
+            "min": 10,
+            "max": 24
+          },
+          "targetGainTiltRange": {
+            "min": -4,
+            "max": 1
+          },
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        }
+      ]
+    },
     "ports": [
       {
         "id": "LINEA",
@@ -374,6 +854,50 @@
     "id": "lc-ilae-swg-l",
     "name": "ILAE-SWG-L",
     "width": 2,
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "ILALA",
+          "type": "EDFA",
+          "ingressPort": "LINEA",
+          "egressPort": "LINEB",
+          "targetGain": 20,
+          "gainRange": {
+            "min": 10,
+            "max": 24
+          },
+          "targetGainTilt": 0,
+          "targetGainTiltRange": {
+            "min": -4,
+            "max": 1
+          },
+          "targetOutputPower": -10,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "ILALB",
+          "type": "EDFA",
+          "ingressPort": "LINEB",
+          "egressPort": "LINEA",
+          "gainRange": {
+            "min": 10,
+            "max": 24
+          },
+          "targetGainTiltRange": {
+            "min": -4,
+            "max": 1
+          },
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        }
+      ]
+    },
     "ports": [
       {
         "id": "AUX",
@@ -409,6 +933,234 @@
     "id": "lc-cmux-64",
     "name": "CMUX-64",
     "width": 4,
+    "l0": {
+      "internalPaths": [
+        {
+          "fromPort": "A",
+          "toPort": "MPO1",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "A",
+          "toPort": "MPO2",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "A",
+          "toPort": "MPO3",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "A",
+          "toPort": "MPO4",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "A",
+          "toPort": "MPO5",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "A",
+          "toPort": "MPO6",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "A",
+          "toPort": "MPO7",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "A",
+          "toPort": "MPO8",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "B",
+          "toPort": "MPO1",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "B",
+          "toPort": "MPO2",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "B",
+          "toPort": "MPO3",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "B",
+          "toPort": "MPO4",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "B",
+          "toPort": "MPO5",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "B",
+          "toPort": "MPO6",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "B",
+          "toPort": "MPO7",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "B",
+          "toPort": "MPO8",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "MPO1",
+          "toPort": "A",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "MPO1",
+          "toPort": "B",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "MPO2",
+          "toPort": "A",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "MPO2",
+          "toPort": "B",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "MPO3",
+          "toPort": "A",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "MPO3",
+          "toPort": "B",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "MPO4",
+          "toPort": "A",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "MPO4",
+          "toPort": "B",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "MPO5",
+          "toPort": "A",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "MPO5",
+          "toPort": "B",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "MPO6",
+          "toPort": "A",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "MPO6",
+          "toPort": "B",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "MPO7",
+          "toPort": "A",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "MPO7",
+          "toPort": "B",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "MPO8",
+          "toPort": "A",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "MPO8",
+          "toPort": "B",
+          "via": [
+            "wss"
+          ]
+        }
+      ]
+    },
     "ports": [
       {
         "id": "A",
@@ -496,6 +1248,100 @@
     "id": "lc-cmux-32-cl",
     "name": "CMUX-32-CL",
     "width": 2,
+    "l0": {
+      "internalPaths": [
+        {
+          "fromPort": "MPO1",
+          "toPort": "SIG",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "MPO2",
+          "toPort": "SIG",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "MPO3",
+          "toPort": "SIG",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "MPO4",
+          "toPort": "SIG",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "SIG",
+          "toPort": "MPO1",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "SIG",
+          "toPort": "MPO2",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "SIG",
+          "toPort": "MPO3",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "SIG",
+          "toPort": "MPO4",
+          "via": [
+            "wss"
+          ]
+        }
+      ],
+      "amplifiers": [
+        {
+          "id": "ADDC",
+          "type": "EDFA",
+          "ingressPort": "COM",
+          "egressPort": "SIG",
+          "targetGain": 18,
+          "targetGainTilt": 0,
+          "targetOutputPower": 0,
+          "ingressVoaAtten": 15
+        },
+        {
+          "id": "ADDL",
+          "type": "EDFA",
+          "ingressPort": "COM",
+          "egressPort": "SIG"
+        },
+        {
+          "id": "DROPC",
+          "type": "EDFA",
+          "ingressPort": "SIG",
+          "egressPort": "COM",
+          "targetGain": 0,
+          "targetGainTilt": 0,
+          "targetOutputPower": 0,
+          "ingressVoaAtten": 15
+        },
+        {
+          "id": "DROPL",
+          "type": "EDFA",
+          "ingressPort": "SIG",
+          "egressPort": "COM"
+        }
+      ]
+    },
     "ports": [
       {
         "id": "SIG",
@@ -550,6 +1396,154 @@
     "id": "lc-wss9",
     "name": "WSS9",
     "width": 2,
+    "l0": {
+      "internalPaths": [
+        {
+          "fromPort": "ADDDROP",
+          "toPort": "SIG",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP1",
+          "toPort": "SIG",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP2",
+          "toPort": "SIG",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP3",
+          "toPort": "SIG",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP4",
+          "toPort": "SIG",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP5",
+          "toPort": "SIG",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP6",
+          "toPort": "SIG",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP7",
+          "toPort": "SIG",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP8",
+          "toPort": "SIG",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "SIG",
+          "toPort": "ADDDROP",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "SIG",
+          "toPort": "EXP1",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "SIG",
+          "toPort": "EXP2",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "SIG",
+          "toPort": "EXP3",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "SIG",
+          "toPort": "EXP4",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "SIG",
+          "toPort": "EXP5",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "SIG",
+          "toPort": "EXP6",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "SIG",
+          "toPort": "EXP7",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "SIG",
+          "toPort": "EXP8",
+          "via": [
+            "wss"
+          ]
+        }
+      ],
+      "amplifiers": [
+        {
+          "id": "ADD",
+          "type": "EDFA",
+          "ingressPort": "SIG",
+          "egressPort": "ADDDROP",
+          "targetGain": 13,
+          "targetGainTilt": 0,
+          "targetOutputPower": -14,
+          "ingressVoaAtten": 0
+        },
+        {
+          "id": "DROP",
+          "type": "EDFA",
+          "ingressPort": "ADDDROP",
+          "egressPort": "SIG"
+        }
+      ]
+    },
     "ports": [
       {
         "id": "SIG",
@@ -637,6 +1631,288 @@
     "id": "lc-awcl",
     "name": "AWCL",
     "width": 4,
+    "l0": {
+      "internalPaths": [
+        {
+          "fromPort": "EMUX1",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EMUX2",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EMUX3",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP1",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP2",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP3",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP4",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP5",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP6",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP7",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP8",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EMUX1",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EMUX2",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EMUX3",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP1",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP2",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP3",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP4",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP5",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP6",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP7",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP8",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "MF",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "MF",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        }
+      ],
+      "amplifiers": [
+        {
+          "id": "ASEC",
+          "type": "EDFA",
+          "ingressPort": "LINE",
+          "egressPort": "MF",
+          "targetGain": 0,
+          "targetGainTilt": 0,
+          "targetOutputPower": 24,
+          "ingressVoaAtten": 0
+        },
+        {
+          "id": "ASEL",
+          "type": "EDFA",
+          "ingressPort": "LINE",
+          "egressPort": "MF",
+          "targetGain": 0,
+          "targetGainTilt": 0,
+          "targetOutputPower": 24,
+          "ingressVoaAtten": 0
+        },
+        {
+          "id": "BAC",
+          "type": "EDFA",
+          "ingressPort": "EXP1",
+          "egressPort": "LINE",
+          "targetGain": 20,
+          "gainRange": {
+            "min": 14,
+            "max": 25
+          },
+          "targetGainTilt": -1,
+          "targetGainTiltRange": {
+            "min": -4,
+            "max": 1
+          },
+          "targetOutputPower": -10,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "BAL",
+          "type": "EDFA",
+          "ingressPort": "EXP1",
+          "egressPort": "LINE",
+          "targetGain": 20,
+          "gainRange": {
+            "min": 14,
+            "max": 25
+          },
+          "targetGainTilt": 0,
+          "targetGainTiltRange": {
+            "min": -4,
+            "max": 0
+          },
+          "targetOutputPower": -10,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "PAC",
+          "type": "EDFA",
+          "ingressPort": "LINE",
+          "egressPort": "EXP1",
+          "targetGain": 20,
+          "gainRange": {
+            "min": 10,
+            "max": 24
+          },
+          "targetGainTilt": -1,
+          "targetGainTiltRange": {
+            "min": -4,
+            "max": 1
+          },
+          "targetOutputPower": -10,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "PAL",
+          "type": "EDFA",
+          "ingressPort": "LINE",
+          "egressPort": "EXP1",
+          "targetGain": 20,
+          "gainRange": {
+            "min": 10,
+            "max": 24
+          },
+          "targetGainTilt": 0,
+          "targetGainTiltRange": {
+            "min": -4,
+            "max": 1
+          },
+          "targetOutputPower": -10,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        }
+      ]
+    },
     "ports": [
       {
         "id": "LINE",
@@ -774,6 +2050,266 @@
     "id": "lc-awl",
     "name": "AWL",
     "width": 4,
+    "l0": {
+      "internalPaths": [
+        {
+          "fromPort": "C",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EMUX1",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EMUX2",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EMUX3",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP1",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP2",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP3",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP4",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP5",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP6",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP7",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP8",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "C",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EMUX1",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EMUX2",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EMUX3",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP1",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP2",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP3",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP4",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP5",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP6",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP7",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP8",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "MF",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "MF",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        }
+      ],
+      "amplifiers": [
+        {
+          "id": "ASEC",
+          "type": "EDFA",
+          "ingressPort": "LINE",
+          "egressPort": "ASEC",
+          "targetGain": 0,
+          "targetGainTilt": 0,
+          "targetOutputPower": 24,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "ASEL",
+          "type": "EDFA",
+          "ingressPort": "LINE",
+          "egressPort": "MF",
+          "targetGain": 0,
+          "targetGainTilt": 0,
+          "targetOutputPower": 24,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "BAL",
+          "type": "EDFA",
+          "ingressPort": "EXP1",
+          "egressPort": "LINE",
+          "targetGain": 20,
+          "gainRange": {
+            "min": 14,
+            "max": 25
+          },
+          "targetGainTilt": 0,
+          "targetGainTiltRange": {
+            "min": -4,
+            "max": 0
+          },
+          "targetOutputPower": -10,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "PAL",
+          "type": "EDFA",
+          "ingressPort": "LINE",
+          "egressPort": "EXP1",
+          "targetGain": 20,
+          "gainRange": {
+            "min": 10,
+            "max": 24
+          },
+          "targetGainTilt": 0,
+          "targetGainTiltRange": {
+            "min": -4,
+            "max": 1
+          },
+          "targetOutputPower": -10,
+          "ingressVoaAtten": 0,
+          "ingressVoaAttenRange": {
+            "min": 0,
+            "max": 0
+          }
+        }
+      ]
+    },
     "ports": [
       {
         "id": "LINE",
@@ -1368,6 +2904,158 @@
     "id": "lc-tws09oa25",
     "name": "TWS09OA25",
     "width": 2,
+    "l0": {
+      "internalPaths": [
+        {
+          "fromPort": "ADDDROP",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP1",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP2",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP3",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP4",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP5",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP6",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP7",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "EXP8",
+          "toPort": "LINE",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "ADDDROP",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP1",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP2",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP3",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP4",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP5",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP6",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP7",
+          "via": [
+            "wss"
+          ]
+        },
+        {
+          "fromPort": "LINE",
+          "toPort": "EXP8",
+          "via": [
+            "wss"
+          ]
+        }
+      ],
+      "amplifiers": [
+        {
+          "id": "BA",
+          "type": "EDFA",
+          "ingressPort": "SIG",
+          "egressPort": "LINE",
+          "targetGain": 15,
+          "targetGainTilt": 0,
+          "targetOutputPower": -23,
+          "ingressVoaAtten": 15
+        },
+        {
+          "id": "PA",
+          "type": "EDFA",
+          "ingressPort": "LINE",
+          "egressPort": "SIG",
+          "targetGain": 20,
+          "targetGainTilt": 0,
+          "targetOutputPower": -14,
+          "ingressVoaAtten": 15
+        }
+      ]
+    },
     "ports": [
       {
         "id": "LINE",
@@ -1804,6 +3492,76 @@
         "behavior": {
           "showsInData": true
         },
+        "allowedPluggables": []
+      }
+    ]
+  },
+  {
+    "id": "lc-aom",
+    "name": "AOM",
+    "l0": {
+      "amplifiers": [
+        {
+          "id": "BA",
+          "type": "EDFA",
+          "ingressPort": "SIG",
+          "egressPort": "LINE"
+        },
+        {
+          "id": "PA",
+          "type": "EDFA",
+          "ingressPort": "LINE",
+          "egressPort": "SIG"
+        }
+      ]
+    },
+    "ports": [
+      {
+        "id": "PORT1",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": [
+          "60s140001",
+          "60s190001",
+          "60s200001",
+          "dp04cfp2-m30-00e",
+          "ftcd3312m1bcl",
+          "ftcd3312m2bcl"
+        ]
+      },
+      {
+        "id": "LINEPORT2",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "LINE",
+        "role": "line",
+        "behavior": {
+          "showsInL1": true,
+          "canLoopback": true,
+          "serviceGroup": "line"
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OA",
+        "role": "port",
+        "behavior": {
+          "showsInData": true
+        },
+        "allowedPluggables": []
+      },
+      {
+        "id": "OSC",
+        "role": "osc",
         "allowedPluggables": []
       }
     ]

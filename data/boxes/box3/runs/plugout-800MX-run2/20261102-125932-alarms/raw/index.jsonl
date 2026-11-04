@@ -1,0 +1,10 @@
+{"n":0,"cmd":"show system","at":"2026-11-02T12:59:32-05:00","source":"snapshot","file":"000_show-system.txt","ok":true}
+{"n":1,"cmd":"show software","at":"2026-11-02T12:59:33-05:00","source":"snapshot","file":"001_show-software.txt","ok":true}
+{"n":2,"cmd":"date-time","at":"2026-11-02T12:59:33-05:00","source":"snapshot","file":"002_date-time.txt","ok":true}
+{"n":3,"cmd":"show system clock","at":"2026-11-02T12:59:33-05:00","source":"snapshot","file":"003_show-system-clock.txt","ok":true}
+{"n":4,"cmd":"help","at":"2026-11-02T12:59:34-05:00","source":"snapshot","file":"004_help.txt","ok":true}
+{"n":5,"cmd":"help show","at":"2026-11-02T12:59:34-05:00","source":"snapshot","file":"005_help-show.txt","ok":true}
+{"n":6,"cmd":"show cli","at":"2026-11-02T12:59:34-05:00","source":"snapshot","file":"006_show-cli.txt","ok":true}
+{"n":7,"cmd":"show chassis","at":"2026-11-02T12:59:35-05:00","source":"snapshot","file":"007_show-chassis.txt","ok":true}
+{"n":8,"cmd":"show card","at":"2026-11-02T12:59:35-05:00","source":"snapshot","file":"008_show-card.txt","ok":true}
+{"n":9,"cmd":"show inventory","at":"2026-11-02T12:59:38-05:00","source":"snapshot","file":"009_show-inventory.txt","ok":false}

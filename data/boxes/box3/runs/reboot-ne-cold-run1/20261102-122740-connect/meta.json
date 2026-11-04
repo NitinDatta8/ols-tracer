@@ -1,0 +1,28 @@
+{
+  "run": "20261102-122740-connect",
+  "box": "box3",
+  "host": "10.111.25.12",
+  "hostname": null,
+  "release": null,
+  "trigger": "connect",
+  "started": "2026-11-02T12:27:40-05:00",
+  "ended": "2026-11-02T12:28:20-05:00",
+  "boxClock": null,
+  "boxClockOffsetSec": null,
+  "prereqs": [
+    {
+      "cmd": "configure",
+      "ok": false
+    },
+    {
+      "cmd": "set cli length 0",
+      "ok": false
+    }
+  ],
+  "state": "unknown",
+  "notes": "",
+  "snapshot": {
+    "done": 0,
+    "of": 57
+  }
+}

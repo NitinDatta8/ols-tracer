@@ -226,6 +226,26 @@
     "about": "Synced from l1_profile.xml supported-part-no."
   },
   {
+    "id": "ftcd3323r1pcl",
+    "name": "FTCD3323R1PCL",
+    "part": "FTCD3323R1PCL",
+    "formFactor": "QSFPDD",
+    "speed": "400G",
+    "fiber": "SMF",
+    "dco": true,
+    "about": "Synced from l1_profile.xml supported-part-no."
+  },
+  {
+    "id": "ftcd3323r1pcl-wd",
+    "name": "FTCD3323R1PCL-WD",
+    "part": "FTCD3323R1PCL-WD",
+    "formFactor": "QSFPDD",
+    "speed": "400G",
+    "fiber": "SMF",
+    "dco": true,
+    "about": "Synced from l1_profile.xml supported-part-no."
+  },
+  {
     "id": "ftcd4118e1pcl",
     "name": "FTCD4118E1PCL",
     "part": "FTCD4118E1PCL",
@@ -248,6 +268,26 @@
     "name": "FTCE3326S1CCL-BY",
     "part": "FTCE3326S1CCL-BY",
     "formFactor": "QSFPDD",
+    "speed": "800G",
+    "fiber": "SMF",
+    "dco": true,
+    "about": "Synced from l1_profile.xml supported-part-no."
+  },
+  {
+    "id": "ftce3327s1ccl",
+    "name": "FTCE3327S1CCL",
+    "part": "FTCE3327S1CCL",
+    "formFactor": "QSFPDD",
+    "speed": "800G",
+    "fiber": "SMF",
+    "dco": true,
+    "about": "Synced from l1_profile.xml supported-part-no."
+  },
+  {
+    "id": "ftce332ss1pcltcn",
+    "name": "FTCE332SS1PCLTCN",
+    "part": "FTCE332SS1PCLTCN",
+    "formFactor": "OSFP",
     "speed": "800G",
     "fiber": "SMF",
     "dco": true,

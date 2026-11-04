@@ -1,0 +1,660 @@
+{
+  "events": [
+    {
+      "time-stamp": "2021-07-25T19:19:18+00:00",
+      "resource": "card 1-7",
+      "event-abbreviate": "CARD_COLD_REBOOT",
+      "text": "Line card reboot-cold",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-25T18:46:45+00:00",
+      "resource": "card 1-22",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-25T18:46:45+00:00",
+      "resource": "card 1-21",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-25T18:46:45+00:00",
+      "resource": "card 1-33",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-25T18:46:45+00:00",
+      "resource": "card 1-32",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-25T18:46:45+00:00",
+      "resource": "card 1-31",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-25T18:46:43+00:00",
+      "resource": "card 1-40",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-25T18:46:42+00:00",
+      "resource": "card 1-42",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-25T18:46:42+00:00",
+      "resource": "card 1-41",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-25T18:46:35+00:00",
+      "resource": "chassis 1",
+      "event-abbreviate": "SYS_STARTUP",
+      "text": "System start up",
+      "severity": "NOT-ALARMED",
+      "type-id": "SYS"
+    },
+    {
+      "time-stamp": "2021-07-25T18:46:34+00:00",
+      "resource": "card 1-8",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-25T18:46:29+00:00",
+      "resource": "card 1-7",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-25T18:43:58+00:00",
+      "resource": "card 1-7",
+      "event-abbreviate": "CARD_COLD_REBOOT",
+      "text": "Line card reboot-cold",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-25T18:43:58+00:00",
+      "resource": "card 1-8",
+      "event-abbreviate": "CARD_COLD_REBOOT",
+      "text": "Line card reboot-cold",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-25T18:38:18+00:00",
+      "resource": "card 1-7",
+      "event-abbreviate": "CARD_COLD_REBOOT",
+      "text": "Line card reboot-cold",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:56:23+00:00",
+      "resource": "card 1-7",
+      "event-abbreviate": "CARD_COLD_REBOOT",
+      "text": "Line card reboot-cold",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:54:16+00:00",
+      "resource": "card 1-7",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:53:50+00:00",
+      "resource": "card 1-6",
+      "event-abbreviate": "CARD_PULLOUT",
+      "text": "Card is pulled out",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:48:40+00:00",
+      "resource": "card 1-22",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:48:40+00:00",
+      "resource": "card 1-21",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:48:39+00:00",
+      "resource": "card 1-33",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:48:39+00:00",
+      "resource": "card 1-32",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:48:39+00:00",
+      "resource": "card 1-31",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:48:37+00:00",
+      "resource": "card 1-40",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:48:35+00:00",
+      "resource": "card 1-41",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:48:35+00:00",
+      "resource": "card 1-42",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:48:28+00:00",
+      "resource": "card 1-8",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:48:28+00:00",
+      "resource": "chassis 1",
+      "event-abbreviate": "SYS_STARTUP",
+      "text": "System start up",
+      "severity": "NOT-ALARMED",
+      "type-id": "SYS"
+    },
+    {
+      "time-stamp": "2021-07-23T23:48:23+00:00",
+      "resource": "card 1-6",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:45:53+00:00",
+      "resource": "card 1-8",
+      "event-abbreviate": "CARD_COLD_REBOOT",
+      "text": "Line card reboot-cold",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:45:53+00:00",
+      "resource": "card 1-6",
+      "event-abbreviate": "CARD_COLD_REBOOT",
+      "text": "Line card reboot-cold",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:45:12+00:00",
+      "resource": "card 1-6",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:45:10+00:00",
+      "resource": "card 1-6",
+      "event-abbreviate": "CARD_PULLOUT",
+      "text": "Card is pulled out",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:43:13+00:00",
+      "resource": "card 1-6",
+      "event-abbreviate": "CARD_COLD_REBOOT",
+      "text": "Line card reboot-cold",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:41:23+00:00",
+      "resource": "card 1-6",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:40:56+00:00",
+      "resource": "card 1-8",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:40:31+00:00",
+      "resource": "card 1-8",
+      "event-abbreviate": "CARD_PULLOUT",
+      "text": "Card is pulled out",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:40:15+00:00",
+      "resource": "card 1-6",
+      "event-abbreviate": "CARD_PULLOUT",
+      "text": "Card is pulled out",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:30:30+00:00",
+      "resource": "card 1-22",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:30:29+00:00",
+      "resource": "card 1-21",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:30:29+00:00",
+      "resource": "card 1-33",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:30:29+00:00",
+      "resource": "card 1-31",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:30:29+00:00",
+      "resource": "card 1-32",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:30:27+00:00",
+      "resource": "card 1-40",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:30:25+00:00",
+      "resource": "card 1-41",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:30:25+00:00",
+      "resource": "card 1-42",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:30:18+00:00",
+      "resource": "card 1-8",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:30:17+00:00",
+      "resource": "chassis 1",
+      "event-abbreviate": "SYS_STARTUP",
+      "text": "System start up",
+      "severity": "NOT-ALARMED",
+      "type-id": "SYS"
+    },
+    {
+      "time-stamp": "2021-07-23T23:30:13+00:00",
+      "resource": "card 1-6",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:27:42+00:00",
+      "resource": "card 1-8",
+      "event-abbreviate": "CARD_COLD_REBOOT",
+      "text": "Line card reboot-cold",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:27:42+00:00",
+      "resource": "card 1-6",
+      "event-abbreviate": "CARD_COLD_REBOOT",
+      "text": "Line card reboot-cold",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:26:58+00:00",
+      "resource": "card 1-6",
+      "event-abbreviate": "CARD_COLD_REBOOT",
+      "text": "Line card reboot-cold",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:25:35+00:00",
+      "resource": "card 1-6",
+      "event-abbreviate": "CARD_COLD_REBOOT",
+      "text": "Line card reboot-cold",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:23:55+00:00",
+      "resource": "card 1-6",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T23:06:58+00:00",
+      "resource": "card 1-6",
+      "event-abbreviate": "CARD_PULLOUT",
+      "text": "Card is pulled out",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:52:49+00:00",
+      "resource": "card 1-6",
+      "event-abbreviate": "CARD_COLD_REBOOT",
+      "text": "Line card reboot-cold",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:38:46+00:00",
+      "resource": "card 1-22",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:38:46+00:00",
+      "resource": "card 1-21",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:38:45+00:00",
+      "resource": "card 1-33",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:38:45+00:00",
+      "resource": "card 1-32",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:38:45+00:00",
+      "resource": "card 1-31",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:38:43+00:00",
+      "resource": "card 1-40",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:38:42+00:00",
+      "resource": "card 1-42",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:38:42+00:00",
+      "resource": "card 1-41",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:38:38+00:00",
+      "resource": "chassis 1",
+      "event-abbreviate": "SYS_STARTUP",
+      "text": "System start up",
+      "severity": "NOT-ALARMED",
+      "type-id": "SYS"
+    },
+    {
+      "time-stamp": "2021-07-23T22:38:34+00:00",
+      "resource": "card 1-8",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:38:29+00:00",
+      "resource": "card 1-6",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:35:56+00:00",
+      "resource": "card 1-8",
+      "event-abbreviate": "CARD_COLD_REBOOT",
+      "text": "Line card reboot-cold",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:35:56+00:00",
+      "resource": "card 1-6",
+      "event-abbreviate": "CARD_COLD_REBOOT",
+      "text": "Line card reboot-cold",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:34:41+00:00",
+      "resource": "card 1-6",
+      "event-abbreviate": "CARD_COLD_REBOOT",
+      "text": "Line card reboot-cold",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:19:57+00:00",
+      "resource": "card 1-6",
+      "event-abbreviate": "CARD_COLD_REBOOT",
+      "text": "Line card reboot-cold",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:13:30+00:00",
+      "resource": "card 1-22",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:13:30+00:00",
+      "resource": "card 1-21",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:13:30+00:00",
+      "resource": "card 1-40",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:13:30+00:00",
+      "resource": "card 1-33",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:13:30+00:00",
+      "resource": "card 1-32",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:13:29+00:00",
+      "resource": "card 1-31",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:13:26+00:00",
+      "resource": "card 1-42",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:13:26+00:00",
+      "resource": "card 1-41",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:13:22+00:00",
+      "resource": "chassis 1",
+      "event-abbreviate": "SYS_STARTUP",
+      "text": "System start up",
+      "severity": "NOT-ALARMED",
+      "type-id": "SYS"
+    },
+    {
+      "time-stamp": "2021-07-23T22:13:19+00:00",
+      "resource": "card 1-8",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    },
+    {
+      "time-stamp": "2021-07-23T22:13:13+00:00",
+      "resource": "card 1-6",
+      "event-abbreviate": "CARD_PLUGIN",
+      "text": "Card is inserted",
+      "severity": "NOT-ALARMED",
+      "type-id": "EQPT"
+    }
+  ]
+}

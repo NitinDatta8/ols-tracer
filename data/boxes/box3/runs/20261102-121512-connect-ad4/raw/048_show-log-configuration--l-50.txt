@@ -1,0 +1,59 @@
+time-stamp                   nbi     user-name    session-id    user-ip          type      details                                                                   
+-------------------------    ----    ---------    ----------    -------------    ------    ----------------------------------------------------------------------    
+2021-07-28T20:42:01+00:00    CLI     admin        41            10.111.0.43      delete    delete media-channel 3                                                    
+2021-07-28T20:41:56+00:00    CLI     admin        42            10.111.0.43      rpc       set cli width 1024                                                        
+2021-07-28T20:41:55+00:00    CLI     admin        42            10.111.0.43      rpc       set cli length 0                                                          
+2021-07-28T20:41:03+00:00    CLI     admin        39            10.111.0.43      set       set media-channel 3 line-port port-1-1-line add-drop-port port-1-1-ad3    
+                                                                                            admin-state in-service center-frequency 193500000 bandwidth 100000       
+2021-07-28T20:40:23+00:00    CLI     admin        39            10.111.0.43      delete    delete media-channel 2                                                    
+2021-07-28T20:39:57+00:00    CLI     admin        40            10.111.0.43      rpc       set cli width 1024                                                        
+2021-07-28T20:39:57+00:00    CLI     admin        40            10.111.0.43      rpc       set cli length 0                                                          
+2021-07-28T20:38:02+00:00    CLI     admin        38            10.111.12.184    set       set media-channel 2 line-port port-1-1-line add-drop-port port-1-1-ad2    
+                                                                                            admin-state in-service center-frequency 193500000 bandwidth 100000       
+2021-07-28T20:37:32+00:00    CLI     admin        38            10.111.12.184    delete    delete media-channel 2                                                    
+2021-07-28T20:37:05+00:00    CLI     admin        38            10.111.12.184    delete    delete media-channel 1                                                    
+2021-07-28T20:34:32+00:00    CLI     admin        38            10.111.12.184    rpc       reboot card 1-1 cold                                                      
+2021-07-28T20:33:37+00:00    CLI     admin        38            10.111.12.184    rpc       reboot card 1-1 warm                                                      
+2021-07-28T20:28:12+00:00    CLI     admin        38            10.111.12.184    set       set media-channel 2 line-port port-1-1-line add-drop-port port-1-1-ad2    
+                                                                                            admin-state in-service center-frequency 193600000 bandwidth 100000       
+2021-07-28T20:25:37+00:00    CLI     admin        37            10.111.0.43      rpc       set cli width 1024                                                        
+2021-07-28T20:25:37+00:00    CLI     admin        37            10.111.0.43      rpc       set cli length 0                                                          
+2021-07-28T20:24:14+00:00    CLI     admin        34            10.111.0.43      rpc       set cli width 1024                                                        
+2021-07-28T20:24:14+00:00    CLI     admin        34            10.111.0.43      rpc       set cli length 0                                                          
+2021-07-28T19:00:30+00:00    CLI     admin        30            10.111.20.226    set       set port 1-4-6 admin-state in-service                                     
+2021-07-28T18:05:52+00:00    CLI     admin        28            10.111.0.43      rpc       set cli width 1024                                                        
+2021-07-28T18:05:52+00:00    CLI     admin        28            10.111.0.43      rpc       set cli length 0                                                          
+2021-07-28T18:02:26+00:00    CLI     admin        27            10.111.0.43      rpc       set cli width 1024                                                        
+2021-07-28T18:02:26+00:00    CLI     admin        27            10.111.0.43      rpc       set cli length 0                                                          
+2021-07-28T17:59:40+00:00    CLI     admin        24            10.111.0.43      rpc       set cli width 1024                                                        
+2021-07-28T17:59:40+00:00    CLI     admin        24            10.111.0.43      rpc       set cli length 0                                                          
+2021-07-28T17:49:21+00:00    CLI     admin        23            10.111.0.43      rpc       set cli width 1024                                                        
+2021-07-28T17:49:21+00:00    CLI     admin        23            10.111.0.43      rpc       set cli length 0                                                          
+2021-07-28T17:38:24+00:00    CLI     admin        20            10.111.0.43      rpc       set cli width 1024                                                        
+2021-07-28T17:38:24+00:00    CLI     admin        20            10.111.0.43      rpc       set cli length 0                                                          
+2021-07-28T05:08:37+00:00    CLI     admin        18            10.111.0.43      rpc       set cli width 1024                                                        
+2021-07-28T05:08:36+00:00    CLI     admin        18            10.111.0.43      rpc       set cli length 0                                                          
+2021-07-28T04:53:01+00:00    CLI     admin        17            10.111.0.43      rpc       set cli width 1024                                                        
+2021-07-28T04:53:00+00:00    CLI     admin        17            10.111.0.43      rpc       set cli length 0                                                          
+2021-07-28T04:42:58+00:00    CLI     admin        14            10.111.0.43      rpc       set cli width 1024                                                        
+2021-07-28T04:42:58+00:00    CLI     admin        14            10.111.0.43      rpc       set cli length 0                                                          
+2021-07-28T04:27:09+00:00    CLI     admin        13            10.111.0.43      rpc       set cli width 1024                                                        
+2021-07-28T04:27:08+00:00    CLI     admin        13            10.111.0.43      rpc       set cli length 0                                                          
+2021-07-28T04:19:27+00:00    CLI     admin        11            10.111.0.43      rpc       set cli width 1024                                                        
+2021-07-28T04:19:27+00:00    CLI     admin        11            10.111.0.43      rpc       set cli length 0                                                          
+2021-07-28T04:01:21+00:00    CLI     admin        8             10.111.0.43      rpc       set cli width 1024                                                        
+2021-07-28T04:01:20+00:00    CLI     admin        8             10.111.0.43      rpc       set cli length 0                                                          
+2021-07-26T18:15:54+00:00    CLI     admin        7             10.111.0.43      rpc       set cli width 1024                                                        
+2021-07-26T18:15:31+00:00    CLI     admin        7             10.111.0.43      rpc       set cli length 0                                                          
+2021-07-25T19:28:52+00:00    CLI     admin        1             10.111.12.184    set       set och 1-7-5 target-output-power -3                                      
+2021-07-25T19:23:00+00:00    CLI     admin        1             10.111.12.184    set       set media-channel 1 line-port port-1-1-line add-drop-port port-1-1-ad1    
+                                                                                            admin-state in-service center-frequency 193500000 bandwidth 100000       
+2021-07-25T19:22:00+00:00    CLI     admin        1             10.111.12.184    delete    delete media-channel 1                                                    
+2021-07-25T19:19:18+00:00    CLI     admin        1             10.111.12.184    rpc       reboot card 1-7 cold                                                      
+2021-07-25T19:18:47+00:00    CLI     admin        1             10.111.12.184    set       set och 1-7-5 frequency 193500000 target-output-power 0                   
+2021-07-25T19:05:41+00:00    CLI     admin        1             10.111.12.184    set       set cross-connection CC5_4 source-entity 100GE-1-7-5-4 destination-ent    
+                                                                                           ity 100GE-1-7-4                                                           
+2021-07-25T19:04:23+00:00    CLI     admin        1             10.111.12.184    set       set port 1-7-4 port-mode PROT_100GE admin-state in-service                
+2021-07-25T19:03:55+00:00    CLI     admin        1             10.111.12.184    set       set logical-channel flexgo-1-7-5 time-slot-type eth-100g                  
+
+

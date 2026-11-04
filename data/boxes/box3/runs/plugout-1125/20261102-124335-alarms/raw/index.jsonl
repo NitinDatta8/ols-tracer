@@ -1,0 +1,57 @@
+{"n":0,"cmd":"show system","at":"2026-11-02T12:43:35-05:00","source":"snapshot","file":"000_show-system.txt","ok":true}
+{"n":1,"cmd":"show software","at":"2026-11-02T12:43:35-05:00","source":"snapshot","file":"001_show-software.txt","ok":true}
+{"n":2,"cmd":"date-time","at":"2026-11-02T12:43:36-05:00","source":"snapshot","file":"002_date-time.txt","ok":true}
+{"n":3,"cmd":"show system clock","at":"2026-11-02T12:43:36-05:00","source":"snapshot","file":"003_show-system-clock.txt","ok":true}
+{"n":4,"cmd":"help","at":"2026-11-02T12:43:36-05:00","source":"snapshot","file":"004_help.txt","ok":true}
+{"n":5,"cmd":"help show","at":"2026-11-02T12:43:37-05:00","source":"snapshot","file":"005_help-show.txt","ok":true}
+{"n":6,"cmd":"show cli","at":"2026-11-02T12:43:37-05:00","source":"snapshot","file":"006_show-cli.txt","ok":true}
+{"n":7,"cmd":"show chassis","at":"2026-11-02T12:43:37-05:00","source":"snapshot","file":"007_show-chassis.txt","ok":true}
+{"n":8,"cmd":"show card","at":"2026-11-02T12:43:38-05:00","source":"snapshot","file":"008_show-card.txt","ok":true}
+{"n":9,"cmd":"show inventory","at":"2026-11-02T12:43:42-05:00","source":"snapshot","file":"009_show-inventory.txt","ok":true}
+{"n":10,"cmd":"show card 1-* fan","at":"2026-11-02T12:43:44-05:00","source":"snapshot","file":"010_show-card-1-all-fan.txt","ok":true}
+{"n":11,"cmd":"show card 1-* psu","at":"2026-11-02T12:43:45-05:00","source":"snapshot","file":"011_show-card-1-all-psu.txt","ok":true}
+{"n":12,"cmd":"show card 1-1","at":"2026-11-02T12:43:45-05:00","source":"snapshot","file":"012_show-card-1-1.txt","ok":true}
+{"n":13,"cmd":"show card 1-4","at":"2026-11-02T12:43:46-05:00","source":"snapshot","file":"013_show-card-1-4.txt","ok":true}
+{"n":14,"cmd":"show card 1-7","at":"2026-11-02T12:43:46-05:00","source":"snapshot","file":"014_show-card-1-7.txt","ok":true}
+{"n":15,"cmd":"show card 1-8","at":"2026-11-02T12:43:47-05:00","source":"snapshot","file":"015_show-card-1-8.txt","ok":true}
+{"n":16,"cmd":"show port","at":"2026-11-02T12:43:48-05:00","source":"snapshot","file":"016_show-port.txt","ok":true}
+{"n":17,"cmd":"show port 1-4-*","at":"2026-11-02T12:43:50-05:00","source":"snapshot","file":"017_show-port-1-4-all.txt","ok":true}
+{"n":18,"cmd":"show port 1-7-*","at":"2026-11-02T12:43:52-05:00","source":"snapshot","file":"018_show-port-1-7-all.txt","ok":true}
+{"n":19,"cmd":"show port 1-8-*","at":"2026-11-02T12:43:54-05:00","source":"snapshot","file":"019_show-port-1-8-all.txt","ok":true}
+{"n":20,"cmd":"show assignment","at":"2026-11-02T12:43:55-05:00","source":"snapshot","file":"020_show-assignment.txt","ok":true}
+{"n":21,"cmd":"show cross-connection","at":"2026-11-02T12:43:56-05:00","source":"snapshot","file":"021_show-cross-connection.txt","ok":true}
+{"n":22,"cmd":"show logical-channel","at":"2026-11-02T12:43:57-05:00","source":"snapshot","file":"022_show-logical-channel.txt","ok":true}
+{"n":23,"cmd":"show logical-channel flexgo-1-7-5","at":"2026-11-02T12:43:57-05:00","source":"snapshot","file":"023_show-logical-channel-flexgo-1-7-5.txt","ok":true}
+{"n":24,"cmd":"show logical-channel flexgdu-1-7-5-4","at":"2026-11-02T12:43:57-05:00","source":"snapshot","file":"024_show-logical-channel-flexgdu-1-7-5-4.txt","ok":true}
+{"n":25,"cmd":"show interface","at":"2026-11-02T12:43:58-05:00","source":"snapshot","file":"025_show-interface.txt","ok":true}
+{"n":26,"cmd":"show lldp neighbors","at":"2026-11-02T12:43:59-05:00","source":"snapshot","file":"026_show-lldp-neighbors.txt","ok":true}
+{"n":27,"cmd":"show transceiver","at":"2026-11-02T12:43:59-05:00","source":"snapshot","file":"027_show-transceiver.txt","ok":true}
+{"n":28,"cmd":"show och","at":"2026-11-02T12:44:04-05:00","source":"snapshot","file":"028_show-och.txt","ok":true}
+{"n":29,"cmd":"show eth","at":"2026-11-02T12:44:05-05:00","source":"snapshot","file":"029_show-eth.txt","ok":true}
+{"n":30,"cmd":"show transceiver 1-7-5 physical-channel 1","at":"2026-11-02T12:44:06-05:00","source":"snapshot","file":"030_show-transceiver-1-7-5-physical-channel-1.txt","ok":true}
+{"n":31,"cmd":"show transceiver 1-8-1","at":"2026-11-02T12:44:06-05:00","source":"snapshot","file":"031_show-transceiver-1-8-1.txt","ok":true}
+{"n":32,"cmd":"show och 1-7-1","at":"2026-11-02T12:44:07-05:00","source":"snapshot","file":"032_show-och-1-7-1.txt","ok":true}
+{"n":33,"cmd":"show och 1-8-1","at":"2026-11-02T12:44:07-05:00","source":"snapshot","file":"033_show-och-1-8-1.txt","ok":true}
+{"n":34,"cmd":"show eth 1-7-5-4","at":"2026-11-02T12:44:08-05:00","source":"snapshot","file":"034_show-eth-1-7-5-4.txt","ok":true}
+{"n":35,"cmd":"show eth 1-8-4","at":"2026-11-02T12:44:08-05:00","source":"snapshot","file":"035_show-eth-1-8-4.txt","ok":true}
+{"n":36,"cmd":"show profile-threshold","at":"2026-11-02T12:44:09-05:00","source":"snapshot","file":"036_show-profile-threshold.txt","ok":true}
+{"n":37,"cmd":"show optical-port","at":"2026-11-02T12:44:10-05:00","source":"snapshot","file":"037_show-optical-port.txt","ok":true}
+{"n":38,"cmd":"show amplifier","at":"2026-11-02T12:44:11-05:00","source":"snapshot","file":"038_show-amplifier.txt","ok":true}
+{"n":39,"cmd":"show osc","at":"2026-11-02T12:44:11-05:00","source":"snapshot","file":"039_show-osc.txt","ok":true}
+{"n":40,"cmd":"show external-connection","at":"2026-11-02T12:44:12-05:00","source":"snapshot","file":"040_show-external-connection.txt","ok":true}
+{"n":41,"cmd":"show internal-connection","at":"2026-11-02T12:44:12-05:00","source":"snapshot","file":"041_show-internal-connection.txt","ok":true}
+{"n":42,"cmd":"show log alarm -l 200","at":"2026-11-02T12:44:12-05:00","source":"snapshot","file":"042_show-log-alarm--l-200.txt","ok":true}
+{"n":43,"cmd":"show log event -l 200","at":"2026-11-02T12:44:13-05:00","source":"snapshot","file":"043_show-log-event--l-200.txt","ok":true}
+{"n":44,"cmd":"show log configuration -l 50","at":"2026-11-02T12:44:14-05:00","source":"snapshot","file":"044_show-log-configuration--l-50.txt","ok":true}
+{"n":45,"cmd":"show transceiver 1-7-4","at":"2026-11-02T12:44:14-05:00","source":"snapshot","file":"045_show-transceiver-1-7-4.txt","ok":true}
+{"n":46,"cmd":"show transceiver 1-7-4 physical-channel 1","at":"2026-11-02T12:44:15-05:00","source":"snapshot","file":"046_show-transceiver-1-7-4-physical-channel-1.txt","ok":true}
+{"n":47,"cmd":"show transceiver 1-7-4 physical-channel 2","at":"2026-11-02T12:44:15-05:00","source":"snapshot","file":"047_show-transceiver-1-7-4-physical-channel-2.txt","ok":true}
+{"n":48,"cmd":"show transceiver 1-7-4 physical-channel 3","at":"2026-11-02T12:44:16-05:00","source":"snapshot","file":"048_show-transceiver-1-7-4-physical-channel-3.txt","ok":true}
+{"n":49,"cmd":"show transceiver 1-7-4 physical-channel 4","at":"2026-11-02T12:44:16-05:00","source":"snapshot","file":"049_show-transceiver-1-7-4-physical-channel-4.txt","ok":true}
+{"n":50,"cmd":"show eth 1-7-4","at":"2026-11-02T12:44:17-05:00","source":"snapshot","file":"050_show-eth-1-7-4.txt","ok":true}
+{"n":51,"cmd":"show transceiver 1-7-5","at":"2026-11-02T12:44:17-05:00","source":"snapshot","file":"051_show-transceiver-1-7-5.txt","ok":true}
+{"n":52,"cmd":"show och 1-7-5","at":"2026-11-02T12:44:18-05:00","source":"snapshot","file":"052_show-och-1-7-5.txt","ok":true}
+{"n":53,"cmd":"show optical-port 1-1-ad1","at":"2026-11-02T12:44:18-05:00","source":"snapshot","file":"053_show-optical-port-1-1-ad1.txt","ok":true}
+{"n":54,"cmd":"show optical-port 1-1-line","at":"2026-11-02T12:44:19-05:00","source":"snapshot","file":"054_show-optical-port-1-1-line.txt","ok":true}
+{"n":55,"cmd":"show alarm","at":"2026-11-02T12:44:19-05:00","source":"snapshot","file":"055_show-alarm.txt","ok":true}
+{"n":56,"cmd":"show log alarm -l 20","at":"2026-11-02T12:44:20-05:00","source":"snapshot","file":"056_show-log-alarm--l-20.txt","ok":true}

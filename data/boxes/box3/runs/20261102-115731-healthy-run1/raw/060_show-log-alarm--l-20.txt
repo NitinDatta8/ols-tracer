@@ -1,0 +1,24 @@
+time-stamp                   action    resource                        alarm-abbreviate    severity    direction    service-affect    type-id    time-created           
+-------------------------    ------    ----------------------------    ----------------    --------    ---------    --------------    -------    -------------------    
+2021-07-28T20:21:17+00:00    CLEAR     logical-channel flexgo-1-7-5    LOF                 CRITICAL    rx           true              ZR         1627503671944461880    
+2021-07-28T20:21:14+00:00    CREATE    logical-channel flexgo-1-7-5    LOF                 CRITICAL    rx           true              ZR         1627503671944461880    
+2021-07-28T20:21:13+00:00    CLEAR     100ge 1-7-4                     LINK_LF             CRITICAL    rx           false             ETH        1627503235842853040    
+2021-07-28T20:21:12+00:00    CREATE    100ge 1-7-4                     LINK_LF             CRITICAL    rx           false             ETH        1627503235842853040    
+2021-07-28T20:21:12+00:00    CLEAR     100ge 1-7-4                     ETH_LOS_SYN         CRITICAL    rx           true              ETH        1627502615385688960    
+2021-07-28T20:21:11+00:00    CLEAR     transceiver 1-7-4               RX_LOS              CRITICAL    rx           true              OPTICAL    1627503232883845040    
+2021-07-28T20:21:11+00:00    CREATE    100ge 1-7-4                     ETH_LOS_SYN         CRITICAL    rx           true              ETH        1627502615385688960    
+2021-07-28T20:13:57+00:00    CLEAR     logical-channel flexgo-1-7-5    LOF                 CRITICAL    rx           true              ZR         1627503232892676000    
+2021-07-28T20:13:55+00:00    CREATE    transceiver 1-7-4               RX_LOS              CRITICAL    rx           true              OPTICAL    1627503232883845040    
+2021-07-28T20:13:55+00:00    CREATE    logical-channel flexgo-1-7-5    LOF                 CRITICAL    rx           true              ZR         1627503232892676000    
+2021-07-28T20:13:55+00:00    CLEAR     100ge 1-7-4                     ETH_LOS_SYN         CRITICAL    rx           true              ETH        1627502615385688960    
+2021-07-28T20:13:52+00:00    CLEAR     transceiver 1-7-4               RX_LOS              CRITICAL    rx           true              OPTICAL    1627503042432828320    
+2021-07-28T20:13:52+00:00    CREATE    100ge 1-7-4                     ETH_LOS_SYN         CRITICAL    rx           true              ETH        1627502615385688960    
+2021-07-28T20:10:47+00:00    CLEAR     logical-channel flexgo-1-7-5    LOF                 CRITICAL    rx           true              ZR         1627503042439949320    
+2021-07-28T20:10:45+00:00    CREATE    transceiver 1-7-4               RX_LOS              CRITICAL    rx           true              OPTICAL    1627503042432828320    
+2021-07-28T20:10:45+00:00    CREATE    logical-channel flexgo-1-7-5    LOF                 CRITICAL    rx           true              ZR         1627503042439949320    
+2021-07-28T20:10:45+00:00    CLEAR     100ge 1-7-4                     ETH_LOS_SYN         CRITICAL    rx           true              ETH        1627502615385688960    
+2021-07-28T20:10:42+00:00    CLEAR     transceiver 1-7-4               RX_LOS              CRITICAL    rx           true              OPTICAL    1627502650383457240    
+2021-07-28T20:10:42+00:00    CREATE    100ge 1-7-4                     ETH_LOS_SYN         CRITICAL    rx           true              ETH        1627502615385688960    
+2021-07-28T20:04:16+00:00    CLEAR     logical-channel flexgo-1-7-5    LOF                 CRITICAL    rx           true              ZR         1627502650389753440    
+
+

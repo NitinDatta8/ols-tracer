@@ -1,0 +1,30 @@
+{
+  "state": {
+    "ports": {
+      "port-1-1-line": {
+        "in": {
+          "optical-power": -5.88,
+          "description": "line input total aggregate optical power",
+          "flag": "M"
+        },
+        "out": {
+          "optical-power": 4.89,
+          "description": "line output total aggregate optical power",
+          "flag": "M"
+        }
+      },
+      "port-1-1-sig": {
+        "in": {
+          "optical-power": -3.14,
+          "description": "total input optical power at add port",
+          "flag": "M"
+        },
+        "out": {
+          "optical-power": 3.24,
+          "description": "total output optical power at drop port",
+          "flag": "M"
+        }
+      }
+    }
+  }
+}

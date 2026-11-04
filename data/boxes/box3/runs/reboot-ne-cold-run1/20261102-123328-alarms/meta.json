@@ -1,0 +1,19 @@
+{
+  "run": "20261102-123328-alarms",
+  "box": "box3",
+  "host": "10.111.25.12",
+  "hostname": "PAHO-GS2000-03",
+  "release": "CSP-2.10.100.10_20261013",
+  "trigger": "alarms",
+  "started": "2026-11-02T12:33:28-05:00",
+  "ended": "2026-11-02T12:33:45-05:00",
+  "boxClock": "2021-07-28T21:00:13+00:00",
+  "boxClockOffsetSec": -166134796,
+  "prereqs": [],
+  "state": "unknown",
+  "notes": "",
+  "snapshot": {
+    "done": 19,
+    "of": 57
+  }
+}

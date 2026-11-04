@@ -1,0 +1,14 @@
+[config]
+
+name     source-entity    destination-entity    description    direction-type    
+-----    -------------    ------------------    -----------    --------------    
+CC4_3    100GE-1-4-5-3    100GE-1-4-3                          bidirection       
+
+
+[state]
+
+name     source-entity    destination-entity    description    direction-type    management-type    
+-----    -------------    ------------------    -----------    --------------    ---------------    
+CC4_3    100GE-1-4-5-3    100GE-1-4-3                          bidirection                          
+
+

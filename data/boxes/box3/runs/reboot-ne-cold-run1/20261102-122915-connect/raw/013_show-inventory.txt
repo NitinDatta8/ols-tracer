@@ -1,0 +1,18 @@
+chassis
+
+
+id    module-type    mfg-name    mfg-date      hardware-version    serial-no    part-no      
+--    -----------    --------    ----------    ----------------    ---------    ---------    
+1     chassis        COHERENT    2026-10-12    1.0                 GCATA000G    60GCA0001    
+
+card
+
+
+id     module-type    mfg-name    mfg-date      hardware-version    serial-no    part-no      
+---    -----------    --------    ----------    ----------------    ---------    ---------    
+1-1    TMUXC1125      COHERENT    2026-09-11    1.0                 G2PTA0006    60G2P0001    
+1-4                                                                                           
+1-7                   COHERENT    2025-08-26    1.0                 G6E3A000D    60G6E0001    
+
+None
+

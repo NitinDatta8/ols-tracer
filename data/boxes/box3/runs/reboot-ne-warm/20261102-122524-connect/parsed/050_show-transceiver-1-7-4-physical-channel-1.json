@@ -1,0 +1,22 @@
+{
+  "state": {
+    "channel-id": "1",
+    "transmitter-frequency": "229007633 MHz",
+    "stats": {
+      "output-power": {
+        "instant": 2.06,
+        "avg": 2.06,
+        "min": 2.06,
+        "max": 2.06,
+        "unit": "dBm"
+      },
+      "input-power": {
+        "instant": 2.38,
+        "avg": 2.37,
+        "min": 2.36,
+        "max": 2.38,
+        "unit": "dBm"
+      }
+    }
+  }
+}

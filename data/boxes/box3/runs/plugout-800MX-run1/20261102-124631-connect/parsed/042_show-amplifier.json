@@ -1,0 +1,142 @@
+{
+  "config": {
+    "amplifiers": {
+      "1-1-ba": {
+        "target-gain": "23.00",
+        "target-gain-tilt": "0.00",
+        "amp-enable": "enabled",
+        "auto-span-loss-adaptation": "disabled",
+        "nominal-ingress-span-loss": "0.00",
+        "target-voa-attenuation": "0.00",
+        "apr-enable": "disabled",
+        "target-span-loss-offset": "0.00"
+      },
+      "1-1-pa": {
+        "target-gain": "25.00",
+        "target-gain-tilt": "-1.00",
+        "amp-enable": "enabled",
+        "auto-span-loss-adaptation": "enabled",
+        "nominal-ingress-span-loss": "0.00",
+        "target-voa-attenuation": "0.00",
+        "apr-enable": "disabled",
+        "target-span-loss-offset": "0.00"
+      }
+    }
+  },
+  "state": {
+    "amplifiers": {
+      "1-1-ba": {
+        "amp-mode": "gain",
+        "gain-type": "fixed-gain",
+        "target-gain": "23.00",
+        "target-gain-tilt": "0.00",
+        "amp-enable": "enabled",
+        "auto-span-loss-adaptation": "disabled",
+        "nominal-ingress-span-loss": "0.00",
+        "target-voa-attenuation": "0.00",
+        "apr-enable": "disabled",
+        "target-span-loss-offset": "0.00",
+        "min-gain": "15.00",
+        "max-gain": "25.00",
+        "ingress-port": "port-1-1-com",
+        "egress-port": "port-1-1-line",
+        "ingress-span-loss": "0.00",
+        "actual-voa-attenuation": "0.00",
+        "fiber-type-profile": "ssmf",
+        "stats": {
+          "actual-gain": {
+            "instant": 22.99,
+            "avg": 22.99,
+            "min": 22.99,
+            "max": 22.99,
+            "unit": "dB"
+          },
+          "actual-gain-tilt": {
+            "instant": 0.02,
+            "avg": 0.02,
+            "min": 0.02,
+            "max": 0.02,
+            "unit": "dB"
+          },
+          "input-power": {
+            "instant": -21.97,
+            "avg": -21.95,
+            "min": -21.98,
+            "max": -21.92,
+            "unit": "dBm"
+          },
+          "output-power": {
+            "instant": 2.32,
+            "avg": 2.33,
+            "min": 2.31,
+            "max": 2.35,
+            "unit": "dBm"
+          },
+          "laser-bias-current": {
+            "instant": 84.26,
+            "avg": 84.3,
+            "min": 84.05,
+            "max": 84.55,
+            "unit": "mA"
+          }
+        }
+      },
+      "1-1-pa": {
+        "amp-mode": "gain",
+        "gain-type": "fixed-gain",
+        "target-gain": "25.00",
+        "target-gain-tilt": "-1.00",
+        "amp-enable": "enabled",
+        "auto-span-loss-adaptation": "enabled",
+        "nominal-ingress-span-loss": "0.00",
+        "target-voa-attenuation": "0.00",
+        "apr-enable": "disabled",
+        "target-span-loss-offset": "0.00",
+        "min-gain": "15.00",
+        "max-gain": "25.00",
+        "ingress-port": "port-1-1-line",
+        "egress-port": "port-1-1-com",
+        "ingress-span-loss": "10.16",
+        "actual-voa-attenuation": "14.53",
+        "fiber-type-profile": "ssmf",
+        "stats": {
+          "actual-gain": {
+            "instant": 24.98,
+            "avg": 24.98,
+            "min": 24.98,
+            "max": 24.98,
+            "unit": "dB"
+          },
+          "actual-gain-tilt": {
+            "instant": -0.98,
+            "avg": -0.98,
+            "min": -0.98,
+            "max": -0.98,
+            "unit": "dB"
+          },
+          "input-power": {
+            "instant": -19.1,
+            "avg": -19.08,
+            "min": -19.11,
+            "max": -19.06,
+            "unit": "dBm"
+          },
+          "output-power": {
+            "instant": 6.73,
+            "avg": 6.74,
+            "min": 6.71,
+            "max": 6.76,
+            "unit": "dBm"
+          },
+          "laser-bias-current": {
+            "instant": 73.1,
+            "avg": 73.02,
+            "min": 72.81,
+            "max": 73.27,
+            "unit": "mA"
+          }
+        }
+      }
+    }
+  }
+}
