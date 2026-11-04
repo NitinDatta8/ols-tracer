@@ -228,7 +228,10 @@ describe('inside a card', () => {
   });
 
   it('uses the amplifiers alone on a card with no internal paths: box 4\'s C25, every reading measured', () => {
-    const s: BoxState = { live: false, ...latest('20261103-104012-connect') };
+    // Box 4 (PAHO-GS2000-04) as `show optical-port` read it on 2026-11-03; its run was dropped from box 3's.
+    const port = (dBm: number) => ({ 'optical-power': dBm, flag: 'M' });
+    const ports = { 'port-1-1-sig': { in: port(-3.14), out: port(3.24) }, 'port-1-1-line': { in: port(-5.88), out: port(4.89) } };
+    const s: BoxState = { live: false, commands: { 'show optical-port': { at: 0, data: { state: { ports } } } } };
     const d = { ...device, slots: { 1: { linecard: 'lc-c25', ports: {} } } };
     const [out, back] = inside({ ...t, devices: [d], links: [] }, cat, s, d, '1');
     expect(out.stages[0]).toMatchObject({ cells: [{ id: 'SIG', dBm: -3.14, flag: 'M' }] });
@@ -236,6 +239,46 @@ describe('inside a card', () => {
     expect(out.stages[2]).toMatchObject({ cells: [{ id: 'LINE', dBm: 4.89, flag: 'M' }] });
     expect(back.back).toBe(true);
     expect(stage(back.stages, 1)).toMatchObject({ id: 'PA' });
+  });
+});
+
+describe('the most-upstream-LOS baseline on box 3\'s episodes', async () => {
+  // Step 10's baseline against what the box's own logs say was done on 2026-11-02: the alarms up 10 s into each outage,
+  // replayed from history.jsonl, on the path as it was wired then (a media channel's add/drop port).
+  const { lines } = await import(/* @vite-ignore */ resolve(repoRoot, 'bridge/recorder.mjs'));
+  const { episodes, alarmsAt } = await import(/* @vite-ignore */ resolve(repoRoot, 'bridge/history.mjs'));
+  const h = lines(resolve(repoRoot, 'data/boxes/box3/history.jsonl'));
+  type Episode = { at: string; cause: string | null; what: string; lossAt: string | null };
+  const scored = (episodes(h) as Episode[]).filter((e) => e.cause && e.lossAt && e.at.startsWith('2026-11-02'));
+  /** Right when it names the card the episode was about, or the WSS whose media channel went. */
+  const right = (e: Episode, at: string) => {
+    const card = e.what.match(/card (\d+-\d+)/)?.[1];
+    return card ? at === card || at.startsWith(`${card}-`) : /^delete media-channel/.test(e.what) && at === 'wss';
+  };
+  const answers = scored.map((e) => {
+    let port = 'AD11';
+    for (const x of h) if (x.kind === 'config' && x.at <= e.at) port = x.details.match(/add-drop-port port-1-1-(ad\d+)/)?.[1].toUpperCase() ?? port;
+    const wired = fiberedOn(port);
+    const s: BoxState = { live: false, commands: { 'show alarm': { at: 0, data: { alarms: alarmsAt(h, new Date(Date.parse(e.lossAt!) + 10000).toISOString()) } } } };
+    const loss = firstLoss(s, trace(wired, cat, s, heads(wired, cat)[0]));
+    const at = !loss ? '' : loss.hop.kind === 'wss' ? 'wss' : loss.hop.kind === 'fiber' ? loss.hop.id : loss.hop.at;
+    return `${e.what} → ${loss ? hopName(loss.hop) : 'nothing'}${right(e, at) ? ' ✓' : ''}`;
+  });
+
+  it('never names what was done, so the agent has something to beat', () => {
+    expect(answers).toEqual([
+      'delete media-channel 5 → BA',
+      'delete media-channel 6 → BA',
+      'delete media-channel 6 → BA',
+      'delete media-channel 6 → BA',
+      'delete media-channel 6 → BA',
+      'reboot ne cold → BA',
+      'reboot card 1-1 cold → 1-7-5 in',
+      'reboot ne cold → BA',
+      'card 1-1 → 1-7-5 in',
+      'card 1-7 → BA',
+      'card 1-7 → BA',
+    ]);
   });
 });
 

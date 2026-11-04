@@ -20,8 +20,15 @@ export interface Light { dark: boolean; tx?: number; rx?: number; heat?: Verdict
 /** The box state, if it is this device's box. */
 export const stateFor = (s: BoxState | null, d?: Device) => (s && d?.host && s.host === d.host ? s : null);
 
-type Stat = { instant: number; unit?: string };
-const stats = (s: BoxState, cmd: string): Record<string, Stat | undefined> => s.commands[cmd]?.data?.state?.stats ?? {};
+type Stat = { instant: number; avg?: number; min?: number; max?: number; unit?: string };
+/**
+ * A command's statistics, or none while the box has no reading: right after a reboot an OCH and its transceiver read
+ * 0 in every cell (0 MHz, 0.00 dBm, 0.00 dB), and 0 dBm would show a dark strand as lit.
+ */
+const stats = (s: BoxState, cmd: string): Record<string, Stat | undefined> => {
+  const all: Record<string, Stat | undefined> = s.commands[cmd]?.data?.state?.stats ?? {};
+  return Object.values(all).every((v) => !v || [v.instant, v.avg, v.min, v.max].every((x) => !x)) ? {} : all;
+};
 const address = (t: Topology, e: End) => cliAddress(byId(t.devices, e.device)?.chassisNo ?? 1, e.slot, e.port);
 const dBm = (v: number) => `${v.toFixed(2)} dBm`;
 /** The box's flag on an L0 port's reading, as it prints it: ", flag C". */

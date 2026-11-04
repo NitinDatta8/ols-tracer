@@ -1,9 +1,9 @@
 {
   "prereqs": ["configure", "set cli length 0", "set cli width 1024", "exit"],
   "commands": [
-    { "cmd": "show system", "every": 0 },
+    { "cmd": "show system", "every": 0, "fast": true },
     { "cmd": "show software", "every": 0 },
-    { "cmd": "date-time", "every": 0 },
+    { "cmd": "date-time", "every": 0, "fast": true },
     { "cmd": "show system clock", "every": 0 },
     { "cmd": "help", "every": 0 },
     { "cmd": "help show", "every": 0 },
@@ -17,7 +17,7 @@
     { "cmd": "show card 1-4", "every": 0 },
     { "cmd": "show card 1-7", "every": 0 },
     { "cmd": "show card 1-8", "every": 0 },
-    { "cmd": "show port", "every": 0 },
+    { "cmd": "show port", "every": 0, "fast": true },
     { "cmd": "show port 1-4-*", "every": 0 },
     { "cmd": "show port 1-7-*", "every": 0 },
     { "cmd": "show port 1-8-*", "every": 0 },
@@ -38,16 +38,16 @@
     { "cmd": "show eth 1-7-5-4", "every": 0 },
     { "cmd": "show eth 1-8-4", "every": 0 },
     { "cmd": "show profile-threshold", "every": 0 },
-    { "cmd": "show optical-port", "every": 0 },
+    { "cmd": "show optical-port", "every": 10 },
     { "cmd": "show amplifier", "every": 30 },
     { "cmd": "show osc", "every": 0 },
     { "cmd": "show media-channel", "every": 30 },
     { "cmd": "show ocm", "every": 0 },
     { "cmd": "show external-connection", "every": 0 },
     { "cmd": "show internal-connection", "every": 0 },
-    { "cmd": "show log alarm -l 200", "every": 0 },
-    { "cmd": "show log event -l 200", "every": 0 },
-    { "cmd": "show log configuration -l 50", "every": 0 },
+    { "cmd": "show log alarm -l 200", "every": 0, "fast": true },
+    { "cmd": "show log event -l 200", "every": 0, "fast": true },
+    { "cmd": "show log configuration -l 200", "every": 0, "fast": true },
     { "cmd": "show transceiver 1-7-4", "every": 10 },
     { "cmd": "show transceiver 1-7-4 physical-channel 1", "every": 10 },
     { "cmd": "show transceiver 1-7-4 physical-channel 2", "every": 10 },
@@ -56,9 +56,7 @@
     { "cmd": "show eth 1-7-4", "every": 30 },
     { "cmd": "show transceiver 1-7-5", "every": 10 },
     { "cmd": "show och 1-7-5", "every": 10 },
-    { "cmd": "show optical-port 1-1-ad11", "every": 10 },
-    { "cmd": "show optical-port 1-1-line", "every": 10 },
     { "cmd": "show alarm", "every": 10 },
-    { "cmd": "show log alarm -l 20", "every": 30 }
+    { "cmd": "show log alarm -l 50", "every": 30 }
   ]
 }

@@ -1,11 +1,12 @@
 // Recorder: writes what the bridge's poller reads into data/boxes/<box>/runs/, so a session with the box leaves its runs
-// on disk without anyone capturing them. A run is one snapshot (every command in poll.json, once) and the polls after
-// it, until the next snapshot. The layout and meta.json are described in docs/plans/box3-capture.md.
+// on disk without anyone capturing them. A run is one snapshot (every command in poll.json once on connect, the fast
+// ones on an alarm change or a pull) and the polls after it, until the next snapshot. A run goes to the box `show system`
+// names. The layout and meta.json are described in docs/plans/box3-capture.md.
 // On its own it parses a run's raw output again into parsed/, e.g. after a template changed:
 //   node bridge/recorder.mjs data/boxes/box3/runs/run-01-healthy
 import { execFile } from 'node:child_process';
-import { appendFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { join, resolve } from 'node:path';
+import { appendFileSync, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
+import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import { commandFor } from './cli-index.mjs';
@@ -17,6 +18,9 @@ const BOX = (env.BOX_DATA_BOX ?? 'box3').trim() || 'box3';
 const BOX_DATA_ROOT = resolve(REPO_ROOT, env.BOX_DATA_ROOT ?? join('data', 'boxes', BOX));
 const TEMPLATES_DIR = join(BOX_DATA_ROOT, 'ttp', 'templates');
 const RUNS_DIR = join(BOX_DATA_ROOT, 'runs');
+/** Every box's folder, and the box the session's runs go to: BOX until `show system` names another. */
+const BOXES = dirname(BOX_DATA_ROOT);
+let current = basename(BOX_DATA_ROOT);
 export const PYTHON = env.PYTHON ?? here('.venv/bin/python');
 /** The CLI index's commands. A command's template is named after its id. */
 const COMMANDS = JSON.parse(readFileSync(join(REPO_ROOT, 'data', 'cli', 'csp', 'cli-index.source.json'), 'utf8')).commands;
@@ -26,7 +30,7 @@ const REJECTED = /invalid|error|problem parsing/i;
 const exec = promisify(execFile);
 
 /** A time as local ISO 8601 with its offset, as meta.json has it: 2026-10-31T10:52:10-04:00. */
-function iso(t) {
+export function iso(t) {
   const off = -new Date(t).getTimezoneOffset();
   const pad = (n) => String(Math.floor(Math.abs(n))).padStart(2, '0');
   return `${new Date(t + off * 60000).toISOString().slice(0, 19)}${off < 0 ? '-' : '+'}${pad(off / 60)}:${pad(off % 60)}`;
@@ -57,17 +61,24 @@ function keep(dir, file, { data, error }) {
   writeFileSync(join(dir, 'parsed', file.replace(/\.txt$/, '.json')), `${JSON.stringify(data ?? { error }, null, 2)}\n`);
 }
 
+/** The box a hostname belongs to: the one whose setup.md has it in a table cell, else a folder named after it. */
+const boxOf = (hostname) => (existsSync(BOXES) ? readdirSync(BOXES) : [])
+  .find((b) => existsSync(join(BOXES, b, 'setup.md')) && readFileSync(join(BOXES, b, 'setup.md'), 'utf8').includes(`| ${hostname} |`))
+  ?? hostname.toLowerCase();
+
 /** A run folder, named after when its snapshot started and why: <YYYYMMDD-HHMMSS>-connect, -alarms or -pull. */
 export class Run {
   constructor(trigger, host) {
     const at = Date.now();
     const name = `${iso(at).slice(0, 19).replace(/[-:]/g, '').replace('T', '-')}-${trigger}`;
+    const runs = join(BOXES, current, 'runs');
     let run = name;
-    for (let k = 2; existsSync(join(RUNS_DIR, run)); k++) run = `${name}-${k}`;
-    this.dir = join(RUNS_DIR, run);
+    for (let k = 2; existsSync(join(runs, run)); k++) run = `${name}-${k}`;
+    this.dir = join(runs, run);
     this.n = 0;
+    this.polled = {}; // command → its last poll, so an unchanged one isn't written again
     this.meta = {
-      run, box: BOX, host, hostname: null, release: null, trigger, started: iso(at), ended: null,
+      run, box: current, host, hostname: null, release: null, trigger, started: iso(at), ended: null,
       boxClock: null, boxClockOffsetSec: null, prereqs: [], state: 'unknown', notes: '',
     };
     mkdirSync(join(this.dir, 'raw'), { recursive: true });
@@ -92,6 +103,7 @@ export class Run {
     const m = this.meta;
     if (source === 'prereq') m.prereqs.push({ cmd, ok: ok && !REJECTED.test(raw) });
     if (cmd === 'show system') m.hostname = raw.match(/^hostname\s+(\S+)/m)?.[1] ?? m.hostname;
+    if (cmd === 'show system' && m.hostname) this.place(m.hostname);
     if (cmd === 'show software') m.release = raw.match(/^active\s+(\S+)/m)?.[1] ?? m.release;
     const clock = cmd === 'date-time' && raw.match(/(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d) UTC/);
     if (clock) [m.boxClock, m.boxClockOffsetSec] = [`${clock[1]}+00:00`, Math.round((Date.parse(`${clock[1]}Z`) - at) / 1000)];
@@ -101,10 +113,30 @@ export class Run {
     return parsed;
   }
 
-  /** A poll, run at `at`: its parse appended to poll.jsonl, and its output too when it has no template or the parse failed. Returns the parse. */
+  /**
+   * Moves the run to the box `hostname` is, if it isn't this one, so one box's runs never land in another's. Every
+   * later run of the session starts there.
+   */
+  place(hostname) {
+    current = boxOf(hostname);
+    if (current === this.meta.box) return;
+    const dir = join(BOXES, current, 'runs', this.meta.run);
+    mkdirSync(dirname(dir), { recursive: true });
+    renameSync(this.dir, dir);
+    console.log(`${this.meta.run} is ${hostname}, not ${this.meta.box}: moved to ${dir}`);
+    [this.dir, this.meta.box] = [dir, current];
+  }
+
+  /**
+   * A poll, run at `at`: its parse appended to poll.jsonl, and its output too when it has no template or the parse
+   * failed. A poll that reads the same as the last one of its command isn't written again. Returns the parse.
+   */
   async poll(cmd, at, raw) {
     const parsed = await parse(cmd, raw);
-    appendFileSync(join(this.dir, 'poll.jsonl'), `${JSON.stringify(pollLine(at, cmd, raw, parsed))}\n`);
+    const line = pollLine(at, cmd, raw, parsed);
+    const same = JSON.stringify(line.data ?? line.raw);
+    if (this.polled[cmd] !== same) appendFileSync(join(this.dir, 'poll.jsonl'), `${JSON.stringify(line)}\n`);
+    this.polled[cmd] = same;
     this.save();
     return parsed;
   }
@@ -133,36 +165,40 @@ export function wiring() {
 }
 
 /** A JSON-lines file's lines, or none. */
-const lines = (f) => (existsSync(f) ? readFileSync(f, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)) : []);
+export const lines = (f) => (existsSync(f) ? readFileSync(f, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)) : []);
 
 /**
  * The last state on disk, for /bridge/state while no box is connected: the latest run's snapshot, each command updated
  * by its last poll. { host, run, at, commands: { [cmd]: { at, data } | { at, error } | { at, raw } } }, times in ms;
  * raw for a command with no template, or whose poll failed to parse. Null with no runs. A run whose snapshot was cut
  * short (meta.json's `snapshot.done` < `of`: the session closed, or a prerequisite failed) is skipped, so it never hides
- * the whole run before it. `name` picks a run instead of the latest, whole or not.
+ * the whole run before it. A fast snapshot has only what changes, so it goes over the last full one and the fast ones
+ * since. `name` picks a run instead of the latest, whole or not.
  */
 export function latest(name) {
   const metas = (existsSync(RUNS_DIR) ? readdirSync(RUNS_DIR) : [])
     .filter((r) => (!name || r === name) && existsSync(join(RUNS_DIR, r, 'meta.json')))
     .map((r) => ({ ...JSON.parse(readFileSync(join(RUNS_DIR, r, 'meta.json'), 'utf8')), run: r })) // a folder renamed by hand keeps its old name in meta.json
-    .filter((m) => name || !m.snapshot || m.snapshot.done === m.snapshot.of);
-  const meta = metas.sort((a, b) => Date.parse(a.ended) - Date.parse(b.ended)).at(-1);
-  if (!meta) return null;
-  const dir = join(RUNS_DIR, meta.run);
+    .filter((m) => name || !m.snapshot || m.snapshot.done === m.snapshot.of)
+    .sort((a, b) => Date.parse(a.ended) - Date.parse(b.ended));
+  if (!metas.length) return null;
   const commands = {};
-  for (const { cmd, at, file } of lines(join(dir, 'raw', 'index.jsonl'))) {
-    const t = Date.parse(at ?? meta.ended); // a hand capture has no per-command times
-    const parsed = join(dir, 'parsed', file.replace(/\.txt$/, '.json'));
-    if (!existsSync(parsed)) commands[cmd] = { at: t, raw: readFileSync(join(dir, 'raw', file), 'utf8') };
-    else {
-      const data = JSON.parse(readFileSync(parsed, 'utf8'));
-      commands[cmd] = Object.keys(data).join() === 'error' ? { at: t, error: data.error } : { at: t, data };
+  for (const meta of metas.slice(Math.max(0, metas.findLastIndex((m) => !m.snapshot?.fast)))) {
+    const dir = join(RUNS_DIR, meta.run);
+    for (const { cmd, at, file } of lines(join(dir, 'raw', 'index.jsonl'))) {
+      const t = Date.parse(at ?? meta.ended); // a hand capture has no per-command times
+      const parsed = join(dir, 'parsed', file.replace(/\.txt$/, '.json'));
+      if (!existsSync(parsed)) commands[cmd] = { at: t, raw: readFileSync(join(dir, 'raw', file), 'utf8') };
+      else {
+        const data = JSON.parse(readFileSync(parsed, 'utf8'));
+        commands[cmd] = Object.keys(data).join() === 'error' ? { at: t, error: data.error } : { at: t, data };
+      }
+    }
+    for (const { at, cmd, data, error, raw } of lines(join(dir, 'poll.jsonl'))) {
+      commands[cmd] = { at: Date.parse(at), ...(raw !== undefined ? { raw } : error ? { error } : { data }) };
     }
   }
-  for (const { at, cmd, data, error, raw } of lines(join(dir, 'poll.jsonl'))) {
-    commands[cmd] = { at: Date.parse(at), ...(raw !== undefined ? { raw } : error ? { error } : { data }) };
-  }
+  const meta = metas.at(-1);
   return { host: meta.host, run: meta.run, at: Date.parse(meta.ended), commands };
 }
 

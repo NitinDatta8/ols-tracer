@@ -108,7 +108,7 @@ Filled in by the recorder from the prerequisites and the identity commands:
 ```
 
 - `boxClockOffsetSec` is the box clock minus the Mac clock. It lines alarm timestamps up with the pull times.
-- `snapshot` is how many of `poll.json`'s commands the snapshot ran. `done` < `of` means it was cut short (the session closed, or a prerequisite failed), and the last state on disk skips that run. Runs before 2026-11-01 20:40 have no `snapshot`; the cut-short `20261101-202617-connect` got it by hand.
+- `snapshot` is how many of `poll.json`'s commands the snapshot ran. `done` < `of` means it was cut short (the session closed, or a prerequisite failed), and the last state on disk skips that run. Runs before 2026-11-01 20:40 have no `snapshot`. `fast: true` marks a snapshot of only the polled and `fast` commands, taken on an alarm change or a pull since 2026-11-04; the last state lays it over the last full one.
 - `state` stays `unknown` until a run is labelled (`healthy`, `fault`, `restored`).
 
 ### Run 1
@@ -140,14 +140,14 @@ The commands are the real ones from run 1. **Snapshot** commands run in every sn
 | Dark and empty | `show och 1-7-1`, `show och 1-8-1` (provisioned, no optics), `show transceiver 1-8-1` (no transceiver), `show eth 1-8-4` | snapshot |
 | Line-side client | `show eth 1-7-5-4` (the cross-connect's far end) | snapshot |
 | Thresholds | `show profile-threshold` (`show pm threshold` is invalid; this is the index's other threshold command) | snapshot |
-| Config history | `show log configuration -l 50` | snapshot |
+| Config history | `show log configuration -l 200` | snapshot |
 | L0, read-only (2026-11-01) | `show optical-port`, `show amplifier`, `show osc`, `show external-connection`, `show internal-connection`; raw only until they have templates, nothing modelled | snapshot |
-| L0 ends of F03–F05 | `show optical-port 1-1-ad1`, `show optical-port 1-1-line` | every 10 s |
+| L0 ends of F03–F05 | `show optical-port`, every port (one port's form until 2026-11-04: AD1, then AD11, and LINE) | every 10 s |
 | Client optics | `show transceiver 1-7-4`, `show transceiver 1-7-4 physical-channel 1` to `4` | every 10 s |
 | Client | `show eth 1-7-4` | every 30 s |
 | Line optics | `show transceiver 1-7-5`, `show och 1-7-5` | every 10 s |
 | Alarms | `show alarm` (its changes trigger snapshots) | every 10 s |
-| Alarm history | `show log alarm -l 20` (`-l 200` in snapshots) | every 30 s |
+| Alarm history | `show log alarm -l 50` (`-l 200` in snapshots; `-l 20` until 2026-11-04) | every 30 s |
 | Events | `show log event -l 200` | snapshot |
 
 - The per-port commands are hard-coded to 1-7-4 and 1-7-5 for box 3. Later the poller takes the in-service ports from `show port` and `show assignment`.

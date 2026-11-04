@@ -9,9 +9,11 @@
 // Login settings come from bridge/.env (see .env.example). Listens on localhost only.
 import { existsSync, readFileSync } from 'node:fs';
 import { createServer } from 'node:http';
+import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import ssh2 from 'ssh2';
 import { WebSocketServer } from 'ws';
+import { record } from './history.mjs';
 import { latest, PYTHON, Run, wiring } from './recorder.mjs';
 import { Screen } from './typed.mjs';
 
@@ -23,12 +25,19 @@ const INIT = (env.BOX_INIT ?? '').split(';').map((c) => c.trim()).filter(Boolean
 const LOG = 256 * 1024;
 const here = (p) => fileURLToPath(new URL(p, import.meta.url));
 /**
- * What the poller runs (poll.json): `prereqs` once per session before anything else, then `commands`, [{ cmd, every }].
- * Each snapshot runs every command once; those with `every` > 0 are also polled that often, in s.
+ * What the poller runs (poll.json): `prereqs` once per session before anything else, then `commands`,
+ * [{ cmd, every, fast }]. The snapshot when the session opens runs every command once; those with `every` > 0 are also
+ * polled that often, in s. The snapshot on an alarm change or a pull runs only those and the `fast` ones: what changes,
+ * in seconds rather than a minute or more.
  */
 const { prereqs: PREREQS = [], commands: POLLS = [] } = existsSync(here('poll.json')) ? JSON.parse(readFileSync(here('poll.json'), 'utf8')) : {};
 /** The template of `show alarm`, whose result changing starts a new snapshot. */
 const ALARMS = 'cli_shortcut_cmds_platform__alarm__show__alarm';
+/**
+ * Alarms that come and go with the light's ripple, so they never start a snapshot: threshold warnings (box 3's AD11
+ * input sits on its 3 dBm one) and a WSS attenuation at its limit. A fault raises a LOS or a failure with them.
+ */
+const FLAPS = /_WARNING$|^REACH_MAX_ATT/;
 /** The box's prompt: a regex the last line of output matches once a command is done. */
 const PROMPT = new RegExp(env.BOX_PROMPT ?? '[#>$] ?$');
 /** How long the poller waits for a command's prompt before it sends Ctrl-C, in ms. */
@@ -161,24 +170,27 @@ async function poll(c, ch) {
     if (c === conn) polled[cmd] = { at, raw, ...(ok ? (error ? { error } : { data }) : { error: `no prompt within ${TIMEOUT / 1000} s` }) };
     // A typed `show alarm` doesn't move the alarms the polls compare against, so it never hides a change from them.
     if (template !== ALARMS || !data || source === 'typed') return;
-    const ids = Object.keys(data.alarms ?? {}).sort().join(' ');
+    const ids = Object.entries(data.alarms ?? {}).filter(([, a]) => !FLAPS.test(a['alarm-abbreviate'])).map(([id]) => id).sort().join(' ');
     if (source === 'poll' && alarms !== undefined && ids !== alarms) changed = true;
     alarms = ids;
   };
   /**
-   * A new run: the prerequisites if the session just opened, then every command once. A `pull` run gets the marked
-   * strand's answer.json first. False if a prerequisite failed.
+   * A new run: the prerequisites and every command once if the session just opened, else the fast ones. A `pull` run
+   * gets the marked strand's answer.json first. Then the box's history takes in its logs. False if a prerequisite failed.
    */
   const snapshot = async (trigger, mark) => {
     run = new Run(trigger, host);
-    const p = (run.meta.snapshot = { done: 0, of: POLLS.length }); // saved with each command, so a cut-short run says so
+    const full = trigger === 'connect';
+    const cmds = full ? POLLS : POLLS.filter((p) => p.every > 0 || p.fast);
+    const p = (run.meta.snapshot = { done: 0, of: cmds.length, ...(full ? {} : { fast: true }) }); // saved with each command, so a cut-short run says so
     if (mark) run.answer(mark, mark.at);
-    for (const cmd of trigger === 'connect' ? PREREQS : []) if (live()) await take(cmd, 'prereq');
+    for (const cmd of full ? PREREQS : []) if (live()) await take(cmd, 'prereq');
     if (run.meta.prereqs.some((p) => !p.ok)) return false;
     if (c === conn) taking = p;
-    for (const { cmd } of POLLS) if (live()) { await take(cmd, 'snapshot'); p.done++; }
+    for (const { cmd } of cmds) if (live()) { await take(cmd, 'snapshot'); p.done++; }
     run.save();
     if (taking === p) taking = null;
+    record(dirname(dirname(run.dir)));
     console.log(`recorded ${run.dir}`);
     return true;
   };

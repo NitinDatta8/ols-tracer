@@ -106,7 +106,7 @@
       "session-id": 1,
       "user-ip": "10.111.12.184",
       "type": "set",
-      "details": "set media-channel 1 line-port port-1-1-line add-drop-port port-1-1-ad1\nadmin-state in-service center-frequency 193500000 bandwidth 100000"
+      "details": "set media-channel 1 line-port port-1-1-line add-drop-port port-1-1-ad1 admin-state in-service center-frequency 193500000 bandwidth 100000"
     },
     {
       "time-stamp": "2021-07-25T19:22:00+00:00",
@@ -142,7 +142,7 @@
       "session-id": 1,
       "user-ip": "10.111.12.184",
       "type": "set",
-      "details": "set cross-connection CC5_4 source-entity 100GE-1-7-5-4 destination-ent\nity 100GE-1-7-4"
+      "details": "set cross-connection CC5_4 source-entity 100GE-1-7-5-4 destination-entity 100GE-1-7-4"
     },
     {
       "time-stamp": "2021-07-25T19:04:23+00:00",

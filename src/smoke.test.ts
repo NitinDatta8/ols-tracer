@@ -251,6 +251,17 @@ describe('light on box 3 with the fibers on AD11', async () => {
     expect(light(los, t, f03)!.dark).toBe(true);
     expect(light(los, t, f04)!.dark).toBe(false);
   });
+
+  it('shows no dBm on 1-7-5 while it reads 0 everywhere, as after a reboot', () => {
+    const zero = (cmd: string) => {
+      const { stats } = s.commands[cmd].data.state;
+      const zeroed = Object.fromEntries(Object.entries(stats).map(([k, v]: [string, any]) => [k, { ...v, instant: 0, avg: 0, min: 0, max: 0 }]));
+      return { at: 0, data: { ...s.commands[cmd].data, state: { ...s.commands[cmd].data.state, stats: zeroed } } };
+    };
+    const rebooted: BoxState = { ...s, commands: { ...s.commands, 'show och 1-7-5': zero('show och 1-7-5'), 'show transceiver 1-7-5': zero('show transceiver 1-7-5') } };
+    expect(light(rebooted, t, f03)!.tx).toBeUndefined();
+    expect(light(rebooted, t, f04)!.rx).toBeUndefined();
+  });
 });
 
 describe('connect draws box 3', async () => {

@@ -259,7 +259,7 @@
       "session-id": 38,
       "user-ip": "10.111.12.184",
       "type": "set",
-      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad1\n1 admin-state in-service center-frequency 193500000 bandwidth 100000"
+      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad11 admin-state in-service center-frequency 193500000 bandwidth 100000"
     },
     {
       "time-stamp": "2021-07-28T20:46:58+00:00",
@@ -277,7 +277,7 @@
       "session-id": 38,
       "user-ip": "10.111.12.184",
       "type": "set",
-      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad1\n0 admin-state in-service center-frequency 193500000 bandwidth 100000"
+      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad10 admin-state in-service center-frequency 193500000 bandwidth 100000"
     },
     {
       "time-stamp": "2021-07-28T20:46:35+00:00",
@@ -295,7 +295,7 @@
       "session-id": 38,
       "user-ip": "10.111.12.184",
       "type": "set",
-      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad9\nadmin-state in-service center-frequency 193500000 bandwidth 100000"
+      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad9 admin-state in-service center-frequency 193500000 bandwidth 100000"
     },
     {
       "time-stamp": "2021-07-28T20:46:17+00:00",
@@ -313,7 +313,7 @@
       "session-id": 38,
       "user-ip": "10.111.12.184",
       "type": "set",
-      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad9\nadmin-state in-service center-frequency 193500000 bandwidth 100000"
+      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad9 admin-state in-service center-frequency 193500000 bandwidth 100000"
     },
     {
       "time-stamp": "2021-07-28T20:45:39+00:00",
@@ -331,7 +331,7 @@
       "session-id": 38,
       "user-ip": "10.111.12.184",
       "type": "set",
-      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad8\nadmin-state in-service center-frequency 193500000 bandwidth 100000"
+      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad8 admin-state in-service center-frequency 193500000 bandwidth 100000"
     },
     {
       "time-stamp": "2021-07-28T20:45:08+00:00",
@@ -349,7 +349,7 @@
       "session-id": 38,
       "user-ip": "10.111.12.184",
       "type": "set",
-      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad7\nadmin-state in-service center-frequency 193500000 bandwidth 100000"
+      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad7 admin-state in-service center-frequency 193500000 bandwidth 100000"
     },
     {
       "time-stamp": "2021-07-28T20:44:40+00:00",
@@ -367,7 +367,7 @@
       "session-id": 38,
       "user-ip": "10.111.12.184",
       "type": "set",
-      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad6\nadmin-state in-service center-frequency 193500000 bandwidth 100000"
+      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad6 admin-state in-service center-frequency 193500000 bandwidth 100000"
     },
     {
       "time-stamp": "2021-07-28T20:44:00+00:00",
@@ -385,7 +385,7 @@
       "session-id": 38,
       "user-ip": "10.111.12.184",
       "type": "set",
-      "details": "set media-channel 5 line-port port-1-1-line add-drop-port port-1-1-ad5\nadmin-state in-service center-frequency 193500000 bandwidth 100000"
+      "details": "set media-channel 5 line-port port-1-1-line add-drop-port port-1-1-ad5 admin-state in-service center-frequency 193500000 bandwidth 100000"
     },
     {
       "time-stamp": "2021-07-28T20:43:29+00:00",
@@ -403,7 +403,7 @@
       "session-id": 41,
       "user-ip": "10.111.0.43",
       "type": "set",
-      "details": "set media-channel 4 line-port port-1-1-line add-drop-port port-1-1-ad4\nadmin-state in-service center-frequency 193500000 bandwidth 100000"
+      "details": "set media-channel 4 line-port port-1-1-line add-drop-port port-1-1-ad4 admin-state in-service center-frequency 193500000 bandwidth 100000"
     },
     {
       "time-stamp": "2021-07-28T20:42:01+00:00",
@@ -439,7 +439,7 @@
       "session-id": 39,
       "user-ip": "10.111.0.43",
       "type": "set",
-      "details": "set media-channel 3 line-port port-1-1-line add-drop-port port-1-1-ad3\nadmin-state in-service center-frequency 193500000 bandwidth 100000"
+      "details": "set media-channel 3 line-port port-1-1-line add-drop-port port-1-1-ad3 admin-state in-service center-frequency 193500000 bandwidth 100000"
     },
     {
       "time-stamp": "2021-07-28T20:40:23+00:00",

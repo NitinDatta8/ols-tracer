@@ -1,9 +1,29 @@
 <!--
 show log configuration -l <n>: the commands run on the box (set, delete, rpc), newest first, by user and session. A
-command too long for its column wraps onto an indented line. The box cuts it at the column's width, mid-word or at a
-space, and the two look the same, so the pieces keep the break as a newline instead of guessing.
+command too long for its column (70 characters) carries on in the next row. A piece that starts in the details column
+was cut mid-word, and one that starts a character later was cut at a space, so `rejoin` puts each command back whole
+before the rows are read: `…add-drop-port port-1-1-ad1` + `1 admin-state …` is port-1-1-ad11.
 -->
+<macro>
+def rejoin(data):
+    lines = data.split("\n")
+    head = next((l for l in lines if l.startswith("time-stamp") and " details" in l), None)
+    if head is None:
+        return data
+    col = head.index(" details") + 1
+    out = []
+    for line in lines:
+        if out and line.strip() and not line[:col].strip():
+            out[-1] = out[-1].rstrip() + (" " if line[col:col + 1] == " " else "") + line.strip()
+        else:
+            out.append(line)
+    return "\n".join(out)
+</macro>
+
+<input load="python">
+functions = "macro('rejoin')"
+</input>
+
 <group name="entries*">
-{{ time-stamp | re("\\d+-\\d+-\\d+T\\S+") | _start_ }}  {{ nbi }}  {{ user-name }}  {{ session-id | to_int }}  {{ user-ip }}  {{ type | re("[a-z]+") }}  {{ details | ORPHRASE | joinmatches }}
- {{ details | re(" *\\S+(?: \\S+)*") | strip | joinmatches }}
+{{ time-stamp | re("\\d+-\\d+-\\d+T\\S+") | _start_ }}  {{ nbi }}  {{ user-name }}  {{ session-id | to_int }}  {{ user-ip }}  {{ type | re("[a-z]+") }}  {{ details | ORPHRASE }}
 </group>

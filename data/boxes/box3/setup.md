@@ -24,6 +24,7 @@ What the CLI can't tell. The fiber map is in [wiring.csv](wiring.csv); the rest 
 
 - Vendor and model: ?
 - Test interface and ports used: 100GE, one port (P1), straight into 1-7-4
+- Running during the runs (2026-11-04). `show eth 1-7-4`'s packet counters don't move with it, so they don't count its traffic
 - Pattern, duration and pass criterion: ?
 - Remote control: ?
 
