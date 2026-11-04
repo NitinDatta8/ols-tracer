@@ -24,8 +24,8 @@
     }
   ],
   "links": [
-    { "id": "F03", "type": "smf", "a": { "device": "d1", "slot": "7", "port": "PORT5" }, "b": { "device": "d1", "slot": "1", "port": "AD1" } },
-    { "id": "F04", "type": "smf", "a": { "device": "d1", "slot": "1", "port": "AD1" }, "b": { "device": "d1", "slot": "7", "port": "PORT5" } },
+    { "id": "F03", "type": "smf", "a": { "device": "d1", "slot": "7", "port": "PORT5" }, "b": { "device": "d1", "slot": "1", "port": "AD11" } },
+    { "id": "F04", "type": "smf", "a": { "device": "d1", "slot": "1", "port": "AD11" }, "b": { "device": "d1", "slot": "7", "port": "PORT5" } },
     { "id": "F05", "type": "smf", "a": { "device": "d1", "slot": "1", "port": "LINE" }, "b": { "device": "d1", "slot": "1", "port": "LINE" } }
   ]
 }

@@ -218,7 +218,7 @@ export function Canvas() {
     const boxOf = (l: Link) => { const s = stateFor(live, byId(t.devices, l.a.device)); return s && stateFor(s, byId(t.devices, l.b.device)); };
     const dBm = (v?: number) => v?.toFixed(2) ?? '?';
     return edgesFor(t, cat, view, selected, (l) => {
-      const lit = light(boxOf(l), t, l);
+      const lit = light(boxOf(l), t, l, cat);
       return {
         ...(lit && view !== 'L1' && (lit.tx ?? lit.rx) !== undefined ? { label: `${dBm(lit.tx)} → ${dBm(lit.rx)} dBm` } : {}),
         light: lit && { ...lit, tx: undefined, rx: undefined },

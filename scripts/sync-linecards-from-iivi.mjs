@@ -98,6 +98,17 @@ const PORT_FIXES = {
   },
 };
 
+/**
+ * Parts box 3 runs that the profiles don't list, by stream. The CSP l1 profile dropped the -1Y, and without it PORT5's
+ * fix above names a part the stream doesn't have, so box 3's DCO and the fibers on it can't be drawn.
+ */
+const PLUGGABLE_FIXES = {
+  csp: [{
+    id: 'ftcd3323r1pcl-1y', name: 'FTCD3323R1PCL-1Y', part: 'FTCD3323R1PCL-1Y', formFactor: 'QSFPDD', speed: '400G', fiber: 'SMF', dco: true,
+    about: "Box 3 runs it in 1-7-5; the profile's supported-part-no no longer lists it.",
+  }],
+};
+
 const cleanBehavior = (behavior) => {
   const out = {};
   if (behavior.showsInL1 !== undefined) out.showsInL1 = !!behavior.showsInL1;
@@ -908,7 +919,8 @@ for (const stream of streamIds) {
   const vendorTypes = (vendorModules.key ?? []).filter((vendorType) => typeof vendorType === 'string');
   if (!vendorTypes.length) throw new Error(`No LINECARD vendor types in ${chassisPath}`);
 
-  const pluggables = parseSupportedPluggables(streamL1Path);
+  const synced = parseSupportedPluggables(streamL1Path);
+  const pluggables = [...synced, ...(PLUGGABLE_FIXES[stream.toLowerCase()] ?? []).filter((fix) => !synced.some((p) => p.id === fix.id))];
   const l1ServiceTypesByCard = options.strict ? parseSupportedServiceTypesByCard(streamL1Path) : new Map();
   const l0Data = loadL0ProfileData(stream);
 

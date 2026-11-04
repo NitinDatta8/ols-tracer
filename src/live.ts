@@ -1,6 +1,8 @@
 // The box's light on the fibers, from what the CLI bridge read (GET /bridge/state, bridge/server.mjs): the poller's
 // results while a box is connected, else the last run on disk. Never saved in the .olst.json, like the alarms.
 import { byId, cliAddress, linecardFor } from './catalog';
+import { alarmsAt, portPower, verdictAt, worst, type Verdict } from './l0';
+import { resolve } from './rules';
 import type { Catalog, Device, End, Link, SlotState, Topology } from './types';
 
 /** One command's latest result: its TTP parse, its parse error, or its output when it has no template. Times in ms. */
@@ -9,8 +11,11 @@ export interface Result { at: number; data?: any; error?: string; raw?: string }
 /** What /bridge/state answers: `live` while connected to `host`, else the last run recorded from it. */
 export interface BoxState { live: boolean; host?: string; run?: string | null; at?: number; commands: Record<string, Result> }
 
-/** A strand as the box sees it: dark or not, the dBm where it leaves (tx) and lands (rx), and the rest as notes. */
-export interface Light { dark: boolean; tx?: number; rx?: number; notes: string[] }
+/**
+ * A strand as the box sees it: dark or not, the dBm where it leaves (tx) and lands (rx), the worse of those two against
+ * their thresholds (`heat`, none within them), and the rest as notes.
+ */
+export interface Light { dark: boolean; tx?: number; rx?: number; heat?: Verdict | null; notes: string[] }
 
 /** The box state, if it is this device's box. */
 export const stateFor = (s: BoxState | null, d?: Device) => (s && d?.host && s.host === d.host ? s : null);
@@ -22,43 +27,35 @@ const dBm = (v: number) => `${v.toFixed(2)} dBm`;
 /** The box's flag on an L0 port's reading, as it prints it: ", flag C". */
 const flag = (p?: { flag?: string }) => (p?.flag ? `, flag ${p.flag}` : '');
 
-/** The active alarms on an address. A resource names it last: "port 1-1-ad1", "och 1-7-5", "flexgo-1-7-5". */
-const alarmsAt = (s: BoxState, at: string) =>
-  Object.values<{ resource?: string; severity: string; 'alarm-abbreviate': string; text: string }>(s.commands['show alarm']?.data?.alarms ?? {})
-    .filter((a) => a.resource?.match(/(\d+-\d+(?:-\w+)?)$/)?.[1] === at);
-
 /** A transceiver's lanes, from `show transceiver <at> physical-channel <n>`: their `key` power, or none. */
 const lanes = (s: BoxState, at: string, key: string) =>
   Array.from({ length: 8 }, (_, i) => stats(s, `show transceiver ${at} physical-channel ${i + 1}`)[key]?.instant)
     .filter((v): v is number => v !== undefined);
 
-/** An L0 port's total power one way, from `show optical-port <at>` or its list form: { dBm, flag }, or none. */
-function l0(s: BoxState, at: string, dir: 'in' | 'out') {
-  const port = (cmd: string) => s.commands[cmd]?.data?.state?.ports?.[`port-${at}`]?.[dir];
-  const p: { 'optical-power'?: number; flag?: string } | undefined = port(`show optical-port ${at}`) ?? port('show optical-port');
-  return p?.['optical-power'] === undefined ? undefined : { dBm: p['optical-power'], flag: p.flag };
-}
-
 /**
  * The light on strand `l` (a's Tx → b's Rx), or null when the box says nothing about it. A line port's power comes
- * from its OCH, a client's from its transceiver, an L0 port's from `show optical-port`. Dark when a's laser is off or b
- * has a loss-of-signal or loss-of-frame alarm: the box's own judgement, no thresholds of ours.
+ * from its OCH, a client's from its transceiver, an L0 port's from `show optical-port`. Dark when a's laser is off, b
+ * has a loss-of-signal or loss-of-frame alarm, or either end reads no light: the box's own judgement. `cat` gives the
+ * catalog's thresholds for a port whose own the box hasn't shown.
  */
-export function light(s: BoxState | null, t: Topology, l: Link): Light | null {
+export function light(s: BoxState | null, t: Topology, l: Link, cat?: Catalog): Light | null {
   if (!s) return null;
   const [a, b] = [address(t, l.a), address(t, l.b)];
   const [ochA, ochB, plugA, plugB] = [stats(s, `show och ${a}`), stats(s, `show och ${b}`), stats(s, `show transceiver ${a}`), stats(s, `show transceiver ${b}`)];
-  const [l0a, l0b] = [l0(s, a, 'out'), l0(s, b, 'in')];
+  const [l0a, l0b] = [portPower(s, a, 'out'), portPower(s, b, 'in')];
   const tx = ochA['output-power']?.instant ?? plugA['output-power']?.instant ?? l0a?.dBm;
   const rx = ochB['total-input-power']?.instant ?? plugB['input-power']?.instant ?? l0b?.dBm;
   const alarms = alarmsAt(s, b);
   const laserOff = s.commands['show port']?.data?.state?.ports?.[a]?.laser === 'disabled' || s.commands[`show och ${a}`]?.data?.state?.laser === 'disabled';
-  const dark = laserOff || alarms.some((x) => /LOS|LOF/.test(x['alarm-abbreviate']));
+  const noLight = [tx === undefined && l0a?.dark ? a : null, rx === undefined && l0b?.dark ? b : null].filter(Boolean);
+  const dark = laserOff || !!noLight.length || alarms.some((x) => /LOS|LOF/.test(x['alarm-abbreviate']));
   if (tx === undefined && rx === undefined && !dark && !alarms.length) return null;
   const [txLanes, rxLanes] = [lanes(s, a, 'output-power'), lanes(s, b, 'input-power')];
+  const card = (e: End) => (cat ? resolve(t, cat, e).card : undefined);
+  const [txHeat, rxHeat] = [verdictAt(s, card(l.a), l.a.port, a, 'out', tx), verdictAt(s, card(l.b), l.b.port, b, 'in', rx)];
   const { osnr, 'q-margin': q, 'pre-fec-ber': ber } = ochB;
   return {
-    dark, tx, rx,
+    dark, tx, rx, heat: worst(txHeat, rxHeat),
     notes: [
       ...(tx !== undefined ? [`Tx ${a}: ${dBm(tx)}${txLanes.length > 1 ? ` (lanes ${txLanes.join(' / ')})` : ''}${flag(l0a)}`] : []),
       ...(rx !== undefined ? [`Rx ${b}: ${dBm(rx)}${rxLanes.length > 1 ? ` (lanes ${rxLanes.join(' / ')})` : ''}${flag(l0b)}`] : []),
@@ -66,7 +63,10 @@ export function light(s: BoxState | null, t: Topology, l: Link): Light | null {
       ...(osnr ? [`OSNR ${osnr.instant} dB`] : []),
       ...(q ? [`Q-margin ${q.instant} dB`] : []),
       ...(ber ? [`Pre-FEC BER ${ber.instant.toExponential(2).toUpperCase()}`] : []),
+      ...(txHeat ? [`Tx ${a}: ${txHeat.why}`] : []),
+      ...(rxHeat ? [`Rx ${b}: ${rxHeat.why}`] : []),
       ...(laserOff ? [`Laser off at ${a}`] : []),
+      ...noLight.map((at) => `No light at ${at}`),
       ...alarms.map((x) => `${x.severity} ${x['alarm-abbreviate']} at ${b}: ${x.text}`),
     ],
   };

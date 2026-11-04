@@ -145,7 +145,7 @@ const lines = (f) => (existsSync(f) ? readFileSync(f, 'utf8').split('\n').filter
 export function latest(name) {
   const metas = (existsSync(RUNS_DIR) ? readdirSync(RUNS_DIR) : [])
     .filter((r) => (!name || r === name) && existsSync(join(RUNS_DIR, r, 'meta.json')))
-    .map((r) => JSON.parse(readFileSync(join(RUNS_DIR, r, 'meta.json'), 'utf8')))
+    .map((r) => ({ ...JSON.parse(readFileSync(join(RUNS_DIR, r, 'meta.json'), 'utf8')), run: r })) // a folder renamed by hand keeps its old name in meta.json
     .filter((m) => name || !m.snapshot || m.snapshot.done === m.snapshot.of);
   const meta = metas.sort((a, b) => Date.parse(a.ended) - Date.parse(b.ended)).at(-1);
   if (!meta) return null;

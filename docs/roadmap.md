@@ -29,9 +29,10 @@ Box 3 in the lab passes BERT traffic end to end. The goal is won when:
 
 ## Iter 3: run the light
 
-- **Measured before predicted.** First show what the box reports: transceiver and physical-channel power, and OCH OSNR, CD, Q-margin and pre-FEC BER. Predicted light (GNPy) is parked, and L0 and the C cards stay opaque glass for now.
+- **Measured before predicted.** First show what the box reports: transceiver and physical-channel power, and OCH OSNR, CD, Q-margin and pre-FEC BER. Predicted light (GNPy) and L0 modelling are parked: a card's insides are shown from what the box reports, never worked out.
 - **Step 1:** hovering a fiber shows the measured values at its ends ([plan](plans/box3-capture.md#iter-3-step-1-measured-light-on-hover)).
-- **Then colour and size:** more power means a bigger red highlight over the yellow line. This needs thresholds, and `show pm threshold` is invalid on box 3's release.
+- **Then colour and size:** more power means a bigger red highlight over the yellow line, against the thresholds from `show profile-threshold` and the catalog. Done ([plan](plans/plan-2026-11-01.md#11-threshold-colours)).
+- **L0 cards from the inside:** their light path, stages and range checks, from the catalog's `l0` and what the box reports. Done here, one box run to go ([plan](plans/plan-2026-11-01.md#13-the-l0-catalog-in-use)).
 - **Real images** from Coherent presentations. The 9 photos in `public/pluggables/` are keyed by the old demo ids, so nothing has used them since the catalog moved to the IIVI profiles. Two of their parts (FTLC1154RDPL, FTCD3312M1BCL) are in the stream catalogs, so the photos could be keyed by part.
 
 ## Later

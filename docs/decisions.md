@@ -2,6 +2,15 @@
 
 The decisions that shape the tracer, newest first, each with where it was argued. A decision that was later replaced says what replaced it. Plans are in the [roadmap](roadmap.md).
 
+## 2026-11-04
+
+| Decision | Why | Source |
+| --- | --- | --- |
+| The catalog's L0 data is put to use, read-only: the light path through L0 cards, threshold colours, a card's insides, range checks. Still no L0 modelling and GNPy stays parked: a number shown is the box's, or the difference of two of the box's | Gain sums miss by about 1 dB at low input, and the WSS step needs the media channels, so a predicted power would be wrong | [Plan 2026-11-01](plans/plan-2026-11-01.md#13-the-l0-catalog-in-use) |
+| F03 and F04 run on AD11, not AD1 | The fibers moved on the box: runs of 2026-11-03 read light on AD11 and -99.99 on AD1 | [Box 3 setup](../data/boxes/box3/setup.md) |
+| `show media-channel` and `show ocm` join the capture (59 commands, 14 polled, with `show amplifier` now polled too). `show media-channel` is read raw by column name, with no TTP template, until a run has its real output; the active port falls back to the ports showing power | No run has its output, so a template would be a guess that fails silently. A media channel is what opens the WSS, and it holds the frequency and attenuation | [Plan 2026-11-01](plans/plan-2026-11-01.md#13-the-l0-catalog-in-use) |
+| A reading between a threshold's clear and declare levels takes the box's own alarm state. Limits come from the box's alarm thresholds, else the catalog, else the box's 15-minute TCAs, which are at most a warning | AD1 at 2.81 and AD11 at 2.61 kept an alarm declared at 3, because it clears at 2.5 | [Plan 2026-11-01](plans/plan-2026-11-01.md#11-threshold-colours) |
+
 ## 2026-11-01
 
 | Decision | Why | Source |

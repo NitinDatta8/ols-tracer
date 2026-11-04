@@ -2,6 +2,8 @@ import { ReactFlowProvider } from '@xyflow/react';
 import { useMemo, useState } from 'react';
 import { CHASSIS_MIME, Canvas, ChassisIcon } from './Canvas';
 import { byId, catalogFor, streams } from './catalog';
+import { l0Problems } from './l0';
+import { stateFor } from './live';
 import { PhysicalView } from './PhysicalView';
 import { path, sameEnd, validate } from './rules';
 import { useCatalog, useStore } from './store';
@@ -121,10 +123,15 @@ function Inspector() {
   );
 }
 
-/** Live re-validation, so problems in an opened file are listed. */
+/** Live re-validation, so problems in an opened file are listed, with what a box has set outside the catalog. */
 function Problems() {
   const t = useStore((s) => s.topology);
-  const problems = useMemo(() => (t ? validate(t, catalogFor(t.stream)) : []), [t]);
+  const live = useStore((s) => s.live);
+  const problems = useMemo(() => {
+    if (!t) return [];
+    const cat = catalogFor(t.stream);
+    return [...validate(t, cat), ...t.devices.flatMap((d) => { const s = stateFor(live, d); return s ? l0Problems(t, cat, s, d) : []; })];
+  }, [t, live]);
   if (!problems.length) return null;
   return (
     <section className="panel problems">

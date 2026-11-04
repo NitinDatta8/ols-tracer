@@ -65,6 +65,8 @@ export function Pipe({ id: key, route, tip, width: w, reverse, light, room, sele
       <title>{[tip, ...(light?.notes ?? [])].join('\n')}</title>
       <path className="pipe" d={route.d} strokeWidth={w + 3} />
       <path className="pipe-fill" d={route.d} strokeWidth={w} />
+      {/* Past a threshold, a highlight over the yellow: red for too much light, blue for too little, wider the further past. */}
+      {light?.heat && !light.dark && <path className={`pipe-heat ${light.heat.side}`} d={route.d} strokeWidth={w * (0.3 + 0.7 * light.heat.fill)} />}
       <defs><path id={`pipe-${id}`} d={reverse ? route.back : route.d} /></defs>
       {!light?.dark && <text className="flow" fontSize={w * 1.4}>
         {/* textLength pins each arrow to one step whatever the font, so the flow loops seamlessly. */}

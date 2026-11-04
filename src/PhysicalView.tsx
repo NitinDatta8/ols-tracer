@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type DragEvent, type MouseEvent } from 'react';
 import { byId, cli } from './catalog';
+import { Inside } from './Inside';
+import { inside as insideOf, l0Problems, pathsThrough, routesOf } from './l0';
 import { discover, light, stateFor, type BoxState } from './live';
 import { PipeLayer, type PipeEnds } from './Pipe';
 import { roleOf, toneOf } from './ports';
@@ -211,6 +213,7 @@ export function PhysicalView() {
   const [stage, fit] = useFit();
   const cat = useCatalog();
   const [cardSlot, setCardSlot] = useState<string | null>(null); // slot of the linecard being shown
+  const [inner, setInner] = useState(false); // an L0 card is shown from the inside, not its ports
   const [drag, setDrag] = useState<Drag | null>(null);
   const [tip, setTip] = useState<{ p: PluggableDef; x: number; y: number; up: boolean } | null>(null);
   const [detail, setDetail] = useState<Detail | null>(null); // datasheet in the side panel
@@ -256,7 +259,7 @@ export function PhysicalView() {
   }, [wire, detail, alarmsFor, cardSlot, setOpenDevice]);
 
   // The hovered element, and the level whose alarms were listed, are gone once the level or side changes.
-  useEffect(() => { setFocus(null); setWire(null); setAlarmsFor(null); setTip(null); }, [cardSlot, back]);
+  useEffect(() => { setFocus(null); setWire(null); setAlarmsFor(null); setTip(null); setInner(false); }, [cardSlot, back]);
 
   const device = byId(t.devices, openId ?? undefined);
   if (!device) return null;
@@ -268,7 +271,7 @@ export function PhysicalView() {
   const builtIn = card && !card.ports.some((p) => p.allowedPluggables.length); // a card with fixed ports only
   const command = (level: CliLevel, at?: At) => cli(cat, level, { chassis: device.chassisNo ?? 1, ...at });
   const boxState = stateFor(live, device);
-  const lightOf = (l: Link) => light(boxState, t, l);
+  const lightOf = (l: Link) => light(boxState, t, l, cat);
   const at = focus ?? (cardSlot ? { slot: cardSlot } : undefined);
   const strip = command(at?.port ? 'port' : at ? 'card' : 'chassis', at);
 
@@ -473,9 +476,19 @@ export function PhysicalView() {
               </>
             )}
           </label>
+          {routesOf(lc).length > 0 && (
+            <span className="seg" onClick={(e) => e.stopPropagation()}>
+              <button className={inner ? '' : 'on'} onClick={() => setInner(false)}>Ports</button>
+              <button className={inner ? 'on' : ''} onClick={() => setInner(true)}>Inside</button>
+            </span>
+          )}
           {alarmButton({ slot: slotId })}
           <span className="led" />
         </div>
+        {inner ? (
+          <Inside rows={insideOf(t, cat, boxState, device, slotId)} paths={pathsThrough(t, cat, boxState, device, slotId)} state={boxState}
+            problems={boxState ? l0Problems(t, cat, boxState, device) : []} />
+        ) : (
         <div className="cages port-grid" style={portGrid(lc, '280px', '200px')}>
           {lc.ports.map((p) => {
             const end = { device: device.id, slot: slotId, port: p.id };
@@ -506,15 +519,16 @@ export function PhysicalView() {
             );
           })}
         </div>
+        )}
         {/* Always there, so the card does not grow when it is fibered. */}
         <div className="terminals">
-          {fibers.map(({ link, far, reverse }) => far && (
+          {!inner && fibers.map(({ link, far, reverse }) => far && (
             <div key={link.id} className="terminal" data-pipe-box data-pipe-end={`far:${link.id}`} data-pipe-top title={path(t, far)}>
               {reverse ? `← ${farLabel(far)} Tx` : `→ ${farLabel(far)} Rx`}
             </div>
           ))}
         </div>
-        <PipeLayer view={`card:${device.id}/${slotId}`} spacing={{ margin: 10, lane: 18, hop: 9 }} width={14} ends={fibers} light={lightOf} />
+        {!inner && <PipeLayer view={`card:${device.id}/${slotId}`} spacing={{ margin: 10, lane: 18, hop: 9 }} width={14} ends={fibers} light={lightOf} />}
       </div>
     );
   };

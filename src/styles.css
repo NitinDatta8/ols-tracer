@@ -84,6 +84,10 @@ main { position: relative; min-height: 0; }
 /* The box's light: a dark fiber is grey with no arrows; the dBm it measures sit beside the ends. */
 .pipe-g.dark .pipe { stroke: #6b7280; }
 .pipe-g.dark .pipe-fill { stroke: #d1d5db; }
+/* Past a threshold: a highlight over the yellow, wider the further past. Red for too much light, blue for too little. */
+.pipe-heat { fill: none; stroke-linejoin: round; pointer-events: none; }
+.pipe-heat.high { stroke: #dc2626; }
+.pipe-heat.low { stroke: #2563eb; }
 .dbm { fill: #fef08a; font-family: var(--mono); font-weight: 600; pointer-events: none; paint-order: stroke; stroke: #111820; stroke-width: 3px; }
 .grip path { fill: none; stroke: transparent; pointer-events: stroke; }
 .grip rect { fill: #fff; stroke: var(--accent); stroke-width: 1.5; }
@@ -237,6 +241,39 @@ main { position: relative; min-height: 0; }
 .cage-head .remove { margin-left: auto; color: #fca5a5; cursor: pointer; }
 .lc { display: flex; gap: 4px; }
 .cage.wiring { border-color: var(--accent); box-shadow: 0 0 6px var(--accent); }
+
+/* Inside an L0 card: each way light goes through it, stage by stage. A way back runs right to left, under the way out. */
+.plate-label .seg button { padding: 2px 8px; font-size: 12px; }
+.plate-label .seg button:not(.on) { color: var(--text); }
+.inside { display: flex; flex-direction: column; justify-content: safe center; gap: 14px; min-height: 0; overflow: auto; padding: 4px; color: #e4e7eb; font-size: 12px; }
+.inside-path { margin: 0; color: #cbd2d9; font-family: var(--mono); font-size: 11px; line-height: 1.5; }
+.inside-path b { color: #fca5a5; }
+.inside-problem { margin: 0; color: #fca5a5; }
+.inside-row { display: flex; align-items: stretch; gap: 6px; }
+.inside-row.back { flex-direction: row-reverse; }
+.inside-arrow { flex: none; align-self: center; width: 20px; color: #facc15; font-size: 16px; text-align: center; }
+.inside-stage { flex: 1 1 0; display: flex; flex-direction: column; justify-content: center; gap: 4px; min-width: 0; padding: 6px 8px; background: #1f2933; border: 1px solid #52606d; border-radius: 6px; }
+.inside-stage.ports { border-top: 3px solid var(--l1); }
+.inside-stage.amp { border-top: 3px solid #facc15; }
+.inside-stage.wss { border-top: 3px solid var(--data); }
+.inside-stage.alarmed { border-color: #f59e0b; }
+.inside-stage h5 { margin: 0; font-size: 12px; }
+.inside-stage dl { display: grid; gap: 1px; margin: 0; }
+.inside-stage dl > div { display: flex; justify-content: space-between; gap: 8px; padding: 0 3px; border-radius: 2px; }
+.inside-stage dt { color: #9aa5b1; }
+.inside-stage dd { margin: 0; font-family: var(--mono); font-size: 11px; white-space: nowrap; }
+.inside-port { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 6px; padding: 2px 3px; border-radius: 2px; }
+.inside-port span { font-family: var(--mono); font-size: 11px; }
+.inside-port small, .inside-idle { color: #9aa5b1; }
+.inside-port.dark span { color: #9aa5b1; }
+.inside .warning { background: rgb(217 119 6 / 35%); }
+.inside .failure { background: rgb(220 38 38 / 45%); }
+.inside-alarm { color: #fbbf24; }
+@media (max-width: 760px) {
+  .inside-row, .inside-row.back { flex-direction: column; }
+  .inside-arrow { transform: rotate(90deg); }
+  .inside-row.back .inside-arrow { transform: rotate(-90deg); }
+}
 
 /* Physical view: fibers as pipes over the faceplate, and the far-end terminals under a card */
 .pipes { position: absolute; inset: 0; z-index: 1; overflow: visible; pointer-events: none; }
