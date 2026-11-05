@@ -14,7 +14,7 @@ import { fileURLToPath } from 'node:url';
 import ssh2 from 'ssh2';
 import { WebSocketServer } from 'ws';
 import { record } from './history.mjs';
-import { latest, PYTHON, Run, wiring } from './recorder.mjs';
+import { boxOf, ensureWiring, latest, PYTHON, Run } from './recorder.mjs';
 import { Screen } from './typed.mjs';
 
 const env = process.env;
@@ -228,6 +228,16 @@ const body = async (req) => {
   return s.trim();
 };
 
+const hostnameOf = (commands = {}) => commands['show system']?.raw?.match(/^hostname\s+(\S+)/m)?.[1]
+  ?? commands['show system']?.data?.state?.hostname
+  ?? commands['show system']?.data?.config?.hostname;
+
+/** The box's strands: from wiring.csv, refreshed from command output while connected. */
+const strands = (commands = {}, refresh = false) => {
+  const hostname = hostnameOf(commands);
+  return hostname ? ensureWiring(commands, boxOf(hostname), { refresh }) : ensureWiring(commands, undefined, { refresh });
+};
+
 const LOCAL = /^(localhost|127\.0\.0\.1)(:\d+)?$/;
 
 const server = createServer(async (req, res) => {
@@ -261,14 +271,14 @@ const server = createServer(async (req, res) => {
   // The box's strands (wiring.csv), to mark one as pulled.
   if (req.url === '/wiring') {
     res.setHeader('content-type', 'application/json');
-    return res.end(JSON.stringify(wiring()));
+    return res.end(JSON.stringify(state === 'connected' ? strands(polled, true) : strands(latest()?.commands ?? {})));
   }
   // A strand pulled on the box, by its wiring.csv name: recorded in a snapshot of its own, with its answer.json.
   if (req.url === '/pull' && req.method === 'POST') {
     const id = await body(req);
-    const strand = wiring().find((s) => s.strand === id);
-    if (!strand) return res.writeHead(400).end('A strand from wiring.csv\n');
     if (state !== 'connected' || !POLLS.length) return res.writeHead(409).end('Connect to the box first: a pull is recorded in a snapshot\n');
+    const strand = strands(polled).find((s) => s.strand === id);
+    if (!strand) return res.writeHead(400).end('A strand from wiring.csv\n');
     marks.push({ ...strand, at: Date.now() });
     return res.end();
   }

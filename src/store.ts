@@ -126,10 +126,26 @@ export const useStore = create<State>()(
         if (s.openDevice === id) s.openDevice = null;
       }),
 
-      // A device with no cards, drawn as the box has it (discover in live.ts) with its fibers (wired in rules.ts); one with cards is left alone.
+      // Syncs one device from the box (discover in live.ts) with its inferred wiring (wired in rules.ts).
       fill: (device, slots, links = []) => set((s) => {
         const d = byId(s.topology!.devices, device);
-        if (d && !Object.keys(d.slots).length) { d.slots = slots; s.topology!.links.push(...links); }
+        if (!d) return;
+        d.slots = slots;
+        const cat = catalogFor(s.topology!.stream);
+        const alive = (at: End) => {
+          if (at.device !== device) return true;
+          const slot = d.slots[at.slot];
+          if (!slot) return false;
+          const card = byId(cat.linecards, slot.linecard);
+          const port = card?.ports.find((p) => p.id === at.port);
+          return !!(port && (!port.allowedPluggables.length || slot.ports[at.port]?.pluggable));
+        };
+        const wanted = new Set(links.map((l) => l.id));
+        s.topology!.links = s.topology!.links
+          .filter((l) => !(touches(l, { device }) && /^F\d+$/.test(l.id)))
+          .filter((l) => alive(l.a) && alive(l.b))
+          .filter((l) => !wanted.has(l.id));
+        s.topology!.links.push(...links);
       }),
 
       insertLinecard: (device, slot, linecard) => {

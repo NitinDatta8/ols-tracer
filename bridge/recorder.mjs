@@ -28,6 +28,9 @@ const COMMANDS = JSON.parse(readFileSync(join(REPO_ROOT, 'data', 'cli', 'csp', '
 const REJECTED = /invalid|error|problem parsing/i;
 
 const exec = promisify(execFile);
+const WIRING_COLUMNS = ['strand', 'from', 'to', 'via', 'length_km', 'loss_db', 'notes'];
+const DARK = -35;
+const LOCAL = /^\d+-\d+-[a-z0-9]+$/i;
 
 /** A time as local ISO 8601 with its offset, as meta.json has it: 2026-10-31T10:52:10-04:00. */
 export function iso(t) {
@@ -62,9 +65,166 @@ function keep(dir, file, { data, error }) {
 }
 
 /** The box a hostname belongs to: the one whose setup.md has it in a table cell, else a folder named after it. */
-const boxOf = (hostname) => (existsSync(BOXES) ? readdirSync(BOXES) : [])
+export const boxOf = (hostname) => (existsSync(BOXES) ? readdirSync(BOXES) : [])
   .find((b) => existsSync(join(BOXES, b, 'setup.md')) && readFileSync(join(BOXES, b, 'setup.md'), 'utf8').includes(`| ${hostname} |`))
   ?? hostname.toLowerCase();
+
+const rootOf = (box = current) => join(BOXES, box);
+const wiringFile = (box = current) => join(rootOf(box), 'wiring.csv');
+const clean = (text = '') => String(text).replace(/\r?\n/g, ' ').replace(/,/g, ';').trim();
+
+const readWiring = (box = current) => {
+  const f = wiringFile(box);
+  if (!existsSync(f)) return [];
+  const [head, ...rows] = readFileSync(f, 'utf8').split(/\r?\n/).filter((l) => l.trim());
+  const keys = head.split(',');
+  // The last column, notes, may hold commas.
+  return rows.map((r) => Object.fromEntries(keys.map((k, i, all) => [k, (i < all.length - 1 ? r.split(',')[i] : r.split(',').slice(i).join(',')) ?? ''])));
+};
+
+const writeWiring = (strands, box = current) => {
+  mkdirSync(rootOf(box), { recursive: true });
+  const csv = [
+    WIRING_COLUMNS.join(','),
+    ...strands.map((s) => WIRING_COLUMNS.map((k) => clean(s[k])).join(',')),
+  ].join('\n');
+  writeFileSync(wiringFile(box), `${csv}\n`);
+};
+
+const local = (at = '') => at.replace(/^port-/i, '').trim().toLowerCase();
+const hasLight = (v) => typeof v === 'number' && Number.isFinite(v) && v > DARK;
+
+/** Rows with source/destination ports from show internal/external-connection output (raw table). */
+function connectionsFrom(raw, cmd) {
+  if (!raw || /^\s*none\s*$/im.test(raw)) return [];
+  const found = [];
+  for (const line of raw.split(/\r?\n/).map((l) => l.trim()).filter(Boolean)) {
+    if (/^\[|^id\s|^-{2,}|^state\s|^config\s/i.test(line)) continue;
+    const ports = line.match(/port-[a-z0-9-]+/gi) ?? line.match(/\b\d+-\d+-[a-z0-9]+\b/gi);
+    if (!ports || ports.length < 2) continue;
+    const via = line.split(/\s+/)[0] ?? '';
+    found.push({ from: local(ports[0]), to: local(ports[1]), via, notes: `auto: ${cmd}` });
+  }
+  const seen = new Set();
+  return found.filter((f) => {
+    const key = `${f.from}->${f.to}|${f.via}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+const stat = (data, key) => {
+  const v = data?.state?.stats?.[key]?.instant;
+  return typeof v === 'number' && Number.isFinite(v) ? v : undefined;
+};
+
+/** Address -> { tx, rx } from parsed show commands. */
+function powers(commands) {
+  const map = new Map();
+  const set = (at, tx, rx) => {
+    if (!LOCAL.test(at)) return;
+    const got = map.get(at) ?? {};
+    if (tx !== undefined && got.tx === undefined) got.tx = tx;
+    if (rx !== undefined && got.rx === undefined) got.rx = rx;
+    map.set(at, got);
+  };
+  for (const [cmd, out] of Object.entries(commands ?? {})) {
+    const data = out?.data;
+    if (!data) continue;
+    const och = cmd.match(/^show och (\d+-\d+-\w+)$/i);
+    if (och) set(och[1].toLowerCase(), stat(data, 'output-power'), stat(data, 'total-input-power'));
+    const xcvr = cmd.match(/^show transceiver (\d+-\d+-\w+)$/i);
+    if (xcvr) set(xcvr[1].toLowerCase(), stat(data, 'output-power'), stat(data, 'input-power'));
+    if (cmd === 'show optical-port') {
+      for (const [id, port] of Object.entries(data?.state?.ports ?? {})) {
+        set(local(id), port?.out?.['optical-power'], port?.in?.['optical-power']);
+      }
+    }
+  }
+  return map;
+}
+
+/** Conservative fallback: pair Tx and Rx by unique nearest power levels, then keep only mutual matches. */
+function powerWires(commands) {
+  const p = powers(commands);
+  const tx = [...p.entries()].filter(([, v]) => hasLight(v.tx));
+  const rx = [...p.entries()].filter(([, v]) => hasLight(v.rx));
+  if (!tx.length || !rx.length) return [];
+
+  const candidates = tx.flatMap(([from, a]) => rx.map(([to, b]) => {
+    const loss = (a.tx ?? 0) - (b.rx ?? 0);
+    return { from, to, loss, score: Math.abs(loss) };
+  }).filter((c) => c.loss >= -25 && c.loss <= 70));
+
+  const best = (key) => {
+    const by = new Map();
+    for (const c of candidates) {
+      const id = c[key];
+      const list = by.get(id) ?? [];
+      list.push(c);
+      by.set(id, list);
+    }
+    const one = new Map();
+    for (const [id, list] of by.entries()) {
+      const sorted = list.sort((a, b) => a.score - b.score);
+      if (sorted[1] && sorted[1].score - sorted[0].score <= 1) continue; // ambiguous
+      one.set(id, sorted[0]);
+    }
+    return one;
+  };
+
+  const out = best('from');
+  const into = best('to');
+  const strands = [];
+  for (const c of out.values()) {
+    if (into.get(c.to)?.from !== c.from) continue;
+    strands.push({
+      from: c.from,
+      to: c.to,
+      via: 'power',
+      loss_db: c.loss.toFixed(2),
+      notes: 'auto: power fallback (low confidence)',
+    });
+  }
+  const seen = new Set();
+  return strands.filter((s) => {
+    const key = `${s.from}->${s.to}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+/** Strands inferred first from connection commands, else from power as a low-confidence fallback. */
+export function inferWiring(commands = {}) {
+  const byConnections = ['show internal-connection', 'show external-connection']
+    .flatMap((cmd) => connectionsFrom(commands[cmd]?.raw, cmd));
+  if (byConnections.length) return { source: 'connections', strands: byConnections };
+  const byPower = powerWires(commands);
+  return byPower.length ? { source: 'power', strands: byPower } : { source: 'none', strands: [] };
+}
+
+/** Existing wiring.csv, or one generated from command output; with `refresh`, rewrites it when inference changed. */
+export function ensureWiring(commands = {}, box = current, { refresh = false } = {}) {
+  const existing = readWiring(box);
+  if (existing.length && !refresh) return existing;
+  const { strands } = inferWiring(commands);
+  if (!strands.length) return existing.length ? existing : [];
+  const rows = strands.map((s, i) => ({
+    strand: `F${String(i + 1).padStart(2, '0')}`,
+    from: s.from,
+    to: s.to,
+    via: s.via ?? '',
+    length_km: '',
+    loss_db: s.loss_db ?? '',
+    notes: s.notes ?? '',
+  }));
+  const same = existing.length === rows.length && existing.every((row, i) => WIRING_COLUMNS.every((k) => (row[k] ?? '') === (rows[i][k] ?? '')));
+  if (same) return existing;
+  writeWiring(rows, box);
+  return rows;
+}
 
 /** A run folder, named after when its snapshot started and why: <YYYYMMDD-HHMMSS>-connect, -alarms or -pull. */
 export class Run {
@@ -155,13 +315,8 @@ export class Run {
 }
 
 /** The box's strands, from its wiring.csv: [{ strand, from, to, via, length_km, loss_db, notes }], or none. */
-export function wiring() {
-  const f = join(BOX_DATA_ROOT, 'wiring.csv');
-  if (!existsSync(f)) return [];
-  const [head, ...rows] = readFileSync(f, 'utf8').split(/\r?\n/).filter((l) => l.trim());
-  const keys = head.split(',');
-  // The last column, notes, may hold commas.
-  return rows.map((r) => Object.fromEntries(keys.map((k, i, all) => [k, (i < all.length - 1 ? r.split(',')[i] : r.split(',').slice(i).join(',')) ?? ''])));
+export function wiring(box = current) {
+  return readWiring(box);
 }
 
 /** A JSON-lines file's lines, or none. */

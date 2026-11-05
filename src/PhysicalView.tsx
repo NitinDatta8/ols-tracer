@@ -181,30 +181,41 @@ function useBox() {
   return [box, check] as const;
 }
 
-/** The box's light, fetched every 10 s while the view is open: live while connected, else the last run on disk. */
-function useLight() {
+/** The box's light, fetched while the view is open: fast while connected, else from the last run on disk. */
+function useLight(state: Box['state']) {
   useEffect(() => {
     const { setLive } = useStore.getState();
     const get = () => bridge('state').then((r) => r.json()).then(setLive, () => setLive(null));
     get();
-    const id = setInterval(get, 10000);
+    const id = setInterval(get, state === 'connected' ? 2000 : 10000);
     return () => clearInterval(id);
-  }, []);
+  }, [state]);
 }
 
 /** A strand of the box's fiber map (its wiring.csv, through the bridge), to mark as pulled. */
-interface BoxStrand { strand: string; from: string; to: string; via: string }
+interface BoxStrand { strand: string; from: string; to: string; via: string; notes?: string }
 
 /** The box's strands, fetched when the view opens and whenever the box's state changes: none while the bridge is down. */
 function useStrands(state: Box['state']) {
-  const [strands, setStrands] = useState<BoxStrand[]>([]);
-  useEffect(() => { bridge('wiring').then((r) => r.json()).then(setStrands, () => setStrands([])); }, [state]);
+  const [strands, setStrands] = useState<BoxStrand[] | null>(null);
+  useEffect(() => {
+    let gone = false;
+    if (state !== 'connected') setStrands(null);
+    const get = () => bridge('wiring').then((r) => r.json()).then((s) => { if (!gone) setStrands(s); }, () => { if (!gone) setStrands([]); });
+    get();
+    const id = state === 'connected' ? setInterval(get, 2000) : undefined;
+    return () => {
+      gone = true;
+      if (id) clearInterval(id);
+    };
+  }, [state]);
   return strands;
 }
 
 /** Where the light on the fibers comes from: the box now, its last run, or nowhere. */
 const lightLabel = (s: BoxState | null) => !s ? 'No light data for this box'
   : s.live ? 'Live' : `Last state · ${new Date(s.at ?? 0).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}`;
+const syncLabel = (at: number) => `Live sync · ${new Date(at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}`;
 
 export function PhysicalView() {
   const t = useStore((s) => s.topology)!;
@@ -222,27 +233,35 @@ export function PhysicalView() {
   const [back, setBack] = useState(false); // chassis seen from the back: PSUs and fans
   const [alarmsFor, setAlarmsFor] = useState<Where | null>(null); // level whose alarms the side panel lists
   const [box, checkBox] = useBox();
-  useLight();
+  useLight(box.state);
   const strands = useStrands(box.state);
+  const inferredPower = (strands ?? []).some((s) => /power fallback/i.test(s.notes ?? ''));
+  const [lastSyncAt, setLastSyncAt] = useState<number | null>(null);
   const [pulled, setPulled] = useState(''); // the strand picked to mark as pulled
   const keys = useRef<Keys>(null); // types into the CLI terminal
   const { setOpenDevice, updateDevice, insertLinecard, insertPluggable, remove, notify, connect, deleteLink, fill } = useStore.getState();
-  const drawn = useRef(false); // this session's box has been drawn, or found to have nothing to draw
+  const synced = useRef(''); // this session's last synced snapshot for the opened device
 
-  // Connect on a device with no cards draws them from the box, once its show card and show inventory have come in,
-  // with the fibers of its wiring.csv that run between its own ports.
+  // While connected, keeps the opened device in sync with what the box reports: cards, pluggables and wiring.
   useEffect(() => {
-    if (box.state !== 'connected') drawn.current = false;
+    if (box.state !== 'connected') {
+      synced.current = '';
+      setLastSyncAt(null);
+    }
     const d = byId(t.devices, openId ?? undefined);
     const s = stateFor(live, d);
-    if (!d || !s?.live || drawn.current || Object.keys(d.slots).length) return;
+    if (!d || !s?.live) return;
     const found = discover(cat, d, s);
-    if (!found) return;
-    drawn.current = true;
-    const { links, refused } = wired(cat, t, { ...d, slots: found.slots }, strands);
+    if (!found || !strands) return;
+    const signature = JSON.stringify({ device: d.id, slots: found.slots, strands });
+    if (signature === synced.current) return;
+    const base = { ...t, links: t.links.filter((l) => !(touches(l, { device: d.id }) && /^F\d+$/.test(l.id))) };
+    const { links, refused } = wired(cat, base, { ...d, slots: found.slots }, strands);
     fill(d.id, found.slots, links);
-    notify(`Drawn from the box${links.length ? `, with fibers ${links.map((l) => l.id).join(', ')} from wiring.csv` : ''}`
-      + `${found.missing.length ? `. Not in the catalog, so left out: ${found.missing.join(', ')}` : ''}${refused.map((r) => `. Fiber ${r}`).join('')}`);
+    synced.current = signature;
+    setLastSyncAt(Date.now());
+    notify(`Synced from the box${links.length ? `, with fibers ${links.map((l) => l.id).join(', ')}` : ''}`
+      + `${found.missing.length ? `. Left out (not mapped from show inventory): ${found.missing.join(', ')}` : ''}${refused.map((r) => `. Fiber ${r}`).join('')}`);
   }, [box.state, live, t, openId, cat, fill, notify, strands]);
 
   // Escape goes up one level: fiber being run → picked part or side panel → linecard → chassis → canvas.
@@ -638,12 +657,14 @@ export function PhysicalView() {
             <small className="muted" title={here.error}>{here.state === 'down' ? here.error : here.state === 'connecting' ? 'connecting…' : 'connected'}</small>
           </form>
           <small className="muted light-state" title={boxState?.run ? `From run ${boxState.run}` : undefined}>{lightLabel(boxState)}</small>
+          {boxState?.live && <small className="muted light-state" title={lastSyncAt ? new Date(lastSyncAt).toLocaleString() : 'Waiting for first live sync'}>{lastSyncAt ? syncLabel(lastSyncAt) : 'Live sync · waiting…'}</small>}
+          {inferredPower && <small className="wiring-state" title="Generated from power matching; review data/boxes/<box>/wiring.csv">wiring inferred (power fallback)</small>}
           {/* After pulling a fiber on the box, label it for scoring. There while disconnected too, so the header never shifts. */}
           <form className="pull" onSubmit={(e) => { e.preventDefault(); markPull(); }}
             title="After pulling a fiber on the box, pick its strand: the bridge records a snapshot with its answer.json">
-            <select value={pulled} onChange={(e) => setPulled(e.target.value)} aria-label="Pulled strand" disabled={here.state !== 'connected' || !strands.length}>
+            <select value={pulled} onChange={(e) => setPulled(e.target.value)} aria-label="Pulled strand" disabled={here.state !== 'connected' || !(strands ?? []).length}>
               <option value="">Pulled strand…</option>
-              {strands.map((s) => <option key={s.strand} value={s.strand}>{s.strand}: {s.from} → {s.to}{s.via ? ` via ${s.via}` : ''}</option>)}
+              {(strands ?? []).map((s) => <option key={s.strand} value={s.strand}>{s.strand}: {s.from} → {s.to}{s.via ? ` via ${s.via}` : ''}</option>)}
             </select>
             <button disabled={here.state !== 'connected' || !pulled}>Mark pulled</button>
           </form>
