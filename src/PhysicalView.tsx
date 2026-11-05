@@ -195,20 +195,24 @@ function useLight(state: Box['state']) {
 /** A strand of the box's fiber map (its wiring.csv, through the bridge), to mark as pulled. */
 interface BoxStrand { strand: string; from: string; to: string; via: string; notes?: string }
 
-/** The box's strands, fetched when the view opens and whenever the box's state changes: none while the bridge is down. */
-function useStrands(state: Box['state']) {
+/** The box's strands, fetched once the current snapshot is done: none while down, or while commands are still running. */
+function useStrands(state: Box['state'], snapshot?: Box['snapshot']) {
   const [strands, setStrands] = useState<BoxStrand[] | null>(null);
   useEffect(() => {
     let gone = false;
-    if (state !== 'connected') setStrands(null);
+    if (state !== 'connected') {
+      setStrands(null);
+      return () => { gone = true; };
+    }
+    if (snapshot) return () => { gone = true; };
     const get = () => bridge('wiring').then((r) => r.json()).then((s) => { if (!gone) setStrands(s); }, () => { if (!gone) setStrands([]); });
     get();
-    const id = state === 'connected' ? setInterval(get, 2000) : undefined;
+    const id = setInterval(get, 2000);
     return () => {
       gone = true;
-      if (id) clearInterval(id);
+      clearInterval(id);
     };
-  }, [state]);
+  }, [state, snapshot]);
   return strands;
 }
 
@@ -234,7 +238,7 @@ export function PhysicalView() {
   const [alarmsFor, setAlarmsFor] = useState<Where | null>(null); // level whose alarms the side panel lists
   const [box, checkBox] = useBox();
   useLight(box.state);
-  const strands = useStrands(box.state);
+  const strands = useStrands(box.state, box.snapshot);
   const inferredPower = (strands ?? []).some((s) => /power fallback/i.test(s.notes ?? ''));
   const [lastSyncAt, setLastSyncAt] = useState<number | null>(null);
   const [pulled, setPulled] = useState(''); // the strand picked to mark as pulled
@@ -242,7 +246,7 @@ export function PhysicalView() {
   const { setOpenDevice, updateDevice, insertLinecard, insertPluggable, remove, notify, connect, deleteLink, fill } = useStore.getState();
   const synced = useRef(''); // this session's last synced snapshot for the opened device
 
-  // While connected, keeps the opened device in sync with what the box reports: cards, pluggables and wiring.
+  // While connected, keeps the opened device in sync with what the box reports once its current snapshot is complete.
   useEffect(() => {
     if (box.state !== 'connected') {
       synced.current = '';
@@ -252,7 +256,7 @@ export function PhysicalView() {
     const s = stateFor(live, d);
     if (!d || !s?.live) return;
     const found = discover(cat, d, s);
-    if (!found || !strands) return;
+    if (!found || !strands || box.snapshot) return;
     const signature = JSON.stringify({ device: d.id, slots: found.slots, strands });
     if (signature === synced.current) return;
     const base = { ...t, links: t.links.filter((l) => !(touches(l, { device: d.id }) && /^F\d+$/.test(l.id))) };
@@ -262,7 +266,7 @@ export function PhysicalView() {
     setLastSyncAt(Date.now());
     notify(`Synced from the box${links.length ? `, with fibers ${links.map((l) => l.id).join(', ')}` : ''}`
       + `${found.missing.length ? `. Left out (not mapped from show inventory): ${found.missing.join(', ')}` : ''}${refused.map((r) => `. Fiber ${r}`).join('')}`);
-  }, [box.state, live, t, openId, cat, fill, notify, strands]);
+  }, [box.state, box.snapshot, live, t, openId, cat, fill, notify, strands]);
 
   // Escape goes up one level: fiber being run → picked part or side panel → linecard → chassis → canvas.
   useEffect(() => {
