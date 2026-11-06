@@ -2,6 +2,12 @@
 
 The decisions that shape the tracer, newest first, each with where it was argued. A decision that was later replaced says what replaced it. Plans are in the [roadmap](roadmap.md).
 
+## 2026-11-06
+
+| Decision | Why | Source |
+| --- | --- | --- |
+| A missing `wiring.csv` is generated from the box's tables, strongest evidence first: internal/external connections (both ways), an OCH's frequency inside a media channel, then power between kinds a fiber can join (from `show och`, `show optical-port`, `show assignment`, `show cross-connection`). `show logical-channel` isn't used: `show assignment` already prints its chain | Power alone drew box 4's sig port looped onto itself and, on box 3 runs before `show media-channel`, 1-7-5 into the mux's line port. With these, box 3's latest connect gives its hand-made F03–F05 and box 4 gets 1-4-5 ⇄ sig | [Notes item 1](notes.md) |
+
 ## 2026-11-04
 
 | Decision | Why | Source |

@@ -10,6 +10,7 @@ import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import { commandFor } from './cli-index.mjs';
+import { tables } from './tables.mjs';
 
 const env = process.env;
 const here = (p) => fileURLToPath(new URL(p, import.meta.url));
@@ -92,9 +93,22 @@ const writeWiring = (strands, box = current) => {
 };
 
 const local = (at = '') => at.replace(/^port-/i, '').trim().toLowerCase();
+const card = (at) => at.split('-').slice(0, 2).join('-');
 const hasLight = (v) => typeof v === 'number' && Number.isFinite(v) && v > DARK;
 
-/** Rows with source/destination ports from show internal/external-connection output (raw table). */
+/** A command's table rows by column name: none when it printed None, or has no raw output. */
+const rowsOf = (commands, cmd) => {
+  const raw = commands[cmd]?.raw;
+  return raw && !/^\s*none\s*$/i.test(raw) ? tables(raw) : [];
+};
+
+/** A stats cell's instant, the first of `instant | avg | min | max`. */
+const instant = (cell = '') => {
+  const v = Number.parseFloat(cell);
+  return Number.isFinite(v) ? v : undefined;
+};
+
+/** Strands from show internal/external-connection rows (raw table): a connection is a duplex patch, so both ways. */
 function connectionsFrom(raw, cmd) {
   if (!raw || /^\s*none\s*$/im.test(raw)) return [];
   const found = [];
@@ -102,16 +116,60 @@ function connectionsFrom(raw, cmd) {
     if (/^\[|^id\s|^-{2,}|^state\s|^config\s/i.test(line)) continue;
     const ports = line.match(/port-[a-z0-9-]+/gi) ?? line.match(/\b\d+-\d+-[a-z0-9]+\b/gi);
     if (!ports || ports.length < 2) continue;
-    const via = line.split(/\s+/)[0] ?? '';
-    found.push({ from: local(ports[0]), to: local(ports[1]), via, notes: `auto: ${cmd}` });
+    const [a, b, via] = [local(ports[0]), local(ports[1]), line.split(/\s+/)[0] ?? ''];
+    found.push({ from: a, to: b, via, notes: `auto: ${cmd}` }, { from: b, to: a, via, notes: `auto: ${cmd}` });
   }
-  const seen = new Set();
-  return found.filter((f) => {
-    const key = `${f.from}->${f.to}|${f.via}`;
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
+  return found;
+}
+
+/** Each lit OCH into the one media channel its frequency is in, and back: the OCH is fibered to that add/drop port. */
+function channelWires(commands) {
+  const lit = rowsOf(commands, 'show och').filter((o) => o.cols.laser === 'enabled');
+  return rowsOf(commands, 'show media-channel').flatMap(({ id, cols }) => {
+    const [mid, width] = [Number(cols['center-frequency']), Number(cols.bandwidth)];
+    const [lo, hi] = [Number(cols['lower-frequency'] || mid - width / 2), Number(cols['upper-frequency'] || mid + width / 2)];
+    const inside = lit.filter((o) => Number(o.cols.frequency) >= lo && Number(o.cols.frequency) <= hi);
+    const at = local(cols['add-drop-port']);
+    if (cols['admin-state'] === 'out-of-service' || inside.length !== 1 || !LOCAL.test(at)) return [];
+    const och = local(inside[0].id);
+    const notes = `auto: och ${och} at ${inside[0].cols.frequency} MHz is in media channel ${cols.name || id}`;
+    return [{ from: och, to: at, via: '', notes }, { from: at, to: och, via: '', notes }];
   });
+}
+
+/**
+ * What each port is: `och` an OCH (show och); a mux or amplifier port (show optical-port), `line` facing the span or
+ * `add` an add/drop port; `client` a port a client signal is assigned (show assignment) or cross-connected to (show
+ * cross-connection). Unknown ports aren't listed.
+ */
+function kinds(commands) {
+  const kind = new Map();
+  const put = (at, k) => { if (LOCAL.test(at) && !kind.has(at)) kind.set(at, k); };
+  for (const { id } of rowsOf(commands, 'show och')) put(local(id), 'och');
+  for (const { id } of rowsOf(commands, 'show optical-port')) put(local(id), local(id).endsWith('-line') ? 'line' : 'add');
+  for (const [, at] of (commands['show assignment']?.raw ?? '').matchAll(/\beth (\d+-\d+-\w+)(?![-\w])/g)) put(at, 'client');
+  for (const { cols } of rowsOf(commands, 'show cross-connection')) {
+    for (const end of [cols['source-entity'], cols['destination-entity']]) put(end?.match(/(\d+-\d+-\w+)$/)?.[1] ?? '', 'client');
+  }
+  return kind;
+}
+
+/** The kinds a fiber joins: an OCH into a mux's add/drop port or another OCH, span to span, client to client. */
+const PAIRS = new Set(['client client', 'och och', 'och add', 'add och', 'add add', 'line line']);
+
+/** What each OCH carries, from show assignment and show cross-connection: och → "1-7-4 (CC5_4)". */
+function carried(commands) {
+  const ccs = rowsOf(commands, 'show cross-connection');
+  const map = new Map();
+  for (const line of (commands['show assignment']?.raw ?? '').split('\n')) {
+    const och = line.match(/\boch (\d+-\d+-\w+)/)?.[1];
+    if (!och) continue;
+    for (const [, client] of line.matchAll(/\beth (\d+-\d+-\w+)(?![-\w])/g)) {
+      const cc = ccs.find(({ cols }) => [cols['source-entity'], cols['destination-entity']].some((e) => e?.endsWith(`-${client}`)));
+      map.set(och, [...(map.get(och) ?? []), cc ? `${client} (${cc.id})` : client]);
+    }
+  }
+  return map;
 }
 
 const stat = (data, key) => {
@@ -119,7 +177,7 @@ const stat = (data, key) => {
   return typeof v === 'number' && Number.isFinite(v) ? v : undefined;
 };
 
-/** Address -> { tx, rx } from parsed show commands. */
+/** Address -> { tx, rx } from parsed show commands, and show och's list. */
 function powers(commands) {
   const map = new Map();
   const set = (at, tx, rx) => {
@@ -142,67 +200,75 @@ function powers(commands) {
       }
     }
   }
+  for (const { id, cols } of rowsOf(commands, 'show och')) set(local(id), instant(cols['output-power']), instant(cols['total-input-power']));
   return map;
 }
 
-/** Conservative fallback: pair Tx and Rx by unique nearest power levels, then keep only mutual matches. */
-function powerWires(commands) {
+/**
+ * Conservative fallback: pair Tx and Rx by unique nearest power levels, keep only mutual matches, and again with what is
+ * left. Ends in `used` are taken. Only kinds a fiber joins pair (PAIRS), and two ports of one mux never do. Only an OCH
+ * or a span port pairs with itself: a client port that sees its own power back is as likely fibered to a tester off the box.
+ */
+function powerWires(commands, used) {
   const p = powers(commands);
-  const tx = [...p.entries()].filter(([, v]) => hasLight(v.tx));
-  const rx = [...p.entries()].filter(([, v]) => hasLight(v.rx));
-  if (!tx.length || !rx.length) return [];
-
-  const candidates = tx.flatMap(([from, a]) => rx.map(([to, b]) => {
-    const loss = (a.tx ?? 0) - (b.rx ?? 0);
-    return { from, to, loss, score: Math.abs(loss) };
-  }).filter((c) => c.loss >= -25 && c.loss <= 70));
-
-  const best = (key) => {
-    const by = new Map();
-    for (const c of candidates) {
-      const id = c[key];
-      const list = by.get(id) ?? [];
-      list.push(c);
-      by.set(id, list);
-    }
-    const one = new Map();
-    for (const [id, list] of by.entries()) {
-      const sorted = list.sort((a, b) => a.score - b.score);
-      if (sorted[1] && sorted[1].score - sorted[0].score <= 1) continue; // ambiguous
-      one.set(id, sorted[0]);
-    }
-    return one;
+  const kind = kinds(commands);
+  const fits = (a, b) => {
+    const [x, y] = [kind.get(a), kind.get(b)];
+    if (a === b) return x === 'och' || x === 'line'; // looped back
+    if (!x || !y) return true;
+    if (/add|line/.test(x) && /add|line/.test(y) && card(a) === card(b)) return false;
+    return PAIRS.has(`${x} ${y}`);
   };
-
-  const out = best('from');
-  const into = best('to');
+  let tx = [...p.entries()].filter(([at, v]) => hasLight(v.tx) && !used.from.has(at));
+  let rx = [...p.entries()].filter(([at, v]) => hasLight(v.rx) && !used.to.has(at));
   const strands = [];
-  for (const c of out.values()) {
-    if (into.get(c.to)?.from !== c.from) continue;
-    strands.push({
-      from: c.from,
-      to: c.to,
-      via: 'power',
-      loss_db: c.loss.toFixed(2),
-      notes: 'auto: power fallback (low confidence)',
-    });
+  for (;;) {
+    const candidates = tx.flatMap(([from, a]) => rx.filter(([to]) => fits(from, to)).map(([to, b]) => {
+      const loss = a.tx - b.rx;
+      return { from, to, loss, score: Math.abs(loss) };
+    })).filter((c) => c.loss >= -25 && c.loss <= 70);
+    const best = (key) => {
+      const by = Map.groupBy(candidates, (c) => c[key]);
+      const one = new Map();
+      for (const [id, list] of by.entries()) {
+        const sorted = list.sort((a, b) => a.score - b.score);
+        if (sorted[1] && sorted[1].score - sorted[0].score <= 1) continue; // ambiguous
+        one.set(id, sorted[0]);
+      }
+      return one;
+    };
+    const into = best('to');
+    const found = [...best('from').values()].filter((c) => into.get(c.to)?.from === c.from);
+    if (!found.length) return strands;
+    strands.push(...found.map((c) => ({ from: c.from, to: c.to, via: 'power', loss_db: c.loss.toFixed(2), notes: 'auto: power fallback (low confidence)' })));
+    tx = tx.filter(([at]) => !found.some((c) => c.from === at));
+    rx = rx.filter(([at]) => !found.some((c) => c.to === at));
   }
-  const seen = new Set();
-  return strands.filter((s) => {
-    const key = `${s.from}->${s.to}`;
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  });
 }
 
-/** Strands inferred first from connection commands, else from power as a low-confidence fallback. */
+/**
+ * Strands from the box's own tables, strongest first: show internal/external-connection, then each lit OCH into the
+ * media channel its frequency is in, then power (show och, show transceiver, show optical-port) for the ends left. A Tx
+ * or Rx takes one strand. A strand on an OCH says what it carries (show assignment, show cross-connection).
+ */
 export function inferWiring(commands = {}) {
-  const byConnections = ['show internal-connection', 'show external-connection']
-    .flatMap((cmd) => connectionsFrom(commands[cmd]?.raw, cmd));
-  if (byConnections.length) return { source: 'connections', strands: byConnections };
-  const byPower = powerWires(commands);
-  return byPower.length ? { source: 'power', strands: byPower } : { source: 'none', strands: [] };
+  const used = { from: new Set(), to: new Set() };
+  const take = (list) => list.filter((s) => {
+    if (used.from.has(s.from) || used.to.has(s.to)) return false;
+    used.from.add(s.from);
+    used.to.add(s.to);
+    return true;
+  });
+  const connections = take(['show internal-connection', 'show external-connection'].flatMap((cmd) => connectionsFrom(commands[cmd]?.raw, cmd)));
+  const channels = take(channelWires(commands));
+  const strands = [...connections, ...channels, ...take(powerWires(commands, used))];
+  const carries = carried(commands);
+  return {
+    strands: strands.map((s) => {
+      const what = carries.get(s.from) ?? carries.get(s.to);
+      return what ? { ...s, notes: `${s.notes}; carries ${what.join(' and ')}` } : s;
+    }),
+  };
 }
 
 /** Existing wiring.csv, or one generated from command output when it is missing. */

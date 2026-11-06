@@ -1,5 +1,6 @@
 // L0: the catalog's picture of a card's insides (`l0` on a linecard) joined with what the box reports. Read, never
 // modelled: nothing here predicts a power. A number shown is the box's, or the difference of two of the box's.
+import { tables } from '../bridge/tables.mjs';
 import { byId, cliAddress } from './catalog';
 import { fibersAt, resolve } from './rules';
 import type { BoxState } from './live';
@@ -121,32 +122,7 @@ export function worst(a: Verdict | null, b: Verdict | null) {
 
 // Media channels
 
-/** A table as this CLI prints it: each row of the block over a line of dashes, cut where the dashes are. */
-function table(lines: string[], dashes: number) {
-  const starts = [...lines[dashes].matchAll(/-+/g)].map((m) => m.index);
-  const cells = (line: string) => starts.map((a, i) => line.slice(a, starts[i + 1]).trim());
-  let head = dashes - 1;
-  while (head > 0 && lines[head - 1].trim() && !lines[head - 1].startsWith('[')) head--;
-  const names = cells(lines[head] ?? '');
-  const rows: Record<string, string>[] = [];
-  for (let i = dashes + 1; i < lines.length && lines[i].trim(); i++) {
-    const row = cells(lines[i]);
-    rows.push(Object.fromEntries(names.map((n, k) => [n, row[k]])));
-  }
-  return { key: names[0], rows };
-}
-
-/** Every table in a command's output, a row keyed by its first column and merged across its [config] and [state] tables. */
-export function tables(raw: string) {
-  const lines = raw.split('\n');
-  const merged = new Map<string, Record<string, string>>();
-  lines.forEach((line, i) => {
-    if (!/^-+(\s+-+)*\s*$/.test(line)) return;
-    const { key, rows } = table(lines, i);
-    for (const row of rows) merged.set(row[key], { ...merged.get(row[key]), ...row });
-  });
-  return [...merged].map(([id, cols]) => ({ id, cols }));
-}
+export { tables };
 
 /** A media channel: the light through the WSS between a line port and an add/drop port, set by `set media-channel`. */
 export interface MediaChannel { id: string; line?: string; addDrop?: string; up: boolean; cols: Record<string, string> }
