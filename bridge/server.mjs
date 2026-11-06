@@ -2,7 +2,8 @@
 // A browser cannot speak SSH, so the app posts the box's IP to /bridge/connect, attaches its terminal (xterm.js) to the
 // session's shell over a WebSocket at /bridge/term, and posts /bridge/disconnect when the view closes. The shell gets
 // keystrokes as they are typed, so the box's own Tab completion, history, Ctrl-C and modes work as they do over ssh.
-// A poller runs the commands in poll.json on a second shell of the session, records them as runs under
+// A poller runs the commands in poll.json on shells of its own in the session (BOX_WORKERS of them share a snapshot's
+// commands), records them as runs under
 // data/boxes/<box>/runs/ (recorder.mjs), parses their output with TTP (parse.py) and serves the latest results at
 // /bridge/state. A `show` command typed in the terminal is run again there and saved in the latest run (typed.mjs), and
 // a pull marked in the view (/bridge/pull) takes a snapshot with its answer.json.
@@ -14,7 +15,8 @@ import { fileURLToPath } from 'node:url';
 import ssh2 from 'ssh2';
 import { WebSocketServer } from 'ws';
 import { record } from './history.mjs';
-import { boxOf, ensureWiring, latest, PYTHON, Run } from './recorder.mjs';
+import { accepted, boxOf, ensureWiring, latest, PYTHON, Run } from './recorder.mjs';
+import { shareOut, worker } from './shells.mjs';
 import { Screen } from './typed.mjs';
 
 const env = process.env;
@@ -42,6 +44,10 @@ const FLAPS = /_WARNING$|^REACH_MAX_ATT/;
 const PROMPT = new RegExp(env.BOX_PROMPT ?? '[#>$] ?$');
 /** How long the poller waits for a command's prompt before it sends Ctrl-C, in ms. */
 const TIMEOUT = Number(env.BOX_TIMEOUT ?? 20000);
+/** How long the prompt has to stay quiet before a command counts as done, in ms. */
+const SETTLE = 100;
+/** How many shells the poller opens, each a CLI session of its own, to share a snapshot's commands: 1 to 8. */
+const WORKERS = Math.min(8, Math.max(1, Math.round(Number(env.BOX_WORKERS)) || 1));
 
 let host = ''; // the box asked for, '' once disconnected
 let conn = null; // its SSH connection
@@ -86,8 +92,15 @@ function connect(delay = 1000) {
         delay = 1000;
         console.log(`connected to ${host}`);
       });
-      // The poller's own shell, so it never types into the terminal's. Dumb and very tall: no colors, no paging.
-      if (POLLS.length) c.shell({ term: 'dumb', cols: 500, rows: 10000 }, (err, ch) => { if (!err && c === conn) poll(c, ch); });
+      // The poller's own shells, so it never types into the terminal's. Dumb and very tall: no colors, no paging.
+      if (POLLS.length) {
+        const opening = Array.from({ length: WORKERS }, () => new Promise((ok) => c.shell({ term: 'dumb', cols: 500, rows: 10000 }, (err, ch) => ok(err ? null : ch))));
+        Promise.all(opening).then((chs) => {
+          const got = chs.filter(Boolean);
+          if (got.length < WORKERS) console.log(`${got.length} of ${WORKERS} poller shells opened on ${host}`);
+          if (got.length && c === conn) poll(c, got);
+        });
+      }
     })
     // RADIUS or TACACS+ logins usually come as keyboard-interactive: answer every prompt with the password.
     .on('keyboard-interactive', (_name, _info, _lang, prompts, finish) => finish(prompts.map(() => env.BOX_PASSWORD ?? '')))
@@ -126,46 +139,23 @@ function disconnect() {
 }
 
 /**
- * Records the session and polls the box, one command at a time on the shell `ch` of session `c`, until it closes: a
- * snapshot into a new run when the session opens and whenever the active alarms change, and the polls as they fall due.
+ * Records the session and polls the box on the shells `chs` of session `c`, until the first one closes: a snapshot into
+ * a new run when the session opens and whenever the active alarms change, its commands shared out over the shells, and
+ * the polls as they fall due, on the first shell.
  */
-async function poll(c, ch) {
-  let buf = '';
-  let open = true;
-  let wake = () => {};
-  ch.on('data', (d) => { buf += d; wake(); }).on('close', () => { open = false; wake(); });
-  const lines = () => buf.replace(/\x1b\[[0-9;?]*[A-Za-z]/g, '').replace(/\r/g, '').split('\n');
-  /** True once the shell shows its prompt and stays quiet for `settle` ms; false after `ms`, or when it closes. */
-  const prompt = (ms, settle = 300) => new Promise((done) => {
-    let quiet;
-    const give = setTimeout(() => done(false), ms);
-    wake = () => {
-      clearTimeout(quiet);
-      if (!open) { clearTimeout(give); return done(false); }
-      if (PROMPT.test(lines().at(-1))) quiet = setTimeout(() => { clearTimeout(give); done(true); }, settle);
-    };
-    wake();
-  });
-  /** A command's output, the lines between its echo and the next prompt, and whether the prompt came back. */
-  const output = async (cmd) => {
-    buf = '';
-    ch.write(cmd + '\n');
-    if (await prompt(TIMEOUT)) return { raw: lines().slice(1, -1).join('\n'), ok: true };
-    const raw = lines().slice(1).join('\n');
-    ch.write('\x03'); // Ctrl-C, so a hung command does not spill into the next one
-    await prompt(TIMEOUT);
-    return { raw, ok: false };
-  };
-  const live = () => open && c === conn;
+async function poll(c, chs) {
+  const ws = chs.map((ch) => worker(ch, { prompt: PROMPT, timeout: TIMEOUT, settle: SETTLE }));
+  const [main] = ws;
+  const live = () => main.open && c === conn;
   let run; // the run being recorded
   let alarms; // the active alarm ids last seen
   let changed = false; // a poll saw them change
   const last = {}; // command → when it last ran
 
   /** Runs `cmd`, records it in the run as `source` (prereq, snapshot, poll or typed), and keeps its result for /bridge/state. */
-  const take = async (cmd, source) => {
+  const take = async (cmd, source, w = main) => {
     const at = (last[cmd] = Date.now());
-    const { raw, ok } = await output(cmd);
+    const { raw, ok } = await w.output(cmd);
     const { template, data = null, error } = source === 'poll' ? await run.poll(cmd, at, raw) : await run.record(cmd, at, raw, ok, source);
     if (c === conn) polled[cmd] = { at, raw, ...(ok ? (error ? { error } : { data }) : { error: `no prompt within ${TIMEOUT / 1000} s` }) };
     // A typed `show alarm` doesn't move the alarms the polls compare against, so it never hides a change from them.
@@ -174,9 +164,22 @@ async function poll(c, ch) {
     if (source === 'poll' && alarms !== undefined && ids !== alarms) changed = true;
     alarms = ids;
   };
+  // Every shell logs in at once. The others are set up after the first, one at a time, as its prerequisites set up the
+  // first (unrecorded), so no two are in `configure` together; one that doesn't come up is dropped.
+  const login = ws.map((w) => {
+    if (INIT.length) w.ch.write(INIT.map((cmd) => cmd + '\n').join(''));
+    return w.prompt(TIMEOUT, 2000); // logged in and through INIT
+  });
+  let ready = ws.map(() => Promise.resolve());
+  const setUp = async (w, i) => {
+    const drop = (why) => { console.log(`poller shell ${i + 1} of ${ws.length} on ${host}: ${why}, so it is not used`); w.open = false; w.ch.close(); };
+    if (!(await login[i])) return drop('no prompt after login');
+    for (const cmd of PREREQS) if (!accepted(await w.output(cmd))) return drop(`"${cmd}" failed`);
+  };
   /**
-   * A new run: the prerequisites and every command once if the session just opened, else the fast ones. A `pull` run
-   * gets the marked strand's answer.json first. Then the box's history takes in its logs. False if a prerequisite failed.
+   * A new run: the prerequisites and every command once if the session just opened, else the fast ones, shared out over
+   * the shells as each is free (one not set up yet joins once it is). A `pull` run gets the marked strand's answer.json
+   * first. Then the box's history takes in its logs. False if a prerequisite failed on the first shell.
    */
   const snapshot = async (trigger, mark) => {
     run = new Run(trigger, host);
@@ -186,8 +189,13 @@ async function poll(c, ch) {
     if (mark) run.answer(mark, mark.at);
     for (const cmd of full ? PREREQS : []) if (live()) await take(cmd, 'prereq');
     if (run.meta.prereqs.some((p) => !p.ok)) return false;
+    if (full) {
+      let after = Promise.resolve();
+      ready = ws.map((w, i) => (i ? (after = after.then(() => setUp(w, i))) : after));
+    }
     if (c === conn) taking = p;
-    for (const { cmd } of cmds) if (live()) { await take(cmd, 'snapshot'); p.done++; }
+    const took = await shareOut(ws, ready, cmds, async ({ cmd }, w) => { await take(cmd, 'snapshot', w); p.done++; }, () => c === conn);
+    p.workers = took.size;
     run.save();
     if (taking === p) taking = null;
     record(dirname(dirname(run.dir)));
@@ -195,8 +203,7 @@ async function poll(c, ch) {
     return true;
   };
 
-  if (INIT.length) ch.write(INIT.map((cmd) => cmd + '\n').join(''));
-  await prompt(TIMEOUT, 2000); // logged in and through INIT
+  await login[0];
   // Paging left on could cut any output short, so after a failed prerequisite nothing more is recorded or polled.
   if (!(await snapshot('connect'))) return console.log(`a prerequisite failed on ${host}, so it is not polled: see ${run.dir}/meta.json`);
   while (live()) {

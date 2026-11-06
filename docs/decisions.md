@@ -6,6 +6,7 @@ The decisions that shape the tracer, newest first, each with where it was argued
 
 | Decision | Why | Source |
 | --- | --- | --- |
+| The poller can share a snapshot's commands over up to 8 shells of the session (`BOX_WORKERS`, default 1), and a command is done once its prompt is quiet for 100 ms, not 300 | Box 3's connect snapshot took about 45 s for 61 commands, about 1 s each, 300 ms of it the wait. The box's limit on CLI sessions, and whether it runs commands in parallel at all, are known only on the box, so the default stays one shell | [Notes item 4](notes.md) |
 | A missing `wiring.csv` is generated from the box's tables, strongest evidence first: internal/external connections (both ways), an OCH's frequency inside a media channel, then power between kinds a fiber can join (from `show och`, `show optical-port`, `show assignment`, `show cross-connection`). `show logical-channel` isn't used: `show assignment` already prints its chain | Power alone drew box 4's sig port looped onto itself and, on box 3 runs before `show media-channel`, 1-7-5 into the mux's line port. With these, box 3's latest connect gives its hand-made F03–F05 and box 4 gets 1-4-5 ⇄ sig | [Notes item 1](notes.md) |
 
 ## 2026-11-04

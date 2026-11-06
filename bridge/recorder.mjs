@@ -27,6 +27,8 @@ export const PYTHON = env.PYTHON ?? here('.venv/bin/python');
 const COMMANDS = JSON.parse(readFileSync(join(REPO_ROOT, 'data', 'cli', 'csp', 'cli-index.source.json'), 'utf8')).commands;
 /** What the box prints when it rejects a command. */
 const REJECTED = /invalid|error|problem parsing/i;
+/** Whether a prerequisite took: its prompt came back, and the box didn't reject it. */
+export const accepted = ({ raw, ok }) => ok && !REJECTED.test(raw);
 
 const exec = promisify(execFile);
 const WIRING_COLUMNS = ['strand', 'from', 'to', 'via', 'length_km', 'loss_db', 'notes'];
@@ -327,7 +329,7 @@ export class Run {
     writeFileSync(join(this.dir, 'raw', file), `${raw}\n`);
     appendFileSync(join(this.dir, 'raw', 'index.jsonl'), `${JSON.stringify({ n, cmd, at: iso(at), source, file, ok })}\n`);
     const m = this.meta;
-    if (source === 'prereq') m.prereqs.push({ cmd, ok: ok && !REJECTED.test(raw) });
+    if (source === 'prereq') m.prereqs.push({ cmd, ok: accepted({ raw, ok }) });
     if (cmd === 'show system') m.hostname = raw.match(/^hostname\s+(\S+)/m)?.[1] ?? m.hostname;
     if (cmd === 'show system' && m.hostname) this.place(m.hostname);
     if (cmd === 'show software') m.release = raw.match(/^active\s+(\S+)/m)?.[1] ?? m.release;
