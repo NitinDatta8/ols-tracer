@@ -6,6 +6,8 @@ export const streams: Stream[] = streamsJson;
 // Every catalog/<folder>/<kind>.json, bundled at build time.
 const files = import.meta.glob<{ id: string }[]>('../catalog/*/*.json', { eager: true, import: 'default' });
 const cliFiles = import.meta.glob<Catalog['cli']>('../catalog/*/cli.json', { eager: true, import: 'default' });
+/** Hardware kept by hand, which the IIVI profiles don't have and the syncs never overwrite: test equipment such as a BERT. */
+const testerFiles = import.meta.glob<Partial<Pick<Catalog, 'chassis' | 'linecards' | 'pluggables'>>>('../catalog/*/testers.json', { eager: true, import: 'default' });
 
 const cache = new Map<string, Catalog>();
 
@@ -101,10 +103,10 @@ function hydrate(chassis: Catalog['chassis'], linecards: Catalog['linecards'], p
   return { chassis: nextChassis, linecards: nextLinecards, pluggables: nextPluggables };
 }
 
-/** A stream's hardware (chassis/linecards/pluggables) is its own files only; `common/` holds just `cli.json`. */
+/** A stream's hardware (chassis/linecards/pluggables) is its own files only, plus its `testers.json`; `common/` holds just `cli.json`. */
 export function catalogFor(stream: string): Catalog {
   const merge = <K extends keyof Pick<Catalog, 'chassis' | 'linecards' | 'pluggables'>>(kind: K) =>
-    (files[`../catalog/${stream}/${kind}.json`] ?? []) as Catalog[K];
+    [...(files[`../catalog/${stream}/${kind}.json`] ?? []), ...(testerFiles[`../catalog/${stream}/testers.json`]?.[kind] ?? [])] as Catalog[K];
   if (!cache.has(stream)) {
     const base = hydrate(merge('chassis'), merge('linecards'), merge('pluggables'));
     cache.set(stream, {

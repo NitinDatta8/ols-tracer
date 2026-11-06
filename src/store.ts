@@ -109,9 +109,13 @@ export const useStore = create<State>()(
         toastTimer = setTimeout(() => set({ toast: null }), 4000);
       },
 
+      // A tester is named after itself (BERT-2) and comes with its module in.
       addDevice: (chassis, x, y) => set((s) => {
         const id = nextId('d', s.topology!.devices);
-        s.topology!.devices.push({ id, chassis, name: `Site-${id.slice(1)}`, x, y, slots: {} });
+        const def = byId(catalogFor(s.topology!.stream).chassis, chassis);
+        const slots = Object.fromEntries(Object.entries(def?.comesWith ?? {}).map(([slot, linecard]) => [slot, { linecard, ports: {} }]));
+        const name = `${def?.tester ? def.name.split(' ')[0] : 'Site'}-${id.slice(1)}`;
+        s.topology!.devices.push({ id, chassis, name, x, y, slots });
       }),
 
       updateDevice: (id, patch) => set((s) => {

@@ -79,6 +79,10 @@ export interface ChassisDef extends Datasheet {
   fans?: number;
   /** Management ports in a narrow strip at the left of the front and of the back; USB-C ones are drawn as such, the rest as RJ-45. */
   mgmtPorts?: { front?: string[]; back?: string[] };
+  /** Test equipment such as a BERT: no box to connect to and no CLI; a new one is named after it (BERT-2, not Site-2). */
+  tester?: boolean;
+  /** The cards a new one comes with, by slot: a tester's own module. */
+  comesWith?: Record<string, string>;
 }
 
 /**

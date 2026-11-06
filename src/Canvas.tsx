@@ -37,22 +37,27 @@ const bottoms = (hs?: { id?: string | null; x: number; y: number; width: number;
 const visibleLinks = (t: Topology, cat: Catalog, view: View) =>
   t.links.filter((l) => [l.a, l.b].every((e) => showsInView(view, resolve(t, cat, e).port)));
 
-/** Ports that can take a fiber: those with a pluggable or a fixed connector. */
-function portsOf(t: Topology, cat: Catalog, d: Device) {
-  return Object.entries(d.slots).flatMap(([slot, s]) =>
-    (byId(cat.linecards, s.linecard)?.ports ?? []).flatMap((p) => {
+/** Each card, in slot order, with its ports that can take a fiber: those with a pluggable or a fixed connector. */
+function cardsOf(t: Topology, cat: Catalog, d: Device) {
+  return Object.entries(d.slots).map(([slot, s]) => {
+    const card = byId(cat.linecards, s.linecard);
+    const ports = (card?.ports ?? []).flatMap((p) => {
       const end = { device: d.id, slot, port: p.id };
       const { pluggable, fixed } = resolve(t, cat, end);
       return pluggable || fixed ? [{ end, port: p, pluggable }] : [];
-    }),
-  );
+    });
+    return { slot, name: card?.name ?? `unknown ${s.linecard}`, ports };
+  });
 }
 
-export const ChassisIcon = () => (
+/** A chassis, or test equipment: a box with a trace on its screen and two ports. */
+export const ChassisIcon = ({ tester }: { tester?: boolean }) => (
   <svg className="icon" width="48" height="30" viewBox="0 0 48 30">
     <rect x="1" y="1" width="46" height="28" rx="3" />
-    {[8, 14, 20].map((y) => <line key={y} x1="6" x2="42" y1={y} y2={y} />)}
-    <circle cx="40" cy="25" r="2" />
+    {tester
+      ? <><polyline points="6,15 11,15 13,7 17,22 20,11 23,15 28,15" /><rect className="jack" x="33" y="8" width="8" height="5" /><rect className="jack" x="33" y="17" width="8" height="5" /></>
+      : [8, 14, 20].map((y) => <line key={y} x1="6" x2="42" y1={y} y2={y} />)}
+    <circle cx={tester ? 30 : 40} cy="25" r="2" />
   </svg>
 );
 
@@ -61,7 +66,9 @@ function DeviceNode({ id }: NodeProps) {
   const view = useStore((s) => s.view);
   const cat = useCatalog();
   const device = byId(t.devices, id);
-  const ports = device ? portsOf(t, cat, device) : [];
+  const chassis = byId(cat.chassis, device?.chassis);
+  const cards = device ? cardsOf(t, cat, device) : [];
+  const ports = cards.flatMap((c) => c.ports);
 
   // React Flow measures handles on mount and on resize, but a new pluggable can add a handle without resizing
   // the node, so re-measure when the set changes. (Not on mount: that would fit the view before every node is
@@ -80,25 +87,30 @@ function DeviceNode({ id }: NodeProps) {
     <div className="device">
       {/* No handler: a click opens the device, where each level shows its own alarms. */}
       <AlarmButton list={alarms(t, cat, device)} />
-      <ChassisIcon />
+      <ChassisIcon tester={chassis?.tester} />
       <div className="name">{device.name}</div>
-      <div className="model">{byId(cat.chassis, device.chassis)?.name ?? `unknown chassis ${device.chassis}`}</div>
-      {ports.length > 0 && (
-        <div className="ports">
-          {ports.map(({ end, port, pluggable }) => {
-            const lit = fibersAt(t, end);
-            return (
-              <div key={handleOf(end)} className={`port ${toneOf(port)}${showsInView(view, port) ? '' : ' off'}`} title={`${path(t, end)} · ${roleOf(port)} · ${pluggable?.name ?? 'fixed Tx/Rx'}`}>
-                {handleOf(end)}
-                <div className="lc">
-                  <Handle id={handleOf(end)} type="source" position={Position.Bottom} className={`strand${lit.tx ? ' lit' : ''}`}>Tx</Handle>
-                  <Handle id={handleOf(end)} type="target" position={Position.Bottom} className={`strand${lit.rx ? ' lit' : ''}`}>Rx</Handle>
+      <div className="model">{chassis?.name ?? `unknown chassis ${device.chassis}`}</div>
+      {/* A row per card: its slot and name, then its ports that can take a fiber, each with a Tx and an Rx handle. */}
+      {cards.map(({ slot, name, ports }) => (
+        <div key={slot} className="card-row">
+          {!chassis?.tester && <div className="card-name">{slot} · {name}</div>}
+          <div className="ports">
+            {ports.map(({ end, port, pluggable }) => {
+              const lit = fibersAt(t, end);
+              return (
+                <div key={handleOf(end)} className={`port ${toneOf(port)}${showsInView(view, port) ? '' : ' off'}`} title={`${path(t, end)} · ${roleOf(port)} · ${pluggable?.name ?? 'fixed Tx/Rx'}`}>
+                  {end.port}
+                  <div className="lc">
+                    <Handle id={handleOf(end)} type="source" position={Position.Bottom} className={`strand${lit.tx ? ' lit' : ''}`}>Tx</Handle>
+                    <Handle id={handleOf(end)} type="target" position={Position.Bottom} className={`strand${lit.rx ? ' lit' : ''}`}>Rx</Handle>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+            {!ports.length && <small className="muted">no optics in yet</small>}
+          </div>
         </div>
-      )}
+      ))}
     </div>
   );
 }
@@ -270,6 +282,7 @@ export function Canvas() {
         fitViewOptions={fitOptions}
       >
         <Background />
+        {!t.devices.length && <div className="empty-hint">Drag hardware from the palette below onto the canvas</div>}
         <Controls fitViewOptions={fitOptions} />
         <MiniMap pannable zoomable />
       </ReactFlow>

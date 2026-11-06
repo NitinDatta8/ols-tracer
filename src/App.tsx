@@ -95,13 +95,19 @@ function Palette() {
         <section key={category}>
           <h4>{category}</h4>
           <div className="items">
-            {chassis?.map((c) => (
-              <div key={c.id} className="item" draggable title={`${c.slots.length} slots. Drag onto the canvas.`}
-                onDragStart={(e) => e.dataTransfer.setData(CHASSIS_MIME, c.id)}>
-                <ChassisIcon />
-                {c.name}
-              </div>
-            ))}
+            {chassis?.map((c) => {
+              // A tester by its ports (it comes with its module), a chassis by its slots.
+              const ports = Object.values(c.comesWith ?? {}).reduce((n, lc) => n + (byId(cat.linecards, lc)?.ports.length ?? 0), 0);
+              const size = c.tester ? `${ports} ports` : `${c.slots.length} slots`;
+              return (
+                <div key={c.id} className="item" draggable title={`${c.about ?? size}. Drag onto the canvas.`}
+                  onDragStart={(e) => e.dataTransfer.setData(CHASSIS_MIME, c.id)}>
+                  <ChassisIcon tester={c.tester} />
+                  {c.name}
+                  <small>{size}</small>
+                </div>
+              );
+            })}
           </div>
         </section>
       ))}

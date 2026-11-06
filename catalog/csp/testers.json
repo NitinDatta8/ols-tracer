@@ -1,0 +1,25 @@
+{
+  "chassis": [
+    {
+      "id": "ch-bert-tester",
+      "name": "BERT Tester",
+      "category": "Test equipment",
+      "tester": true,
+      "about": "Bit error rate tester: sends a test pattern out of a port's Tx and counts the errors in what comes back into its Rx. Fiber its ports to client ports.",
+      "comesWith": { "1": "lc-bert-tester" },
+      "slots": [{ "id": "1", "allowedLinecards": ["lc-bert-tester"] }]
+    }
+  ],
+  "linecards": [
+    {
+      "id": "lc-bert-tester",
+      "name": "BERT Tester",
+      "about": "Two 100GE test ports, each a QSFP28 cage with its own Tx and Rx. Put in the same LR4 optics as the client port it is fibered to.",
+      "specs": { "Ports": "2 × 100GE (P1, P2)", "Optics": "QSFP28 100GBASE-LR4" },
+      "ports": [
+        { "id": "P1", "role": "client", "allowedPluggables": ["c100q10000lr402f", "ctq1mlr4cs1-01"] },
+        { "id": "P2", "role": "client", "allowedPluggables": ["c100q10000lr402f", "ctq1mlr4cs1-01"] }
+      ]
+    }
+  ]
+}

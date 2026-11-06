@@ -227,7 +227,11 @@ export function PhysicalView() {
   const openId = useStore((s) => s.openDevice);
   const [stage, fit] = useFit();
   const cat = useCatalog();
-  const [cardSlot, setCardSlot] = useState<string | null>(null); // slot of the linecard being shown
+  // Slot of the linecard being shown; a tester opens at its card, its two ports being all there is to it.
+  const [cardSlot, setCardSlot] = useState<string | null>(() => {
+    const d = byId(t.devices, openId ?? undefined);
+    return (byId(cat.chassis, d?.chassis)?.tester && Object.keys(d?.slots ?? {})[0]) || null;
+  });
   const [inner, setInner] = useState(false); // an L0 card is shown from the inside, not its ports
   const [drag, setDrag] = useState<Drag | null>(null);
   const [tip, setTip] = useState<{ p: PluggableDef; x: number; y: number; up: boolean } | null>(null);
@@ -292,7 +296,8 @@ export function PhysicalView() {
   const ru = Math.ceil(slots.length / columns) || 1; // drawn one rack unit (1U) high per row of slots
   const card = cardSlot ? byId(cat.linecards, device.slots[cardSlot]?.linecard) : undefined;
   const builtIn = card && !card.ports.some((p) => p.allowedPluggables.length); // a card with fixed ports only
-  const command = (level: CliLevel, at?: At) => cli(cat, level, { chassis: device.chassisNo ?? 1, ...at });
+  const tester = !!chassis?.tester; // test equipment: no box to connect to, no CLI
+  const command = (level: CliLevel, at?: At) => (tester ? '' : cli(cat, level, { chassis: device.chassisNo ?? 1, ...at }));
   const boxState = stateFor(live, device);
   const lightOf = (l: Link) => light(boxState, t, l, cat);
   const at = focus ?? (cardSlot ? { slot: cardSlot } : undefined);
@@ -601,7 +606,7 @@ export function PhysicalView() {
           <small>{[p.formFactor, p.speed].filter(Boolean).join(' · ')}</small>
         </div>
       ))] as const)
-      : [['Linecards', cat.linecards.map(cardTile)] as const];
+      : [['Linecards', cat.linecards.filter((lc) => slots.some((s) => s.allowedLinecards.includes(lc.id))).map(cardTile)] as const];
     // Always there, so the faceplate keeps its size: a card with built-in ports and the back get a note instead.
     const note = back ? 'Nothing to drag in at the rear.'
       : builtIn ? `${card.name} has built-in ports: nothing to plug in.`
@@ -651,7 +656,8 @@ export function PhysicalView() {
         <header>
           {/* Focus moves here, so Escape closes the view without React Flow also deselecting the node. */}
           <button autoFocus onClick={() => (cardSlot ? side(false) : setOpenDevice(null))} title={cardSlot ? 'Back to the chassis' : 'Back to the canvas'}>← Back</button>
-          {/* The box to run CLI commands on. Its session closes with the view. */}
+          {/* The box to run CLI commands on. Its session closes with the view. A tester has none. */}
+          {tester ? <small className="muted">{chassis?.name}: test equipment, no box to connect to and no CLI</small> : <>
           <form className="box" onSubmit={(e) => { e.preventDefault(); connectBox(); }}>
             <input value={device.host ?? ''} placeholder="Box IP" aria-label="Box IP" spellCheck={false} disabled={linked}
               onChange={(e) => updateDevice(device.id, { host: e.target.value })} />
@@ -672,6 +678,7 @@ export function PhysicalView() {
             </select>
             <button disabled={here.state !== 'connected' || !pulled}>Mark pulled</button>
           </form>
+          </>}
           <span className="spacer" />
           {/* There at a card too, so the header never shifts: either one goes back to that side of the chassis. */}
           {psus.length + fans.length > 0 && (
@@ -698,8 +705,10 @@ export function PhysicalView() {
             * it the command for what is hovered, to Copy or Run.
             */}
           <section className="term">
-            <BoxTerminal live={here.state === 'connected'} ref={keys} />
-            <Cli command={suggested} box={here} onRun={runOnBox} />
+            {tester ? <p className="no-cli">{chassis?.name} has no CLI here. Fiber its ports to client ports with the same optics.</p> : <>
+              <BoxTerminal live={here.state === 'connected'} ref={keys} />
+              <Cli command={suggested} box={here} onRun={runOnBox} />
+            </>}
           </section>
           <aside className="inspector">
             {(sheet || alarmsFor) && <button className="close" onClick={() => { setDetail(null); setAlarmsFor(null); }} aria-label="Close">✕</button>}
