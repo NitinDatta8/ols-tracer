@@ -642,7 +642,7 @@ export function PhysicalView() {
     : back
       ? '✕ pulls a PSU or fan out, which raises an alarm · Insert puts it back · Esc closes'
       : wire
-        ? `Running a fiber ${wire.strand === 'tx' ? 'from' : 'into'} ${farLabel(wire.end)} ${STRAND[wire.strand]}: click the ${STRAND[OTHER[wire.strand]]} at the other end (green = free; a loopback-capable port may loop back to itself) · Esc cancels`
+        ? `Running a fiber ${wire.strand === 'tx' ? 'from' : 'into'} ${farLabel(wire.end)} ${STRAND[wire.strand]}: click the ${STRAND[OTHER[wire.strand]]} at the other end (green = free; a loopback-capable port may loop back to itself, and 800MX LR4 ports may daisy-chain) · Esc cancels`
         : 'Drag a linecard onto a slot, or click it, then a green slot · click a card to open it, a tile or the name plate for a datasheet · click a Tx, then an Rx, to run a fiber · click a lit strand to remove it · click a fiber to move its runs · Esc closes';
 
   return (

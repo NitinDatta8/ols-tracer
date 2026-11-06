@@ -1,0 +1,11 @@
+
+[state]
+channel-id                   1
+transmitter-frequency        0 MHz
+
+statistics          instant | avg | min | max units              
+------------        -------------------------------------        
+output-power        -99.99 | -99.99 | -99.99 | -99.99 dBm
+input-power         -99.99 | -99.99 | -99.99 | -99.99 dBm
+
+

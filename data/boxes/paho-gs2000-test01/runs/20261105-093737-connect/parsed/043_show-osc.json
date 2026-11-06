@@ -1,0 +1,58 @@
+{
+  "state": {
+    "oscs": {
+      "1-1-osc": {
+        "output-frequency": 198675000,
+        "stats": {
+          "input-power": {
+            "instant": -8.95,
+            "avg": -8.95,
+            "min": -8.96,
+            "max": -8.95,
+            "unit": "dBm"
+          },
+          "output-power": {
+            "instant": 1.69,
+            "avg": 1.69,
+            "min": 1.68,
+            "max": 1.69,
+            "unit": "dBm"
+          },
+          "laser-bias-current": {
+            "instant": 3.84,
+            "avg": 3.84,
+            "min": 3.84,
+            "max": 3.84,
+            "unit": "mA"
+          }
+        }
+      },
+      "1-7-osc": {
+        "output-frequency": 198675000,
+        "stats": {
+          "input-power": {
+            "instant": -99.99,
+            "avg": -99.99,
+            "min": -99.99,
+            "max": -99.99,
+            "unit": "dBm"
+          },
+          "output-power": {
+            "instant": 1.55,
+            "avg": 1.55,
+            "min": 1.55,
+            "max": 1.55,
+            "unit": "dBm"
+          },
+          "laser-bias-current": {
+            "instant": 3.71,
+            "avg": 3.71,
+            "min": 3.71,
+            "max": 3.71,
+            "unit": "mA"
+          }
+        }
+      }
+    }
+  }
+}

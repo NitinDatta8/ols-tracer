@@ -1,0 +1,20 @@
+{
+  "run": "20261105-164155-alarms",
+  "box": "box3",
+  "host": "10.111.25.12",
+  "hostname": "PAHO-GS2000-03",
+  "release": null,
+  "trigger": "alarms",
+  "started": "2026-11-05T16:41:55-05:00",
+  "ended": "2026-11-05T16:44:22-05:00",
+  "boxClock": "2021-08-01T01:08:40+00:00",
+  "boxClockOffsetSec": -166134796,
+  "prereqs": [],
+  "state": "unknown",
+  "notes": "",
+  "snapshot": {
+    "done": 19,
+    "of": 19,
+    "fast": true
+  }
+}

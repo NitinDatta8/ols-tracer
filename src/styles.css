@@ -127,6 +127,7 @@ main { position: relative; min-height: 0; }
 .physical header .box small { width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 /* Where the fibers' light comes from (Live, or Last state · time): fixed width, so the header never shifts. */
 .physical header .light-state { width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.physical header .wiring-state { color: #8a6d00; border: 1px solid #d4bb55; background: #fff6d8; border-radius: 999px; padding: 2px 8px; font-size: 12px; }
 /* Marks a pulled strand: fixed width too. */
 .physical header .pull { display: flex; align-items: center; }
 .physical header .pull select { width: 200px; padding: 4px 6px; border: 1px solid var(--border); border-radius: 6px 0 0 6px; background: #fff; font: 13px var(--mono); }

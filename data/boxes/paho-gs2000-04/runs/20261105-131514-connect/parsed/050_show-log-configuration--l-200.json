@@ -1,0 +1,778 @@
+{
+  "entries": [
+    {
+      "time-stamp": "2021-07-31T21:41:49+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 33,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-31T21:41:48+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 33,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-31T19:32:00+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 31,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set och 1-4-5 target-output-power -2"
+    },
+    {
+      "time-stamp": "2021-07-31T19:31:42+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 31,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set och 1-4-5 target-output-power -1"
+    },
+    {
+      "time-stamp": "2021-07-31T19:29:52+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 31,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set och 1-4-5 target-output-power 0"
+    },
+    {
+      "time-stamp": "2021-07-31T19:28:10+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 31,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set och 1-4-5 target-output-power -3"
+    },
+    {
+      "time-stamp": "2021-07-31T19:26:17+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 31,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set cross-connection CC4_5_2 source-entity 100GE-1-4-5-2 destination-entity 100GE-1-4-2"
+    },
+    {
+      "time-stamp": "2021-07-31T19:25:23+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 31,
+      "user-ip": "10.111.12.181",
+      "type": "delete",
+      "details": "delete cross-connection CC4_10"
+    },
+    {
+      "time-stamp": "2021-07-31T19:24:56+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 31,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set port 1-4-10 admin-state out-of-service laser disabled"
+    },
+    {
+      "time-stamp": "2021-07-31T19:24:34+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 31,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set port 1-4-6 admin-state out-of-service laser disabled"
+    },
+    {
+      "time-stamp": "2021-07-31T19:24:08+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 31,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set port 1-4-2 laser enabled"
+    },
+    {
+      "time-stamp": "2021-07-31T19:23:48+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 31,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set port 1-4-2 port-mode PROT_100GE admin-state in-service"
+    },
+    {
+      "time-stamp": "2021-07-31T19:23:17+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 31,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set logical-channel flexgo-1-4-5 time-slot-type eth-100g"
+    },
+    {
+      "time-stamp": "2021-07-31T19:23:00+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 31,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set och 1-4-5 frequency 193500000 target-output-power 0"
+    },
+    {
+      "time-stamp": "2021-07-31T19:22:36+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 31,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set port 1-4-5 port-mode PROT_ZR400_16QAMSS_60G admin-state in-service laser enabled"
+    },
+    {
+      "time-stamp": "2021-07-31T19:15:49+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 31,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set cross-connection CC4_10 source-entity 100GE-1-4-6-4 destination-entity 100GE-1-4-10"
+    },
+    {
+      "time-stamp": "2021-07-31T19:15:12+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 31,
+      "user-ip": "10.111.12.181",
+      "type": "delete",
+      "details": "delete cross-connection CC4_6"
+    },
+    {
+      "time-stamp": "2021-07-31T19:14:38+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 31,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set port 1-4-10 port-mode PROT_100GE admin-state in-service"
+    },
+    {
+      "time-stamp": "2021-07-31T19:13:46+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 31,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set port 1-4-8 admin-state out-of-service laser disabled"
+    },
+    {
+      "time-stamp": "2021-07-31T18:19:03+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 29,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set och 1-4-6 frequency 193500000 target-output-power -3"
+    },
+    {
+      "time-stamp": "2021-07-31T18:17:58+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 29,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set och 1-4-6 frequency 193500000 target-output-power 0"
+    },
+    {
+      "time-stamp": "2021-07-31T18:17:34+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 29,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set port 1-4-6 admin-state in-service"
+    },
+    {
+      "time-stamp": "2021-07-31T18:17:17+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 29,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set port 1-4-6 port-mode PROT_ZR400_16QAMSS_60G"
+    },
+    {
+      "time-stamp": "2021-07-31T18:09:56+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 29,
+      "user-ip": "10.111.12.181",
+      "type": "rpc",
+      "details": "reboot card 1-4 cold"
+    },
+    {
+      "time-stamp": "2021-07-31T18:02:06+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 29,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set cross-connection CC4_6 source-entity 100GE-1-4-6-2 destination-entity 100GE-1-4-8"
+    },
+    {
+      "time-stamp": "2021-07-31T18:01:12+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 29,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set port 1-4-8 port-mode PROT_100GE admin-state in-service"
+    },
+    {
+      "time-stamp": "2021-07-31T18:00:29+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 29,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set logical-channel flexgo-1-4-6 time-slot-type eth-100g"
+    },
+    {
+      "time-stamp": "2021-07-31T17:59:17+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 29,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set port 1-4-6 laser enabled"
+    },
+    {
+      "time-stamp": "2021-07-31T17:58:43+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 29,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set och 1-4-6 frequency 193500000 target-output-power -4"
+    },
+    {
+      "time-stamp": "2021-07-31T17:58:13+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 29,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set port 1-4-6 admin-state in-service"
+    },
+    {
+      "time-stamp": "2021-07-31T17:57:36+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 29,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set port 1-4-5 laser disabled"
+    },
+    {
+      "time-stamp": "2021-07-31T17:57:24+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 29,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set port 1-4-3 laser disabled"
+    },
+    {
+      "time-stamp": "2021-07-31T17:57:08+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 29,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set port 1-4-3 admin-state out-of-service"
+    },
+    {
+      "time-stamp": "2021-07-31T17:56:42+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 29,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set port 1-4-5 admin-state out-of-service"
+    },
+    {
+      "time-stamp": "2021-07-31T17:54:06+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 29,
+      "user-ip": "10.111.12.181",
+      "type": "delete",
+      "details": "delete cross-connection CC4_3"
+    },
+    {
+      "time-stamp": "2021-07-29T19:06:47+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 23,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-29T19:06:47+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 23,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-28T22:27:10+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 19,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set och 1-4-5 target-output-power -3"
+    },
+    {
+      "time-stamp": "2021-07-28T19:20:00+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 14,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set cross-connection CC4_7 source-entity 100GE-1-4-7 destination-entity 100GE-1-4-6-1"
+    },
+    {
+      "time-stamp": "2021-07-28T19:18:44+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 14,
+      "user-ip": "10.111.20.226",
+      "type": "delete",
+      "details": "delete cross-connection CC4_7"
+    },
+    {
+      "time-stamp": "2021-07-28T19:18:00+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 14,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set port 1-4-2 laser disabled"
+    },
+    {
+      "time-stamp": "2021-07-28T19:17:44+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 14,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set port 1-4-2 admin-state out-of-service"
+    },
+    {
+      "time-stamp": "2021-07-28T19:16:52+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 14,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set port 1-4-1 laser disabled"
+    },
+    {
+      "time-stamp": "2021-07-28T19:15:43+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 14,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set port 1-4-1 admin-state out-of-service"
+    },
+    {
+      "time-stamp": "2021-07-28T19:10:54+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 14,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set cross-connection CC4_7 source-entity 100GE-1-4-7 destination-entity 100GE-1-4-6-1"
+    },
+    {
+      "time-stamp": "2021-07-28T19:04:18+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 14,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set port 1-4-7 port-mode PROT_100GE admin-state in-service"
+    },
+    {
+      "time-stamp": "2021-07-28T19:03:55+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 14,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set logical-channel flexgo-1-4-6 time-slot-type eth-100g"
+    },
+    {
+      "time-stamp": "2021-07-28T19:02:29+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 14,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set och 1-4-6 frequency 193500000 target-output-power 0"
+    },
+    {
+      "time-stamp": "2021-07-28T19:01:39+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 14,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set port 1-4-6 admin-state in-service"
+    },
+    {
+      "time-stamp": "2021-07-28T18:59:42+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.12.181",
+      "type": "set",
+      "details": "set port 1-4-6 port-mode PROT_ZR400_16QAMSS_60G"
+    },
+    {
+      "time-stamp": "2021-07-28T18:12:42+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 10,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-28T18:12:41+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 10,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-25T18:57:06+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 8,
+      "user-ip": "192.168.194.221",
+      "type": "set",
+      "details": "set port 1-4-2 port-mode PROT_100GE admin-state in-service"
+    },
+    {
+      "time-stamp": "2021-07-25T18:54:14+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 8,
+      "user-ip": "192.168.194.221",
+      "type": "set",
+      "details": "set logical-channel flexgo-1-4-1 time-slot-type eth-100g"
+    },
+    {
+      "time-stamp": "2021-07-25T18:53:38+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 8,
+      "user-ip": "192.168.194.221",
+      "type": "set",
+      "details": "set och 1-4-1 frequency 193500000 target-output-power 0"
+    },
+    {
+      "time-stamp": "2021-07-25T18:53:17+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 8,
+      "user-ip": "192.168.194.221",
+      "type": "set",
+      "details": "set port 1-4-1 admin-state in-service"
+    },
+    {
+      "time-stamp": "2021-07-25T18:52:34+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 8,
+      "user-ip": "192.168.194.221",
+      "type": "set",
+      "details": "set port 1-4-1 port-mode PROT_ZR400_16QAMSS_60G"
+    },
+    {
+      "time-stamp": "2021-07-25T18:51:47+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 8,
+      "user-ip": "192.168.194.221",
+      "type": "delete",
+      "details": "delete cross-connection CC4_2"
+    },
+    {
+      "time-stamp": "2021-07-24T23:42:41+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 5,
+      "user-ip": "10.111.20.226",
+      "type": "rpc",
+      "details": "reboot card 1-4 cold"
+    },
+    {
+      "time-stamp": "2021-07-24T20:48:24+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 4,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set sftp server disabled"
+    },
+    {
+      "time-stamp": "2021-07-24T20:41:04+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 3,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set sftp server enabled"
+    },
+    {
+      "time-stamp": "2021-07-24T19:01:15+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set sftp server disabled"
+    },
+    {
+      "time-stamp": "2021-07-24T18:21:02+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 7,
+      "user-ip": "10.111.20.226",
+      "type": "rpc",
+      "details": "activate candidate-sw-image"
+    },
+    {
+      "time-stamp": "2021-07-24T17:10:09+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "10.111.20.226",
+      "type": "rpc",
+      "details": "download sw-image path sftp://10.192.213.35/data/ftp/CSP_R2.10.0/20261013 file-name Release_CSP-2.10.0.10_20261013.tar"
+    },
+    {
+      "time-stamp": "2021-07-24T17:03:48+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 4,
+      "user-ip": "10.111.20.226",
+      "type": "rpc",
+      "details": "rollback"
+    },
+    {
+      "time-stamp": "2021-07-23T21:20:43+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 11,
+      "user-ip": "192.168.194.171",
+      "type": "rpc",
+      "details": "reboot ne cold"
+    },
+    {
+      "time-stamp": "2021-07-23T21:13:58+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 9,
+      "user-ip": "10.111.20.78",
+      "type": "rpc",
+      "details": "reboot card 1-4 cold"
+    },
+    {
+      "time-stamp": "2021-07-23T20:55:29+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 7,
+      "user-ip": "192.168.194.171",
+      "type": "set",
+      "details": "set sftp server enabled"
+    },
+    {
+      "time-stamp": "2021-07-22T23:28:29+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 5,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set eth 1-4-2 fec disabled"
+    },
+    {
+      "time-stamp": "2021-07-22T23:28:07+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 5,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set cross-connection CC4_2 source-entity 100GE-1-4-1-1 destination-entity 100GE-1-4-2"
+    },
+    {
+      "time-stamp": "2021-07-22T23:25:21+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 5,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set port 1-4-2 port-mode PROT_100GE admin-state in-service"
+    },
+    {
+      "time-stamp": "2021-07-22T23:24:51+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 5,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set logical-channel flexgo-1-4-1 time-slot-type eth-100g"
+    },
+    {
+      "time-stamp": "2021-07-22T23:22:38+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 5,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set och 1-4-1 frequency 193500000 target-output-power 0"
+    },
+    {
+      "time-stamp": "2021-07-22T23:22:15+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 5,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set port 1-4-1 admin-state in-service"
+    },
+    {
+      "time-stamp": "2021-07-22T23:21:26+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 5,
+      "user-ip": "10.111.20.226",
+      "type": "set",
+      "details": "set port 1-4-1 port-mode PROT_ZR800_16QAMPS_123P8G"
+    },
+    {
+      "time-stamp": "2021-07-21T22:10:21+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "rpc",
+      "details": "reboot ne cold"
+    },
+    {
+      "time-stamp": "2021-07-21T22:10:02+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "rpc",
+      "details": "save configuration"
+    },
+    {
+      "time-stamp": "2021-07-21T22:09:58+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "set",
+      "details": "set system config-saving-mode auto"
+    },
+    {
+      "time-stamp": "2021-07-21T22:09:47+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "rpc",
+      "details": "save configuration"
+    },
+    {
+      "time-stamp": "2021-07-21T22:09:43+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "set",
+      "details": "set lldp system-name PAHO-GS2000-04"
+    },
+    {
+      "time-stamp": "2021-07-21T22:09:20+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "set",
+      "details": "set ip route 10.111.25.0/24 next-hop 10.111.25.1"
+    },
+    {
+      "time-stamp": "2021-07-21T22:08:51+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "set",
+      "details": "set ip ospf interface 1-43-nm2 retransmit-interval 5 hello-interval 10 dead-interval 40 cost 1 priority 1 transmit-delay 1 area 0"
+    },
+    {
+      "time-stamp": "2021-07-21T22:07:58+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "set",
+      "details": "set ip ospf router-id 10.111.25.13 control enabled"
+    },
+    {
+      "time-stamp": "2021-07-21T22:07:39+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "set",
+      "details": "set ip interface 1-43-nm2 address 10.111.25.13 prefix-length 24 gateway 10.111.25.1"
+    },
+    {
+      "time-stamp": "2021-07-21T22:07:00+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "set",
+      "details": "set system config-saving-mode manual"
+    },
+    {
+      "time-stamp": "2021-07-21T22:06:47+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "set",
+      "details": "set system hostname PAHO-GS2000-04"
+    }
+  ]
+}

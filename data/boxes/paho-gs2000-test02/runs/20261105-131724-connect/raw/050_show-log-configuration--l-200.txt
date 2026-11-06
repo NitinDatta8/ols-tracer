@@ -1,0 +1,504 @@
+time-stamp                   nbi        user-name    session-id    user-ip            type      details                                                                   
+-------------------------    -------    ---------    ----------    ---------------    ------    ----------------------------------------------------------------------    
+2022-02-24T22:22:30+00:00    CLI        admin        24            10.111.0.43        rpc       set cli width 1024                                                        
+2022-02-24T22:22:29+00:00    CLI        admin        24            10.111.0.43        rpc       set cli length 0                                                          
+2022-02-24T22:22:10+00:00    CLI        admin        23            10.111.0.43        rpc       set cli width 1024                                                        
+2022-02-24T22:22:10+00:00    CLI        admin        23            10.111.0.43        rpc       set cli length 0                                                          
+2022-02-17T18:39:51+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"DISABLED"}                          
+2022-02-17T18:39:51+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_NA"}                                                              
+2022-02-17T18:39:51+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-17T18:39:51+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-17T18:39:51+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-17T18:37:49+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"ENABLED"}                           
+2022-02-17T18:37:49+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_ZR800_16QAM_118G"}                                                
+2022-02-17T18:37:49+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-17T18:37:49+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-17T18:37:49+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-17T18:34:48+00:00    NETCONF    admin        2             10.111.25.15       delete    object:/openconfig-wavelength-router:wavelength-router/media-channels/    
+                                                                                                channel[index='856601453']                                                
+                                                                                                value:{"openconfig-wavelength-router:index":856601453}                    
+2022-02-17T18:34:48+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-wavelength-router:wavelength-router/media-channels     
+                                                                                                value:{}                                                                  
+2022-02-17T18:34:48+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-wavelength-router:wavelength-router                    
+                                                                                                value:{}                                                                  
+2022-02-17T18:34:48+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-wavelength-router:wavelength-router/media-channels/    
+                                                                                                channel[index='856601453']/config                                         
+                                                                                                value:{"admin-status":"DISABLED","index":856601453}                       
+2022-02-17T18:34:48+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-wavelength-router:wavelength-router/media-channels/    
+                                                                                                channel[index='856601453']                                                
+                                                                                                value:{"openconfig-wavelength-router:index":856601453}                    
+2022-02-17T18:34:48+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-wavelength-router:wavelength-router/media-channels     
+                                                                                                value:{}                                                                  
+2022-02-17T18:34:48+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-wavelength-router:wavelength-router                    
+                                                                                                value:{}                                                                  
+2022-02-17T18:34:47+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"DISABLED"}                          
+2022-02-17T18:34:47+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_NA"}                                                              
+2022-02-17T18:34:47+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-17T18:34:47+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-17T18:34:47+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-17T18:34:26+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-2']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"DISABLED"}                          
+2022-02-17T18:34:26+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-2']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_NA"}                                                              
+2022-02-17T18:34:26+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-2']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-17T18:34:26+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-2']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-2"}                           
+2022-02-17T18:34:26+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-17T18:34:25+00:00    NETCONF    admin        2             10.111.25.15       delete    object:/co-cross-connection:service/transport-cross-connections/transp    
+                                                                                                ort-cross-connection[connection-name='PAHO-GS2000-test02$100GE-1-5-1-1    
+                                                                                                #100GE-1-5-2']                                                            
+                                                                                                value:{"co-cross-connection:connection-name":"PAHO-GS2000-test02$100GE    
+                                                                                                -1-5-1-1#100GE-1-5-2"}                                                    
+2022-02-17T18:34:25+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/co-cross-connection:service/transport-cross-connections           
+                                                                                                value:{}                                                                  
+2022-02-17T18:34:25+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/co-cross-connection:service                                       
+                                                                                                value:{}                                                                  
+2022-02-17T00:00:15+00:00    CLI        admin        16            192.168.194.171    set       set card 1-7 module-type 800MX admin-state in-service                     
+2022-02-16T23:57:58+00:00    CLI        admin        16            192.168.194.171    rpc       reboot card 1-7 cold                                                      
+2022-02-14T09:54:53+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/co-cross-connection:service/transport-cross-connections/transp    
+                                                                                                ort-cross-connection[connection-name='PAHO-GS2000-test02$100GE-1-5-1-1    
+                                                                                                #100GE-1-5-2']/config                                                     
+                                                                                                value:{"connection-name":"PAHO-GS2000-test02$100GE-1-5-1-1#100GE-1-5-2    
+                                                                                                ","destination-entity":1073742144,"direction-type":"BI_DIRECTIONAL","s    
+                                                                                                ource-entity":1082196032}                                                 
+2022-02-14T09:54:53+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/co-cross-connection:service/transport-cross-connections/transp    
+                                                                                                ort-cross-connection[connection-name='PAHO-GS2000-test02$100GE-1-5-1-1    
+                                                                                                #100GE-1-5-2']                                                            
+                                                                                                value:{"co-cross-connection:connection-name":"PAHO-GS2000-test02$100GE    
+                                                                                                -1-5-1-1#100GE-1-5-2"}                                                    
+2022-02-14T09:54:53+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/co-cross-connection:service/transport-cross-connections           
+                                                                                                value:{}                                                                  
+2022-02-14T09:54:53+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/co-cross-connection:service                                       
+                                                                                                value:{}                                                                  
+2022-02-14T09:54:46+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-2']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"ENABLED"}                           
+2022-02-14T09:54:46+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-2']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_100GE"}                                                           
+2022-02-14T09:54:46+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-2']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-14T09:54:46+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-2']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-2"}                           
+2022-02-14T09:54:46+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-14T09:54:46+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-terminal-device:terminal-device/logical-channels/ch    
+                                                                                                annel[index='1073741888']/config                                          
+                                                                                                value:{"co-terminal-device-ext:time-slot-type":"co-extension-types:ETH    
+                                                                                                _100G","index":1073741888}                                                
+2022-02-14T09:54:46+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-terminal-device:terminal-device/logical-channels/ch    
+                                                                                                annel[index='1073741888']                                                 
+                                                                                                value:{"openconfig-terminal-device:index":1073741888}                     
+2022-02-14T09:54:46+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-terminal-device:terminal-device/logical-channels       
+                                                                                                value:{}                                                                  
+2022-02-14T09:54:46+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-terminal-device:terminal-device                        
+                                                                                                value:{}                                                                  
+2022-02-14T09:53:28+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"ENABLED"}                           
+2022-02-14T09:53:28+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-14T09:53:28+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-14T09:53:25+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-wavelength-router:wavelength-router/media-channels/    
+                                                                                                channel[index='856601453']/dest/config                                    
+                                                                                                value:{"port-name":"PORT-1-1-LINE"}                                       
+2022-02-14T09:53:25+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-wavelength-router:wavelength-router/media-channels/    
+                                                                                                channel[index='856601453']/dest                                           
+                                                                                                value:{}                                                                  
+2022-02-14T09:53:25+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-wavelength-router:wavelength-router/media-channels/    
+                                                                                                channel[index='856601453']/source/config                                  
+                                                                                                value:{"port-name":"PORT-1-1-AD4"}                                        
+2022-02-14T09:53:25+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-wavelength-router:wavelength-router/media-channels/    
+                                                                                                channel[index='856601453']/source                                         
+                                                                                                value:{}                                                                  
+2022-02-14T09:53:25+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-wavelength-router:wavelength-router/media-channels/    
+                                                                                                channel[index='856601453']/config                                         
+                                                                                                value:{"admin-status":"ENABLED","co-wavelength-router-ext:bandwidth":"    
+                                                                                                150000","co-wavelength-router-ext:center-frequency":"196075000","co-wa    
+                                                                                                velength-router-ext:type":"co-extension-types:TWO_WAY","index":8566014    
+                                                                                                53,"name":"ch-1-1-196075000-856601453"}                                   
+2022-02-14T09:53:25+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-wavelength-router:wavelength-router/media-channels/    
+                                                                                                channel[index='856601453']                                                
+                                                                                                value:{"openconfig-wavelength-router:index":856601453}                    
+2022-02-14T09:53:25+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-wavelength-router:wavelength-router/media-channels     
+                                                                                                value:{}                                                                  
+2022-02-14T09:53:25+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-wavelength-router:wavelength-router                    
+                                                                                                value:{}                                                                  
+2022-02-14T09:53:23+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='OCH-1-5-1']/ope    
+                                                                                                nconfig-terminal-device:optical-channel/config                            
+                                                                                                value:{"frequency":"196075000"}                                           
+2022-02-14T09:53:23+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='OCH-1-5-1']/ope    
+                                                                                                nconfig-terminal-device:optical-channel                                   
+                                                                                                value:{}                                                                  
+2022-02-14T09:53:23+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='OCH-1-5-1']        
+                                                                                                value:{"openconfig-platform:name":"OCH-1-5-1"}                            
+2022-02-14T09:53:23+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-14T09:49:59+00:00    CLI        admin        11            10.192.244.51      set       set port 1-5-1 port-mode PROT_ZR800_16QAMPS_123P8G                        
+2022-02-14T09:47:46+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"DISABLED"}                          
+2022-02-14T09:47:46+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_NA"}                                                              
+2022-02-14T09:47:46+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-14T09:47:46+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-14T09:47:46+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-14T09:45:44+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"ENABLED"}                           
+2022-02-14T09:45:44+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_ZR800_16QAMPS_123P8G"}                                            
+2022-02-14T09:45:44+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-14T09:45:44+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-14T09:45:44+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-14T09:24:50+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"DISABLED"}                          
+2022-02-14T09:24:50+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_NA"}                                                              
+2022-02-14T09:24:50+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-14T09:24:50+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-14T09:24:50+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-14T09:22:48+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"ENABLED"}                           
+2022-02-14T09:22:48+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_ZR800_16QAMPS_123P8G"}                                            
+2022-02-14T09:22:48+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-14T09:22:48+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-14T09:22:48+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-14T09:17:58+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"DISABLED"}                          
+2022-02-14T09:17:58+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_NA"}                                                              
+2022-02-14T09:17:58+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-14T09:17:58+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-14T09:17:58+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-14T09:15:56+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"ENABLED"}                           
+2022-02-14T09:15:56+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_ZR800_16QAMPS_123P8G"}                                            
+2022-02-14T09:15:56+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-14T09:15:56+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-14T09:15:56+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-14T06:39:54+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"DISABLED"}                          
+2022-02-14T06:39:54+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_NA"}                                                              
+2022-02-14T06:39:54+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-14T06:39:54+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-14T06:39:54+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-14T06:37:52+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"ENABLED"}                           
+2022-02-14T06:37:52+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_ZR800_16QAMPS_123P8G"}                                            
+2022-02-14T06:37:52+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-14T06:37:52+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-14T06:37:52+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-14T05:32:11+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"DISABLED"}                          
+2022-02-14T05:32:11+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_NA"}                                                              
+2022-02-14T05:32:11+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-14T05:32:11+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-14T05:32:11+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-14T05:30:08+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"ENABLED"}                           
+2022-02-14T05:30:08+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_ZR800_16QAMPS_123P8G"}                                            
+2022-02-14T05:30:08+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-14T05:30:08+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-14T05:30:08+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-14T05:30:07+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"DISABLED"}                          
+2022-02-14T05:30:07+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_NA"}                                                              
+2022-02-14T05:30:07+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-14T05:30:07+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-14T05:30:07+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-14T05:28:05+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"ENABLED"}                           
+2022-02-14T05:28:05+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_ZR800_16QAMPS_123P8G"}                                            
+2022-02-14T05:28:05+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-14T05:28:05+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-14T05:28:05+00:00    NETCONF    admin        2             10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-09T18:34:28+00:00    CLI        admin        4             10.111.20.249      rpc       activate candidate-sw-image                                               
+2022-02-09T18:26:31+00:00    CLI        admin        4             10.111.20.249      rpc       download sw-image path sftp://10.192.213.35/data/ftp/CSP_R2.9.0/202604    
+                                                                                                29 file-name Release_CSP-2.9.0.243_20260429.tar                           
+2022-02-09T11:31:58+00:00    CLI        admin        2             10.192.244.51      rpc       commit active-sw-image                                                    
+2022-02-09T05:42:59+00:00    CLI        admin        18            10.192.244.51      rpc       activate candidate-sw-image                                               
+2022-02-09T05:26:40+00:00    CLI        admin        16            10.192.244.51      rpc       download sw-image path sftp://10.192.213.35/data/ftp/CSP_R2.9.0/202608    
+                                                                                                11/ file-name Release_CSP-2.9.0.251_20260811.tar                          
+2022-02-08T05:04:11+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"DISABLED"}                          
+2022-02-08T05:04:11+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_NA"}                                                              
+2022-02-08T05:04:11+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-08T05:04:11+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-08T05:04:11+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-08T05:02:09+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"ENABLED"}                           
+2022-02-08T05:02:09+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_ZR800_16QAMPS_123P8G"}                                            
+2022-02-08T05:02:09+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-08T05:02:09+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-08T05:02:09+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-07T21:44:08+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"DISABLED"}                          
+2022-02-07T21:44:08+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_NA"}                                                              
+2022-02-07T21:44:08+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-07T21:44:08+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-07T21:44:08+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-07T21:42:06+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"ENABLED"}                           
+2022-02-07T21:42:06+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_ZR800_16QAMPS_123P8G"}                                            
+2022-02-07T21:42:06+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-07T21:42:06+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-07T21:42:06+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-07T21:40:20+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"DISABLED"}                          
+2022-02-07T21:40:20+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_NA"}                                                              
+2022-02-07T21:40:20+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-07T21:40:20+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-07T21:40:20+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-07T21:38:17+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/co    
+                                                                                                nfig                                                                      
+                                                                                                value:{"co-platform-ext:admin-state":"ENABLED"}                           
+2022-02-07T21:38:17+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt/config                                                                 
+                                                                                                value:{"co-platform-ext:layer-protocol-name":"openconfig-transport-typ    
+                                                                                                es:PROT_ZR800_16QAMPS_123P8G"}                                            
+2022-02-07T21:38:17+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']/po    
+                                                                                                rt                                                                        
+                                                                                                value:{}                                                                  
+2022-02-07T21:38:17+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components/component[name='PORT-1-5-1']       
+                                                                                                value:{"openconfig-platform:name":"PORT-1-5-1"}                           
+2022-02-07T21:38:17+00:00    NETCONF    admin        13            10.111.25.15       merge     object:/openconfig-platform:components                                    
+                                                                                                value:{}                                                                  
+2022-02-07T21:22:51+00:00    CLI        admin        12            192.168.234.206    set       set lldp system-name PAHO-GS2000-test02                                   
+2022-02-07T21:22:23+00:00    CLI        admin        12            192.168.234.206    set       set system hostname PAHO-GS2000-test02                                    
+2022-02-07T20:06:54+00:00    CLI        admin        3             192.168.234.206    set       set internal-connection ad4solt5 connection-type data source-port port    
+                                                                                                -1-5-1 dest-port port-1-1-ad4                                             
+2022-02-07T20:03:27+00:00    CLI        admin        3             192.168.234.206    set       set lldp system-name PAHO-GS2000-02                                       
+2022-02-07T20:03:11+00:00    CLI        admin        3             192.168.234.206    set       set system hostname PAHO-GS2000-02                                        
+2022-02-07T19:56:13+00:00    CLI        admin        9             192.168.234.206    rpc       clear database keep-networking                                            
+2022-02-07T19:55:40+00:00    CLI        admin        9             192.168.234.206    set       set ztp admin-enable false                                                
+2022-02-07T13:50:32+00:00    CLI        admin        7             10.192.244.51      set       set internal-connection ad4solt5 connection-type data source-port port    
+                                                                                                -1-5-1 dest-port port-1-1-ad4                                             
+2022-02-07T13:43:57+00:00    CLI        admin        7             10.192.244.51      set       set port 1-5-1 port-mode PROT_ZR800_16QAMPS_123P8G                        
+2022-02-05T10:31:40+00:00    CLI        admin        4             10.192.244.51      rpc       download sw-image path sftp://10.192.213.35/data/ftp/CSP_R2.10.0/20260    
+                                                                                                922/ file-name Release_CSP-2.10.0.9_20260922.tar                          
+2022-02-05T10:15:18+00:00    CLI        admin        4             10.192.244.51      rpc       reboot ne cold                                                            
+2022-02-05T10:09:21+00:00    CLI        admin        1             10.192.244.51      set       set lldp system-name PAHO-GS2000-02                                       
+2022-02-05T10:09:00+00:00    CLI        admin        1             10.192.244.51      set       set system hostname PAHO-GS2000-02                                        
+2022-02-05T10:05:11+00:00    CLI        admin        90            10.192.244.51      rpc       clear database keep-networking                                            
+2022-02-05T10:04:56+00:00    CLI        admin        90            10.192.244.51      set       set ztp admin-enable false                                                
+2022-01-31T21:26:47+00:00    NETCONF    admin        81            10.111.25.15       merge     object:/openconfig-system:system/ntp/servers/server[address='10.1.1.1'    
+                                                                                                ]/config                                                                  
+                                                                                                value:{"association-type":"SERVER","iburst":false,"port":80,"prefer":t    
+                                                                                                rue,"version":1}                                                          
+2022-01-31T21:26:47+00:00    NETCONF    admin        81            10.111.25.15       merge     object:/openconfig-system:system/ntp/servers/server[address='10.1.1.1'    
+                                                                                                ]                                                                         
+                                                                                                value:{"openconfig-system:address":"10.1.1.1"}                            
+2022-01-31T21:26:47+00:00    NETCONF    admin        81            10.111.25.15       merge     object:/openconfig-system:system/ntp/servers                              
+                                                                                                value:{}                                                                  
+2022-01-31T21:26:47+00:00    NETCONF    admin        81            10.111.25.15       merge     object:/openconfig-system:system/ntp                                      
+                                                                                                value:{}                                                                  
+2022-01-31T21:26:47+00:00    NETCONF    admin        81            10.111.25.15       merge     object:/openconfig-system:system                                          
+                                                                                                value:{}                                                                  
+2022-01-31T21:26:06+00:00    NETCONF    admin        81            10.111.25.15       merge     object:/openconfig-system:system/ntp/servers/server[address='10.1.1.2'    
+                                                                                                ]/config                                                                  
+                                                                                                value:{"association-type":"SERVER","prefer":true}                         
+2022-01-31T21:26:06+00:00    NETCONF    admin        81            10.111.25.15       merge     object:/openconfig-system:system/ntp/servers/server[address='10.1.1.2'    
+                                                                                                ]                                                                         
+                                                                                                value:{"openconfig-system:address":"10.1.1.2"}                            
+2022-01-31T21:26:06+00:00    NETCONF    admin        81            10.111.25.15       merge     object:/openconfig-system:system/ntp/servers                              
+                                                                                                value:{}                                                                  
+2022-01-31T21:26:06+00:00    NETCONF    admin        81            10.111.25.15       merge     object:/openconfig-system:system/ntp                                      
+                                                                                                value:{}                                                                  
+2022-01-31T21:26:06+00:00    NETCONF    admin        81            10.111.25.15       merge     object:/openconfig-system:system                                          
+                                                                                                value:{}                                                                  
+2022-01-31T21:25:11+00:00    NETCONF    admin        81            10.111.25.15       merge     object:/openconfig-system:system/ntp/config                               
+                                                                                                value:{"enable-ntp-auth":false,"ntp-source-address":"10.1.1.1"}           
+2022-01-31T21:25:11+00:00    NETCONF    admin        81            10.111.25.15       merge     object:/openconfig-system:system/ntp                                      
+                                                                                                value:{}                                                                  
+2022-01-31T21:25:11+00:00    NETCONF    admin        81            10.111.25.15       merge     object:/openconfig-system:system                                          
+                                                                                                value:{}                                                                  
+2022-01-25T18:01:49+00:00    CLI        admin        75            10.111.20.129      rpc       download sw-image path sftp://10.192.213.35/data/ftp/CSP_R2.9.0/202604    
+                                                                                                29 file-name Release_CSP-2.9.0.243_20260429.tar                           
+2022-01-13T23:44:12+00:00    CLI        admin        68            10.111.12.184      set       set cross-connection CC1_9 source-entity 100GE-1-5-1-7 destination-ent    
+                                                                                                ity 100GE-1-5-9                                                           
+2022-01-13T23:44:00+00:00    CLI        admin        68            10.111.12.184      set       set cross-connection CC1_8 source-entity 100GE-1-5-1-6 destination-ent    
+                                                                                                ity 100GE-1-5-8                                                           
+2022-01-13T23:43:49+00:00    CLI        admin        68            10.111.12.184      set       set cross-connection CC1_7 source-entity 100GE-1-5-1-5 destination-ent    
+                                                                                                ity 100GE-1-5-7                                                           
+2022-01-13T23:43:34+00:00    CLI        admin        68            10.111.12.184      set       set cross-connection CC1_6 source-entity 100GE-1-5-1-4 destination-ent    
+                                                                                                ity 100GE-1-5-6                                                           
+2022-01-13T23:41:34+00:00    CLI        admin        68            10.111.12.184      set       set och 1-5-1 frequency 193100000 target-output-power -3 laser enabled    
+2022-01-13T23:39:31+00:00    CLI        admin        68            10.111.12.184      set       set logical-channel flexgo-1-5-1 time-slot-type eth-100g                  
+2022-01-13T23:33:35+00:00    CLI        admin        66            10.111.12.184      rpc       reboot card 1-5 cold                                                      
+2022-01-13T23:31:16+00:00    CLI        admin        66            10.111.12.184      set       set port 1-5-9 port-mode PROT_100GE admin-state in-service laser enabl    
+                                                                                                ed description 100GE                                                      
+2022-01-13T23:31:03+00:00    CLI        admin        66            10.111.12.184      set       set port 1-5-8 port-mode PROT_100GE admin-state in-service laser enabl    
+                                                                                                ed description 100GE                                                      
+2022-01-13T23:30:53+00:00    CLI        admin        66            10.111.12.184      set       set port 1-5-7 port-mode PROT_100GE admin-state in-service laser enabl    
+                                                                                                ed description 100GE                                                      
+2022-01-13T23:29:56+00:00    CLI        admin        66            10.111.12.184      set       set port 1-5-6 port-mode PROT_100GE admin-state in-service laser enabl    
+                                                                                                ed description 100GE                                                      
+
+

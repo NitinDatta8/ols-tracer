@@ -1,0 +1,9 @@
+{
+  "fault": "pull",
+  "strand": "F01",
+  "from": "BERT:P1",
+  "to": "1-7-4",
+  "via": "",
+  "markedAt": "2026-11-05T16:37:52-05:00",
+  "detectable": true
+}

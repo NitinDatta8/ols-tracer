@@ -80,18 +80,101 @@ export function light(s: BoxState | null, t: Topology, l: Link, cat?: Catalog): 
 }
 
 type BoxCard = { 'module-type': string; present: string };
-type BoxPart = { 'mfg-name'?: string; 'part-no': string };
+type BoxPart = {
+  'mfg-name'?: string;
+  'part-no': string;
+  'form-factor'?: string;
+  'compliance-code'?: string;
+  'connector-type'?: string;
+  'transmission-distance'?: string;
+};
+
+const upper = (text?: string) => String(text ?? '').trim().toUpperCase();
+const slug = (text: string) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'pluggable';
+
+const normalizeFormFactor = (raw?: string) => {
+  const text = upper(raw);
+  if (!text || text === 'OTHER' || text === 'UNKNOWN') return '';
+  const compact = text.replace(/[^A-Z0-9]+/g, '');
+  if (compact.includes('QSFP') && compact.includes('DD')) return 'QSFPDD';
+  if (compact.includes('QSFP')) return 'QSFP';
+  if (compact.includes('OSFP')) return 'OSFP';
+  if (compact.includes('SFP')) return 'SFP';
+  if (compact.includes('CFP2')) return 'CFP2';
+  if (compact.includes('CFP')) return 'CFP';
+  return text.replace(/\s+/g, '_');
+};
+
+const speed = (...values: (string | undefined)[]) => {
+  const text = values.map(upper).join(' ');
+  const otuc = text.match(/\bOTUC(\d+)\b/);
+  if (otuc?.[1] === '8') return '800G';
+  if (otuc?.[1] === '6') return '600G';
+  if (otuc?.[1] === '4') return '400G';
+  if (otuc?.[1] === '2') return '200G';
+  for (const g of [1600, 1200, 800, 600, 400, 200, 100, 50, 40, 25, 10]) {
+    if (new RegExp(`(?:^|\\D)${g}\\s*G(?:BASE)?(?:\\D|$)`).test(text)) return `${g}G`;
+  }
+  return 'N/A';
+};
+
+const fiber = (...values: (string | undefined)[]) => (/\bSR\b|MMF/.test(values.map(upper).join(' ')) ? 'MMF' : 'SMF') as 'SMF' | 'MMF';
+
+const familyFromAllowed = (cat: Catalog, allowed: string[]) => {
+  for (const item of allowed) {
+    const known = byId(cat.pluggables, item);
+    if (known) return known.formFactor;
+    if (/^[A-Z0-9_]+$/.test(item)) return item;
+  }
+  return '';
+};
+
+const nextPluggableId = (cat: Catalog, partNo: string) => {
+  const base = slug(partNo);
+  let id = base;
+  for (let i = 2; byId(cat.pluggables, id); i += 1) id = `${base}-${i}`;
+  return id;
+};
+
+function discoverPluggable(cat: Catalog, where: string, part: BoxPart, allowedPluggables: string[]) {
+  const partNo = part['part-no']?.trim();
+  if (!partNo) return null;
+  const specs = Object.fromEntries([
+    ['Compliance', part['compliance-code']],
+    ['Connector', part['connector-type']],
+    ['Distance', part['transmission-distance']],
+  ].filter(([, value]) => !!value));
+  const text = `${partNo} ${part['compliance-code'] ?? ''} ${part['form-factor'] ?? ''}`;
+  const pluggable = {
+    id: nextPluggableId(cat, partNo),
+    name: partNo,
+    formFactor: normalizeFormFactor(part['form-factor']) || familyFromAllowed(cat, allowedPluggables) || 'QSFP',
+    speed: speed(partNo, part['compliance-code']),
+    fiber: fiber(partNo, part['compliance-code'], part['connector-type']),
+    ...(part['mfg-name'] ? { vendor: part['mfg-name'] } : {}),
+    part: partNo,
+    ...(Object.keys(specs).length ? { specs } : {}),
+    ...(upper(text).includes('DCO') ? { dco: true } : {}),
+    about: `Discovered in ${where} from show inventory.`,
+  };
+  cat.pluggables.push(pluggable);
+  return pluggable;
+}
 
 /**
  * What is in device `d`'s box, from `show card` and `show inventory`, as its slots: each card that is present, and each
- * transceiver in it by part number. What the catalog has no part for is listed in `missing`, not guessed; a part it has
- * but doesn't allow there is drawn as the box has it, and the problems list says so. Null until both have come in.
+ * transceiver in it by part number. A transceiver part that the stream catalog doesn't know is added as a discovered
+ * pluggable from `show inventory`, so what the box has is drawn. A part it has but doesn't allow there is drawn as the
+ * box has it, and the problems list says so. Null until both have come in.
  */
 export function discover(cat: Catalog, d: Device, s: BoxState) {
   const cards: Record<string, BoxCard> | undefined = s.commands['show card']?.data?.state?.cards;
   const parts: Record<string, BoxPart> | undefined = s.commands['show inventory']?.data?.transceivers;
   const chassis = byId(cat.chassis, d.chassis);
   if (!cards || !parts || !chassis) return null;
+  const byPart = new Map(cat.pluggables
+    .filter((p) => p.part)
+    .map((p) => [upper(p.part), p]));
   const no = d.chassisNo ?? 1;
   const slots: Record<string, SlotState> = {};
   const missing: string[] = [];
@@ -104,7 +187,10 @@ export function discover(cat: Catalog, d: Device, s: BoxState) {
     slots[slot] = { linecard: card.id, ports: {} };
     for (const [where, p] of Object.entries(parts).filter(([where]) => where.startsWith(`${at}-`))) {
       const port = card.ports.find((x) => cliAddress(no, slot, x.id) === where);
-      const plug = cat.pluggables.find((x) => x.part === p['part-no']);
+      const partNo = p['part-no']?.trim();
+      const known = partNo ? byPart.get(upper(partNo)) : undefined;
+      const plug = known ?? (port && partNo ? discoverPluggable(cat, where, p, port.allowedPluggables) : null);
+      if (plug?.part) byPart.set(upper(plug.part), plug);
       if (port && plug) slots[slot].ports[port.id] = { pluggable: plug.id };
       else missing.push(`${where} ${[p['mfg-name'], p['part-no']].filter(Boolean).join(' ')}`);
     }

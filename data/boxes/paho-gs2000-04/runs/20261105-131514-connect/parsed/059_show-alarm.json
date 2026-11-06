@@ -1,0 +1,88 @@
+{
+  "alarms": {
+    "034591627151482872820110": {
+      "resource": "software",
+      "type-id": "SYS",
+      "alarm-abbreviate": "NO_CMT_SW",
+      "severity": "WARNING",
+      "text": "No committed software",
+      "time-created": "2021-07-24T18:31:09 UTC",
+      "direction": "na",
+      "location": "na",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "0193941627151482893829630": {
+      "resource": "system",
+      "type-id": "SYS",
+      "alarm-abbreviate": "DATETIME_UNCHANGED",
+      "severity": "WARNING",
+      "text": "Datetime unchanged",
+      "time-created": "2021-07-24T18:31:09 UTC",
+      "direction": "na",
+      "location": "na",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "3127871627151473720035670": {
+      "resource": "port 1-43-nm",
+      "type-id": "SYS",
+      "alarm-abbreviate": "LINK_DOWN",
+      "severity": "MINOR",
+      "text": "Management port link down",
+      "time-created": "2021-07-24T18:31:11 UTC",
+      "direction": "bi-directional",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "3127871627151473453311630": {
+      "resource": "port 1-43-nm1",
+      "type-id": "SYS",
+      "alarm-abbreviate": "LINK_DOWN",
+      "severity": "MINOR",
+      "text": "Management port link down",
+      "time-created": "2021-07-24T18:31:12 UTC",
+      "direction": "bi-directional",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "0165051627151473581194670": {
+      "resource": "card 1-21",
+      "type-id": "EQPT",
+      "alarm-abbreviate": "EQPT_MISMATCH",
+      "severity": "CRITICAL",
+      "text": "Present equipment type mismatch",
+      "time-created": "2021-07-24T18:31:43 UTC",
+      "direction": "na",
+      "location": "na",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "1211221627151477110687910": {
+      "resource": "card 1-22",
+      "type-id": "ENV",
+      "alarm-abbreviate": "PWR_NO_INPUT",
+      "severity": "MINOR",
+      "text": "No power input",
+      "time-created": "2021-07-24T18:32:06 UTC",
+      "direction": "rx",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "040101627151482852266670": {
+      "resource": "ntp",
+      "type-id": "SYS",
+      "alarm-abbreviate": "NTP_SYNC_LOSS",
+      "severity": "MAJOR",
+      "text": "NTP synchronization loss",
+      "time-created": "2021-07-31T06:17:43 UTC",
+      "direction": "na",
+      "location": "na",
+      "alarm-type": "standing",
+      "time-period": "na"
+    }
+  }
+}

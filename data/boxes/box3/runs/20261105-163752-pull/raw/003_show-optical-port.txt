@@ -1,0 +1,29 @@
+[state]
+name             direction    optical-power(dBm)    description                                  flag    
+-------------    ---------    ------------------    -----------------------------------------    ----    
+port-1-1-ad1     in           -99.99                total input optical power at add port        C       
+port-1-1-ad1     out          -99.99                total output optical power at drop port      C       
+port-1-1-ad10    in           -99.99                total input optical power at add port        C       
+port-1-1-ad10    out          -99.99                total output optical power at drop port      C       
+port-1-1-ad11    in           2.51                  total input optical power at add port        C       
+port-1-1-ad11    out          -10.20                total output optical power at drop port      C       
+port-1-1-ad2     in           -99.99                total input optical power at add port        C       
+port-1-1-ad2     out          -99.99                total output optical power at drop port      C       
+port-1-1-ad3     in           -99.99                total input optical power at add port        C       
+port-1-1-ad3     out          -99.99                total output optical power at drop port      C       
+port-1-1-ad4     in           -99.99                total input optical power at add port        C       
+port-1-1-ad4     out          -99.99                total output optical power at drop port      C       
+port-1-1-ad5     in           -99.99                total input optical power at add port        C       
+port-1-1-ad5     out          -99.99                total output optical power at drop port      C       
+port-1-1-ad6     in           -99.99                total input optical power at add port        C       
+port-1-1-ad6     out          -99.99                total output optical power at drop port      C       
+port-1-1-ad7     in           -99.99                total input optical power at add port        C       
+port-1-1-ad7     out          -99.99                total output optical power at drop port      C       
+port-1-1-ad8     in           -99.99                total input optical power at add port        C       
+port-1-1-ad8     out          -99.99                total output optical power at drop port      C       
+port-1-1-ad9     in           -99.99                total input optical power at add port        C       
+port-1-1-ad9     out          -99.99                total output optical power at drop port      C       
+port-1-1-line    in           -4.45                 line input total aggregate optical power     M       
+port-1-1-line    out          2.36                  line output total aggregate optical power    M       
+
+

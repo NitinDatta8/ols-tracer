@@ -1,0 +1,36 @@
+{
+  "run": "20261105-131704-connect",
+  "box": "paho-gs2000-test02",
+  "host": "10.111.25.11",
+  "hostname": "PAHO-GS2000-test02",
+  "release": "CSP-2.9.0.243_20260429",
+  "trigger": "connect",
+  "started": "2026-11-05T13:17:04-05:00",
+  "ended": "2026-11-05T13:17:07-05:00",
+  "boxClock": "2022-02-24T22:22:11+00:00",
+  "boxClockOffsetSec": -148161296,
+  "prereqs": [
+    {
+      "cmd": "configure",
+      "ok": true
+    },
+    {
+      "cmd": "set cli length 0",
+      "ok": true
+    },
+    {
+      "cmd": "set cli width 1024",
+      "ok": true
+    },
+    {
+      "cmd": "exit",
+      "ok": true
+    }
+  ],
+  "state": "unknown",
+  "notes": "",
+  "snapshot": {
+    "done": 6,
+    "of": 57
+  }
+}

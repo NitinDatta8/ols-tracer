@@ -77,6 +77,20 @@ it('keeps stream-only hardware out of other streams', () => {
   expect([...csp].some((id) => !tencent.has(id))).toBe(true);
 });
 
+it('includes a CSP BERT tester chassis with two 100G client ports', () => {
+  const cat = catalogFor('csp');
+  const bertChassis = byId(cat.chassis, 'ch-bert-tester');
+  const bertCard = byId(cat.linecards, 'lc-bert-tester');
+  expect(bertChassis?.slots).toEqual([{ id: '1', allowedLinecards: ['lc-bert-tester'] }]);
+  expect(bertCard?.ports.map((p) => p.id)).toEqual(['P1', 'P2']);
+  expect(bertCard?.ports.every((p) => p.role === 'client')).toBe(true);
+  expect(pluggableError(cat, 'lc-bert-tester', 'P1', 'c100q10000lr402f')).toBeNull();
+  expect(pluggableError(cat, 'lc-bert-tester', 'P2', 'ctq1mlr4cs1-01')).toBeNull();
+  expect(pluggableError(cat, 'lc-bert-tester', 'P1', '60g800001')).toBe('60G800001 is not allowed in port P1 of BERT Tester');
+  const empty = { id: 'bert-1', chassis: 'ch-bert-tester', name: 'BERT-1', x: 0, y: 0, slots: {} };
+  expect(linecardError(cat, empty, '1', 'lc-bert-tester')).toBeNull();
+});
+
 it('loads every stream pluggable at runtime', () => {
   for (const { id: streamId } of streams) {
     const streamPath = resolve(repoRoot, `catalog/${streamId}/pluggables.json`);
@@ -126,6 +140,17 @@ describe('rules on the demo topology', () => {
     expect(fiberError(t, cat, at('d1', '1', 'AD1'), at('d1', '1', 'AD2'))).toBe('Both ends are on the same card (only a loopback-capable port loops back, Tx to its own Rx)');
     expect(fiberError(t, cat, at('d1', '1', 'AD1'), at('d1', '1', 'AD1'))).toBe('Both ends are on the same card (only a loopback-capable port loops back, Tx to its own Rx)');
     expect(fiberError(t, cat, at('d1', '1', 'AD1'), at('d2', '1', 'AD1'))).toBeNull();
+  });
+
+  it('allows LR4-to-LR4 daisy chaining between two ports on the same 800MX', () => {
+    const daisy = structuredClone(t);
+    daisy.devices[0].slots['4'] = {
+      linecard: 'lc-800mx',
+      ports: { PORT1: { pluggable: 'c100q10000lr402f' }, PORT2: { pluggable: 'ctq1mlr4cs1-01' }, PORT3: { pluggable: '60g800001' } },
+    };
+    expect(fiberError(daisy, cat, at('d1', '4', 'PORT1'), at('d1', '4', 'PORT2'))).toBeNull();
+    expect(fiberError(daisy, cat, at('d1', '4', 'PORT1'), at('d1', '4', 'PORT3')))
+      .toBe('Both ends are on the same card (only a loopback-capable port loops back, Tx to its own Rx)');
   });
 
   it('runs each strand on its own: a Tx and the Rx of the same port may go to different ports', () => {
@@ -272,11 +297,26 @@ describe('connect draws box 3', async () => {
   const cat = catalogFor(t.stream);
   const empty = { ...t.devices[0], slots: {} };
 
-  it('puts in the cards and pluggables the catalog has, as box3.olst.json draws them, and lists the rest', () => {
-    const { PORT4: _standIn, ...ports7 } = t.devices[0].slots['7'].ports; // the example's 1-7-4 is a stand-in
+  it('puts in cards and box pluggables from inventory, including parts missing from the stream catalog', () => {
     const found = discover(cat, empty, s)!;
-    expect(found.slots).toEqual({ ...t.devices[0].slots, 7: { linecard: 'lc-800mx', ports: ports7 } });
-    expect(found.missing).toEqual(['1-7-4 FS QSFP-LR4-100G']);
+    expect(found.missing).toEqual([]);
+    expect(found.slots).toMatchObject({
+      '1': t.devices[0].slots['1'],
+      '7': { linecard: 'lc-800mx', ports: { PORT5: { pluggable: 'ftcd3323r1pcl-1y' } } },
+      '8': t.devices[0].slots['8'],
+    });
+    const port4 = found.slots['7'].ports.PORT4?.pluggable;
+    expect(port4).toBeTruthy();
+    const discovered = byId(cat.pluggables, port4);
+    expect(discovered).toMatchObject({
+      id: port4,
+      name: 'QSFP-LR4-100G',
+      part: 'QSFP-LR4-100G',
+      vendor: 'FS',
+      formFactor: 'QSFP',
+      speed: '100G',
+      fiber: 'SMF',
+    });
   });
 
   it('waits for show card and show inventory', () => {

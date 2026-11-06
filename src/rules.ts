@@ -77,6 +77,17 @@ export function pluggableError(cat: Catalog, linecardId: string, portId: string,
 
 type FiberRule = (t: Topology, cat: Catalog, a: End, b: End) => string | null;
 
+const is800mx = (id?: string, name?: string) => /^lc-800mx(?:-|$)/i.test(id ?? '') || /\b800MX\b/i.test(name ?? '');
+const isLr4 = (...values: (string | undefined)[]) => values.some((value) => /LR4/i.test(value ?? ''));
+
+const sameCardDaisyChain = (t: Topology, cat: Catalog, a: End, b: End) => {
+  if (a.device !== b.device || a.slot !== b.slot || sameEnd(a, b)) return false;
+  const [left, right] = [resolve(t, cat, a), resolve(t, cat, b)];
+  if (!is800mx(left.card?.id, left.card?.name) || !is800mx(right.card?.id, right.card?.name)) return false;
+  return isLr4(left.pluggable?.id, left.pluggable?.name, left.pluggable?.part)
+    && isLr4(right.pluggable?.id, right.pluggable?.name, right.pluggable?.part);
+};
+
 /** A rule that refuses when either end fails `ok`. */
 const bothEnds = (ok: (t: Topology, cat: Catalog, e: End) => boolean, why: string): FiberRule => (t, cat, a, b) => {
   const bad = [a, b].find((e) => !ok(t, cat, e));
@@ -88,7 +99,7 @@ export const fiberRules: FiberRule[] = [
   bothEnds((t, cat, e) => resolve(t, cat, e).fixed || resolve(t, cat, e).pluggable?.fiber === 'SMF', 'is not single-mode (SMF)'),
   (t, _cat, a, b) => (fibersAt(t, a).tx ? `${path(t, a)} Tx already has a fiber`
     : fibersAt(t, b).rx ? `${path(t, b)} Rx already has a fiber` : null),
-  (t, cat, a, b) => (a.device !== b.device || a.slot !== b.slot || (sameEnd(a, b) && canLoopback(resolve(t, cat, a).port)) ? null
+  (t, cat, a, b) => (a.device !== b.device || a.slot !== b.slot || (sameEnd(a, b) && canLoopback(resolve(t, cat, a).port)) || sameCardDaisyChain(t, cat, a, b) ? null
     : 'Both ends are on the same card (only a loopback-capable port loops back, Tx to its own Rx)'),
 ];
 

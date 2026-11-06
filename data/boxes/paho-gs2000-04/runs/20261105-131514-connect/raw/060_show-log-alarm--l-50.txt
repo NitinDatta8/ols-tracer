@@ -1,0 +1,54 @@
+time-stamp                   action    resource                        alarm-abbreviate           severity    direction    service-affect    type-id    time-created           
+-------------------------    ------    ----------------------------    -----------------------    --------    ---------    --------------    -------    -------------------    
+2021-07-31T19:32:03+00:00    CLEAR     och 1-4-5                       INPUT_POWER_HIGH           MAJOR       rx           true              OPTICAL    1627759863349407510    
+2021-07-31T19:31:06+00:00    CLEAR     och 1-4-5                       POST-FEC_DEGRADE           MAJOR       rx           true              OCH        1627759771779775270    
+2021-07-31T19:31:06+00:00    CREATE    och 1-4-5                       INPUT_POWER_HIGH           MAJOR       rx           true              OPTICAL    1627759863349407510    
+2021-07-31T19:31:06+00:00    CLEAR     logical-channel flexgo-1-4-5    LOF                        CRITICAL    rx           true              ZR         1627759771770568590    
+2021-07-31T19:31:06+00:00    CLEAR     100ge 1-4-2                     LINK_RF                    WARNING     rx           false             ETH        1627759771784391470    
+2021-07-31T19:31:05+00:00    CLEAR     och 1-4-5                       PRE-FEC_DEGRADE            MINOR       rx           false             OCH        1627759771775115230    
+2021-07-31T19:30:51+00:00    CLEAR     och 1-4-5                       INPUT_POWER_HIGH           MAJOR       rx           true              OPTICAL    1627759842329367910    
+2021-07-31T19:30:46+00:00    CREATE    och 1-4-5                       INPUT_POWER_HIGH           MAJOR       rx           true              OPTICAL    1627759842329367910    
+2021-07-31T19:30:39+00:00    CLEAR     och 1-4-5                       INPUT_POWER_HIGH           MAJOR       rx           true              OPTICAL    1627759823114032270    
+2021-07-31T19:30:26+00:00    CREATE    och 1-4-5                       INPUT_POWER_HIGH           MAJOR       rx           true              OPTICAL    1627759823114032270    
+2021-07-31T19:30:04+00:00    CLEAR     och 1-4-5                       RX_LOS                     CRITICAL    rx           true              OPTICAL    1627759793910069790    
+2021-07-31T19:30:04+00:00    CREATE    och 1-4-5                       POST-FEC_DEGRADE           MAJOR       rx           true              OCH        1627759771779775270    
+2021-07-31T19:30:04+00:00    CREATE    och 1-4-5                       PRE-FEC_DEGRADE            MINOR       rx           false             OCH        1627759771775115230    
+2021-07-31T19:30:04+00:00    CREATE    logical-channel flexgo-1-4-5    LOF                        CRITICAL    rx           true              ZR         1627759771770568590    
+2021-07-31T19:29:56+00:00    CREATE    och 1-4-5                       RX_LOS                     CRITICAL    rx           true              OPTICAL    1627759793910069790    
+2021-07-31T19:29:56+00:00    CLEAR     och 1-4-5                       POST-FEC_DEGRADE           MAJOR       rx           true              OCH        1627759771779775270    
+2021-07-31T19:29:56+00:00    CLEAR     och 1-4-5                       PRE-FEC_DEGRADE            MINOR       rx           false             OCH        1627759771775115230    
+2021-07-31T19:29:56+00:00    CLEAR     logical-channel flexgo-1-4-5    LOF                        CRITICAL    rx           true              ZR         1627759771770568590    
+2021-07-31T19:29:46+00:00    CLEAR     amplifier 1-1-pa                REACH_MAX_ATT              MAJOR       na           false             OPTICAL    1627759581015564550    
+2021-07-31T19:29:35+00:00    CLEAR     port 1-1-line                   OUT_OPTICAL_LOW_WARNING    MAJOR       tx           false             OPTICAL    1627759579499475968    
+2021-07-31T19:29:35+00:00    CLEAR     port 1-1-line                   IN_OPTICAL_LOW_FAILURE     CRITICAL    rx           false             OPTICAL    1627759579489394432    
+2021-07-31T19:29:35+00:00    CLEAR     amplifier 1-1-pa                OUT_LOS                    CRITICAL    tx           true              OPTICAL    1627759579508777830    
+2021-07-31T19:29:35+00:00    CLEAR     amplifier 1-1-pa                IN_LOS                     CRITICAL    rx           true              OPTICAL    1627759581576702790    
+2021-07-31T19:29:35+00:00    CLEAR     amplifier 1-1-ba                OUT_LOS                    CRITICAL    tx           true              OPTICAL    1627759579496263510    
+2021-07-31T19:29:35+00:00    CLEAR     amplifier 1-1-ba                IN_LOS                     CRITICAL    rx           true              OPTICAL    1627759581598142670    
+2021-07-31T19:29:34+00:00    CREATE    och 1-4-5                       POST-FEC_DEGRADE           MAJOR       rx           true              OCH        1627759771779775270    
+2021-07-31T19:29:34+00:00    CREATE    och 1-4-5                       PRE-FEC_DEGRADE            MINOR       rx           false             OCH        1627759771775115230    
+2021-07-31T19:29:34+00:00    CREATE    logical-channel flexgo-1-4-5    LOF                        CRITICAL    rx           true              ZR         1627759771770568590    
+2021-07-31T19:29:34+00:00    CREATE    100ge 1-4-2                     LINK_RF                    WARNING     rx           false             ETH        1627759771784391470    
+2021-07-31T19:29:33+00:00    CLEAR     och 1-4-5                       INPUT_POWER_HIGH           MAJOR       rx           true              OPTICAL    1627759467488334030    
+2021-07-31T19:26:58+00:00    CLEAR     100ge 1-4-2                     ETH_LOS_SYN                CRITICAL    rx           true              ETH        1627759577687405670    
+2021-07-31T19:26:57+00:00    CLEAR     transceiver 1-4-2               RX_LOS                     CRITICAL    rx           true              OPTICAL    1627759301285620950    
+2021-07-31T19:26:57+00:00    CREATE    100ge 1-4-2                     ETH_LOS_SYN                CRITICAL    rx           true              ETH        1627759577687405670    
+2021-07-31T19:26:26+00:00    CREATE    amplifier 1-1-pa                REACH_MAX_ATT              MAJOR       na           false             OPTICAL    1627759581015564550    
+2021-07-31T19:26:24+00:00    CREATE    amplifier 1-1-pa                IN_LOS                     CRITICAL    rx           true              OPTICAL    1627759581576702790    
+2021-07-31T19:26:24+00:00    CREATE    amplifier 1-1-ba                IN_LOS                     CRITICAL    rx           true              OPTICAL    1627759581598142670    
+2021-07-31T19:26:22+00:00    CREATE    port 1-1-line                   OUT_OPTICAL_LOW_WARNING    MAJOR       tx           false             OPTICAL    1627759579499475968    
+2021-07-31T19:26:22+00:00    CREATE    port 1-1-line                   IN_OPTICAL_LOW_FAILURE     CRITICAL    rx           false             OPTICAL    1627759579489394432    
+2021-07-31T19:26:22+00:00    CREATE    amplifier 1-1-pa                OUT_LOS                    CRITICAL    tx           true              OPTICAL    1627759579508777830    
+2021-07-31T19:26:22+00:00    CREATE    amplifier 1-1-ba                OUT_LOS                    CRITICAL    tx           true              OPTICAL    1627759579496263510    
+2021-07-31T19:24:56+00:00    CLEAR     transceiver 1-4-10              TRANSCEIVER_MISSING        CRITICAL    na           true              EQPT       1627759257516000000    
+2021-07-31T19:24:34+00:00    CLEAR     transceiver 1-4-6               TRANSCEIVER_MISSING        CRITICAL    na           true              EQPT       1627759244444000000    
+2021-07-31T19:24:31+00:00    CREATE    och 1-4-5                       INPUT_POWER_HIGH           MAJOR       rx           true              OPTICAL    1627759467488334030    
+2021-07-31T19:24:30+00:00    CLEAR     och 1-4-5                       POST-FEC_DEGRADE           MAJOR       rx           true              OCH        1627759375437128990    
+2021-07-31T19:24:29+00:00    CLEAR     och 1-4-5                       PRE-FEC_DEGRADE            MINOR       rx           false             OCH        1627759375432853310    
+2021-07-31T19:24:29+00:00    CLEAR     logical-channel flexgo-1-4-5    LOF                        CRITICAL    rx           true              ZR         1627759375427103230    
+2021-07-31T19:24:20+00:00    CLEAR     och 1-4-5                       INPUT_POWER_HIGH           MAJOR       rx           true              OPTICAL    1627759453575654950    
+2021-07-31T19:24:17+00:00    CREATE    och 1-4-5                       INPUT_POWER_HIGH           MAJOR       rx           true              OPTICAL    1627759453575654950    
+2021-07-31T19:24:11+00:00    CLEAR     och 1-4-5                       INPUT_POWER_HIGH           MAJOR       rx           true              OPTICAL    1627759428444864670    
+2021-07-31T19:24:09+00:00    CLEAR     transceiver 1-4-2               TX_DISABLE                 WARNING     tx           false             STAT       1627759301275637390    
+
+

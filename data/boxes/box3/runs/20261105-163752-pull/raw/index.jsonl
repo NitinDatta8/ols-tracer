@@ -1,0 +1,19 @@
+{"n":0,"cmd":"show system","at":"2026-11-05T16:37:52-05:00","source":"snapshot","file":"000_show-system.txt","ok":true}
+{"n":1,"cmd":"date-time","at":"2026-11-05T16:37:53-05:00","source":"snapshot","file":"001_date-time.txt","ok":true}
+{"n":2,"cmd":"show port","at":"2026-11-05T16:37:53-05:00","source":"snapshot","file":"002_show-port.txt","ok":true}
+{"n":3,"cmd":"show optical-port","at":"2026-11-05T16:37:55-05:00","source":"snapshot","file":"003_show-optical-port.txt","ok":true}
+{"n":4,"cmd":"show amplifier","at":"2026-11-05T16:37:56-05:00","source":"snapshot","file":"004_show-amplifier.txt","ok":true}
+{"n":5,"cmd":"show media-channel","at":"2026-11-05T16:37:56-05:00","source":"snapshot","file":"005_show-media-channel.txt","ok":true}
+{"n":6,"cmd":"show log alarm -l 200","at":"2026-11-05T16:37:57-05:00","source":"snapshot","file":"006_show-log-alarm--l-200.txt","ok":true}
+{"n":7,"cmd":"show log event -l 200","at":"2026-11-05T16:37:58-05:00","source":"snapshot","file":"007_show-log-event--l-200.txt","ok":true}
+{"n":8,"cmd":"show log configuration -l 200","at":"2026-11-05T16:37:58-05:00","source":"snapshot","file":"008_show-log-configuration--l-200.txt","ok":true}
+{"n":9,"cmd":"show transceiver 1-7-4","at":"2026-11-05T16:37:59-05:00","source":"snapshot","file":"009_show-transceiver-1-7-4.txt","ok":true}
+{"n":10,"cmd":"show transceiver 1-7-4 physical-channel 1","at":"2026-11-05T16:37:59-05:00","source":"snapshot","file":"010_show-transceiver-1-7-4-physical-channel-1.txt","ok":true}
+{"n":11,"cmd":"show transceiver 1-7-4 physical-channel 2","at":"2026-11-05T16:38:00-05:00","source":"snapshot","file":"011_show-transceiver-1-7-4-physical-channel-2.txt","ok":true}
+{"n":12,"cmd":"show transceiver 1-7-4 physical-channel 3","at":"2026-11-05T16:38:00-05:00","source":"snapshot","file":"012_show-transceiver-1-7-4-physical-channel-3.txt","ok":true}
+{"n":13,"cmd":"show transceiver 1-7-4 physical-channel 4","at":"2026-11-05T16:38:00-05:00","source":"snapshot","file":"013_show-transceiver-1-7-4-physical-channel-4.txt","ok":true}
+{"n":14,"cmd":"show eth 1-7-4","at":"2026-11-05T16:38:01-05:00","source":"snapshot","file":"014_show-eth-1-7-4.txt","ok":true}
+{"n":15,"cmd":"show transceiver 1-7-5","at":"2026-11-05T16:38:01-05:00","source":"snapshot","file":"015_show-transceiver-1-7-5.txt","ok":true}
+{"n":16,"cmd":"show och 1-7-5","at":"2026-11-05T16:38:02-05:00","source":"snapshot","file":"016_show-och-1-7-5.txt","ok":true}
+{"n":17,"cmd":"show alarm","at":"2026-11-05T16:38:02-05:00","source":"snapshot","file":"017_show-alarm.txt","ok":true}
+{"n":18,"cmd":"show log alarm -l 50","at":"2026-11-05T16:38:03-05:00","source":"snapshot","file":"018_show-log-alarm--l-50.txt","ok":true}

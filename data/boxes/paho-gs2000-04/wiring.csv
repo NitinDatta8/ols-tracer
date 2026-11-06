@@ -1,0 +1,2 @@
+strand,from,to,via,length_km,loss_db,notes
+F01,1-1-sig,1-1-sig,power,,6.17,auto: power fallback (low confidence)

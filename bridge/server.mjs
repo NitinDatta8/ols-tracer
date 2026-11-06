@@ -232,10 +232,10 @@ const hostnameOf = (commands = {}) => commands['show system']?.raw?.match(/^host
   ?? commands['show system']?.data?.state?.hostname
   ?? commands['show system']?.data?.config?.hostname;
 
-/** The box's strands: from wiring.csv, refreshed from command output while connected. */
-const strands = (commands = {}, refresh = false) => {
+/** The box's strands: from wiring.csv, generated from command output only when missing. */
+const strands = (commands = {}) => {
   const hostname = hostnameOf(commands);
-  return hostname ? ensureWiring(commands, boxOf(hostname), { refresh }) : ensureWiring(commands, undefined, { refresh });
+  return hostname ? ensureWiring(commands, boxOf(hostname)) : ensureWiring(commands);
 };
 
 const LOCAL = /^(localhost|127\.0\.0\.1)(:\d+)?$/;
@@ -271,7 +271,7 @@ const server = createServer(async (req, res) => {
   // The box's strands (wiring.csv), to mark one as pulled.
   if (req.url === '/wiring') {
     res.setHeader('content-type', 'application/json');
-    return res.end(JSON.stringify(state === 'connected' ? strands(polled, true) : strands(latest()?.commands ?? {})));
+    return res.end(JSON.stringify(state === 'connected' ? strands(polled) : strands(latest()?.commands ?? {})));
   }
   // A strand pulled on the box, by its wiring.csv name: recorded in a snapshot of its own, with its answer.json.
   if (req.url === '/pull' && req.method === 'POST') {

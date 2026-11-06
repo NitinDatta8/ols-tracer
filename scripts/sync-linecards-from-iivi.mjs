@@ -859,11 +859,11 @@ const formatPortId = (moduleName, name) => {
   return clean;
 };
 
-const intersects = (a, b) => a.some((item) => b.has(item));
+const intersects = (a, b) => Array.isArray(a) && a.some((item) => b.has(item));
 
 function pickAllowedPluggables(moduleInfo, partEntries, options = {}) {
-  const serviceTypes = new Set((options.serviceTypes ?? moduleInfo.serviceTypes).map(normalizePortType).filter(Boolean));
-  const families = new Set((options.formFactors ?? moduleInfo.formFactors).map(normalizeFormFactor).filter(Boolean));
+  const serviceTypes = new Set((options.serviceTypes ?? moduleInfo.serviceTypes ?? []).map(normalizePortType).filter(Boolean));
+  const families = new Set((options.formFactors ?? moduleInfo.formFactors ?? []).map(normalizeFormFactor).filter(Boolean));
   const strict = !!options.strict;
 
   if (!serviceTypes.size && !families.size) return [];

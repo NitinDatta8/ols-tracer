@@ -1,0 +1,12 @@
+
+resource         type-id    alarm-abbreviate      severity    text                               time-created               direction         location    alarm-type    time-period    id                           
+-------------    -------    ------------------    --------    -------------------------------    -----------------------    --------------    --------    ----------    -----------    -------------------------    
+software         SYS        NO_CMT_SW             WARNING     No committed software              2021-07-24T18:31:09 UTC    na                na          standing      na             034591627151482872820110     
+system           SYS        DATETIME_UNCHANGED    WARNING     Datetime unchanged                 2021-07-24T18:31:09 UTC    na                na          standing      na             0193941627151482893829630    
+port 1-43-nm     SYS        LINK_DOWN             MINOR       Management port link down          2021-07-24T18:31:11 UTC    bi-directional    near-end    standing      na             3127871627151473720035670    
+port 1-43-nm1    SYS        LINK_DOWN             MINOR       Management port link down          2021-07-24T18:31:12 UTC    bi-directional    near-end    standing      na             3127871627151473453311630    
+card 1-21        EQPT       EQPT_MISMATCH         CRITICAL    Present equipment type mismatch    2021-07-24T18:31:43 UTC    na                na          standing      na             0165051627151473581194670    
+card 1-22        ENV        PWR_NO_INPUT          MINOR       No power input                     2021-07-24T18:32:06 UTC    rx                near-end    standing      na             1211221627151477110687910    
+ntp              SYS        NTP_SYNC_LOSS         MAJOR       NTP synchronization loss           2021-07-31T06:17:43 UTC    na                na          standing      na             040101627151482852266670     
+
+

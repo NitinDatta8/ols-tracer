@@ -1,0 +1,161 @@
+{
+  "config": {
+    "frequency": "193500000 MHz",
+    "target-output-power": "-3.00 dBm",
+    "operational-mode-name": "ZR400-16QAMSS-60G-OFEC",
+    "laser": "enabled",
+    "loopback": "none",
+    "test-signal": "disabled",
+    "test-monitor": "disabled",
+    "test-monitor-time": "0 seconds",
+    "cd-range-min": "-20000 ps/nm",
+    "cd-range-max": "20000 ps/nm"
+  },
+  "state": {
+    "frequency": "193500000 MHz",
+    "target-output-power": "-3.00 dBm",
+    "operational-mode": "102",
+    "operational-mode-name": "ZR400-16QAMSS-60G-OFEC",
+    "laser": "enabled",
+    "loopback": "none",
+    "test-signal": "disabled",
+    "test-monitor": "disabled",
+    "test-monitor-time": "0 seconds",
+    "test-signal-status": "unmonitored",
+    "test-monitor-time-countdown": "0 seconds",
+    "test-total-received-bits": "0",
+    "test-bit-errors": "0",
+    "test-bit-error-ratio": "0.00E+00",
+    "test-out-of-sync-seconds": "0",
+    "bit-rate": "TRIB_RATE_400G",
+    "bandwidth": "72 GHz",
+    "baud-rate": "60 GBd",
+    "bits-per-symbol": "4 bits/symbol",
+    "modulation-type": "DP-16QAM",
+    "fec-mode": "OFEC",
+    "tx-spectral-shaping": "on",
+    "cd-range-min": "-20000 ps/nm",
+    "cd-range-max": "20000 ps/nm",
+    "filter-roll-off": "0.2",
+    "fec-uncorrectable-blocks": "112 blocks",
+    "stats": {
+      "transmitter-frequency": {
+        "instant": 193500000,
+        "avg": 193500000,
+        "min": 193500000,
+        "max": 193500000,
+        "unit": "MHz"
+      },
+      "output-power": {
+        "instant": -3.02,
+        "avg": -3.01,
+        "min": -3.02,
+        "max": -3.01,
+        "unit": "dBm"
+      },
+      "total-input-power": {
+        "instant": -7.64,
+        "avg": -7.63,
+        "min": -7.72,
+        "max": -7.61,
+        "unit": "dBm"
+      },
+      "provisioned-channel-input-power": {
+        "instant": -7.64,
+        "avg": -7.63,
+        "min": -7.72,
+        "max": -7.61,
+        "unit": "dBm"
+      },
+      "osnr": {
+        "instant": 29.7,
+        "avg": 29.7,
+        "min": 29.7,
+        "max": 29.7,
+        "unit": "dB"
+      },
+      "chromatic-dispersion": {
+        "instant": 0,
+        "avg": 0,
+        "min": 0,
+        "max": 0,
+        "unit": "ps/nm"
+      },
+      "polarization-mode-dispersion": {
+        "instant": 0.44,
+        "avg": 0.44,
+        "min": 0.37,
+        "max": 0.52,
+        "unit": "ps"
+      },
+      "second-order-polarization-mode-dispersion": {
+        "instant": 26.68,
+        "avg": 26.68,
+        "min": 12.25,
+        "max": 39.75,
+        "unit": "ps^2"
+      },
+      "polarization-dependent-loss": {
+        "instant": 0.4,
+        "avg": 0.4,
+        "min": 0.2,
+        "max": 0.6,
+        "unit": "dB"
+      },
+      "state-of-polarization": {
+        "instant": 0,
+        "avg": 1,
+        "min": 0,
+        "max": 1,
+        "unit": "rad/s"
+      },
+      "differential-group-delay": {
+        "instant": 1.31,
+        "avg": 1.31,
+        "min": 1.12,
+        "max": 1.56,
+        "unit": "ps"
+      },
+      "carrier-frequency-offset": {
+        "instant": 0,
+        "avg": 0,
+        "min": -1,
+        "max": 1,
+        "unit": "MHz"
+      },
+      "pre-fec-ber": {
+        "instant": 0.00141,
+        "avg": 0.00142,
+        "min": 0.00138,
+        "max": 0.00149
+      },
+      "post-fec-ber": {
+        "instant": 0,
+        "avg": 0,
+        "min": 0,
+        "max": 0
+      },
+      "esnr": {
+        "instant": 16.4,
+        "avg": 16.4,
+        "min": 16.4,
+        "max": 16.5,
+        "unit": "dB"
+      },
+      "q-value": {
+        "instant": 9.4,
+        "avg": 9.4,
+        "min": 9.4,
+        "max": 9.5,
+        "unit": "dB"
+      },
+      "q-margin": {
+        "instant": 3.2,
+        "avg": 3.2,
+        "min": 3.2,
+        "max": 3.3,
+        "unit": "dB"
+      }
+    }
+  }
+}

@@ -1,0 +1,72 @@
+[config]
+
+id        admin-state       description    laser      port-mode    
+------    --------------    -----------    -------    ---------    
+1-5-1     out-of-service    PORT           enabled    PROT_NA      
+1-5-2     out-of-service    PORT           enabled    PROT_NA      
+1-5-3     out-of-service    PORT           enabled    PROT_NA      
+1-5-4     out-of-service    PORT           enabled    PROT_NA      
+1-5-5     out-of-service    PORT           enabled    PROT_NA      
+1-5-6     out-of-service    PORT           enabled    PROT_NA      
+1-5-7     out-of-service    PORT           enabled    PROT_NA      
+1-5-8     out-of-service    PORT           enabled    PROT_NA      
+1-5-9     out-of-service    PORT           enabled    PROT_NA      
+1-5-10    out-of-service    PORT           enabled    PROT_NA      
+1-7-1     out-of-service    PORT           enabled    PROT_NA      
+1-7-2     out-of-service    PORT           enabled    PROT_NA      
+1-7-3     out-of-service    PORT           enabled    PROT_NA      
+1-7-4     out-of-service    PORT           enabled    PROT_NA      
+1-7-5     out-of-service    PORT           enabled    PROT_NA      
+1-7-6     out-of-service    PORT           enabled    PROT_NA      
+1-7-7     out-of-service    PORT           enabled    PROT_NA      
+1-7-8     out-of-service    PORT           enabled    PROT_NA      
+1-7-9     out-of-service    PORT           enabled    PROT_NA      
+1-7-10    out-of-service    PORT           enabled    PROT_NA      
+1-8-1     out-of-service    PORT           enabled    PROT_NA      
+1-8-2     out-of-service    PORT           enabled    PROT_NA      
+1-8-3     out-of-service    PORT           enabled    PROT_NA      
+1-8-4     out-of-service    PORT           enabled    PROT_NA      
+1-8-5     out-of-service    PORT           enabled    PROT_NA      
+1-8-6     out-of-service    PORT           enabled    PROT_NA      
+1-8-7     out-of-service    PORT           enabled    PROT_NA      
+1-8-8     out-of-service    PORT           enabled    PROT_NA      
+1-8-9     out-of-service    PORT           enabled    PROT_NA      
+1-8-10    out-of-service    PORT           enabled    PROT_NA      
+
+
+[state]
+
+id        admin-state       description    laser       port-mode    parent      oper-status    
+------    --------------    -----------    --------    ---------    --------    -----------    
+1-5-1     out-of-service    PORT           disabled    PROT_NA      card 1-5    disabled       
+1-5-2     out-of-service    PORT           disabled    PROT_NA      card 1-5    disabled       
+1-5-3     out-of-service    PORT           disabled    PROT_NA      card 1-5    disabled       
+1-5-4     out-of-service    PORT           disabled    PROT_NA      card 1-5    disabled       
+1-5-5     out-of-service    PORT           disabled    PROT_NA      card 1-5    disabled       
+1-5-6     out-of-service    PORT           disabled    PROT_NA      card 1-5    disabled       
+1-5-7     out-of-service    PORT           disabled    PROT_NA      card 1-5    disabled       
+1-5-8     out-of-service    PORT           disabled    PROT_NA      card 1-5    disabled       
+1-5-9     out-of-service    PORT           disabled    PROT_NA      card 1-5    disabled       
+1-5-10    out-of-service    PORT           disabled    PROT_NA      card 1-5    disabled       
+1-7-1     out-of-service    PORT           disabled    PROT_NA      card 1-7    disabled       
+1-7-2     out-of-service    PORT           disabled    PROT_NA      card 1-7    disabled       
+1-7-3     out-of-service    PORT           disabled    PROT_NA      card 1-7    disabled       
+1-7-4     out-of-service    PORT           disabled    PROT_NA      card 1-7    disabled       
+1-7-5     out-of-service    PORT           disabled    PROT_NA      card 1-7    disabled       
+1-7-6     out-of-service    PORT           disabled    PROT_NA      card 1-7    disabled       
+1-7-7     out-of-service    PORT           disabled    PROT_NA      card 1-7    disabled       
+1-7-8     out-of-service    PORT           disabled    PROT_NA      card 1-7    disabled       
+1-7-9     out-of-service    PORT           disabled    PROT_NA      card 1-7    disabled       
+1-7-10    out-of-service    PORT           disabled    PROT_NA      card 1-7    disabled       
+1-8-1     out-of-service    PORT           disabled    PROT_NA      card 1-8    disabled       
+1-8-2     out-of-service    PORT           disabled    PROT_NA      card 1-8    disabled       
+1-8-3     out-of-service    PORT           disabled    PROT_NA      card 1-8    disabled       
+1-8-4     out-of-service    PORT           disabled    PROT_NA      card 1-8    disabled       
+1-8-5     out-of-service    PORT           disabled    PROT_NA      card 1-8    disabled       
+1-8-6     out-of-service    PORT           disabled    PROT_NA      card 1-8    disabled       
+1-8-7     out-of-service    PORT           disabled    PROT_NA      card 1-8    disabled       
+1-8-8     out-of-service    PORT           disabled    PROT_NA      card 1-8    disabled       
+1-8-9     out-of-service    PORT           disabled    PROT_NA      card 1-8    disabled       
+1-8-10    out-of-service    PORT           disabled    PROT_NA      card 1-8    disabled       
+
+

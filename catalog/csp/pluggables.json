@@ -255,16 +255,6 @@
     "about": "Synced from l1_profile.xml supported-part-no."
   },
   {
-    "id": "ftcd3323r1pcl-1y",
-    "name": "FTCD3323R1PCL-1Y",
-    "part": "FTCD3323R1PCL-1Y",
-    "formFactor": "QSFPDD",
-    "speed": "400G",
-    "fiber": "SMF",
-    "dco": true,
-    "about": "Box 3 runs it in 1-7-5; the profile's supported-part-no no longer lists it."
-  },
-  {
     "id": "ftcd3323r1pcl-wd",
     "name": "FTCD3323R1PCL-WD",
     "part": "FTCD3323R1PCL-WD",
@@ -443,5 +433,15 @@
     "speed": "10G",
     "fiber": "SMF",
     "about": "Synced from l1_profile.xml supported-part-no."
+  },
+  {
+    "id": "ftcd3323r1pcl-1y",
+    "name": "FTCD3323R1PCL-1Y",
+    "part": "FTCD3323R1PCL-1Y",
+    "formFactor": "QSFPDD",
+    "speed": "400G",
+    "fiber": "SMF",
+    "dco": true,
+    "about": "Box 3 runs it in 1-7-5; the profile's supported-part-no no longer lists it."
   }
 ]

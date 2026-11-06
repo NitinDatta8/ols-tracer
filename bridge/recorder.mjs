@@ -205,10 +205,10 @@ export function inferWiring(commands = {}) {
   return byPower.length ? { source: 'power', strands: byPower } : { source: 'none', strands: [] };
 }
 
-/** Existing wiring.csv, or one generated from command output; with `refresh`, rewrites it when inference changed. */
-export function ensureWiring(commands = {}, box = current, { refresh = false } = {}) {
+/** Existing wiring.csv, or one generated from command output when it is missing. */
+export function ensureWiring(commands = {}, box = current, _options = {}) {
   const existing = readWiring(box);
-  if (existing.length && !refresh) return existing;
+  if (existsSync(wiringFile(box))) return existing;
   const { strands } = inferWiring(commands);
   if (!strands.length) return existing.length ? existing : [];
   const rows = strands.map((s, i) => ({
