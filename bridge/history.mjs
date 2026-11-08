@@ -3,14 +3,10 @@
 // deleted. The box keeps its own log, so a change made while nothing was connected is found at the next connect, as
 // long as the log still reaches back that far. Times are the box's, and the wall clock's from the run's clock offset.
 //   node bridge/history.mjs data/boxes/box3     writes history.jsonl and prints its episodes
-import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { iso, lines } from './recorder.mjs';
-
-/** Every run folder under `dir`, the ones grouped by hand into folders of their own too. */
-const runsIn = (dir) => (existsSync(dir) ? readdirSync(dir) : []).map((r) => join(dir, r)).filter((d) => statSync(d).isDirectory())
-  .flatMap((d) => (existsSync(join(d, 'meta.json')) ? [d] : runsIn(d)));
+import { iso, lines, runsIn } from './recorder.mjs';
 
 /** A `show log alarm` or `show log configuration` parse (snapshot or poll) as history events, at box time. */
 function events(cmd, data) {

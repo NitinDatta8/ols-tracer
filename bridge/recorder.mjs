@@ -5,8 +5,8 @@
 // On its own it parses a run's raw output again into parsed/, e.g. after a template changed:
 //   node bridge/recorder.mjs data/boxes/box3/runs/run-01-healthy
 import { execFile } from 'node:child_process';
-import { appendFileSync, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
-import { basename, dirname, join, resolve } from 'node:path';
+import { appendFileSync, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync, writeFileSync } from 'node:fs';
+import { basename, dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import { commandFor } from './cli-index.mjs';
@@ -390,24 +390,45 @@ export function wiring(box = current) {
 /** A JSON-lines file's lines, or none. */
 export const lines = (f) => (existsSync(f) ? readFileSync(f, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)) : []);
 
+/** The boxes with a folder under data/boxes/. */
+export const boxes = () => (existsSync(BOXES) ? readdirSync(BOXES).filter((b) => statSync(join(BOXES, b)).isDirectory()) : []);
+
+/** A box's folder, data/boxes/<box>. */
+export const boxDir = (box) => join(BOXES, box);
+
+/** Every run folder under `dir`, the ones grouped by hand into folders of their own too. */
+export const runsIn = (dir) => (existsSync(dir) ? readdirSync(dir) : []).map((r) => join(dir, r)).filter((d) => statSync(d).isDirectory())
+  .flatMap((d) => (existsSync(join(d, 'meta.json')) ? [d] : runsIn(d)));
+
+/** A box's runs, oldest first: each run's meta.json, its `run` the run's path under runs/ (plugout-1125/20261102-124335-alarms). */
+export function runsOf(box) {
+  const dir = join(BOXES, box, 'runs');
+  return runsIn(dir).map((d) => ({ ...JSON.parse(readFileSync(join(d, 'meta.json'), 'utf8')), run: relative(dir, d) }))
+    .sort((a, b) => Date.parse(a.started) - Date.parse(b.started));
+}
+
 /**
  * The last state on disk, for /bridge/state while no box is connected: the latest run's snapshot, each command updated
  * by its last poll. { host, run, at, commands: { [cmd]: { at, data } | { at, error } | { at, raw } } }, times in ms;
  * raw for a command with no template, or whose poll failed to parse. Null with no runs. A run whose snapshot was cut
  * short (meta.json's `snapshot.done` < `of`: the session closed, or a prerequisite failed) is skipped, so it never hides
  * the whole run before it. A fast snapshot has only what changes, so it goes over the last full one and the fast ones
- * since. `name` picks a run instead of the latest, whole or not.
+ * since. `name` picks a run instead of the latest, whole or not, as it stood then: a fast one goes over the full one
+ * before it too. A run grouped by hand into a folder (plugout-1125/20261102-124335-alarms) goes over that folder's runs.
+ * `box` reads another box's runs, and `polls: false` leaves the polls out, so a run is what its snapshot read.
  */
-export function latest(name) {
-  const metas = (existsSync(RUNS_DIR) ? readdirSync(RUNS_DIR) : [])
-    .filter((r) => (!name || r === name) && existsSync(join(RUNS_DIR, r, 'meta.json')))
-    .map((r) => ({ ...JSON.parse(readFileSync(join(RUNS_DIR, r, 'meta.json'), 'utf8')), run: r })) // a folder renamed by hand keeps its old name in meta.json
-    .filter((m) => name || !m.snapshot || m.snapshot.done === m.snapshot.of)
+export function latest(name, { box, polls = true } = {}) {
+  const runs = join(box ? join(BOXES, box, 'runs') : RUNS_DIR, dirname(name ?? '.'));
+  const metas = (existsSync(runs) ? readdirSync(runs) : [])
+    .filter((r) => existsSync(join(runs, r, 'meta.json')))
+    .map((r) => ({ ...JSON.parse(readFileSync(join(runs, r, 'meta.json'), 'utf8')), run: r })) // a folder renamed by hand keeps its old name in meta.json
+    .filter((m) => m.run === basename(name ?? '') || !m.snapshot || m.snapshot.done === m.snapshot.of)
     .sort((a, b) => Date.parse(a.ended) - Date.parse(b.ended));
+  if (name) metas.splice(metas.findIndex((m) => m.run === basename(name)) + 1);
   if (!metas.length) return null;
   const commands = {};
   for (const meta of metas.slice(Math.max(0, metas.findLastIndex((m) => !m.snapshot?.fast)))) {
-    const dir = join(RUNS_DIR, meta.run);
+    const dir = join(runs, meta.run);
     for (const { cmd, at, file } of lines(join(dir, 'raw', 'index.jsonl'))) {
       const t = Date.parse(at ?? meta.ended); // a hand capture has no per-command times
       const parsed = join(dir, 'parsed', file.replace(/\.txt$/, '.json'));
@@ -417,12 +438,12 @@ export function latest(name) {
         commands[cmd] = Object.keys(data).join() === 'error' ? { at: t, error: data.error } : { at: t, data };
       }
     }
-    for (const { at, cmd, data, error, raw } of lines(join(dir, 'poll.jsonl'))) {
+    for (const { at, cmd, data, error, raw } of polls ? lines(join(dir, 'poll.jsonl')) : []) {
       commands[cmd] = { at: Date.parse(at), ...(raw !== undefined ? { raw } : error ? { error } : { data }) };
     }
   }
   const meta = metas.at(-1);
-  return { host: meta.host, run: meta.run, at: Date.parse(meta.ended), commands };
+  return { host: meta.host, run: name ?? meta.run, at: Date.parse(meta.ended), commands };
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === here('recorder.mjs')) {

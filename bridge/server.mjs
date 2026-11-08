@@ -8,15 +8,16 @@
 // /bridge/state. A `show` command typed in the terminal is run again there and saved in the latest run (typed.mjs), and
 // a pull marked in the view (/bridge/pull) takes a snapshot with its answer.json.
 // A terminal window (/bridge/shell) gets a shell of its own on its box, apart from all that (terminals.mjs).
+// Every box's recorded runs are read at /runs, /run and /history, by the MCP server, which calls the bridge directly.
 // Login settings come from bridge/.env (see .env.example). Listens on localhost only.
 import { existsSync, readFileSync } from 'node:fs';
 import { createServer } from 'node:http';
-import { dirname } from 'node:path';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import ssh2 from 'ssh2';
 import { WebSocketServer } from 'ws';
 import { record } from './history.mjs';
-import { accepted, boxOf, ensureWiring, latest, PYTHON, Run } from './recorder.mjs';
+import { accepted, boxDir, boxes, boxOf, ensureWiring, latest, lines, PYTHON, Run, runsOf, wiring } from './recorder.mjs';
 import { shareOut, worker } from './shells.mjs';
 import { Logins, typeSteps, validSteps } from './terminals.mjs';
 import { Screen } from './typed.mjs';
@@ -296,6 +297,23 @@ const server = createServer(async (req, res) => {
     if (!strand) return res.writeHead(400).end('A strand from wiring.csv\n');
     marks.push({ ...strand, at: Date.now() });
     return res.end();
+  }
+  // A box's recorded runs, read-only: ?box= is a folder under data/boxes/. /runs lists them with their meta.json. /run is
+  // one (?run=, else the latest) as its snapshot read it, a fast one over the full one before it, with its meta.json and
+  // the box's strands; never its answer.json, which is for scoring only. /history is the box's config log since ?since=.
+  const url = new URL(req.url ?? '', 'http://bridge');
+  if (['/runs', '/run', '/history'].includes(url.pathname)) {
+    const { box, run, since } = Object.fromEntries(url.searchParams);
+    if (!boxes().includes(box)) return res.writeHead(404).end('A box under data/boxes/\n');
+    const json = (v) => res.setHeader('content-type', 'application/json').end(JSON.stringify(v));
+    const runs = runsOf(box);
+    if (url.pathname === '/runs') return json(runs);
+    if (url.pathname === '/run') {
+      const s = (!run || runs.some((r) => r.run === run)) && latest(run, { box, polls: false });
+      return s ? json({ ...s, meta: runs.find((r) => r.run === s.run), wiring: wiring(box) }) : res.writeHead(404).end('A run from /runs\n');
+    }
+    if (since && Number.isNaN(Date.parse(since))) return res.writeHead(400).end('since: an ISO time\n');
+    return json(lines(join(boxDir(box), 'history.jsonl')).filter((e) => e.kind === 'config' && (!since || Date.parse(e.at) >= Date.parse(since))));
   }
   res.writeHead(404).end();
 });
