@@ -2,6 +2,16 @@
 
 The decisions that shape the tracer, newest first, each with where it was argued. A decision that was later replaced says what replaced it. Plans are in the [roadmap](roadmap.md).
 
+## 2026-11-07
+
+| Decision | Why | Source |
+| --- | --- | --- |
+| The intelligence layer is an MCP server in its own repo. It gets OLS Tracer's code from a pinned git dependency and its data only over the bridge's HTTP API, bridge control included. It sends only catalog `show` commands to a box, and it writes fix commands out without running them | The bridge stays the one place with box access, the domain code is reused rather than copied, and the two can later run on different hosts | [MCP initial](plans/mcp-initial.md#decided-2026-11-07) |
+| The MCP runs locally first but is built as a remote one: Streamable HTTP, a token on every call, an audit log, and no stdio or client file paths | A remote server needs IT approval, which takes time. Built this way, the move is config | [MCP initial](plans/mcp-initial.md#remote-shaped-local-first) |
+| Tools return facts and the agent reasons over them. False alarms are tagged (`baseline`, `unused`, `off-path`, `housekeeping`), never deleted | Box 3 has 9 standing alarms in every capture, healthy included, such as `TRANSCEIVER_MISSING` on unused ports | [MCP initial](plans/mcp-initial.md#false-alarms) |
+| The diagnosis answer is short: the fault, the root alarm when it helps, and the fix. A software fix is CLI lines, each matched to the CLI catalog, with a combined `set` line checked setting by setting. A hardware or fiber fix names the slot and port, and Tx or Rx | Commands that aren't in the catalog get made up. Box 3's config log shows that people type combined `set` lines, and all four settings of one such line match the catalog | [MCP initial](plans/mcp-initial.md#answer) |
+| A change in the box's setup (cards, transceivers, software, strands) marks its baseline stale and turns the `baseline` noise rule off. A new baseline is captured with `capture_baseline` only after the person says the box is healthy, never automatically | A baseline taken during a fault would turn that fault's alarms into noise for every later diagnosis | [MCP initial](plans/mcp-initial.md#baseline) |
+
 ## 2026-11-06
 
 | Decision | Why | Source |

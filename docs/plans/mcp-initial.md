@@ -1,146 +1,224 @@
 # MCP initial
 
-Initial plan to build an MCP server on top of OLS Tracer so an agent can safely query topology, live box state, run history, and troubleshooting signals.
+An MCP server on top of OLS Tracer, so an agent can diagnose one box: explore it, find what is wrong past the false alarms, and end with the fix as steps.
 
-**Status (2026-11-05):** planned
+**Status (2026-11-07):** planned, refined from `nitin/mcps.md` (iteration 1), the ROADM diagnostic plan and the CLI agent spec. The MCP gets a repo of its own, and this plan moves there once that repo is made.
 
-## Goal
+## Decided (2026-11-07)
 
-Build an MCP server that reuses OLS Tracer's existing bridge and analysis logic to support:
+1. **Its own repo, on top of OLS Tracer.** The MCP reaches boxes and runs only through the bridge's HTTP API, bridge control included (`connect`, `disconnect`, mark a pull, capture a baseline). It imports OLS Tracer's domain code from a pinned git dependency and never copies it. Commands it sends to a box are still `show` only, and fix commands are written out for a person, never run.
+2. **Local first, built as a remote MCP.** A remote server needs IT approval, which can take a while. The server is written so that moving it to a shared host changes only its config (see [Remote-shaped](#remote-shaped-local-first)).
+3. **The agent reasons over tool outputs.** Tools return facts with tags, such as an alarm marked as noise and why. They never name the fault.
+4. **One box at a time.** Every tool takes a `box`, because `data/boxes/` already holds four.
+5. **Short answers, checked fixes.** A software fix is CLI commands, each one found in the CLI catalog. A hardware or fiber fix names the slot and port and whether it is Tx or Rx, plus the alarm when it helps. See [Answer](#answer).
 
-1. Read-only troubleshooting workflows (preferred first).
-2. Controlled operational actions (`connect`, `disconnect`, `mark pull`) with guardrails.
-3. Structured outputs for an agent to answer questions like "why LOS on 1-3-C2?".
+Audience: developers and white-box testers, in an MCP client with the repo open. Black-box testers come later, through the tracer UI.
 
-## Constraints
+## Remote-shaped, local first
 
-- The bridge stays the only component that talks to boxes over SSH.
-- No credentials are exposed through MCP responses.
-- Default mode is safe-by-default (read-only tools enabled, mutating actions explicit).
-- Keep compatibility with current run layout under `data/boxes/<box>/runs/`.
+| Concern | Now (local) | Later (remote, after IT approval) |
+| --- | --- | --- |
+| Transport | Streamable HTTP at `http://127.0.0.1:<port>/mcp`, never stdio | The same, on a lab host behind TLS |
+| Auth | A bearer token from the server's env, checked on every request | Org SSO through MCP's OAuth flow |
+| Where it runs | The work machine, next to the bridge | A lab host that reaches the boxes. The bridge stays localhost-only there, so the MCP is the only piece on the network |
+| Box credentials | In the bridge's env only, never in a tool's input or output | The same |
+| Client setup | The client's command to add an HTTP MCP server, with the URL and an `Authorization: Bearer <token>` header, once | The same command with the new URL, once |
+| Updates | Restart the server | Deploy the server: tools, prompts and noise rules reach everyone with nothing to do on their machine |
+| Workflow | `diagnose` is an MCP prompt served by the server, not a skill file on each machine | The same |
+| Inputs | Box ids, run ids and strand names. Never a client file path or topology JSON: the server builds the topology from the catalog, `wiring.csv` and the box state | The same |
+| Audit | One JSONL line per call (who, tool, arguments, time) | The same. IT will ask for it |
+| Sessions | One user, and the bridge holds one box session | A box session gets an owner and a lock |
 
-## Scope (Initial)
+The rule: nothing assumes stdio or the client's filesystem. If it works over `http://127.0.0.1` with a token, the move is config.
 
-### In scope
+For the IT request: the host, its network path to the boxes, the auth method, the audit log, and the fact that **tool outputs are sent to the model provider**. Raw captures hold hostnames, serials and IPs, so responses may need an option that redacts them.
 
-- New MCP server process (`mcp/` folder).
-- MCP tools for bridge status, state, wiring, and pull marking.
-- MCP tools for topology validation and diagnostic helpers (path trace, first loss, L0 problems).
-- MCP resources for latest run state and outage history episodes.
-- Basic safety policy (allow only `show` command execution if command-run tool is added).
+## Tools (v1)
 
-### Out of scope
+### Diagnosis
 
-- Multi-user AAA/session isolation.
-- NETCONF/gNMI migration.
-- Physics-twin modeling (GNPy integration).
-- UI redesign; this plan is backend/agent interface only.
+| Tool | Input | Returns | Built from |
+| --- | --- | --- | --- |
+| `explore_box` | `box` | What the connect snapshot gathers: system, software, cards, transceivers, strands, and the light paths traced through them. Live, or the last run with `live: false` | `discover`, `wired`, `heads`/`trace`, `wiring.csv` |
+| `get_alarms_pm` | `box`, `run?`, `include_noise?` | Alarms, each tagged with [noise](#false-alarms), and power and PM per port | `allAlarms`, `portPower`, `verdictAt` |
+| `trace_path` | `box`, `strand` or `port` | Ordered hops, each with its alarms, power and verdict, and the first loss on the path | `trace`, `alarmsOn`, `firstLoss`, `l0Problems` |
+| `run_show` | `box`, `command` | One `show` command's parsed and raw output, live only | A new bridge `/show` endpoint on a `shells.mjs` worker |
+| `diff_vs_baseline` | `box`, `run`, `baseline?` | Config differences field by field, new and cleared alarms, and power changes against the box's healthy run, plus the box's config log since then (what was set, deleted or rebooted, and when) | The ROADM plan's two workers, `history.jsonl` |
+| `check_commands` | `box`, `commands[]` | For each line, the catalog command it runs (id, op, syntax, and the help text that lists the allowed values), or `unknown`. A combined `set` line is split into its settings, and each setting is checked | `commandFor` in `bridge/cli-index.mjs`, over `data/cli/<stream>/cli-index.source.json` (985 commands: 584 `show`, 330 `set`, 38 `delete` and 33 `rpc`) |
 
-## Architecture (initial)
+`run_show` runs a line only if `check_commands` finds it as a `show` command. It also refuses pipes, `?`, and `set`, `delete`, `commit`, `rpc`, `clear` and `reboot`.
 
-1. **MCP sidecar** in Node/TypeScript, launched independently from the Vite UI.
-2. MCP tools call either:
-   - existing bridge HTTP endpoints (`/status`, `/state`, `/connect`, `/disconnect`, `/wiring`, `/pull`), or
-   - local domain modules (`bridge/history.mjs`, `bridge/recorder.mjs`, `src/rules.ts`, `src/l0.ts`, `src/live.ts`).
-3. Domain logic is reused, not reimplemented.
+### Bridge control
 
-## Initial MCP interface
+`bridge_status`, `bridge_connect`, `bridge_disconnect` and `mark_pull` use the bridge's existing endpoints, and `capture_baseline` uses a new one. Each one changes the session or the recorded runs, never the box.
 
-### Tools (v1)
+### Baseline
 
-1. `bridge_status`
-   - Returns: connection state, host, error, snapshot progress.
-2. `bridge_connect`
-   - Input: `host`.
-   - Returns: requested host + immediate status.
-3. `bridge_disconnect`
-   - Returns: final status.
-4. `bridge_state`
-   - Returns: live state (or last recorded state when disconnected).
-5. `list_wiring_strands`
-   - Returns: strands from `wiring.csv`.
-6. `mark_pulled_strand`
-   - Input: strand id.
-   - Returns: queued/accepted + status message.
-7. `validate_topology`
-   - Input: topology JSON.
-   - Returns: rule validation errors.
-8. `trace_light_path`
-   - Input: topology + link id (+ optional state).
-   - Returns: ordered hops with hop labels.
-9. `first_loss_on_path`
-   - Input: topology + link id + box state.
-   - Returns: most-upstream LOS/LOF indication.
-10. `l0_problems`
-    - Input: topology + device id + box state.
-    - Returns: range/consistency problems.
+The `baseline` noise rule and `diff_vs_baseline` both need a healthy run of the box as it is set up now.
 
-### Resources (v1)
+- **Detecting a change:** `explore_box` and `diff_vs_baseline` report `setupChanged` when the provisioned cards and transceivers, the software release or the `wiring.csv` strands differ from the baseline's. Alarms, power, config changes and a provisioned card that is absent don't count, because those are what a fault changes.
+- **While the baseline is stale:** the `baseline` rule is off and the other noise rules still apply. The answer adds one line: `Baseline is stale: <what changed>. Record a new one?`
+- **`capture_baseline(box)`:** the bridge takes a snapshot and records it as a run with `trigger: baseline` and `state: healthy`. It needs a connected box.
+- **Never automatic.** A baseline taken during a fault turns that fault's alarms into noise for every later diagnosis. So the agent asks the person first. The tool also refuses when a traced path shows a loss, and it names the place.
 
-1. `ols://bridge/status`
-2. `ols://bridge/state`
-3. `ols://box/{boxId}/latest`
-4. `ols://box/{boxId}/history/events`
-5. `ols://box/{boxId}/history/episodes`
+### Prompt: `diagnose`
 
-## Delivery phases
+The workflow, in order:
 
-## Phase 0 - scaffold
+1. `explore_box`
+2. `get_alarms_pm`, with noise hidden
+3. `diff_vs_baseline`
+4. `trace_path` from the most upstream new alarm
+5. `run_show` to confirm
+6. `check_commands` on every fix command
 
-- Create `mcp/` package with server entrypoint and tool/resource registration.
-- Add config (`MCP_BRIDGE_BASE_URL`, timeouts, safe mode flags).
-- Add README with run instructions.
+It ends in the [answer](#answer). The agent must not make up readings.
 
-**Exit criteria:** MCP server starts and responds to ping/list-tools/list-resources.
+### Answer
 
-## Phase 1 - bridge-backed tools
+The answer is short, at most three parts:
 
-- Implement `bridge_status`, `bridge_connect`, `bridge_disconnect`, `bridge_state`, `list_wiring_strands`, `mark_pulled_strand`.
-- Normalize bridge errors into stable MCP error objects.
+- **Fault:** the location.
+  - A card: its slot (`card 1-6`).
+  - A transceiver: its slot and port (`1-8-1`).
+  - A fiber: its strand from `wiring.csv`, written from the Tx end to the Rx end.
+  - A fiber with no known strand: the port, and Tx or Rx from the alarm (`IN_` or `rx` means Rx, `OUT_` or `tx` means Tx).
+- **Alarm:** included only when it is the evidence. It is one line for the root alarm, never its consequent alarms.
+- **Fix:**
+  - A software fix is CLI lines, written the way people type them, and each line must pass `check_commands`. Box 3's config log shows combined lines such as `set media-channel 2 line-port … add-drop-port … admin-state … center-frequency …`. The matcher alone returns `unknown` for that line, but each of its four settings matches once it is split. A step with no catalog command is said in words and marked "(not in catalog)".
+  - A hardware or fiber fix is numbered hand steps at the named ends (check that it is seated, clean it, replace it). The end that alarmed goes first.
 
-**Exit criteria:** agent can connect to a box, inspect state, and mark pulls via MCP.
+When two places fit equally, the answer names both, the most likely first. When nothing is found, it says so in one line, along with what it checked. The hypotheses, readings and missing data are given only when someone asks.
 
-## Phase 2 - diagnostics tools
+Illustrative fiber fault (the strand and the alarm are box 3's):
 
-- Wire in reusable logic from `src/rules.ts`, `src/l0.ts`, `src/live.ts`.
-- Implement `validate_topology`, `trace_light_path`, `first_loss_on_path`, `l0_problems`.
+```
+Fault: fiber F03, 1-7-5 Tx → 1-1-ad11 Rx
+Alarm: IN_OPTICAL_LOW_FAILURE on port 1-1-ad11 (CRITICAL)
+Fix:
+1. At 1-1-ad11 Rx: check F03 is seated, clean the connector.
+2. Still low: do the same at the 1-7-5 Tx end, then replace F03.
+```
 
-**Exit criteria:** agent can produce path-first fault triage from recorded or live state.
+Software fault (box 3's ad2 case):
 
-## Phase 3 - history/resources
+```
+Fault: media channel 2 (1-1-ad2) is at 193.6 THz, but OCH 1-7-5 is at 193.5 THz
+Alarm: IN_LOS on port 1-1-ad2 (CRITICAL)
+Fix (CLI):
+  set media-channel 2 center-frequency 193500000
+```
 
-- Expose latest run and history/episode resources from `bridge/recorder.mjs` + `bridge/history.mjs`.
-- Add lightweight filtering parameters (by time window, severity, run id).
+### Folded in from the 2026-11-05 draft
 
-**Exit criteria:** agent can answer "what changed" and "what likely caused outage" from persisted data.
+`list_wiring_strands` goes into `explore_box`, `first_loss_on_path` and `l0_problems` into `trace_path`, and `bridge_state` into the tools that read state. `validate_topology` is dropped, because the server builds the topology itself. Resources wait until a client needs them, since the tools carry the data.
 
-## Safety model (initial)
+## False alarms
 
-- Mutations are explicit tools only (`bridge_connect`, `bridge_disconnect`, `mark_pulled_strand`).
-- If command execution tool is later added, only `show` commands at operational mode are allowed by default.
-- Reject commands containing pipes, help (`?`), or known mutating verbs (`set`, `delete`, `commit`, `rpc`, `clear`).
-- Include audit fields in responses: `requestedAt`, `source` (`live` or `run`), and `runId` when applicable.
+Box 3 shows the problem. Nine alarms are in all 22 of its alarm captures, healthy run included:
 
-## Test plan
+| Alarm | Resource | Severity |
+| --- | --- | --- |
+| `TRANSCEIVER_MISSING` | transceiver 1-8-1, 1-8-4 | CRITICAL |
+| `EQPT_ABSENCE` | card 1-4 | CRITICAL |
+| `EQPT_MISMATCH` | card 1-21 | CRITICAL |
+| `PWR_NO_INPUT` | card 1-22 (the second PSU isn't in use) | MINOR |
+| `LINK_DOWN` | port 1-43-nm, 1-43-nm1 (management) | MINOR |
+| `NO_CMT_SW`, `DATETIME_UNCHANGED` | software, system | WARNING |
 
-1. Unit tests for tool input validation and error mapping.
-2. Integration tests against a mocked bridge HTTP server.
-3. Integration tests against recorded data in `data/boxes/box3/runs/`.
-4. Golden tests for diagnostic outputs (`trace_light_path`, `first_loss_on_path`, `l0_problems`) using existing fixtures.
+**Tag, never delete.** Each alarm gets `noise: <reason> | null`. By default `get_alarms_pm` hides noise and returns a count for each reason, and `include_noise: true` returns everything. The reasons, checked in this order:
 
-## Risks and mitigations
+1. **`baseline`:** the same alarm on the same resource is in the box's latest healthy run. This covers most standing alarms without hand-written rules.
+2. **`unused`:** `EQPT_ABSENCE` or `TRANSCEIVER_MISSING` on a slot or port that no strand in `wiring.csv` uses. A missing transceiver on a wired port is not noise, because it can be the fault.
+3. **`off-path`:** the resource is on no traced light path, for example management ports.
+4. **`housekeeping`:** system alarms that never affect light (`NO_CMT_SW`, `DATETIME_UNCHANGED`), from a list.
 
-- **Risk:** drift between frontend domain logic and MCP wrappers.
-  - **Mitigation:** import shared functions from `src/` and avoid duplicate implementations.
-- **Risk:** accidental unsafe command paths.
-  - **Mitigation:** allowlist + parser checks + default safe mode.
-- **Risk:** stale run data interpreted as live.
-  - **Mitigation:** always include `live` flag and timestamps in responses.
+These are not noise but are tagged too. **`consequent: <alarm>`** marks an alarm that lies downstream of the first loss on the same path, such as `OUT_LOS` on 1-1-ba after `IN_LOS` at 1-1-ad1. The agent reads it as an effect, not a cause.
 
-## Done definition (initial)
+**`unsettled: <change>`** marks an alarm read within the settle time after a config change or a restart in the config log. The box is slow to update its alarms: box 3's ad3 and ad4 were working, but their snapshots still showed the earlier LOS. The answer then adds the line `Changed at <time>: alarms may lag, check again in <n> s.` The settle time is a config value until the runs measure it.
 
-- MCP server runs locally and advertises v1 tools/resources.
-- Core bridge and diagnostic tools work against both live and recorded data.
-- Safety policy enforced for mutating operations.
-- Documentation added with examples for agent prompts and expected outputs.
+The rules live in a data file (`mcp/noise.json`), so a new rule is a data change, and it reaches everyone on the next deploy.
 
+**Guard:** a test over every box 3 run that has an `answer.json`. No alarm at the pulled strand may be tagged as noise. The test also reports how many alarms each rule hides.
+
+## Architecture
+
+- **The MCP repo:** Node and TypeScript, the official `@modelcontextprotocol/sdk` with its Streamable HTTP transport, and `zod` for input schemas. Its port, token and bridge URL are in its own config.
+- **Code from OLS Tracer:** a git dependency pinned to a commit (`github:NitinDatta8/ols-tracer#<sha>`). It provides `src/l0.ts`, `live.ts`, `rules.ts` and `catalog.ts`, the catalog, and `bridge/cli-index.mjs`, none of it copied. The MCP runs under `tsx`, because the imports in `src/` have no extensions (`moduleResolution: bundler`). Moving to a newer OLS Tracer means bumping the pin.
+- **Data from the bridge:** everything comes over HTTP on 127.0.0.1, with the `x-ols-tracer: 1` header the bridge requires. The MCP never reads OLS Tracer's `data/`, so the two can later run on different hosts.
+- The bridge holds one connection today. A `box` that isn't the connected one is answered from its last run, with `live: false`.
+
+### Changes in OLS Tracer
+
+| Endpoint | What it does |
+| --- | --- |
+| `GET /runs?box=` | Lists a box's runs, with their meta |
+| `GET /run?box=&run=` | Returns one run's parsed commands, meta and wiring, never its `answer.json` |
+| `GET /history?box=&since=` | Returns the box's config log since a time |
+| `POST /show` | Runs one allowlisted `show` command on a `shells.mjs` worker |
+| `POST /baseline` | Takes a snapshot and records it as a healthy baseline run |
+
+`src/catalog.ts` loads the catalog with Vite's `import.meta.glob`, which Node can't run, and `l0.ts`, `live.ts` and `rules.ts` all import from it. Phase 0 moves that loading out, so that the helpers and `catalogFor` also run in Node, from the same `catalog/` files.
+
+Two changes in the recorder:
+
+- **It saves `wiring.csv` into each run.** Today there is one file per box, so an old run would be read with today's strands. The 11-02 cases moved the fiber from ad1 to ad2, then to ad11.
+- **`detectable` stops being false for every strand into the BERT.** It is false today, because the Rx end isn't a box port. But F02's snapshot shows `LINK_RF` on 100ge 1-7-4 and nothing else: the BERT's remote fault comes back to the box.
+
+## Phases
+
+| Phase | Work | Exit criteria |
+| --- | --- | --- |
+| 0. Scaffold | In OLS Tracer, `catalog.ts`'s Vite-only loading moves out. In the new repo: HTTP at 127.0.0.1, the token check, the audit log, the pinned OLS Tracer dependency, `bridge_status` | An MCP client lists the tools, a call without the token gets a 401, and `l0.ts` imports from the pin |
+| 1. Recorded data | `GET /runs` and `GET /run` in the bridge. `explore_box`, `get_alarms_pm` with noise tags, `trace_path`, `diff_vs_baseline` and `check_commands` over box 3's runs | The noise guard passes on every box 3 run that has an `answer.json`, and `check_commands` accepts box 3's logged config lines, setting by setting, but rejects made-up ones |
+| 2. Live | The bridge control tools, `POST /show`, `run_show`, `POST /baseline` and `capture_baseline` | On the work machine, box 3 is connected, a `show` runs through the MCP, and a baseline is captured |
+| 3. Diagnose | The `diagnose` prompt and the [scoring](#scoring-proposed) runner | It beats the rule-based baseline (the most upstream LOS on the known path), and every fix command passes `check_commands`. The score table is in this plan |
+
+## Safety
+
+- Commands to a box come only from `run_show`, which is `show` only and limited to the catalog.
+- Fix steps are text. No tool changes a box's config.
+- Every response carries `live`, `at` and the `runId`, so a recorded run isn't mistaken for live state.
+- The box credentials stay in the bridge's env.
+- No tool returns `answer.json`. Only the scorer reads it.
+
+## Scoring (proposed)
+
+- **Cases:** listed [below](#cases-box-3) and kept in `eval/cases.json` in the MCP repo. Each one has a fault snapshot, its baseline and the expected answer. For the recorder's pulls, the expected answer comes from `answer.json`. Cases run on recorded data, so `run_show` isn't available to them.
+- **Runner:** in the MCP repo. It runs `diagnose` headless (an agent's CLI with the MCP config) on each case, three times, because answers vary.
+- **No judge model:** the answer's fixed shape makes the `Fault:` line parseable. A strand id, or a slot and port with Tx or Rx, is compared with `answer.json`.
+- **Score per try:**
+  - `exact`: the strand, card or port matches.
+  - `near`: the right port at the wrong end, or the right card at the wrong port.
+  - `none`: the answer says nothing was found.
+  - `wrong`: the answer names another place.
+- **Cost:** a `wrong` costs more than a `none`, because a wrong place sends someone to pull the wrong fiber.
+- **Fix check:** the fix is the right kind (hand steps or CLI), and every CLI line passes `check_commands`.
+- **Bar:** the rule baseline (the most upstream LOS on the known path) is scored on the same cases. The agent must match or beat it on `exact`, with no more `wrong`.
+- **Table:** a case, its answer, the rule baseline's result, the agent's three tries, and notes. The table is kept in this plan.
+
+### Cases (box 3)
+
+Runs are under `data/boxes/box3/runs/`. "Standing alarms" means the nine [false alarms](#false-alarms) plus the channel's `REACH_MAX_ATT_SRC_TO_DEST`. Times come from the config log, and they assume its clock lines up with the run names.
+
+| Case | Fault snapshot | Baseline | Expected answer | Notes |
+| --- | --- | --- | --- | --- |
+| F01 pull | `20261105-163752-pull` | `20261105-162614-connect` | Fiber F01, BERT:P1 Tx → 1-7-4 Rx. `RX_LOS` on transceiver 1-7-4 | |
+| F02 pull | `20261105-164053-pull` | the same | Fiber F02, 1-7-4 Tx → BERT:P1 Rx. `LINK_RF` on 100ge 1-7-4 | The BERT's remote fault. Its `answer.json` says `detectable: false`, which is wrong |
+| F03 pull | `20261105-164615-pull` | the same | Fiber F03, 1-7-5 Tx → 1-1-ad11 Rx. `IN_OPTICAL_LOW_FAILURE` on port 1-1-ad11 | The line, amplifier and `och 1-7-5` alarms are consequent |
+| C1125 out and back | `plugout-1125/20261102-124335-alarms` | `plugout-1125/20261102-124208-connect` | Card 1-1 (TMUXC1125) out of its slot: reseat it | There is no alarm on 1-1 itself, but `show card` says absent. Only `RX_LOS` on och 1-7-5 and `LINK_RF` appear |
+| 800MX out and back, run 1 | `plugout-800MX-run1/20261102-124748-alarms` | `plugout-800MX-run1/20261102-124631-connect` | Card 1-7 (800MX) out of its slot. `COMMUNICATION_FAILURE` on card 1-7 | The rule baseline names 1-1-ad11 (the most upstream LOS), which is wrong |
+| 800MX out and back, run 2 | `plugout-800MX-run2/20261102-125452-alarms` | `plugout-800MX-run2/20261102-125345-connect` | The same as run 1 | |
+| ad2, no media channel | `20261102-115853-connect-ad2-nonworking` | `20261102-115731-healthy-run1` | No media channel on 1-1-ad2, and channel 1 still drops to 1-1-ad1. Fix: `set media-channel 2 line-port port-1-1-line add-drop-port port-1-1-ad2 admin-state in-service center-frequency 193500000` | `IN_LOS` is on 1-1-ad1, where the fiber no longer is. The strand moved, so the baseline is stale |
+| ad2, wrong frequency | `20261102-120137-alarms-ad2-nonworking` | the same | Media channel 2 at 193.6 THz, while OCH 1-7-5 is at 193.5 THz. Fix: `set media-channel 2 center-frequency 193500000` | Set at 12:01:29 with `193600000`, and fixed at 12:11:20 |
+| Cold restart, run 1 | `reboot-ne-cold-run1/20261102-122915-connect` | `plugout-1125/20261102-124208-connect` | The NE restarted cold at 12:26:57, and the alarms are its recovery. Check again once it settles | The agent must not name a fiber. The baseline is the nearest healthy snapshot with the same setup |
+| Cold restart, run 2 | `reboot-ne-cold-run2/20261102-123719-connect` | the same | The same, with the restart at 12:35:00 | |
+
+Two runs are dropped:
+
+- **The warm restart:** none of its three snapshots caught an alarm.
+- **ad3 and ad4:** both were working, but their snapshots still carried the earlier LOS, because the box was slow to update its alarms (see `unsettled` under [false alarms](#false-alarms)).
+
+## Open questions
+
+1. How long does the box take to update its alarms after a change or a restart? That is the default settle time for `unsettled`.
