@@ -2,7 +2,7 @@
 
 An MCP server on top of OLS Tracer, so an agent can diagnose one box: explore it, find what is wrong past the false alarms, and end with the fix as steps.
 
-**Status (2026-11-07):** planned, refined from `nitin/mcps.md` (iteration 1), the ROADM diagnostic plan and the CLI agent spec. The MCP gets a repo of its own, and this plan moves there once that repo is made.
+**Status (2026-11-07):** phases 0 and 1 are done, in the new repo `code/ols-mcp`, which pins OLS Tracer at `5b86def`. Phase 2 (live) is next. The plan was refined from `nitin/mcps.md` (iteration 1), the ROADM diagnostic plan and the CLI agent spec. It moves to the MCP's repo once that repo is on GitHub.
 
 ## Decided (2026-11-07)
 
@@ -169,8 +169,8 @@ Two changes in the recorder:
 
 | Phase | Work | Exit criteria |
 | --- | --- | --- |
-| 0. Scaffold | In OLS Tracer, `catalog.ts`'s Vite-only loading moves out. In the new repo: HTTP at 127.0.0.1, the token check, the audit log, the pinned OLS Tracer dependency, `bridge_status` | An MCP client lists the tools, a call without the token gets a 401, and `l0.ts` imports from the pin |
-| 1. Recorded data | `GET /runs` and `GET /run` in the bridge. `explore_box`, `get_alarms_pm` with noise tags, `trace_path`, `diff_vs_baseline` and `check_commands` over box 3's runs | The noise guard passes on every box 3 run that has an `answer.json`, and `check_commands` accepts box 3's logged config lines, setting by setting, but rejects made-up ones |
+| 0. Scaffold (done 2026-11-07) | In OLS Tracer, `catalog.ts`'s Vite-only loading moves out. In the new repo: HTTP at 127.0.0.1, the token check, the audit log, the pinned OLS Tracer dependency, `bridge_status` | An MCP client lists the tools, a call without the token gets a 401, and `l0.ts` imports from the pin |
+| 1. Recorded data (done 2026-11-07) | `GET /runs`, `GET /run` and `GET /history` in the bridge. `explore_box`, `get_alarms_pm` with noise tags, `trace_path`, `diff_vs_baseline` and `check_commands` over box 3's runs | The noise guard passes on every box 3 run that has an `answer.json`, and `check_commands` accepts box 3's logged config lines, setting by setting, but rejects made-up ones |
 | 2. Live | The bridge control tools, `POST /show`, `run_show`, `POST /baseline` and `capture_baseline` | On the work machine, box 3 is connected, a `show` runs through the MCP, and a baseline is captured |
 | 3. Diagnose | The `diagnose` prompt and the [scoring](#scoring-proposed) runner | It beats the rule-based baseline (the most upstream LOS on the known path), and every fix command passes `check_commands`. The score table is in this plan |
 
