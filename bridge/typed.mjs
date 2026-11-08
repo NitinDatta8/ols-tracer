@@ -6,11 +6,23 @@ import xterm from '@xterm/headless';
 /** The prompt of the box's operational mode, admin@PAHO-GS2000-03>. Configure mode's ends in #, and is skipped. */
 const PROMPT = /^[\w.-]+@[\w.-]+>\s*/;
 
-/** The `show` command on a prompt line, or null: only at the operational prompt, and never a ? help or a | pipe. */
+/**
+ * A command line that may run again on the box: { cmd }, its `show` command with its spaces evened out, or { why } not.
+ * Only `show`, never a ? help or a | pipe, on one line of printable text, so nothing else slips in. The bridge's /show
+ * and the MCP's run_show hold a line to it too.
+ */
+export function showOf(line) {
+  if (/[\x00-\x1f\x7f-\x9f]/.test(line)) return { why: 'a command is one line of printable text' };
+  const cmd = line.trim().replace(/\s+/g, ' ');
+  if (!/^show(\s|$)/.test(cmd)) return { why: `${cmd.split(' ')[0] || 'an empty line'} is not show: only show commands run on the box` };
+  if (cmd.includes('|')) return { why: 'a | pipe could save to a file' };
+  if (cmd.includes('?')) return { why: 'a ? asks for help, not the box state' };
+  return { cmd };
+}
+
+/** The `show` command on a prompt line, or null: only at the operational prompt, and only one showOf takes. */
 export function typedShow(line) {
-  if (!PROMPT.test(line)) return null;
-  const cmd = line.replace(PROMPT, '').trim().replace(/\s+/g, ' ');
-  return /^show(\s|$)/.test(cmd) && !/[?|]/.test(cmd) ? cmd : null;
+  return PROMPT.test(line) ? showOf(line.replace(PROMPT, '')).cmd ?? null : null;
 }
 
 /**

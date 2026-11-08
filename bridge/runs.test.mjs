@@ -1,5 +1,5 @@
-// The bridge's read-only run endpoints (/runs, /run, /history) over box 3's recorded runs, on a bridge of its own that
-// never connects to a box.
+// The bridge's endpoints for the MCP, on a bridge of its own that never connects to a box: the read-only run endpoints
+// (/runs, /run, /history) over box 3's recorded runs, and /show and /baseline refusing while no box is connected.
 import { spawn } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { request } from 'node:http';
@@ -17,6 +17,15 @@ const get = (port, path, headers = {}) => new Promise((done, fail) => {
     res.on('data', (d) => { s += d; }).on('end', () => done({ status: res.statusCode, body: res.headers['content-type'] === 'application/json' ? JSON.parse(s) : s }));
   });
   req.on('error', fail).end();
+});
+
+/** A POST to the bridge, as the MCP sends it: its status and body. */
+const post = (port, path, body = '') => new Promise((done, fail) => {
+  const req = request({ host: '127.0.0.1', port, path, method: 'POST', headers: { 'x-ols-tracer': '1' } }, (res) => {
+    let s = '';
+    res.on('data', (d) => { s += d; }).on('end', () => done({ status: res.statusCode, body: s }));
+  });
+  req.on('error', fail).end(body);
 });
 
 describe.skipIf(!existsSync(python))('run endpoints (needs npm run bridge:setup)', () => {
@@ -69,5 +78,23 @@ describe.skipIf(!existsSync(python))('run endpoints (needs npm run bridge:setup)
     expect(body.every((e) => e.kind === 'config' && Date.parse(e.at) >= Date.parse('2026-11-02T12:00:00-05:00'))).toBe(true);
     expect(body.map((e) => e.details)).toContain('reboot ne cold');
     expect((await get(port, '/history?box=box3&since=yesterday')).status).toBe(400);
+  });
+
+  it('refuses a line that is not a catalog show with why, and /show and /baseline while no box is connected', async () => {
+    for (const [line, why] of [
+      ['show alarm | save x', /pipe/],
+      ['show och ?', /\?/],
+      ['set och 1-7-5 target-output-power 0', /^set is not show/],
+      ['reboot ne cold', /^reboot is not show/],
+      ['show flux-capacitor', /not a show command in the CLI index/],
+      ['show card\nreboot ne cold', /one line/],
+    ]) {
+      const got = await post(port, '/show', line);
+      expect(got.status, line).toBe(400);
+      expect(got.body, line).toMatch(why);
+    }
+    expect(await post(port, '/show', 'show och 1-7-5')).toMatchObject({ status: 409, body: expect.stringMatching(/^Connect to the box first/) });
+    expect(await post(port, '/baseline')).toMatchObject({ status: 409, body: expect.stringMatching(/^Connect to the box first/) });
+    expect((await get(port, '/status')).body).toMatchObject({ state: 'down', host: '' });
   });
 });

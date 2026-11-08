@@ -24,7 +24,7 @@ const BOXES = dirname(BOX_DATA_ROOT);
 let current = basename(BOX_DATA_ROOT);
 export const PYTHON = env.PYTHON ?? here('.venv/bin/python');
 /** The CLI index's commands. A command's template is named after its id. */
-const COMMANDS = JSON.parse(readFileSync(join(REPO_ROOT, 'data', 'cli', 'csp', 'cli-index.source.json'), 'utf8')).commands;
+export const COMMANDS =JSON.parse(readFileSync(join(REPO_ROOT, 'data', 'cli', 'csp', 'cli-index.source.json'), 'utf8')).commands;
 /** What the box prints when it rejects a command. */
 const REJECTED = /invalid|error|problem parsing/i;
 /** Whether a prerequisite took: its prompt came back, and the box didn't reject it. */

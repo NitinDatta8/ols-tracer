@@ -8,7 +8,9 @@
 // /bridge/state. A `show` command typed in the terminal is run again there and saved in the latest run (typed.mjs), and
 // a pull marked in the view (/bridge/pull) takes a snapshot with its answer.json.
 // A terminal window (/bridge/shell) gets a shell of its own on its box, apart from all that (terminals.mjs).
-// Every box's recorded runs are read at /runs, /run and /history, by the MCP server, which calls the bridge directly.
+// Every box's recorded runs are read at /runs, /run and /history, by the MCP server, which calls the bridge directly. It
+// also runs one show command at /show (show.mjs), answered and not saved, and asks for a healthy baseline at /baseline,
+// a snapshot of its own.
 // Login settings come from bridge/.env (see .env.example). Listens on localhost only.
 import { existsSync, readFileSync } from 'node:fs';
 import { createServer } from 'node:http';
@@ -19,6 +21,7 @@ import { WebSocketServer } from 'ws';
 import { record } from './history.mjs';
 import { accepted, boxDir, boxes, boxOf, ensureWiring, latest, lines, PYTHON, Run, runsOf, wiring } from './recorder.mjs';
 import { shareOut, worker } from './shells.mjs';
+import { runShow, showLine } from './show.mjs';
 import { Logins, typeSteps, validSteps } from './terminals.mjs';
 import { Screen } from './typed.mjs';
 
@@ -64,6 +67,8 @@ let taking = null; // the snapshot being taken, { done, of } commands, for /stat
 let retry;
 let typed = []; // show commands typed in the terminal, waiting to run again on the poller's shell
 let marks = []; // strands marked as pulled, { strand, from, to, via, at }, waiting for their snapshot
+let asked = []; // show commands asked for at /show, { cmd, done }, waiting for the poller's shell
+let baselines = []; // baselines asked for at /baseline, { done }, waiting for their snapshot
 /** The terminal's screen, read back for the commands typed in it. */
 const newScreen = () => new Screen(size, (cmd) => { if (POLLS.length && state === 'connected') typed.push(cmd); });
 let screen = newScreen();
@@ -142,6 +147,9 @@ function disconnect() {
   taking = null;
   typed = [];
   marks = [];
+  for (const { done } of [...asked, ...baselines]) done(null); // answered: disconnected before they ran
+  asked = [];
+  baselines = [];
   screen.dispose();
   screen = newScreen();
   c?.end();
@@ -205,6 +213,7 @@ async function poll(c, chs) {
     if (c === conn) taking = p;
     const took = await shareOut(ws, ready, cmds, async ({ cmd }, w) => { await take(cmd, 'snapshot', w); p.done++; }, () => c === conn);
     p.workers = took.size;
+    if (trigger === 'baseline' && p.done === p.of) run.meta.state = 'healthy'; // only once whole: one cut short is no baseline
     run.save();
     if (taking === p) taking = null;
     record(dirname(dirname(run.dir)));
@@ -226,9 +235,22 @@ async function poll(c, chs) {
       await take(typed.shift(), 'typed');
       continue;
     }
+    // A show asked for at /show: one command, answered and not saved.
+    if (asked.length) {
+      const { cmd, done } = asked.shift();
+      done(await runShow(main, cmd));
+      continue;
+    }
     // A marked pull gets its own snapshot, so even a pull the box can't see (no alarm changes) has a run to score.
     if (marks.length) {
       await snapshot('pull', marks.shift());
+      continue;
+    }
+    // A baseline gets its own snapshot too, answered with its meta.json.
+    if (baselines.length) {
+      const { done } = baselines.shift();
+      await snapshot('baseline');
+      done(run.meta);
       continue;
     }
     const now = Date.now();
@@ -297,6 +319,26 @@ const server = createServer(async (req, res) => {
     if (!strand) return res.writeHead(400).end('A strand from wiring.csv\n');
     marks.push({ ...strand, at: Date.now() });
     return res.end();
+  }
+  // One show command on the box, run on the poller's shell between its polls: its raw output and parse, not saved. The
+  // line is checked before anything reaches the box (show.mjs).
+  if (req.url === '/show' && req.method === 'POST') {
+    const { cmd, why } = showLine(await body(req));
+    if (why) return res.writeHead(400).end(`${why}\n`);
+    if (state !== 'connected' || !POLLS.length) return res.writeHead(409).end('Connect to the box first: a show runs on the session\n');
+    const got = await new Promise((done) => asked.push({ cmd, done }));
+    if (!got) return res.writeHead(409).end('Disconnected before it ran\n');
+    res.setHeader('content-type', 'application/json');
+    return res.end(JSON.stringify({ host, ...got }));
+  }
+  // A healthy baseline, only once the person says the box is: a snapshot of its own (…-baseline), whose meta.json says
+  // state: healthy once the snapshot is whole. Answered with that meta.json.
+  if (req.url === '/baseline' && req.method === 'POST') {
+    if (state !== 'connected' || !POLLS.length) return res.writeHead(409).end('Connect to the box first: a baseline is recorded in a snapshot\n');
+    const meta = await new Promise((done) => baselines.push({ done }));
+    if (meta?.state !== 'healthy') return res.writeHead(409).end(meta ? `The session closed during the snapshot, so ${meta.run} is cut short and not a baseline\n` : 'Disconnected before the snapshot began\n');
+    res.setHeader('content-type', 'application/json');
+    return res.end(JSON.stringify(meta));
   }
   // A box's recorded runs, read-only: ?box= is a folder under data/boxes/. /runs lists them with their meta.json. /run is
   // one (?run=, else the latest) as its snapshot read it, a fast one over the full one before it, with its meta.json and
