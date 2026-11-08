@@ -3,11 +3,13 @@ import { byId, cli } from './catalog';
 import { Inside } from './Inside';
 import { inside as insideOf, l0Problems, pathsThrough, routesOf } from './l0';
 import { discover, light, stateFor, type BoxState } from './live';
+import { useTermMenu } from './Menu';
 import { PipeLayer, type PipeEnds } from './Pipe';
 import { roleOf, toneOf } from './ports';
 import { alarms, bays, coverage, fiberable, fiberError, fibersAt, linecardError, path, pluggableError, resolve, sameEnd, span, touches, wired } from './rules';
 import { useCatalog, useStore } from './store';
 import { BoxTerminal, type Keys } from './Terminal';
+import { termMenu } from './terminals';
 import type { Alarm, Catalog, CliLevel, Datasheet, End, LinecardDef, Link, PluggableDef, PortDef, Strand, Topology } from './types';
 
 type Drag = { kind: 'card' | 'plug'; id: string };
@@ -32,7 +34,7 @@ const ends = (w: Wire, end: End): [End, End] => (w.strand === 'tx' ? [w.end, end
  * per slot of width, else two rows, the top one the longer (an 800MX's ten ports five over five). Each column is at
  * most `cage` wide, each row at most `row` high.
  */
-const portGrid = (lc: LinecardDef, cage: string, row = '1fr') => {
+export const portGrid = (lc: LinecardDef, cage: string, row = '1fr') => {
   const n = lc.ports.length;
   const columns = lc.columns ?? (n > 5 * (lc.width ?? 1) ? Math.ceil(n / 2) : n);
   return { gridTemplate: `repeat(${Math.ceil(n / columns)}, minmax(0, ${row})) / repeat(${columns}, minmax(0, ${cage}))` };
@@ -104,7 +106,7 @@ const FanIcon = () => (
 const PsuIcon = () => <svg viewBox="0 0 24 24" width="48" height="48"><path d="M13 2 3 14h9l-1 8 10-12h-9z" fill="#fbbf24" /></svg>;
 
 /** Management ports, one under the other in a strip as narrow as an RJ-45 jack: USB-C drawn as such, the rest as RJ-45. */
-const MgmtStrip = ({ ports }: { ports?: string[] }) => !ports?.length ? null : (
+export const MgmtStrip = ({ ports }: { ports?: string[] }) => !ports?.length ? null : (
   <div className="mgmt">
     {ports.map((id) => (
       <div key={id} className="mgmt-port" title={id.startsWith('USB') ? `${id} port` : `${id} · RJ-45 Ethernet`}>
@@ -227,11 +229,15 @@ export function PhysicalView() {
   const openId = useStore((s) => s.openDevice);
   const [stage, fit] = useFit();
   const cat = useCatalog();
-  // Slot of the linecard being shown; a tester opens at its card, its two ports being all there is to it.
+  // Slot of the linecard being shown: the one clicked in a rack, else none; a tester opens at its card, its two ports
+  // being all there is to it.
   const [cardSlot, setCardSlot] = useState<string | null>(() => {
     const d = byId(t.devices, openId ?? undefined);
+    const slot = useStore.getState().openSlot;
+    if (slot && d?.slots[slot]) return slot;
     return (byId(cat.chassis, d?.chassis)?.tester && Object.keys(d?.slots ?? {})[0]) || null;
   });
+  const [menuAt, menu] = useTermMenu(); // right-click: terminals in their own windows
   const [inner, setInner] = useState(false); // an L0 card is shown from the inside, not its ports
   const [drag, setDrag] = useState<Drag | null>(null);
   const [tip, setTip] = useState<{ p: PluggableDef; x: number; y: number; up: boolean } | null>(null);
@@ -643,12 +649,12 @@ export function PhysicalView() {
   /** The inspector lists the alarms of what a bell was clicked on, else of the level shown. */
   const scope = alarmsFor ?? (cardSlot ? { slot: cardSlot } : {});
   const hint = card
-    ? `${builtIn ? 'Click the card name for its datasheet · click' : 'Drag a pluggable onto a port, or click it, then a green port · click the card name for its datasheet · click'} a Tx, then an Rx, to run a fiber · click a lit strand to remove it · click a fiber to move its runs · Esc goes back`
+    ? `${builtIn ? 'Click the card name for its datasheet · click' : 'Drag a pluggable onto a port, or click it, then a green port · click the card name for its datasheet · click'} a Tx, then an Rx, to run a fiber · click a lit strand to remove it · click a fiber to move its runs · right-click for a terminal, telnet or engineering mode · Esc goes back`
     : back
       ? '✕ pulls a PSU or fan out, which raises an alarm · Insert puts it back · Esc closes'
       : wire
         ? `Running a fiber ${wire.strand === 'tx' ? 'from' : 'into'} ${farLabel(wire.end)} ${STRAND[wire.strand]}: click the ${STRAND[OTHER[wire.strand]]} at the other end (green = free; a loopback-capable port may loop back to itself, and 800MX LR4 ports may daisy-chain) · Esc cancels`
-        : 'Drag a linecard onto a slot, or click it, then a green slot · click a card to open it, a tile or the name plate for a datasheet · click a Tx, then an Rx, to run a fiber · click a lit strand to remove it · click a fiber to move its runs · Esc closes';
+        : 'Drag a linecard onto a slot, or click it, then a green slot · click a card to open it, a tile or the name plate for a datasheet · click a Tx, then an Rx, to run a fiber · click a lit strand to remove it · click a fiber to move its runs · right-click a card for telnet or engineering mode · Esc closes';
 
   return (
     <div className="backdrop" onClick={() => setOpenDevice(null)}>
@@ -696,7 +702,9 @@ export function PhysicalView() {
         <div className="body">
           {tray()}
           {/* The chassis is scaled to fit; a card's plate fills the stage as laid out, its cages sized to it. */}
-          <div ref={stage} className="stage">
+          {/* Right-click a card (or anywhere at a card) for its terminals, anywhere else for the chassis's. */}
+          <div ref={stage} className="stage"
+            onContextMenu={(e) => menuAt(e, termMenu(cat, device, (e.target as Element).closest('[data-slot]')?.getAttribute('data-slot') ?? cardSlot))}>
             {card && cardSlot ? cardLevel(cardSlot, card) : <div className="fit" style={fit}>{back ? backLevel() : chassisLevel()}</div>}
             {fetching && <div className="fetching">Fetching data from box{here.snapshot ? ` · ${here.snapshot.done} of ${here.snapshot.of} commands` : ''}</div>}
           </div>
@@ -760,6 +768,7 @@ export function PhysicalView() {
           </div>
         )}
         <p className="hint" title={hint}>{hint}</p>
+        {menu}
       </div>
     </div>
   );

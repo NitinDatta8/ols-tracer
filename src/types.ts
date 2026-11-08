@@ -123,9 +123,16 @@ export type CliLevel = 'chassis' | 'card' | 'port' | 'pluggable';
 /** A CLI mode, in order from where the session starts; `enter` is the command that goes into it from the one before. */
 export interface CliMode { name: string; prompt?: string; enter?: string; about?: string }
 
+/**
+ * The terminals a right-click opens on a linecard: the lines typed into a new shell of the box, each once the one before
+ * has its prompt back. `{slot}` and `{chassis}` are filled in, and `{slot*4}` is the slot times 4 (slot 7 → 28).
+ * `noTelnet` lists the linecard ids that cannot be telnetted into, whose Telnet is greyed out.
+ */
+export interface CliTerminals { engineering: string[]; telnet: string[]; noTelnet: string[] }
+
 export interface Catalog {
   chassis: ChassisDef[]; linecards: LinecardDef[]; pluggables: PluggableDef[];
-  cli: Record<CliLevel, string> & { modes: CliMode[] };
+  cli: Record<CliLevel, string> & { modes: CliMode[]; terminals?: CliTerminals };
 }
 
 // Topology (the saved .olst.json file)
@@ -160,7 +167,13 @@ export type Strand = 'tx' | 'rx';
  */
 export interface Link { id: string; type: 'smf'; a: End; b: End; routes?: Record<string, { x: number; y: number }[]> }
 
-export interface Topology { version: 1; stream: string; devices: Device[]; links: Link[] }
+/**
+ * A 19-inch rack on the canvas. Its devices stack from the top in the order listed, each drawn as its chassis front;
+ * a device in a rack keeps its own x and y for when it is taken out.
+ */
+export interface Rack { id: string; name: string; x: number; y: number; devices: string[] }
+
+export interface Topology { version: 1; stream: string; devices: Device[]; links: Link[]; racks?: Rack[] }
 
 export type View = 'L0' | 'L1' | 'Data';
 

@@ -1,12 +1,13 @@
 import { ReactFlowProvider } from '@xyflow/react';
 import { useMemo, useState } from 'react';
-import { CHASSIS_MIME, Canvas, ChassisIcon } from './Canvas';
+import { CHASSIS_MIME, Canvas, ChassisIcon, RACK_MIME, RackIcon } from './Canvas';
 import { byId, catalogFor, streams } from './catalog';
 import { l0Problems } from './l0';
 import { stateFor } from './live';
 import { PhysicalView } from './PhysicalView';
 import { path, sameEnd, validate } from './rules';
 import { useCatalog, useStore } from './store';
+import { TermWindows } from './TermWindow';
 import type { Topology, View } from './types';
 
 const VIEWS: [View, string][] = [
@@ -85,12 +86,23 @@ function NewProject() {
   );
 }
 
-/** Bottom-left device palette, grouped by category like Packet Tracer. */
+/** Bottom-left device palette, grouped by category like Packet Tracer, after a rack to stack them in. */
 function Palette() {
   const cat = useCatalog();
   const groups = Object.groupBy(cat.chassis, (c) => c.category ?? 'Chassis');
   return (
     <footer className="palette">
+      <section>
+        <h4>Racks</h4>
+        <div className="items">
+          <div className="item" draggable title="A 19-inch rack. Drag it onto the canvas, then drag boxes into it: each shows its chassis front."
+            onDragStart={(e) => e.dataTransfer.setData(RACK_MIME, 'rack')}>
+            <RackIcon />
+            Rack
+            <small>19-inch</small>
+          </div>
+        </div>
+      </section>
       {Object.entries(groups).map(([category, chassis]) => (
         <section key={category}>
           <h4>{category}</h4>
@@ -166,6 +178,8 @@ export function App() {
       {open && <Palette />}
       {/* Mounted only while a device is open: closing it also closes the box's CLI session. */}
       {open ? openDevice && <PhysicalView key={openDevice} /> : <NewProject />}
+      {/* Over the canvas and the physical view; each its own shell, so closing the view leaves them open. */}
+      <TermWindows />
       <Toast />
     </div>
   );

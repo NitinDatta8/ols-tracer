@@ -9,5 +9,10 @@
     { "name": "Engineering", "enter": "^^^", "about": "Engineering mode (Shift+6 three times in Configure): engineering commands" },
     { "name": "Bash", "enter": "bash", "about": "Bash: a Linux shell on the box" },
     { "name": "kgdb", "enter": "kgdb", "about": "kgdb: application-level access, to turn features on or off" }
-  ]
+  ],
+  "terminals": {
+    "engineering": ["configure", "^^^"],
+    "telnet": ["configure", "^^^", "bash", "telnet 1.0.1.{slot*4}"],
+    "noTelnet": ["lc-800mx", "lc-400mx"]
+  }
 }

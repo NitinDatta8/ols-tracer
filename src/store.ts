@@ -4,13 +4,19 @@ import { immer } from 'zustand/middleware/immer';
 import { byId, catalogFor, streams } from './catalog';
 import { fiberError, linecardError, pluggableError, touches, validate } from './rules';
 import type { BoxState } from './live';
+import type { Term } from './terminals';
 import type { Device, End, Link, Topology, View } from './types';
+
+/** Where a device goes: into a rack at `index` from the top, or onto the canvas at `x`, `y`. */
+export type Place = { rack: string; index: number } | { x: number; y: number };
 
 interface State {
   topology: Topology | null;
   view: View;
   selected: string | null; // device or link id on the canvas
   openDevice: string | null; // device shown in the physical view
+  openSlot: string | null; // the linecard it opens at, if any
+  terms: Term[]; // the terminal windows open, never saved
   toast: string | null;
   session: number; // bumped on new/open so the canvas remounts and fits the view
   live: BoxState | null; // what the CLI bridge read from the box, never saved
@@ -19,10 +25,16 @@ interface State {
   open: (json: string) => void;
   setView: (view: View) => void;
   select: (id: string, on: boolean) => void;
-  setOpenDevice: (id: string | null) => void;
+  setOpenDevice: (id: string | null, slot?: string | null) => void;
+  openTerm: (term: Omit<Term, 'id'>) => void;
+  closeTerm: (id: number) => void;
   notify: (msg: string) => void;
   setLive: (live: BoxState | null) => void;
-  addDevice: (chassis: string, x: number, y: number) => void;
+  addDevice: (chassis: string, x: number, y: number, into?: Extract<Place, { rack: string }>) => void;
+  addRack: (x: number, y: number) => void;
+  moveRack: (id: string, x: number, y: number) => void;
+  deleteRack: (id: string, at?: Record<string, { x: number; y: number }>) => void;
+  place: (device: string, to: Place) => void;
   updateDevice: (id: string, patch: Partial<Pick<Device, 'host' | 'x' | 'y' | 'emptyBays'>>) => void;
   deleteDevice: (id: string) => void;
   fill: (device: string, slots: Device['slots'], links?: Link[]) => void;
@@ -62,6 +74,15 @@ const upgrade = (t: Topology | null) => {
 };
 
 let toastTimer: ReturnType<typeof setTimeout> | undefined;
+let termId = 0;
+
+/** Takes `device` out of every rack. */
+const unrack = (t: Topology, device: string) => { for (const r of t.racks ?? []) r.devices = r.devices.filter((id) => id !== device); };
+/** Puts `device` into a rack at `index` (clamped). */
+const rackAt = (t: Topology, device: string, { rack, index }: Extract<Place, { rack: string }>) => {
+  const r = byId(t.racks ?? [], rack);
+  r?.devices.splice(Math.max(0, Math.min(index, r.devices.length)), 0, device);
+};
 
 export const useStore = create<State>()(
   persist(
@@ -70,13 +91,15 @@ export const useStore = create<State>()(
       view: 'L0',
       selected: null,
       openDevice: null,
+      openSlot: null,
+      terms: [],
       toast: null,
       session: 0,
       live: null,
 
       load: (topology) => set((s) => {
         s.topology = topology;
-        s.selected = s.openDevice = null;
+        s.selected = s.openDevice = s.openSlot = null;
         s.session++;
       }),
 
@@ -101,7 +124,11 @@ export const useStore = create<State>()(
         else if (s.selected === id) s.selected = null;
       }),
 
-      setOpenDevice: (openDevice) => set({ openDevice }),
+      setOpenDevice: (openDevice, openSlot = null) => set({ openDevice, openSlot }),
+
+      openTerm: (term) => set((s) => { s.terms.push({ ...term, id: ++termId }); }),
+
+      closeTerm: (id) => set((s) => { s.terms = s.terms.filter((t) => t.id !== id); }),
 
       notify: (toast) => {
         set({ toast });
@@ -109,13 +136,40 @@ export const useStore = create<State>()(
         toastTimer = setTimeout(() => set({ toast: null }), 4000);
       },
 
-      // A tester is named after itself (BERT-2) and comes with its module in.
-      addDevice: (chassis, x, y) => set((s) => {
+      // A tester is named after itself (BERT-2) and comes with its module in. Dropped on a rack, it goes into it.
+      addDevice: (chassis, x, y, into) => set((s) => {
         const id = nextId('d', s.topology!.devices);
         const def = byId(catalogFor(s.topology!.stream).chassis, chassis);
         const slots = Object.fromEntries(Object.entries(def?.comesWith ?? {}).map(([slot, linecard]) => [slot, { linecard, ports: {} }]));
         const name = `${def?.tester ? def.name.split(' ')[0] : 'Site'}-${id.slice(1)}`;
         s.topology!.devices.push({ id, chassis, name, x, y, slots });
+        if (into) rackAt(s.topology!, id, into);
+      }),
+
+      addRack: (x, y) => set((s) => {
+        const t = s.topology!;
+        const racks = (t.racks ??= []);
+        const id = nextId('r', racks);
+        racks.push({ id, name: `Rack-${id.slice(1)}`, x, y, devices: [] });
+      }),
+
+      moveRack: (id, x, y) => set((s) => {
+        const r = byId(s.topology!.racks ?? [], id);
+        if (r) Object.assign(r, { x, y });
+      }),
+
+      // Its devices stay on the canvas, at `at` (where they were drawn in it).
+      deleteRack: (id, at = {}) => set((s) => {
+        const t = s.topology!;
+        for (const d of t.devices) if (at[d.id]) Object.assign(d, at[d.id]);
+        t.racks = (t.racks ?? []).filter((r) => r.id !== id);
+      }),
+
+      place: (device, to) => set((s) => {
+        const t = s.topology!;
+        unrack(t, device);
+        if ('rack' in to) rackAt(t, device, to);
+        else Object.assign(byId(t.devices, device) ?? {}, to);
       }),
 
       updateDevice: (id, patch) => set((s) => {
@@ -127,6 +181,7 @@ export const useStore = create<State>()(
         const t = s.topology!;
         t.devices = t.devices.filter((d) => d.id !== id);
         t.links = t.links.filter((l) => !touches(l, { device: id }));
+        unrack(t, id);
         if (s.openDevice === id) s.openDevice = null;
       }),
 

@@ -7,6 +7,7 @@
 // data/boxes/<box>/runs/ (recorder.mjs), parses their output with TTP (parse.py) and serves the latest results at
 // /bridge/state. A `show` command typed in the terminal is run again there and saved in the latest run (typed.mjs), and
 // a pull marked in the view (/bridge/pull) takes a snapshot with its answer.json.
+// A terminal window (/bridge/shell) gets a shell of its own on its box, apart from all that (terminals.mjs).
 // Login settings come from bridge/.env (see .env.example). Listens on localhost only.
 import { existsSync, readFileSync } from 'node:fs';
 import { createServer } from 'node:http';
@@ -17,6 +18,7 @@ import { WebSocketServer } from 'ws';
 import { record } from './history.mjs';
 import { accepted, boxOf, ensureWiring, latest, PYTHON, Run } from './recorder.mjs';
 import { shareOut, worker } from './shells.mjs';
+import { Logins, typeSteps, validSteps } from './terminals.mjs';
 import { Screen } from './typed.mjs';
 
 const env = process.env;
@@ -65,7 +67,17 @@ let marks = []; // strands marked as pulled, { strand, from, to, via, at }, wait
 const newScreen = () => new Screen(size, (cmd) => { if (POLLS.length && state === 'connected') typed.push(cmd); });
 let screen = newScreen();
 
-const terminals = new WebSocketServer({ noServer: true });
+const terminals = new WebSocketServer({ noServer: true }); // the physical view's, on the session's shell
+const windows = new WebSocketServer({ noServer: true }); // terminal windows, each on a shell of its own
+
+/** How to log in to `host`: bridge/.env's user, and its password or key. */
+const loginOptions = (host) => ({
+  host, port: Number(env.BOX_PORT ?? 22), username: env.BOX_USER,
+  password: env.BOX_PASSWORD, privateKey: env.BOX_KEY && readFileSync(env.BOX_KEY), tryKeyboard: true,
+  keepaliveInterval: 15000, readyTimeout: 20000,
+});
+/** The terminal windows' SSH connections, one per box. */
+const logins = new Logins(loginOptions, { password: env.BOX_PASSWORD ?? '' });
 
 /** Output for the terminals: to every one attached, kept for those that attach later, and on the screen. */
 const out = (d) => {
@@ -113,11 +125,7 @@ function connect(delay = 1000) {
       console.log(`disconnected from ${host}${error ? `: ${error}` : ''}, retrying in ${delay / 1000} s`);
       retry = setTimeout(() => connect(Math.min(delay * 2, 30000)), delay);
     })
-    .connect({
-      host, port: Number(env.BOX_PORT ?? 22), username: env.BOX_USER,
-      password: env.BOX_PASSWORD, privateKey: env.BOX_KEY && readFileSync(env.BOX_KEY), tryKeyboard: true,
-      keepaliveInterval: 15000, readyTimeout: 20000,
-    });
+    .connect(loginOptions(host));
 }
 
 /** Closes the session and stops reopening it. */
@@ -292,12 +300,71 @@ const server = createServer(async (req, res) => {
   res.writeHead(404).end();
 });
 
+/**
+ * A terminal window: a new shell on box `host` (its own SSH connection, shared with the box's other windows), with
+ * `steps` typed in first, each once the prompt is back, so it opens in its mode. Output goes to the window as it comes,
+ * steps and all; the window's keystrokes go to the shell once it is open. Closing either closes the other.
+ */
+async function openWindow(ws, params) {
+  const host = params.get('host') ?? '';
+  let steps = null;
+  try { steps = JSON.parse(params.get('steps') ?? '[]'); } catch {}
+  const say = (text) => ws.readyState === ws.OPEN && ws.send(Buffer.from(`\x1b[90m${text}\x1b[0m\r\n`));
+  ws.on('error', () => {});
+  if (!/^[\w.:-]+$/.test(host) || !validSteps(steps)) {
+    say('[a terminal needs a box IP and its steps, one line each]');
+    return ws.close();
+  }
+  let ch = null;
+  let gone = false;
+  let size = { cols: 120, rows: 30 };
+  ws.on('message', (m) => {
+    let msg;
+    try { msg = JSON.parse(m); } catch { return; }
+    if (msg.cols > 0 && msg.rows > 0) {
+      size = { cols: msg.cols, rows: msg.rows };
+      ch?.setWindow(size.rows, size.cols, 0, 0);
+    } else if (typeof msg.d === 'string') ch?.write(msg.d);
+  });
+  ws.on('close', () => {
+    gone = true;
+    ch?.close();
+    logins.release(host);
+    console.log(`terminal window on ${host} closed`);
+  });
+  console.log(`terminal window on ${host}${steps.length ? `: ${steps.join(' → ')}` : ', show mode'}`);
+  let c;
+  try {
+    c = await logins.open(host);
+  } catch (e) {
+    say(`[could not log in to ${host}: ${e.message}]`);
+    return ws.close();
+  }
+  if (gone) return;
+  c.shell({ term: 'xterm-256color', ...size }, async (err, sh) => {
+    if (err || gone) {
+      if (err) say(`[no shell on ${host}: ${err.message}]`);
+      sh?.close();
+      return ws.close();
+    }
+    ch = sh;
+    sh.on('data', (d) => ws.readyState === ws.OPEN && ws.send(d)).on('close', () => { say('\r\n[shell closed]'); ws.close(); });
+    sh.setWindow(size.rows, size.cols, 0, 0); // resized while it opened
+    if (INIT.length) sh.write(INIT.map((cmd) => cmd + '\n').join(''));
+    const { stuck } = await typeSteps(sh, steps, { prompt: PROMPT, timeout: TIMEOUT, settle: 300, login: TIMEOUT, loginQuiet: 2000 });
+    if (stuck !== undefined && !gone) say(`\r\n[no prompt came before "${stuck}", so it and the steps after it were not typed: carry on by hand]`);
+  });
+}
+
 // A terminal attaches. A browser cannot add the header to a WebSocket, but always sends the page's Origin, which a page
 // cannot fake: only a page served from the host it connects to (the app, through Vite's proxy) gets a terminal.
-// Without it, any web page could type commands on the box.
+// Without it, any web page could type commands on the box. /term is the physical view's, /shell a terminal window's.
 server.on('upgrade', (req, socket, head) => {
   const { host: to = '', origin = '' } = req.headers;
-  if (req.url !== '/term' || !LOCAL.test(to) || origin.replace(/^https?:\/\//, '') !== to) return socket.destroy();
+  const url = new URL(req.url ?? '', 'http://bridge');
+  if (!['/term', '/shell'].includes(url.pathname) || !LOCAL.test(to) || origin.replace(/^https?:\/\//, '') !== to) return socket.destroy();
+  if (url.pathname === '/shell') return windows.handleUpgrade(req, socket, head, (ws) => void openWindow(ws, url.searchParams));
+  if (url.search) return socket.destroy();
   terminals.handleUpgrade(req, socket, head, (ws) => {
     ws.send(log);
     ws.on('error', () => {});

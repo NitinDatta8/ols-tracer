@@ -53,7 +53,7 @@ main { position: relative; min-height: 0; }
 .icon line { stroke: #9aa5b1; }
 .icon circle { fill: var(--fiber); }
 .icon polyline { fill: none; stroke: var(--data); stroke-width: 1.5; stroke-linejoin: round; }
-.icon .jack { fill: #1f2933; stroke: none; }
+.icon .jack, .icon .unit { fill: #1f2933; stroke: none; }
 .empty-hint { position: absolute; top: 50%; left: 50%; z-index: 4; transform: translate(-50%, -50%); color: var(--muted); font-size: 14px; pointer-events: none; }
 
 /* Canvas: devices and their port handles */
@@ -80,6 +80,34 @@ main { position: relative; min-height: 0; }
   position: relative; inset: auto; transform: none; width: auto; height: auto; min-width: 20px; min-height: 0; padding: 0 3px; line-height: 1.4;
 }
 .react-flow__handle.strand.connectingto { outline: 2px solid var(--fiber); outline-offset: 1px; }
+
+/*
+ * Canvas: a rack, behind the devices in it (nodes of their own, stacked by rackLayout in Canvas.tsx): its name bar, a
+ * rail with mounting holes either side, and the dark opening the chassis fronts sit in, a gap for fibers between them.
+ */
+.cabinet {
+  position: relative; border: 2px solid #1f2933; border-radius: 6px; box-shadow: 0 6px 18px rgb(15 23 42 / 25%);
+  background:
+    radial-gradient(circle, #111820 2.5px, transparent 3px) 0 28px / 24px 22px repeat-y,
+    radial-gradient(circle, #111820 2.5px, transparent 3px) 100% 28px / 24px 22px repeat-y,
+    linear-gradient(90deg, #6b7785, #9aa5b1 45%, #6b7785) 0 0 / 24px 100% no-repeat,
+    linear-gradient(90deg, #6b7785, #9aa5b1 45%, #6b7785) 100% 0 / 24px 100% no-repeat,
+    #323f4b;
+}
+.react-flow__node.selected .cabinet { border-color: var(--accent); box-shadow: 0 0 0 3px rgb(15 98 254 / 30%); }
+.cabinet-head { display: flex; align-items: baseline; gap: 10px; height: 28px; padding: 5px 34px 0; background: #1f2933; color: #fff; }
+.cabinet-head small { color: #9aa5b1; }
+.cabinet-empty { position: absolute; inset: 28px 24px 0; display: grid; place-items: center; color: #cbd2d9; font-size: 14px; }
+/* A device in a rack: its name over its chassis front, drawn as in the physical view. */
+.device.racked { align-items: stretch; max-width: none; padding: 0; background: none; border: none; border-radius: 0; }
+.device.racked .racked-head { display: flex; align-items: baseline; gap: 8px; padding: 0 2px 2px; color: #fff; font-size: 12px; }
+.device.racked .racked-head small { color: #cbd2d9; font-size: 11px; }
+.device.racked .racked-head .alarm { margin-left: auto; }
+.react-flow__node.selected .device.racked { box-shadow: 0 0 0 3px var(--accent); }
+.mini .react-flow__handle.strand { min-width: 0; padding: 0; }
+.mini.off { opacity: 0.25; pointer-events: none; }
+/* Fiber labels with their fibers: over a rack, under the devices. */
+.react-flow__edgelabel-renderer { z-index: 1; }
 
 /* Canvas: fibers */
 /* A fiber is a yellow pipe (see Pipe.tsx): a dark outline under a yellow fill, with Tx→Rx arrows flowing inside. */
@@ -384,6 +412,24 @@ main { position: relative; min-height: 0; }
 .strand.wire:hover { border-color: var(--accent); }
 .mini.wiring { border-color: var(--accent); box-shadow: 0 0 6px var(--accent); }
 .mini.fits { border-color: var(--fiber); background: #14532d; }
+
+/* Right-click menu: the terminals a chassis or a card can open; one that can't is greyed out, with why under it. */
+.menu { position: fixed; z-index: 50; display: grid; min-width: 240px; max-width: 300px; padding: 4px; background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 10px 28px rgb(15 23 42 / 24%); }
+.menu h5 { margin: 4px 10px 4px; overflow: hidden; color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .04em; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; }
+.menu button { display: grid; gap: 1px; padding: 6px 10px; border: none; border-radius: 5px; background: none; text-align: left; }
+.menu button:hover:not(:disabled) { background: #eef4ff; color: var(--accent); filter: none; }
+.menu button small { color: var(--muted); font-size: 11px; }
+
+/* Terminal windows: over the canvas and the physical view, each dragged by its title bar and resized from its corner. */
+.term-windows { position: fixed; inset: 0; z-index: 25; pointer-events: none; }
+.term-window {
+  position: absolute; display: flex; flex-direction: column; width: 760px; height: 400px; min-width: 360px; min-height: 180px;
+  max-width: 96vw; max-height: 90vh; resize: both; overflow: hidden; pointer-events: auto;
+  background: #0d1117; border: 1px solid #30363d; border-radius: 10px; box-shadow: 0 18px 48px rgb(15 23 42 / 40%);
+}
+.term-window header { display: flex; align-items: center; gap: 8px; padding: 5px 6px 5px 12px; background: #161b22; border-bottom: 1px solid #21262d; color: #c9d1d9; cursor: move; user-select: none; }
+.term-window header b { flex: 1; min-width: 0; overflow: hidden; font-size: 12px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.term-window header button { padding: 0 8px; background: #21262d; border-color: #30363d; color: #c9d1d9; }
 
 /* Connect and Run: the dot is the bridge's session, green when connected. */
 .run .dot { display: inline-block; width: 7px; height: 7px; margin-right: 5px; border-radius: 50%; background: #9aa5b1; }
