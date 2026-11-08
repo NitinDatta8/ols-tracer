@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import box3 from '../examples/box3.olst.json';
-import { catalogFor } from './catalog';
+import { catalogFor } from './catalog-vite';
 import { indexAt, RACK, rackLayout } from './racks';
 import { fillStep, termItems, termMenu } from './terminals';
 import type { Device, Topology } from './types';

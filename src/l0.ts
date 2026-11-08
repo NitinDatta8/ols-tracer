@@ -23,7 +23,7 @@ export function portPower(s: BoxState, at: string, dir: Dir) {
 
 export type BoxAlarm = { resource?: string; severity: string; 'alarm-abbreviate': string; text: string; direction?: string };
 
-const allAlarms = (s: BoxState) => Object.values<BoxAlarm>(s.commands['show alarm']?.data?.alarms ?? {});
+export const allAlarms = (s: BoxState) => Object.values<BoxAlarm>(s.commands['show alarm']?.data?.alarms ?? {});
 
 /** The active alarms on an address. A resource names it last: "port 1-1-ad1", "och 1-7-5", "flexgo-1-7-5". */
 export const alarmsAt = (s: BoxState, at: string) => allAlarms(s).filter((a) => a.resource?.match(/(\d+-\d+(?:-\w+)?)$/)?.[1] === at);

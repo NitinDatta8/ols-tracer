@@ -4,7 +4,9 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import box3 from '../examples/box3.olst.json';
 import demo from '../examples/demo.olst.json';
-import { byId, catalogFor, cli, cliAddress, nextMode, streams } from './catalog';
+import { byId, cli, cliAddress, nextMode } from './catalog';
+import { catalogFor as fromDisk } from './catalog-node';
+import { catalogFor, streams } from './catalog-vite';
 import { discover, light, stateFor, type BoxState } from './live';
 import { layout, moveRun } from './route';
 import { alarms, fiberError, linecardError, pluggableError, validate, wired } from './rules';
@@ -27,6 +29,10 @@ describe.each(streams)('stream $id', ({ id }) => {
       expect(chassis.slots.length, `${id}:${chassis.id} has no slots`).toBeGreaterThan(0);
       expect(chassis.slots.some((slot) => slot.allowedLinecards.length > 0), `${id}:${chassis.id} has no allowed cards`).toBe(true);
     }
+  });
+
+  it('is the same in Node, read from disk, as Vite bundles it for the app', () => {
+    expect(fromDisk(id)).toEqual(cat);
   });
 
   it('only references hardware that exists in the stream', () => {

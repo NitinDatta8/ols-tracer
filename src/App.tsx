@@ -1,7 +1,8 @@
 import { ReactFlowProvider } from '@xyflow/react';
 import { useMemo, useState } from 'react';
 import { CHASSIS_MIME, Canvas, ChassisIcon, RACK_MIME, RackIcon } from './Canvas';
-import { byId, catalogFor, streams } from './catalog';
+import { byId } from './catalog';
+import { catalogFor, streams } from './catalog-vite';
 import { l0Problems } from './l0';
 import { stateFor } from './live';
 import { PhysicalView } from './PhysicalView';

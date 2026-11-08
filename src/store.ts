@@ -1,7 +1,8 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
-import { byId, catalogFor, streams } from './catalog';
+import { byId } from './catalog';
+import { catalogFor, streams } from './catalog-vite';
 import { fiberError, linecardError, pluggableError, touches, validate } from './rules';
 import type { BoxState } from './live';
 import type { Term } from './terminals';
