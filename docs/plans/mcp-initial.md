@@ -2,7 +2,7 @@
 
 An MCP server on top of OLS Tracer, so an agent can diagnose one box: explore it, find what is wrong past the false alarms, and end with the fix as steps.
 
-**Status (2026-11-07):** phases 0, 1 and 1.5 ([Codex](#codex)) are done, in the new repo `code/ols-mcp`, which pins OLS Tracer at `5b86def`. Phase 2 (live) is next. The plan was refined from `nitin/mcps.md` (iteration 1), the ROADM diagnostic plan and the CLI agent spec. It moves to the MCP's repo once that repo is on GitHub.
+**Status (2026-11-08):** phases 0, 1 and 1.5 ([Codex](#codex)) are done, in the new repo `code/ols-mcp`. Phase 2 (live) is built, with the MCP pinning OLS Tracer at `5145ee0`, and waits on the work machine: its exit criteria are the MCP README's work-machine checklist, and the phase is done once that has run. On this Mac, a full run through the MCP against a fake box (box 3's recorded output replayed on 127.0.0.1) passed: connect, `run_show`, a baseline, a pull marked, a baseline refused at the loss. The plan was refined from `nitin/mcps.md` (iteration 1), the ROADM diagnostic plan and the CLI agent spec. It moves to the MCP's repo once that repo is on GitHub.
 
 ## Decided (2026-11-07)
 
@@ -38,7 +38,7 @@ For the IT request: the host, its network path to the boxes, the auth method, th
 
 Phase 1.5 makes the server work from OpenAI's Codex CLI. It is the same server, with the same tools and token.
 
-- **Setup:** `codex mcp add ols-tracer --url http://127.0.0.1:8023/mcp --bearer-token-env-var OLS_MCP_TOKEN`. It writes `[mcp_servers.ols-tracer]` with `url` and `bearer_token_env_var` into `~/.codex/config.toml`. The token stays in the environment, never in the file, and Codex doesn't connect while the variable is unset. `codex exec` also needs `default_tools_approval_mode = "approve"` in that block, or it refuses every call.
+- **Setup:** `codex mcp add ols-tracer --url http://127.0.0.1:8023/mcp --bearer-token-env-var OLS_MCP_TOKEN`. It writes `[mcp_servers.ols-tracer]` with `url` and `bearer_token_env_var` into `~/.codex/config.toml`. The token stays in the environment, never in the file, and Codex doesn't connect while the variable is unset. That block also takes `default_tools_approval_mode = "writes"` (phase 2): Codex runs the tools marked `readOnlyHint` (the diagnosis tools and `bridge_status`) without asking and asks before `run_show` and the control tools, and `codex exec`, which can't ask, refuses those. Until phase 2 it was `"approve"`, which runs everything without asking.
 - **Workflow:** Codex's MCP docs cover tools and server instructions, not prompts. So the server gets `instructions`: what the tools are for, that a recorded run is `live: false`, never to make up a reading, and to pass every fix line through `check_commands`. Codex's docs say it reads the first 512 characters as a summary, but Codex 0.167 lists the server by its first 247, so the rules come first and fit in those. A client with prompts reads the same instructions and gets the `diagnose` prompt (phase 3) as well.
 - **Schemas and answers:** each tool's input schema loads in Codex, and the largest answers (`get_alarms_pm` with `include_noise`) aren't cut short. `tools.<tool>.output_token_limit` in Codex's config raises a tool's budget if one is.
 - **Audit:** `who` tells clients apart by their user agent.
@@ -62,6 +62,8 @@ Phase 1.5 makes the server work from OpenAI's Codex CLI. It is the same server, 
 ### Bridge control
 
 `bridge_status`, `bridge_connect`, `bridge_disconnect` and `mark_pull` use the bridge's existing endpoints, and `capture_baseline` uses a new one. Each one changes the session or the recorded runs, never the box.
+
+A box's host is the one its latest run records (`meta.json`'s `host`), since `/connect` takes a host and `/status` names one. `bridge_connect` posts it, and the connected box is the one whose host `/status` names, so `run_show`, `mark_pull` and `capture_baseline` refuse any other. A box with no runs yet is connected once from the physical view.
 
 ### Baseline
 
@@ -183,7 +185,7 @@ Two changes in the recorder:
 | 0. Scaffold (done 2026-11-07) | In OLS Tracer, `catalog.ts`'s Vite-only loading moves out. In the new repo: HTTP at 127.0.0.1, the token check, the audit log, the pinned OLS Tracer dependency, `bridge_status` | An MCP client lists the tools, a call without the token gets a 401, and `l0.ts` imports from the pin |
 | 1. Recorded data (done 2026-11-07) | `GET /runs`, `GET /run` and `GET /history` in the bridge. `explore_box`, `get_alarms_pm` with noise tags, `trace_path`, `diff_vs_baseline` and `check_commands` over box 3's runs | The noise guard passes on every box 3 run that has an `answer.json`, and `check_commands` accepts box 3's logged config lines, setting by setting, but rejects made-up ones |
 | 1.5. Codex (done 2026-11-07) | The server's `instructions`, the Codex setup in the README, and each tool's schema and largest answer checked in Codex (see [Codex](#codex)) | On a machine with Codex CLI, `codex mcp list` shows `ols-tracer`, a `codex exec` run calls `explore_box` and `get_alarms_pm` on box 3's F03 pull, and the audit log names Codex as `who` |
-| 2. Live | The bridge control tools, `POST /show`, `run_show`, `POST /baseline` and `capture_baseline` | On the work machine, box 3 is connected, a `show` runs through the MCP, and a baseline is captured |
+| 2. Live (built 2026-11-08, waiting on the work machine) | The bridge control tools, `POST /show`, `run_show`, `POST /baseline` and `capture_baseline` | On the work machine, box 3 is connected, a `show` runs through the MCP, and a baseline is captured |
 | 3. Diagnose | The `diagnose` prompt and the [scoring](#scoring-proposed) runner | It beats the rule-based baseline (the most upstream LOS on the known path), and every fix command passes `check_commands`. The score table is in this plan |
 
 ## Safety

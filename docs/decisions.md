@@ -2,6 +2,13 @@
 
 The decisions that shape the tracer, newest first, each with where it was argued. A decision that was later replaced says what replaced it. Plans are in the [roadmap](roadmap.md).
 
+## 2026-11-08
+
+| Decision | Why | Source |
+| --- | --- | --- |
+| The MCP takes a box's host from its latest run's `meta.json`, and the connected box is the one whose host the bridge's `/status` names | `/connect` takes a host typed in the physical view and `/status` names a host, not a box, and the runs already record it, so no config or endpoint changes. A box with no runs is connected once from the UI | [MCP initial](plans/mcp-initial.md#bridge-control) |
+| Codex runs the server's tools with `default_tools_approval_mode = "writes"`, and the tools that only read carry `readOnlyHint`. Codex asks before `run_show` and the control tools, and `codex exec` refuses them | With `"approve"`, Codex would connect a box or capture a baseline without asking | [MCP initial](plans/mcp-initial.md#codex) |
+
 ## 2026-11-07
 
 | Decision | Why | Source |
