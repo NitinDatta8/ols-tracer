@@ -1,0 +1,11 @@
+
+[state]
+channel-id                   4
+transmitter-frequency        229007633 MHz
+
+statistics          instant | avg | min | max units        
+------------        -------------------------------        
+output-power        1.54 | 1.54 | 1.53 | 1.54 dBm
+input-power         1.72 | 1.71 | 1.70 | 1.72 dBm
+
+

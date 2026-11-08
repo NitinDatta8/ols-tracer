@@ -1006,3 +1006,5 @@
 {"at":"2026-11-05T16:47:31-05:00","box":"2021-08-01T01:14:15+00:00","kind":"alarm","action":"CLEAR","alarm":"OUT_LOS","resource":"amplifier 1-1-ba","severity":"CRITICAL","direction":"tx","sa":true}
 {"at":"2026-11-05T16:47:31-05:00","box":"2021-08-01T01:14:15+00:00","kind":"alarm","action":"CLEAR","alarm":"IN_LOS","resource":"amplifier 1-1-ba","severity":"CRITICAL","direction":"rx","sa":true}
 {"at":"2026-11-05T16:47:32-05:00","box":"2021-08-01T01:14:16+00:00","kind":"alarm","action":"CLEAR","alarm":"DEST_IN_LOS","resource":"ch-6","severity":"CRITICAL","direction":"rx","sa":true}
+{"at":"2026-11-05T16:54:27-05:00","box":"2021-08-01T01:21:11+00:00","kind":"alarm","action":"CREATE","alarm":"IN_OPTICAL_HIGH_WARNING","resource":"port 1-1-ad11","severity":"MAJOR","direction":"rx","sa":false}
+{"at":"2026-11-05T17:06:16-05:00","box":"2021-08-01T01:33:00+00:00","kind":"alarm","action":"CLEAR","alarm":"IN_OPTICAL_HIGH_WARNING","resource":"port 1-1-ad11","severity":"MAJOR","direction":"rx","sa":false}

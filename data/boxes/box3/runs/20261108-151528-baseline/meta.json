@@ -1,0 +1,21 @@
+{
+  "run": "20261108-151528-baseline",
+  "box": "box3",
+  "host": "10.111.25.12",
+  "hostname": "PAHO-GS2000-03",
+  "release": null,
+  "trigger": "baseline",
+  "started": "2026-11-08T15:15:28-05:00",
+  "ended": "2026-11-08T15:17:19-05:00",
+  "boxClock": "2021-08-03T23:42:13+00:00",
+  "boxClockOffsetSec": -166134796,
+  "prereqs": [],
+  "state": "healthy",
+  "notes": "",
+  "snapshot": {
+    "done": 19,
+    "of": 19,
+    "fast": true,
+    "workers": 1
+  }
+}

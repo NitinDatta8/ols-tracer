@@ -1,0 +1,20 @@
+[config]
+
+id    description    
+--    -----------    
+1     CHASSIS        
+
+
+[state]
+
+id    description    
+--    -----------    
+1     CHASSIS        
+
+
+id    inlet-temperature                 
+      instant | avg | min | max (°C)   
+--    ------------------------------    
+1     23.2 | 23.2 | 23.2 | 23.2         
+
+
