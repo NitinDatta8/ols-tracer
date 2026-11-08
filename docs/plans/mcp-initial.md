@@ -2,7 +2,7 @@
 
 An MCP server on top of OLS Tracer, so an agent can diagnose one box: explore it, find what is wrong past the false alarms, and end with the fix as steps.
 
-**Status (2026-11-07):** phases 0 and 1 are done, in the new repo `code/ols-mcp`, which pins OLS Tracer at `5b86def`. Phase 2 (live) is next. The plan was refined from `nitin/mcps.md` (iteration 1), the ROADM diagnostic plan and the CLI agent spec. It moves to the MCP's repo once that repo is on GitHub.
+**Status (2026-11-07):** phases 0 and 1 are done, in the new repo `code/ols-mcp`, which pins OLS Tracer at `5b86def`. Phase 1.5 ([Codex](#codex)) is next, then phase 2 (live). The plan was refined from `nitin/mcps.md` (iteration 1), the ROADM diagnostic plan and the CLI agent spec. It moves to the MCP's repo once that repo is on GitHub.
 
 ## Decided (2026-11-07)
 
@@ -11,8 +11,9 @@ An MCP server on top of OLS Tracer, so an agent can diagnose one box: explore it
 3. **The agent reasons over tool outputs.** Tools return facts with tags, such as an alarm marked as noise and why. They never name the fault.
 4. **One box at a time.** Every tool takes a `box`, because `data/boxes/` already holds four.
 5. **Short answers, checked fixes.** A software fix is CLI commands, each one found in the CLI catalog. A hardware or fiber fix names the slot and port and whether it is Tx or Rx, plus the alarm when it helps. See [Answer](#answer).
+6. **Any MCP client.** The same server, tools and token serve Codex and any other client, so nothing in a tool may assume one client. See [Codex](#codex).
 
-Audience: developers and white-box testers, in an MCP client with the repo open. Black-box testers come later, through the tracer UI.
+Audience: developers and white-box testers, in Codex or another MCP client with the repo open. Black-box testers come later, through the tracer UI.
 
 ## Remote-shaped, local first
 
@@ -22,9 +23,9 @@ Audience: developers and white-box testers, in an MCP client with the repo open.
 | Auth | A bearer token from the server's env, checked on every request | Org SSO through MCP's OAuth flow |
 | Where it runs | The work machine, next to the bridge | A lab host that reaches the boxes. The bridge stays localhost-only there, so the MCP is the only piece on the network |
 | Box credentials | In the bridge's env only, never in a tool's input or output | The same |
-| Client setup | The client's command to add an HTTP MCP server, with the URL and an `Authorization: Bearer <token>` header, once | The same command with the new URL, once |
+| Client setup | `codex mcp add ols-tracer --url <url> --bearer-token-env-var OLS_MCP_TOKEN`, once | The same command with the new URL, once |
 | Updates | Restart the server | Deploy the server: tools, prompts and noise rules reach everyone with nothing to do on their machine |
-| Workflow | `diagnose` is an MCP prompt served by the server, not a skill file on each machine | The same |
+| Workflow | `diagnose` is an MCP prompt served by the server, and Codex gets the workflow from the server's instructions. Never a skill file on each machine | The same |
 | Inputs | Box ids, run ids and strand names. Never a client file path or topology JSON: the server builds the topology from the catalog, `wiring.csv` and the box state | The same |
 | Audit | One JSONL line per call (who, tool, arguments, time) | The same. IT will ask for it |
 | Sessions | One user, and the bridge holds one box session | A box session gets an owner and a lock |
@@ -32,6 +33,16 @@ Audience: developers and white-box testers, in an MCP client with the repo open.
 The rule: nothing assumes stdio or the client's filesystem. If it works over `http://127.0.0.1` with a token, the move is config.
 
 For the IT request: the host, its network path to the boxes, the auth method, the audit log, and the fact that **tool outputs are sent to the model provider**. Raw captures hold hostnames, serials and IPs, so responses may need an option that redacts them.
+
+## Codex
+
+Phase 1.5 makes the server work from OpenAI's Codex CLI. It is the same server, with the same tools and token.
+
+- **Setup:** `codex mcp add ols-tracer --url http://127.0.0.1:8023/mcp --bearer-token-env-var OLS_MCP_TOKEN`. It writes `[mcp_servers.ols-tracer]` with `url` and `bearer_token_env_var` into `~/.codex/config.toml`. The token stays in the environment, never in the file, and Codex doesn't connect while the variable is unset.
+- **Workflow:** Codex's MCP docs cover tools and server instructions, not prompts. So the server gets `instructions`: what the tools are for, that a recorded run is `live: false`, never to make up a reading, and to pass every fix line through `check_commands`. Codex reads the first 512 characters as a summary, so those stand on their own. A client with prompts reads the same instructions and gets the `diagnose` prompt (phase 3) as well.
+- **Schemas and answers:** each tool's input schema loads in Codex, and the largest answers (`get_alarms_pm` with `include_noise`) aren't cut short. `tools.<tool>.output_token_limit` in Codex's config raises a tool's budget if one is.
+- **Audit:** `who` tells clients apart by their user agent.
+- **Scoring:** the phase 3 runner can run the cases through `codex exec`, scored on one table.
 
 ## Tools (v1)
 
@@ -171,6 +182,7 @@ Two changes in the recorder:
 | --- | --- | --- |
 | 0. Scaffold (done 2026-11-07) | In OLS Tracer, `catalog.ts`'s Vite-only loading moves out. In the new repo: HTTP at 127.0.0.1, the token check, the audit log, the pinned OLS Tracer dependency, `bridge_status` | An MCP client lists the tools, a call without the token gets a 401, and `l0.ts` imports from the pin |
 | 1. Recorded data (done 2026-11-07) | `GET /runs`, `GET /run` and `GET /history` in the bridge. `explore_box`, `get_alarms_pm` with noise tags, `trace_path`, `diff_vs_baseline` and `check_commands` over box 3's runs | The noise guard passes on every box 3 run that has an `answer.json`, and `check_commands` accepts box 3's logged config lines, setting by setting, but rejects made-up ones |
+| 1.5. Codex | The server's `instructions`, the Codex setup in the README, and each tool's schema and largest answer checked in Codex (see [Codex](#codex)) | On a machine with Codex CLI, `codex mcp list` shows `ols-tracer`, a `codex exec` run calls `explore_box` and `get_alarms_pm` on box 3's F03 pull, and the audit log names Codex as `who` |
 | 2. Live | The bridge control tools, `POST /show`, `run_show`, `POST /baseline` and `capture_baseline` | On the work machine, box 3 is connected, a `show` runs through the MCP, and a baseline is captured |
 | 3. Diagnose | The `diagnose` prompt and the [scoring](#scoring-proposed) runner | It beats the rule-based baseline (the most upstream LOS on the known path), and every fix command passes `check_commands`. The score table is in this plan |
 
