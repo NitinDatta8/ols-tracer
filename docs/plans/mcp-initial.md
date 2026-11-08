@@ -2,7 +2,7 @@
 
 An MCP server on top of OLS Tracer, so an agent can diagnose one box: explore it, find what is wrong past the false alarms, and end with the fix as steps.
 
-**Status (2026-11-08):** phases 0, 1 and 1.5 ([Codex](#codex)) are done, in the new repo `code/ols-mcp`. Phase 2 (live) is built, with the MCP pinning OLS Tracer at `5145ee0`, and waits on the work machine: its exit criteria are the MCP README's work-machine checklist, and the phase is done once that has run. On this Mac, a full run through the MCP against a fake box (box 3's recorded output replayed on 127.0.0.1) passed: connect, `run_show`, a baseline, a pull marked, a baseline refused at the loss. The plan was refined from `nitin/mcps.md` (iteration 1), the ROADM diagnostic plan and the CLI agent spec. It moves to the MCP's repo once that repo is on GitHub.
+**Status (2026-11-08):** phases 0, 1, 1.5 ([Codex](#codex)) and 2 (live) are done, in the repo `code/ols-mcp`, which pins OLS Tracer at `5145ee0`. Phase 2 passed the MCP README's work-machine checklist on box 3, run from Codex: `bridge_connect` recorded `20261108-151248-connect` (57 of 57 commands), `run_show` answered `show och 1-7-5` with `ok: true`, and `capture_baseline` recorded `20261108-151528-baseline` (`state: healthy`, 19 of 19). Against that baseline, all 10 of the connect run's alarms are `baseline` noise, and `diff_vs_baseline` finds no change. Before that, a full run against a fake box (box 3's recorded output replayed on 127.0.0.1) passed on this Mac. Phase 3 (diagnose) is next. Once it is done, this plan moves to `docs/archive/`. The plan was refined from `nitin/mcps.md` (iteration 1), the ROADM diagnostic plan and the CLI agent spec.
 
 ## Decided (2026-11-07)
 
@@ -185,7 +185,7 @@ Two changes in the recorder:
 | 0. Scaffold (done 2026-11-07) | In OLS Tracer, `catalog.ts`'s Vite-only loading moves out. In the new repo: HTTP at 127.0.0.1, the token check, the audit log, the pinned OLS Tracer dependency, `bridge_status` | An MCP client lists the tools, a call without the token gets a 401, and `l0.ts` imports from the pin |
 | 1. Recorded data (done 2026-11-07) | `GET /runs`, `GET /run` and `GET /history` in the bridge. `explore_box`, `get_alarms_pm` with noise tags, `trace_path`, `diff_vs_baseline` and `check_commands` over box 3's runs | The noise guard passes on every box 3 run that has an `answer.json`, and `check_commands` accepts box 3's logged config lines, setting by setting, but rejects made-up ones |
 | 1.5. Codex (done 2026-11-07) | The server's `instructions`, the Codex setup in the README, and each tool's schema and largest answer checked in Codex (see [Codex](#codex)) | On a machine with Codex CLI, `codex mcp list` shows `ols-tracer`, a `codex exec` run calls `explore_box` and `get_alarms_pm` on box 3's F03 pull, and the audit log names Codex as `who` |
-| 2. Live (built 2026-11-08, waiting on the work machine) | The bridge control tools, `POST /show`, `run_show`, `POST /baseline` and `capture_baseline` | On the work machine, box 3 is connected, a `show` runs through the MCP, and a baseline is captured |
+| 2. Live (done 2026-11-08) | The bridge control tools, `POST /show`, `run_show`, `POST /baseline` and `capture_baseline` | On the work machine, box 3 is connected, a `show` runs through the MCP, and a baseline is captured |
 | 3. Diagnose | The `diagnose` prompt and the [scoring](#scoring-proposed) runner | It beats the rule-based baseline (the most upstream LOS on the known path), and every fix command passes `check_commands`. The score table is in this plan |
 
 ## Safety
