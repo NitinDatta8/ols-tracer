@@ -329,6 +329,12 @@ describe('connect draws box 3', async () => {
     expect(discover(cat, empty, { ...s, commands: {} })).toBeNull();
   });
 
+  it('takes a show inventory with no transceiver table as no transceivers, as with card 1-7 out', () => {
+    const { transceivers: _, ...inventory } = s.commands['show inventory'].data;
+    const found = discover(cat, empty, { ...s, commands: { ...s.commands, 'show inventory': { ...s.commands['show inventory'], data: inventory } } })!;
+    expect(found.slots['7']).toEqual({ linecard: 'lc-800mx', ports: {} });
+  });
+
   it("runs wiring.csv's fibers between its ports, as box3.olst.json draws them, not the BERT's", () => {
     const d = { ...empty, slots: discover(cat, empty, s)!.slots };
     const { links, refused } = wired(cat, { ...t, links: [] }, d, wiring());

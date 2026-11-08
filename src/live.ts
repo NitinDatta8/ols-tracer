@@ -169,7 +169,10 @@ function discoverPluggable(cat: Catalog, where: string, part: BoxPart, allowedPl
  */
 export function discover(cat: Catalog, d: Device, s: BoxState) {
   const cards: Record<string, BoxCard> | undefined = s.commands['show card']?.data?.state?.cards;
-  const parts: Record<string, BoxPart> | undefined = s.commands['show inventory']?.data?.transceivers;
+  // show inventory leaves its transceiver table out when the box has none (card 1-7 out, or a cold restart's first
+  // minutes): that is no transceivers, not show inventory still to come in.
+  const inventory = s.commands['show inventory']?.data;
+  const parts: Record<string, BoxPart> | undefined = inventory && (inventory.transceivers ?? {});
   const chassis = byId(cat.chassis, d.chassis);
   if (!cards || !parts || !chassis) return null;
   const byPart = new Map(cat.pluggables
