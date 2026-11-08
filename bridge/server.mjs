@@ -342,7 +342,8 @@ const server = createServer(async (req, res) => {
   }
   // A box's recorded runs, read-only: ?box= is a folder under data/boxes/. /runs lists them with their meta.json. /run is
   // one (?run=, else the latest) as its snapshot read it, a fast one over the full one before it, with its meta.json and
-  // the box's strands; never its answer.json, which is for scoring only. /history is the box's config log since ?since=.
+  // the strands it was taken with (its own wiring.csv, else the box's); never its answer.json, which is for scoring
+  // only. /history is the box's config log since ?since=.
   const url = new URL(req.url ?? '', 'http://bridge');
   if (['/runs', '/run', '/history'].includes(url.pathname)) {
     const { box, run, since } = Object.fromEntries(url.searchParams);
@@ -352,7 +353,7 @@ const server = createServer(async (req, res) => {
     if (url.pathname === '/runs') return json(runs);
     if (url.pathname === '/run') {
       const s = (!run || runs.some((r) => r.run === run)) && latest(run, { box, polls: false });
-      return s ? json({ ...s, meta: runs.find((r) => r.run === s.run), wiring: wiring(box) }) : res.writeHead(404).end('A run from /runs\n');
+      return s ? json({ ...s, meta: runs.find((r) => r.run === s.run), wiring: wiring(box, s.run) }) : res.writeHead(404).end('A run from /runs\n');
     }
     if (since && Number.isNaN(Date.parse(since))) return res.writeHead(400).end('since: an ISO time\n');
     return json(lines(join(boxDir(box), 'history.jsonl')).filter((e) => e.kind === 'config' && (!since || Date.parse(e.at) >= Date.parse(since))));

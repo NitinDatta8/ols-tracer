@@ -64,6 +64,13 @@ describe.skipIf(!existsSync(python))('run endpoints (needs npm run bridge:setup)
     expect(JSON.stringify(body)).not.toMatch(/"(fault|detectable|markedAt)":/);
   });
 
+  it("gives a run with the strands it was taken with: its own wiring.csv, else the box's", async () => {
+    const strand = async (run, id) => (await get(port, `/run?box=box3&run=${run}`)).body.wiring.find((s) => s.strand === id);
+    expect(await strand('20261102-115731-healthy-run1', 'F03')).toMatchObject({ from: '1-7-5', to: '1-1-ad1' });
+    expect(await strand('20261102-115853-connect-ad2-nonworking', 'F04')).toMatchObject({ from: '1-1-ad2', to: '1-7-5' });
+    expect(await strand('20261105-164615-pull', 'F03')).toMatchObject({ from: '1-7-5', to: '1-1-ad11' }); // none of its own
+  });
+
   it('gives the latest run when none is named, and a grouped one by its folder', async () => {
     const runs = (await get(port, '/runs?box=box3')).body;
     expect((await get(port, '/run?box=box3')).body.run).toBe(runs.filter((r) => !r.run.includes('/')).at(-1).run);

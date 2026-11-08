@@ -1,0 +1,6 @@
+strand,from,to,via,length_km,loss_db,notes
+F01,BERT:P1,1-7-4,,,,direct patch
+F02,1-7-4,BERT:P1,,,,direct patch
+F03,1-7-5,1-1-ad2,,,,line Tx into the mux
+F04,1-1-ad2,1-7-5,,,,demux out to the line Rx
+F05,1-1-line,1-1-line,ATT1,,10,line side looped back through a 10 dB pad

@@ -5,7 +5,7 @@
 // On its own it parses a run's raw output again into parsed/, e.g. after a template changed:
 //   node bridge/recorder.mjs data/boxes/box3/runs/run-01-healthy
 import { execFile } from 'node:child_process';
-import { appendFileSync, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync, writeFileSync } from 'node:fs';
+import { appendFileSync, copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
@@ -76,8 +76,7 @@ const rootOf = (box = current) => join(BOXES, box);
 const wiringFile = (box = current) => join(rootOf(box), 'wiring.csv');
 const clean = (text = '') => String(text).replace(/\r?\n/g, ' ').replace(/,/g, ';').trim();
 
-const readWiring = (box = current) => {
-  const f = wiringFile(box);
+const readWiring = (f) => {
   if (!existsSync(f)) return [];
   const [head, ...rows] = readFileSync(f, 'utf8').split(/\r?\n/).filter((l) => l.trim());
   const keys = head.split(',');
@@ -275,7 +274,7 @@ export function inferWiring(commands = {}) {
 
 /** Existing wiring.csv, or one generated from command output when it is missing. */
 export function ensureWiring(commands = {}, box = current, _options = {}) {
-  const existing = readWiring(box);
+  const existing = readWiring(wiringFile(box));
   if (existsSync(wiringFile(box))) return existing;
   const { strands } = inferWiring(commands);
   if (!strands.length) return existing.length ? existing : [];
@@ -331,7 +330,7 @@ export class Run {
     const m = this.meta;
     if (source === 'prereq') m.prereqs.push({ cmd, ok: accepted({ raw, ok }) });
     if (cmd === 'show system') m.hostname = raw.match(/^hostname\s+(\S+)/m)?.[1] ?? m.hostname;
-    if (cmd === 'show system' && m.hostname) this.place(m.hostname);
+    if (cmd === 'show system' && m.hostname) { this.place(m.hostname); this.wired(); }
     if (cmd === 'show software') m.release = raw.match(/^active\s+(\S+)/m)?.[1] ?? m.release;
     const clock = cmd === 'date-time' && raw.match(/(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d) UTC/);
     if (clock) [m.boxClock, m.boxClockOffsetSec] = [`${clock[1]}+00:00`, Math.round((Date.parse(`${clock[1]}Z`) - at) / 1000)];
@@ -353,6 +352,11 @@ export class Run {
     renameSync(this.dir, dir);
     console.log(`${this.meta.run} is ${hostname}, not ${this.meta.box}: moved to ${dir}`);
     [this.dir, this.meta.box] = [dir, current];
+  }
+
+  /** Keeps the box's strands as they are now in the run, so it is read later with them, not with a wiring.csv changed since. */
+  wired() {
+    if (existsSync(wiringFile())) copyFileSync(wiringFile(), join(this.dir, 'wiring.csv'));
   }
 
   /**
@@ -382,9 +386,13 @@ export class Run {
   }
 }
 
-/** The box's strands, from its wiring.csv: [{ strand, from, to, via, length_km, loss_db, notes }], or none. */
-export function wiring(box = current) {
-  return readWiring(box);
+/**
+ * The box's strands, from its wiring.csv: [{ strand, from, to, via, length_km, loss_db, notes }], or none. With a `run`
+ * (its path under runs/), the strands that run was taken with: its own wiring.csv, else the box's.
+ */
+export function wiring(box = current, run) {
+  const own = run && join(BOXES, box, 'runs', run, 'wiring.csv');
+  return readWiring(own && existsSync(own) ? own : wiringFile(box));
 }
 
 /** A JSON-lines file's lines, or none. */
