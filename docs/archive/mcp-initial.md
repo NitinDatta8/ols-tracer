@@ -2,7 +2,7 @@
 
 An MCP server on top of OLS Tracer, so an agent can diagnose one box: explore it, find what is wrong past the false alarms, and end with the fix as steps.
 
-**Status (2026-11-08):** phases 0, 1, 1.5 ([Codex](#codex)) and 2 (live) are done, in the repo `code/ols-mcp`, which pins OLS Tracer at `5145ee0`. Phase 2 passed the MCP README's work-machine checklist on box 3, run from Codex: `bridge_connect` recorded `20261108-151248-connect` (57 of 57 commands), `run_show` answered `show och 1-7-5` with `ok: true`, and `capture_baseline` recorded `20261108-151528-baseline` (`state: healthy`, 19 of 19). Against that baseline, all 10 of the connect run's alarms are `baseline` noise, and `diff_vs_baseline` finds no change. Before that, a full run against a fake box (box 3's recorded output replayed on 127.0.0.1) passed on this Mac. Phase 3 (diagnose) is next. Once it is done, this plan moves to `docs/archive/`. The plan was refined from `nitin/mcps.md` (iteration 1), the ROADM diagnostic plan and the CLI agent spec.
+**Status (2026-11-08): done.** Phases 0, 1, 1.5 ([Codex](#codex)), 2 (live) and 3 (diagnose) are built, in the repo `code/ols-mcp`, which pins OLS Tracer at `7a75edd`. Phase 2 passed the MCP README's work-machine checklist on box 3, run from Codex: `bridge_connect` recorded `20261108-151248-connect` (57 of 57 commands), `run_show` answered `show och 1-7-5` with `ok: true`, and `capture_baseline` recorded `20261108-151528-baseline` (`state: healthy`, 19 of 19). Against that baseline, all 10 of the connect run's alarms are `baseline` noise, and `diff_vs_baseline` finds no change. Before that, a full run against a fake box (box 3's recorded output replayed on 127.0.0.1) passed on this Mac. Phase 3's `diagnose` prompt meets its bar from Codex on box 3's ten recorded cases: 26 of 30 tries exact, against 2 of 10 for the rule baseline, with 1 wrong against its 5, and every CLI fix line passes `check_commands` (the [score table](#score-table)). The plan was refined from `nitin/mcps.md` (iteration 1), the ROADM diagnostic plan and the CLI agent spec.
 
 ## Decided (2026-11-07)
 
@@ -39,10 +39,10 @@ For the IT request: the host, its network path to the boxes, the auth method, th
 Phase 1.5 makes the server work from OpenAI's Codex CLI. It is the same server, with the same tools and token.
 
 - **Setup:** `codex mcp add ols-tracer --url http://127.0.0.1:8023/mcp --bearer-token-env-var OLS_MCP_TOKEN`. It writes `[mcp_servers.ols-tracer]` with `url` and `bearer_token_env_var` into `~/.codex/config.toml`. The token stays in the environment, never in the file, and Codex doesn't connect while the variable is unset. That block also takes `default_tools_approval_mode = "writes"` (phase 2): Codex runs the tools marked `readOnlyHint` (the diagnosis tools and `bridge_status`) without asking and asks before `run_show` and the control tools, and `codex exec`, which can't ask, refuses those. Until phase 2 it was `"approve"`, which runs everything without asking.
-- **Workflow:** Codex's MCP docs cover tools and server instructions, not prompts. So the server gets `instructions`: what the tools are for, that a recorded run is `live: false`, never to make up a reading, and to pass every fix line through `check_commands`. Codex's docs say it reads the first 512 characters as a summary, but Codex 0.167 lists the server by its first 247, so the rules come first and fit in those. A client with prompts reads the same instructions and gets the `diagnose` prompt (phase 3) as well.
+- **Workflow:** Codex's MCP docs cover tools and server instructions, not prompts. So the server gets `instructions`: what the tools are for, that a recorded run is `live: false`, never to make up a reading, and to pass every fix line through `check_commands`. Codex's docs say it reads the first 512 characters as a summary, but Codex 0.167 lists the server by its first 247, so the rules come first and fit in those. A client with prompts reads the same instructions and gets the `diagnose` prompt too. Since phase 3, the instructions end in the same diagnose workflow.
 - **Schemas and answers:** each tool's input schema loads in Codex, and the largest answers (`get_alarms_pm` with `include_noise`) aren't cut short. `tools.<tool>.output_token_limit` in Codex's config raises a tool's budget if one is.
 - **Audit:** `who` tells clients apart by their user agent.
-- **Scoring:** the phase 3 runner can run the cases through `codex exec`, scored on one table.
+- **Scoring:** the phase 3 runner runs the cases through `codex exec`, scored on [one table](#score-table).
 
 ## Tools (v1)
 
@@ -87,6 +87,8 @@ The workflow, in order:
 
 It ends in the [answer](#answer). The agent must not make up readings.
 
+The prompt takes `box`, `run` and `baseline`, and names them for every tool that takes them. On a recorded run (`live: false`: any run it is given by name, or while the bridge has no session with the box), step 5 says to skip `run_show`. The server's instructions end in the same steps and answer, for Codex.
+
 ### Answer
 
 The answer is short, at most three parts:
@@ -96,6 +98,8 @@ The answer is short, at most three parts:
   - A transceiver: its slot and port (`1-8-1`).
   - A fiber: its strand from `wiring.csv`, written from the Tx end to the Rx end.
   - A fiber with no known strand: the port, and Tx or Rx from the alarm (`IN_` or `rx` means Rx, `OUT_` or `tx` means Tx).
+  - A setting: what is set where, and what it should match (the ad2 cases).
+  - A restart or a change the alarms have not settled from: what was done, and when (the cold restarts).
 - **Alarm:** included only when it is the evidence. It is one line for the root alarm, never its consequent alarms.
 - **Fix:**
   - A software fix is CLI lines, written the way people type them, and each line must pass `check_commands`. Box 3's config log shows combined lines such as `set media-channel 2 line-port … add-drop-port … admin-state … center-frequency …`. The matcher alone returns `unknown` for that line, but each of its four settings matches once it is split. A step with no catalog command is said in words and marked "(not in catalog)".
@@ -175,8 +179,10 @@ The rules live in a data file (`mcp/noise.json`), so a new rule is a data change
 
 Two changes in the recorder:
 
-- **It saves `wiring.csv` into each run.** Today there is one file per box, so an old run would be read with today's strands. The 11-02 cases moved the fiber from ad1 to ad2, then to ad11.
-- **`detectable` stops being false for every strand into the BERT.** It is false today, because the Rx end isn't a box port. But F02's snapshot shows `LINK_RF` on 100ge 1-7-4 and nothing else: the BERT's remote fault comes back to the box.
+- **It saves `wiring.csv` into each run** (done 2026-11-08, `7a75edd`), and `/run` serves a run's own. Before, there was one file per box, so an old run was read with today's strands. The 11-02 cases moved the fiber from ad1 to ad2, then to ad11, so the three runs the ad2 cases read got theirs by hand.
+- **`detectable` stops being false for every strand into the BERT** (not done: the eval takes F02's answer from its strand). It is false today, because the Rx end isn't a box port. But F02's snapshot shows `LINK_RF` on 100ge 1-7-4 and nothing else: the BERT's remote fault comes back to the box.
+
+Phase 3 also fixed `discover()` in `src/live.ts` (`cd507a0`). It waited for a transceiver table that box 3 doesn't print while it has no transceivers (card 1-7 out, a cold restart's first minutes), so the read tools failed on four of the cases, and the physical view kept fetching.
 
 ## Phases
 
@@ -186,7 +192,7 @@ Two changes in the recorder:
 | 1. Recorded data (done 2026-11-07) | `GET /runs`, `GET /run` and `GET /history` in the bridge. `explore_box`, `get_alarms_pm` with noise tags, `trace_path`, `diff_vs_baseline` and `check_commands` over box 3's runs | The noise guard passes on every box 3 run that has an `answer.json`, and `check_commands` accepts box 3's logged config lines, setting by setting, but rejects made-up ones |
 | 1.5. Codex (done 2026-11-07) | The server's `instructions`, the Codex setup in the README, and each tool's schema and largest answer checked in Codex (see [Codex](#codex)) | On a machine with Codex CLI, `codex mcp list` shows `ols-tracer`, a `codex exec` run calls `explore_box` and `get_alarms_pm` on box 3's F03 pull, and the audit log names Codex as `who` |
 | 2. Live (done 2026-11-08) | The bridge control tools, `POST /show`, `run_show`, `POST /baseline` and `capture_baseline` | On the work machine, box 3 is connected, a `show` runs through the MCP, and a baseline is captured |
-| 3. Diagnose | The `diagnose` prompt and the [scoring](#scoring-proposed) runner | It beats the rule-based baseline (the most upstream LOS on the known path), and every fix command passes `check_commands`. The score table is in this plan |
+| 3. Diagnose (done 2026-11-08) | The `diagnose` prompt and the [scoring](#scoring) runner | It beats the rule-based baseline (the most upstream LOS on the known path), and every fix command passes `check_commands`. The score table is in this plan |
 
 ## Safety
 
@@ -196,20 +202,22 @@ Two changes in the recorder:
 - The box credentials stay in the bridge's env.
 - No tool returns `answer.json`. Only the scorer reads it.
 
-## Scoring (proposed)
+## Scoring
 
-- **Cases:** listed [below](#cases-box-3) and kept in `eval/cases.json` in the MCP repo. Each one has a fault snapshot, its baseline and the expected answer. For the recorder's pulls, the expected answer comes from `answer.json`. Cases run on recorded data, so `run_show` isn't available to them.
-- **Runner:** in the MCP repo. It runs `diagnose` headless (an agent's CLI with the MCP config) on each case, three times, because answers vary.
-- **No judge model:** the answer's fixed shape makes the `Fault:` line parseable. A strand id, or a slot and port with Tx or Rx, is compared with `answer.json`.
+- **Cases:** listed [below](#cases-box-3) and kept in `eval/cases.json` in the MCP repo, with run ids as the bridge's `/runs` lists them. Each one has a fault snapshot, its baseline and the expected answer. For the recorder's pulls, the expected answer is their `answer.json`'s strand. Cases run on recorded data, so `run_show` isn't available to them.
+- **Runner:** `npm run eval` in the MCP repo. It starts the server on a free port with a token of its own, gets each case's `diagnose` text with `prompts/get`, and gives that same text to `codex exec`, three times, because answers vary. The agent gets only the 6 read tools: no shell, no file reads, no other MCP server and no hooks. It starts only while the bridge has no session, and checks after that it still has none and that nothing called a live tool.
+- **No judge model:** the answer's fixed shape makes its `Fault:` part parseable: its line, and any lines under it up to `Alarm:` or `Fix:`. The first thing it names decides: a strand of the run's `wiring.csv`, a media channel, a port (with Tx or Rx when one follows it; `in` counts as Rx and `out` as Tx), a card, or for a restart case the restart.
 - **Score per try:**
-  - `exact`: the strand, card or port matches.
-  - `near`: the right port at the wrong end, or the right card at the wrong port.
-  - `none`: the answer says nothing was found.
+  - `exact`: the strand, card or port matches. A fiber also matches by one of its ends, with the right Tx or Rx.
+  - `near`: the right port at the wrong end (or the other strand on the same ports, as F04 for F03), or the right card at the wrong port. For a card fault, a strand is `wrong`: it sends someone to the fiber.
+  - `none`: the `Fault:` part names no place, as when nothing was found, or there is no `Fault:` line.
   - `wrong`: the answer names another place.
+  - A setting (the ad2 cases): `exact` when the first place is its media channel or that channel's port (1-1-ad2), `near` when it is a strand into that port or another place on its card, and `wrong` otherwise.
+  - A restart: `exact` when the `Fault:` part names the restart (`restart` or `reboot`) before any place, `wrong` when it names a place first, and `none` when it names neither.
 - **Cost:** a `wrong` costs more than a `none`, because a wrong place sends someone to pull the wrong fiber.
-- **Fix check:** the fix is the right kind (hand steps or CLI), and every CLI line passes `check_commands`.
-- **Bar:** the rule baseline (the most upstream LOS on the known path) is scored on the same cases. The agent must match or beat it on `exact`, with no more `wrong`.
-- **Table:** a case, its answer, the rule baseline's result, the agent's three tries, and notes. The table is kept in this plan.
+- **Fix check:** every line of the `Fix:` part that starts with a catalog word (`show`, `set`, `delete`, `rpc`, or an rpc typed bare, such as `reboot`) is a CLI line, and goes through `check_commands`. The fix is CLI when one of those lines isn't a `show`, else hand steps. The table's notes give any fix of the wrong kind.
+- **Bar:** the rule baseline is scored on the same cases. It is the most upstream loss on the known paths: in `wiring.csv`'s order, the first traced path with a loss alarm (LOS, LOF or an `OPTICAL_LOW_FAILURE`) that `get_alarms_pm` shows with noise hidden, at the first hop that has one, named as the answer would name it (the strand into that end, else the port). It is code over the read tools, in the runner. Each agent must match or beat it on `exact` over its three tries (three times the baseline's count), with no more `wrong`, and every CLI fix line must pass `check_commands`.
+- **Table:** a case, its answer, the rule baseline's result, each agent's three tries, and notes. It is [below](#score-table), and every answer is in the MCP repo's `eval/results.json`.
 
 ### Cases (box 3)
 
@@ -228,11 +236,42 @@ Runs are under `data/boxes/box3/runs/`. "Standing alarms" means the nine [false 
 | Cold restart, run 1 | `reboot-ne-cold-run1/20261102-122915-connect` | `plugout-1125/20261102-124208-connect` | The NE restarted cold at 12:26:57, and the alarms are its recovery. Check again once it settles | The agent must not name a fiber. The baseline is the nearest healthy snapshot with the same setup |
 | Cold restart, run 2 | `reboot-ne-cold-run2/20261102-123719-connect` | the same | The same, with the restart at 12:35:00 | |
 
+The ad2 runs and their baseline are read with the strands they were taken with: F03 and F04 on 1-1-ad1 in `20261102-115731-healthy-run1`, and on 1-1-ad2 in the two ad2 runs. Their `wiring.csv` was written by hand on 2026-11-08, from the run names and the config log. Those runs have no `show media-channel` (it came later), so the missing channel shows only through the strand move and the alarms.
+
 Two runs are dropped:
 
 - **The warm restart:** none of its three snapshots caught an alarm.
 - **ad3 and ad4:** both were working, but their snapshots still carried the earlier LOS, because the box was slow to update its alarms (see `unsettled` under [false alarms](#false-alarms)).
 
-## Open questions
+### Score table
 
-1. How long does the box take to update its alarms after a change or a restart? That is the default settle time for `unsettled`.
+Run 3 of 2026-11-08, `npm run eval` in the MCP repo: 60 tries, every one answered, the bridge with no session before and after, and no live tool called. Its answers are the MCP repo's `eval/results.json`.
+
+| Case | Expected answer | Rule baseline | Codex (3 tries) | Notes |
+| --- | --- | --- | --- | --- |
+| F01 pull | Fiber F01, BERT:P1 Tx → 1-7-4 Rx | exact | exact, exact, exact | |
+| F02 pull | Fiber F02, 1-7-4 Tx → BERT:P1 Rx | none | exact, exact, exact | The baseline sees no loss: `LINK_RF` is the BERT's remote fault |
+| F03 pull | Fiber F03, 1-7-5 Tx → 1-1-ad11 Rx | exact | exact, exact, exact | |
+| C1125 out and back | Card 1-1 | wrong | wrong, exact, exact | The baseline and Codex's first try name F04, the strand into the och that alarmed |
+| 800MX out and back, run 1 | Card 1-7 | wrong | exact, exact, exact | The baseline names F03, into 1-1-ad11 |
+| 800MX out and back, run 2 | Card 1-7 | wrong | exact, exact, exact | The same |
+| ad2, no media channel | No media channel on 1-1-ad2 | near | near, near, near | Every try names fiber F03 into 1-1-ad2, with hand steps; the baseline names 1-1-ba. See [left open](#left-open) 6 |
+| ad2, wrong frequency | Media channel 2 at 193.6 THz, not 193.5 | near | exact, exact, exact | Every try names media channel 2, as a change still settling, not as the wrong frequency, and none gives the CLI fix; the baseline names F03 into 1-1-ad2 |
+| Cold restart, run 1 | The NE restarted cold at 12:26:57 | wrong | exact, exact, exact | Each names `reboot ne cold` at 12:26:57, from the `unsettled` tags; the baseline names F03 |
+| Cold restart, run 2 | The NE restarted cold at 12:35:00 | wrong | exact, exact, exact | The same, at 12:35:00 |
+| **exact / near / none / wrong** | | 2 / 2 / 1 / 5 | 26 / 3 / 0 / 1 | |
+
+Codex wrote no CLI fix line in this run, and no try gives a config fix, so the two ad2 cases' expected CLI fixes are missed. Run 1, scored the same way, has the same totals. Run 2 is dropped: nine of its tries hit the account's usage limit, so a run with a try that got no answer now gets no verdict.
+
+The scorer changed after looking at answers, each time scored again on the same saved answers (`npm run eval -- --rescore <results.json>`), with no agent asked again. It reads the whole `Fault:` part, because two answers listed their places under it. It scores a restart by what the `Fault:` part names first, because four answers that named the restart also named F03 or F05 as clean. And it takes a command quoted inside a sentence as prose, not as a CLI line, because of one answer. Run 1 with the first scorer was Codex 25 / 3 / 0 / 2, which met the bar too.
+
+## Left open
+
+1. **The settle time** (answered 2026-11-08): box 3's alarms were still settling 4 min 12 s after a cold NE restart, and clear by 7 min 53 s (its 11-02 runs), so `SETTLE_SEC` defaults to 480. One number serves config changes too, which likely settle faster.
+2. **`detectable`** is still false for a strand into the BERT (see [Changes in OLS Tracer](#changes-in-ols-tracer)).
+3. **`check_commands` and rpc lines:** it answers `unknown` for an rpc typed as people type it (`reboot ne cold`), so a fix step like that is said in words.
+4. **A cold restart's first minutes:** `show card` lists only the cards that are up, so `setupChanged` lists the rest as gone (and `card 1-6: NONE → none`), and the baseline reads as stale.
+5. **Old runs' strands:** the runs from before 2026-11-08 other than the three ad2 ones are still read with today's `wiring.csv`: the 11-01 runs, and the 11-02 runs on ad3 to ad10.
+6. **Frequencies:** no tool shows an OCH's frequency, and the 11-02 runs have no `show media-channel`, so the ad2 wrong-frequency case shows only the config log's `193600000`. The agents name media channel 2, but as a change the alarms haven't settled from, not as 193.6 THz against the OCH's 193.5, and no try gives the CLI fix. The missing channel in the other ad2 case is not seen either: every try names fiber F03 into 1-1-ad2.
+7. **`check_commands` and placeholders:** it passes a line with the syntax's own placeholder (`show media-channel <index>`).
+8. **Run ids say what was done** (`-pull`, `plugout-800MX-run1/`, `reboot-ne-cold-run1/`, `ad2-nonworking`), and an agent cites them ("the run is named pull") as support. The place still comes from the tools, but a blind eval would need ids that don't.

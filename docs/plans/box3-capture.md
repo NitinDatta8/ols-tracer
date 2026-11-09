@@ -67,6 +67,7 @@ data/boxes/box3/runs/
     raw/007_show-och-1-7-5.txt         the exact output, prompt lines cut
     parsed/007_show-och-1-7-5.json     its TTP result, or { "error": … }
     poll.jsonl                         the polls until the next snapshot
+    wiring.csv                         the box's strands when the snapshot began
     answer.json                        only in a pull run: the marked strand
 ```
 
