@@ -1,0 +1,61 @@
+{"at":"2026-11-09T14:55:08-05:00","box":"2021-07-21T18:55:15+00:00","kind":"alarm","action":"CREATE","alarm":"LINK_DOWN","resource":"port 1-43-nm1","severity":"MINOR","direction":"bi-directional","sa":false}
+{"at":"2026-11-09T14:55:08-05:00","box":"2021-07-21T18:55:15+00:00","kind":"alarm","action":"CREATE","alarm":"LINK_DOWN","resource":"port 1-43-nm","severity":"MINOR","direction":"bi-directional","sa":false}
+{"at":"2026-11-09T14:55:09-05:00","box":"2021-07-21T18:55:16+00:00","kind":"alarm","action":"CREATE","alarm":"LINK_DOWN","resource":"port 1-43-nm2","severity":"MINOR","direction":"bi-directional","sa":false}
+{"at":"2026-11-09T14:55:13-05:00","box":"2021-07-21T18:55:20+00:00","kind":"alarm","action":"CREATE","alarm":"EQPT_MISMATCH","resource":"card 1-21","severity":"CRITICAL","direction":"na","sa":true}
+{"at":"2026-11-09T14:55:16-05:00","box":"2021-07-21T18:55:23+00:00","kind":"alarm","action":"CREATE","alarm":"DATETIME_UNCHANGED","resource":"system","severity":"WARNING","direction":"na","sa":false}
+{"at":"2026-11-09T14:55:18-05:00","box":"2021-07-21T18:55:25+00:00","kind":"alarm","action":"CREATE","alarm":"FAN_SPD_HIGH","resource":"card 1-33","severity":"MAJOR","direction":"na","sa":false}
+{"at":"2026-11-09T14:55:18-05:00","box":"2021-07-21T18:55:25+00:00","kind":"alarm","action":"CREATE","alarm":"FAN_SPD_HIGH","resource":"card 1-32","severity":"MAJOR","direction":"na","sa":false}
+{"at":"2026-11-09T14:55:18-05:00","box":"2021-07-21T18:55:25+00:00","kind":"alarm","action":"CREATE","alarm":"FAN_SPD_HIGH","resource":"card 1-31","severity":"MAJOR","direction":"na","sa":false}
+{"at":"2026-11-09T14:55:34-05:00","box":"2021-07-21T18:55:41+00:00","kind":"alarm","action":"CREATE","alarm":"PWR_NO_INPUT","resource":"card 1-22","severity":"MINOR","direction":"rx","sa":false}
+{"at":"2026-11-09T14:55:36-05:00","box":"2021-07-21T18:55:43+00:00","kind":"alarm","action":"CLEAR","alarm":"FAN_SPD_HIGH","resource":"card 1-33","severity":"MAJOR","direction":"na","sa":false}
+{"at":"2026-11-09T14:55:36-05:00","box":"2021-07-21T18:55:43+00:00","kind":"alarm","action":"CLEAR","alarm":"FAN_SPD_HIGH","resource":"card 1-32","severity":"MAJOR","direction":"na","sa":false}
+{"at":"2026-11-09T14:55:36-05:00","box":"2021-07-21T18:55:43+00:00","kind":"alarm","action":"CLEAR","alarm":"FAN_SPD_HIGH","resource":"card 1-31","severity":"MAJOR","direction":"na","sa":false}
+{"at":"2026-11-09T15:08:09-05:00","box":"2021-07-21T19:08:16+00:00","kind":"alarm","action":"CREATE","alarm":"RX_LOS","resource":"transceiver 1-1-osc","severity":"MAJOR","direction":"rx","sa":false}
+{"at":"2026-11-09T15:08:09-05:00","box":"2021-07-21T19:08:16+00:00","kind":"alarm","action":"CREATE","alarm":"OUT_OPTICAL_LOW_WARNING","resource":"port 1-1-line","severity":"MAJOR","direction":"tx","sa":false}
+{"at":"2026-11-09T15:08:09-05:00","box":"2021-07-21T19:08:16+00:00","kind":"alarm","action":"CREATE","alarm":"IN_OPTICAL_LOW_FAILURE","resource":"port 1-1-line","severity":"CRITICAL","direction":"rx","sa":false}
+{"at":"2026-11-09T15:08:09-05:00","box":"2021-07-21T19:08:16+00:00","kind":"alarm","action":"CREATE","alarm":"OUT_LOS","resource":"amplifier 1-1-pa","severity":"CRITICAL","direction":"tx","sa":true}
+{"at":"2026-11-09T15:08:09-05:00","box":"2021-07-21T19:08:16+00:00","kind":"alarm","action":"CREATE","alarm":"OUT_LOS","resource":"amplifier 1-1-ba","severity":"CRITICAL","direction":"tx","sa":true}
+{"at":"2026-11-09T15:08:12-05:00","box":"2021-07-21T19:08:19+00:00","kind":"alarm","action":"CREATE","alarm":"IN_LOS","resource":"amplifier 1-1-pa","severity":"CRITICAL","direction":"rx","sa":true}
+{"at":"2026-11-09T15:08:12-05:00","box":"2021-07-21T19:08:19+00:00","kind":"alarm","action":"CREATE","alarm":"IN_LOS","resource":"amplifier 1-1-ba","severity":"CRITICAL","direction":"rx","sa":true}
+{"at":"2026-11-09T15:10:37-05:00","box":"2021-07-21T19:10:44+00:00","kind":"alarm","action":"CLEAR","alarm":"LINK_DOWN","resource":"port 1-43-nm2","severity":"MINOR","direction":"bi-directional","sa":false}
+{"at":"2026-11-09T15:14:16-05:00","box":"2021-07-21T19:14:23+00:00","kind":"config","type":"set","user":"admin","ip":"127.0.0.1","details":"set system hostname PAHO-GS2000-06"}
+{"at":"2026-11-09T15:14:37-05:00","box":"2021-07-21T19:14:44+00:00","kind":"config","type":"set","user":"admin","ip":"127.0.0.1","details":"set system config-saving-mode manual"}
+{"at":"2026-11-09T15:15:06-05:00","box":"2021-07-21T19:15:13+00:00","kind":"config","type":"set","user":"admin","ip":"127.0.0.1","details":"set ip interface 1-43-nm2 address 10.111.25.17 prefix-length 24 gateway 10.111.25.1"}
+{"at":"2026-11-09T15:15:22-05:00","box":"2021-07-21T19:15:29+00:00","kind":"config","type":"set","user":"admin","ip":"127.0.0.1","details":"set ip ospf router-id 10.111.25.17 control enabled"}
+{"at":"2026-11-09T15:15:56-05:00","box":"2021-07-21T19:16:03+00:00","kind":"config","type":"set","user":"admin","ip":"127.0.0.1","details":"set ip ospf interface 1-43-nm2 retransmit-interval 5 hello-interval 10 dead-interval 40 cost 1 priority 1 transmit-delay 1 area 0"}
+{"at":"2026-11-09T15:16:12-05:00","box":"2021-07-21T19:16:19+00:00","kind":"config","type":"set","user":"admin","ip":"127.0.0.1","details":"set ip route 10.111.25.0/24 next-hop 10.111.25.1"}
+{"at":"2026-11-09T15:16:28-05:00","box":"2021-07-21T19:16:35+00:00","kind":"config","type":"set","user":"admin","ip":"127.0.0.1","details":"set lldp system-name PAHO-GS2000-06"}
+{"at":"2026-11-09T15:16:32-05:00","box":"2021-07-21T19:16:39+00:00","kind":"config","type":"rpc","user":"admin","ip":"127.0.0.1","details":"save configuration"}
+{"at":"2026-11-09T15:16:39-05:00","box":"2021-07-21T19:16:46+00:00","kind":"config","type":"set","user":"admin","ip":"127.0.0.1","details":"set system config-saving-mode auto"}
+{"at":"2026-11-09T15:16:42-05:00","box":"2021-07-21T19:16:49+00:00","kind":"config","type":"rpc","user":"admin","ip":"127.0.0.1","details":"save configuration"}
+{"at":"2026-11-09T15:16:55-05:00","box":"2021-07-21T19:17:02+00:00","kind":"config","type":"rpc","user":"admin","ip":"127.0.0.1","details":"reboot ne cold"}
+{"at":"2026-11-09T15:16:56-05:00","box":"2021-07-21T19:17:03+00:00","kind":"alarm","action":"CLEAR","alarm":"RX_LOS","resource":"transceiver 1-1-osc","severity":"MAJOR","direction":"rx","sa":false}
+{"at":"2026-11-09T15:16:56-05:00","box":"2021-07-21T19:17:03+00:00","kind":"alarm","action":"CLEAR","alarm":"OUT_OPTICAL_LOW_WARNING","resource":"port 1-1-line","severity":"MAJOR","direction":"tx","sa":false}
+{"at":"2026-11-09T15:16:56-05:00","box":"2021-07-21T19:17:03+00:00","kind":"alarm","action":"CLEAR","alarm":"IN_OPTICAL_LOW_FAILURE","resource":"port 1-1-line","severity":"CRITICAL","direction":"rx","sa":false}
+{"at":"2026-11-09T15:16:56-05:00","box":"2021-07-21T19:17:03+00:00","kind":"alarm","action":"CLEAR","alarm":"OUT_LOS","resource":"amplifier 1-1-pa","severity":"CRITICAL","direction":"tx","sa":true}
+{"at":"2026-11-09T15:16:56-05:00","box":"2021-07-21T19:17:03+00:00","kind":"alarm","action":"CLEAR","alarm":"IN_LOS","resource":"amplifier 1-1-pa","severity":"CRITICAL","direction":"rx","sa":true}
+{"at":"2026-11-09T15:16:56-05:00","box":"2021-07-21T19:17:03+00:00","kind":"alarm","action":"CLEAR","alarm":"OUT_LOS","resource":"amplifier 1-1-ba","severity":"CRITICAL","direction":"tx","sa":true}
+{"at":"2026-11-09T15:16:56-05:00","box":"2021-07-21T19:17:03+00:00","kind":"alarm","action":"CLEAR","alarm":"IN_LOS","resource":"amplifier 1-1-ba","severity":"CRITICAL","direction":"rx","sa":true}
+{"at":"2026-11-09T15:17:25-05:00","box":"2021-07-21T19:17:32+00:00","kind":"alarm","action":"CLEAR","alarm":"DATETIME_UNCHANGED","resource":"system","severity":"WARNING","direction":"na","sa":false}
+{"at":"2026-11-09T15:17:25-05:00","box":"2021-07-21T19:17:32+00:00","kind":"alarm","action":"CLEAR","alarm":"PWR_NO_INPUT","resource":"card 1-22","severity":"MINOR","direction":"rx","sa":false}
+{"at":"2026-11-09T15:17:25-05:00","box":"2021-07-21T19:17:32+00:00","kind":"alarm","action":"CLEAR","alarm":"EQPT_MISMATCH","resource":"card 1-21","severity":"CRITICAL","direction":"na","sa":true}
+{"at":"2026-11-09T15:17:25-05:00","box":"2021-07-21T19:17:32+00:00","kind":"alarm","action":"CLEAR","alarm":"LINK_DOWN","resource":"port 1-43-nm1","severity":"MINOR","direction":"bi-directional","sa":false}
+{"at":"2026-11-09T15:17:25-05:00","box":"2021-07-21T19:17:32+00:00","kind":"alarm","action":"CLEAR","alarm":"LINK_DOWN","resource":"port 1-43-nm","severity":"MINOR","direction":"bi-directional","sa":false}
+{"at":"2026-11-09T15:19:07-05:00","box":"2021-07-21T19:19:14+00:00","kind":"alarm","action":"CREATE","alarm":"LINK_DOWN","resource":"port 1-43-nm1","severity":"MINOR","direction":"bi-directional","sa":false}
+{"at":"2026-11-09T15:19:07-05:00","box":"2021-07-21T19:19:14+00:00","kind":"alarm","action":"CREATE","alarm":"LINK_DOWN","resource":"port 1-43-nm","severity":"MINOR","direction":"bi-directional","sa":false}
+{"at":"2026-11-09T15:19:09-05:00","box":"2021-07-21T19:19:16+00:00","kind":"alarm","action":"CREATE","alarm":"DATETIME_UNCHANGED","resource":"system","severity":"WARNING","direction":"na","sa":false}
+{"at":"2026-11-09T15:19:11-05:00","box":"2021-07-21T19:19:18+00:00","kind":"alarm","action":"CREATE","alarm":"EQPT_MISMATCH","resource":"card 1-21","severity":"CRITICAL","direction":"na","sa":true}
+{"at":"2026-11-09T15:19:16-05:00","box":"2021-07-21T19:19:23+00:00","kind":"alarm","action":"CREATE","alarm":"FAN_SPD_HIGH","resource":"card 1-32","severity":"MAJOR","direction":"na","sa":false}
+{"at":"2026-11-09T15:19:16-05:00","box":"2021-07-21T19:19:23+00:00","kind":"alarm","action":"CREATE","alarm":"FAN_SPD_HIGH","resource":"card 1-31","severity":"MAJOR","direction":"na","sa":false}
+{"at":"2026-11-09T15:19:17-05:00","box":"2021-07-21T19:19:24+00:00","kind":"alarm","action":"CREATE","alarm":"OUT_LOS","resource":"amplifier 1-1-pa","severity":"CRITICAL","direction":"tx","sa":true}
+{"at":"2026-11-09T15:19:17-05:00","box":"2021-07-21T19:19:24+00:00","kind":"alarm","action":"CREATE","alarm":"OUT_LOS","resource":"amplifier 1-1-ba","severity":"CRITICAL","direction":"tx","sa":true}
+{"at":"2026-11-09T15:19:18-05:00","box":"2021-07-21T19:19:25+00:00","kind":"alarm","action":"CREATE","alarm":"RX_LOS","resource":"transceiver 1-1-osc","severity":"MAJOR","direction":"rx","sa":false}
+{"at":"2026-11-09T15:19:18-05:00","box":"2021-07-21T19:19:25+00:00","kind":"alarm","action":"CREATE","alarm":"OUT_OPTICAL_LOW_WARNING","resource":"port 1-1-line","severity":"MAJOR","direction":"tx","sa":false}
+{"at":"2026-11-09T15:19:18-05:00","box":"2021-07-21T19:19:25+00:00","kind":"alarm","action":"CREATE","alarm":"IN_OPTICAL_LOW_FAILURE","resource":"port 1-1-line","severity":"CRITICAL","direction":"rx","sa":false}
+{"at":"2026-11-09T15:19:18-05:00","box":"2021-07-21T19:19:25+00:00","kind":"alarm","action":"CREATE","alarm":"FAN_SPD_HIGH","resource":"card 1-33","severity":"MAJOR","direction":"na","sa":false}
+{"at":"2026-11-09T15:19:20-05:00","box":"2021-07-21T19:19:27+00:00","kind":"alarm","action":"CREATE","alarm":"IN_LOS","resource":"amplifier 1-1-pa","severity":"CRITICAL","direction":"rx","sa":true}
+{"at":"2026-11-09T15:19:20-05:00","box":"2021-07-21T19:19:27+00:00","kind":"alarm","action":"CREATE","alarm":"IN_LOS","resource":"amplifier 1-1-ba","severity":"CRITICAL","direction":"rx","sa":true}
+{"at":"2026-11-09T15:19:34-05:00","box":"2021-07-21T19:19:41+00:00","kind":"alarm","action":"CREATE","alarm":"PWR_NO_INPUT","resource":"card 1-22","severity":"MINOR","direction":"rx","sa":false}
+{"at":"2026-11-09T15:19:36-05:00","box":"2021-07-21T19:19:43+00:00","kind":"alarm","action":"CLEAR","alarm":"FAN_SPD_HIGH","resource":"card 1-33","severity":"MAJOR","direction":"na","sa":false}
+{"at":"2026-11-09T15:19:36-05:00","box":"2021-07-21T19:19:43+00:00","kind":"alarm","action":"CLEAR","alarm":"FAN_SPD_HIGH","resource":"card 1-32","severity":"MAJOR","direction":"na","sa":false}
+{"at":"2026-11-09T15:19:36-05:00","box":"2021-07-21T19:19:43+00:00","kind":"alarm","action":"CLEAR","alarm":"FAN_SPD_HIGH","resource":"card 1-31","severity":"MAJOR","direction":"na","sa":false}

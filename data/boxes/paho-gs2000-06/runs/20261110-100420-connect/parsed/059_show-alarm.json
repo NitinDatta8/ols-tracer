@@ -1,0 +1,148 @@
+{
+  "alarms": {
+    "1148681626895135206599480": {
+      "resource": "port 1-1-line",
+      "type-id": "OPTICAL",
+      "alarm-abbreviate": "IN_OPTICAL_LOW_FAILURE",
+      "severity": "CRITICAL",
+      "text": "Input Optical Power lower than failure threshold",
+      "time-created": "2021-07-21T19:19:21 UTC",
+      "direction": "rx",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "2221371626895135218646320": {
+      "resource": "port 1-1-line",
+      "type-id": "OPTICAL",
+      "alarm-abbreviate": "OUT_OPTICAL_LOW_WARNING",
+      "severity": "MAJOR",
+      "text": "Output Optical Power lower than warning threshold",
+      "time-created": "2021-07-21T19:19:21 UTC",
+      "direction": "tx",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "3127871626895135320515840": {
+      "resource": "port 1-43-nm",
+      "type-id": "SYS",
+      "alarm-abbreviate": "LINK_DOWN",
+      "severity": "MINOR",
+      "text": "Management port link down",
+      "time-created": "2021-07-21T19:19:11 UTC",
+      "direction": "bi-directional",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "3127871626895135407009560": {
+      "resource": "port 1-43-nm1",
+      "type-id": "SYS",
+      "alarm-abbreviate": "LINK_DOWN",
+      "severity": "MINOR",
+      "text": "Management port link down",
+      "time-created": "2021-07-21T19:19:11 UTC",
+      "direction": "bi-directional",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "0193941626895135725909280": {
+      "resource": "system",
+      "type-id": "SYS",
+      "alarm-abbreviate": "DATETIME_UNCHANGED",
+      "severity": "WARNING",
+      "text": "Datetime unchanged",
+      "time-created": "2021-07-21T19:19:13 UTC",
+      "direction": "na",
+      "location": "na",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "0165051626895134535433240": {
+      "resource": "card 1-21",
+      "type-id": "EQPT",
+      "alarm-abbreviate": "EQPT_MISMATCH",
+      "severity": "CRITICAL",
+      "text": "Present equipment type mismatch",
+      "time-created": "2021-07-21T19:19:16 UTC",
+      "direction": "na",
+      "location": "na",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "268521626895135428812640": {
+      "resource": "amplifier 1-1-ba",
+      "type-id": "OPTICAL",
+      "alarm-abbreviate": "OUT_LOS",
+      "severity": "CRITICAL",
+      "text": "Loss of Signal at Output",
+      "time-created": "2021-07-21T19:19:22 UTC",
+      "direction": "tx",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "268521626895135444728960": {
+      "resource": "amplifier 1-1-pa",
+      "type-id": "OPTICAL",
+      "alarm-abbreviate": "OUT_LOS",
+      "severity": "CRITICAL",
+      "text": "Loss of Signal at Output",
+      "time-created": "2021-07-21T19:19:22 UTC",
+      "direction": "tx",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "168521626895135240776200": {
+      "resource": "transceiver 1-1-osc",
+      "type-id": "OPTICAL",
+      "alarm-abbreviate": "RX_LOS",
+      "severity": "MAJOR",
+      "text": "Loss of Signal at Receiver",
+      "time-created": "2021-07-21T19:19:22 UTC",
+      "direction": "rx",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "168521626895135421226920": {
+      "resource": "amplifier 1-1-ba",
+      "type-id": "OPTICAL",
+      "alarm-abbreviate": "IN_LOS",
+      "severity": "CRITICAL",
+      "text": "Loss of Signal at Input",
+      "time-created": "2021-07-21T19:19:24 UTC",
+      "direction": "rx",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "168521626895135437112840": {
+      "resource": "amplifier 1-1-pa",
+      "type-id": "OPTICAL",
+      "alarm-abbreviate": "IN_LOS",
+      "severity": "CRITICAL",
+      "text": "Loss of Signal at Input",
+      "time-created": "2021-07-21T19:19:24 UTC",
+      "direction": "rx",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "1211221626895134358448160": {
+      "resource": "card 1-22",
+      "type-id": "ENV",
+      "alarm-abbreviate": "PWR_NO_INPUT",
+      "severity": "MINOR",
+      "text": "No power input",
+      "time-created": "2021-07-21T19:19:38 UTC",
+      "direction": "rx",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    }
+  }
+}

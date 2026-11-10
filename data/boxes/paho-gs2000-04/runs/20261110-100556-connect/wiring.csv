@@ -1,0 +1,4 @@
+strand,from,to,via,length_km,loss_db,notes
+F01,1-1-line,1-1-line,power,,10.78,auto: power fallback (low confidence)
+F02,1-1-sig,1-4-5,power,,0.18,auto: power fallback (low confidence); carries 1-4-2 (CC4_5_2) and 1-4-3
+F03,1-4-5,1-1-sig,power,,0.11,auto: power fallback (low confidence); carries 1-4-2 (CC4_5_2) and 1-4-3

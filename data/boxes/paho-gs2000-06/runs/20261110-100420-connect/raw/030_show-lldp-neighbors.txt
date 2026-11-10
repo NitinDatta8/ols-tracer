@@ -1,0 +1,6 @@
+
+interface    system-name    chassis-id           chassis-id-type    ttl    port-id    management-address    
+---------    -----------    -----------------    ---------------    ---    -------    ------------------    
+1-43-nm2     PAHO-A04       24:71:21:a8:9a:81    MAC_ADDRESS        120    gi10       10.111.254.8          
+
+

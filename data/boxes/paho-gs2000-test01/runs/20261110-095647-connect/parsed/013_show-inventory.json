@@ -1,0 +1,184 @@
+{
+  "chassis": {
+    "1": {
+      "mfg-name": "COHERENT",
+      "mfg-date": "2025-08-20",
+      "hardware-version": "1.0",
+      "serial-no": "GCA3A0025",
+      "part-no": "60GCA0001"
+    }
+  },
+  "cards": {
+    "1-1": {
+      "module-type": "TMUXC925",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2025-09-09",
+      "hardware-version": "x.x",
+      "serial-no": "xxxxxxxxx",
+      "part-no": "60G2F0001"
+    },
+    "1-5": {
+      "module-type": "800MX",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2025-08-29",
+      "hardware-version": "1.0",
+      "serial-no": "G6E3A000A",
+      "part-no": "60G6E0001"
+    },
+    "1-7": {
+      "module-type": "TMUXC_25",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2025-08-11",
+      "hardware-version": "1.0",
+      "serial-no": "G2L030050",
+      "part-no": "60G2L0001"
+    },
+    "1-21": {
+      "module-type": "2000-AC",
+      "mfg-name": "Artesyn",
+      "mfg-date": "2025-08-20",
+      "serial-no": "G006A001J",
+      "part-no": "60G000001"
+    },
+    "1-22": {
+      "module-type": "2000-AC",
+      "mfg-name": "Artesyn",
+      "mfg-date": "2025-08-20",
+      "serial-no": "G006A0024",
+      "part-no": "60G000001"
+    },
+    "1-31": {
+      "module-type": "FANSU",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2025-08-20",
+      "hardware-version": "1.0",
+      "serial-no": "GCB3A001S",
+      "part-no": "60GCB0001"
+    },
+    "1-32": {
+      "module-type": "FANSU",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2025-08-20",
+      "hardware-version": "1.0",
+      "serial-no": "GCB3A0018",
+      "part-no": "60GCB0001"
+    },
+    "1-33": {
+      "module-type": "FANSU",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2025-08-20",
+      "hardware-version": "1.0",
+      "serial-no": "GCB3A001P",
+      "part-no": "60GCB0001"
+    },
+    "1-40": {
+      "module-type": "CIM",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2025-08-20",
+      "hardware-version": "1.0",
+      "serial-no": "GC33A0021",
+      "part-no": "60GC30001"
+    },
+    "1-41": {
+      "module-type": "CU",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2025-08-23",
+      "hardware-version": "1.0",
+      "serial-no": "GC53A001G",
+      "part-no": "60GC50001"
+    },
+    "1-42": {
+      "module-type": "CU",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2025-08-23",
+      "hardware-version": "1.0",
+      "serial-no": "GC53A001H",
+      "part-no": "60GC50001"
+    },
+    "1-50": {
+      "module-type": "PMUX48",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2025-08-18",
+      "hardware-version": "1.0",
+      "serial-no": "GP1030010",
+      "part-no": "60GP10001"
+    }
+  },
+  "transceivers": {
+    "1-5-1": {
+      "mfg-name": "FINISAR CORP.",
+      "mfg-date": "2026-08-06",
+      "hardware-version": "01.00",
+      "serial-no": "2632W41H9",
+      "part-no": "1513819",
+      "form-factor": "OTHER",
+      "connector-type": "LC_CONNECTOR"
+    },
+    "1-5-2": {
+      "mfg-name": "FS",
+      "mfg-date": "2025-06-17",
+      "hardware-version": "01",
+      "serial-no": "S2514909564",
+      "part-no": "QSFP-LR4-100G",
+      "form-factor": "QSFP28",
+      "connector-type": "LC_CONNECTOR",
+      "compliance-code": "100GBASE-LR4",
+      "transmission-distance": "10km"
+    },
+    "1-5-6": {
+      "mfg-name": "FS",
+      "mfg-date": "2025-06-17",
+      "hardware-version": "01",
+      "serial-no": "S2514909576",
+      "part-no": "QSFP-LR4-100G",
+      "form-factor": "QSFP28",
+      "connector-type": "LC_CONNECTOR",
+      "compliance-code": "100GBASE-LR4",
+      "transmission-distance": "10km"
+    },
+    "1-5-7": {
+      "mfg-name": "FS",
+      "mfg-date": "2025-06-17",
+      "hardware-version": "01",
+      "serial-no": "S2514909561",
+      "part-no": "QSFP-LR4-100G",
+      "form-factor": "QSFP28",
+      "connector-type": "LC_CONNECTOR",
+      "compliance-code": "100GBASE-LR4",
+      "transmission-distance": "10km"
+    },
+    "1-5-8": {
+      "mfg-name": "FS",
+      "mfg-date": "2025-06-17",
+      "hardware-version": "01",
+      "serial-no": "S2514909563",
+      "part-no": "QSFP-LR4-100G",
+      "form-factor": "QSFP28",
+      "connector-type": "LC_CONNECTOR",
+      "compliance-code": "100GBASE-LR4",
+      "transmission-distance": "10km"
+    },
+    "1-5-9": {
+      "mfg-name": "FS",
+      "mfg-date": "2025-06-17",
+      "hardware-version": "01",
+      "serial-no": "S2514909575",
+      "part-no": "QSFP-LR4-100G",
+      "form-factor": "QSFP28",
+      "connector-type": "LC_CONNECTOR",
+      "compliance-code": "100GBASE-LR4",
+      "transmission-distance": "10km"
+    },
+    "1-5-10": {
+      "mfg-name": "FS",
+      "mfg-date": "2025-06-17",
+      "hardware-version": "01",
+      "serial-no": "S2514909569",
+      "part-no": "QSFP-LR4-100G",
+      "form-factor": "QSFP28",
+      "connector-type": "LC_CONNECTOR",
+      "compliance-code": "100GBASE-LR4",
+      "transmission-distance": "10km"
+    }
+  }
+}

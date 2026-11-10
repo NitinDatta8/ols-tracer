@@ -1,0 +1,32 @@
+[config]
+
+id        admin-state       description    laser      port-mode    
+------    --------------    -----------    -------    ---------    
+1-7-1     out-of-service    PORT           enabled    PROT_NA      
+1-7-2     out-of-service    PORT           enabled    PROT_NA      
+1-7-3     out-of-service    PORT           enabled    PROT_NA      
+1-7-4     out-of-service    PORT           enabled    PROT_NA      
+1-7-5     out-of-service    PORT           enabled    PROT_NA      
+1-7-6     out-of-service    PORT           enabled    PROT_NA      
+1-7-7     out-of-service    PORT           enabled    PROT_NA      
+1-7-8     out-of-service    PORT           enabled    PROT_NA      
+1-7-9     out-of-service    PORT           enabled    PROT_NA      
+1-7-10    out-of-service    PORT           enabled    PROT_NA      
+
+
+[state]
+
+id        admin-state       description    laser       port-mode    parent      oper-status    
+------    --------------    -----------    --------    ---------    --------    -----------    
+1-7-1     out-of-service    PORT           disabled    PROT_NA      card 1-7    disabled       
+1-7-2     out-of-service    PORT           disabled    PROT_NA      card 1-7    disabled       
+1-7-3     out-of-service    PORT           disabled    PROT_NA      card 1-7    disabled       
+1-7-4     out-of-service    PORT           disabled    PROT_NA      card 1-7    disabled       
+1-7-5     out-of-service    PORT           disabled    PROT_NA      card 1-7    disabled       
+1-7-6     out-of-service    PORT           disabled    PROT_NA      card 1-7    disabled       
+1-7-7     out-of-service    PORT           disabled    PROT_NA      card 1-7    disabled       
+1-7-8     out-of-service    PORT           disabled    PROT_NA      card 1-7    disabled       
+1-7-9     out-of-service    PORT           disabled    PROT_NA      card 1-7    disabled       
+1-7-10    out-of-service    PORT           disabled    PROT_NA      card 1-7    disabled       
+
+

@@ -1,0 +1,121 @@
+{
+  "entries": [
+    {
+      "time-stamp": "2021-07-22T14:04:28+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 3,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-22T14:04:28+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 3,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-21T19:17:02+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "rpc",
+      "details": "reboot ne cold"
+    },
+    {
+      "time-stamp": "2021-07-21T19:16:49+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "rpc",
+      "details": "save configuration"
+    },
+    {
+      "time-stamp": "2021-07-21T19:16:46+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "set",
+      "details": "set system config-saving-mode auto"
+    },
+    {
+      "time-stamp": "2021-07-21T19:16:39+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "rpc",
+      "details": "save configuration"
+    },
+    {
+      "time-stamp": "2021-07-21T19:16:35+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "set",
+      "details": "set lldp system-name PAHO-GS2000-06"
+    },
+    {
+      "time-stamp": "2021-07-21T19:16:19+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "set",
+      "details": "set ip route 10.111.25.0/24 next-hop 10.111.25.1"
+    },
+    {
+      "time-stamp": "2021-07-21T19:16:03+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "set",
+      "details": "set ip ospf interface 1-43-nm2 retransmit-interval 5 hello-interval 10 dead-interval 40 cost 1 priority 1 transmit-delay 1 area 0"
+    },
+    {
+      "time-stamp": "2021-07-21T19:15:29+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "set",
+      "details": "set ip ospf router-id 10.111.25.17 control enabled"
+    },
+    {
+      "time-stamp": "2021-07-21T19:15:13+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "set",
+      "details": "set ip interface 1-43-nm2 address 10.111.25.17 prefix-length 24 gateway 10.111.25.1"
+    },
+    {
+      "time-stamp": "2021-07-21T19:14:44+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "set",
+      "details": "set system config-saving-mode manual"
+    },
+    {
+      "time-stamp": "2021-07-21T19:14:23+00:00",
+      "nbi": "CONSOLE",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "127.0.0.1",
+      "type": "set",
+      "details": "set system hostname PAHO-GS2000-06"
+    }
+  ]
+}

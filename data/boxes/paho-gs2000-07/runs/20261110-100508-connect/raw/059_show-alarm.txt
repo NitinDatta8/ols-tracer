@@ -1,0 +1,17 @@
+
+resource               type-id    alarm-abbreviate           severity    text                                                 time-created               direction         location    alarm-type    time-period    id                           
+-------------------    -------    -----------------------    --------    -------------------------------------------------    -----------------------    --------------    --------    ----------    -----------    -------------------------    
+port 1-1-line          OPTICAL    IN_OPTICAL_LOW_FAILURE     CRITICAL    Input Optical Power lower than failure threshold     2021-07-21T18:55:34 UTC    rx                near-end    standing      na             1148681626893702879876600    
+port 1-1-line          OPTICAL    OUT_OPTICAL_LOW_WARNING    MAJOR       Output Optical Power lower than warning threshold    2021-07-21T18:55:34 UTC    tx                near-end    standing      na             2221371626893702891759080    
+port 1-43-nm           SYS        LINK_DOWN                  MINOR       Management port link down                            2021-07-21T18:55:18 UTC    bi-directional    near-end    standing      na             3127871626893700176719560    
+port 1-43-nm1          SYS        LINK_DOWN                  MINOR       Management port link down                            2021-07-21T18:55:19 UTC    bi-directional    near-end    standing      na             3127871626893700337364920    
+system                 SYS        DATETIME_UNCHANGED         WARNING     Datetime unchanged                                   2021-07-21T18:55:23 UTC    na                na          standing      na             0193941626893706758953760    
+card 1-21              EQPT       EQPT_MISMATCH              CRITICAL    Present equipment type mismatch                      2021-07-21T18:55:28 UTC    na                na          standing      na             0165051626893702969132320    
+amplifier 1-1-ba       OPTICAL    OUT_LOS                    CRITICAL    Loss of Signal at Output                             2021-07-21T18:55:34 UTC    tx                near-end    standing      na             26852162689370319449440      
+amplifier 1-1-pa       OPTICAL    OUT_LOS                    CRITICAL    Loss of Signal at Output                             2021-07-21T18:55:34 UTC    tx                near-end    standing      na             2685216268937032043160       
+transceiver 1-1-osc    OPTICAL    RX_LOS                     MAJOR       Loss of Signal at Receiver                           2021-07-21T18:55:34 UTC    rx                near-end    standing      na             168521626893702914361240     
+amplifier 1-1-pa       OPTICAL    IN_LOS                     CRITICAL    Loss of Signal at Input                              2021-07-21T18:55:36 UTC    rx                near-end    standing      na             168521626893702993495480     
+amplifier 1-1-ba       OPTICAL    IN_LOS                     CRITICAL    Loss of Signal at Input                              2021-07-21T18:55:37 UTC    rx                near-end    standing      na             16852162689370310853160      
+card 1-22              ENV        PWR_NO_INPUT               MINOR       No power input                                       2021-07-21T18:55:50 UTC    rx                near-end    standing      na             121122162689370280983600     
+
+

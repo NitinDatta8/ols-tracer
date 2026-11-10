@@ -1,0 +1,8 @@
+
+[state]
+active                  CSP-2.10.100.10_20261013
+active-status           active
+candidate               Release_CSP-2.9.0.235_20260209.tar
+candidate-status        inactive
+
+

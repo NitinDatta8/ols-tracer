@@ -1,0 +1,10 @@
+
+[state]
+
+id           capacity    input-current    input-voltage    output-current    output-voltage    output-power    power-supply-mode    
+             (W)         (mA)             (V)              (mA)              (V)               (W)                                  
+---------    --------    -------------    -------------    --------------    --------------    ------------    -----------------    
+card 1-22    2000.00     0.00             0.00             0.00              0.00              0.00            AC                   
+card 1-21    1400.00     660.00           122.00           4770.00           12.26             58.31           AC                   
+
+

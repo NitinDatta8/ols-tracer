@@ -229,7 +229,12 @@ function powerWires(commands, used) {
       return { from, to, loss, score: Math.abs(loss) };
     })).filter((c) => c.loss >= -25 && c.loss <= 70);
     const best = (key) => {
-      const by = Map.groupBy(candidates, (c) => c[key]);
+      const by = new Map();
+      for (const candidate of candidates) {
+        const id = candidate[key];
+        if (!by.has(id)) by.set(id, [candidate]);
+        else by.get(id).push(candidate);
+      }
       const one = new Map();
       for (const [id, list] of by.entries()) {
         const sorted = list.sort((a, b) => a.score - b.score);

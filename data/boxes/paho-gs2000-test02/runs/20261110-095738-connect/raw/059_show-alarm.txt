@@ -1,0 +1,20 @@
+
+resource            type-id    alarm-abbreviate           severity    text                                                 time-created               direction         location    alarm-type    time-period    id                           
+----------------    -------    -----------------------    --------    -------------------------------------------------    -----------------------    --------------    --------    ----------    -----------    -------------------------    
+port 1-1-line       OPTICAL    IN_OPTICAL_LOW_FAILURE     CRITICAL    Input Optical Power lower than failure threshold     2022-02-09T18:50:08 UTC    rx                near-end    standing      na             1148681644432569590396558    
+port 1-1-line       OPTICAL    OUT_OPTICAL_LOW_WARNING    MAJOR       Output Optical Power lower than warning threshold    2022-02-09T18:50:08 UTC    tx                near-end    standing      na             2221371644432569602440638    
+software            SYS        NO_CMT_SW                  WARNING     No committed software                                2022-02-09T18:49:23 UTC    na                na          standing      na             034591644432580882350701     
+system              SYS        DATETIME_UNCHANGED         WARNING     Datetime unchanged                                   2022-02-09T18:49:23 UTC    na                na          standing      na             0193941644432580902798381    
+port 1-43-nm        SYS        LINK_DOWN                  MINOR       Management port link down                            2022-02-09T18:49:25 UTC    bi-directional    near-end    standing      na             3127871644432566615704402    
+card 1-21           EQPT       EQPT_MISMATCH              CRITICAL    Present equipment type mismatch                      2022-02-09T18:50:03 UTC    na                na          standing      na             0165051644432568664015999    
+amplifier 1-1-ba    OPTICAL    OUT_LOS                    CRITICAL    Loss of Signal at Output                             2022-02-09T18:50:06 UTC    tx                near-end    standing      na             268521644432572565952713     
+amplifier 1-1-pa    OPTICAL    OUT_LOS                    CRITICAL    Loss of Signal at Output                             2022-02-09T18:50:06 UTC    tx                near-end    standing      na             268521644432572517270913     
+amplifier 1-1-ba    OPTICAL    IN_LOS                     CRITICAL    Loss of Signal at Input                              2022-02-09T18:50:08 UTC    rx                near-end    standing      na             168521644432572554471913     
+amplifier 1-1-pa    OPTICAL    IN_LOS                     CRITICAL    Loss of Signal at Input                              2022-02-09T18:50:08 UTC    rx                near-end    standing      na             168521644432572506020474     
+card 1-22           ENV        PWR_NO_INPUT               MINOR       No power input                                       2022-02-09T18:50:28 UTC    rx                near-end    standing      na             1211221644432567768082121    
+card 1-8            EQPT       EQPT_ABSENCE               CRITICAL    No present equipment                                 2022-02-15T21:14:10 UTC    na                na          standing      na             0113341644432570632057636    
+card 1-3            EQPT       EQPT_ABSENCE               CRITICAL    No present equipment                                 2022-02-15T23:17:10 UTC    na                na          standing      na             0113341644432568750239399    
+card 1-7            EQPT       EQPT_ABSENCE               CRITICAL    No present equipment                                 2022-02-17T00:01:30 UTC    na                na          standing      na             0113341645055372185705399    
+port 1-43-nm1       SYS        LINK_DOWN                  MINOR       Management port link down                            2022-02-19T20:06:32 UTC    bi-directional    near-end    standing      na             3127871644432568301138680    
+
+

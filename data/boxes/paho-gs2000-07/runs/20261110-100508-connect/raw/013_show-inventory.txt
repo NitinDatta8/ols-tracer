@@ -1,0 +1,25 @@
+chassis
+
+
+id    module-type    mfg-name    mfg-date      hardware-version    serial-no    part-no      
+--    -----------    --------    ----------    ----------------    ---------    ---------    
+1     chassis        COHERENT    2026-10-07    1.0                 GCATA000L    60GCA0001    
+
+card
+
+
+id      module-type    mfg-name    mfg-date      hardware-version    serial-no    part-no      
+----    -----------    --------    ----------    ----------------    ---------    ---------    
+1-1     TMUXC925       COHERENT    2026-09-23    1.0                 G2FTA0017    60G2F0001    
+1-8     800MX          COHERENT    2026-05-29    1.0                 G6ETA0008    60G6E0001    
+1-21    2000-AC        Artesyn     2026-09-28                        G00TA0013    60G000001    
+1-22    2000-AC        Artesyn     2026-09-24                        G00TA0010    60G000001    
+1-31    FANSU          COHERENT    2026-10-07    1.0                 GCBTA002P    60GCB0001    
+1-32    FANSU          COHERENT    2026-09-23    1.0                 GCBTA002Q    60GCB0001    
+1-33    FANSU          COHERENT    2026-10-07    1.0                 GCBTA0041    60GCB0001    
+1-40    CIM            COHERENT    2026-09-15    1.0                 GC3TA000K    60GC30001    
+1-41    CU             COHERENT    2026-10-08    1.0                 GC5KAT027    60GC50001    
+1-42    CU             COHERENT    2026-10-08    1.0                 GC5KAT028    60GC50001    
+
+None
+

@@ -1,0 +1,21 @@
+[config]
+
+id         tunable-wavelength    
+-------    ------------------    
+1-1-osc                          
+
+
+[state]
+
+id         tunable-wavelength    present    oper-status    removable    rated-power    used-power    fec-corrected-bits    firmware-version    
+                                                                        (W)            (W)           (bits)                                    
+-------    ------------------    -------    -----------    ---------    -----------    ----------    ------------------    ----------------    
+1-1-osc                          true       active         false                                                                               
+
+
+id         pre-fec-ber                  post-fec-ber                 output-power                       input-power                          laser-bias-current                temperature                       input-voltage                    
+           instant | avg | min | max    instant | avg | min | max    instant | avg | min | max (dBm)    instant | avg | min | max (dBm)      instant | avg | min | max (mA)    instant | avg | min | max (°C)   instant | avg | min | max (V)    
+-------    -------------------------    -------------------------    -------------------------------    ---------------------------------    ------------------------------    ------------------------------    -----------------------------    
+1-1-osc                                                              0.95 | 0.95 | 0.95 | 0.95          -99.99 | -99.99 | -99.99 | -99.99    3.46 | 3.46 | 3.46 | 3.46         34.8 | 34.6 | 34.3 | 34.8                                          
+
+

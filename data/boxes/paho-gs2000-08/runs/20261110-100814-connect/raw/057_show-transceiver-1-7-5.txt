@@ -1,0 +1,25 @@
+[config]
+tunable-wavelength        none
+
+
+[state]
+tunable-wavelength        none
+present                   false
+oper-status               disabled
+removable                 true
+rated-power               0 W
+used-power                0 W
+fec-corrected-bits        0 bits
+firmware-version          
+
+statistics                instant | avg | min | max units          
+------------------        ---------------------------------        
+pre-fec-ber               
+post-fec-ber              
+output-power              
+input-power               
+laser-bias-current        
+temperature               -99.9 | -99.9 | -99.9 | -99.9 °C
+input-voltage             
+
+

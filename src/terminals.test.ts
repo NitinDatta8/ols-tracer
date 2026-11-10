@@ -26,8 +26,8 @@ describe('right-click terminals', () => {
     expect(termItems(cat, box, '1')[1]).toMatchObject({ label: 'Telnet to card 1-1', open: { title: 'Site-1 · box.test · card 1-1 C1125 · telnet' } });
   });
 
-  it('greys out telnet on an 800MX or a 400MX, with why', () => {
-    expect(open('7')).toEqual({ normal: [], telnet: '800MX cannot be telnetted into', engineering: ['configure', '^^^'] });
+  it('keeps telnet on for an 800MX, and greys it out on a 400MX with why', () => {
+    expect(open('7')).toEqual({ normal: [], telnet: ['configure', '^^^', 'bash', 'telnet 1.0.1.28'], engineering: ['configure', '^^^'] });
     const mx4 = { ...box, slots: { 2: { linecard: 'lc-400mx', ports: {} } } };
     expect(termItems(cat, mx4, '2').find((i) => i.kind === 'telnet')?.why).toBe('400MX cannot be telnetted into');
   });

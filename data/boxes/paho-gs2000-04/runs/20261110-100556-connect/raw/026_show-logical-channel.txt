@@ -1,0 +1,39 @@
+[config]
+id                 delay-measurement-mode    description    
+---------------    ----------------------    -----------    
+flexgo-1-4-1       disabled                                 
+flexgdu-1-4-1-1    disabled                                 
+flexgdu-1-4-1-2    disabled                                 
+flexgdu-1-4-1-3    disabled                                 
+flexgdu-1-4-1-4    disabled                                 
+flexgo-1-4-5       disabled                                 
+flexgdu-1-4-5-1    disabled                                 
+flexgdu-1-4-5-2    disabled                                 
+flexgdu-1-4-5-3    disabled                                 
+flexgdu-1-4-5-4    disabled                                 
+flexgo-1-4-6       disabled                                 
+flexgdu-1-4-6-1    disabled                                 
+flexgdu-1-4-6-2    disabled                                 
+flexgdu-1-4-6-3    disabled                                 
+flexgdu-1-4-6-4    disabled                                 
+
+[state]
+id                 index         trib-protocol    rate-class    assigned-channel                tributary-slot-index    time-slot-type    delay-measurement-mode    description    
+---------------    ----------    -------------    ----------    ----------------------------    --------------------    --------------    ----------------------    -----------    
+flexgo-1-4-1       1073741872    OPENZR           400G          och 1-4-1                                               ETH_100G          disabled                                 
+flexgdu-1-4-1-1    1073807408    OPENZRTS         100G          logical-channel flexgo-1-4-1    1                       AUTO              disabled                                 
+flexgdu-1-4-1-2    1073872944    OPENZRTS         100G          logical-channel flexgo-1-4-1    2                       AUTO              disabled                                 
+flexgdu-1-4-1-3    1073938480    OPENZRTS         100G          logical-channel flexgo-1-4-1    3                       AUTO              disabled                                 
+flexgdu-1-4-1-4    1074004016    OPENZRTS         100G          logical-channel flexgo-1-4-1    4                       AUTO              disabled                                 
+flexgo-1-4-5       1073742896    OPENZR           400G          och 1-4-5                                               ETH_100G          disabled                                 
+flexgdu-1-4-5-1    1073808432    OPENZRTS         100G          logical-channel flexgo-1-4-5    1                       AUTO              disabled                                 
+flexgdu-1-4-5-2    1073873968    OPENZRTS         100G          logical-channel flexgo-1-4-5    2                       AUTO              disabled                                 
+flexgdu-1-4-5-3    1073939504    OPENZRTS         100G          logical-channel flexgo-1-4-5    3                       AUTO              disabled                                 
+flexgdu-1-4-5-4    1074005040    OPENZRTS         100G          logical-channel flexgo-1-4-5    4                       AUTO              disabled                                 
+flexgo-1-4-6       1073743152    OPENZR           400G          och 1-4-6                                               ETH_100G          disabled                                 
+flexgdu-1-4-6-1    1073808688    OPENZRTS         100G          logical-channel flexgo-1-4-6    1                       AUTO              disabled                                 
+flexgdu-1-4-6-2    1073874224    OPENZRTS         100G          logical-channel flexgo-1-4-6    2                       AUTO              disabled                                 
+flexgdu-1-4-6-3    1073939760    OPENZRTS         100G          logical-channel flexgo-1-4-6    3                       AUTO              disabled                                 
+flexgdu-1-4-6-4    1074005296    OPENZRTS         100G          logical-channel flexgo-1-4-6    4                       AUTO              disabled                                 
+
+

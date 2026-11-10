@@ -1,0 +1,51 @@
+[config]
+
+id         tunable-wavelength    
+-------    ------------------    
+1-1-osc                          
+1-8-1      none                  
+1-8-2      none                  
+1-8-3      none                  
+1-8-4      none                  
+1-8-5      none                  
+1-8-6      none                  
+1-8-7      none                  
+1-8-8      none                  
+1-8-9      none                  
+1-8-10     none                  
+
+
+[state]
+
+id         tunable-wavelength    present    oper-status    removable    rated-power    used-power    fec-corrected-bits    firmware-version    
+                                                                        (W)            (W)           (bits)                                    
+-------    ------------------    -------    -----------    ---------    -----------    ----------    ------------------    ----------------    
+1-1-osc                          true       active         false                                                                               
+1-8-1      none                  false      disabled       true         0              0             0                                         
+1-8-2      none                  false      disabled       true         0              0             0                                         
+1-8-3      none                  false      disabled       true         0              0             0                                         
+1-8-4      none                  false      disabled       true         0              0             0                                         
+1-8-5      none                  false      disabled       true         0              0             0                                         
+1-8-6      none                  false      disabled       true         0              0             0                                         
+1-8-7      none                  false      disabled       true         0              0             0                                         
+1-8-8      none                  false      disabled       true         0              0             0                                         
+1-8-9      none                  false      disabled       true         0              0             0                                         
+1-8-10     none                  false      disabled       true         0              0             0                                         
+
+
+id         pre-fec-ber                  post-fec-ber                 output-power                       input-power                          laser-bias-current                temperature                       input-voltage                    
+           instant | avg | min | max    instant | avg | min | max    instant | avg | min | max (dBm)    instant | avg | min | max (dBm)      instant | avg | min | max (mA)    instant | avg | min | max (°C)   instant | avg | min | max (V)    
+-------    -------------------------    -------------------------    -------------------------------    ---------------------------------    ------------------------------    ------------------------------    -----------------------------    
+1-1-osc                                                              1.13 | 1.13 | 1.13 | 1.13          -99.99 | -99.99 | -99.99 | -99.99    3.07 | 3.07 | 3.07 | 3.07         33.4 | 33.4 | 33.4 | 33.4                                          
+1-8-1                                                                                                                                                                          -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-2                                                                                                                                                                          -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-3                                                                                                                                                                          -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-4                                                                                                                                                                          -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-5                                                                                                                                                                          -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-6                                                                                                                                                                          -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-7                                                                                                                                                                          -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-8                                                                                                                                                                          -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-9                                                                                                                                                                          -99.9 | -99.9 | -99.9 | -99.9                                      
+1-8-10                                                                                                                                                                         -99.9 | -99.9 | -99.9 | -99.9                                      
+
+

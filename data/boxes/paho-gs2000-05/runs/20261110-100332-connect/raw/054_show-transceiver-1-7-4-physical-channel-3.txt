@@ -1,0 +1,6 @@
+
+[state]
+channel-id                   3
+transmitter-frequency        0 MHz
+
+

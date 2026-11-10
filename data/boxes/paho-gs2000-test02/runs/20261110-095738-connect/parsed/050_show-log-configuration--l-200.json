@@ -1,0 +1,1804 @@
+{
+  "entries": [
+    {
+      "time-stamp": "2022-03-01T19:02:42+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 28,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2022-03-01T19:02:42+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 28,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2022-02-24T22:22:30+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 24,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2022-02-24T22:22:29+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 24,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2022-02-24T22:22:10+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 23,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2022-02-24T22:22:10+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 23,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2022-02-17T18:39:51+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"DISABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:39:51+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_NA\"}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:39:51+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:39:51+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:39:51+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:37:49+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"ENABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:37:49+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_ZR800_16QAM_118G\"}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:37:49+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:37:49+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:37:49+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:34:48+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "delete",
+      "details": "object:/openconfig-wavelength-router:wavelength-router/media-channels/channel[index='856601453']value:{\"openconfig-wavelength-router:index\":856601453}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:34:48+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-wavelength-router:wavelength-router/media-channelsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:34:48+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-wavelength-router:wavelength-routervalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:34:48+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-wavelength-router:wavelength-router/media-channels/channel[index='856601453']/configvalue:{\"admin-status\":\"DISABLED\",\"index\":856601453}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:34:48+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-wavelength-router:wavelength-router/media-channels/channel[index='856601453']value:{\"openconfig-wavelength-router:index\":856601453}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:34:48+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-wavelength-router:wavelength-router/media-channelsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:34:48+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-wavelength-router:wavelength-routervalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:34:47+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"DISABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:34:47+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_NA\"}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:34:47+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:34:47+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:34:47+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:34:26+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-2']/configvalue:{\"co-platform-ext:admin-state\":\"DISABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:34:26+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-2']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_NA\"}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:34:26+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-2']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:34:26+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-2']value:{\"openconfig-platform:name\":\"PORT-1-5-2\"}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:34:26+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:34:25+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "delete",
+      "details": "object:/co-cross-connection:service/transport-cross-connections/transport-cross-connection[connection-name='PAHO-GS2000-test02$100GE-1-5-1-1#100GE-1-5-2']value:{\"co-cross-connection:connection-name\":\"PAHO-GS2000-test02$100GE-1-5-1-1#100GE-1-5-2\"}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:34:25+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/co-cross-connection:service/transport-cross-connectionsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-17T18:34:25+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/co-cross-connection:servicevalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-17T00:00:15+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 16,
+      "user-ip": "192.168.194.171",
+      "type": "set",
+      "details": "set card 1-7 module-type 800MX admin-state in-service"
+    },
+    {
+      "time-stamp": "2022-02-16T23:57:58+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 16,
+      "user-ip": "192.168.194.171",
+      "type": "rpc",
+      "details": "reboot card 1-7 cold"
+    },
+    {
+      "time-stamp": "2022-02-14T09:54:53+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/co-cross-connection:service/transport-cross-connections/transport-cross-connection[connection-name='PAHO-GS2000-test02$100GE-1-5-1-1#100GE-1-5-2']/configvalue:{\"connection-name\":\"PAHO-GS2000-test02$100GE-1-5-1-1#100GE-1-5-2\",\"destination-entity\":1073742144,\"direction-type\":\"BI_DIRECTIONAL\",\"source-entity\":1082196032}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:54:53+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/co-cross-connection:service/transport-cross-connections/transport-cross-connection[connection-name='PAHO-GS2000-test02$100GE-1-5-1-1#100GE-1-5-2']value:{\"co-cross-connection:connection-name\":\"PAHO-GS2000-test02$100GE-1-5-1-1#100GE-1-5-2\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:54:53+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/co-cross-connection:service/transport-cross-connectionsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:54:53+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/co-cross-connection:servicevalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:54:46+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-2']/configvalue:{\"co-platform-ext:admin-state\":\"ENABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:54:46+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-2']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_100GE\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:54:46+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-2']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:54:46+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-2']value:{\"openconfig-platform:name\":\"PORT-1-5-2\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:54:46+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:54:46+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-terminal-device:terminal-device/logical-channels/channel[index='1073741888']/configvalue:{\"co-terminal-device-ext:time-slot-type\":\"co-extension-types:ETH_100G\",\"index\":1073741888}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:54:46+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-terminal-device:terminal-device/logical-channels/channel[index='1073741888']value:{\"openconfig-terminal-device:index\":1073741888}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:54:46+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-terminal-device:terminal-device/logical-channelsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:54:46+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-terminal-device:terminal-devicevalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:53:28+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"ENABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:53:28+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:53:28+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:53:25+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-wavelength-router:wavelength-router/media-channels/channel[index='856601453']/dest/configvalue:{\"port-name\":\"PORT-1-1-LINE\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:53:25+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-wavelength-router:wavelength-router/media-channels/channel[index='856601453']/destvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:53:25+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-wavelength-router:wavelength-router/media-channels/channel[index='856601453']/source/configvalue:{\"port-name\":\"PORT-1-1-AD4\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:53:25+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-wavelength-router:wavelength-router/media-channels/channel[index='856601453']/sourcevalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:53:25+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-wavelength-router:wavelength-router/media-channels/channel[index='856601453']/configvalue:{\"admin-status\":\"ENABLED\",\"co-wavelength-router-ext:bandwidth\":\"150000\",\"co-wavelength-router-ext:center-frequency\":\"196075000\",\"co-wavelength-router-ext:type\":\"co-extension-types:TWO_WAY\",\"index\":856601453,\"name\":\"ch-1-1-196075000-856601453\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:53:25+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-wavelength-router:wavelength-router/media-channels/channel[index='856601453']value:{\"openconfig-wavelength-router:index\":856601453}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:53:25+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-wavelength-router:wavelength-router/media-channelsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:53:25+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-wavelength-router:wavelength-routervalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:53:23+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='OCH-1-5-1']/openconfig-terminal-device:optical-channel/configvalue:{\"frequency\":\"196075000\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:53:23+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='OCH-1-5-1']/openconfig-terminal-device:optical-channelvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:53:23+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='OCH-1-5-1']value:{\"openconfig-platform:name\":\"OCH-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:53:23+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:49:59+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 11,
+      "user-ip": "10.192.244.51",
+      "type": "set",
+      "details": "set port 1-5-1 port-mode PROT_ZR800_16QAMPS_123P8G"
+    },
+    {
+      "time-stamp": "2022-02-14T09:47:46+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"DISABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:47:46+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_NA\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:47:46+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:47:46+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:47:46+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:45:44+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"ENABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:45:44+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_ZR800_16QAMPS_123P8G\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:45:44+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:45:44+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:45:44+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:24:50+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"DISABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:24:50+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_NA\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:24:50+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:24:50+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:24:50+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:22:48+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"ENABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:22:48+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_ZR800_16QAMPS_123P8G\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:22:48+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:22:48+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:22:48+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:17:58+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"DISABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:17:58+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_NA\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:17:58+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:17:58+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:17:58+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:15:56+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"ENABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:15:56+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_ZR800_16QAMPS_123P8G\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:15:56+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:15:56+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T09:15:56+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T06:39:54+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"DISABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T06:39:54+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_NA\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T06:39:54+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T06:39:54+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T06:39:54+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T06:37:52+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"ENABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T06:37:52+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_ZR800_16QAMPS_123P8G\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T06:37:52+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T06:37:52+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T06:37:52+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T05:32:11+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"DISABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T05:32:11+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_NA\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T05:32:11+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T05:32:11+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T05:32:11+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T05:30:08+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"ENABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T05:30:08+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_ZR800_16QAMPS_123P8G\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T05:30:08+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T05:30:08+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T05:30:08+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T05:30:07+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"DISABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T05:30:07+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_NA\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T05:30:07+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T05:30:07+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T05:30:07+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T05:28:05+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"ENABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T05:28:05+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_ZR800_16QAMPS_123P8G\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T05:28:05+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-14T05:28:05+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-14T05:28:05+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-09T18:34:28+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 4,
+      "user-ip": "10.111.20.249",
+      "type": "rpc",
+      "details": "activate candidate-sw-image"
+    },
+    {
+      "time-stamp": "2022-02-09T18:26:31+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 4,
+      "user-ip": "10.111.20.249",
+      "type": "rpc",
+      "details": "download sw-image path sftp://10.192.213.35/data/ftp/CSP_R2.9.0/20260429 file-name Release_CSP-2.9.0.243_20260429.tar"
+    },
+    {
+      "time-stamp": "2022-02-09T11:31:58+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.192.244.51",
+      "type": "rpc",
+      "details": "commit active-sw-image"
+    },
+    {
+      "time-stamp": "2022-02-09T05:42:59+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 18,
+      "user-ip": "10.192.244.51",
+      "type": "rpc",
+      "details": "activate candidate-sw-image"
+    },
+    {
+      "time-stamp": "2022-02-09T05:26:40+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 16,
+      "user-ip": "10.192.244.51",
+      "type": "rpc",
+      "details": "download sw-image path sftp://10.192.213.35/data/ftp/CSP_R2.9.0/20260811/ file-name Release_CSP-2.9.0.251_20260811.tar"
+    },
+    {
+      "time-stamp": "2022-02-08T05:04:11+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"DISABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-08T05:04:11+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_NA\"}"
+    },
+    {
+      "time-stamp": "2022-02-08T05:04:11+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-08T05:04:11+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-08T05:04:11+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-08T05:02:09+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"ENABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-08T05:02:09+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_ZR800_16QAMPS_123P8G\"}"
+    },
+    {
+      "time-stamp": "2022-02-08T05:02:09+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-08T05:02:09+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-08T05:02:09+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-07T21:44:08+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"DISABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-07T21:44:08+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_NA\"}"
+    },
+    {
+      "time-stamp": "2022-02-07T21:44:08+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-07T21:44:08+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-07T21:44:08+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-07T21:42:06+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"ENABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-07T21:42:06+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_ZR800_16QAMPS_123P8G\"}"
+    },
+    {
+      "time-stamp": "2022-02-07T21:42:06+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-07T21:42:06+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-07T21:42:06+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-07T21:40:20+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"DISABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-07T21:40:20+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_NA\"}"
+    },
+    {
+      "time-stamp": "2022-02-07T21:40:20+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-07T21:40:20+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-07T21:40:20+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-07T21:38:17+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/configvalue:{\"co-platform-ext:admin-state\":\"ENABLED\"}"
+    },
+    {
+      "time-stamp": "2022-02-07T21:38:17+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/port/configvalue:{\"co-platform-ext:layer-protocol-name\":\"openconfig-transport-types:PROT_ZR800_16QAMPS_123P8G\"}"
+    },
+    {
+      "time-stamp": "2022-02-07T21:38:17+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']/portvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-07T21:38:17+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:components/component[name='PORT-1-5-1']value:{\"openconfig-platform:name\":\"PORT-1-5-1\"}"
+    },
+    {
+      "time-stamp": "2022-02-07T21:38:17+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-platform:componentsvalue:{}"
+    },
+    {
+      "time-stamp": "2022-02-07T21:22:51+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 12,
+      "user-ip": "192.168.234.206",
+      "type": "set",
+      "details": "set lldp system-name PAHO-GS2000-test02"
+    },
+    {
+      "time-stamp": "2022-02-07T21:22:23+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 12,
+      "user-ip": "192.168.234.206",
+      "type": "set",
+      "details": "set system hostname PAHO-GS2000-test02"
+    },
+    {
+      "time-stamp": "2022-02-07T20:06:54+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 3,
+      "user-ip": "192.168.234.206",
+      "type": "set",
+      "details": "set internal-connection ad4solt5 connection-type data source-port port-1-5-1 dest-port port-1-1-ad4"
+    },
+    {
+      "time-stamp": "2022-02-07T20:03:27+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 3,
+      "user-ip": "192.168.234.206",
+      "type": "set",
+      "details": "set lldp system-name PAHO-GS2000-02"
+    },
+    {
+      "time-stamp": "2022-02-07T20:03:11+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 3,
+      "user-ip": "192.168.234.206",
+      "type": "set",
+      "details": "set system hostname PAHO-GS2000-02"
+    },
+    {
+      "time-stamp": "2022-02-07T19:56:13+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 9,
+      "user-ip": "192.168.234.206",
+      "type": "rpc",
+      "details": "clear database keep-networking"
+    },
+    {
+      "time-stamp": "2022-02-07T19:55:40+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 9,
+      "user-ip": "192.168.234.206",
+      "type": "set",
+      "details": "set ztp admin-enable false"
+    },
+    {
+      "time-stamp": "2022-02-07T13:50:32+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 7,
+      "user-ip": "10.192.244.51",
+      "type": "set",
+      "details": "set internal-connection ad4solt5 connection-type data source-port port-1-5-1 dest-port port-1-1-ad4"
+    },
+    {
+      "time-stamp": "2022-02-07T13:43:57+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 7,
+      "user-ip": "10.192.244.51",
+      "type": "set",
+      "details": "set port 1-5-1 port-mode PROT_ZR800_16QAMPS_123P8G"
+    },
+    {
+      "time-stamp": "2022-02-05T10:31:40+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 4,
+      "user-ip": "10.192.244.51",
+      "type": "rpc",
+      "details": "download sw-image path sftp://10.192.213.35/data/ftp/CSP_R2.10.0/20260922/ file-name Release_CSP-2.10.0.9_20260922.tar"
+    },
+    {
+      "time-stamp": "2022-02-05T10:15:18+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 4,
+      "user-ip": "10.192.244.51",
+      "type": "rpc",
+      "details": "reboot ne cold"
+    },
+    {
+      "time-stamp": "2022-02-05T10:09:21+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "10.192.244.51",
+      "type": "set",
+      "details": "set lldp system-name PAHO-GS2000-02"
+    },
+    {
+      "time-stamp": "2022-02-05T10:09:00+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "10.192.244.51",
+      "type": "set",
+      "details": "set system hostname PAHO-GS2000-02"
+    },
+    {
+      "time-stamp": "2022-02-05T10:05:11+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 90,
+      "user-ip": "10.192.244.51",
+      "type": "rpc",
+      "details": "clear database keep-networking"
+    },
+    {
+      "time-stamp": "2022-02-05T10:04:56+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 90,
+      "user-ip": "10.192.244.51",
+      "type": "set",
+      "details": "set ztp admin-enable false"
+    },
+    {
+      "time-stamp": "2022-01-31T21:26:47+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 81,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-system:system/ntp/servers/server[address='10.1.1.1']/configvalue:{\"association-type\":\"SERVER\",\"iburst\":false,\"port\":80,\"prefer\":true,\"version\":1}"
+    },
+    {
+      "time-stamp": "2022-01-31T21:26:47+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 81,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-system:system/ntp/servers/server[address='10.1.1.1']value:{\"openconfig-system:address\":\"10.1.1.1\"}"
+    },
+    {
+      "time-stamp": "2022-01-31T21:26:47+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 81,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-system:system/ntp/serversvalue:{}"
+    },
+    {
+      "time-stamp": "2022-01-31T21:26:47+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 81,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-system:system/ntpvalue:{}"
+    },
+    {
+      "time-stamp": "2022-01-31T21:26:47+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 81,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-system:systemvalue:{}"
+    },
+    {
+      "time-stamp": "2022-01-31T21:26:06+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 81,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-system:system/ntp/servers/server[address='10.1.1.2']/configvalue:{\"association-type\":\"SERVER\",\"prefer\":true}"
+    },
+    {
+      "time-stamp": "2022-01-31T21:26:06+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 81,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-system:system/ntp/servers/server[address='10.1.1.2']value:{\"openconfig-system:address\":\"10.1.1.2\"}"
+    },
+    {
+      "time-stamp": "2022-01-31T21:26:06+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 81,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-system:system/ntp/serversvalue:{}"
+    },
+    {
+      "time-stamp": "2022-01-31T21:26:06+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 81,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-system:system/ntpvalue:{}"
+    },
+    {
+      "time-stamp": "2022-01-31T21:26:06+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 81,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-system:systemvalue:{}"
+    },
+    {
+      "time-stamp": "2022-01-31T21:25:11+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 81,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-system:system/ntp/configvalue:{\"enable-ntp-auth\":false,\"ntp-source-address\":\"10.1.1.1\"}"
+    },
+    {
+      "time-stamp": "2022-01-31T21:25:11+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 81,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-system:system/ntpvalue:{}"
+    },
+    {
+      "time-stamp": "2022-01-31T21:25:11+00:00",
+      "nbi": "NETCONF",
+      "user-name": "admin",
+      "session-id": 81,
+      "user-ip": "10.111.25.15",
+      "type": "merge",
+      "details": "object:/openconfig-system:systemvalue:{}"
+    },
+    {
+      "time-stamp": "2022-01-25T18:01:49+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 75,
+      "user-ip": "10.111.20.129",
+      "type": "rpc",
+      "details": "download sw-image path sftp://10.192.213.35/data/ftp/CSP_R2.9.0/20260429 file-name Release_CSP-2.9.0.243_20260429.tar"
+    },
+    {
+      "time-stamp": "2022-01-13T23:44:12+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 68,
+      "user-ip": "10.111.12.184",
+      "type": "set",
+      "details": "set cross-connection CC1_9 source-entity 100GE-1-5-1-7 destination-entity 100GE-1-5-9"
+    },
+    {
+      "time-stamp": "2022-01-13T23:44:00+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 68,
+      "user-ip": "10.111.12.184",
+      "type": "set",
+      "details": "set cross-connection CC1_8 source-entity 100GE-1-5-1-6 destination-entity 100GE-1-5-8"
+    },
+    {
+      "time-stamp": "2022-01-13T23:43:49+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 68,
+      "user-ip": "10.111.12.184",
+      "type": "set",
+      "details": "set cross-connection CC1_7 source-entity 100GE-1-5-1-5 destination-entity 100GE-1-5-7"
+    },
+    {
+      "time-stamp": "2022-01-13T23:43:34+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 68,
+      "user-ip": "10.111.12.184",
+      "type": "set",
+      "details": "set cross-connection CC1_6 source-entity 100GE-1-5-1-4 destination-entity 100GE-1-5-6"
+    },
+    {
+      "time-stamp": "2022-01-13T23:41:34+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 68,
+      "user-ip": "10.111.12.184",
+      "type": "set",
+      "details": "set och 1-5-1 frequency 193100000 target-output-power -3 laser enabled"
+    },
+    {
+      "time-stamp": "2022-01-13T23:39:31+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 68,
+      "user-ip": "10.111.12.184",
+      "type": "set",
+      "details": "set logical-channel flexgo-1-5-1 time-slot-type eth-100g"
+    },
+    {
+      "time-stamp": "2022-01-13T23:33:35+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 66,
+      "user-ip": "10.111.12.184",
+      "type": "rpc",
+      "details": "reboot card 1-5 cold"
+    },
+    {
+      "time-stamp": "2022-01-13T23:31:16+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 66,
+      "user-ip": "10.111.12.184",
+      "type": "set",
+      "details": "set port 1-5-9 port-mode PROT_100GE admin-state in-service laser enabled description 100GE"
+    },
+    {
+      "time-stamp": "2022-01-13T23:31:03+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 66,
+      "user-ip": "10.111.12.184",
+      "type": "set",
+      "details": "set port 1-5-8 port-mode PROT_100GE admin-state in-service laser enabled description 100GE"
+    }
+  ]
+}

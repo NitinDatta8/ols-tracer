@@ -1,0 +1,19 @@
+time-stamp                   nbi        user-name    session-id    user-ip        type    details                                                                   
+-------------------------    -------    ---------    ----------    -----------    ----    ----------------------------------------------------------------------    
+2021-07-22T14:04:28+00:00    CLI        admin        3             10.111.0.43    rpc     set cli width 1024                                                        
+2021-07-22T14:04:28+00:00    CLI        admin        3             10.111.0.43    rpc     set cli length 0                                                          
+2021-07-21T19:17:02+00:00    CONSOLE    admin        1             127.0.0.1      rpc     reboot ne cold                                                            
+2021-07-21T19:16:49+00:00    CONSOLE    admin        1             127.0.0.1      rpc     save configuration                                                        
+2021-07-21T19:16:46+00:00    CONSOLE    admin        1             127.0.0.1      set     set system config-saving-mode auto                                        
+2021-07-21T19:16:39+00:00    CONSOLE    admin        1             127.0.0.1      rpc     save configuration                                                        
+2021-07-21T19:16:35+00:00    CONSOLE    admin        1             127.0.0.1      set     set lldp system-name PAHO-GS2000-06                                       
+2021-07-21T19:16:19+00:00    CONSOLE    admin        1             127.0.0.1      set     set ip route 10.111.25.0/24 next-hop 10.111.25.1                          
+2021-07-21T19:16:03+00:00    CONSOLE    admin        1             127.0.0.1      set     set ip ospf interface 1-43-nm2 retransmit-interval 5 hello-interval 10    
+                                                                                           dead-interval 40 cost 1 priority 1 transmit-delay 1 area 0               
+2021-07-21T19:15:29+00:00    CONSOLE    admin        1             127.0.0.1      set     set ip ospf router-id 10.111.25.17 control enabled                        
+2021-07-21T19:15:13+00:00    CONSOLE    admin        1             127.0.0.1      set     set ip interface 1-43-nm2 address 10.111.25.17 prefix-length 24 gatewa    
+                                                                                          y 10.111.25.1                                                             
+2021-07-21T19:14:44+00:00    CONSOLE    admin        1             127.0.0.1      set     set system config-saving-mode manual                                      
+2021-07-21T19:14:23+00:00    CONSOLE    admin        1             127.0.0.1      set     set system hostname PAHO-GS2000-06                                        
+
+

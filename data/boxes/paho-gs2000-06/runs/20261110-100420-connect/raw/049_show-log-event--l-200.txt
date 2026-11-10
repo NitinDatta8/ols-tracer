@@ -1,0 +1,22 @@
+time-stamp                   resource     event-abbreviate    text                severity       type-id    
+-------------------------    ---------    ----------------    ----------------    -----------    -------    
+2021-07-21T19:19:16+00:00    card 1-22    CARD_PLUGIN         Card is inserted    NOT-ALARMED    EQPT       
+2021-07-21T19:19:16+00:00    card 1-21    CARD_PLUGIN         Card is inserted    NOT-ALARMED    EQPT       
+2021-07-21T19:19:16+00:00    card 1-33    CARD_PLUGIN         Card is inserted    NOT-ALARMED    EQPT       
+2021-07-21T19:19:16+00:00    card 1-32    CARD_PLUGIN         Card is inserted    NOT-ALARMED    EQPT       
+2021-07-21T19:19:16+00:00    card 1-31    CARD_PLUGIN         Card is inserted    NOT-ALARMED    EQPT       
+2021-07-21T19:19:13+00:00    chassis 1    SYS_STARTUP         System start up     NOT-ALARMED    SYS        
+2021-07-21T19:19:12+00:00    card 1-40    CARD_PLUGIN         Card is inserted    NOT-ALARMED    EQPT       
+2021-07-21T19:19:12+00:00    card 1-42    CARD_PLUGIN         Card is inserted    NOT-ALARMED    EQPT       
+2021-07-21T19:19:12+00:00    card 1-41    CARD_PLUGIN         Card is inserted    NOT-ALARMED    EQPT       
+2021-07-21T18:55:20+00:00    chassis 1    SYS_STARTUP         System start up     NOT-ALARMED    SYS        
+2021-07-21T18:55:17+00:00    card 1-22    CARD_PLUGIN         Card is inserted    NOT-ALARMED    EQPT       
+2021-07-21T18:55:17+00:00    card 1-21    CARD_PLUGIN         Card is inserted    NOT-ALARMED    EQPT       
+2021-07-21T18:55:17+00:00    card 1-33    CARD_PLUGIN         Card is inserted    NOT-ALARMED    EQPT       
+2021-07-21T18:55:17+00:00    card 1-32    CARD_PLUGIN         Card is inserted    NOT-ALARMED    EQPT       
+2021-07-21T18:55:17+00:00    card 1-31    CARD_PLUGIN         Card is inserted    NOT-ALARMED    EQPT       
+2021-07-21T18:55:16+00:00    card 1-40    CARD_PLUGIN         Card is inserted    NOT-ALARMED    EQPT       
+2021-07-21T18:55:15+00:00    card 1-42    CARD_PLUGIN         Card is inserted    NOT-ALARMED    EQPT       
+2021-07-21T18:55:14+00:00    card 1-41    CARD_PLUGIN         Card is inserted    NOT-ALARMED    EQPT       
+
+

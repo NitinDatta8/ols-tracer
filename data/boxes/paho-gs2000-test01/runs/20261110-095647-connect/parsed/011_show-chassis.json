@@ -1,0 +1,17 @@
+{
+  "state": {
+    "chassis": {
+      "1": {
+        "description": "CHASSIS"
+      }
+    },
+    "inlet-temperature": {
+      "1": {
+        "instant": 25.4,
+        "avg": 25.4,
+        "min": 25.4,
+        "max": 25.4
+      }
+    }
+  }
+}

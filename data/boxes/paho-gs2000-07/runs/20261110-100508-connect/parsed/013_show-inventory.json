@@ -1,0 +1,91 @@
+{
+  "chassis": {
+    "1": {
+      "mfg-name": "COHERENT",
+      "mfg-date": "2026-10-07",
+      "hardware-version": "1.0",
+      "serial-no": "GCATA000L",
+      "part-no": "60GCA0001"
+    }
+  },
+  "cards": {
+    "1-1": {
+      "module-type": "TMUXC925",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2026-09-23",
+      "hardware-version": "1.0",
+      "serial-no": "G2FTA0017",
+      "part-no": "60G2F0001"
+    },
+    "1-8": {
+      "module-type": "800MX",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2026-05-29",
+      "hardware-version": "1.0",
+      "serial-no": "G6ETA0008",
+      "part-no": "60G6E0001"
+    },
+    "1-21": {
+      "module-type": "2000-AC",
+      "mfg-name": "Artesyn",
+      "mfg-date": "2026-09-28",
+      "serial-no": "G00TA0013",
+      "part-no": "60G000001"
+    },
+    "1-22": {
+      "module-type": "2000-AC",
+      "mfg-name": "Artesyn",
+      "mfg-date": "2026-09-24",
+      "serial-no": "G00TA0010",
+      "part-no": "60G000001"
+    },
+    "1-31": {
+      "module-type": "FANSU",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2026-10-07",
+      "hardware-version": "1.0",
+      "serial-no": "GCBTA002P",
+      "part-no": "60GCB0001"
+    },
+    "1-32": {
+      "module-type": "FANSU",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2026-09-23",
+      "hardware-version": "1.0",
+      "serial-no": "GCBTA002Q",
+      "part-no": "60GCB0001"
+    },
+    "1-33": {
+      "module-type": "FANSU",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2026-10-07",
+      "hardware-version": "1.0",
+      "serial-no": "GCBTA0041",
+      "part-no": "60GCB0001"
+    },
+    "1-40": {
+      "module-type": "CIM",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2026-09-15",
+      "hardware-version": "1.0",
+      "serial-no": "GC3TA000K",
+      "part-no": "60GC30001"
+    },
+    "1-41": {
+      "module-type": "CU",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2026-10-08",
+      "hardware-version": "1.0",
+      "serial-no": "GC5KAT027",
+      "part-no": "60GC50001"
+    },
+    "1-42": {
+      "module-type": "CU",
+      "mfg-name": "COHERENT",
+      "mfg-date": "2026-10-08",
+      "hardware-version": "1.0",
+      "serial-no": "GC5KAT028",
+      "part-no": "60GC50001"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+[config]
+
+id          control    auto-negotiate    port-speed    flow-control    
+--------    -------    --------------    ----------    ------------    
+1-1-osc     enabled    disabled          1GB           disabled        
+1-3-osc     enabled    disabled          1GB           disabled        
+1-40-eth    enabled    enabled           1GB           disabled        
+1-43-nm1    enabled    enabled           1GB           disabled        
+1-43-nm2    enabled    enabled           1GB           disabled        
+1-43-nm     enabled    enabled           1GB           disabled        
+
+
+[state]
+
+id          control    auto-negotiate    port-speed    flow-control    oper-status    mac-address          
+--------    -------    --------------    ----------    ------------    -----------    -----------------    
+1-1-osc     enabled    disabled          1GB           disabled        up             c4:ee:f5:23:94:24    
+1-3-osc     enabled    disabled          1GB           disabled        up             c4:ee:f5:23:94:28    
+1-40-eth    enabled    enabled           1GB           disabled        down           c4:ee:f5:23:94:23    
+1-43-nm1    enabled    enabled           1GB           disabled        down           c4:ee:f5:23:94:21    
+1-43-nm2    enabled    enabled           1GB           disabled        up             c4:ee:f5:23:94:22    
+1-43-nm     enabled    enabled           1GB           disabled        down           c4:ee:f5:23:94:20    
+
+

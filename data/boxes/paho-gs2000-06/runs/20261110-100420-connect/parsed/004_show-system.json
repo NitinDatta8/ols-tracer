@@ -1,0 +1,11 @@
+{
+  "config": {
+    "hostname": "PAHO-GS2000-06",
+    "config-saving-mode": "auto"
+  },
+  "state": {
+    "hostname": "PAHO-GS2000-06",
+    "config-saving-mode": "auto",
+    "ne-type": "COHERENT-GS2000"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "state": {
+    "admin-state": "in-service",
+    "module-type": "800MX",
+    "description": "LINECARD",
+    "firmware-version": "0.00",
+    "software-version": "800mx_CSP-2.10.100.10_20261013",
+    "present": "true",
+    "slot": "1-7",
+    "oper-status": "active",
+    "removable": "true",
+    "used-power": "71 W",
+    "rated-power": "250 W",
+    "supported-module-types": "TMUXC1125,800MX,TMUXC925,TMUXC935,TMUXC_25,400MXS,",
+    "stats": {
+      "temperature": {
+        "instant": 43,
+        "avg": 43,
+        "min": 43,
+        "max": 43,
+        "unit": "°C"
+      }
+    }
+  },
+  "config": {
+    "admin-state": "in-service",
+    "module-type": "800MX",
+    "description": "LINECARD"
+  }
+}

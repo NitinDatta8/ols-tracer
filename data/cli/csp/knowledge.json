@@ -1,0 +1,239 @@
+{
+  "schemaVersion": "0.1",
+  "stream": "csp",
+  "sourceIndexPath": "data/cli/csp/cli-index.source.json",
+  "entries": [
+    {
+      "id": "och.chromatic-dispersion",
+      "ref": {
+        "nodeId": "cli_shortcut_cmds_l1__och:n33",
+        "commandId": "cli_shortcut_cmds_l1__och__show__och__chromatic-dispersion",
+        "op": "show"
+      },
+      "kind": "metric",
+      "term": "chromatic-dispersion",
+      "meaning": "Receiver-reported chromatic dispersion on the optical channel.",
+      "value": {
+        "type": "number",
+        "unit": "ps/nm",
+        "range": null,
+        "options": []
+      },
+      "debug": {
+        "why_it_matters": "Dispersion drift can reduce link margin before hard failures.",
+        "bad_pattern": "Rising chromatic-dispersion together with falling q-margin.",
+        "check_next": [
+          "show och <name> q-margin <name>",
+          "show och <name> pre-fec-ber <name>",
+          "show och <name> osnr <name>"
+        ]
+      },
+      "impact": {
+        "service_affecting": false,
+        "risk": "medium"
+      },
+      "status": {
+        "source": "helperInfo",
+        "confidence": "medium",
+        "lastReviewed": "2026-11-10"
+      }
+    },
+    {
+      "id": "och.state-of-polarization",
+      "ref": {
+        "nodeId": "cli_shortcut_cmds_l1__och:n37",
+        "commandId": "cli_shortcut_cmds_l1__och__show__och__state-of-polarization",
+        "op": "show"
+      },
+      "kind": "metric",
+      "term": "state-of-polarization",
+      "meaning": "Rate of polarization-state change at the receiver.",
+      "value": {
+        "type": "number",
+        "unit": "rad/s",
+        "range": null,
+        "options": []
+      },
+      "debug": {
+        "why_it_matters": "Fast SOP movement can challenge coherent receiver tracking.",
+        "bad_pattern": "SOP spikes together with BER increase or q-margin drop.",
+        "check_next": [
+          "show och <name> pre-fec-ber <name>",
+          "show och <name> q-margin <name>",
+          "show och <name> polarization-dependent-loss <name>"
+        ]
+      },
+      "impact": {
+        "service_affecting": false,
+        "risk": "medium"
+      },
+      "status": {
+        "source": "helperInfo",
+        "confidence": "medium",
+        "lastReviewed": "2026-11-10"
+      }
+    },
+    {
+      "id": "och.operational-mode-name",
+      "ref": {
+        "nodeId": "cli_shortcut_cmds_l1__och:n5",
+        "commandId": "cli_shortcut_cmds_l1__och__set__och__operational-mode-name",
+        "op": "set"
+      },
+      "kind": "setting",
+      "term": "operational-mode-name",
+      "meaning": "Selects modulation/FEC profile for the OCH.",
+      "value": {
+        "type": "enum",
+        "unit": null,
+        "range": null,
+        "options": [
+          {
+            "value": "ZR400-16QAMSS-60G-OFEC",
+            "meaning": "400G OpenZR+ (SS) profile."
+          },
+          {
+            "value": "ZR300-8QAM-60G-OFEC",
+            "meaning": "300G OpenZR+ profile."
+          },
+          {
+            "value": "ZR200-QPSKSS-60G-OFEC",
+            "meaning": "200G OpenZR+ (SS) profile."
+          }
+        ]
+      },
+      "debug": {
+        "why_it_matters": "Mode defines expected modulation and FEC behavior end to end.",
+        "bad_pattern": "Mode mismatch with far-end or planned service profile.",
+        "check_next": [
+          "show och <name> operational-mode-name",
+          "show och <name> q-margin <name>",
+          "show och <name> post-fec-ber <name>"
+        ]
+      },
+      "impact": {
+        "service_affecting": true,
+        "risk": "high"
+      },
+      "status": {
+        "source": "helperInfo",
+        "confidence": "high",
+        "lastReviewed": "2026-11-10"
+      }
+    },
+    {
+      "id": "media-channel.add-drop-port",
+      "ref": {
+        "nodeId": "cli_shortcut_cmds_l0__media-channel:n4",
+        "commandId": "cli_shortcut_cmds_l0__media-channel__set__media-channel__add-drop-port",
+        "op": "set"
+      },
+      "kind": "setting",
+      "term": "add-drop-port",
+      "meaning": "Binds a media channel to the add/drop port path.",
+      "value": {
+        "type": "string",
+        "unit": null,
+        "range": null,
+        "options": []
+      },
+      "debug": {
+        "why_it_matters": "Wrong binding can route a healthy signal into the wrong physical path.",
+        "bad_pattern": "IN_LOS alarms appear on a different add/drop port than expected fiber landing.",
+        "check_next": [
+          "show media-channel <index> add-drop-port",
+          "show assignment",
+          "show optical-port <port>"
+        ]
+      },
+      "impact": {
+        "service_affecting": true,
+        "risk": "high"
+      },
+      "status": {
+        "source": "helperInfo",
+        "confidence": "high",
+        "lastReviewed": "2026-11-10"
+      }
+    },
+    {
+      "id": "media-channel.center-frequency",
+      "ref": {
+        "nodeId": "cli_shortcut_cmds_l0__media-channel:n14",
+        "commandId": "cli_shortcut_cmds_l0__media-channel__set__media-channel__center-frequency",
+        "op": "set"
+      },
+      "kind": "setting",
+      "term": "center-frequency",
+      "meaning": "Media-channel center frequency in MHz.",
+      "value": {
+        "type": "number",
+        "unit": "MHz",
+        "range": null,
+        "options": []
+      },
+      "debug": {
+        "why_it_matters": "Frequency mismatch can create LOS even when fibers are physically correct.",
+        "bad_pattern": "OCH frequency and media-channel center-frequency do not match.",
+        "check_next": [
+          "show media-channel <index> center-frequency",
+          "show och <name> frequency",
+          "show alarm"
+        ]
+      },
+      "impact": {
+        "service_affecting": true,
+        "risk": "high"
+      },
+      "status": {
+        "source": "lab-note",
+        "confidence": "high",
+        "lastReviewed": "2026-11-10"
+      }
+    },
+    {
+      "id": "media-channel.add-power-control-mode",
+      "ref": {
+        "nodeId": "cli_shortcut_cmds_l0__media-channel:n6",
+        "commandId": "cli_shortcut_cmds_l0__media-channel__set__media-channel__add-power-control-mode",
+        "op": "set"
+      },
+      "kind": "enum",
+      "term": "add-power-control-mode",
+      "meaning": "Selects whether channel control uses target power or attenuation logic.",
+      "value": {
+        "type": "enum",
+        "unit": null,
+        "range": null,
+        "options": [
+          {
+            "value": "auto",
+            "meaning": "Automatic channel control mode."
+          },
+          {
+            "value": "manual",
+            "meaning": "Manual mode; operator-set targets govern behavior."
+          }
+        ]
+      },
+      "debug": {
+        "why_it_matters": "Mode choice changes which target fields are effective during tuning.",
+        "bad_pattern": "Expected power behavior does not follow configured target fields.",
+        "check_next": [
+          "show media-channel <index> add-power-control-mode",
+          "show media-channel <index> target-add-output-power",
+          "show media-channel <index> target-add-attenuation"
+        ]
+      },
+      "impact": {
+        "service_affecting": true,
+        "risk": "medium"
+      },
+      "status": {
+        "source": "helperInfo",
+        "confidence": "high",
+        "lastReviewed": "2026-11-10"
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+
+resource             type-id    alarm-abbreviate             severity    text                                                  time-created               direction         location    alarm-type    time-period    id                           
+-----------------    -------    -------------------------    --------    --------------------------------------------------    -----------------------    --------------    --------    ----------    -----------    -------------------------    
+software             SYS        NO_CMT_SW                    WARNING     No committed software                                 2021-07-28T21:03:41 UTC    na                na          standing      na             034591627506246543674360     
+port 1-43-nm         SYS        LINK_DOWN                    MINOR       Management port link down                             2021-07-28T21:04:07 UTC    bi-directional    near-end    standing      na             3127871627506223823783800    
+port 1-43-nm1        SYS        LINK_DOWN                    MINOR       Management port link down                             2021-07-28T21:04:07 UTC    bi-directional    near-end    standing      na             3127871627506227895611120    
+system               SYS        DATETIME_UNCHANGED           WARNING     Datetime unchanged                                    2021-07-28T21:04:26 UTC    na                na          standing      na             0193941627506246568699160    
+card 1-4             EQPT       EQPT_ABSENCE                 CRITICAL    No present equipment                                  2021-07-28T21:04:34 UTC    na                na          standing      na             0113341627506223849588320    
+card 1-21            EQPT       EQPT_MISMATCH                CRITICAL    Present equipment type mismatch                       2021-07-28T21:04:38 UTC    na                na          standing      na             0165051627506226410727880    
+transceiver 1-8-1    EQPT       TRANSCEIVER_MISSING          CRITICAL    No present transceiver                                2021-07-28T21:04:52 UTC    na                na          standing      na             0100621627506228882798240    
+transceiver 1-8-4    EQPT       TRANSCEIVER_MISSING          CRITICAL    No present transceiver                                2021-07-28T21:04:52 UTC    na                na          standing      na             010062162750622972688120     
+card 1-22            ENV        PWR_NO_INPUT                 MINOR       No power input                                        2021-07-28T21:05:02 UTC    rx                near-end    standing      na             1211221627506225255766720    
+ch-6                 OPTICAL    REACH_MAX_ATT_SRC_TO_DEST    MAJOR       Channel add direction attenuation reach to maximum    2021-07-28T21:07:52 UTC    na                na          standing      na             0112381627506245756330280    
+                                                                          working range
+
+

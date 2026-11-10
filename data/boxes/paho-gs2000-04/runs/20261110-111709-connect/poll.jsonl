@@ -1,0 +1,6 @@
+{"at":"2026-11-10T11:17:44-05:00","cmd":"show optical-port","data":{"state":{"ports":{"port-1-1-line":{"in":{"optical-power":-99.99,"description":"line input total aggregate optical power","flag":"M"},"out":{"optical-power":-99.99,"description":"line output total aggregate optical power","flag":"M"}},"port-1-1-sig":{"in":{"optical-power":-99.99,"description":"total input optical power at add port","flag":"M"},"out":{"optical-power":-99.99,"description":"total output optical power at drop port","flag":"M"}}}}}}
+{"at":"2026-11-10T11:17:46-05:00","cmd":"show transceiver 1-7-4","data":{}}
+{"at":"2026-11-10T11:17:46-05:00","cmd":"show transceiver 1-7-4 physical-channel 1","data":{}}
+{"at":"2026-11-10T11:17:46-05:00","cmd":"show transceiver 1-7-4 physical-channel 2","data":{}}
+{"at":"2026-11-10T11:17:46-05:00","cmd":"show transceiver 1-7-4 physical-channel 3","data":{}}
+{"at":"2026-11-10T11:17:47-05:00","cmd":"show transceiver 1-7-4 physical-channel 4","data":{}}

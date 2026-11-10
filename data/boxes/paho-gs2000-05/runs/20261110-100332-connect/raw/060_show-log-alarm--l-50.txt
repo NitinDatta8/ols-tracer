@@ -1,0 +1,46 @@
+time-stamp                   action    resource               alarm-abbreviate           severity    direction         service-affect    type-id    time-created           
+-------------------------    ------    -------------------    -----------------------    --------    --------------    --------------    -------    -------------------    
+2021-07-21T22:31:33+00:00    CLEAR     card 1-7               COMMUNICATION_FAILURE      CRITICAL    na                false             EQPT       1626906637788000000    
+2021-07-21T22:30:39+00:00    CREATE    card 1-7               COMMUNICATION_FAILURE      CRITICAL    na                false             EQPT       1626906637788000000    
+2021-07-21T22:30:29+00:00    CLEAR     card 1-7               COMMUNICATION_FAILURE      CRITICAL    na                false             EQPT       1626906579777000000    
+2021-07-21T22:29:42+00:00    CREATE    card 1-7               COMMUNICATION_FAILURE      CRITICAL    na                false             EQPT       1626906579777000000    
+2021-07-21T22:22:01+00:00    CREATE    amplifier 1-1-pa       IN_LOS                     CRITICAL    rx                true              OPTICAL    1626906118629944120    
+2021-07-21T22:22:01+00:00    CREATE    amplifier 1-1-ba       IN_LOS                     CRITICAL    rx                true              OPTICAL    1626906118641241920    
+2021-07-21T22:21:59+00:00    CREATE    transceiver 1-1-osc    RX_LOS                     MAJOR       rx                false             OPTICAL    1626906116039214480    
+2021-07-21T22:21:59+00:00    CREATE    port 1-1-line          OUT_OPTICAL_LOW_WARNING    MAJOR       tx                false             OPTICAL    1626906115913          
+2021-07-21T22:21:59+00:00    CREATE    port 1-1-line          IN_OPTICAL_LOW_FAILURE     CRITICAL    rx                false             OPTICAL    1626906115913          
+2021-07-21T22:21:59+00:00    CREATE    amplifier 1-1-pa       OUT_LOS                    CRITICAL    tx                true              OPTICAL    1626906116027376760    
+2021-07-21T22:21:59+00:00    CREATE    amplifier 1-1-ba       OUT_LOS                    CRITICAL    tx                true              OPTICAL    1626906115956262480    
+2021-07-21T22:16:22+00:00    CLEAR     port 1-43-nm2          LINK_DOWN                  MINOR       bi-directional    false             SYS        1626904880899337280    
+2021-07-21T22:01:51+00:00    CLEAR     card 1-33              FAN_SPD_HIGH               MAJOR       na                false             EQPT       1626904890006241024    
+2021-07-21T22:01:50+00:00    CLEAR     card 1-32              FAN_SPD_HIGH               MAJOR       na                false             EQPT       1626904889872632832    
+2021-07-21T22:01:50+00:00    CLEAR     card 1-31              FAN_SPD_HIGH               MAJOR       na                false             EQPT       1626904889736300032    
+2021-07-21T22:01:49+00:00    CREATE    card 1-22              PWR_NO_INPUT               MINOR       rx                false             ENV        1626904905931015168    
+2021-07-21T22:01:33+00:00    CREATE    card 1-33              FAN_SPD_HIGH               MAJOR       na                false             EQPT       1626904890006241024    
+2021-07-21T22:01:32+00:00    CREATE    card 1-32              FAN_SPD_HIGH               MAJOR       na                false             EQPT       1626904889872632832    
+2021-07-21T22:01:32+00:00    CREATE    card 1-31              FAN_SPD_HIGH               MAJOR       na                false             EQPT       1626904889736300032    
+2021-07-21T22:01:28+00:00    CREATE    system                 DATETIME_UNCHANGED         WARNING     na                false             SYS        1626904885471000000    
+2021-07-21T22:01:28+00:00    CREATE    card 1-21              EQPT_MISMATCH              CRITICAL    na                true              EQPT       1626904885349737728    
+2021-07-21T22:01:24+00:00    CREATE    port 1-43-nm2          LINK_DOWN                  MINOR       bi-directional    false             SYS        1626904880899337280    
+2021-07-21T22:01:23+00:00    CREATE    port 1-43-nm1          LINK_DOWN                  MINOR       bi-directional    false             SYS        1626904880717283560    
+2021-07-21T22:01:23+00:00    CREATE    port 1-43-nm           LINK_DOWN                  MINOR       bi-directional    false             SYS        1626904880296697400    
+2021-07-21T19:10:14+00:00    CLEAR     system                 DATETIME_UNCHANGED         WARNING     na                false             SYS        1626893719439000000    
+2021-07-21T19:10:14+00:00    CLEAR     card 1-22              PWR_NO_INPUT               MINOR       rx                false             ENV        1626893740793741824    
+2021-07-21T19:10:14+00:00    CLEAR     card 1-21              EQPT_MISMATCH              CRITICAL    na                true              EQPT       1626893720114286848    
+2021-07-21T19:10:14+00:00    CLEAR     port 1-43-nm1          LINK_DOWN                  MINOR       bi-directional    false             SYS        1626893711701094560    
+2021-07-21T19:10:14+00:00    CLEAR     port 1-43-nm           LINK_DOWN                  MINOR       bi-directional    false             SYS        1626893711411189840    
+2021-07-21T19:09:23+00:00    CLEAR     port 1-43-nm2          LINK_DOWN                  MINOR       bi-directional    false             SYS        1626893711891180440    
+2021-07-21T18:55:46+00:00    CLEAR     card 1-33              FAN_SPD_HIGH               MAJOR       na                false             EQPT       1626893724767470080    
+2021-07-21T18:55:46+00:00    CLEAR     card 1-32              FAN_SPD_HIGH               MAJOR       na                false             EQPT       1626893724627141888    
+2021-07-21T18:55:45+00:00    CLEAR     card 1-31              FAN_SPD_HIGH               MAJOR       na                false             EQPT       1626893724492542720    
+2021-07-21T18:55:43+00:00    CREATE    card 1-22              PWR_NO_INPUT               MINOR       rx                false             ENV        1626893740793741824    
+2021-07-21T18:55:27+00:00    CREATE    card 1-33              FAN_SPD_HIGH               MAJOR       na                false             EQPT       1626893724767470080    
+2021-07-21T18:55:27+00:00    CREATE    card 1-32              FAN_SPD_HIGH               MAJOR       na                false             EQPT       1626893724627141888    
+2021-07-21T18:55:27+00:00    CREATE    card 1-31              FAN_SPD_HIGH               MAJOR       na                false             EQPT       1626893724492542720    
+2021-07-21T18:55:23+00:00    CREATE    card 1-21              EQPT_MISMATCH              CRITICAL    na                true              EQPT       1626893720114286848    
+2021-07-21T18:55:22+00:00    CREATE    system                 DATETIME_UNCHANGED         WARNING     na                false             SYS        1626893719439000000    
+2021-07-21T18:55:15+00:00    CREATE    port 1-43-nm2          LINK_DOWN                  MINOR       bi-directional    false             SYS        1626893711891180440    
+2021-07-21T18:55:14+00:00    CREATE    port 1-43-nm1          LINK_DOWN                  MINOR       bi-directional    false             SYS        1626893711701094560    
+2021-07-21T18:55:14+00:00    CREATE    port 1-43-nm           LINK_DOWN                  MINOR       bi-directional    false             SYS        1626893711411189840    
+
+

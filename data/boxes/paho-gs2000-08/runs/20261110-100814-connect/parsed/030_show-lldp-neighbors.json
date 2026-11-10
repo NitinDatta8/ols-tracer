@@ -1,0 +1,12 @@
+{
+  "neighbors": {
+    "1-43-nm2": {
+      "system-name": "PAHO-A05",
+      "chassis-id": "24:71:21:a8:a3:b5",
+      "chassis-id-type": "MAC_ADDRESS",
+      "ttl": 120,
+      "port-id": "gi8",
+      "management-address": "10.111.254.9"
+    }
+  }
+}

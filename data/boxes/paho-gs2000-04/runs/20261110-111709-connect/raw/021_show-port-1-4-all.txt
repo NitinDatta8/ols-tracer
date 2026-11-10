@@ -1,0 +1,32 @@
+[config]
+
+id        admin-state       description    laser       port-mode                 
+------    --------------    -----------    --------    ----------------------    
+1-4-1     out-of-service    PORT           disabled    PROT_ZR400_16QAMSS_60G    
+1-4-2     in-service        PORT           enabled     PROT_100GE                
+1-4-3     out-of-service    PORT           disabled    PROT_100GE                
+1-4-4     out-of-service    PORT           enabled     PROT_NA                   
+1-4-5     in-service        PORT           enabled     PROT_ZR400_16QAMSS_60G    
+1-4-6     out-of-service    PORT           disabled    PROT_ZR400_16QAMSS_60G    
+1-4-7     out-of-service    PORT           disabled    PROT_100GE                
+1-4-8     out-of-service    PORT           disabled    PROT_100GE                
+1-4-9     out-of-service    PORT           enabled     PROT_NA                   
+1-4-10    out-of-service    PORT           disabled    PROT_100GE                
+
+
+[state]
+
+id        admin-state       description    laser       port-mode                 parent      oper-status    
+------    --------------    -----------    --------    ----------------------    --------    -----------    
+1-4-1     out-of-service    PORT           disabled    PROT_ZR400_16QAMSS_60G    card 1-4    disabled       
+1-4-2     in-service        PORT           disabled    PROT_100GE                card 1-4    inactive       
+1-4-3     out-of-service    PORT           disabled    PROT_100GE                card 1-4    disabled       
+1-4-4     out-of-service    PORT           disabled    PROT_NA                   card 1-4    disabled       
+1-4-5     in-service        PORT           enabled     PROT_ZR400_16QAMSS_60G    card 1-4    inactive       
+1-4-6     out-of-service    PORT           disabled    PROT_ZR400_16QAMSS_60G    card 1-4    disabled       
+1-4-7     out-of-service    PORT           disabled    PROT_100GE                card 1-4    disabled       
+1-4-8     out-of-service    PORT           disabled    PROT_100GE                card 1-4    disabled       
+1-4-9     out-of-service    PORT           disabled    PROT_NA                   card 1-4    disabled       
+1-4-10    out-of-service    PORT           disabled    PROT_100GE                card 1-4    disabled       
+
+
