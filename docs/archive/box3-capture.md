@@ -1,6 +1,8 @@
 # OLS Tracer: capturing the CLI of box 3
 
-Round 1 of [Goal 2.5](../roadmap.md#goal-25-box-3-replica): learn box 3's CLI and what its output looks like, store it so it can be reused, and build the first Iter 3 view on it: measured light on the fibers. Everything collected goes in `data/boxes/box3/`.
+> **Archived 2026-11-11:** built, and kept as it was for its history. Box 3's facts are in its [setup.md](../../data/boxes/paho-gs2000-03/setup.md), the run layout in the [guide](../guide.md#runs). Current state: [guide](../guide.md) · next: [roadmap](../roadmap.md) · decisions: [decision log](../decisions.md).
+
+Round 1 of [Goal 2.5](../roadmap.md): learn box 3's CLI and what its output looks like, store it so it can be reused, and build the first Iter 3 view on it: measured light on the fibers. Everything collected goes in `data/boxes/box3/`.
 
 **Status (2026-10-31):** run 1 (healthy) is captured as one hand-made `session.log`. That is the last hand capture. From now on the bridge records every run itself, from the SSH session the UI already opens (see [The recorder](#the-recorder)), and nobody is asked to capture anything. The wiring below is confirmed.
 

@@ -1,3 +1,8 @@
+# Command knowledge: first draft
+
+> **Archived 2026-11-11:** the first draft of command knowledge, for `set och`, before the [knowledge schema](../reference/knowledge-schema.md). Of its attributes, `data/cli/csp/knowledge.json` has only `operational-mode-name`; frequency, target-output-power, laser and loopback are not in it yet.
+
+```json
 {
   "command": "set och <name> <attribute> <value>",
   "name_format": "<chassis>-<slot>-<C|L><index>",
@@ -37,3 +42,4 @@
     }
   }
 }
+```
