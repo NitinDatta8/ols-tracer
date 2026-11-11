@@ -3,7 +3,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
-import { call, connect, disconnect, fake, folder, host, root, runs, sleep, status, until, whole } from '../fakes/lab.mjs';
+import { call, connect, disconnect, fake, folder, host, index, root, runs, sleep, status, until, whole } from '../fakes/lab.mjs';
 
 vi.mock('ssh2', async () => ({ default: await import('../fakes/ssh2.mjs') }));
 
@@ -55,6 +55,8 @@ describe('what people ask the session for', () => {
     const fast = await whole(folder(2), 'alarms');
     expect(fast.snapshot).toMatchObject({ fast: true });
     expect(fast.snapshot.of).toBeLessThan(57);
+    // A card or transceiver in or out is read again, not left as the connect snapshot read it.
+    expect(index(folder(2), fast.run).map((l) => l.cmd)).toEqual(expect.arrayContaining(['show card', 'show inventory']));
     const polled = async () => (await call('GET', `/state?host=${host(1)}`)).body.commands['show alarm']?.data?.alarms?.[1];
     await until(polled, 15000, 'a poll of box 1 to see the warning');
     await sleep(1500);
