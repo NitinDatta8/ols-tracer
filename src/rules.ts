@@ -106,19 +106,26 @@ export const fiberRules: FiberRule[] = [
 export const fiberError = (t: Topology, cat: Catalog, a: End, b: End) =>
   fiberRules.map((rule) => rule(t, cat, a, b)).find((err) => err) ?? null;
 
+/** Whether a fiber came in from a box's strands, as wired() names them: F03, or F03@PAHO-GS2000-04. */
+export const isStrand = (l: Link) => /^F\d+(@|$)/.test(l.id);
+
 /**
- * Device `d`'s fibers from the box's strands (its wiring.csv, ends as CLI addresses), each named by its strand. A strand
- * with an end off the box (the BERT) is left out; one the fiber rules refuse is listed with why.
+ * Device `d`'s fibers from the box's strands (its wiring.csv, ends as CLI addresses), each named by its strand. A box's
+ * strand names are its own, so one another device's fiber has already is named after the box too: F03@PAHO-GS2000-04.
+ * A strand with an end off the box (the BERT) is left out, as is one a fiber of `d` has the name of; one the fiber rules
+ * refuse is listed with why.
  */
 export function wired(cat: Catalog, t: Topology, d: Device, strands: { strand: string; from: string; to: string }[]) {
   const t2 = { ...t, devices: t.devices.map((x) => (x.id === d.id ? d : x)), links: [...t.links] };
   const refused: string[] = [];
   for (const { strand, from, to } of strands) {
     const [a, b] = [endAt(cat, d, from), endAt(cat, d, to)];
-    if (!a || !b || byId(t2.links, strand)) continue;
+    const other = byId(t2.links, strand);
+    const id = other && !touches(other, { device: d.id }) ? `${strand}@${d.name}` : strand;
+    if (!a || !b || byId(t2.links, id)) continue;
     const err = fiberError(t2, cat, a, b);
-    if (err) refused.push(`${strand}: ${err}`);
-    else t2.links.push({ id: strand, type: 'smf', a, b });
+    if (err) refused.push(`${id}: ${err}`);
+    else t2.links.push({ id, type: 'smf', a, b });
   }
   return { links: t2.links.slice(t.links.length), refused };
 }

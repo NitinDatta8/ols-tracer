@@ -6,7 +6,7 @@ import { discover, light, stateFor, type BoxState } from './live';
 import { useTermMenu } from './Menu';
 import { PipeLayer, type PipeEnds } from './Pipe';
 import { roleOf, toneOf } from './ports';
-import { alarms, bays, coverage, fiberable, fiberError, fibersAt, linecardError, path, pluggableError, resolve, sameEnd, span, touches, wired } from './rules';
+import { alarms, bays, coverage, fiberable, fiberError, fibersAt, isStrand, linecardError, path, pluggableError, resolve, sameEnd, span, touches, wired } from './rules';
 import { useCatalog, useStore } from './store';
 import { BoxTerminal, type Keys } from './Terminal';
 import { termMenu } from './terminals';
@@ -284,7 +284,7 @@ export function PhysicalView() {
     if (!found || !strands || box.snapshot) return;
     const signature = JSON.stringify({ device: d.id, slots: found.slots, strands });
     if (signature === synced.current) return;
-    const base = { ...t, links: t.links.filter((l) => !(touches(l, { device: d.id }) && /^F\d+$/.test(l.id))) };
+    const base = { ...t, links: t.links.filter((l) => !(touches(l, { device: d.id }) && isStrand(l))) };
     const { links, refused } = wired(cat, base, { ...d, slots: found.slots }, strands);
     fill(d.id, found.slots, links);
     synced.current = signature;

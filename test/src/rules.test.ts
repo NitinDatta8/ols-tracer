@@ -123,6 +123,18 @@ describe("a box's strands as fibers", () => {
     expect(refused).toEqual(['F04: Site-A/1/AD2 Rx already has a fiber']);
   });
 
+  it("names a strand another box's fiber has the name of after its own box, so a second box's strands come in too", () => {
+    const c = device('d3', 'Site-C', a.slots);
+    const one = [{ strand: 'F03', from: '1-3-l1', to: '1-1-ad2' }];
+    const both = { ...t, devices: [a, c], links: [] };
+    const first = wired(cat, both, a, one).links;
+    const second = wired(cat, { ...both, links: first }, c, one);
+    expect([...first, ...second.links].map((l) => [l.id, l.a.device, l.b.device])).toEqual([['F03', 'd1', 'd1'], ['F03@Site-C', 'd3', 'd3']]);
+    expect(second.refused).toEqual([]);
+    // Each box's again, as a sync does: each has its fiber already.
+    for (const d of [a, c]) expect(wired(cat, { ...both, links: [...first, ...second.links] }, d, one).links).toEqual([]);
+  });
+
   it("reads them on the chassis the box's number says", () => {
     expect(wired(cat, { ...t, links: [] }, { ...a, chassisNo: 2 }, strands).links).toEqual([]);
     expect(wired(cat, { ...t, links: [] }, { ...a, chassisNo: 2 }, [{ strand: 'F02', from: '2-1-line', to: '2-1-line' }]).links.map((l) => l.id)).toEqual(['F02']);

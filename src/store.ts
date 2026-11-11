@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { byId } from './catalog';
 import { catalogFor, streams } from './catalog-vite';
-import { fiberError, linecardError, pluggableError, touches, validate } from './rules';
+import { fiberError, isStrand, linecardError, pluggableError, touches, validate } from './rules';
 import type { BoxState } from './live';
 import type { Term } from './terminals';
 import type { Device, End, Link, Topology, View } from './types';
@@ -202,7 +202,7 @@ export const useStore = create<State>()(
         };
         const wanted = new Set(links.map((l) => l.id));
         s.topology!.links = s.topology!.links
-          .filter((l) => !(touches(l, { device }) && /^F\d+$/.test(l.id)))
+          .filter((l) => !(touches(l, { device }) && isStrand(l)))
           .filter((l) => alive(l.a) && alive(l.b))
           .filter((l) => !wanted.has(l.id));
         s.topology!.links.push(...links);

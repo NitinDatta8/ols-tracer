@@ -133,6 +133,11 @@ describe('cards, pluggables and fibers', () => {
     expect(topology().links.map((l) => l.id)).toEqual(['f2', 'F02']);
     s().fill('gone', {}, []);
     expect(topology().links.map((l) => l.id)).toEqual(['f2', 'F02']);
+    // A strand of d2's named after its box, as another box has its name, goes too once d2's box no longer has it.
+    s().fill('d2', topology().devices[1].slots, [{ id: 'F02@D2', type: 'smf', a: at('d2', '1', 'AD5'), b: at('d2', '1', 'AD6') }]);
+    expect(topology().links.map((l) => l.id)).toEqual(['f2', 'F02@D2']); // F02 here ends on d2 too
+    s().fill('d2', topology().devices[1].slots, []);
+    expect(topology().links.map((l) => l.id)).toEqual(['f2']);
   });
 });
 
