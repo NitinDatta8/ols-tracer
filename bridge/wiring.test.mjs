@@ -27,7 +27,7 @@ describe('inferWiring', () => {
   });
 
   it("draws box 3's fibers on the box, as its wiring.csv has them: the OCH into its media channel, the line looped back", () => {
-    const { strands } = inferWiring(commandsOf('box3/runs/20261105-164500-connect'));
+    const { strands } = inferWiring(commandsOf('paho-gs2000-03/runs/20261105-164500-connect'));
     expect(ends({ strands })).toEqual(['1-1-ad11 -> 1-7-5', '1-1-line -> 1-1-line', '1-7-5 -> 1-1-ad11']);
     expect(strands[0].notes).toBe('auto: och 1-7-5 at 193500000 MHz is in media channel CH-6; carries 1-7-4 (CC5_4)');
     expect(strands[2]).toMatchObject({ via: 'power', notes: 'auto: power fallback (low confidence)' });
@@ -35,7 +35,7 @@ describe('inferWiring', () => {
 
   it('pairs by power only the kinds a fiber joins, when no media channel says', () => {
     // Before show media-channel was captured: 1-7-5's Tx is nearer 1-1-line's Rx, but an OCH goes into an add/drop port.
-    expect(ends(inferWiring(commandsOf('box3/runs/20261103-104506-connect')))).toEqual(['1-1-ad11 -> 1-7-5', '1-1-line -> 1-1-line', '1-7-5 -> 1-1-ad11']);
+    expect(ends(inferWiring(commandsOf('paho-gs2000-03/runs/20261103-104506-connect')))).toEqual(['1-1-ad11 -> 1-7-5', '1-1-line -> 1-1-line', '1-7-5 -> 1-1-ad11']);
     // Box 4: 1-4-5 on the TMUXC_25's sig port, not the sig port looped onto itself.
     expect(ends(inferWiring(commandsOf('paho-gs2000-04/runs/20261105-131514-connect')))).toEqual(['1-1-line -> 1-1-line', '1-1-sig -> 1-4-5', '1-4-5 -> 1-1-sig']);
   });

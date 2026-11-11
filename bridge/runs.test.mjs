@@ -40,14 +40,14 @@ describe.skipIf(!existsSync(python))('run endpoints (needs npm run bridge:setup)
   afterAll(() => bridge?.kill());
 
   it('answers only the app: the header and a localhost Host, as for the other endpoints', async () => {
-    expect((await get(port, '/runs?box=box3', { 'x-ols-tracer': '' })).status).toBe(403);
-    expect((await get(port, '/runs?box=box3', { host: 'example.com' })).status).toBe(403);
-    expect((await get(port, '/runs?box=../box3')).status).toBe(404);
-    expect((await get(port, '/run?box=box3&run=../../paho-gs2000-04/runs/20261105-131514-connect')).status).toBe(404);
+    expect((await get(port, '/runs?box=paho-gs2000-03', { 'x-ols-tracer': '' })).status).toBe(403);
+    expect((await get(port, '/runs?box=paho-gs2000-03', { host: 'example.com' })).status).toBe(403);
+    expect((await get(port, '/runs?box=../paho-gs2000-03')).status).toBe(404);
+    expect((await get(port, '/run?box=paho-gs2000-03&run=../../paho-gs2000-04/runs/20261105-131514-connect')).status).toBe(404);
   });
 
   it("lists a box's runs with their meta, the ones grouped by hand by their folder", async () => {
-    const { status, body } = await get(port, '/runs?box=box3');
+    const { status, body } = await get(port, '/runs?box=paho-gs2000-03');
     expect(status).toBe(200);
     expect(body.find((r) => r.run === '20261105-163752-pull')).toMatchObject({ trigger: 'pull', state: 'fault', snapshot: { fast: true } });
     expect(body.map((r) => r.run)).toContain('plugout-1125/20261102-124335-alarms');
@@ -55,7 +55,7 @@ describe.skipIf(!existsSync(python))('run endpoints (needs npm run bridge:setup)
   });
 
   it('gives a pull as its fast snapshot read it, over the full one before it, with the strands and no answer', async () => {
-    const { status, body } = await get(port, '/run?box=box3&run=20261105-163752-pull');
+    const { status, body } = await get(port, '/run?box=paho-gs2000-03&run=20261105-163752-pull');
     expect(status).toBe(200);
     expect(body).toMatchObject({ run: '20261105-163752-pull', meta: { trigger: 'pull' } });
     // The snapshot caught F01's loss; the last poll of the run, after the fiber went back in, did not.
@@ -66,26 +66,26 @@ describe.skipIf(!existsSync(python))('run endpoints (needs npm run bridge:setup)
   });
 
   it("gives a run with the strands it was taken with: its own wiring.csv, else the box's", async () => {
-    const strand = async (run, id) => (await get(port, `/run?box=box3&run=${run}`)).body.wiring.find((s) => s.strand === id);
+    const strand = async (run, id) => (await get(port, `/run?box=paho-gs2000-03&run=${run}`)).body.wiring.find((s) => s.strand === id);
     expect(await strand('20261102-115731-healthy-run1', 'F03')).toMatchObject({ from: '1-7-5', to: '1-1-ad1' });
     expect(await strand('20261102-115853-connect-ad2-nonworking', 'F04')).toMatchObject({ from: '1-1-ad2', to: '1-7-5' });
     expect(await strand('20261105-164615-pull', 'F03')).toMatchObject({ from: '1-7-5', to: '1-1-ad11' }); // none of its own
   });
 
   it('gives the latest run when none is named, and a grouped one by its folder', async () => {
-    const runs = (await get(port, '/runs?box=box3')).body;
-    expect((await get(port, '/run?box=box3')).body.run).toBe(runs.filter((r) => !r.run.includes('/')).at(-1).run);
-    const grouped = await get(port, '/run?box=box3&run=plugout-1125/20261102-124335-alarms');
+    const runs = (await get(port, '/runs?box=paho-gs2000-03')).body;
+    expect((await get(port, '/run?box=paho-gs2000-03')).body.run).toBe(runs.filter((r) => !r.run.includes('/')).at(-1).run);
+    const grouped = await get(port, '/run?box=paho-gs2000-03&run=plugout-1125/20261102-124335-alarms');
     expect(grouped.body.meta).toMatchObject({ run: 'plugout-1125/20261102-124335-alarms', trigger: 'alarms' });
-    expect((await get(port, '/run?box=box3&run=20991231-000000-connect')).status).toBe(404);
+    expect((await get(port, '/run?box=paho-gs2000-03&run=20991231-000000-connect')).status).toBe(404);
   });
 
   it("gives the box's config log since a time: what was set, deleted or rebooted", async () => {
-    const { body } = await get(port, `/history?box=box3&since=${encodeURIComponent('2026-11-02T12:00:00-05:00')}`);
+    const { body } = await get(port, `/history?box=paho-gs2000-03&since=${encodeURIComponent('2026-11-02T12:00:00-05:00')}`);
     expect(body[0]).toMatchObject({ at: '2026-11-02T12:01:29-05:00', type: 'set', details: expect.stringContaining('set media-channel 2') });
     expect(body.every((e) => e.kind === 'config' && Date.parse(e.at) >= Date.parse('2026-11-02T12:00:00-05:00'))).toBe(true);
     expect(body.map((e) => e.details)).toContain('reboot ne cold');
-    expect((await get(port, '/history?box=box3&since=yesterday')).status).toBe(400);
+    expect((await get(port, '/history?box=paho-gs2000-03&since=yesterday')).status).toBe(400);
   });
 
   it('refuses a line that is not a catalog show with why, and /show and /baseline while no box is connected', async () => {

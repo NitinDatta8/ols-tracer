@@ -10,7 +10,7 @@ const argv = process.argv.slice(2);
 const options = {
   iiviRoot: '../IIVI_Platform',
   stream: 'csp',
-  box: 'box3',
+  box: 'paho-gs2000-03',
   out: 'data',
   dryRun: false,
 };

@@ -3,7 +3,7 @@
 // ones on an alarm change or a pull) and the polls after it, until the next snapshot. A run goes to the box `show system`
 // names. The layout and meta.json are described in docs/plans/box3-capture.md.
 // On its own it parses a run's raw output again into parsed/, e.g. after a template changed:
-//   node bridge/recorder.mjs data/boxes/box3/runs/run-01-healthy
+//   node bridge/recorder.mjs data/boxes/paho-gs2000-03/runs/run-01-healthy
 import { execFile } from 'node:child_process';
 import { appendFileSync, copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
@@ -15,7 +15,7 @@ import { tables } from './tables.mjs';
 const env = process.env;
 const here = (p) => fileURLToPath(new URL(p, import.meta.url));
 const REPO_ROOT = here('..');
-const BOX = (env.BOX_DATA_BOX ?? 'box3').trim() || 'box3';
+const BOX = (env.BOX_DATA_BOX ?? 'paho-gs2000-03').trim() || 'paho-gs2000-03';
 const BOX_DATA_ROOT = resolve(REPO_ROOT, env.BOX_DATA_ROOT ?? join('data', 'boxes', BOX));
 const TEMPLATES_DIR = join(BOX_DATA_ROOT, 'ttp', 'templates');
 const RUNS_DIR = join(BOX_DATA_ROOT, 'runs');

@@ -2,7 +2,7 @@
 // `show log configuration` of all its runs into data/boxes/<box>/history.jsonl, which keeps them after the runs are
 // deleted. The box keeps its own log, so a change made while nothing was connected is found at the next connect, as
 // long as the log still reaches back that far. Times are the box's, and the wall clock's from the run's clock offset.
-//   node bridge/history.mjs data/boxes/box3     writes history.jsonl and prints its episodes
+//   node bridge/history.mjs data/boxes/paho-gs2000-03     writes history.jsonl and prints its episodes
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -130,7 +130,7 @@ export function alarmsAt(h, at) {
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  const dir = resolve(process.argv[2] ?? 'data/boxes/box3');
+  const dir = resolve(process.argv[2] ?? 'data/boxes/paho-gs2000-03');
   const h = record(dir);
   console.log(`${h.length} events → ${join(dir, 'history.jsonl')}\n`);
   for (const ep of episodes(h)) {

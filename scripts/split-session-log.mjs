@@ -2,7 +2,7 @@
 // Splits a hand-made session log (`script` over ssh, in <run>/raw/session.log) into the recorder's run layout: one
 // raw/NNN_<slug>.txt per command, cut the way the bridge's poller cuts it (the lines between the command's echo and the
 // next prompt), and raw/index.jsonl. Only hand captures need this; the recorder writes the layout itself.
-// Usage: node scripts/split-session-log.mjs data/boxes/box3/runs/run-01-healthy
+// Usage: node scripts/split-session-log.mjs data/boxes/paho-gs2000-03/runs/run-01-healthy
 import { readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 

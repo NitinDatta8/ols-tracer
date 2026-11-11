@@ -9,7 +9,7 @@ import { describe, expect, it } from 'vitest';
 const here = (p) => fileURLToPath(new URL(p, import.meta.url));
 const repoRoot = resolve(here('..'));
 const python = process.env.PYTHON ?? here('.venv/bin/python');
-const box = (process.env.BOX_DATA_BOX ?? 'box3').trim() || 'box3';
+const box = (process.env.BOX_DATA_BOX ?? 'paho-gs2000-03').trim() || 'paho-gs2000-03';
 const boxDataRoot = process.env.BOX_DATA_ROOT
   ? (isAbsolute(process.env.BOX_DATA_ROOT) ? process.env.BOX_DATA_ROOT : resolve(repoRoot, process.env.BOX_DATA_ROOT))
   : join(repoRoot, 'data', 'boxes', box);

@@ -57,7 +57,7 @@ describe('media channels', () => {
   });
 
   it('reads a table the box really printed: show och, and show amplifier with its stats', () => {
-    const raw = (name: string) => readFileSync(resolve(repoRoot, `data/boxes/box3/runs/20261103-104506-connect/raw/${name}.txt`), 'utf8');
+    const raw = (name: string) => readFileSync(resolve(repoRoot, `data/boxes/paho-gs2000-03/runs/20261103-104506-connect/raw/${name}.txt`), 'utf8');
     const och = tables(raw('032_show-och'));
     expect(och.find((r) => r.id === '1-7-5')?.cols).toMatchObject({ frequency: '193500000', laser: 'enabled', 'operational-mode-name': 'ZR400-16QAMSS-60G-OFEC' });
     const amp = tables(raw('042_show-amplifier'));
@@ -248,7 +248,7 @@ describe('the most-upstream-LOS baseline on box 3\'s episodes', async () => {
   // replayed from history.jsonl, on the path as it was wired then (a media channel's add/drop port).
   const { lines } = await import(/* @vite-ignore */ resolve(repoRoot, 'bridge/recorder.mjs'));
   const { episodes, alarmsAt } = await import(/* @vite-ignore */ resolve(repoRoot, 'bridge/history.mjs'));
-  const h = lines(resolve(repoRoot, 'data/boxes/box3/history.jsonl'));
+  const h = lines(resolve(repoRoot, 'data/boxes/paho-gs2000-03/history.jsonl'));
   type Episode = { at: string; cause: string | null; what: string; lossAt: string | null };
   const scored = (episodes(h) as Episode[]).filter((e) => e.cause && e.lossAt && e.at.startsWith('2026-11-02'));
   /** Right when it names the card the episode was about, or the WSS whose media channel went. */
