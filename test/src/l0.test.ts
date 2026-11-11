@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import box3 from '../../examples/box3.olst.json';
 import { byId, cliAddress } from '../../src/catalog';
 import { catalogFor } from '../../src/catalog-vite';
-import { activePorts, firstLoss, heads, hopName, inside, judge, l0Problems, limitsAt, mediaChannels, tables, trace, type Limit, type Stage } from '../../src/l0';
+import { activePorts, firstLoss, heads, hopName, inside, judge, l0Problems, limitsAt, mediaChannels, portPower, tables, trace, type Limit, type Stage } from '../../src/l0';
 import { light, type BoxState } from '../../src/live';
 import type { Link, Topology } from '../../src/types';
 
@@ -118,6 +118,24 @@ describe('the light path', () => {
 
   it('has no loss to find on a healthy run', () => {
     expect(firstLoss(healthy, trace(t, cat, healthy, heads(t, cat)[0]))).toBeNull();
+  });
+});
+
+describe('a port\'s power', () => {
+  const ports = (port: string, dBm: number) => ({ state: { ports: { [`port-${port}`]: { in: { 'optical-power': dBm, flag: '' } } } } });
+  const read = (one: number, all: number, list = ports('1-1-ad11', -99.99)): BoxState => ({
+    live: true, commands: { 'show optical-port 1-1-ad11': { at: one, data: ports('1-1-ad11', 2.61) }, 'show optical-port': { at: all, data: list } },
+  });
+
+  it('is the reading of whichever of show optical-port <at> and its list form read it last, the port\'s own on a tie', () => {
+    expect(portPower(read(1000, 2000), '1-1-ad11', 'in')).toEqual({ dBm: undefined, flag: '', dark: true }); // dark since
+    expect(portPower(read(3000, 2000), '1-1-ad11', 'in')).toEqual({ dBm: 2.61, flag: '', dark: false });
+    expect(portPower(read(2000, 2000), '1-1-ad11', 'in')?.dBm).toBe(2.61);
+  });
+
+  it('is the port\'s own reading when the list read since has no line for it, and none when neither has', () => {
+    expect(portPower(read(1000, 2000, ports('1-1-ad1', 1)), '1-1-ad11', 'in')?.dBm).toBe(2.61);
+    expect(portPower(read(1000, 2000), '1-1-ad11', 'out')).toBeUndefined();
   });
 });
 

@@ -13,10 +13,14 @@ type Dir = 'in' | 'out';
 /** Where the box has nothing to measure it prints -99.99, on a port and on an amplifier alike. */
 const lit = (v?: number) => (v !== undefined && v > -99 ? v : undefined);
 
-/** An L0 port's total power one way, from `show optical-port <at>` or its list form: its dBm (none when dark) and flag. */
+/**
+ * An L0 port's total power one way, from `show optical-port <at>` or its list form, whichever read it last (the port's
+ * own on a tie): its dBm (none when dark) and flag.
+ */
 export function portPower(s: BoxState, at: string, dir: Dir) {
-  const port = (cmd: string) => s.commands[cmd]?.data?.state?.ports?.[`port-${at}`]?.[dir];
-  const p: { 'optical-power'?: number; flag?: string } | undefined = port(`show optical-port ${at}`) ?? port('show optical-port');
+  const read = (cmd: string) => ({ at: s.commands[cmd]?.at ?? -Infinity, p: s.commands[cmd]?.data?.state?.ports?.[`port-${at}`]?.[dir] });
+  const [one, all] = [read(`show optical-port ${at}`), read('show optical-port')];
+  const p: { 'optical-power'?: number; flag?: string } | undefined = (one.p && (!all.p || one.at >= all.at) ? one : all).p;
   const v = p?.['optical-power'];
   return v === undefined ? undefined : { dBm: lit(v), flag: p?.flag, dark: lit(v) === undefined };
 }
