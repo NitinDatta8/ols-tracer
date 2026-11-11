@@ -13,6 +13,6 @@
   "terminals": {
     "engineering": ["configure", "^^^"],
     "telnet": ["configure", "^^^", "bash", "telnet 1.0.1.{slot*4}"],
-    "noTelnet": ["lc-800mx", "lc-400mx"]
+    "noTelnet": ["lc-400mx"]
   }
 }
