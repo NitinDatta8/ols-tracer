@@ -108,7 +108,7 @@ Filled in by the recorder from the prerequisites and the identity commands:
 }
 ```
 
-- `boxClockOffsetSec` is the box clock minus the Mac clock. It lines alarm timestamps up with the pull times.
+- `boxClockOffsetSec` is the box clock minus the bridge machine's clock. It lines alarm timestamps up with the pull times.
 - `snapshot` is how many of `poll.json`'s commands the snapshot ran. `done` < `of` means it was cut short (the session closed, or a prerequisite failed), and the last state on disk skips that run. Runs before 2026-11-01 20:40 have no `snapshot`. `fast: true` marks a snapshot of only the polled and `fast` commands, taken on an alarm change or a pull since 2026-11-04; the last state lays it over the last full one.
 - `state` stays `unknown` until a run is labelled (`healthy`, `fault`, `restored`).
 
