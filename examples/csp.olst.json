@@ -1,0 +1,322 @@
+{
+  "version": 1,
+  "stream": "csp",
+  "devices": [
+    {
+      "id": "d1",
+      "chassis": "ch-8slot",
+      "name": "Site-1",
+      "x": 819,
+      "y": 518,
+      "slots": {
+        "1": {
+          "linecard": "lc-c1125",
+          "ports": {}
+        },
+        "7": {
+          "linecard": "lc-800mx",
+          "ports": {
+            "PORT4": {
+              "pluggable": "qsfp-lr4-100g"
+            },
+            "PORT5": {
+              "pluggable": "ftcd3323r1pcl-1y"
+            }
+          }
+        }
+      },
+      "host": "10.111.25.12"
+    },
+    {
+      "id": "d2",
+      "chassis": "ch-8slot",
+      "name": "Site-2",
+      "x": 2909,
+      "y": 483,
+      "slots": {
+        "1": {
+          "linecard": "lc-c25",
+          "ports": {}
+        },
+        "3": {
+          "linecard": "lc-800mx",
+          "ports": {}
+        },
+        "4": {
+          "linecard": "lc-800mx",
+          "ports": {
+            "PORT5": {
+              "pluggable": "ftcd3323r1pcl-1y"
+            }
+          }
+        }
+      },
+      "host": "10.111.25.13"
+    },
+    {
+      "id": "d3",
+      "chassis": "ch-bert-tester",
+      "name": "BERT-3",
+      "x": 1424,
+      "y": 213,
+      "slots": {
+        "1": {
+          "linecard": "lc-bert-tester",
+          "ports": {}
+        }
+      }
+    },
+    {
+      "id": "d4",
+      "chassis": "ch-8slot",
+      "name": "Site-4",
+      "x": 407,
+      "y": 602,
+      "slots": {
+        "1": {
+          "linecard": "lc-c925",
+          "ports": {}
+        },
+        "5": {
+          "linecard": "lc-800mx",
+          "ports": {
+            "PORT1": {
+              "pluggable": "1513819"
+            },
+            "PORT2": {
+              "pluggable": "qsfp-lr4-100g"
+            },
+            "PORT6": {
+              "pluggable": "qsfp-lr4-100g"
+            },
+            "PORT7": {
+              "pluggable": "qsfp-lr4-100g"
+            },
+            "PORT8": {
+              "pluggable": "qsfp-lr4-100g"
+            },
+            "PORT9": {
+              "pluggable": "qsfp-lr4-100g"
+            },
+            "PORT10": {
+              "pluggable": "qsfp-lr4-100g"
+            }
+          }
+        },
+        "7": {
+          "linecard": "lc-c25",
+          "ports": {}
+        }
+      },
+      "host": "10.111.25.10"
+    },
+    {
+      "id": "d5",
+      "chassis": "ch-8slot",
+      "name": "Site-5",
+      "x": 467,
+      "y": 738,
+      "slots": {
+        "1": {
+          "linecard": "lc-c925",
+          "ports": {}
+        },
+        "5": {
+          "linecard": "lc-800mx",
+          "ports": {
+            "PORT1": {
+              "pluggable": "1513819"
+            },
+            "PORT6": {
+              "pluggable": "qsfp-lr4-100g"
+            },
+            "PORT7": {
+              "pluggable": "ftlc1156sdpl"
+            },
+            "PORT8": {
+              "pluggable": "ftlc1156sdpl"
+            },
+            "PORT9": {
+              "pluggable": "qsfp-lr4-100g"
+            }
+          }
+        }
+      },
+      "host": "10.111.25.11"
+    },
+    {
+      "id": "d6",
+      "chassis": "ch-8slot",
+      "name": "Site-6",
+      "x": 1757,
+      "y": 742,
+      "slots": {
+        "1": {
+          "linecard": "lc-c925",
+          "ports": {}
+        },
+        "7": {
+          "linecard": "lc-800mx",
+          "ports": {}
+        }
+      },
+      "host": "10.111.25.16"
+    },
+    {
+      "id": "d7",
+      "chassis": "ch-8slot",
+      "name": "Site-7",
+      "x": 1667,
+      "y": 998,
+      "slots": {
+        "1": {
+          "linecard": "lc-c925",
+          "ports": {}
+        }
+      },
+      "host": "10.111.25.17"
+    },
+    {
+      "id": "d8",
+      "chassis": "ch-8slot",
+      "name": "Site-8",
+      "x": 2803,
+      "y": 517,
+      "slots": {
+        "1": {
+          "linecard": "lc-c925",
+          "ports": {}
+        },
+        "8": {
+          "linecard": "lc-800mx",
+          "ports": {}
+        }
+      },
+      "host": "10.111.25.18"
+    },
+    {
+      "id": "d9",
+      "chassis": "ch-8slot",
+      "name": "Site-9",
+      "x": 3103,
+      "y": 961,
+      "slots": {
+        "1": {
+          "linecard": "lc-c925",
+          "ports": {}
+        },
+        "7": {
+          "linecard": "lc-800mx",
+          "ports": {}
+        }
+      },
+      "host": "10.111.25.19"
+    }
+  ],
+  "links": [
+    {
+      "id": "F01",
+      "type": "smf",
+      "a": {
+        "device": "d4",
+        "slot": "5",
+        "port": "PORT1"
+      },
+      "b": {
+        "device": "d4",
+        "slot": "1",
+        "port": "AD1"
+      }
+    },
+    {
+      "id": "F02",
+      "type": "smf",
+      "a": {
+        "device": "d4",
+        "slot": "1",
+        "port": "AD1"
+      },
+      "b": {
+        "device": "d4",
+        "slot": "5",
+        "port": "PORT1"
+      }
+    },
+    {
+      "id": "F03",
+      "type": "smf",
+      "a": {
+        "device": "d1",
+        "slot": "7",
+        "port": "PORT5"
+      },
+      "b": {
+        "device": "d1",
+        "slot": "1",
+        "port": "AD11"
+      }
+    },
+    {
+      "id": "F04",
+      "type": "smf",
+      "a": {
+        "device": "d1",
+        "slot": "1",
+        "port": "AD11"
+      },
+      "b": {
+        "device": "d1",
+        "slot": "7",
+        "port": "PORT5"
+      }
+    },
+    {
+      "id": "F05",
+      "type": "smf",
+      "a": {
+        "device": "d1",
+        "slot": "1",
+        "port": "LINE"
+      },
+      "b": {
+        "device": "d1",
+        "slot": "1",
+        "port": "LINE"
+      }
+    }
+  ],
+  "racks": [
+    {
+      "id": "r1",
+      "name": "Rack-1",
+      "x": 30,
+      "y": 465,
+      "devices": [
+        "d4",
+        "d5"
+      ]
+    },
+    {
+      "id": "r2",
+      "name": "Rack-2",
+      "x": 1338,
+      "y": 466,
+      "devices": [
+        "d1",
+        "d6",
+        "d7"
+      ]
+    },
+    {
+      "id": "r3",
+      "name": "Rack-3",
+      "x": 2607,
+      "y": 464,
+      "devices": [
+        "d8",
+        "d2",
+        "d9"
+      ]
+    }
+  ]
+}
