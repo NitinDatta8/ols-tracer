@@ -26,13 +26,16 @@ describe('what people ask the session for', () => {
     expect(JSON.stringify(read.body)).not.toMatch(/"(fault|detectable|markedAt)":/);
   }, 40000);
 
-  it('a baseline is a snapshot of its own, healthy once whole; one cut short by a disconnect is not a baseline', async () => {
-    const box = fake(1);
+  it('a baseline is a snapshot of its own, healthy once whole and read; one cut short or with a read missing is not', async () => {
+    const box = fake(1, { answers: { 'show alarm': '{"alarms": {}}' } }); // a box with none parses so, not as None
     await connect(host(1), 'view:a');
     await whole(folder(1));
     const ok = await call('POST', `/baseline?host=${host(1)}`);
     expect(ok).toMatchObject({ status: 200, body: { trigger: 'baseline', state: 'healthy', snapshot: { fast: true } } });
     expect(ok.body.snapshot.done).toBe(ok.body.snapshot.of);
+    box.hang.add('show port'); // one of the fast snapshot's commands never answers: the snapshot is whole, the read is not
+    expect(await call('POST', `/baseline?host=${host(1)}`)).toMatchObject({ status: 409, body: expect.stringMatching(/^show port got no prompt back or didn't parse, so \S+ is not a baseline: try again\n$/) });
+    box.hang.delete('show port');
     box.delay = 400;
     const cut = call('POST', `/baseline?host=${host(1)}`);
     await until(async () => (await status(host(1))).snapshot?.done >= 1, 5000, 'the baseline snapshot to start');

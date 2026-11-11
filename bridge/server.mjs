@@ -237,9 +237,14 @@ async function poll(s, c, chs) {
       ready = ws.map((w, i) => (i ? (after = after.then(() => setUp(w, i))) : after));
     }
     if (c === s.conn) s.taking = p;
-    const took = await shareOut(ws, ready, cmds, async ({ cmd }, w) => { await take(cmd, 'snapshot', w); p.done++; }, () => c === s.conn);
+    const took = await shareOut(ws, ready, cmds, async ({ cmd }, w) => {
+      const { ok, error } = await take(cmd, 'snapshot', w);
+      if (!ok || error) (p.failed ??= []).push(cmd); // no prompt back, or its parse failed
+      p.done++;
+    }, () => c === s.conn);
     p.workers = took.size;
-    if (trigger === 'baseline' && p.done === p.of) run.meta.state = 'healthy'; // only once whole: one cut short is no baseline
+    // Only once whole and every command read: one cut short, or with a read missing, is no baseline.
+    if (trigger === 'baseline' && p.done === p.of && !p.failed) run.meta.state = 'healthy';
     run.save();
     s.box = run.meta.box; // where `show system` put it, for the session's later runs
     if (s.taking === p) s.taking = null;
@@ -385,11 +390,15 @@ async function answer(req, res) {
       return json({ host, ...got });
     }
     // A healthy baseline, only once the person says the box is: a snapshot of its own (…-baseline), whose meta.json says
-    // state: healthy once the snapshot is whole. Answered with that meta.json.
+    // state: healthy once the snapshot is whole and every command in it read. Answered with that meta.json.
     if (url.pathname === '/baseline' && post) {
       if (!live || !POLLS.length) return res.writeHead(409).end('Connect to the box first: a baseline is recorded in a snapshot\n');
       const meta = await new Promise((done) => s.baselines.push({ done }));
-      if (meta?.state !== 'healthy') return res.writeHead(409).end(meta ? `The session closed during the snapshot, so ${meta.run} is cut short and not a baseline\n` : 'Disconnected before the snapshot began\n');
+      if (meta?.state !== 'healthy') {
+        return res.writeHead(409).end(!meta ? 'Disconnected before the snapshot began\n'
+          : meta.snapshot.done < meta.snapshot.of ? `The session closed during the snapshot, so ${meta.run} is cut short and not a baseline\n`
+          : `${meta.snapshot.failed.join(', ')} got no prompt back or didn't parse, so ${meta.run} is not a baseline: try again\n`);
+      }
       return json(meta);
     }
     return res.writeHead(404).end();
