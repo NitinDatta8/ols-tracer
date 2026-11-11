@@ -1,16 +1,19 @@
-// CLI bridge: keeps one SSH session open to the box the physical view connects to, and gives the view a terminal on it.
-// A browser cannot speak SSH, so the app posts the box's IP to /bridge/connect, attaches its terminal (xterm.js) to the
-// session's shell over a WebSocket at /bridge/term, and posts /bridge/disconnect when the view closes. The shell gets
-// keystrokes as they are typed, so the box's own Tab completion, history, Ctrl-C and modes work as they do over ssh.
-// A poller runs the commands in poll.json on shells of its own in the session (BOX_WORKERS of them share a snapshot's
+// CLI bridge: keeps an SSH session open to each box someone connects to, and gives the physical view a terminal on it.
+// A browser cannot speak SSH, so the app posts /bridge/connect?host=<the box's IP>&by=<the view>, attaches its terminal
+// (xterm.js) to the session's shell over a WebSocket at /bridge/term?host=, and posts /bridge/disconnect?host=&by= when
+// the view closes. The shell gets keystrokes as they are typed, so the box's own Tab completion, history, Ctrl-C and
+// modes work as they do over ssh. A session is shared by everyone connected to its box (physical views, Codex sessions
+// through the MCP), each by its own `by`, and closes once the last of them disconnects; a box's session never touches
+// another box's.
+// A poller runs the commands in poll.json on shells of its own in each session (BOX_WORKERS of them share a snapshot's
 // commands), records them as runs under
 // data/boxes/<box>/runs/ (recorder.mjs), parses their output with TTP (parse.py) and serves the latest results at
-// /bridge/state. A `show` command typed in the terminal is run again there and saved in the latest run (typed.mjs), and
-// a pull marked in the view (/bridge/pull) takes a snapshot with its answer.json.
+// /bridge/state?host=. A `show` command typed in the terminal is run again there and saved in the latest run (typed.mjs),
+// and a pull marked in the view (/bridge/pull?host=) takes a snapshot with its answer.json.
 // A terminal window (/bridge/shell) gets a shell of its own on its box, apart from all that (terminals.mjs).
 // Every box's recorded runs are read at /runs, /run and /history, by the MCP server, which calls the bridge directly. It
-// also runs one show command at /show (show.mjs), answered and not saved, and asks for a healthy baseline at /baseline,
-// a snapshot of its own.
+// also runs one show command at /show?host= (show.mjs), answered and saved in the latest run as a typed one is (source
+// mcp, with who asked), and asks for a healthy baseline at /baseline?host=, a snapshot of its own.
 // Login settings come from bridge/.env (see .env.example). Listens on localhost only.
 import { existsSync, readFileSync } from 'node:fs';
 import { createServer } from 'node:http';
@@ -19,9 +22,9 @@ import { fileURLToPath } from 'node:url';
 import ssh2 from 'ssh2';
 import { WebSocketServer } from 'ws';
 import { record } from './history.mjs';
-import { accepted, boxDir, boxes, boxOf, ensureWiring, latest, lines, PYTHON, Run, runsOf, wiring } from './recorder.mjs';
+import { accepted, boxAt, boxDir, boxes, boxOf, ensureWiring, latest, lines, PYTHON, Run, runsOf, wiring } from './recorder.mjs';
 import { shareOut, worker } from './shells.mjs';
-import { runShow, showLine } from './show.mjs';
+import { showLine } from './show.mjs';
 import { Logins, typeSteps, validSteps } from './terminals.mjs';
 import { Screen } from './typed.mjs';
 
@@ -55,25 +58,40 @@ const SETTLE = 100;
 /** How many shells the poller opens, each a CLI session of its own, to share a snapshot's commands: 1 to 8. */
 const WORKERS = Math.min(8, Math.max(1, Math.round(Number(env.BOX_WORKERS)) || 1));
 
-let host = ''; // the box asked for, '' once disconnected
-let conn = null; // its SSH connection
-let state = 'down'; // connecting | connected | down
-let error = '';
-let shell = null;
-let size = { cols: 120, rows: 30 }; // the terminal's, which the box wraps and pages its output to
-let log = Buffer.alloc(0); // the session's output so far (its last LOG bytes)
-let polled = {}; // command → its latest { at, raw, data } or { at, raw, error }
-let taking = null; // the snapshot being taken, { done, of } commands, for /status
-let retry;
-let typed = []; // show commands typed in the terminal, waiting to run again on the poller's shell
-let marks = []; // strands marked as pulled, { strand, from, to, via, at }, waiting for their snapshot
-let asked = []; // show commands asked for at /show, { cmd, done }, waiting for the poller's shell
-let baselines = []; // baselines asked for at /baseline, { done }, waiting for their snapshot
-/** The terminal's screen, read back for the commands typed in it. */
-const newScreen = () => new Screen(size, (cmd) => { if (POLLS.length && state === 'connected') typed.push(cmd); });
-let screen = newScreen();
+/**
+ * The open sessions, by the host each was asked for. Each is its own SSH connection, terminal shell and poller, held by
+ * whoever connected to it and hasn't disconnected (`holders`, each a `by`). It closes once its last holder leaves.
+ */
+const sessions = new Map();
 
-const terminals = new WebSocketServer({ noServer: true }); // the physical view's, on the session's shell
+/** A session with `host`, not open yet: its runs go to the box last reached there, until `show system` names one. */
+function newSession(host) {
+  const s = {
+    host, box: boxAt(host), holders: new Set(),
+    conn: null, // its SSH connection
+    state: 'down', // connecting | connected | down
+    error: '',
+    shell: null,
+    retry: undefined,
+    size: { cols: 120, rows: 30 }, // the terminal's, which the box wraps and pages its output to
+    log: Buffer.alloc(0), // the session's output so far (its last LOG bytes)
+    terms: new Set(), // the physical views' terminals on its shell
+    polled: {}, // command → its latest { at, raw, data } or { at, raw, error }
+    taking: null, // the snapshot being taken, { done, of } commands, for /status
+    typed: [], // show commands typed in the terminal, waiting to run again on the poller's shell
+    marks: [], // strands marked as pulled, { strand, from, to, via, at }, waiting for their snapshot
+    asked: [], // show commands asked for at /show, { cmd, by, done }, waiting for the poller's shell
+    baselines: [], // baselines asked for at /baseline, { done }, waiting for their snapshot
+  };
+  /** The terminal's screen, read back for the commands typed in it. */
+  s.screen = new Screen(s.size, (cmd) => { if (POLLS.length && s.state === 'connected') s.typed.push(cmd); });
+  return s;
+}
+
+/** A session as /status answers it: how far it is, its box's folder, the snapshot being taken, and how many hold it. */
+const statusOf = (s) => ({ state: s.state, host: s.host, box: s.box ?? null, error: s.error, snapshot: s.taking, holders: s.holders.size });
+
+const terminals = new WebSocketServer({ noServer: true }); // the physical views', each on its box's session shell
 const windows = new WebSocketServer({ noServer: true }); // terminal windows, each on a shell of its own
 
 /** How to log in to `host`: bridge/.env's user, and its password or key. */
@@ -85,101 +103,105 @@ const loginOptions = (host) => ({
 /** The terminal windows' SSH connections, one per box. */
 const logins = new Logins(loginOptions, { password: env.BOX_PASSWORD ?? '' });
 
-/** Output for the terminals: to every one attached, kept for those that attach later, and on the screen. */
-const out = (d) => {
+/** Output of session `s` for its terminals: to every one attached, kept for those that attach later, and on the screen. */
+const out = (s, d) => {
   const b = Buffer.from(d);
-  log = Buffer.concat([log, b]).subarray(-LOG);
-  for (const ws of terminals.clients) ws.send(b);
-  screen.write(b);
+  s.log = Buffer.concat([s.log, b]).subarray(-LOG);
+  for (const ws of s.terms) if (ws.readyState === ws.OPEN) ws.send(b);
+  s.screen.write(b);
 };
 
-/** Opens the session to `host`, and opens it again with backoff whenever it drops, until disconnect(). */
-function connect(delay = 1000) {
-  state = 'connecting';
-  const c = (conn = new ssh2.Client());
+/** Opens session `s` to its host, and opens it again with backoff whenever it drops, until close(s). */
+function connect(s, delay = 1000) {
+  s.state = 'connecting';
+  const c = (s.conn = new ssh2.Client());
   c
     .on('ready', () => {
-      c.shell({ term: 'xterm-256color', ...size }, (err, ch) => {
-        if (err || c !== conn) return c.end();
-        shell = ch;
-        ch.on('data', out).on('close', () => c.end());
+      c.shell({ term: 'xterm-256color', ...s.size }, (err, ch) => {
+        if (err || c !== s.conn) return c.end();
+        s.shell = ch;
+        ch.on('data', (d) => { if (c === s.conn) out(s, d); }).on('close', () => c.end());
         // Typed ahead: the box reads them once its shell is up.
         if (INIT.length) ch.write(INIT.map((cmd) => cmd + '\n').join(''));
-        state = 'connected';
-        error = '';
+        s.state = 'connected';
+        s.error = '';
         delay = 1000;
-        console.log(`connected to ${host}`);
+        console.log(`connected to ${s.host}`);
       });
       // The poller's own shells, so it never types into the terminal's. Dumb and very tall: no colors, no paging.
       if (POLLS.length) {
         const opening = Array.from({ length: WORKERS }, () => new Promise((ok) => c.shell({ term: 'dumb', cols: 500, rows: 10000 }, (err, ch) => ok(err ? null : ch))));
         Promise.all(opening).then((chs) => {
           const got = chs.filter(Boolean);
-          if (got.length < WORKERS) console.log(`${got.length} of ${WORKERS} poller shells opened on ${host}`);
-          if (got.length && c === conn) poll(c, got);
+          if (got.length < WORKERS) console.log(`${got.length} of ${WORKERS} poller shells opened on ${s.host}`);
+          if (got.length && c === s.conn) poll(s, c, got);
         });
       }
     })
     // RADIUS or TACACS+ logins usually come as keyboard-interactive: answer every prompt with the password.
     .on('keyboard-interactive', (_name, _info, _lang, prompts, finish) => finish(prompts.map(() => env.BOX_PASSWORD ?? '')))
-    .on('error', (e) => { error = e.message; })
+    .on('error', (e) => { s.error = e.message; })
     .on('close', () => {
-      if (c !== conn) return; // disconnected, or replaced by a session to another box
-      if (shell) out(`\r\n[session closed${error ? `: ${error}` : ''}: opening it again]\r\n`);
-      shell = null;
-      state = 'down';
-      console.log(`disconnected from ${host}${error ? `: ${error}` : ''}, retrying in ${delay / 1000} s`);
-      retry = setTimeout(() => connect(Math.min(delay * 2, 30000)), delay);
+      if (c !== s.conn) return; // closed
+      if (s.shell) out(s, `\r\n[session closed${s.error ? `: ${s.error}` : ''}: opening it again]\r\n`);
+      s.shell = null;
+      s.state = 'down';
+      console.log(`disconnected from ${s.host}${s.error ? `: ${s.error}` : ''}, retrying in ${delay / 1000} s`);
+      s.retry = setTimeout(() => connect(s, Math.min(delay * 2, 30000)), delay);
     })
-    .connect(loginOptions(host));
+    .connect(loginOptions(s.host));
 }
 
-/** Closes the session and stops reopening it. */
-function disconnect() {
-  const c = conn;
-  clearTimeout(retry);
-  if (host) console.log(`disconnected from ${host}`);
-  conn = shell = null;
-  host = error = '';
-  state = 'down';
-  log = Buffer.alloc(0);
-  polled = {};
-  taking = null;
-  typed = [];
-  marks = [];
-  for (const { done } of [...asked, ...baselines]) done(null); // answered: disconnected before they ran
-  asked = [];
-  baselines = [];
-  screen.dispose();
-  screen = newScreen();
+/** Closes session `s` and stops reopening it: its poller stops, its terminals close, and what waited on it is answered. */
+function close(s) {
+  const c = s.conn;
+  clearTimeout(s.retry);
+  sessions.delete(s.host);
+  console.log(`disconnected from ${s.host}`);
+  s.conn = s.shell = null;
+  s.state = 'down';
+  s.taking = null;
+  for (const { done } of [...s.asked, ...s.baselines]) done(null); // answered: disconnected before they ran
+  s.asked = [];
+  s.baselines = [];
+  s.typed = [];
+  s.marks = [];
+  for (const ws of s.terms) ws.close();
+  s.screen.dispose();
   c?.end();
 }
 
 /**
- * Records the session and polls the box on the shells `chs` of session `c`, until the first one closes: a snapshot into
- * a new run when the session opens and whenever the active alarms change, its commands shared out over the shells, and
- * the polls as they fall due, on the first shell.
+ * Records session `s` and polls its box on the shells `chs` of its connection `c`, until the first one closes: a
+ * snapshot into a new run when the session opens and whenever the active alarms change, its commands shared out over
+ * the shells, and the polls as they fall due, on the first shell.
  */
-async function poll(c, chs) {
+async function poll(s, c, chs) {
   const ws = chs.map((ch) => worker(ch, { prompt: PROMPT, timeout: TIMEOUT, settle: SETTLE }));
   const [main] = ws;
-  const live = () => main.open && c === conn;
+  const live = () => main.open && c === s.conn;
   let run; // the run being recorded
   let alarms; // the active alarm ids last seen
   let changed = false; // a poll saw them change
   const last = {}; // command → when it last ran
 
-  /** Runs `cmd`, records it in the run as `source` (prereq, snapshot, poll or typed), and keeps its result for /bridge/state. */
-  const take = async (cmd, source, w = main) => {
+  /**
+   * Runs `cmd`, records it in the run as `source` (prereq, snapshot, poll, typed, or mcp asked `by` someone), and keeps
+   * its result for /bridge/state. Returns when it ran, its output, whether its prompt came back, and its parse.
+   */
+  const take = async (cmd, source, w = main, by) => {
     const at = (last[cmd] = Date.now());
     const { raw, ok } = await w.output(cmd);
-    const { template, data = null, error } = source === 'poll' ? await run.poll(cmd, at, raw) : await run.record(cmd, at, raw, ok, source);
-    if (c === conn) polled[cmd] = { at, raw, ...(ok ? (error ? { error } : { data }) : { error: `no prompt within ${TIMEOUT / 1000} s` }) };
-    // A typed `show alarm` doesn't move the alarms the polls compare against, so it never hides a change from them.
-    if (template !== ALARMS || !data || source === 'typed') return;
-    const ids = Object.entries(data.alarms ?? {}).filter(([, a]) => !FLAPS.test(a['alarm-abbreviate'])).map(([id]) => id).sort().join(' ');
-    if (source === 'poll' && alarms !== undefined && ids !== alarms) changed = true;
-    alarms = ids;
+    const parsed = source === 'poll' ? await run.poll(cmd, at, raw) : await run.record(cmd, at, raw, ok, source, by);
+    const { template, data = null, error } = parsed;
+    if (c === s.conn) s.polled[cmd] = { at, raw, ...(ok ? (error ? { error } : { data }) : { error: `no prompt within ${TIMEOUT / 1000} s` }) };
+    // A typed or asked `show alarm` doesn't move the alarms the polls compare against, so it never hides a change from them.
+    if (template === ALARMS && data && source !== 'typed' && source !== 'mcp') {
+      const ids = Object.entries(data.alarms ?? {}).filter(([, a]) => !FLAPS.test(a['alarm-abbreviate'])).map(([id]) => id).sort().join(' ');
+      if (source === 'poll' && alarms !== undefined && ids !== alarms) changed = true;
+      alarms = ids;
+    }
+    return { cmd, at, ok, raw, ...(ok ? parsed : {}) };
   };
   // Every shell logs in at once. The others are set up after the first, one at a time, as its prerequisites set up the
   // first (unrecorded), so no two are in `configure` together; one that doesn't come up is dropped.
@@ -189,7 +211,7 @@ async function poll(c, chs) {
   });
   let ready = ws.map(() => Promise.resolve());
   const setUp = async (w, i) => {
-    const drop = (why) => { console.log(`poller shell ${i + 1} of ${ws.length} on ${host}: ${why}, so it is not used`); w.open = false; w.ch.close(); };
+    const drop = (why) => { console.log(`poller shell ${i + 1} of ${ws.length} on ${s.host}: ${why}, so it is not used`); w.open = false; w.ch.close(); };
     if (!(await login[i])) return drop('no prompt after login');
     for (const cmd of PREREQS) if (!accepted(await w.output(cmd))) return drop(`"${cmd}" failed`);
   };
@@ -199,7 +221,7 @@ async function poll(c, chs) {
    * first. Then the box's history takes in its logs. False if a prerequisite failed on the first shell.
    */
   const snapshot = async (trigger, mark) => {
-    run = new Run(trigger, host);
+    run = new Run(trigger, s.host, s.box);
     const full = trigger === 'connect';
     const cmds = full ? POLLS : POLLS.filter((p) => p.every > 0 || p.fast);
     const p = (run.meta.snapshot = { done: 0, of: cmds.length, ...(full ? {} : { fast: true }) }); // saved with each command, so a cut-short run says so
@@ -210,12 +232,13 @@ async function poll(c, chs) {
       let after = Promise.resolve();
       ready = ws.map((w, i) => (i ? (after = after.then(() => setUp(w, i))) : after));
     }
-    if (c === conn) taking = p;
-    const took = await shareOut(ws, ready, cmds, async ({ cmd }, w) => { await take(cmd, 'snapshot', w); p.done++; }, () => c === conn);
+    if (c === s.conn) s.taking = p;
+    const took = await shareOut(ws, ready, cmds, async ({ cmd }, w) => { await take(cmd, 'snapshot', w); p.done++; }, () => c === s.conn);
     p.workers = took.size;
     if (trigger === 'baseline' && p.done === p.of) run.meta.state = 'healthy'; // only once whole: one cut short is no baseline
     run.save();
-    if (taking === p) taking = null;
+    s.box = run.meta.box; // where `show system` put it, for the session's later runs
+    if (s.taking === p) s.taking = null;
     record(dirname(dirname(run.dir)));
     console.log(`recorded ${run.dir}`);
     return true;
@@ -223,7 +246,7 @@ async function poll(c, chs) {
 
   await login[0];
   // Paging left on could cut any output short, so after a failed prerequisite nothing more is recorded or polled.
-  if (!(await snapshot('connect'))) return console.log(`a prerequisite failed on ${host}, so it is not polled: see ${run.dir}/meta.json`);
+  if (!(await snapshot('connect'))) return console.log(`a prerequisite failed on ${s.host}, so it is not polled: see ${run.dir}/meta.json`);
   while (live()) {
     if (changed) {
       changed = false;
@@ -231,24 +254,24 @@ async function poll(c, chs) {
       continue;
     }
     // A typed command first: it is one command, and belongs in the run it was typed during.
-    if (typed.length) {
-      await take(typed.shift(), 'typed');
+    if (s.typed.length) {
+      await take(s.typed.shift(), 'typed');
       continue;
     }
-    // A show asked for at /show: one command, answered and not saved.
-    if (asked.length) {
-      const { cmd, done } = asked.shift();
-      done(await runShow(main, cmd));
+    // A show asked for at /show: one command, saved in the run as a typed one is, and answered.
+    if (s.asked.length) {
+      const { cmd, by, done } = s.asked.shift();
+      done(await take(cmd, 'mcp', main, by));
       continue;
     }
     // A marked pull gets its own snapshot, so even a pull the box can't see (no alarm changes) has a run to score.
-    if (marks.length) {
-      await snapshot('pull', marks.shift());
+    if (s.marks.length) {
+      await snapshot('pull', s.marks.shift());
       continue;
     }
     // A baseline gets its own snapshot too, answered with its meta.json.
-    if (baselines.length) {
-      const { done } = baselines.shift();
+    if (s.baselines.length) {
+      const { done } = s.baselines.shift();
       await snapshot('baseline');
       done(run.meta);
       continue;
@@ -270,85 +293,108 @@ const hostnameOf = (commands = {}) => commands['show system']?.raw?.match(/^host
   ?? commands['show system']?.data?.state?.hostname
   ?? commands['show system']?.data?.config?.hostname;
 
-/** The box's strands: from wiring.csv, generated from command output only when missing. */
-const strands = (commands = {}) => {
+/** The box's strands: from wiring.csv, generated from command output only when missing. `box` when no hostname says. */
+const strands = (commands = {}, box) => {
   const hostname = hostnameOf(commands);
-  return hostname ? ensureWiring(commands, boxOf(hostname)) : ensureWiring(commands);
+  return hostname ? ensureWiring(commands, boxOf(hostname)) : ensureWiring(commands, box);
 };
 
 const LOCAL = /^(localhost|127\.0\.0\.1)(:\d+)?$/;
+/** A box's host, as /connect and the rest take it in ?host=. */
+const HOST = /^[\w.:-]+$/;
+/** Who connects or asks (?by=): a physical view or a Codex session, one line of printable text. */
+const BY = /^[\x20-\x7e]{1,200}$/;
+/** The endpoints that act on one box's session, named by ?host=. */
+const PER_HOST = ['/status', '/state', '/connect', '/disconnect', '/wiring', '/pull', '/show', '/baseline'];
 
 const server = createServer(async (req, res) => {
   // Only the app, through Vite's proxy. Browsers send a custom header from another site only after a preflight, which
   // fails here (no CORS), and the Host check stops DNS rebinding. Without it, any web page could pick the box the
   // password goes to.
   if (req.headers['x-ols-tracer'] !== '1' || !LOCAL.test(req.headers.host ?? '')) return res.writeHead(403).end();
-  if (req.url === '/status') {
-    res.setHeader('content-type', 'application/json');
-    return res.end(JSON.stringify({ state, host, error, snapshot: taking }));
-  }
-  // While connected, what the poller read this session; otherwise the last state on disk, so the view still has values.
-  if (req.url === '/state') {
-    res.setHeader('content-type', 'application/json');
-    return res.end(JSON.stringify(state === 'connected' ? { live: true, host, commands: polled } : { live: false, ...(latest() ?? { run: null, commands: {} }) }));
-  }
-  if (req.url === '/connect' && req.method === 'POST') {
-    const to = await body(req);
-    if (!/^[\w.:-]+$/.test(to)) return res.writeHead(400).end('An IP or host name\n');
-    if (to !== host) {
-      disconnect();
-      host = to;
-      connect();
+  const url = new URL(req.url ?? '', 'http://bridge');
+  const json = (v) => res.setHeader('content-type', 'application/json').end(JSON.stringify(v));
+  // Every session, as /status?host= answers each.
+  if (url.pathname === '/status' && !url.searchParams.has('host')) return json({ sessions: [...sessions.values()].map(statusOf) });
+  if (PER_HOST.includes(url.pathname)) {
+    const { host = '', by } = Object.fromEntries(url.searchParams);
+    if (!HOST.test(host)) return res.writeHead(400).end('host: an IP or host name\n');
+    if (by !== undefined && !BY.test(by)) return res.writeHead(400).end('by: who it is, one line of printable text\n');
+    const post = req.method === 'POST';
+    const s = sessions.get(host);
+    const live = s?.state === 'connected';
+    /** The last state on disk of the box last reached at `host`. */
+    const last = () => {
+      const box = s?.box ?? boxAt(host);
+      return { box, state: (box && latest(undefined, { box })) || null };
+    };
+    // The session with `host`, and whether `by` holds it; down with no host when there is none.
+    if (url.pathname === '/status') {
+      return json(s ? { ...statusOf(s), held: s.holders.has(by) } : { state: 'down', host: '', box: null, error: '', snapshot: null, holders: 0, held: false });
     }
-    return res.end();
-  }
-  if (req.url === '/disconnect' && req.method === 'POST') {
-    disconnect();
-    return res.end();
-  }
-  // The box's strands (wiring.csv), to mark one as pulled.
-  if (req.url === '/wiring') {
-    res.setHeader('content-type', 'application/json');
-    return res.end(JSON.stringify(state === 'connected' ? strands(polled) : strands(latest()?.commands ?? {})));
-  }
-  // A strand pulled on the box, by its wiring.csv name: recorded in a snapshot of its own, with its answer.json.
-  if (req.url === '/pull' && req.method === 'POST') {
-    const id = await body(req);
-    if (state !== 'connected' || !POLLS.length) return res.writeHead(409).end('Connect to the box first: a pull is recorded in a snapshot\n');
-    const strand = strands(polled).find((s) => s.strand === id);
-    if (!strand) return res.writeHead(400).end('A strand from wiring.csv\n');
-    marks.push({ ...strand, at: Date.now() });
-    return res.end();
-  }
-  // One show command on the box, run on the poller's shell between its polls: its raw output and parse, not saved. The
-  // line is checked before anything reaches the box (show.mjs).
-  if (req.url === '/show' && req.method === 'POST') {
-    const { cmd, why } = showLine(await body(req));
-    if (why) return res.writeHead(400).end(`${why}\n`);
-    if (state !== 'connected' || !POLLS.length) return res.writeHead(409).end('Connect to the box first: a show runs on the session\n');
-    const got = await new Promise((done) => asked.push({ cmd, done }));
-    if (!got) return res.writeHead(409).end('Disconnected before it ran\n');
-    res.setHeader('content-type', 'application/json');
-    return res.end(JSON.stringify({ host, ...got }));
-  }
-  // A healthy baseline, only once the person says the box is: a snapshot of its own (…-baseline), whose meta.json says
-  // state: healthy once the snapshot is whole. Answered with that meta.json.
-  if (req.url === '/baseline' && req.method === 'POST') {
-    if (state !== 'connected' || !POLLS.length) return res.writeHead(409).end('Connect to the box first: a baseline is recorded in a snapshot\n');
-    const meta = await new Promise((done) => baselines.push({ done }));
-    if (meta?.state !== 'healthy') return res.writeHead(409).end(meta ? `The session closed during the snapshot, so ${meta.run} is cut short and not a baseline\n` : 'Disconnected before the snapshot began\n');
-    res.setHeader('content-type', 'application/json');
-    return res.end(JSON.stringify(meta));
+    // While connected, what the poller read this session; otherwise the last state on disk, so the view still has values.
+    if (url.pathname === '/state') return json(live ? { live: true, host, commands: s.polled } : { live: false, ...(last().state ?? { run: null, commands: {} }) });
+    // `by` joins the session with `host`, opening it if no one holds it yet. A session with another box stays as it is.
+    if (url.pathname === '/connect' && post) {
+      if (!by) return res.writeHead(400).end('by: who connects\n');
+      let open = s;
+      if (!open) {
+        open = newSession(host);
+        sessions.set(host, open);
+        connect(open);
+      }
+      open.holders.add(by);
+      return json(statusOf(open));
+    }
+    // `by` leaves the session with `host`, which closes once no one holds it. `left` is whether `by` held it.
+    if (url.pathname === '/disconnect' && post) {
+      if (!by) return res.writeHead(400).end('by: who disconnects\n');
+      const left = !!s?.holders.delete(by);
+      if (s && !s.holders.size) close(s);
+      return json({ left, holders: s?.holders.size ?? 0 });
+    }
+    // The box's strands (wiring.csv), to mark one as pulled.
+    if (url.pathname === '/wiring') {
+      if (live) return json(strands(s.polled, s.box));
+      const { box, state } = last();
+      return json(box ? strands(state?.commands ?? {}, box) : []);
+    }
+    // A strand pulled on the box, by its wiring.csv name: recorded in a snapshot of its own, with its answer.json.
+    if (url.pathname === '/pull' && post) {
+      const id = await body(req);
+      if (!live || !POLLS.length) return res.writeHead(409).end('Connect to the box first: a pull is recorded in a snapshot\n');
+      const strand = strands(s.polled, s.box).find((x) => x.strand === id);
+      if (!strand) return res.writeHead(400).end('A strand from wiring.csv\n');
+      s.marks.push({ ...strand, at: Date.now() });
+      return res.end();
+    }
+    // One show command on the box, run on the poller's shell between its polls: its raw output and parse, saved in the
+    // latest run as a typed show is (source mcp, with `by`). The line is checked before anything reaches the box (show.mjs).
+    if (url.pathname === '/show' && post) {
+      const { cmd, why } = showLine(await body(req));
+      if (why) return res.writeHead(400).end(`${why}\n`);
+      if (!live || !POLLS.length) return res.writeHead(409).end('Connect to the box first: a show runs on the session\n');
+      const got = await new Promise((done) => s.asked.push({ cmd, by, done }));
+      if (!got) return res.writeHead(409).end('Disconnected before it ran\n');
+      return json({ host, ...got });
+    }
+    // A healthy baseline, only once the person says the box is: a snapshot of its own (…-baseline), whose meta.json says
+    // state: healthy once the snapshot is whole. Answered with that meta.json.
+    if (url.pathname === '/baseline' && post) {
+      if (!live || !POLLS.length) return res.writeHead(409).end('Connect to the box first: a baseline is recorded in a snapshot\n');
+      const meta = await new Promise((done) => s.baselines.push({ done }));
+      if (meta?.state !== 'healthy') return res.writeHead(409).end(meta ? `The session closed during the snapshot, so ${meta.run} is cut short and not a baseline\n` : 'Disconnected before the snapshot began\n');
+      return json(meta);
+    }
+    return res.writeHead(404).end();
   }
   // A box's recorded runs, read-only: ?box= is a folder under data/boxes/. /runs lists them with their meta.json. /run is
   // one (?run=, else the latest) as its snapshot read it, a fast one over the full one before it, with its meta.json and
   // the strands it was taken with (its own wiring.csv, else the box's); never its answer.json, which is for scoring
   // only. /history is the box's config log since ?since=.
-  const url = new URL(req.url ?? '', 'http://bridge');
   if (['/runs', '/run', '/history'].includes(url.pathname)) {
     const { box, run, since } = Object.fromEntries(url.searchParams);
     if (!boxes().includes(box)) return res.writeHead(404).end('A box under data/boxes/\n');
-    const json = (v) => res.setHeader('content-type', 'application/json').end(JSON.stringify(v));
     const runs = runsOf(box);
     if (url.pathname === '/runs') return json(runs);
     if (url.pathname === '/run') {
@@ -419,27 +465,32 @@ async function openWindow(ws, params) {
 
 // A terminal attaches. A browser cannot add the header to a WebSocket, but always sends the page's Origin, which a page
 // cannot fake: only a page served from the host it connects to (the app, through Vite's proxy) gets a terminal.
-// Without it, any web page could type commands on the box. /term is the physical view's, /shell a terminal window's.
+// Without it, any web page could type commands on the box. /term?host= is a physical view's, on that box's session;
+// /shell a terminal window's.
 server.on('upgrade', (req, socket, head) => {
   const { host: to = '', origin = '' } = req.headers;
   const url = new URL(req.url ?? '', 'http://bridge');
   if (!['/term', '/shell'].includes(url.pathname) || !LOCAL.test(to) || origin.replace(/^https?:\/\//, '') !== to) return socket.destroy();
   if (url.pathname === '/shell') return windows.handleUpgrade(req, socket, head, (ws) => void openWindow(ws, url.searchParams));
-  if (url.search) return socket.destroy();
+  const s = sessions.get(url.searchParams.get('host') ?? '');
+  if ([...url.searchParams.keys()].join() !== 'host' || !s) return socket.destroy();
   terminals.handleUpgrade(req, socket, head, (ws) => {
-    ws.send(log);
+    ws.send(s.log);
+    s.terms.add(ws);
+    ws.on('close', () => s.terms.delete(ws));
     ws.on('error', () => {});
     // Keystrokes as typed, { d }, or the terminal's new size, { cols, rows }.
     ws.on('message', (m) => {
       let msg;
+      if (!s.conn) return; // closed: its screen is gone
       try { msg = JSON.parse(m); } catch { return; }
       if (msg.cols > 0 && msg.rows > 0) {
-        size = { cols: msg.cols, rows: msg.rows };
-        shell?.setWindow(size.rows, size.cols, 0, 0);
-        screen.resize(size);
-      } else if (typeof msg.d === 'string' && shell) {
-        shell.write(msg.d);
-        if (msg.d.includes('\r')) screen.enter(); // the line it ends is read back once the box echoes it
+        s.size = { cols: msg.cols, rows: msg.rows };
+        s.shell?.setWindow(s.size.rows, s.size.cols, 0, 0);
+        s.screen.resize(s.size);
+      } else if (typeof msg.d === 'string' && s.shell) {
+        s.shell.write(msg.d);
+        if (msg.d.includes('\r')) s.screen.enter(); // the line it ends is read back once the box echoes it
       }
     });
   });

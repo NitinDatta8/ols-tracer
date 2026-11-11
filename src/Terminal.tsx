@@ -9,10 +9,11 @@ export type Keys = { type: (keys: string) => void };
 /**
  * The box's CLI as a real terminal (xterm.js) on the CLI bridge's SSH session (bridge/server.mjs). Keystrokes go to the
  * box as they are typed, so its own Tab completion, history (↑), Ctrl-C, ? help and modes work as they do over ssh.
- * Attached while `live`, each time showing the session from its start. `src` is the bridge's WebSocket: `bridge/term`,
- * the physical view's session, or `bridge/shell?…`, a terminal window's own shell; `idle` shows until it attaches.
+ * Attached while `live`, each time showing the session from its start. `src` is the bridge's WebSocket:
+ * `bridge/term?host=…`, the shell of the physical view's session with that box, or `bridge/shell?…`, a terminal
+ * window's own shell; `idle` shows until it attaches.
  */
-export function BoxTerminal({ live, ref, src = 'bridge/term', idle = 'Connect to the box to get its CLI here.' }: { live: boolean; ref?: Ref<Keys>; src?: string; idle?: string }) {
+export function BoxTerminal({ live, ref, src, idle = 'Connect to the box to get its CLI here.' }: { live: boolean; ref?: Ref<Keys>; src: string; idle?: string }) {
   const host = useRef<HTMLDivElement>(null);
   const term = useRef<Terminal>(null);
   const ws = useRef<WebSocket>(null);

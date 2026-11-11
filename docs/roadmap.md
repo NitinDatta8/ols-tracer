@@ -42,7 +42,7 @@ From step 3 and step 4 of the [CLI plan](archive/cli-run-plan.md#step-3-deeper-i
 - **C++ CLI:** the full XML command tree is extracted for CSP (`npm run sync:cli-data:csp`); the other streams come next. A structured output (a JSON mode, or an API such as NETCONF/YANG) would let the tracer read the box's real state. The bridge stays the only thing that talks to boxes.
 - **AAA (RADIUS, TACACS+):** still an SSH login. When each person logs in as themselves, the bridge needs one session per user, and the box may refuse some commands.
 - **MACsec** belongs on client ports and fibers (on/off, key status, alarms, its commands), not in the bridge.
-- **More boxes:** each device gets a `box` name, the bridge keeps one session per box, and each device shows its own status.
+- **More boxes:** each device gets a `box` name. Since 2026-11-10 the bridge keeps one session per box, shared by the views and Codex sessions on it, and each device's view shows its own; two people typing in one box's physical-view terminal still share its one shell.
 
 ## Ideas backlog
 

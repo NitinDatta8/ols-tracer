@@ -14,8 +14,11 @@ import type { Alarm, Catalog, CliLevel, Datasheet, End, LinecardDef, Link, Plugg
 
 type Drag = { kind: 'card' | 'plug'; id: string };
 type At = { slot: string; port?: string };
-/** The box as the CLI bridge sees it (bridge/server.mjs), and how far its snapshot is while one is being taken. */
-type Box = { state: 'connected' | 'connecting' | 'down'; host?: string; error?: string; snapshot?: { done: number; of: number } | null };
+/**
+ * The box's session as the CLI bridge sees it (bridge/server.mjs), and how far its snapshot is while one is being taken.
+ * A session is shared: `holders` is how many views and Codex sessions hold it, `held` whether this view is one.
+ */
+type Box = { state: 'connected' | 'connecting' | 'down'; host?: string; error?: string; snapshot?: { done: number; of: number } | null; holders?: number; held?: boolean };
 /** The hardware whose datasheet the inspector shows, and where it sits (for its CLI command). */
 type Detail = { kind: 'card' | 'plug'; id: string; at?: At };
 /** A level whose alarms to list: {} the chassis, { slot } a card, { slot, port } a port, { bay } a PSU or fan. */
@@ -158,47 +161,58 @@ function useFit() {
 }
 
 const NO_BRIDGE: Box = { state: 'down', error: 'Bridge not running: npm run bridge' };
+/** This page, as the bridge tells who holds a session: closing it leaves its sessions and no one else's. */
+const ME = `view:${crypto.randomUUID()}`;
+/** The query naming the box's session, and this page as who joins or leaves it. */
+const sessionOf = (host: string) => `host=${encodeURIComponent(host)}&by=${encodeURIComponent(ME)}`;
 
 /**
  * A request to the CLI bridge, which Vite proxies under /bridge. The header tells the bridge it comes from this app.
  * Disconnect is sent with keepalive, so it still goes out when the page closes.
  */
 const bridge = (path: string, body?: string) => fetch(`${import.meta.env.BASE_URL}bridge/${path}`,
-  { method: body === undefined ? 'GET' : 'POST', headers: { 'x-ols-tracer': '1' }, body, keepalive: path === 'disconnect' });
+  { method: body === undefined ? 'GET' : 'POST', headers: { 'x-ols-tracer': '1' }, body, keepalive: path.startsWith('disconnect') });
 
-/** The box, checked every 5 s while the view is open (every second while it connects); closing the view or the page disconnects it. */
-function useBox() {
+/**
+ * The session with `host`, checked every 5 s while the view is open (every second while it connects). Closing the view
+ * or the page leaves it if this view holds it: it closes then only if no one else holds it.
+ */
+function useBox(host: string) {
   const [box, setBox] = useState<Box>(NO_BRIDGE);
-  const check = useCallback(() => bridge('status').then((r) => r.json()).then(setBox, () => setBox(NO_BRIDGE)), []);
+  const check = useCallback(() => { if (host) bridge(`status?${sessionOf(host)}`).then((r) => r.json()).then(setBox, () => setBox(NO_BRIDGE)); }, [host]);
   useEffect(() => {
     check();
     const id = setInterval(check, box.state === 'connecting' ? 1000 : 5000);
     return () => clearInterval(id);
   }, [check, box.state]);
+  const leave = useRef(() => {});
+  const held = !!box.held && box.host === host;
+  useEffect(() => { leave.current = held ? () => void bridge(`disconnect?${sessionOf(host)}`, '').catch(() => {}) : () => {}; }, [held, host]);
   useEffect(() => {
-    const disconnect = () => void bridge('disconnect', '').catch(() => {});
-    window.addEventListener('pagehide', disconnect);
-    return () => { window.removeEventListener('pagehide', disconnect); disconnect(); };
+    const gone = () => leave.current();
+    window.addEventListener('pagehide', gone);
+    return () => { window.removeEventListener('pagehide', gone); gone(); };
   }, []);
   return [box, check] as const;
 }
 
 /** The box's light, fetched while the view is open: fast while connected, else from the last run on disk. */
-function useLight(state: Box['state']) {
+function useLight(host: string, state: Box['state']) {
   useEffect(() => {
     const { setLive } = useStore.getState();
-    const get = () => bridge('state').then((r) => r.json()).then(setLive, () => setLive(null));
+    if (!host) return void setLive(null);
+    const get = () => bridge(`state?host=${encodeURIComponent(host)}`).then((r) => r.json()).then(setLive, () => setLive(null));
     get();
     const id = setInterval(get, state === 'connected' ? 2000 : 10000);
     return () => clearInterval(id);
-  }, [state]);
+  }, [host, state]);
 }
 
 /** A strand of the box's fiber map (its wiring.csv, through the bridge), to mark as pulled. */
 interface BoxStrand { strand: string; from: string; to: string; via: string; notes?: string }
 
 /** The box's strands, fetched once the current snapshot is done: none while down, or while commands are still running. */
-function useStrands(state: Box['state'], snapshot?: Box['snapshot']) {
+function useStrands(host: string, state: Box['state'], snapshot?: Box['snapshot']) {
   const [strands, setStrands] = useState<BoxStrand[] | null>(null);
   useEffect(() => {
     let gone = false;
@@ -207,14 +221,14 @@ function useStrands(state: Box['state'], snapshot?: Box['snapshot']) {
       return () => { gone = true; };
     }
     if (snapshot) return () => { gone = true; };
-    const get = () => bridge('wiring').then((r) => r.json()).then((s) => { if (!gone) setStrands(s); }, () => { if (!gone) setStrands([]); });
+    const get = () => bridge(`wiring?host=${encodeURIComponent(host)}`).then((r) => r.json()).then((s) => { if (!gone) setStrands(s); }, () => { if (!gone) setStrands([]); });
     get();
     const id = setInterval(get, 2000);
     return () => {
       gone = true;
       clearInterval(id);
     };
-  }, [state, snapshot]);
+  }, [host, state, snapshot]);
   return strands;
 }
 
@@ -246,9 +260,10 @@ export function PhysicalView() {
   const [wire, setWire] = useState<Wire | null>(null);
   const [back, setBack] = useState(false); // chassis seen from the back: PSUs and fans
   const [alarmsFor, setAlarmsFor] = useState<Where | null>(null); // level whose alarms the side panel lists
-  const [box, checkBox] = useBox();
-  useLight(box.state);
-  const strands = useStrands(box.state, box.snapshot);
+  const host = byId(t.devices, openId ?? undefined)?.host?.trim() ?? ''; // the opened device's box
+  const [box, checkBox] = useBox(host);
+  useLight(host, box.state);
+  const strands = useStrands(host, box.state, box.snapshot);
   const inferredPower = (strands ?? []).some((s) => /power fallback/i.test(s.notes ?? ''));
   const [lastSyncAt, setLastSyncAt] = useState<number | null>(null);
   const [pulled, setPulled] = useState(''); // the strand picked to mark as pulled
@@ -309,18 +324,19 @@ export function PhysicalView() {
   const at = focus ?? (cardSlot ? { slot: cardSlot } : undefined);
   const strip = command(at?.port ? 'port' : at ? 'card' : 'chassis', at);
 
-  /** The bridge's box as far as this device goes: down unless it is this device's box. */
-  const here: Box = device.host && box.host === device.host ? box
-    : { state: 'down', error: device.host ? `Not connected to ${device.host}: click Connect` : 'Enter the box IP, then Connect' };
-  const linked = here.state !== 'down' || !!here.host; // connected to this box, or trying to
+  /** The bridge's session with this device's box: down unless there is one. */
+  const here: Box = host && box.host === host ? box
+    : { state: 'down', error: host ? `Not connected to ${host}: click Connect` : 'Enter the box IP, then Connect' };
+  const linked = !!here.held; // this view holds the session, connected or trying to
+  /** Who else holds the session, so Disconnect leaves it open for them. */
+  const others = (here.holders ?? 0) - (linked ? 1 : 0);
   /** Connecting to an empty device, or connected before its cards have come in: the chassis waits, greyed out. */
   const fetching = here.state !== 'down' && !Object.keys(device.slots).length && !(boxState?.live && discover(cat, device, boxState));
   const connectBox = () => {
-    const host = device.host?.trim();
-    if (host) bridge(linked ? 'disconnect' : 'connect', linked ? '' : host).then(checkBox, () => notify(NO_BRIDGE.error!));
+    if (host) bridge(`${linked ? 'disconnect' : 'connect'}?${sessionOf(host)}`, '').then(checkBox, () => notify(NO_BRIDGE.error!));
   };
   /** Labels a pull for scoring: the bridge takes a snapshot of the box with the strand's answer.json in its run. */
-  const markPull = () => bridge('pull', pulled).then(async (r) => {
+  const markPull = () => bridge(`pull?host=${encodeURIComponent(host)}`, pulled).then(async (r) => {
     notify(r.ok ? `${pulled} marked as pulled: a snapshot with its answer.json is being recorded` : await r.text());
     if (r.ok) setPulled('');
   }, () => notify(NO_BRIDGE.error!));
@@ -662,7 +678,7 @@ export function PhysicalView() {
         <header>
           {/* Focus moves here, so Escape closes the view without React Flow also deselecting the node. */}
           <button autoFocus onClick={() => (cardSlot ? side(false) : setOpenDevice(null))} title={cardSlot ? 'Back to the chassis' : 'Back to the canvas'}>← Back</button>
-          {/* The box to run CLI commands on. Its session closes with the view. A tester has none. */}
+          {/* The box to run CLI commands on. The view leaves its session when it closes. A tester has none. */}
           {tester ? <small className="muted">{chassis?.name}: test equipment, no box to connect to and no CLI</small> : <>
           <form className="box" onSubmit={(e) => { e.preventDefault(); connectBox(); }}>
             <input value={device.host ?? ''} placeholder="Box IP" aria-label="Box IP" spellCheck={false} disabled={linked}
@@ -670,7 +686,7 @@ export function PhysicalView() {
             <button className={`run ${here.state}`} disabled={!device.host?.trim()}>
               <span className="dot" />{linked ? 'Disconnect' : 'Connect'}
             </button>
-            <small className="muted" title={here.error}>{here.state === 'down' ? here.error : here.state === 'connecting' ? 'connecting…' : 'connected'}</small>
+            <small className="muted" title={here.error || (others > 0 ? `Also open for ${others} more (views or Codex sessions): Disconnect leaves it open for them` : undefined)}>{here.state === 'down' ? here.error : here.state === 'connecting' ? 'connecting…' : 'connected'}</small>
           </form>
           <small className="muted light-state" title={boxState?.run ? `From run ${boxState.run}` : undefined}>{lightLabel(boxState)}</small>
           {boxState?.live && <small className="muted light-state" title={lastSyncAt ? new Date(lastSyncAt).toLocaleString() : 'Waiting for first live sync'}>{lastSyncAt ? syncLabel(lastSyncAt) : 'Live sync · waiting…'}</small>}
@@ -714,7 +730,7 @@ export function PhysicalView() {
             */}
           <section className="term">
             {tester ? <p className="no-cli">{chassis?.name} has no CLI here. Fiber its ports to client ports with the same optics.</p> : <>
-              <BoxTerminal live={here.state === 'connected'} ref={keys} />
+              <BoxTerminal live={linked && here.state === 'connected'} src={`bridge/term?host=${encodeURIComponent(host)}`} ref={keys} />
               <Cli command={suggested} box={here} onRun={runOnBox} />
             </>}
           </section>

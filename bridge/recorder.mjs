@@ -19,9 +19,9 @@ const BOX = (env.BOX_DATA_BOX ?? 'box3').trim() || 'box3';
 const BOX_DATA_ROOT = resolve(REPO_ROOT, env.BOX_DATA_ROOT ?? join('data', 'boxes', BOX));
 const TEMPLATES_DIR = join(BOX_DATA_ROOT, 'ttp', 'templates');
 const RUNS_DIR = join(BOX_DATA_ROOT, 'runs');
-/** Every box's folder, and the box the session's runs go to: BOX until `show system` names another. */
+/** Every box's folder, and the box a session's runs go to until `show system` names another: BOX. */
 const BOXES = dirname(BOX_DATA_ROOT);
-let current = basename(BOX_DATA_ROOT);
+const current = basename(BOX_DATA_ROOT);
 export const PYTHON = env.PYTHON ?? here('.venv/bin/python');
 /** The CLI index's commands. A command's template is named after its id. */
 export const COMMANDS =JSON.parse(readFileSync(join(REPO_ROOT, 'data', 'cli', 'csp', 'cli-index.source.json'), 'utf8')).commands;
@@ -298,19 +298,22 @@ export function ensureWiring(commands = {}, box = current, _options = {}) {
   return rows;
 }
 
-/** A run folder, named after when its snapshot started and why: <YYYYMMDD-HHMMSS>-connect, -alarms or -pull. */
+/**
+ * A run folder of `box`, named after when its snapshot started and why: <YYYYMMDD-HHMMSS>-connect, -alarms or -pull.
+ * Each session passes its own box, so sessions with two boxes at once never write into each other's.
+ */
 export class Run {
-  constructor(trigger, host) {
+  constructor(trigger, host, box = current) {
     const at = Date.now();
     const name = `${iso(at).slice(0, 19).replace(/[-:]/g, '').replace('T', '-')}-${trigger}`;
-    const runs = join(BOXES, current, 'runs');
+    const runs = join(BOXES, box, 'runs');
     let run = name;
     for (let k = 2; existsSync(join(runs, run)); k++) run = `${name}-${k}`;
     this.dir = join(runs, run);
     this.n = 0;
     this.polled = {}; // command → its last poll, so an unchanged one isn't written again
     this.meta = {
-      run, box: current, host, hostname: null, release: null, trigger, started: iso(at), ended: null,
+      run, box, host, hostname: null, release: null, trigger, started: iso(at), ended: null,
       boxClock: null, boxClockOffsetSec: null, prereqs: [], state: 'unknown', notes: '',
     };
     mkdirSync(join(this.dir, 'raw'), { recursive: true });
@@ -325,13 +328,15 @@ export class Run {
 
   /**
    * One of the snapshot's commands, run at `at`: its output in raw/NNN_<slug>.txt, its line in raw/index.jsonl, its
-   * parse in parsed/, and what meta.json takes from it. `ok` is whether the prompt came back. Returns the parse.
+   * parse in parsed/, and what meta.json takes from it. `ok` is whether the prompt came back. `by` is who asked for a
+   * show run over the MCP (source mcp): its index line keeps it, so one agent session's commands read back in order.
+   * Returns the parse.
    */
-  async record(cmd, at, raw, ok, source) {
+  async record(cmd, at, raw, ok, source, by) {
     const n = this.n++;
     const file = `${String(n).padStart(3, '0')}_${slug(cmd)}.txt`;
     writeFileSync(join(this.dir, 'raw', file), `${raw}\n`);
-    appendFileSync(join(this.dir, 'raw', 'index.jsonl'), `${JSON.stringify({ n, cmd, at: iso(at), source, file, ok })}\n`);
+    appendFileSync(join(this.dir, 'raw', 'index.jsonl'), `${JSON.stringify({ n, cmd, at: iso(at), source, ...(by ? { by } : {}), file, ok })}\n`);
     const m = this.meta;
     if (source === 'prereq') m.prereqs.push({ cmd, ok: accepted({ raw, ok }) });
     if (cmd === 'show system') m.hostname = raw.match(/^hostname\s+(\S+)/m)?.[1] ?? m.hostname;
@@ -346,22 +351,23 @@ export class Run {
   }
 
   /**
-   * Moves the run to the box `hostname` is, if it isn't this one, so one box's runs never land in another's. Every
-   * later run of the session starts there.
+   * Moves the run to the box `hostname` is, if it isn't this one, so one box's runs never land in another's. The
+   * session starts its later runs in the run's box.
    */
   place(hostname) {
-    current = boxOf(hostname);
-    if (current === this.meta.box) return;
-    const dir = join(BOXES, current, 'runs', this.meta.run);
+    const box = boxOf(hostname);
+    if (box === this.meta.box) return;
+    const dir = join(BOXES, box, 'runs', this.meta.run);
     mkdirSync(dirname(dir), { recursive: true });
     renameSync(this.dir, dir);
     console.log(`${this.meta.run} is ${hostname}, not ${this.meta.box}: moved to ${dir}`);
-    [this.dir, this.meta.box] = [dir, current];
+    [this.dir, this.meta.box] = [dir, box];
   }
 
   /** Keeps the box's strands as they are now in the run, so it is read later with them, not with a wiring.csv changed since. */
   wired() {
-    if (existsSync(wiringFile())) copyFileSync(wiringFile(), join(this.dir, 'wiring.csv'));
+    const f = wiringFile(this.meta.box);
+    if (existsSync(f)) copyFileSync(f, join(this.dir, 'wiring.csv'));
   }
 
   /**
@@ -419,6 +425,10 @@ export function runsOf(box) {
   return runsIn(dir).map((d) => ({ ...JSON.parse(readFileSync(join(d, 'meta.json'), 'utf8')), run: relative(dir, d) }))
     .sort((a, b) => Date.parse(a.started) - Date.parse(b.started));
 }
+
+/** The box last reached at `host`: the one with the latest run that records it, else undefined. */
+export const boxAt = (host) => boxes().map((box) => ({ box, run: runsOf(box).findLast((m) => m.host === host) })).filter((b) => b.run)
+  .sort((a, b) => Date.parse(a.run.started) - Date.parse(b.run.started)).at(-1)?.box;
 
 /**
  * The last state on disk, for /bridge/state while no box is connected: the latest run's snapshot, each command updated

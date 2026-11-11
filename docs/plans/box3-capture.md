@@ -82,7 +82,7 @@ data/boxes/box3/runs/
   ```json
   {"n": 7, "cmd": "show och 1-7-5", "at": "2026-10-31T14:52:10Z", "source": "snapshot", "file": "007_show-och-1-7-5.txt", "ok": true}
   ```
-  `source` is `prereq`, `snapshot`, `typed` or `hand`. A typed command is appended to the latest run, after its snapshot. The sync works out which command of the [CLI index](../reference/cli-data-schemas.md) each line ran: `show och 1-7-5` is `show och <name>`, `show och` (a list without its key) is the same command, and `-l 200` is an option. Typos and commands the index lacks match nothing.
+  `source` is `prereq`, `snapshot`, `typed`, `mcp` or `hand`. A typed command is appended to the latest run, after its snapshot, and so is a show the MCP's `run_show` asked for (`mcp`), whose line also has `by`, the Codex session that asked. The sync works out which command of the [CLI index](../reference/cli-data-schemas.md) each line ran: `show och 1-7-5` is `show och <name>`, `show och` (a list without its key) is the same command, and `-l 200` is an option. Typos and commands the index lacks match nothing.
 - **Errors and empty output still count.** `Invalid name: alarms` shows the box doesn't have that command (`onBox: no`), and empty output is data.
 
 ### `meta.json`

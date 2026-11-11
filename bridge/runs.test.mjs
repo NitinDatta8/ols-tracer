@@ -1,5 +1,6 @@
 // The bridge's endpoints for the MCP, on a bridge of its own that never connects to a box: the read-only run endpoints
-// (/runs, /run, /history) over box 3's recorded runs, and /show and /baseline refusing while no box is connected.
+// (/runs, /run, /history) over box 3's recorded runs, /show and /baseline refusing while no box is connected, and the
+// per-box sessions with none open. Nothing here posts /connect: it would open a session with a box.
 import { spawn } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { request } from 'node:http';
@@ -96,12 +97,23 @@ describe.skipIf(!existsSync(python))('run endpoints (needs npm run bridge:setup)
       ['show flux-capacitor', /not a show command in the CLI index/],
       ['show card\nreboot ne cold', /one line/],
     ]) {
-      const got = await post(port, '/show', line);
+      const got = await post(port, '/show?host=nobox.invalid', line);
       expect(got.status, line).toBe(400);
       expect(got.body, line).toMatch(why);
     }
-    expect(await post(port, '/show', 'show och 1-7-5')).toMatchObject({ status: 409, body: expect.stringMatching(/^Connect to the box first/) });
-    expect(await post(port, '/baseline')).toMatchObject({ status: 409, body: expect.stringMatching(/^Connect to the box first/) });
-    expect((await get(port, '/status')).body).toMatchObject({ state: 'down', host: '' });
+    expect(await post(port, '/show?host=nobox.invalid', 'show och 1-7-5')).toMatchObject({ status: 409, body: expect.stringMatching(/^Connect to the box first/) });
+    expect(await post(port, '/baseline?host=nobox.invalid')).toMatchObject({ status: 409, body: expect.stringMatching(/^Connect to the box first/) });
+    expect(await post(port, '/pull?host=nobox.invalid', 'F03')).toMatchObject({ status: 409, body: expect.stringMatching(/^Connect to the box first/) });
+  });
+
+  it('keeps a session per box: lists none open, names its box in ?host=, and a disconnect leaves only its own', async () => {
+    expect((await get(port, '/status')).body).toEqual({ sessions: [] });
+    expect((await get(port, '/status?host=nobox.invalid&by=codex:a')).body).toEqual({ state: 'down', host: '', box: null, error: '', snapshot: null, holders: 0, held: false });
+    expect((await get(port, '/state?host=nobox.invalid')).body).toEqual({ live: false, run: null, commands: {} });
+    expect((await get(port, '/wiring?host=nobox.invalid')).body).toEqual([]);
+    for (const path of ['/status?host=a/b', '/state', '/wiring?host=', '/show?host=a%20b']) expect((await get(port, path)).status, path).toBe(400);
+    expect(await post(port, '/disconnect?host=nobox.invalid')).toMatchObject({ status: 400, body: expect.stringMatching(/^by:/) });
+    expect(await post(port, '/disconnect?host=nobox.invalid&by=codex:a')).toMatchObject({ status: 200, body: JSON.stringify({ left: false, holders: 0 }) });
+    expect((await get(port, '/status')).body).toEqual({ sessions: [] });
   });
 });

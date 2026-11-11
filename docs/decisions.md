@@ -2,12 +2,20 @@
 
 The decisions that shape the tracer, newest first, each with where it was argued. A decision that was later replaced says what replaced it. Plans are in the [roadmap](roadmap.md).
 
+## 2026-11-10
+
+| Decision | Why | Source |
+| --- | --- | --- |
+| The bridge keeps one SSH session per box, and shares it: each physical view and each Codex session that connects holds it (`?by=`: `view:<id>`, `codex:<Codex's _meta.sessionId>`), and it closes only once the last of them disconnects. Every endpoint for a session names its box's host (`?host=`); `/status` alone lists every session. A session's runs go to its own box, never a global one | In one Codex session, `bridge_disconnect` for box 3 also dropped paho-gs2000-test01: the bridge had one session, which any disconnect closed, and closing a physical view did the same. Two people, or a view and Codex, need to be on one box at once, and on several boxes | [Notes](notes.md) item 5 |
+| Codex runs the server's tools with `default_tools_approval_mode = "auto"`. The tools that only read carry `readOnlyHint` and run without asking; before the others Codex offers Allow for this session | Codex 0.167 offers Allow for this session only in `auto`, and remembers it by server and tool, not by the arguments, so allowing `run_show` once lets every later one run. `writes` offered only Allow and Cancel, so every `run_show` asked | [Notes](notes.md) item 4; Codex's `core/src/mcp_tool_call.rs` |
+| `run_show` is saved in the box's latest run, as a show typed in the terminal is: `source: "mcp"` in `raw/index.jsonl`, with `by`, the Codex session | The commands a diagnosis ran stay with the run they ran on, in order and by session, and the bridge records everything it runs itself | [Notes](notes.md) item 4 |
+
 ## 2026-11-08
 
 | Decision | Why | Source |
 | --- | --- | --- |
-| The MCP takes a box's host from its latest run's `meta.json`, and the connected box is the one whose host the bridge's `/status` names | `/connect` takes a host typed in the physical view and `/status` names a host, not a box, and the runs already record it, so no config or endpoint changes. A box with no runs is connected once from the UI | [MCP initial](archive/mcp-initial.md#bridge-control) |
-| Codex runs the server's tools with `default_tools_approval_mode = "writes"`, and the tools that only read carry `readOnlyHint`. Codex asks before `run_show` and the control tools, and `codex exec` refuses them | With `"approve"`, Codex would connect a box or capture a baseline without asking | [MCP initial](archive/mcp-initial.md#codex) |
+| The MCP takes a box's host from its latest run's `meta.json`, and the connected box is the one whose host the bridge's `/status` names. Replaced on 2026-11-10: a session per box, named by its host (`/status?host=`) | `/connect` takes a host typed in the physical view and `/status` names a host, not a box, and the runs already record it, so no config or endpoint changes. A box with no runs is connected once from the UI | [MCP initial](archive/mcp-initial.md#bridge-control) |
+| Codex runs the server's tools with `default_tools_approval_mode = "writes"`, and the tools that only read carry `readOnlyHint`. Codex asks before `run_show` and the control tools, and `codex exec` refuses them. Replaced on 2026-11-10 by `auto` | With `"approve"`, Codex would connect a box or capture a baseline without asking | [MCP initial](archive/mcp-initial.md#codex) |
 
 ## 2026-11-07
 
