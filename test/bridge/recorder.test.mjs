@@ -39,6 +39,19 @@ it('keeps a show asked for over the MCP in the run, with who asked, in order wit
   ]);
 });
 
+it('reads a run as its snapshot read it with no polls: a show typed or asked over the MCP later is left out with them', async () => {
+  const r = new Run('baseline', 'host-e', 'box-e');
+  const t = Date.parse('2026-11-10T12:00:00Z');
+  await r.record('show alarm', t, '{"alarms": {}}', true, 'snapshot');
+  await r.record('show alarm', t + 60000, '{"alarms": {"1": {}}}', true, 'mcp', 'codex:019a-session'); // a fault since
+  await r.record('show och 1-7-5', t + 120000, 'och', true, 'typed');
+  expect(latest(r.meta.run, { box: 'box-e', polls: false }).commands).toEqual({ 'show alarm': { at: t, data: { alarms: {} } } });
+  expect(latest(r.meta.run, { box: 'box-e' }).commands).toEqual({
+    'show alarm': { at: t + 60000, data: { alarms: { 1: {} } } },
+    'show och 1-7-5': { at: t + 120000, raw: 'och\n' },
+  });
+});
+
 describe('iso', () => {
   it("is local time with its offset, to the second, in any time zone, half and quarter hours too", () => {
     const t = Date.UTC(2026, 10, 2, 15, 30, 5, 999);
