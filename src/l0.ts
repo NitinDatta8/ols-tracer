@@ -160,11 +160,14 @@ export function activePorts(s: BoxState | null, card: LinecardDef | undefined, n
 export const routesOf = (card?: LinecardDef): L0InternalPathDef[] => (card?.l0?.internalPaths?.length ? card.l0.internalPaths
   : (card?.l0?.amplifiers ?? []).flatMap((a) => (a.ingressPort && a.egressPort ? [{ fromPort: a.ingressPort, toPort: a.egressPort, via: [`amplifier:${a.id}`] }] : [])));
 
-/** One step of the light: a port it crosses, a fiber, a WSS (`blocked` with no media channel through it), an amplifier. */
+/**
+ * One step of the light: a port it crosses, a fiber, a WSS (`blocked` with no media channel through it; `ports`, the
+ * ports of the way through it the light takes, else the whole WSS), an amplifier.
+ */
 export type Hop =
   | { kind: 'port'; at: string; dir: Dir }
   | { kind: 'fiber'; id: string }
-  | { kind: 'wss'; at: string; name: string; blocked?: boolean }
+  | { kind: 'wss'; at: string; name: string; blocked?: boolean; ports?: string[] }
   | { kind: 'amp'; at: string; id: string };
 type CardHop = Extract<Hop, { kind: 'wss' | 'amp' }>;
 
@@ -198,7 +201,8 @@ export function trace(t: Topology, cat: Catalog, s: BoxState | null, head: Link)
       .filter((o) => o.next && !seen.has(o.next.id));
     const pick = routes.find((o) => isActive(o.r)) ?? routes[0];
     if (!pick) break;
-    const through = pick.r.via.map((v) => viaHop(v, no, landing.slot));
+    const ports = [pick.r.fromPort, pick.r.toPort].map((p) => cliAddress(no, landing.slot, p));
+    const through = pick.r.via.map((v): CardHop => { const h = viaHop(v, no, landing.slot); return h.kind === 'wss' ? { ...h, ports } : h; });
     const wss = through.find((h) => h.kind === 'wss');
     if (wss && active.from === 'media-channel' && !isActive(pick.r)) {
       hops.push(...through.slice(0, through.indexOf(wss)), { ...wss, blocked: true });
@@ -219,14 +223,24 @@ export const pathsThrough = (t: Topology, cat: Catalog, s: BoxState | null, d: D
   return heads(t, cat).map((l) => trace(t, cat, s, l)).filter((hops) => hops.some((h) => h.kind !== 'fiber' && (h.at === here || h.at.startsWith(`${here}-`))));
 };
 
-/** The ch-N alarms on a WSS: the add direction's on a mux, the drop direction's on a demux. N is the media channel. */
-const channelAlarms = (s: BoxState, name: string) => allAlarms(s).filter((a) => /^ch-\d+$/.test(a.resource ?? '')
-  && !(name === 'mux' && a['alarm-abbreviate'].includes('DEST_TO_SRC')) && !(name === 'demux' && a['alarm-abbreviate'].includes('SRC_TO_DEST')));
+/** A media channel's number: its name's (`set media-channel 6` names it CH-6, and its alarms are on ch-6), else its id. */
+const channelNo = (c: MediaChannel) => c.cols.name?.match(/(\d+)$/)?.[1] ?? c.id;
+
+/**
+ * The ch-N alarms on a WSS: the add direction's on a mux, the drop direction's on a demux. N is the media channel, so
+ * once the box's media channels are known, only those of the channels through the hop's ports (or, with none, through
+ * any add/drop port of its card) count: a channel lost on one add/drop port is not on every WSS.
+ */
+const channelAlarms = (s: BoxState, hop: Extract<Hop, { kind: 'wss' }>) => {
+  const through = mediaChannels(s)?.filter((c) => c.addDrop && (hop.ports ? hop.ports.includes(c.addDrop) : c.addDrop.startsWith(`${hop.at}-`))).map(channelNo);
+  return allAlarms(s).filter((a) => /^ch-\d+$/.test(a.resource ?? '') && (!through || through.includes(a.resource!.slice(3)))
+    && !(hop.name === 'mux' && a['alarm-abbreviate'].includes('DEST_TO_SRC')) && !(hop.name === 'demux' && a['alarm-abbreviate'].includes('SRC_TO_DEST')));
+};
 
 /** The box's alarms on one hop. A port's are the ones of its direction: an IN_LOS is on the light landing there. */
 export function alarmsOn(s: BoxState, hop: Hop) {
   if (hop.kind === 'fiber') return [];
-  if (hop.kind === 'wss') return channelAlarms(s, hop.name);
+  if (hop.kind === 'wss') return channelAlarms(s, hop);
   const here = alarmsAt(s, hop.at);
   return hop.kind === 'amp' ? here : here.filter((a) => a.direction !== (hop.dir === 'in' ? 'tx' : 'rx'));
 }
@@ -322,7 +336,7 @@ export function inside(t: Topology, cat: Catalog, s: BoxState | null, d: Device,
     const through = channels.filter((c) => c.addDrop && ids.some((id) => address(id) === c.addDrop));
     const way = name === 'demux' ? 'drop' : 'add';
     return {
-      kind: 'wss', id: name, alarms: s ? alarmsOn(s, { kind: 'wss', at: address(), name }).map(alarmText) : [],
+      kind: 'wss', id: name, alarms: s ? alarmsOn(s, { kind: 'wss', at: address(), name, ports: ids.map(address) }).map(alarmText) : [],
       facts: through.flatMap((c) => [
         { label: 'Channel', value: `${c.id}${c.cols['center-frequency'] ? ` · ${c.cols['center-frequency']} MHz` : ''}${c.cols.bandwidth ? ` · ${c.cols.bandwidth} MHz wide` : ''}` },
         ...(c.cols[`actual-${way}-voa-attenuation`] ? [{ label: 'VOA', value: `${c.cols[`actual-${way}-voa-attenuation`]} dB` }] : []),

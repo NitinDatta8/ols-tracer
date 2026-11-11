@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import box3 from '../../examples/box3.olst.json';
 import { byId, cliAddress } from '../../src/catalog';
 import { catalogFor } from '../../src/catalog-vite';
-import { activePorts, firstLoss, heads, hopName, inside, judge, l0Problems, limitsAt, mediaChannels, portPower, tables, trace, type Limit, type Stage } from '../../src/l0';
+import { activePorts, alarmsOn, firstLoss, heads, hopName, inside, judge, l0Problems, limitsAt, mediaChannels, portPower, tables, trace, type Limit, type Stage } from '../../src/l0';
 import { light, type BoxState } from '../../src/live';
 import type { Link, Topology } from '../../src/types';
 
@@ -136,6 +136,43 @@ describe('a port\'s power', () => {
   it('is the port\'s own reading when the list read since has no line for it, and none when neither has', () => {
     expect(portPower(read(1000, 2000, ports('1-1-ad1', 1)), '1-1-ad11', 'in')?.dBm).toBe(2.61);
     expect(portPower(read(1000, 2000), '1-1-ad11', 'out')).toBeUndefined();
+  });
+});
+
+describe("a WSS's channel alarms", () => {
+  /**
+   * Media channel 6 on AD11, the add/drop port box 3's fibers are on, 7 on AD2, and 8 on a port of another card, named as
+   * `set media-channel N` names them.
+   */
+  const two = `[config]
+
+index    name    line-port        add-drop-port    admin-state    center-frequency
+                                                                  (MHz)
+-----    ----    -------------    -------------    -----------    ----------------
+6        CH-6    port-1-1-line    port-1-1-ad11    in-service     193500000
+7        CH-7    port-1-1-line    port-1-1-ad2     in-service     193600000
+8        CH-8    port-1-1-line    port-1-2-ad1     in-service     193700000
+`;
+  const lost = (n: number, mc?: string): BoxState => ({
+    live: false, commands: {
+      'show alarm': { at: 0, data: { alarms: { 1: { resource: `ch-${n}`, 'alarm-abbreviate': 'SRC_IN_LOS', severity: 'CRITICAL', text: 'Channel source input loss of signal' } } } },
+      ...(mc ? { 'show media-channel': { at: 0, raw: mc } } : {}),
+    },
+  });
+  const wss = (s: BoxState) => trace(t, cat, s, heads(t, cat)[0]).find((h) => h.kind === 'wss')!;
+  const card = (s: BoxState) => inside(t, cat, s, device, '1').flatMap((r) => r.stages).filter((x) => x.kind === 'wss').flatMap((x) => (x as Extract<Stage, { kind: 'wss' | 'amp' }>).alarms);
+
+  it("are only the media channels' through the hop's add/drop port: a channel lost on AD2 is not on AD11's path", () => {
+    expect(wss(lost(7, two))).toMatchObject({ kind: 'wss', ports: expect.arrayContaining(['1-1-ad11']) });
+    expect(alarmsOn(lost(7, two), wss(lost(7, two)))).toEqual([]);
+    expect(firstLoss(lost(7, two), trace(t, cat, lost(7, two), heads(t, cat)[0]))).toBeNull();
+    expect(firstLoss(lost(6, two), trace(t, cat, lost(6, two), heads(t, cat)[0]))?.hop).toMatchObject({ kind: 'wss' });
+  });
+
+  it("are the ones of the card's own channels inside it, and every channel's while the media channels aren't known", () => {
+    expect(card(lost(7, two)).length).toBeGreaterThan(0); // AD2 is on the card, if not on the path
+    expect(card(lost(8, two))).toEqual([]);
+    expect(alarmsOn(lost(7), wss(lost(7)))).toHaveLength(1);
   });
 });
 
