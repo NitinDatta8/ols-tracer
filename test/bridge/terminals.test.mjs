@@ -1,6 +1,6 @@
 import { EventEmitter } from 'node:events';
 import { describe, expect, it } from 'vitest';
-import { Logins, typeSteps, validSteps } from './terminals.mjs';
+import { Logins, typeSteps, validSteps } from '../../bridge/terminals.mjs';
 
 const OPTS = { prompt: /[#>$] ?$/, timeout: 200, settle: 20 };
 
@@ -117,5 +117,58 @@ describe('Logins', () => {
     let answers;
     made[0].emit('keyboard-interactive', '', '', '', [{ prompt: 'Password:' }], (a) => { answers = a; });
     expect(answers).toEqual(['pw']);
+  });
+});
+
+describe('terminal edge cases', () => {
+  it('takes a step of up to 200 characters, an empty one as just Enter, and nothing else', () => {
+    expect(validSteps(['x'.repeat(200), ''])).toBe(true);
+    for (const steps of [['x'.repeat(201)], ['configure\t'], ['configure\x7f'], [null], null, undefined, {}, [['configure']]]) expect(validSteps(steps), JSON.stringify(steps)).toBe(false);
+  });
+
+  it('waits for the whole prompt when it comes in pieces, colored or not', async () => {
+    const ch = new EventEmitter();
+    ch.typed = [];
+    ch.write = (d) => ch.typed.push(d);
+    const done = typeSteps(ch, ['configure'], { ...OPTS, login: 1000, loginQuiet: 20 });
+    ch.emit('data', 'admin@B');
+    await new Promise((r) => setTimeout(r, 50));
+    expect(ch.typed).toEqual([]);
+    ch.emit('data', '\x1b[32mOX>\x1b[0m ');
+    expect(await done).toEqual({ typed: 1 });
+  });
+
+  it("is harmless to release a box with no window, or a window's box twice", () => {
+    const logins = new Logins((host) => ({ host }), { Client: class extends EventEmitter { connect() {} end() {} } });
+    expect(() => logins.release('never.test')).not.toThrow();
+    logins.open('box.test');
+    logins.release('box.test');
+    expect(() => logins.release('box.test')).not.toThrow();
+    expect(logins.boxes.size).toBe(0);
+  });
+
+  it('opens a new connection after the last one closed by itself, and shares one still logging in', async () => {
+    const made = [];
+    class Slow extends EventEmitter {
+      constructor() { super(); made.push(this); }
+      connect() { setTimeout(() => this.emit('ready'), 30); }
+      end() { this.emit('close'); }
+    }
+    const logins = new Logins((host) => ({ host }), { Client: Slow });
+    const [a, b] = [logins.open('box.test'), logins.open('box.test')];
+    expect(made).toHaveLength(1);
+    await Promise.all([a, b]);
+    made[0].emit('close'); // the box dropped it
+    await logins.open('box.test');
+    expect(made).toHaveLength(2);
+  });
+
+  it('answers every prompt of a keyboard-interactive login with the password', async () => {
+    const made = [];
+    const logins = new Logins((host) => ({ host }), { password: 'pw', Client: class extends EventEmitter { constructor() { super(); made.push(this); } connect() { setTimeout(() => this.emit('ready'), 1); } end() {} } });
+    await logins.open('box.test');
+    let answers;
+    made[0].emit('keyboard-interactive', '', '', '', [{ prompt: 'Password:' }, { prompt: 'Token:' }], (a) => { answers = a; });
+    expect(answers).toEqual(['pw', 'pw']);
   });
 });

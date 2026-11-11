@@ -2,14 +2,14 @@ import { readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import box3 from '../examples/box3.olst.json';
-import { byId, cliAddress } from './catalog';
-import { catalogFor } from './catalog-vite';
-import { activePorts, firstLoss, heads, hopName, inside, judge, l0Problems, limitsAt, mediaChannels, tables, trace, type Limit, type Stage } from './l0';
-import { light, type BoxState } from './live';
-import type { Link, Topology } from './types';
+import box3 from '../../examples/box3.olst.json';
+import { byId, cliAddress } from '../../src/catalog';
+import { catalogFor } from '../../src/catalog-vite';
+import { activePorts, firstLoss, heads, hopName, inside, judge, l0Problems, limitsAt, mediaChannels, tables, trace, type Limit, type Stage } from '../../src/l0';
+import { light, type BoxState } from '../../src/live';
+import type { Link, Topology } from '../../src/types';
 
-const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const { latest } = await import(/* @vite-ignore */ resolve(repoRoot, 'bridge/recorder.mjs'));
 
 const t = box3 as unknown as Topology;

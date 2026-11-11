@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 const here = (p) => fileURLToPath(new URL(p, import.meta.url));
-const python = process.env.PYTHON ?? here('.venv/bin/python');
+const python = process.env.PYTHON ?? here('../../bridge/.venv/bin/python');
 
 /** A GET to the bridge: its status and body, JSON when it is. As the app sends it, unless `headers` say otherwise. */
 const get = (port, path, headers = {}) => new Promise((done, fail) => {
@@ -34,7 +34,7 @@ describe.skipIf(!existsSync(python))('run endpoints (needs npm run bridge:setup)
   let port;
   beforeAll(async () => {
     port = await new Promise((done) => { const s = createServer().listen(0, '127.0.0.1', () => { const { port: p } = s.address(); s.close(() => done(p)); }); });
-    bridge = spawn(process.execPath, [here('server.mjs')], { env: { ...process.env, BRIDGE_PORT: String(port) } });
+    bridge = spawn(process.execPath, [here('../../bridge/server.mjs')], { env: { ...process.env, BRIDGE_PORT: String(port) } });
     await new Promise((done) => bridge.stdout.on('data', (d) => String(d).includes('bridge on') && done()));
   });
   afterAll(() => bridge?.kill());

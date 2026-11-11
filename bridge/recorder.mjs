@@ -357,11 +357,14 @@ export class Run {
   place(hostname) {
     const box = boxOf(hostname);
     if (box === this.meta.box) return;
-    const dir = join(BOXES, box, 'runs', this.meta.run);
+    // A run of another session there may have started the same second, over another of the box's hosts.
+    let run = this.meta.run;
+    for (let k = 2; existsSync(join(BOXES, box, 'runs', run)); k++) run = `${this.meta.run}-${k}`;
+    const dir = join(BOXES, box, 'runs', run);
     mkdirSync(dirname(dir), { recursive: true });
     renameSync(this.dir, dir);
     console.log(`${this.meta.run} is ${hostname}, not ${this.meta.box}: moved to ${dir}`);
-    [this.dir, this.meta.box] = [dir, box];
+    [this.dir, this.meta.box, this.meta.run] = [dir, box, run];
   }
 
   /** Keeps the box's strands as they are now in the run, so it is read later with them, not with a wiring.csv changed since. */
@@ -406,8 +409,11 @@ export function wiring(box = current, run) {
   return readWiring(own && existsSync(own) ? own : wiringFile(box));
 }
 
-/** A JSON-lines file's lines, or none. */
-export const lines = (f) => (existsSync(f) ? readFileSync(f, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)) : []);
+/** A JSON-lines file's lines, or none. A line that doesn't parse, as one cut short by a crash, is left out. */
+export const lines = (f) => (existsSync(f) ? readFileSync(f, 'utf8').split('\n').filter(Boolean).flatMap((l) => { try { return [JSON.parse(l)]; } catch { return []; } }) : []);
+
+/** A run's meta.json, or null when it doesn't parse: a run broken by hand is left out, never the box with it. */
+export const metaOf = (dir) => { try { return JSON.parse(readFileSync(join(dir, 'meta.json'), 'utf8')); } catch { return null; } };
 
 /** The boxes with a folder under data/boxes/. */
 export const boxes = () => (existsSync(BOXES) ? readdirSync(BOXES).filter((b) => statSync(join(BOXES, b)).isDirectory()) : []);
@@ -422,7 +428,7 @@ export const runsIn = (dir) => (existsSync(dir) ? readdirSync(dir) : []).map((r)
 /** A box's runs, oldest first: each run's meta.json, its `run` the run's path under runs/ (plugout-1125/20261102-124335-alarms). */
 export function runsOf(box) {
   const dir = join(BOXES, box, 'runs');
-  return runsIn(dir).map((d) => ({ ...JSON.parse(readFileSync(join(d, 'meta.json'), 'utf8')), run: relative(dir, d) }))
+  return runsIn(dir).flatMap((d) => { const m = metaOf(d); return m ? [{ ...m, run: relative(dir, d) }] : []; })
     .sort((a, b) => Date.parse(a.started) - Date.parse(b.started));
 }
 
@@ -443,8 +449,7 @@ export const boxAt = (host) => boxes().map((box) => ({ box, run: runsOf(box).fin
 export function latest(name, { box, polls = true } = {}) {
   const runs = join(box ? join(BOXES, box, 'runs') : RUNS_DIR, dirname(name ?? '.'));
   const metas = (existsSync(runs) ? readdirSync(runs) : [])
-    .filter((r) => existsSync(join(runs, r, 'meta.json')))
-    .map((r) => ({ ...JSON.parse(readFileSync(join(runs, r, 'meta.json'), 'utf8')), run: r })) // a folder renamed by hand keeps its old name in meta.json
+    .flatMap((r) => { const m = metaOf(join(runs, r)); return m ? [{ ...m, run: r }] : []; }) // a folder renamed by hand keeps its old name in meta.json
     .filter((m) => m.run === basename(name ?? '') || !m.snapshot || m.snapshot.done === m.snapshot.of)
     .sort((a, b) => Date.parse(a.ended) - Date.parse(b.ended));
   if (name) metas.splice(metas.findIndex((m) => m.run === basename(name)) + 1);

@@ -55,6 +55,8 @@ const PROMPT = new RegExp(env.BOX_PROMPT ?? '[#>$] ?$');
 const TIMEOUT = Number(env.BOX_TIMEOUT ?? 20000);
 /** How long the prompt has to stay quiet before a command counts as done, in ms. */
 const SETTLE = 100;
+/** How long the prompt has to stay quiet after login, for the box's banner, in ms: on top of TIMEOUT to come at all. */
+const BANNER = 2000;
 /** How many shells the poller opens, each a CLI session of its own, to share a snapshot's commands: 1 to 8. */
 const WORKERS = Math.min(8, Math.max(1, Math.round(Number(env.BOX_WORKERS)) || 1));
 
@@ -134,7 +136,9 @@ function connect(s, delay = 1000) {
         Promise.all(opening).then((chs) => {
           const got = chs.filter(Boolean);
           if (got.length < WORKERS) console.log(`${got.length} of ${WORKERS} poller shells opened on ${s.host}`);
-          if (got.length && c === s.conn) poll(s, c, got);
+          // A poller that fails (a run folder it can't write, say) drops its connection, which opens again: it never
+          // takes the bridge down with the other sessions.
+          if (got.length && c === s.conn) poll(s, c, got).catch((e) => { console.log(`poller on ${s.host}: ${e.message}`); c.end(); });
         });
       }
     })
@@ -207,7 +211,7 @@ async function poll(s, c, chs) {
   // first (unrecorded), so no two are in `configure` together; one that doesn't come up is dropped.
   const login = ws.map((w) => {
     if (INIT.length) w.ch.write(INIT.map((cmd) => cmd + '\n').join(''));
-    return w.prompt(TIMEOUT, 2000); // logged in and through INIT
+    return w.prompt(TIMEOUT + BANNER, BANNER); // logged in and through INIT
   });
   let ready = ws.map(() => Promise.resolve());
   const setUp = async (w, i) => {
@@ -245,6 +249,7 @@ async function poll(s, c, chs) {
   };
 
   await login[0];
+  if (!live()) return; // closed while it logged in: nothing to record
   // Paging left on could cut any output short, so after a failed prerequisite nothing more is recorded or polled.
   if (!(await snapshot('connect'))) return console.log(`a prerequisite failed on ${s.host}, so it is not polled: see ${run.dir}/meta.json`);
   while (live()) {
@@ -307,7 +312,8 @@ const BY = /^[\x20-\x7e]{1,200}$/;
 /** The endpoints that act on one box's session, named by ?host=. */
 const PER_HOST = ['/status', '/state', '/connect', '/disconnect', '/wiring', '/pull', '/show', '/baseline'];
 
-const server = createServer(async (req, res) => {
+/** One request to the bridge, answered. */
+async function answer(req, res) {
   // Only the app, through Vite's proxy. Browsers send a custom header from another site only after a preflight, which
   // fails here (no CORS), and the Host check stops DNS rebinding. Without it, any web page could pick the box the
   // password goes to.
@@ -405,7 +411,15 @@ const server = createServer(async (req, res) => {
     return json(lines(join(boxDir(box), 'history.jsonl')).filter((e) => e.kind === 'config' && (!since || Date.parse(e.at) >= Date.parse(since))));
   }
   res.writeHead(404).end();
-});
+}
+
+// A request that fails, such as on a run file broken by hand, is answered with why: it never takes the bridge down
+// with everyone's sessions.
+const server = createServer((req, res) => answer(req, res).catch((e) => {
+  console.log(`${req.method} ${req.url}: ${e.message}`);
+  if (!res.headersSent) res.writeHead(500);
+  res.end(`${e.message}\n`);
+}));
 
 /**
  * A terminal window: a new shell on box `host` (its own SSH connection, shared with the box's other windows), with
@@ -458,7 +472,7 @@ async function openWindow(ws, params) {
     sh.on('data', (d) => ws.readyState === ws.OPEN && ws.send(d)).on('close', () => { say('\r\n[shell closed]'); ws.close(); });
     sh.setWindow(size.rows, size.cols, 0, 0); // resized while it opened
     if (INIT.length) sh.write(INIT.map((cmd) => cmd + '\n').join(''));
-    const { stuck } = await typeSteps(sh, steps, { prompt: PROMPT, timeout: TIMEOUT, settle: 300, login: TIMEOUT, loginQuiet: 2000 });
+    const { stuck } = await typeSteps(sh, steps, { prompt: PROMPT, timeout: TIMEOUT, settle: 300, login: TIMEOUT + BANNER, loginQuiet: BANNER });
     if (stuck !== undefined && !gone) say(`\r\n[no prompt came before "${stuck}", so it and the steps after it were not typed: carry on by hand]`);
   });
 }

@@ -6,6 +6,7 @@
 5. bridge disconnect in 1 codex session for box3 dropped the bridge connection for box1 (paho-gs2000-test01) also which is not what we want. 
 6. Command hallucinations are happening. We need to avoid that. If there are multiple candidates you think are possible then ask which one is meant and wait for the answer. 
 7.  No need to Open and new and save. We have a fixed set we will just use that on the main page. Update it. Have 3 racks and once I set it up manually we can lock it. To unlock and add new stuff at the chassis level password is Changeit@123. Should be able to freely add linecards and pluggables. 
+8. Possible speed-up, not done: the MCP rebuilds a recorded run from scratch on every tool call. Caching runs would cut CPU and memory when six people use it at once.
 11. Software upgrade button at chassis level. Similarly we need to find other workflows that can be translated to UI and button clicks. How? 
 12. 
 13. 

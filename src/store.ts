@@ -107,8 +107,8 @@ export const useStore = create<State>()(
       open: (json) => {
         try {
           const t = JSON.parse(json) as Topology;
+          upgrade(t); // first, so a file of a stream renamed since opens
           if (t.version !== 1 || !streams.some((st) => st.id === t.stream)) throw new Error('bad header');
-          upgrade(t);
           validate(t, catalogFor(t.stream)); // only to reject malformed files; problems are listed live in the UI
           get().load(t);
         } catch {

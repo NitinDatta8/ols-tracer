@@ -8,14 +8,15 @@ const PROMPT = /^[\w.-]+@[\w.-]+>\s*/;
 
 /**
  * A command line that may run again on the box: { cmd }, its `show` command with its spaces evened out, or { why } not.
- * Only `show`, never a ? help or a | pipe, on one line of printable text, so nothing else slips in. The bridge's /show
- * and the MCP's run_show hold a line to it too.
+ * Only `show`, never a ? help, a | pipe or a ; & ` $ < >, on one line of printable text, so nothing else slips in. The
+ * bridge's /show and the MCP's run_show hold a line to it too.
  */
 export function showOf(line) {
   if (/[\x00-\x1f\x7f-\x9f]/.test(line)) return { why: 'a command is one line of printable text' };
   const cmd = line.trim().replace(/\s+/g, ' ');
   if (!/^show(\s|$)/.test(cmd)) return { why: `${cmd.split(' ')[0] || 'an empty line'} is not show: only show commands run on the box` };
   if (cmd.includes('|')) return { why: 'a | pipe could save to a file' };
+  if (/[;&`$<>]/.test(cmd)) return { why: 'a ; & ` $ < or > could start another command, or write to a file' };
   if (cmd.includes('?')) return { why: 'a ? asks for help, not the box state' };
   return { cmd };
 }

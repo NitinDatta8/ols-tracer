@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import box3 from '../examples/box3.olst.json';
-import { catalogFor } from './catalog-vite';
-import { indexAt, RACK, rackLayout } from './racks';
-import { fillStep, termItems, termMenu } from './terminals';
-import type { Device, Topology } from './types';
+import box3 from '../../examples/box3.olst.json';
+import { catalogFor } from '../../src/catalog-vite';
+import { indexAt, RACK, rackLayout } from '../../src/racks';
+import { fillStep, termItems, termMenu } from '../../src/terminals';
+import type { Device, Topology } from '../../src/types';
 
 const cat = catalogFor('csp');
 /** Box 3's build (C1125 in 1, 800MX in 7 and 8) under made-up names, plus a C25 in 3. */

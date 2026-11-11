@@ -2,17 +2,17 @@ import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import box3 from '../examples/box3.olst.json';
-import demo from '../examples/demo.olst.json';
-import { byId, cli, cliAddress, nextMode } from './catalog';
-import { catalogFor as fromDisk } from './catalog-node';
-import { catalogFor, streams } from './catalog-vite';
-import { discover, light, stateFor, type BoxState } from './live';
-import { layout, moveRun } from './route';
-import { alarms, fiberError, linecardError, pluggableError, validate, wired } from './rules';
-import type { Topology } from './types';
+import box3 from '../../examples/box3.olst.json';
+import demo from '../../examples/demo.olst.json';
+import { byId, cli, cliAddress, nextMode } from '../../src/catalog';
+import { catalogFor as fromDisk } from '../../src/catalog-node';
+import { catalogFor, streams } from '../../src/catalog-vite';
+import { discover, light, stateFor, type BoxState } from '../../src/live';
+import { layout, moveRun } from '../../src/route';
+import { alarms, fiberError, linecardError, pluggableError, validate, wired } from '../../src/rules';
+import type { Topology } from '../../src/types';
 
-const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 /** 1-7-5's powers at the end of run 20261103-104506-connect: its last poll of `show och 1-7-5`. */
 const [TX, RX] = [-2.98, -7.57];
 

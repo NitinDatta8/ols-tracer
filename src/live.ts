@@ -118,7 +118,8 @@ const speed = (...values: (string | undefined)[]) => {
   return 'N/A';
 };
 
-const fiber = (...values: (string | undefined)[]) => (/\bSR\b|MMF/.test(values.map(upper).join(' ')) ? 'MMF' : 'SMF') as 'SMF' | 'MMF';
+/** Multimode for an SR part (10GBASE-SR, and SR4, SR8 … on more lanes) or one that says MMF, else single-mode. */
+const fiber = (...values: (string | undefined)[]) => (/\bSR\d*\b|MMF/.test(values.map(upper).join(' ')) ? 'MMF' : 'SMF') as 'SMF' | 'MMF';
 
 const familyFromAllowed = (cat: Catalog, allowed: string[]) => {
   for (const item of allowed) {

@@ -34,7 +34,7 @@ Open a device, type the box's IP in the header and click **Connect**. The machin
 ## Other commands
 
 ```sh
-npm test           # smoke tests
+npm test           # every test in test/, in about 30 s
 npm run build      # typecheck and production build in dist/
 npm run sync:auto  # run all catalog sync steps (platform + linecards + CLI)
 npm run sync:platform  # regenerate catalog/streams.json and catalog/<stream>/chassis.json from ../IIVI_Platform profiles
@@ -44,6 +44,16 @@ npm run sync:linecards # regenerate catalog/<stream>/linecards.json and catalog/
 ```
 
 `npm run dev`, `npm run build` and `npm test` run `sync:auto` first when `../IIVI_Platform/profile/cu` is present. The [guide](docs/guide.md#catalog) says what each sync writes.
+
+## Test
+
+`npm test` runs everything in `test/`, apart from the code it checks: `test/bridge/` for the bridge, `test/src/` for the app's model, and `test/fakes/` for what the tests run against. Nothing in it reaches a box.
+
+- **Sessions** (`test/bridge/sessions-*.test.mjs`, `endpoints.test.mjs`): the real bridge in the test's own process, with ssh2 swapped for a fake (`test/fakes/ssh2.mjs`) that opens no socket. Its boxes are made up (`box-1.t1.test` …) and their runs go to a temp folder. Six people (physical views and Codex sessions) on one box, and six boxes at once, each held by six: one SSH login and one snapshot a box, whatever the number of people, one box's people never touching another's, the bridge quick to answer, and nothing left open once everyone leaves. Also a box that refuses the login, drops the connection, never answers a command or is slow to prompt; shows, pulls and baselines asked for at once; terminals and terminal windows; and run files broken by hand, which never take the bridge down.
+- **Recorded runs** (`runs.test.mjs`, `templates.test.mjs`, `test/src/smoke.test.ts`, `l0.test.ts`): box 3's runs as `/run` serves them, the light and the L0 path on them, and every TTP template against its fixture. The bridge ones need `npm run bridge:setup`'s Python, and are skipped without it.
+- **Units:** each module's corner cases: the CLI index match, tables, the history and its episodes, the recorder, wiring inference, the poller's shells, typed and asked shows, terminal windows, and the app's catalog, rules, discovery, light, routing and store.
+
+A test opens a session only through the fake ssh2, on a made-up host: never a real host or IP.
 
 ## Docs
 

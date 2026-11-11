@@ -6,7 +6,7 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { iso, lines, runsIn } from './recorder.mjs';
+import { iso, lines, metaOf, runsIn } from './recorder.mjs';
 
 /** A `show log alarm` or `show log configuration` parse (snapshot or poll) as history events, at box time. */
 function events(cmd, data) {
@@ -32,7 +32,7 @@ const key = (e) => [e.box, e.kind, e.action, e.alarm, e.resource, e.details].joi
  */
 export function history(boxDir) {
   const all = new Map(lines(join(boxDir, 'history.jsonl')).map((e) => [key(e), e]));
-  const runs = runsIn(join(boxDir, 'runs')).map((dir) => ({ dir, meta: JSON.parse(readFileSync(join(dir, 'meta.json'), 'utf8')) }))
+  const runs = runsIn(join(boxDir, 'runs')).flatMap((dir) => { const meta = metaOf(dir); return meta ? [{ dir, meta }] : []; })
     .sort((a, b) => (a.meta.trigger === 'hand') - (b.meta.trigger === 'hand') || Date.parse(a.meta.started) - Date.parse(b.meta.started));
   for (const { dir, meta } of runs) {
     if (meta.boxClockOffsetSec == null) continue;
