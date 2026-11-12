@@ -1,0 +1,21 @@
+[config]
+id       channel-map    monitor-port     monitor-direction    channel-provision-mode    channel-interval     
+-----    -----------    -------------    -----------------    ----------------------    -----------------    
+1-1-1                   port-1-1-line    out                  auto                      channel_flex_grid    
+1-1-2                   port-1-1-com     out                  auto                      channel_flex_grid    
+
+[state]
+id       channel-map    monitor-port     monitor-direction    channel-provision-mode    channel-interval     
+-----    -----------    -------------    -----------------    ----------------------    -----------------    
+1-1-1                   port-1-1-line    out                  auto                      channel_flex_grid    
+1-1-2                   port-1-1-com     out                  auto                      channel_flex_grid    
+
+[channel-maps]
+None
+[channels]
+channel-monitor-name    lower-frequency    upper-frequency    power     monitor-channel    
+--------------------    ---------------    ---------------    ------    ---------------    
+OCM-1-1-1               193450000          193550000          5.20      CH-6               
+OCM-1-1-2               193450000          193550000          -40.90    CH-6               
+
+

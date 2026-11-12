@@ -1,0 +1,126 @@
+{
+  "state": {
+    "ports": {
+      "port-1-1-ad1": {
+        "in": {
+          "optical-power": -99.99,
+          "description": "total input optical power at add port",
+          "flag": "C"
+        },
+        "out": {
+          "optical-power": -99.99,
+          "description": "total output optical power at drop port",
+          "flag": "C"
+        }
+      },
+      "port-1-1-ad2": {
+        "in": {
+          "optical-power": -99.99,
+          "description": "total input optical power at add port",
+          "flag": "C"
+        },
+        "out": {
+          "optical-power": -99.99,
+          "description": "total output optical power at drop port",
+          "flag": "C"
+        }
+      },
+      "port-1-1-ad3": {
+        "in": {
+          "optical-power": -99.99,
+          "description": "total input optical power at add port",
+          "flag": "C"
+        },
+        "out": {
+          "optical-power": -99.99,
+          "description": "total output optical power at drop port",
+          "flag": "C"
+        }
+      },
+      "port-1-1-ad4": {
+        "in": {
+          "optical-power": -99.99,
+          "description": "total input optical power at add port",
+          "flag": "C"
+        },
+        "out": {
+          "optical-power": -99.99,
+          "description": "total output optical power at drop port",
+          "flag": "C"
+        }
+      },
+      "port-1-1-ad5": {
+        "in": {
+          "optical-power": -99.99,
+          "description": "total input optical power at add port",
+          "flag": "C"
+        },
+        "out": {
+          "optical-power": -99.99,
+          "description": "total output optical power at drop port",
+          "flag": "C"
+        }
+      },
+      "port-1-1-ad6": {
+        "in": {
+          "optical-power": -2.08,
+          "description": "total input optical power at add port",
+          "flag": "C"
+        },
+        "out": {
+          "optical-power": -9.8,
+          "description": "total output optical power at drop port",
+          "flag": "C"
+        }
+      },
+      "port-1-1-ad7": {
+        "in": {
+          "optical-power": -99.99,
+          "description": "total input optical power at add port",
+          "flag": "C"
+        },
+        "out": {
+          "optical-power": -99.99,
+          "description": "total output optical power at drop port",
+          "flag": "C"
+        }
+      },
+      "port-1-1-ad8": {
+        "in": {
+          "optical-power": -99.99,
+          "description": "total input optical power at add port",
+          "flag": "C"
+        },
+        "out": {
+          "optical-power": -99.99,
+          "description": "total output optical power at drop port",
+          "flag": "C"
+        }
+      },
+      "port-1-1-ad9": {
+        "in": {
+          "optical-power": -99.99,
+          "description": "total input optical power at add port",
+          "flag": "C"
+        },
+        "out": {
+          "optical-power": -99.99,
+          "description": "total output optical power at drop port",
+          "flag": "C"
+        }
+      },
+      "port-1-1-line": {
+        "in": {
+          "optical-power": -4.66,
+          "description": "line input total aggregate optical power",
+          "flag": "M"
+        },
+        "out": {
+          "optical-power": 5.36,
+          "description": "line output total aggregate optical power",
+          "flag": "M"
+        }
+      }
+    }
+  }
+}

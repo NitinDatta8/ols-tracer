@@ -1,0 +1,463 @@
+{
+  "entries": [
+    {
+      "time-stamp": "2021-07-24T01:52:49+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 18,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-24T01:52:49+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 18,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-24T01:42:48+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 16,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-24T01:42:48+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 16,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-24T01:32:48+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 15,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-24T01:32:47+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 15,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-24T01:22:46+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 12,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-24T01:22:46+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 12,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-24T01:12:44+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 10,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-24T01:12:44+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 10,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-24T01:02:42+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 8,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-24T01:02:42+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 8,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-24T00:52:41+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 7,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-24T00:52:41+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 7,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-24T00:42:40+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 5,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-24T00:42:40+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 5,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-24T00:32:40+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-24T00:32:40+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-24T00:28:28+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 12,
+      "user-ip": "10.111.12.107",
+      "type": "rpc",
+      "details": "reboot ne warm"
+    },
+    {
+      "time-stamp": "2021-07-23T23:05:34+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 8,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-23T23:05:33+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 8,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-23T23:01:16+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 6,
+      "user-ip": "10.111.12.107",
+      "type": "set",
+      "details": "set eth 1-7-1 fec disabled"
+    },
+    {
+      "time-stamp": "2021-07-23T22:59:03+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 6,
+      "user-ip": "10.111.12.107",
+      "type": "set",
+      "details": "set och 1-7-1 target-output-power 0"
+    },
+    {
+      "time-stamp": "2021-07-23T22:33:36+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 4,
+      "user-ip": "10.111.20.108",
+      "type": "rpc",
+      "details": "reboot ne cold"
+    },
+    {
+      "time-stamp": "2021-07-23T22:30:05+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 4,
+      "user-ip": "10.111.20.108",
+      "type": "rpc",
+      "details": "reboot card 1-7 cold"
+    },
+    {
+      "time-stamp": "2021-07-23T22:07:30+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 4,
+      "user-ip": "10.111.20.108",
+      "type": "rpc",
+      "details": "reboot ne cold"
+    },
+    {
+      "time-stamp": "2021-07-23T21:42:31+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.20.108",
+      "type": "set",
+      "details": "set sftp server enabled"
+    },
+    {
+      "time-stamp": "2021-07-23T21:29:11+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 1,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "reboot ne cold"
+    },
+    {
+      "time-stamp": "2021-07-23T21:11:38+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 16,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "activate candidate-sw-image"
+    },
+    {
+      "time-stamp": "2021-07-23T21:07:39+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 16,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "download sw-image path sftp://10.192.213.35/data/ftp/CSP_R2.10.0/20261013/Release_CSP-2.10.100.10_20261013.tar file-name Release_CSP-2.10.100.10_20261013.tar"
+    },
+    {
+      "time-stamp": "2021-07-23T00:56:36+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 14,
+      "user-ip": "10.111.0.43",
+      "type": "set",
+      "details": "set och 1-7-1 laser enabled"
+    },
+    {
+      "time-stamp": "2021-07-23T00:56:16+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 14,
+      "user-ip": "10.111.0.43",
+      "type": "set",
+      "details": "set och 1-7-1 frequency 193500000"
+    },
+    {
+      "time-stamp": "2021-07-23T00:49:41+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-23T00:49:41+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 13,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-23T00:41:21+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 11,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-23T00:41:21+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 11,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-22T23:17:09+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 9,
+      "user-ip": "10.111.12.107",
+      "type": "set",
+      "details": "set och 1-7-1 frequency 193500000 target-output-power -3"
+    },
+    {
+      "time-stamp": "2021-07-22T23:10:44+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 9,
+      "user-ip": "10.111.12.107",
+      "type": "set",
+      "details": "set media-channel 6 line-port port-1-1-line add-drop-port port-1-1-ad6 admin-state in-service center-frequency 193500000 bandwidth 100000"
+    },
+    {
+      "time-stamp": "2021-07-22T23:07:41+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 9,
+      "user-ip": "10.111.12.107",
+      "type": "set",
+      "details": "set eth 1-7-4 fec disabled"
+    },
+    {
+      "time-stamp": "2021-07-22T23:04:05+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 9,
+      "user-ip": "10.111.12.107",
+      "type": "set",
+      "details": "set cross-connection c41 source-entity 100GE-1-7-1-3 destination-entity 100GE-1-7-4"
+    },
+    {
+      "time-stamp": "2021-07-22T23:02:17+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 9,
+      "user-ip": "10.111.12.107",
+      "type": "set",
+      "details": "set port 1-7-4 port-mode PROT_100GE admin-state in-service"
+    },
+    {
+      "time-stamp": "2021-07-22T22:59:58+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 9,
+      "user-ip": "10.111.12.107",
+      "type": "set",
+      "details": "set logical-channel 1-7-1 time-slot-type eth-100g"
+    },
+    {
+      "time-stamp": "2021-07-22T22:58:35+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 9,
+      "user-ip": "10.111.12.107",
+      "type": "set",
+      "details": "set och 1-7-1 frequency 193500000 target-output-power 0"
+    },
+    {
+      "time-stamp": "2021-07-22T22:58:12+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 9,
+      "user-ip": "10.111.12.107",
+      "type": "set",
+      "details": "set port 1-7-1 admin-state in-service"
+    },
+    {
+      "time-stamp": "2021-07-22T22:57:57+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 9,
+      "user-ip": "10.111.12.107",
+      "type": "set",
+      "details": "set port 1-7-1 port-mode PROT_ZR800_16QAM_118G"
+    },
+    {
+      "time-stamp": "2021-07-22T17:10:02+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 6,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-22T17:10:01+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 6,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-22T17:06:58+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 4,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-22T17:06:57+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 4,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    },
+    {
+      "time-stamp": "2021-07-22T17:06:22+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli width 1024"
+    },
+    {
+      "time-stamp": "2021-07-22T17:06:22+00:00",
+      "nbi": "CLI",
+      "user-name": "admin",
+      "session-id": 2,
+      "user-ip": "10.111.0.43",
+      "type": "rpc",
+      "details": "set cli length 0"
+    }
+  ]
+}

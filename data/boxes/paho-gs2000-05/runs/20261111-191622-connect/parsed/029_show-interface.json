@@ -1,0 +1,46 @@
+{
+  "state": {
+    "interfaces": {
+      "1-1-osc": {
+        "control": "enabled",
+        "auto-negotiate": "disabled",
+        "port-speed": "1GB",
+        "flow-control": "disabled",
+        "oper-status": "up",
+        "mac-address": "c4:ee:f5:09:52:68"
+      },
+      "1-40-eth": {
+        "control": "enabled",
+        "auto-negotiate": "enabled",
+        "port-speed": "1GB",
+        "flow-control": "disabled",
+        "oper-status": "down",
+        "mac-address": "c4:ee:f5:09:52:67"
+      },
+      "1-43-nm": {
+        "control": "enabled",
+        "auto-negotiate": "enabled",
+        "port-speed": "1GB",
+        "flow-control": "disabled",
+        "oper-status": "down",
+        "mac-address": "c4:ee:f5:09:52:64"
+      },
+      "1-43-nm1": {
+        "control": "enabled",
+        "auto-negotiate": "enabled",
+        "port-speed": "1GB",
+        "flow-control": "disabled",
+        "oper-status": "down",
+        "mac-address": "c4:ee:f5:09:52:65"
+      },
+      "1-43-nm2": {
+        "control": "enabled",
+        "auto-negotiate": "enabled",
+        "port-speed": "1GB",
+        "flow-control": "disabled",
+        "oper-status": "up",
+        "mac-address": "c4:ee:f5:09:52:66"
+      }
+    }
+  }
+}

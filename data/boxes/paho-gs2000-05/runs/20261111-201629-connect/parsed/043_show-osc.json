@@ -1,0 +1,32 @@
+{
+  "state": {
+    "oscs": {
+      "1-1-osc": {
+        "output-frequency": 198675000,
+        "stats": {
+          "input-power": {
+            "instant": -8.45,
+            "avg": -8.45,
+            "min": -8.46,
+            "max": -8.45,
+            "unit": "dBm"
+          },
+          "output-power": {
+            "instant": 1.65,
+            "avg": 1.65,
+            "min": 1.65,
+            "max": 1.65,
+            "unit": "dBm"
+          },
+          "laser-bias-current": {
+            "instant": 3.71,
+            "avg": 3.71,
+            "min": 3.71,
+            "max": 3.71,
+            "unit": "mA"
+          }
+        }
+      }
+    }
+  }
+}

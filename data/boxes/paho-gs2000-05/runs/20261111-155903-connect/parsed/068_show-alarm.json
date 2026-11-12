@@ -1,0 +1,124 @@
+{
+  "alarms": {
+    "034591627079741469852640": {
+      "resource": "software",
+      "type-id": "SYS",
+      "alarm-abbreviate": "NO_CMT_SW",
+      "severity": "WARNING",
+      "text": "No committed software",
+      "time-created": "2021-07-23T22:35:32 UTC",
+      "direction": "na",
+      "location": "na",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "3127871627079735323101080": {
+      "resource": "port 1-43-nm",
+      "type-id": "SYS",
+      "alarm-abbreviate": "LINK_DOWN",
+      "severity": "MINOR",
+      "text": "Management port link down",
+      "time-created": "2021-07-23T22:35:49 UTC",
+      "direction": "bi-directional",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "3127871627079735589290280": {
+      "resource": "port 1-43-nm1",
+      "type-id": "SYS",
+      "alarm-abbreviate": "LINK_DOWN",
+      "severity": "MINOR",
+      "text": "Management port link down",
+      "time-created": "2021-07-23T22:35:49 UTC",
+      "direction": "bi-directional",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "0193941627079741484005800": {
+      "resource": "system",
+      "type-id": "SYS",
+      "alarm-abbreviate": "DATETIME_UNCHANGED",
+      "severity": "WARNING",
+      "text": "Datetime unchanged",
+      "time-created": "2021-07-23T22:35:59 UTC",
+      "direction": "na",
+      "location": "na",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "0165051627079733240590440": {
+      "resource": "card 1-21",
+      "type-id": "EQPT",
+      "alarm-abbreviate": "EQPT_MISMATCH",
+      "severity": "CRITICAL",
+      "text": "Present equipment type mismatch",
+      "time-created": "2021-07-23T22:36:03 UTC",
+      "direction": "na",
+      "location": "na",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "1211221627079736668961080": {
+      "resource": "card 1-22",
+      "type-id": "ENV",
+      "alarm-abbreviate": "PWR_NO_INPUT",
+      "severity": "MINOR",
+      "text": "No power input",
+      "time-created": "2021-07-23T22:36:24 UTC",
+      "direction": "rx",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "114191627079737403970480": {
+      "resource": "logical-channel flexgo-1-7-1",
+      "type-id": "ZR",
+      "alarm-abbreviate": "LOF",
+      "severity": "CRITICAL",
+      "text": "Loss of Frame",
+      "time-created": "2021-07-23T22:53:02 UTC",
+      "direction": "rx",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "18481627079733554652400": {
+      "resource": "och 1-7-1",
+      "type-id": "OCH",
+      "alarm-abbreviate": "PRE-FEC_DEGRADE",
+      "severity": "MINOR",
+      "text": "Pre-FEC Degrade",
+      "time-created": "2021-07-23T22:53:02 UTC",
+      "direction": "rx",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "1132491627079733619145040": {
+      "resource": "och 1-7-1",
+      "type-id": "OCH",
+      "alarm-abbreviate": "POST-FEC_DEGRADE",
+      "severity": "MAJOR",
+      "text": "Post-FEC Degrade",
+      "time-created": "2021-07-23T22:53:02 UTC",
+      "direction": "rx",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "1279981627079737667164320": {
+      "resource": "100ge 1-7-4",
+      "type-id": "ETH",
+      "alarm-abbreviate": "LINK_RF",
+      "severity": "WARNING",
+      "text": "Remote Fault",
+      "time-created": "2021-07-23T23:01:25 UTC",
+      "direction": "rx",
+      "location": "far-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    }
+  }
+}

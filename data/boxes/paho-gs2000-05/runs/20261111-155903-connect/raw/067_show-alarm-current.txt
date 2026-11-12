@@ -1,0 +1,4 @@
+error: invalid parameter:current
+supported filtering criteria: ['resource', 'type-id','severity', 'alarm-abbreviate', 'direction', 'location', 'time-period', 'time-created']
+The operator must be one of the following: ['=', '!=', '>', '<']
+

@@ -1,0 +1,54 @@
+time-stamp                   action    resource                        alarm-abbreviate           severity    direction         service-affect    type-id    time-created           
+-------------------------    ------    ----------------------------    -----------------------    --------    --------------    --------------    -------    -------------------    
+2021-07-24T00:31:17+00:00    CLEAR     card 1-33                       FAN_SPD_HIGH               MAJOR       na                false             EQPT       1627086656372662016    
+2021-07-24T00:31:17+00:00    CLEAR     card 1-32                       FAN_SPD_HIGH               MAJOR       na                false             EQPT       1627086656232793344    
+2021-07-24T00:31:17+00:00    CLEAR     card 1-31                       FAN_SPD_HIGH               MAJOR       na                false             EQPT       1627086656100556800    
+2021-07-24T00:31:16+00:00    CREATE    card 1-22                       PWR_NO_INPUT               MINOR       rx                false             ENV        1627086673054579712    
+2021-07-24T00:31:06+00:00    CREATE    och 1-7-1                       POST-FEC_DEGRADE           MAJOR       rx                true              OCH        1627086663025674560    
+2021-07-24T00:31:06+00:00    CREATE    och 1-7-1                       PRE-FEC_DEGRADE            MINOR       rx                false             OCH        1627086663022748320    
+2021-07-24T00:31:06+00:00    CREATE    logical-channel flexgo-1-7-1    LOF                        CRITICAL    rx                true              ZR         1627086663001569680    
+2021-07-24T00:31:06+00:00    CREATE    100ge 1-7-4                     LINK_RF                    WARNING     rx                false             ETH        1627086663029464520    
+2021-07-24T00:30:59+00:00    CREATE    card 1-33                       FAN_SPD_HIGH               MAJOR       na                false             EQPT       1627086656372662016    
+2021-07-24T00:30:59+00:00    CREATE    card 1-32                       FAN_SPD_HIGH               MAJOR       na                false             EQPT       1627086656232793344    
+2021-07-24T00:30:59+00:00    CREATE    card 1-31                       FAN_SPD_HIGH               MAJOR       na                false             EQPT       1627086656100556800    
+2021-07-24T00:30:54+00:00    CREATE    card 1-21                       EQPT_MISMATCH              CRITICAL    na                true              EQPT       1627086651660740608    
+2021-07-24T00:30:48+00:00    CREATE    system                          DATETIME_UNCHANGED         WARNING     na                false             SYS        1627086645227000000    
+2021-07-24T00:30:41+00:00    CREATE    port 1-43-nm1                   LINK_DOWN                  MINOR       bi-directional    false             SYS        1627086638107504280    
+2021-07-24T00:30:40+00:00    CREATE    port 1-43-nm                    LINK_DOWN                  MINOR       bi-directional    false             SYS        1627086637883397560    
+2021-07-24T00:30:33+00:00    CREATE    software                        NO_CMT_SW                  WARNING     na                false             SYS        1627086621129000000    
+2021-07-24T00:28:52+00:00    CLEAR     system                          DATETIME_UNCHANGED         WARNING     na                false             SYS        1627079759358000000    
+2021-07-24T00:28:52+00:00    CLEAR     software                        NO_CMT_SW                  WARNING     na                false             SYS        1627079732247000000    
+2021-07-24T00:28:52+00:00    CLEAR     card 1-22                       PWR_NO_INPUT               MINOR       rx                false             ENV        1627079784722205952    
+2021-07-24T00:28:52+00:00    CLEAR     card 1-21                       EQPT_MISMATCH              CRITICAL    na                true              EQPT       1627079763218745344    
+2021-07-24T00:28:52+00:00    CLEAR     port 1-43-nm1                   LINK_DOWN                  MINOR       bi-directional    false             SYS        1627079749506968200    
+2021-07-24T00:28:52+00:00    CLEAR     port 1-43-nm                    LINK_DOWN                  MINOR       bi-directional    false             SYS        1627079749236487800    
+2021-07-24T00:28:52+00:00    CLEAR     card 1-7                        COMMUNICATION_FAILURE      CRITICAL    na                false             EQPT       1627086519347000000    
+2021-07-24T00:28:41+00:00    CREATE    card 1-7                        COMMUNICATION_FAILURE      CRITICAL    na                false             EQPT       1627086519347000000    
+2021-07-24T00:28:39+00:00    CLEAR     och 1-7-1                       POST-FEC_DEGRADE           MAJOR       rx                true              OCH        1627080782387465360    
+2021-07-24T00:28:39+00:00    CLEAR     och 1-7-1                       PRE-FEC_DEGRADE            MINOR       rx                false             OCH        1627080782380155960    
+2021-07-24T00:28:30+00:00    CLEAR     100ge 1-7-4                     LINK_RF                    WARNING     rx                false             ETH        1627086486012426520    
+2021-07-24T00:28:29+00:00    CLEAR     logical-channel flexgo-1-7-1    LOF                        CRITICAL    rx                true              ZR         1627080782363316520    
+2021-07-24T00:28:09+00:00    CREATE    100ge 1-7-4                     LINK_RF                    WARNING     rx                false             ETH        1627086486012426520    
+2021-07-24T00:28:07+00:00    CLEAR     100ge 1-7-4                     LINK_LF                    CRITICAL    rx                false             ETH        1627086481988284320    
+2021-07-24T00:28:06+00:00    CREATE    100ge 1-7-4                     LINK_LF                    CRITICAL    rx                false             ETH        1627086481988284320    
+2021-07-24T00:28:06+00:00    CLEAR     100ge 1-7-4                     ETH_LOS_SYN                CRITICAL    rx                true              ETH        1627086480971982720    
+2021-07-24T00:28:05+00:00    CREATE    100ge 1-7-4                     ETH_LOS_SYN                CRITICAL    rx                true              ETH        1627086480971982720    
+2021-07-24T00:28:03+00:00    CLEAR     100ge 1-7-4                     LINK_RF                    WARNING     rx                false             ETH        1627086444835765960    
+2021-07-24T00:27:27+00:00    CREATE    100ge 1-7-4                     LINK_RF                    WARNING     rx                false             ETH        1627086444835765960    
+2021-07-24T00:27:26+00:00    CLEAR     100ge 1-7-4                     LINK_LF                    CRITICAL    rx                false             ETH        1627082119890145840    
+2021-07-24T00:27:25+00:00    CREATE    100ge 1-7-4                     LINK_LF                    CRITICAL    rx                false             ETH        1627082119890145840    
+2021-07-24T00:27:25+00:00    CLEAR     100ge 1-7-4                     ETH_LOS_SYN                CRITICAL    rx                true              ETH        1627086431812537240    
+2021-07-24T00:27:24+00:00    CLEAR     transceiver 1-7-4               RX_LOS                     CRITICAL    rx                true              OPTICAL    1627086431806981120    
+2021-07-24T00:27:24+00:00    CREATE    100ge 1-7-4                     ETH_LOS_SYN                CRITICAL    rx                true              ETH        1627086431812537240    
+2021-07-24T00:27:14+00:00    CREATE    transceiver 1-7-4               RX_LOS                     CRITICAL    rx                true              OPTICAL    1627086431806981120    
+2021-07-24T00:27:14+00:00    CLEAR     100ge 1-7-4                     LINK_LF                    CRITICAL    rx                false             ETH        1627082119890145840    
+2021-07-24T00:26:53+00:00    CLEAR     mediach-ch-6                    DEST_IN_LOS                CRITICAL    rx                true              OPTICAL    1627086380116371560    
+2021-07-24T00:26:50+00:00    CLEAR     port 1-1-ad6                    OUT_OPTICAL_LOW_WARNING    MAJOR       tx                false             OPTICAL    1627086379826648064    
+2021-07-24T00:26:50+00:00    CREATE    mediach-ch-6                    DEST_IN_LOS                CRITICAL    rx                true              OPTICAL    1627086380116371560    
+2021-07-24T00:26:50+00:00    CLEAR     amplifier 1-1-pa                IN_LOS                     CRITICAL    rx                true              OPTICAL    1627086381960872840    
+2021-07-24T00:26:49+00:00    CLEAR     och 1-7-1                       RX_LOS                     CRITICAL    rx                true              OPTICAL    1627086378584723080    
+2021-07-24T00:26:49+00:00    CREATE    och 1-7-1                       POST-FEC_DEGRADE           MAJOR       rx                true              OCH        1627080782387465360    
+2021-07-24T00:26:49+00:00    CREATE    och 1-7-1                       PRE-FEC_DEGRADE            MINOR       rx                false             OCH        1627080782380155960    
+2021-07-24T00:26:49+00:00    CREATE    logical-channel flexgo-1-7-1    LOF                        CRITICAL    rx                true              ZR         1627080782363316520    
+
+

@@ -1,0 +1,204 @@
+time-stamp                   action    resource                        alarm-abbreviate             severity    direction         service-affect    type-id    time-created           
+-------------------------    ------    ----------------------------    -------------------------    --------    --------------    --------------    -------    -------------------    
+2021-07-23T23:01:28+00:00    CREATE    100ge 1-7-4                     LINK_RF                      WARNING     rx                false             ETH        1627081285156678840    
+2021-07-23T23:01:27+00:00    CLEAR     100ge 1-7-4                     LINK_LF                      CRITICAL    rx                false             ETH        1627081283145076360    
+2021-07-23T23:01:25+00:00    CREATE    100ge 1-7-4                     LINK_LF                      CRITICAL    rx                false             ETH        1627081283145076360    
+2021-07-23T23:01:25+00:00    CLEAR     100ge 1-7-4                     ETH_LOS_SYN                  CRITICAL    rx                true              ETH        1627081282143068760    
+2021-07-23T23:01:24+00:00    CLEAR     100ge 1-7-4                     LINK_RF                      WARNING     rx                false             ETH        1627081152624841120    
+2021-07-23T23:01:24+00:00    CREATE    100ge 1-7-4                     ETH_LOS_SYN                  CRITICAL    rx                true              ETH        1627081282143068760    
+2021-07-23T22:59:15+00:00    CREATE    100ge 1-7-4                     LINK_RF                      WARNING     rx                false             ETH        1627081152624841120    
+2021-07-23T22:59:11+00:00    CLEAR     100ge 1-7-4                     LINK_RF                      WARNING     rx                false             ETH        1627080824445327120    
+2021-07-23T22:53:47+00:00    CREATE    100ge 1-7-4                     LINK_RF                      WARNING     rx                false             ETH        1627080824445327120    
+2021-07-23T22:53:43+00:00    CLEAR     100ge 1-7-4                     LINK_RF                      WARNING     rx                false             ETH        1627080782393107600    
+2021-07-23T22:53:14+00:00    CLEAR     mediach-ch-6                    SRC_IN_LOS                   CRITICAL    rx                true              OPTICAL    1627079771169475160    
+2021-07-23T22:53:12+00:00    CLEAR     port 1-1-ad6                    IN_LOS                       CRITICAL    rx                true              OPTICAL    1627079773026297360    
+2021-07-23T22:53:07+00:00    CREATE    mediach-ch-6                    SRC_IN_LOS                   CRITICAL    rx                true              OPTICAL    1627079771169475160    
+2021-07-23T22:53:07+00:00    CLEAR     amplifier 1-1-ba                IN_LOS                       CRITICAL    rx                true              OPTICAL    1627079772948383840    
+2021-07-23T22:53:05+00:00    CLEAR     port 1-1-line                   OUT_OPTICAL_LOW_WARNING      MAJOR       tx                false             OPTICAL    1627079770090256128    
+2021-07-23T22:53:05+00:00    CREATE    och 1-7-1                       POST-FEC_DEGRADE             MAJOR       rx                true              OCH        1627080782387465360    
+2021-07-23T22:53:05+00:00    CREATE    och 1-7-1                       PRE-FEC_DEGRADE              MINOR       rx                false             OCH        1627080782380155960    
+2021-07-23T22:53:05+00:00    CREATE    logical-channel flexgo-1-7-1    LOF                          CRITICAL    rx                true              ZR         1627080782363316520    
+2021-07-23T22:53:05+00:00    CLEAR     amplifier 1-1-ba                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627079770086235840    
+2021-07-23T22:53:05+00:00    CREATE    100ge 1-7-4                     LINK_RF                      WARNING     rx                false             ETH        1627080782393107600    
+2021-07-23T22:51:24+00:00    CLEAR     transceiver 1-7-1               TRANSCEIVER_MISMATCH         CRITICAL    na                true              EQPT       1627079772953000000    
+2021-07-23T22:36:30+00:00    CLEAR     card 1-33                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627079767907767552    
+2021-07-23T22:36:30+00:00    CLEAR     card 1-32                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627079767745543680    
+2021-07-23T22:36:29+00:00    CLEAR     card 1-31                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627079767608799744    
+2021-07-23T22:36:27+00:00    CREATE    card 1-22                       PWR_NO_INPUT                 MINOR       rx                false             ENV        1627079784722205952    
+2021-07-23T22:36:16+00:00    CREATE    transceiver 1-7-1               TRANSCEIVER_MISMATCH         CRITICAL    na                true              EQPT       1627079772953000000    
+2021-07-23T22:36:16+00:00    CREATE    port 1-1-ad6                    IN_LOS                       CRITICAL    rx                true              OPTICAL    1627079773026297360    
+2021-07-23T22:36:15+00:00    CREATE    amplifier 1-1-ba                IN_LOS                       CRITICAL    rx                true              OPTICAL    1627079772948383840    
+2021-07-23T22:36:13+00:00    CREATE    port 1-1-line                   OUT_OPTICAL_LOW_WARNING      MAJOR       tx                false             OPTICAL    1627079770090256128    
+2021-07-23T22:36:13+00:00    CREATE    amplifier 1-1-ba                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627079770086235840    
+2021-07-23T22:36:10+00:00    CREATE    card 1-33                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627079767907767552    
+2021-07-23T22:36:10+00:00    CREATE    card 1-32                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627079767745543680    
+2021-07-23T22:36:10+00:00    CREATE    card 1-31                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627079767608799744    
+2021-07-23T22:36:06+00:00    CREATE    card 1-21                       EQPT_MISMATCH                CRITICAL    na                true              EQPT       1627079763218745344    
+2021-07-23T22:36:02+00:00    CREATE    system                          DATETIME_UNCHANGED           WARNING     na                false             SYS        1627079759358000000    
+2021-07-23T22:35:52+00:00    CREATE    port 1-43-nm1                   LINK_DOWN                    MINOR       bi-directional    false             SYS        1627079749506968200    
+2021-07-23T22:35:52+00:00    CREATE    port 1-43-nm                    LINK_DOWN                    MINOR       bi-directional    false             SYS        1627079749236487800    
+2021-07-23T22:35:43+00:00    CREATE    software                        NO_CMT_SW                    WARNING     na                false             SYS        1627079732247000000    
+2021-07-23T22:34:05+00:00    CLEAR     system                          DATETIME_UNCHANGED           WARNING     na                false             SYS        1627078190729000000    
+2021-07-23T22:34:05+00:00    CLEAR     software                        NO_CMT_SW                    WARNING     na                false             SYS        1627078166355000000    
+2021-07-23T22:34:05+00:00    CLEAR     card 1-22                       PWR_NO_INPUT                 MINOR       rx                false             ENV        1627078218768612352    
+2021-07-23T22:34:05+00:00    CLEAR     card 1-21                       EQPT_MISMATCH                CRITICAL    na                true              EQPT       1627078196621398528    
+2021-07-23T22:34:05+00:00    CLEAR     port 1-43-nm1                   LINK_DOWN                    MINOR       bi-directional    false             SYS        1627078183709959240    
+2021-07-23T22:34:05+00:00    CLEAR     port 1-43-nm                    LINK_DOWN                    MINOR       bi-directional    false             SYS        1627078183459391760    
+2021-07-23T22:34:05+00:00    CLEAR     mediach-ch-6                    SRC_IN_LOS                   CRITICAL    rx                true              OPTICAL    1627078205078238240    
+2021-07-23T22:34:05+00:00    CLEAR     card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627079619197000000    
+2021-07-23T22:33:42+00:00    CREATE    card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627079619197000000    
+2021-07-23T22:33:38+00:00    CLEAR     transceiver 1-7-1               TRANSCEIVER_MISMATCH         CRITICAL    na                true              EQPT       1627079507821000000    
+2021-07-23T22:33:36+00:00    CLEAR     port 1-1-line                   OUT_OPTICAL_LOW_WARNING      MAJOR       tx                false             OPTICAL    1627078203907346688    
+2021-07-23T22:33:36+00:00    CLEAR     port 1-1-ad6                    IN_LOS                       CRITICAL    rx                true              OPTICAL    1627078206572926720    
+2021-07-23T22:33:36+00:00    CREATE    mediach-ch-6                    SRC_IN_LOS                   CRITICAL    rx                true              OPTICAL    1627078205078238240    
+2021-07-23T22:33:36+00:00    CLEAR     amplifier 1-1-ba                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627078203893545680    
+2021-07-23T22:33:36+00:00    CLEAR     amplifier 1-1-ba                IN_LOS                       CRITICAL    rx                true              OPTICAL    1627078206513624560    
+2021-07-23T22:31:50+00:00    CREATE    transceiver 1-7-1               TRANSCEIVER_MISMATCH         CRITICAL    na                true              EQPT       1627079507821000000    
+2021-07-23T22:31:45+00:00    CLEAR     card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627079414789000000    
+2021-07-23T22:30:17+00:00    CREATE    card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627079414789000000    
+2021-07-23T22:30:05+00:00    CLEAR     transceiver 1-7-1               TRANSCEIVER_MISMATCH         CRITICAL    na                true              EQPT       1627078954523000000    
+2021-07-23T22:22:37+00:00    CREATE    transceiver 1-7-1               TRANSCEIVER_MISMATCH         CRITICAL    na                true              EQPT       1627078954523000000    
+2021-07-23T22:22:33+00:00    CLEAR     transceiver 1-7-1               TRANSCEIVER_MISMATCH         CRITICAL    na                true              EQPT       1627078206521000000    
+2021-07-23T22:11:46+00:00    CLEAR     mediach-ch-6                    REACH_MAX_ATT_DEST_TO_SRC    MAJOR       na                false             OPTICAL    1627078238083746400    
+2021-07-23T22:10:44+00:00    CREATE    mediach-ch-6                    REACH_MAX_ATT_DEST_TO_SRC    MAJOR       na                false             OPTICAL    1627078238083746400    
+2021-07-23T22:10:33+00:00    CLEAR     port 1-1-ad6                    OUT_OPTICAL_HIGH_WARNING     MAJOR       tx                false             OPTICAL    1627078220219062784    
+2021-07-23T22:10:23+00:00    CREATE    port 1-1-ad6                    OUT_OPTICAL_HIGH_WARNING     MAJOR       tx                false             OPTICAL    1627078220219062784    
+2021-07-23T22:10:23+00:00    CLEAR     card 1-33                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627078201269139456    
+2021-07-23T22:10:23+00:00    CLEAR     card 1-32                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627078201137165824    
+2021-07-23T22:10:23+00:00    CLEAR     card 1-31                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627078201000500736    
+2021-07-23T22:10:21+00:00    CREATE    card 1-22                       PWR_NO_INPUT                 MINOR       rx                false             ENV        1627078218768612352    
+2021-07-23T22:10:11+00:00    CLEAR     mediach-ch-6                    DEST_IN_LOS                  CRITICAL    rx                true              OPTICAL    1627078205078312920    
+2021-07-23T22:10:09+00:00    CREATE    transceiver 1-7-1               TRANSCEIVER_MISMATCH         CRITICAL    na                true              EQPT       1627078206521000000    
+2021-07-23T22:10:09+00:00    CREATE    port 1-1-ad6                    IN_LOS                       CRITICAL    rx                true              OPTICAL    1627078206572926720    
+2021-07-23T22:10:09+00:00    CLEAR     amplifier 1-1-pa                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627078203969860080    
+2021-07-23T22:10:09+00:00    CREATE    amplifier 1-1-ba                IN_LOS                       CRITICAL    rx                true              OPTICAL    1627078206513624560    
+2021-07-23T22:10:08+00:00    CREATE    mediach-ch-6                    DEST_IN_LOS                  CRITICAL    rx                true              OPTICAL    1627078205078312920    
+2021-07-23T22:10:07+00:00    CREATE    amplifier 1-1-pa                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627078203969860080    
+2021-07-23T22:10:06+00:00    CREATE    port 1-1-line                   OUT_OPTICAL_LOW_WARNING      MAJOR       tx                false             OPTICAL    1627078203907346688    
+2021-07-23T22:10:06+00:00    CREATE    amplifier 1-1-ba                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627078203893545680    
+2021-07-23T22:10:04+00:00    CREATE    card 1-33                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627078201269139456    
+2021-07-23T22:10:04+00:00    CREATE    card 1-32                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627078201137165824    
+2021-07-23T22:10:04+00:00    CREATE    card 1-31                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627078201000500736    
+2021-07-23T22:09:59+00:00    CREATE    card 1-21                       EQPT_MISMATCH                CRITICAL    na                true              EQPT       1627078196621398528    
+2021-07-23T22:09:53+00:00    CREATE    system                          DATETIME_UNCHANGED           WARNING     na                false             SYS        1627078190729000000    
+2021-07-23T22:09:46+00:00    CREATE    port 1-43-nm1                   LINK_DOWN                    MINOR       bi-directional    false             SYS        1627078183709959240    
+2021-07-23T22:09:46+00:00    CREATE    port 1-43-nm                    LINK_DOWN                    MINOR       bi-directional    false             SYS        1627078183459391760    
+2021-07-23T22:09:38+00:00    CREATE    software                        NO_CMT_SW                    WARNING     na                false             SYS        1627078166355000000    
+2021-07-23T22:08:00+00:00    CLEAR     system                          DATETIME_UNCHANGED           WARNING     na                false             SYS        1627075892823000000    
+2021-07-23T22:08:00+00:00    CLEAR     software                        NO_CMT_SW                    WARNING     na                false             SYS        1627075868573000000    
+2021-07-23T22:08:00+00:00    CLEAR     card 1-22                       PWR_NO_INPUT                 MINOR       rx                false             ENV        1627075920192488192    
+2021-07-23T22:08:00+00:00    CLEAR     card 1-21                       EQPT_MISMATCH                CRITICAL    na                true              EQPT       1627075898760029696    
+2021-07-23T22:08:00+00:00    CLEAR     port 1-43-nm1                   LINK_DOWN                    MINOR       bi-directional    false             SYS        1627075885379915120    
+2021-07-23T22:08:00+00:00    CLEAR     port 1-43-nm                    LINK_DOWN                    MINOR       bi-directional    false             SYS        1627075885229849280    
+2021-07-23T22:08:00+00:00    CLEAR     mediach-ch-6                    SRC_IN_LOS                   CRITICAL    rx                true              OPTICAL    1627075907204840240    
+2021-07-23T22:08:00+00:00    CLEAR     card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627078065143000000    
+2021-07-23T22:07:48+00:00    CREATE    card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627078065143000000    
+2021-07-23T22:07:36+00:00    CLEAR     transceiver 1-7-1               TRANSCEIVER_MISMATCH         CRITICAL    na                true              EQPT       1627077973651000000    
+2021-07-23T22:07:31+00:00    CLEAR     port 1-1-line                   OUT_OPTICAL_LOW_WARNING      MAJOR       tx                false             OPTICAL    1627075906105649664    
+2021-07-23T22:07:31+00:00    CLEAR     port 1-1-ad6                    IN_LOS                       CRITICAL    rx                true              OPTICAL    1627075908708361840    
+2021-07-23T22:07:31+00:00    CREATE    mediach-ch-6                    SRC_IN_LOS                   CRITICAL    rx                true              OPTICAL    1627075907204840240    
+2021-07-23T22:07:31+00:00    CLEAR     amplifier 1-1-ba                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627075906100104240    
+2021-07-23T22:07:31+00:00    CLEAR     amplifier 1-1-ba                IN_LOS                       CRITICAL    rx                true              OPTICAL    1627075908653206720    
+2021-07-23T22:06:16+00:00    CREATE    transceiver 1-7-1               TRANSCEIVER_MISMATCH         CRITICAL    na                true              EQPT       1627077973651000000    
+2021-07-23T22:06:12+00:00    CLEAR     transceiver 1-7-1               TRANSCEIVER_MISMATCH         CRITICAL    na                true              EQPT       1627075909247000000    
+2021-07-23T21:33:30+00:00    CLEAR     mediach-ch-6                    REACH_MAX_ATT_DEST_TO_SRC    MAJOR       na                false             OPTICAL    1627075931126762440    
+2021-07-23T21:32:16+00:00    CREATE    mediach-ch-6                    REACH_MAX_ATT_DEST_TO_SRC    MAJOR       na                false             OPTICAL    1627075931126762440    
+2021-07-23T21:32:11+00:00    CLEAR     port 1-1-ad6                    OUT_OPTICAL_HIGH_WARNING     MAJOR       tx                false             OPTICAL    1627075915666877696    
+2021-07-23T21:32:05+00:00    CLEAR     card 1-33                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627075903404956672    
+2021-07-23T21:32:05+00:00    CLEAR     card 1-32                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627075903273292544    
+2021-07-23T21:32:05+00:00    CLEAR     card 1-31                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627075903137703680    
+2021-07-23T21:32:03+00:00    CREATE    card 1-22                       PWR_NO_INPUT                 MINOR       rx                false             ENV        1627075920192488192    
+2021-07-23T21:31:57+00:00    CREATE    port 1-1-ad6                    OUT_OPTICAL_HIGH_WARNING     MAJOR       tx                false             OPTICAL    1627075915666877696    
+2021-07-23T21:31:56+00:00    CLEAR     mediach-ch-6                    DEST_IN_LOS                  CRITICAL    rx                true              OPTICAL    1627075907204922960    
+2021-07-23T21:31:55+00:00    CLEAR     port 1-1-ad6                    OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627075908721869480    
+2021-07-23T21:31:51+00:00    CREATE    transceiver 1-7-1               TRANSCEIVER_MISMATCH         CRITICAL    na                true              EQPT       1627075909247000000    
+2021-07-23T21:31:51+00:00    CREATE    port 1-1-ad6                    OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627075908721869480    
+2021-07-23T21:31:51+00:00    CREATE    port 1-1-ad6                    IN_LOS                       CRITICAL    rx                true              OPTICAL    1627075908708361840    
+2021-07-23T21:31:51+00:00    CLEAR     amplifier 1-1-pa                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627075906168914400    
+2021-07-23T21:31:51+00:00    CREATE    amplifier 1-1-ba                IN_LOS                       CRITICAL    rx                true              OPTICAL    1627075908653206720    
+2021-07-23T21:31:50+00:00    CREATE    mediach-ch-6                    DEST_IN_LOS                  CRITICAL    rx                true              OPTICAL    1627075907204922960    
+2021-07-23T21:31:49+00:00    CREATE    port 1-1-line                   OUT_OPTICAL_LOW_WARNING      MAJOR       tx                false             OPTICAL    1627075906105649664    
+2021-07-23T21:31:49+00:00    CREATE    amplifier 1-1-pa                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627075906168914400    
+2021-07-23T21:31:49+00:00    CREATE    amplifier 1-1-ba                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627075906100104240    
+2021-07-23T21:31:46+00:00    CREATE    card 1-33                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627075903404956672    
+2021-07-23T21:31:46+00:00    CREATE    card 1-32                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627075903273292544    
+2021-07-23T21:31:46+00:00    CREATE    card 1-31                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627075903137703680    
+2021-07-23T21:31:41+00:00    CREATE    card 1-21                       EQPT_MISMATCH                CRITICAL    na                true              EQPT       1627075898760029696    
+2021-07-23T21:31:35+00:00    CREATE    system                          DATETIME_UNCHANGED           WARNING     na                false             SYS        1627075892823000000    
+2021-07-23T21:31:28+00:00    CREATE    port 1-43-nm1                   LINK_DOWN                    MINOR       bi-directional    false             SYS        1627075885379915120    
+2021-07-23T21:31:28+00:00    CREATE    port 1-43-nm                    LINK_DOWN                    MINOR       bi-directional    false             SYS        1627075885229849280    
+2021-07-23T21:31:20+00:00    CREATE    software                        NO_CMT_SW                    WARNING     na                false             SYS        1627075868573000000    
+2021-07-23T21:29:41+00:00    CLEAR     system                          DATETIME_UNCHANGED           WARNING     na                false             SYS        1627075269101000000    
+2021-07-23T21:29:41+00:00    CLEAR     software                        NO_CMT_SW                    WARNING     na                false             SYS        1627075269104000000    
+2021-07-23T21:29:41+00:00    CLEAR     card 1-22                       PWR_NO_INPUT                 MINOR       rx                false             ENV        1627075318788253696    
+2021-07-23T21:29:41+00:00    CLEAR     card 1-21                       EQPT_MISMATCH                CRITICAL    na                true              EQPT       1627075297810368768    
+2021-07-23T21:29:41+00:00    CLEAR     port 1-43-nm1                   LINK_DOWN                    MINOR       bi-directional    false             SYS        1627075272423261078    
+2021-07-23T21:29:41+00:00    CLEAR     port 1-43-nm                    LINK_DOWN                    MINOR       bi-directional    false             SYS        1627075271679256478    
+2021-07-23T21:29:41+00:00    CLEAR     mediach-ch-6                    SRC_IN_LOS                   CRITICAL    rx                true              OPTICAL    1627075306079511998    
+2021-07-23T21:29:41+00:00    CLEAR     card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627075762850000000    
+2021-07-23T21:29:25+00:00    CREATE    card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627075762850000000    
+2021-07-23T21:29:13+00:00    CLEAR     transceiver 1-7-1               TRANSCEIVER_MISMATCH         CRITICAL    na                true              EQPT       1627075374387000000    
+2021-07-23T21:29:12+00:00    CLEAR     port 1-1-line                   OUT_OPTICAL_LOW_WARNING      MAJOR       tx                false             OPTICAL    1627075304640678144    
+2021-07-23T21:29:12+00:00    CLEAR     port 1-1-ad6                    IN_LOS                       CRITICAL    rx                true              OPTICAL    1627075307344010038    
+2021-07-23T21:29:12+00:00    CREATE    mediach-ch-6                    SRC_IN_LOS                   CRITICAL    rx                true              OPTICAL    1627075306079511998    
+2021-07-23T21:29:12+00:00    CLEAR     amplifier 1-1-ba                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627075304634457438    
+2021-07-23T21:29:12+00:00    CLEAR     amplifier 1-1-ba                IN_LOS                       CRITICAL    rx                true              OPTICAL    1627075307285877878    
+2021-07-23T21:24:57+00:00    CLEAR     card 1-41                       COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627075467642000000    
+2021-07-23T21:24:30+00:00    CREATE    card 1-41                       COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627075467642000000    
+2021-07-23T21:22:57+00:00    CREATE    transceiver 1-7-1               TRANSCEIVER_MISMATCH         CRITICAL    na                true              EQPT       1627075374387000000    
+2021-07-23T21:22:52+00:00    CLEAR     card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627075316610000000    
+2021-07-23T21:22:04+00:00    CLEAR     card 1-33                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627075302458582272    
+2021-07-23T21:22:01+00:00    CREATE    card 1-22                       PWR_NO_INPUT                 MINOR       rx                false             ENV        1627075318788253696    
+2021-07-23T21:21:59+00:00    CREATE    card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627075316610000000    
+2021-07-23T21:21:50+00:00    CREATE    port 1-1-ad6                    IN_LOS                       CRITICAL    rx                true              OPTICAL    1627075307344010038    
+2021-07-23T21:21:50+00:00    CREATE    amplifier 1-1-ba                IN_LOS                       CRITICAL    rx                true              OPTICAL    1627075307285877878    
+2021-07-23T21:21:47+00:00    CREATE    port 1-1-line                   OUT_OPTICAL_LOW_WARNING      MAJOR       tx                false             OPTICAL    1627075304640678144    
+2021-07-23T21:21:47+00:00    CREATE    amplifier 1-1-ba                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1627075304634457438    
+2021-07-23T21:21:45+00:00    CREATE    card 1-33                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1627075302458582272    
+2021-07-23T21:21:40+00:00    CREATE    card 1-21                       EQPT_MISMATCH                CRITICAL    na                true              EQPT       1627075297810368768    
+2021-07-23T21:21:22+00:00    CREATE    system                          DATETIME_UNCHANGED           WARNING     na                false             SYS        1627075269101000000    
+2021-07-23T21:21:22+00:00    CREATE    software                        NO_CMT_SW                    WARNING     na                false             SYS        1627075269104000000    
+2021-07-23T21:21:22+00:00    CREATE    port 1-43-nm1                   LINK_DOWN                    MINOR       bi-directional    false             SYS        1627075272423261078    
+2021-07-23T21:21:22+00:00    CREATE    port 1-43-nm                    LINK_DOWN                    MINOR       bi-directional    false             SYS        1627075271679256478    
+2021-07-23T21:18:28+00:00    CLEAR     card 1-42                       COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627075078807000000    
+2021-07-23T21:18:01+00:00    CREATE    card 1-42                       COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1627075078807000000    
+2021-07-22T23:13:41+00:00    CLEAR     port 1-1-ad6                    OUT_OPTICAL_LOW_WARNING      MAJOR       tx                false             OPTICAL    1626995614448          
+2021-07-22T23:13:39+00:00    CLEAR     amplifier 1-1-pa                IN_LOS                       CRITICAL    rx                true              OPTICAL    1626995614430509320    
+2021-07-22T23:13:37+00:00    CLEAR     transceiver 1-1-osc             RX_LOS                       MAJOR       rx                false             OPTICAL    1626995612214459360    
+2021-07-22T23:13:37+00:00    CREATE    port 1-1-ad6                    OUT_OPTICAL_LOW_WARNING      MAJOR       tx                false             OPTICAL    1626995614448          
+2021-07-22T23:13:37+00:00    CREATE    amplifier 1-1-pa                IN_LOS                       CRITICAL    rx                true              OPTICAL    1626995614430509320    
+2021-07-22T23:13:35+00:00    CREATE    transceiver 1-1-osc             RX_LOS                       MAJOR       rx                false             OPTICAL    1626995612214459360    
+2021-07-22T23:11:16+00:00    CLEAR     100ge 1-7-4                     ETH_LOS_SYN                  CRITICAL    rx                true              ETH        1626995047217435680    
+2021-07-22T23:11:15+00:00    CLEAR     transceiver 1-7-4               RX_LOS                       CRITICAL    rx                true              OPTICAL    1626994142570532840    
+2021-07-22T23:11:15+00:00    CREATE    100ge 1-7-4                     ETH_LOS_SYN                  CRITICAL    rx                true              ETH        1626995047217435680    
+2021-07-22T23:10:54+00:00    CREATE    port 1-1-ad6                    IN_OPTICAL_LOW_FAILURE       CRITICAL    rx                false             OPTICAL    1626995450960          
+2021-07-22T23:10:54+00:00    CREATE    port 1-1-ad6                    IN_LOS                       CRITICAL    rx                true              OPTICAL    1626995450963192200    
+2021-07-22T23:10:50+00:00    CREATE    mediach-ch-6                    DEST_IN_LOS                  CRITICAL    rx                true              OPTICAL    1626995445064345560    
+2021-07-22T23:02:17+00:00    CREATE    transceiver 1-7-4               RX_LOS                       CRITICAL    rx                true              OPTICAL    1626994142570532840    
+2021-07-22T22:58:12+00:00    CREATE    transceiver 1-7-1               TRANSCEIVER_MISMATCH         CRITICAL    na                true              EQPT       1626994678177000000    
+2021-07-22T22:39:27+00:00    CLEAR     amplifier 1-1-pa                IN_LOS                       CRITICAL    rx                true              OPTICAL    1626906118629944120    
+2021-07-22T22:39:25+00:00    CLEAR     transceiver 1-1-osc             RX_LOS                       MAJOR       rx                false             OPTICAL    1626906116039214480    
+2021-07-22T22:39:25+00:00    CLEAR     port 1-1-line                   IN_OPTICAL_LOW_FAILURE       CRITICAL    rx                false             OPTICAL    1626906115913          
+2021-07-22T22:39:25+00:00    CLEAR     amplifier 1-1-pa                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1626906116027376760    
+2021-07-22T22:30:38+00:00    CLEAR     card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1626992988085000000    
+2021-07-22T22:29:51+00:00    CREATE    card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1626992988085000000    
+2021-07-21T22:31:33+00:00    CLEAR     card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1626906637788000000    
+2021-07-21T22:30:39+00:00    CREATE    card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1626906637788000000    
+2021-07-21T22:30:29+00:00    CLEAR     card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1626906579777000000    
+2021-07-21T22:29:42+00:00    CREATE    card 1-7                        COMMUNICATION_FAILURE        CRITICAL    na                false             EQPT       1626906579777000000    
+2021-07-21T22:22:01+00:00    CREATE    amplifier 1-1-pa                IN_LOS                       CRITICAL    rx                true              OPTICAL    1626906118629944120    
+2021-07-21T22:22:01+00:00    CREATE    amplifier 1-1-ba                IN_LOS                       CRITICAL    rx                true              OPTICAL    1626906118641241920    
+2021-07-21T22:21:59+00:00    CREATE    transceiver 1-1-osc             RX_LOS                       MAJOR       rx                false             OPTICAL    1626906116039214480    
+2021-07-21T22:21:59+00:00    CREATE    port 1-1-line                   OUT_OPTICAL_LOW_WARNING      MAJOR       tx                false             OPTICAL    1626906115913          
+2021-07-21T22:21:59+00:00    CREATE    port 1-1-line                   IN_OPTICAL_LOW_FAILURE       CRITICAL    rx                false             OPTICAL    1626906115913          
+2021-07-21T22:21:59+00:00    CREATE    amplifier 1-1-pa                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1626906116027376760    
+2021-07-21T22:21:59+00:00    CREATE    amplifier 1-1-ba                OUT_LOS                      CRITICAL    tx                true              OPTICAL    1626906115956262480    
+2021-07-21T22:16:22+00:00    CLEAR     port 1-43-nm2                   LINK_DOWN                    MINOR       bi-directional    false             SYS        1626904880899337280    
+2021-07-21T22:01:51+00:00    CLEAR     card 1-33                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1626904890006241024    
+2021-07-21T22:01:50+00:00    CLEAR     card 1-32                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1626904889872632832    
+2021-07-21T22:01:50+00:00    CLEAR     card 1-31                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1626904889736300032    
+2021-07-21T22:01:49+00:00    CREATE    card 1-22                       PWR_NO_INPUT                 MINOR       rx                false             ENV        1626904905931015168    
+2021-07-21T22:01:33+00:00    CREATE    card 1-33                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1626904890006241024    
+2021-07-21T22:01:32+00:00    CREATE    card 1-32                       FAN_SPD_HIGH                 MAJOR       na                false             EQPT       1626904889872632832    
+
+

@@ -14,6 +14,7 @@ What is left and what comes next. What is built is in the [guide](guide.md), why
 
 ## Left
 
+- **BERT tester launch flow:** add BERT → SmartAccess AnyWhere launch (and preconnect where supported). Plan: [BERT tester SmartAccess launch plan](bert-smartaccess-plan.md).
 - **Box runs** (work machine): pull F04 and F05, one per run, each marked in the UI and restored (F01 to F03 ran on 2026-11-05); healthy runs B and C, for drift.
 - **`show media-channel` template:** runs have its output since 2026-11-05, so give it a TTP template and fixture, and have `mediaChannels` in `src/l0.ts` read its `data` instead of raw columns. `show ocm` is captured, but nothing reads it.
 - **Any box, not just box 3:** `bridge/poll.json` names box 3's ports (1-7-4, 1-7-5); take them from `show port` and `show assignment`. While a box is connected, show its `show alarm` alarms instead of the simulated ones.

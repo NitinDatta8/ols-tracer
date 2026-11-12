@@ -1,0 +1,20 @@
+{
+  "neighbors": {
+    "1-1-osc": {
+      "system-name": "“PAHO-GS2000-05”",
+      "chassis-id": "c4:ee:f5:09:52:68",
+      "chassis-id-type": "MAC_ADDRESS",
+      "ttl": 120,
+      "port-id": "1-1-osc",
+      "management-address": "169.254.0.1,INTERFACE-1-40-ETH;10.111.25.16,INTERFACE-1-43-NM2"
+    },
+    "1-43-nm2": {
+      "system-name": "PAHO-A04",
+      "chassis-id": "24:71:21:a8:9a:81",
+      "chassis-id-type": "MAC_ADDRESS",
+      "ttl": 120,
+      "port-id": "gi14",
+      "management-address": "10.111.254.8"
+    }
+  }
+}

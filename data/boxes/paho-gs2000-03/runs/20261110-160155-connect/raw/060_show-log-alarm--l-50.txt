@@ -1,0 +1,54 @@
+time-stamp                   action    resource                        alarm-abbreviate           severity    direction    service-affect    type-id    time-created           
+-------------------------    ------    ----------------------------    -----------------------    --------    ---------    --------------    -------    -------------------    
+2021-08-05T23:58:45+00:00    CLEAR     transceiver 1-1-osc             RX_LOS                     MAJOR       rx           false             OPTICAL    1628207918055339720    
+2021-08-05T23:58:43+00:00    CREATE    port 1-1-line                   IN_OPTICAL_LOW_FAILURE     CRITICAL    rx           false             OPTICAL    1628207920256953600    
+2021-08-05T23:58:43+00:00    CREATE    port 1-1-ad11                   OUT_OPTICAL_LOW_WARNING    MAJOR       tx           false             OPTICAL    1628207920326366464    
+2021-08-05T23:58:43+00:00    CREATE    amplifier 1-1-pa                OUT_LOS                    CRITICAL    tx           true              OPTICAL    1628207920314418160    
+2021-08-05T23:58:43+00:00    CREATE    amplifier 1-1-pa                IN_LOS                     CRITICAL    rx           true              OPTICAL    1628207920238676640    
+2021-08-05T23:58:41+00:00    CREATE    transceiver 1-1-osc             RX_LOS                     MAJOR       rx           false             OPTICAL    1628207918055339720    
+2021-08-05T23:58:40+00:00    CREATE    och 1-7-5                       RX_LOS                     CRITICAL    rx           true              OPTICAL    1628207917784377680    
+2021-08-05T23:57:56+00:00    CREATE    port 1-1-ad11                   IN_OPTICAL_HIGH_WARNING    MAJOR       rx           false             OPTICAL    1628207873341003520    
+2021-08-05T23:57:53+00:00    CLEAR     port 1-1-ad11                   OUT_OPTICAL_LOW_WARNING    MAJOR       tx           false             OPTICAL    1628207579414109696    
+2021-08-05T23:57:53+00:00    CLEAR     port 1-1-ad11                   IN_OPTICAL_LOW_FAILURE     CRITICAL    rx           false             OPTICAL    1628207579400404992    
+2021-08-05T23:57:53+00:00    CLEAR     amplifier 1-1-pa                IN_LOS                     CRITICAL    rx           true              OPTICAL    1628207579272766520    
+2021-08-05T23:57:53+00:00    CLEAR     amplifier 1-1-ba                IN_LOS                     CRITICAL    rx           true              OPTICAL    1628207579287845640    
+2021-08-05T23:57:52+00:00    CLEAR     och 1-7-5                       POST-FEC_DEGRADE           MAJOR       rx           true              OCH        1628207867702673880    
+2021-08-05T23:57:51+00:00    CLEAR     port 1-1-line                   OUT_OPTICAL_LOW_WARNING    MAJOR       tx           false             OPTICAL    1628207579318433792    
+2021-08-05T23:57:51+00:00    CLEAR     port 1-1-line                   IN_OPTICAL_LOW_FAILURE     CRITICAL    rx           false             OPTICAL    1628207579303649280    
+2021-08-05T23:57:51+00:00    CLEAR     amplifier 1-1-pa                OUT_LOS                    CRITICAL    tx           true              OPTICAL    1628207579378175640    
+2021-08-05T23:57:51+00:00    CLEAR     amplifier 1-1-ba                OUT_LOS                    CRITICAL    tx           true              OPTICAL    1628207579312368000    
+2021-08-05T23:57:50+00:00    CREATE    och 1-7-5                       POST-FEC_DEGRADE           MAJOR       rx           true              OCH        1628207867702673880    
+2021-08-05T23:55:15+00:00    CREATE    transceiver 1-7-4               RX_LOS                     CRITICAL    rx           true              OPTICAL    1628207713233044280    
+2021-08-05T23:55:15+00:00    CLEAR     100ge 1-7-4                     ETH_LOS_SYN                CRITICAL    rx           true              ETH        1628207692227634120    
+2021-08-05T23:55:12+00:00    CLEAR     transceiver 1-7-4               RX_LOS                     CRITICAL    rx           true              OPTICAL    1628207692218385760    
+2021-08-05T23:55:12+00:00    CREATE    100ge 1-7-4                     ETH_LOS_SYN                CRITICAL    rx           true              ETH        1628207692227634120    
+2021-08-05T23:54:55+00:00    CREATE    transceiver 1-7-4               RX_LOS                     CRITICAL    rx           true              OPTICAL    1628207692218385760    
+2021-08-05T23:54:51+00:00    CLEAR     transceiver 1-7-5               TRANSCEIVER_MISSING        CRITICAL    na           true              EQPT       1628207577257000000    
+2021-08-05T23:53:02+00:00    CREATE    port 1-1-line                   OUT_OPTICAL_LOW_WARNING    MAJOR       tx           false             OPTICAL    1628207579318433792    
+2021-08-05T23:53:02+00:00    CREATE    port 1-1-line                   IN_OPTICAL_LOW_FAILURE     CRITICAL    rx           false             OPTICAL    1628207579303649280    
+2021-08-05T23:53:02+00:00    CREATE    port 1-1-ad11                   OUT_OPTICAL_LOW_WARNING    MAJOR       tx           false             OPTICAL    1628207579414109696    
+2021-08-05T23:53:02+00:00    CREATE    port 1-1-ad11                   IN_OPTICAL_LOW_FAILURE     CRITICAL    rx           false             OPTICAL    1628207579400404992    
+2021-08-05T23:53:02+00:00    CREATE    amplifier 1-1-pa                OUT_LOS                    CRITICAL    tx           true              OPTICAL    1628207579378175640    
+2021-08-05T23:53:02+00:00    CREATE    amplifier 1-1-pa                IN_LOS                     CRITICAL    rx           true              OPTICAL    1628207579272766520    
+2021-08-05T23:53:02+00:00    CREATE    amplifier 1-1-ba                OUT_LOS                    CRITICAL    tx           true              OPTICAL    1628207579312368000    
+2021-08-05T23:53:02+00:00    CREATE    amplifier 1-1-ba                IN_LOS                     CRITICAL    rx           true              OPTICAL    1628207579287845640    
+2021-08-05T23:53:00+00:00    CREATE    transceiver 1-7-5               TRANSCEIVER_MISSING        CRITICAL    na           true              EQPT       1628207577257000000    
+2021-08-05T23:52:59+00:00    CLEAR     port 1-1-ad11                   IN_OPTICAL_HIGH_WARNING    MAJOR       rx           false             OPTICAL    1628121182669955072    
+2021-08-05T23:47:08+00:00    CLEAR     logical-channel flexgo-1-7-5    LOF                        CRITICAL    rx           true              ZR         1628207221212973840    
+2021-08-05T23:47:04+00:00    CREATE    logical-channel flexgo-1-7-5    LOF                        CRITICAL    rx           true              ZR         1628207221212973840    
+2021-08-05T23:47:03+00:00    CLEAR     100ge 1-7-4                     LINK_LF                    CRITICAL    rx           false             ETH        1628207219199999120    
+2021-08-05T23:47:02+00:00    CREATE    100ge 1-7-4                     LINK_LF                    CRITICAL    rx           false             ETH        1628207219199999120    
+2021-08-05T23:46:01+00:00    CLEAR     logical-channel flexgo-1-7-5    LOF                        CRITICAL    rx           true              ZR         1628207155063420160    
+2021-08-05T23:45:58+00:00    CREATE    logical-channel flexgo-1-7-5    LOF                        CRITICAL    rx           true              ZR         1628207155063420160    
+2021-08-05T23:45:56+00:00    CLEAR     100ge 1-7-4                     LINK_LF                    CRITICAL    rx           false             ETH        1628118108559107160    
+2021-08-05T23:45:54+00:00    CLEAR     transceiver 1-7-4               RX_LOS                     CRITICAL    rx           true              OPTICAL    1628118108512228360    
+2021-08-05T23:45:54+00:00    CREATE    100ge 1-7-4                     LINK_LF                    CRITICAL    rx           false             ETH        1628118108559107160    
+2021-08-04T23:53:05+00:00    CREATE    port 1-1-ad11                   IN_OPTICAL_HIGH_WARNING    MAJOR       rx           false             OPTICAL    1628121182669955072    
+2021-08-04T23:50:41+00:00    CLEAR     port 1-1-ad11                   IN_OPTICAL_HIGH_WARNING    MAJOR       rx           false             OPTICAL    1628120715076049664    
+2021-08-04T23:45:18+00:00    CREATE    port 1-1-ad11                   IN_OPTICAL_HIGH_WARNING    MAJOR       rx           false             OPTICAL    1628120715076049664    
+2021-08-04T23:41:48+00:00    CREATE    card 1-8                        EQPT_ABSENCE               CRITICAL    na           true              EQPT       1628120505805540096    
+2021-08-04T23:41:46+00:00    CLEAR     transceiver 1-8-4               TRANSCEIVER_MISSING        CRITICAL    na           true              EQPT       1627506292173000000    
+2021-08-04T23:41:46+00:00    CLEAR     transceiver 1-8-1               TRANSCEIVER_MISSING        CRITICAL    na           true              EQPT       1627506292153000000    
+2021-08-04T23:06:34+00:00    CLEAR     port 1-1-ad11                   IN_OPTICAL_HIGH_WARNING    MAJOR       rx           false             OPTICAL    1628118263777705728    
+
+

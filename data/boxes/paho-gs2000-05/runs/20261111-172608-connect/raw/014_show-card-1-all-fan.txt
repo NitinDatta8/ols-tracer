@@ -1,0 +1,26 @@
+[config]
+
+id           mode    speed-ratio    
+---------    ----    -----------    
+card 1-31    auto    high           
+card 1-32    auto    high           
+card 1-33    auto    high           
+
+
+[state]
+
+id           mode    speed-ratio    
+---------    ----    -----------    
+card 1-31    auto    low            
+card 1-32    auto    low            
+card 1-33    auto    low            
+
+
+id           speed-ratio-fan-1                speed-ratio-fan-2                
+             instant | avg | min | max (%)    instant | avg | min | max (%)    
+---------    -----------------------------    -----------------------------    
+card 1-31    37 | 37 | 37 | 37                37 | 37 | 37 | 37                
+card 1-32    37 | 37 | 37 | 37                37 | 37 | 37 | 37                
+card 1-33    37 | 37 | 37 | 37                37 | 37 | 37 | 37                
+
+

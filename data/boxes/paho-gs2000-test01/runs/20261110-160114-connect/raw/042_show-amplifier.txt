@@ -1,0 +1,31 @@
+[config]
+
+id        target-gain    target-gain-tilt    amp-enable    auto-span-loss-adaptation    nominal-ingress-span-loss    target-voa-attenuation    apr-enable    target-span-loss-offset    
+          (dB)           (dB)                                                           (dB)                         (dB)                                    (dB)                       
+------    -----------    ----------------    ----------    -------------------------    -------------------------    ----------------------    ----------    -----------------------    
+1-1-ba    23.00          0.00                enabled       disabled                     0.00                         0.00                      disabled      0.00                       
+1-1-pa    25.00          -1.00               enabled       enabled                      0.00                         0.00                      disabled      0.00                       
+1-7-ba    8.00           0.00                enabled       disabled                     0.00                         0.00                      disabled      0.00                       
+1-7-pa    23.00          -1.00               enabled       enabled                      0.00                         15.00                     disabled      2.00                       
+
+
+[state]
+
+id        amp-mode    gain-type     target-gain    target-gain-tilt    amp-enable    auto-span-loss-adaptation    nominal-ingress-span-loss    target-voa-attenuation    apr-enable    target-span-loss-offset    min-gain    max-gain    ingress-port     egress-port      ingress-span-loss    actual-voa-attenuation    fiber-type-profile    
+                                    (dB)           (dB)                                                           (dB)                         (dB)                                    (dB)                       (dB)        (dB)                                          (dB)                 (dB)                                            
+------    --------    ----------    -----------    ----------------    ----------    -------------------------    -------------------------    ----------------------    ----------    -----------------------    --------    --------    -------------    -------------    -----------------    ----------------------    ------------------    
+1-1-ba    gain        fixed-gain    23.00          0.00                enabled       disabled                     0.00                         0.00                      disabled      0.00                       15.00       25.00       port-1-1-com     port-1-1-line    0.00                 0.00                      ssmf                  
+1-1-pa    gain        fixed-gain    25.00          -1.00               enabled       enabled                      0.00                         0.00                      disabled      0.00                       15.00       25.00       port-1-1-line    port-1-1-com     9.76                 0.00                      ssmf                  
+1-7-ba    gain        fixed-gain    8.00           0.00                enabled       disabled                     0.00                         0.00                      disabled      0.00                       7.00        25.00       port-1-7-sig     port-1-7-line    0.00                 0.00                      ssmf                  
+1-7-pa    gain        fixed-gain    23.00          -1.00               enabled       enabled                      0.00                         15.00                     disabled      2.00                       15.00       25.00       port-1-7-line    port-1-7-sig     -99.99               15.00                     ssmf                  
+
+
+id        actual-gain                          actual-gain-tilt                     input-power                          output-power                         laser-bias-current                
+          instant | avg | min | max (dB)       instant | avg | min | max (dB)       instant | avg | min | max (dBm)      instant | avg | min | max (dBm)      instant | avg | min | max (mA)    
+------    ---------------------------------    ---------------------------------    ---------------------------------    ---------------------------------    ------------------------------    
+1-1-ba    -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    1.41 | 1.41 | 1.33 | 1.55         
+1-1-pa    -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    0.00 | 0.00 | 0.00 | 0.00         
+1-7-ba    -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    -38.37 | -38.29 | -38.98 | -37.68    3.12 | 3.13 | 3.06 | 3.19         
+1-7-pa    -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    -99.99 | -99.99 | -99.99 | -99.99    1.06 | 1.06 | 0.98 | 1.17         
+
+

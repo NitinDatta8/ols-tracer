@@ -1,0 +1,32 @@
+{
+  "state": {
+    "fans": {
+      "1-31": {
+        "mode": "auto",
+        "speed-ratio": "low"
+      },
+      "1-32": {
+        "mode": "auto",
+        "speed-ratio": "low"
+      },
+      "1-33": {
+        "mode": "auto",
+        "speed-ratio": "low"
+      }
+    },
+    "speed": {
+      "1-31": {
+        "fan-1": 37,
+        "fan-2": 37
+      },
+      "1-32": {
+        "fan-1": 37,
+        "fan-2": 37
+      },
+      "1-33": {
+        "fan-1": 37,
+        "fan-2": 37
+      }
+    }
+  }
+}

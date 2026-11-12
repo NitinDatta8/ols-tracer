@@ -1,0 +1,4 @@
+strand,from,to,via,length_km,loss_db,notes
+F01,1-7-1,1-1-ad6,,,,auto: och 1-7-1 at 193499999 MHz is in media channel CH-6; carries 1-7-4 (c41)
+F02,1-1-ad6,1-7-1,,,,auto: och 1-7-1 at 193499999 MHz is in media channel CH-6; carries 1-7-4 (c41)
+F03,1-1-line,1-1-line,power,,10.03,auto: power fallback (low confidence)

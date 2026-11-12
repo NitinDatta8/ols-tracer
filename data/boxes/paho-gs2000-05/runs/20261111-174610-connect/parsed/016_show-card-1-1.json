@@ -1,0 +1,30 @@
+{
+  "state": {
+    "admin-state": "in-service",
+    "module-type": "TMUXC925",
+    "description": "Terminal MUX/DMUX module with integrated optical a",
+    "firmware-version": "0.00",
+    "software-version": "TWSOA25_OS_GE_2.6.1.B20241130 (2.6.1.B20241130)",
+    "present": "true",
+    "slot": "1-1",
+    "oper-status": "active",
+    "removable": "true",
+    "used-power": "27 W",
+    "rated-power": "70 W",
+    "supported-module-types": "TMUXC1125,800MX,TMUXC925,TMUXC935,TMUXC_25,400MXS,",
+    "stats": {
+      "temperature": {
+        "instant": 29.4,
+        "avg": 29.4,
+        "min": 29.4,
+        "max": 29.4,
+        "unit": "°C"
+      }
+    }
+  },
+  "config": {
+    "admin-state": "in-service",
+    "module-type": "TMUXC925",
+    "description": "Terminal MUX/DMUX module with integrated optical a"
+  }
+}

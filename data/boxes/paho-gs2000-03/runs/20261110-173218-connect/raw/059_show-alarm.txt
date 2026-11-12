@@ -1,0 +1,22 @@
+
+resource             type-id    alarm-abbreviate             severity    text                                                  time-created               direction         location    alarm-type    time-period    id                           
+-----------------    -------    -------------------------    --------    --------------------------------------------------    -----------------------    --------------    --------    ----------    -----------    -------------------------    
+software             SYS        NO_CMT_SW                    WARNING     No committed software                                 2021-07-28T21:03:41 UTC    na                na          standing      na             034591627506246543674360     
+port 1-43-nm         SYS        LINK_DOWN                    MINOR       Management port link down                             2021-07-28T21:04:07 UTC    bi-directional    near-end    standing      na             3127871627506223823783800    
+port 1-43-nm1        SYS        LINK_DOWN                    MINOR       Management port link down                             2021-07-28T21:04:07 UTC    bi-directional    near-end    standing      na             3127871627506227895611120    
+system               SYS        DATETIME_UNCHANGED           WARNING     Datetime unchanged                                    2021-07-28T21:04:26 UTC    na                na          standing      na             0193941627506246568699160    
+card 1-4             EQPT       EQPT_ABSENCE                 CRITICAL    No present equipment                                  2021-07-28T21:04:34 UTC    na                na          standing      na             0113341627506223849588320    
+card 1-21            EQPT       EQPT_MISMATCH                CRITICAL    Present equipment type mismatch                       2021-07-28T21:04:38 UTC    na                na          standing      na             0165051627506226410727880    
+card 1-22            ENV        PWR_NO_INPUT                 MINOR       No power input                                        2021-07-28T21:05:02 UTC    rx                near-end    standing      na             1211221627506225255766720    
+ch-6                 OPTICAL    REACH_MAX_ATT_SRC_TO_DEST    MAJOR       Channel add direction attenuation reach to maximum    2021-07-28T21:07:52 UTC    na                na          standing      na             0112381627506245756330280    
+                                                                          working range
+card 1-8             EQPT       EQPT_ABSENCE                 CRITICAL    No present equipment                                  2021-08-04T23:41:45 UTC    na                na          standing      na             0113341627506228600200440    
+port 1-1-ad11        OPTICAL    IN_OPTICAL_HIGH_WARNING      MAJOR       Input Optical Power higher than warning threshold     2021-08-05T23:57:53 UTC    rx                near-end    standing      na             184651627506226151942320     
+och 1-7-5            OPTICAL    RX_LOS                       CRITICAL    Loss of Signal at Receiver                            2021-08-05T23:58:37 UTC    rx                near-end    standing      na             1136261627506227389872400    
+amplifier 1-1-pa     OPTICAL    IN_LOS                       CRITICAL    Loss of Signal at Input                               2021-08-05T23:58:40 UTC    rx                near-end    standing      na             168521627506231681239360     
+amplifier 1-1-pa     OPTICAL    OUT_LOS                      CRITICAL    Loss of Signal at Output                              2021-08-05T23:58:40 UTC    tx                near-end    standing      na             268521627506231693172160     
+port 1-1-ad11        OPTICAL    OUT_OPTICAL_LOW_WARNING      MAJOR       Output Optical Power lower than warning threshold     2021-08-05T23:58:40 UTC    tx                near-end    standing      na             2221371627506226162777520    
+port 1-1-line        OPTICAL    IN_OPTICAL_LOW_FAILURE       CRITICAL    Input Optical Power lower than failure threshold      2021-08-05T23:58:40 UTC    rx                near-end    standing      na             1148681627506225989169520    
+transceiver 1-7-4    OPTICAL    RX_LOS                       CRITICAL    Loss of Signal at Receiver                            2021-08-06T00:36:23 UTC    rx                near-end    standing      na             1136261627506226582492960    
+
+

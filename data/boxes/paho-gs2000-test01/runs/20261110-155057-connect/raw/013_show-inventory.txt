@@ -1,0 +1,37 @@
+chassis
+
+
+id    module-type    mfg-name    mfg-date      hardware-version    serial-no    part-no      
+--    -----------    --------    ----------    ----------------    ---------    ---------    
+1     chassis        COHERENT    2025-08-20    1.0                 GCA3A0025    60GCA0001    
+
+card
+
+
+id      module-type    mfg-name    mfg-date      hardware-version    serial-no    part-no      
+----    -----------    --------    ----------    ----------------    ---------    ---------    
+1-1     TMUXC925       COHERENT    2025-09-09    x.x                 xxxxxxxxx    60G2F0001    
+1-5     800MX          COHERENT    2025-08-29    1.0                 G6E3A000A    60G6E0001    
+1-7     TMUXC_25       COHERENT    2025-08-11    1.0                 G2L030050    60G2L0001    
+1-21    2000-AC        Artesyn     2025-08-20                        G006A001J    60G000001    
+1-22    2000-AC        Artesyn     2025-08-20                        G006A0024    60G000001    
+1-31    FANSU          COHERENT    2025-08-20    1.0                 GCB3A001S    60GCB0001    
+1-32    FANSU          COHERENT    2025-08-20    1.0                 GCB3A0018    60GCB0001    
+1-33    FANSU          COHERENT    2025-08-20    1.0                 GCB3A001P    60GCB0001    
+1-40    CIM            COHERENT    2025-08-20    1.0                 GC33A0021    60GC30001    
+1-41    CU             COHERENT    2025-08-23    1.0                 GC53A001G    60GC50001    
+1-42    CU             COHERENT    2025-08-23    1.0                 GC53A001H    60GC50001    
+1-50    PMUX48         COHERENT    2025-08-18    1.0                 GP1030010    60GP10001    
+
+transceiver
+
+
+id        module-type    mfg-name    mfg-date      hardware-version    serial-no           part-no          form-factor    connector-type    compliance-code    transmission-distance    
+------    -----------    --------    ----------    ----------------    ----------------    -------------    -----------    --------------    ---------------    ---------------------    
+1-5-2     transceiver    FS          2025-06-17    01                  S2514909564         QSFP-LR4-100G    QSFP28         LC_CONNECTOR      100GBASE-LR4       10km                     
+1-5-6     transceiver    FS          2025-06-17    01                  S2514909576         QSFP-LR4-100G    QSFP28         LC_CONNECTOR      100GBASE-LR4       10km                     
+1-5-7     transceiver    FS          2025-06-17    01                  S2514909561         QSFP-LR4-100G    QSFP28         LC_CONNECTOR      100GBASE-LR4       10km                     
+1-5-8     transceiver    FS          2025-06-17    01                  S2514909563         QSFP-LR4-100G    QSFP28         LC_CONNECTOR      100GBASE-LR4       10km                     
+1-5-10    transceiver    FS          2025-06-17    01                  S2514909569         QSFP-LR4-100G    QSFP28         LC_CONNECTOR      100GBASE-LR4       10km                     
+
+

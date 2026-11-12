@@ -1,0 +1,16 @@
+[config]
+
+id            line-port        add-drop-port    admin-state    add-power-control-mode    drop-power-control-mode    target-add-output-power    target-drop-output-power    target-add-attenuation    target-drop-attenuation    center-frequency    bandwidth    
+                                                                                                                    (dBm)                      (dBm)                       (dB)                      (dB)                       (MHz)               (MHz)        
+----------    -------------    -------------    -----------    ----------------------    -----------------------    -----------------------    ------------------------    ----------------------    -----------------------    ----------------    ---------    
+1884306049    port-1-1-line    port-1-1-ad1     in-service     auto                      auto                       3.50                       -10.00                      4.50                      7.50                       195987500           75000        
+
+
+[state]
+
+id            name                           line-port        add-drop-port    admin-state    add-power-control-mode    drop-power-control-mode    target-add-output-power    target-drop-output-power    target-add-attenuation    target-drop-attenuation    actual-add-voa-attenuation    actual-drop-voa-attenuation    center-frequency    bandwidth    lower-frequency    upper-frequency    add-output-power    drop-output-power    
+                                                                                                                                                   (dBm)                      (dBm)                       (dB)                      (dB)                       (dB)                          (dB)                           (MHz)               (MHz)        (MHz)              (MHz)              (dBm)               (dBm)                
+----------    ---------------------------    -------------    -------------    -----------    ----------------------    -----------------------    -----------------------    ------------------------    ----------------------    -----------------------    --------------------------    ---------------------------    ----------------    ---------    ---------------    ---------------    ----------------    -----------------    
+1884306049    ch-1-1-195987500-1884306049    port-1-1-line    port-1-1-ad1     in-service     auto                      auto                       3.50                       -10.00                      4.50                      7.50                       4.50                          7.50                           195987500           75000        195950000          196025000          -36.80              -99.99               
+
+

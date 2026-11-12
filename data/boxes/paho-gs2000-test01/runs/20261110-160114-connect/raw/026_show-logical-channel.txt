@@ -1,0 +1,27 @@
+[config]
+id                 delay-measurement-mode    description    
+---------------    ----------------------    -----------    
+flexgo-1-5-1       disabled                                 
+flexgdu-1-5-1-1    disabled                                 
+flexgdu-1-5-1-2    disabled                                 
+flexgdu-1-5-1-3    disabled                                 
+flexgdu-1-5-1-4    disabled                                 
+flexgdu-1-5-1-5    disabled                                 
+flexgdu-1-5-1-6    disabled                                 
+flexgdu-1-5-1-7    disabled                                 
+flexgdu-1-5-1-8    disabled                                 
+
+[state]
+id                 index         trib-protocol    rate-class    assigned-channel                tributary-slot-index    time-slot-type    delay-measurement-mode    description    
+---------------    ----------    -------------    ----------    ----------------------------    --------------------    --------------    ----------------------    -----------    
+flexgo-1-5-1       1073741888    OPENZR           800G          och 1-5-1                                               ETH_100G          disabled                                 
+flexgdu-1-5-1-1    1073807424    OPENZRTS         100G          logical-channel flexgo-1-5-1    1                       AUTO              disabled                                 
+flexgdu-1-5-1-2    1073872960    OPENZRTS         100G          logical-channel flexgo-1-5-1    2                       AUTO              disabled                                 
+flexgdu-1-5-1-3    1073938496    OPENZRTS         100G          logical-channel flexgo-1-5-1    3                       AUTO              disabled                                 
+flexgdu-1-5-1-4    1074004032    OPENZRTS         100G          logical-channel flexgo-1-5-1    4                       AUTO              disabled                                 
+flexgdu-1-5-1-5    1074069568    OPENZRTS         100G          logical-channel flexgo-1-5-1    5                       AUTO              disabled                                 
+flexgdu-1-5-1-6    1074135104    OPENZRTS         100G          logical-channel flexgo-1-5-1    6                       AUTO              disabled                                 
+flexgdu-1-5-1-7    1074200640    OPENZRTS         100G          logical-channel flexgo-1-5-1    7                       AUTO              disabled                                 
+flexgdu-1-5-1-8    1074266176    OPENZRTS         100G          logical-channel flexgo-1-5-1    8                       AUTO              disabled                                 
+
+

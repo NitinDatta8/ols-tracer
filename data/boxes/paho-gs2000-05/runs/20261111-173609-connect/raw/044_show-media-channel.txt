@@ -1,0 +1,16 @@
+[config]
+
+id    line-port        add-drop-port    admin-state    add-power-control-mode    drop-power-control-mode    target-add-output-power    target-drop-output-power    target-add-attenuation    target-drop-attenuation    center-frequency    bandwidth    
+                                                                                                            (dBm)                      (dBm)                       (dB)                      (dB)                       (MHz)               (MHz)        
+--    -------------    -------------    -----------    ----------------------    -----------------------    -----------------------    ------------------------    ----------------------    -----------------------    ----------------    ---------    
+1     port-1-1-line    port-1-1-ad6     in-service     auto                      auto                       3.50                       -10.00                      4.50                      7.50                       193500000           100000       
+
+
+[state]
+
+id    name    line-port        add-drop-port    admin-state    add-power-control-mode    drop-power-control-mode    target-add-output-power    target-drop-output-power    target-add-attenuation    target-drop-attenuation    actual-add-voa-attenuation    actual-drop-voa-attenuation    center-frequency    bandwidth    lower-frequency    upper-frequency    add-output-power    drop-output-power    
+                                                                                                                    (dBm)                      (dBm)                       (dB)                      (dB)                       (dB)                          (dB)                           (MHz)               (MHz)        (MHz)              (MHz)              (dBm)               (dBm)                
+--    ----    -------------    -------------    -----------    ----------------------    -----------------------    -----------------------    ------------------------    ----------------------    -----------------------    --------------------------    ---------------------------    ----------------    ---------    ---------------    ---------------    ----------------    -----------------    
+1     CH-6    port-1-1-line    port-1-1-ad6     in-service     auto                      auto                       3.50                       -10.00                      4.50                      7.50                       11.80                         7.20                           193500000           100000       193450000          193550000          3.70                -9.80                
+
+

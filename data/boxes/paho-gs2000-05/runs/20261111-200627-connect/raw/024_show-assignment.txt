@@ -1,0 +1,13 @@
+[state]
+end-a        assignment-hierarchy(logical-channels)                end-z        
+---------    --------------------------------------------------    ---------    
+och 1-7-1    flexgo-1-7-1(#1)<-flexgdu-1-7-1-1(#1)<-eth 1-7-1-1                 
+och 1-7-1    flexgo-1-7-1(#2)<-flexgdu-1-7-1-2(#1)<-eth 1-7-1-2                 
+och 1-7-1    flexgo-1-7-1(#3)<-flexgdu-1-7-1-3(#1)<-eth 1-7-1-3    eth 1-7-4    
+och 1-7-1    flexgo-1-7-1(#4)<-flexgdu-1-7-1-4(#1)<-eth 1-7-1-4                 
+och 1-7-1    flexgo-1-7-1(#5)<-flexgdu-1-7-1-5(#1)<-eth 1-7-1-5                 
+och 1-7-1    flexgo-1-7-1(#6)<-flexgdu-1-7-1-6(#1)<-eth 1-7-1-6                 
+och 1-7-1    flexgo-1-7-1(#7)<-flexgdu-1-7-1-7(#1)<-eth 1-7-1-7                 
+och 1-7-1    flexgo-1-7-1(#8)<-flexgdu-1-7-1-8(#1)<-eth 1-7-1-8                 
+
+

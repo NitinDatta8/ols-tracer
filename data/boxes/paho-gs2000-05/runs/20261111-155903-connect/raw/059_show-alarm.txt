@@ -1,0 +1,15 @@
+
+resource                        type-id    alarm-abbreviate      severity    text                               time-created               direction         location    alarm-type    time-period    id                           
+----------------------------    -------    ------------------    --------    -------------------------------    -----------------------    --------------    --------    ----------    -----------    -------------------------    
+software                        SYS        NO_CMT_SW             WARNING     No committed software              2021-07-23T22:35:32 UTC    na                na          standing      na             034591627079741469852640     
+port 1-43-nm                    SYS        LINK_DOWN             MINOR       Management port link down          2021-07-23T22:35:49 UTC    bi-directional    near-end    standing      na             3127871627079735323101080    
+port 1-43-nm1                   SYS        LINK_DOWN             MINOR       Management port link down          2021-07-23T22:35:49 UTC    bi-directional    near-end    standing      na             3127871627079735589290280    
+system                          SYS        DATETIME_UNCHANGED    WARNING     Datetime unchanged                 2021-07-23T22:35:59 UTC    na                na          standing      na             0193941627079741484005800    
+card 1-21                       EQPT       EQPT_MISMATCH         CRITICAL    Present equipment type mismatch    2021-07-23T22:36:03 UTC    na                na          standing      na             0165051627079733240590440    
+card 1-22                       ENV        PWR_NO_INPUT          MINOR       No power input                     2021-07-23T22:36:24 UTC    rx                near-end    standing      na             1211221627079736668961080    
+logical-channel flexgo-1-7-1    ZR         LOF                   CRITICAL    Loss of Frame                      2021-07-23T22:53:02 UTC    rx                near-end    standing      na             114191627079737403970480     
+och 1-7-1                       OCH        PRE-FEC_DEGRADE       MINOR       Pre-FEC Degrade                    2021-07-23T22:53:02 UTC    rx                near-end    standing      na             18481627079733554652400      
+och 1-7-1                       OCH        POST-FEC_DEGRADE      MAJOR       Post-FEC Degrade                   2021-07-23T22:53:02 UTC    rx                near-end    standing      na             1132491627079733619145040    
+100ge 1-7-4                     ETH        LINK_RF               WARNING     Remote Fault                       2021-07-23T23:01:25 UTC    rx                far-end     standing      na             1279981627079737667164320    
+
+

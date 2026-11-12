@@ -1,0 +1,65 @@
+[config]
+frequency                    193500000 MHz
+target-output-power          0.00 dBm
+operational-mode-name        ZR800-16QAM-118G-OFEC
+laser                        enabled
+loopback                     none
+test-signal                  disabled
+test-monitor                 disabled
+test-monitor-time            0 seconds
+cd-range-min                 -2400 ps/nm
+cd-range-max                 2400 ps/nm
+
+
+[state]
+frequency                          193500003 MHz
+target-output-power                0.00 dBm
+operational-mode                   141
+operational-mode-name              ZR800-16QAM-118G-OFEC
+laser                              enabled
+loopback                           none
+test-signal                        disabled
+test-monitor                       disabled
+test-monitor-time                  0 seconds
+test-signal-status                 unmonitored
+test-monitor-time-countdown        0 seconds
+test-total-received-bits           0
+test-bit-errors                    0
+test-bit-error-ratio               0.00E+00
+test-out-of-sync-seconds           0
+bit-rate                           TRIB_RATE_800G
+bandwidth                          150 GHz
+baud-rate                          118 GBd
+bits-per-symbol                    4 bits/symbol
+modulation-type                    DP-16QAM
+fec-mode                           OFEC
+tx-spectral-shaping                on
+cd-range-min                       -2400 ps/nm
+cd-range-max                       2400 ps/nm
+filter-roll-off                    0.1
+fec-uncorrectable-blocks           903 blocks
+
+optical statistics                               instant | avg | min | max units                          
+-----------------------------------------        -------------------------------------------------        
+transmitter-frequency                            193500000 | 193500000 | 193500000 | 193500000 MHz
+output-power                                     0.00 | 0.00 | -0.01 | 0.01 dBm
+total-input-power                                -9.32 | -9.27 | -9.45 | -9.12 dBm
+provisioned-channel-input-power                  -11.41 | -11.34 | -11.53 | -11.23 dBm
+osnr                                             40.00 | 40.00 | 40.00 | 40.00 dB
+chromatic-dispersion                             9.00 | 9.00 | 9.00 | 9.00 ps/nm
+polarization-mode-dispersion                     14.24 | 14.24 | 5.10 | 31.50 ps
+second-order-polarization-mode-dispersion        87.37 | 87.37 | 70.11 | 130.43 ps^2
+polarization-dependent-loss                      0.70 | 0.70 | 0.60 | 0.80 dB
+state-of-polarization                            20.00 | 20.00 | 15.00 | 23.00 rad/s
+differential-group-delay                         42.72 | 42.72 | 15.31 | 94.49 ps
+carrier-frequency-offset                         3.0 | 3.0 | -31.0 | 52.0 MHz
+
+DSP statistics        instant | avg | min | max units                  
+--------------        -----------------------------------------        
+pre-fec-ber           1.00E+00 | 1.00E+00 | 1.00E+00 | 1.00E+00
+post-fec-ber          1.00E+00 | 1.00E+00 | 1.00E+00 | 1.00E+00
+esnr                  6.10 | 6.10 | 6.10 | 6.10 dB
+q-value               0.00 | 0.00 | 0.00 | 0.00 dB
+q-margin              -6.20 | -6.20 | -6.20 | -6.20 dB
+
+
