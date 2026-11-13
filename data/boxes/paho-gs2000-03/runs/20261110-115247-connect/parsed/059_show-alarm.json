@@ -1,0 +1,136 @@
+{
+  "alarms": {
+    "034591627506246543674360": {
+      "resource": "software",
+      "type-id": "SYS",
+      "alarm-abbreviate": "NO_CMT_SW",
+      "severity": "WARNING",
+      "text": "No committed software",
+      "time-created": "2021-07-28T21:03:41 UTC",
+      "direction": "na",
+      "location": "na",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "3127871627506223823783800": {
+      "resource": "port 1-43-nm",
+      "type-id": "SYS",
+      "alarm-abbreviate": "LINK_DOWN",
+      "severity": "MINOR",
+      "text": "Management port link down",
+      "time-created": "2021-07-28T21:04:07 UTC",
+      "direction": "bi-directional",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "3127871627506227895611120": {
+      "resource": "port 1-43-nm1",
+      "type-id": "SYS",
+      "alarm-abbreviate": "LINK_DOWN",
+      "severity": "MINOR",
+      "text": "Management port link down",
+      "time-created": "2021-07-28T21:04:07 UTC",
+      "direction": "bi-directional",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "0193941627506246568699160": {
+      "resource": "system",
+      "type-id": "SYS",
+      "alarm-abbreviate": "DATETIME_UNCHANGED",
+      "severity": "WARNING",
+      "text": "Datetime unchanged",
+      "time-created": "2021-07-28T21:04:26 UTC",
+      "direction": "na",
+      "location": "na",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "0113341627506223849588320": {
+      "resource": "card 1-4",
+      "type-id": "EQPT",
+      "alarm-abbreviate": "EQPT_ABSENCE",
+      "severity": "CRITICAL",
+      "text": "No present equipment",
+      "time-created": "2021-07-28T21:04:34 UTC",
+      "direction": "na",
+      "location": "na",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "0165051627506226410727880": {
+      "resource": "card 1-21",
+      "type-id": "EQPT",
+      "alarm-abbreviate": "EQPT_MISMATCH",
+      "severity": "CRITICAL",
+      "text": "Present equipment type mismatch",
+      "time-created": "2021-07-28T21:04:38 UTC",
+      "direction": "na",
+      "location": "na",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "1211221627506225255766720": {
+      "resource": "card 1-22",
+      "type-id": "ENV",
+      "alarm-abbreviate": "PWR_NO_INPUT",
+      "severity": "MINOR",
+      "text": "No power input",
+      "time-created": "2021-07-28T21:05:02 UTC",
+      "direction": "rx",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "0112381627506245756330280": {
+      "resource": "ch-6",
+      "type-id": "OPTICAL",
+      "alarm-abbreviate": "REACH_MAX_ATT_SRC_TO_DEST",
+      "severity": "MAJOR",
+      "text": "Channel add direction attenuation reach to maximum working range",
+      "time-created": "2021-07-28T21:07:52 UTC",
+      "direction": "na",
+      "location": "na",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "1136261627506226582492960": {
+      "resource": "transceiver 1-7-4",
+      "type-id": "OPTICAL",
+      "alarm-abbreviate": "RX_LOS",
+      "severity": "CRITICAL",
+      "text": "Loss of Signal at Receiver",
+      "time-created": "2021-08-04T23:01:48 UTC",
+      "direction": "rx",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "0113341627506228600200440": {
+      "resource": "card 1-8",
+      "type-id": "EQPT",
+      "alarm-abbreviate": "EQPT_ABSENCE",
+      "severity": "CRITICAL",
+      "text": "No present equipment",
+      "time-created": "2021-08-04T23:41:45 UTC",
+      "direction": "na",
+      "location": "na",
+      "alarm-type": "standing",
+      "time-period": "na"
+    },
+    "184651627506226151942320": {
+      "resource": "port 1-1-ad11",
+      "type-id": "OPTICAL",
+      "alarm-abbreviate": "IN_OPTICAL_HIGH_WARNING",
+      "severity": "MAJOR",
+      "text": "Input Optical Power higher than warning threshold",
+      "time-created": "2021-08-04T23:53:02 UTC",
+      "direction": "rx",
+      "location": "near-end",
+      "alarm-type": "standing",
+      "time-period": "na"
+    }
+  }
+}

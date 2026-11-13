@@ -1,0 +1,16 @@
+{
+  "config": {
+    "cross-connections": {
+      "CC5_4": {
+        "source-entity": "100GE-1-7-5-4",
+        "destination-entity": "100GE-1-7-4",
+        "direction-type": "bidirection"
+      },
+      "CC_1": {
+        "source-entity": "100GE-1-8-4",
+        "destination-entity": "100GE-1-8-1-3",
+        "direction-type": "bidirection"
+      }
+    }
+  }
+}
