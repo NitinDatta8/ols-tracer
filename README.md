@@ -21,7 +21,7 @@ A Packet Tracer–style web app for optical line systems: put chassis, linecards
 ## Run
 
 1. `npm run dev`, then open http://localhost:5173.
-2. **Open** → `examples/csp.olst.json` for Horsham setup (transport + transmisison lab).
+2. **Open** → `examples/csp.olst.json` for Horsham setup (transport + transmission lab).
 3. For a lab box, run `npm run bridge` in a second terminal. Click a device, type the box's IP in the header and click **Connect**. The machine must reach the box over SSH.
 
 ## Test
