@@ -17,13 +17,19 @@ const ALARMS = 'cli_shortcut_cmds_platform__alarm__show__alarm';
 export const WORKERS = 4;
 export const TIMEOUT = 3000;
 export const root = mkdtempSync(join(tmpdir(), 'ols-sessions-'));
+/** The catalog the bridge reads procedures from: a test writes its own into common/procedures.json. */
+export const catalog = mkdtempSync(join(tmpdir(), 'ols-catalog-'));
 export const port = await new Promise((done) => { const s = createServer().listen(0, '127.0.0.1', () => { const { port: p } = s.address(); s.close(() => done(p)); }); });
 Object.assign(process.env, {
   BRIDGE_PORT: String(port), BOX_DATA_ROOT: join(root, 'start'), BOX_WORKERS: String(WORKERS), BOX_TIMEOUT: String(TIMEOUT),
   BOX_USER: 'fake', BOX_PASSWORD: 'fake-pw', BOX_INIT: '', PYTHON: fakePython(root, join(root, 'start'), [ALARMS]),
+  BRIDGE_CATALOG: catalog, PROCEDURE_PENDING_SEC: '4',
 });
 vi.spyOn(console, 'log').mockImplementation(() => {}); // the bridge's own log of each session
 await import('../../bridge/server.mjs');
+// A bridge module a test file imported before this one set the data root would have the fake boxes' runs written into
+// the repo's data/boxes/.
+if (!(await import('../../bridge/recorder.mjs')).boxDir('x').startsWith(root)) throw new Error('the bridge was loaded before test/fakes/lab.mjs set its data root: import lab.mjs first');
 
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 /** A request to the bridge as the app and the MCP send it: its status and body, JSON when it is. */

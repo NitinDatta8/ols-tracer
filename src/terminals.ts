@@ -1,5 +1,6 @@
 // The terminals a right-click opens: each a floating window on a new shell of the box (bridge/terminals.mjs), opened in
 // show mode, telnetted into a linecard or in engineering mode by typing the catalog's steps (cli.json `terminals`).
+import { fillStep } from '../bridge/fill.mjs';
 import { byId } from './catalog';
 import type { Catalog, Device } from './types';
 
@@ -12,20 +13,6 @@ export interface Term { id: number; host: string; steps: string[]; title: string
 export interface TermItem { kind: TermKind; label: string; open?: Omit<Term, 'id'>; why?: string }
 
 const MODE: Record<TermKind, string> = { normal: 'show mode', telnet: 'telnet', engineering: 'engineering mode' };
-
-/** A step with `{slot}` and `{chassis}` filled in, and `{slot*4}` as the slot times 4; null when a value is missing or not a number. */
-export function fillStep(step: string, vars: Record<string, string | number | undefined>) {
-  let ok = true;
-  const out = step.replace(/\{(\w+)(?:\*(\d+))?\}/g, (m, k: string, times?: string) => {
-    const v = vars[k];
-    if (v === undefined || (times && !/^\d+$/.test(String(v)))) {
-      ok = false;
-      return m;
-    }
-    return String(times ? Number(v) * Number(times) : v);
-  });
-  return ok ? out : null;
-}
 
 /**
  * What a right-click on device `d` offers: at the chassis (no `slot`) a terminal in show mode, where the session starts;

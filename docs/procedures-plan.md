@@ -9,8 +9,8 @@ The box workflows found in the boxes' logs become **procedures**: ops MOPs that 
 | # | Phase | Gate | Built | Proven |
 | --- | --- | --- | --- | --- |
 | 0 | [Docs](#0-docs) | | 2026-11-12 | |
-| 1 | [Fixes found on the way](#1-fixes-found-on-the-way) | check 6, for the shell reopen only | | |
-| 2 | [Procedure runner](#2-procedure-runner) | | | |
+| 1 | [Fixes found on the way](#1-fixes-found-on-the-way) | check 6, for the shell reopen only | 2026-11-12, but the shell reopen | |
+| 2 | [Procedure runner](#2-procedure-runner) | | 2026-11-12 | |
 | 3 | [Procedures panel](#3-procedures-panel) | | | |
 | 4 | [MCP](#4-mcp) | | | |
 | 5 | [Software audit and health check](#5-software-audit-and-health-check) (read) | | | |
@@ -85,17 +85,17 @@ By hand, on the work machine; the answer goes in the last column. Each gates the
 **A definition** lives in `catalog/common/procedures.json`, kept by hand; a stream's `catalog/<stream>/procedures.json` overrides entries by `id`. Each is `{ id, label, level, tier, params, pre, steps, verify, restore }`:
 - `level` is chassis, card or port; `tier` is read, reversible or change.
 - `params` are filled from the topology, a show or the load list. A param is one word: one of its enum's values, or an address that matches its pattern. Anything else is refused before a line is typed.
-- A step is `{ send, drops?, timeout? }` or `{ wait: <check>, args, every, timeout }`. The placeholders are `fillStep`'s.
-- `pre`, `verify` and each `wait` name a check: a small JS function over parsed shows, not a mini-language. One procedure per box at a time is checked for every procedure.
+- A step is `{ send, drops?, timeout? }` or `{ wait: <check>, args, every, timeout }`. The placeholders are `fillStep`'s, each a param. A read procedure sends only `show` lines, only a change may drop the session, and no line may change the shell's mode (`configure`, `exit`, `^^^`, `bash`): the runner does that itself.
+- `pre`, `verify` and each `wait` name a check: a small JS function that lists the shows it reads and judges what they printed, not a mini-language. One procedure per box at a time is checked for every procedure.
 - `restore` undoes a reversible procedure.
 - Default timeouts come from the [table above](#what-the-runs-show).
 
 **The runner** (`bridge/procedures.mjs`; only the bridge talks to boxes):
-- Runs on a shell of its own on the box's session, so polls, typed shows and `/show` go on. That shell's prerequisites are `configure`, `set cli length 0`, `set cli width 1024`, `set cli confirmation-required no` and `exit`.
+- Runs on a shell of its own on the box's session, so polls, typed shows and `/show` go on. That shell's prerequisites are `configure`, `set cli length 0`, `set cli width 1024`, `set cli confirmation-required no` (but in a read procedure) and `exit`.
 - Enters `configure` only for set, delete and rpc steps, and always leaves it.
 - Holds the session (`procedure:<id>`) until it ends, so it outlives the view that started it.
 - Never sends a line twice.
-- After a drop it waits for the reconnect and that connect run's snapshot, so its shell is never in `configure` while the poller sets up. Then it opens its shell again and goes on from the next `wait` or `verify`. Only a `drops` step expects the drop; a drop on any other step stops it, saying to check the box.
+- A `drops` step is followed by a `wait` for the box. A drop is expected while that step's own line is typed, and in the waits and the verify after it, until the box is back: the runner then waits for the reconnect and that connect run's snapshot, whole, so its shell is never in `configure` while the poller sets up, opens its shell again and goes on, a wait or the verify running again. A drop anywhere else, a line being typed among them, stops it, saying to check the box.
 - Cancel stops at the next step boundary, or at once in a `wait`. The reversible tier restores; the change tier says what is left on the box.
 - A pending change expires after 15 min. A bridge restart abandons a procedure: its `procedure.json` says how far it got, and nothing resumes on its own.
 
@@ -127,7 +127,8 @@ This plan, the [BERT plan](bert-smartaccess-plan.md) brought in line, the [decis
 
 - `bridge/history.mjs`: a reboot is matched in any case (box 07 typed `Reboot ne cold`). `activate`, `rollback` and `clear database` are a `restart`: an outage up to 1800 s after one is put down to it (an activate's switch comes 581–1182 s after it), where a reboot keeps 600 s. A restart, like a reboot, raises a missing card's alarm again, which is not a card taken out.
 - The 2026-11-10 runs that were never parsed (four of box 3's, two of box 5's, two of test01's: the box folders had just been renamed, so the recorder found no templates) parsed again, and box 3's and test01's `history.jsonl` rebuilt from them. Box 3's and test01's last state was those runs' raw output, and test01's history lacked a NETCONF transaction on 2026-11-10 13:19.
-- The guide: the physical view fetches the box's state every 2 s while connected, else every 10 s. The README's "transmisison".
+- The bridge won't start without the templates in its data root, as it won't without its Python, so no run is recorded unparsed again.
+- The guide: the physical view fetches the box's state every 2 s while connected, else every 10 s. The README's typo.
 - Only if check 6 finds an idle timeout: when the terminal's shell closes, open that shell again instead of the whole SSH session.
 
 ### 2. Procedure runner
@@ -135,11 +136,12 @@ This plan, the [BERT plan](bert-smartaccess-plan.md) brought in line, the [decis
 - `catalog/common/procedures.json`, with its stream overrides. Real definitions come with their phases; the tests use fixtures.
 - `bridge/fill.mjs`: `fillStep` moves here from `src/terminals.ts`, and both import it, as `src/l0.ts` imports `bridge/tables.mjs`.
 - `bridge/procedures.mjs`: load and merge, the params check, the named checks and the runner, as in [Procedures](#procedures).
-- `bridge/server.mjs`: the session's procedure state; the poll loop takes procedure snapshots (trigger `procedure`) and keeps its current run on the session; `GET /procedure?host=` (the box's stream's definitions and the current state), `POST /procedure?host=&id=&by=` (JSON params), `POST /procedure/approve?host=&by=` (the typed hostname) and `POST /procedure/cancel?host=&by=`, all per host.
+- `bridge/server.mjs`: the session's procedure state; the poll loop takes procedure snapshots (trigger `procedure`) and keeps its current run on the session; `GET /procedure?host=` (the box's stream's definitions and the current state), `POST /procedure?host=&id=&by=` (JSON params), `POST /procedure/approve?host=&ref=&by=` (the typed hostname; `ref` names the request shown, so nothing else is approved) and `POST /procedure/cancel?host=&ref=&by=`, all per host. A box whose prerequisite failed is not polled, so a show, a baseline or a procedure asked of it is refused, never left waiting.
 - `bridge/recorder.mjs`: `latest()` with `polls: false` leaves out `source: "procedure"` lines.
-- `vite.config.ts`: the new endpoints proxied. The proxy's `\b` would also send `/bridge/procedures.mjs` to the bridge, so it becomes `(?=[/?]|$)`. Its target comes from `BRIDGE_URL`, so a check can run against a bridge on a spare port.
+- `vite.config.ts`: the new endpoints proxied. The proxy's `\b` also sends a file named like an endpoint (`/bridge/state.mjs`) to the bridge, so it becomes `(?=[/?]|$)`. Its target comes from `BRIDGE_URL`, so a check can run against a bridge on a spare port.
 - `src/catalog-vite.ts`: the glob leaves out `procedures.json` and `lab.olst.json`, so a save never reloads the page.
-- Tests, on `test/fakes/lab.mjs`: a read procedure end to end (the run, `procedure.json`, the index lines, the `latest()` skip); one procedure per box; a rejected step fails and leaves `configure`; cancel; pending → Approve (the Origin rule) → runs, and a pending one expires; a view leaving mid-run doesn't close the session; a drop on a `drops` step goes on after the reconnect's snapshot, and on any other step stops.
+- `bridge/shells.mjs`: a line's own timeout, and no Ctrl-C into a shell that closed.
+- Tests, on `test/fakes/lab.mjs` (`sessions-procedures`, `-changes`, `-drops`, with the tests' procedures in `test/fakes/procedures.mjs`; units in `procedures.test.mjs`): a read procedure end to end (the run, `procedure.json`, the index lines, the `latest()` skip); one procedure per box; a rejected step fails and leaves `configure`; cancel; pending → Approve (the Origin rule) → runs, and a pending one expires; a view leaving mid-run doesn't close the session; a drop on a `drops` step goes on after the reconnect's snapshot, and on any other step stops.
 
 ### 3. Procedures panel
 

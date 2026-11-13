@@ -18,7 +18,7 @@ function events(cmd, data) {
     }));
   }
   if (/^show log configuration/.test(cmd)) {
-    return (data?.entries ?? []).filter((e) => !/^set cli (length|width) /.test(e.details)) // the recorder's own, every session
+    return (data?.entries ?? []).filter((e) => !/^set cli (length|width|confirmation-required) /.test(e.details)) // the bridge's own, every shell
       .map((e) => ({ box: e['time-stamp'], kind: 'config', type: e.type, user: e['user-name'], ip: e['user-ip'], details: e.details }));
   }
   return [];

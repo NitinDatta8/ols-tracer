@@ -446,7 +446,8 @@ export const boxAt = (host) => boxes().map((box) => ({ box, run: runsOf(box).fin
  * since. `name` picks a run instead of the latest, whole or not, as it stood then: a fast one goes over the full one
  * before it too. A run grouped by hand into a folder (plugout-1125/20261102-124335-alarms) goes over that folder's runs.
  * `box` reads another box's runs, and `polls: false` leaves the polls out, and the shows typed or asked over the MCP
- * after the snapshot, so a run is what its snapshot read: a show run during a fault never lands in the baseline before it.
+ * and a procedure's lines after the snapshot, so a run is what its snapshot read: a show run during a fault never lands
+ * in the baseline before it.
  */
 export function latest(name, { box, polls = true } = {}) {
   const runs = join(box ? join(BOXES, box, 'runs') : RUNS_DIR, dirname(name ?? '.'));
@@ -460,7 +461,7 @@ export function latest(name, { box, polls = true } = {}) {
   for (const meta of metas.slice(Math.max(0, metas.findLastIndex((m) => !m.snapshot?.fast)))) {
     const dir = join(runs, meta.run);
     for (const { cmd, at, file, source } of lines(join(dir, 'raw', 'index.jsonl'))) {
-      if (!polls && (source === 'typed' || source === 'mcp')) continue;
+      if (!polls && ['typed', 'mcp', 'procedure'].includes(source)) continue;
       const t = Date.parse(at ?? meta.ended); // a hand capture has no per-command times
       const parsed = join(dir, 'parsed', file.replace(/\.txt$/, '.json'));
       if (!existsSync(parsed)) commands[cmd] = { at: t, raw: readFileSync(join(dir, 'raw', file), 'utf8') };

@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
+import { fillStep } from '../../bridge/fill.mjs';
 import box3 from '../../examples/box3.olst.json';
 import { catalogFor } from '../../src/catalog-vite';
 import { indexAt, RACK, rackLayout } from '../../src/racks';
-import { fillStep, termItems, termMenu } from '../../src/terminals';
+import { termItems, termMenu } from '../../src/terminals';
 import type { Device, Topology } from '../../src/types';
 
 const cat = catalogFor('csp');

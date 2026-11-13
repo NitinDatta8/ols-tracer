@@ -14,6 +14,9 @@
 // Every box's recorded runs are read at /runs, /run and /history, by the MCP server, which calls the bridge directly. It
 // also runs one show command at /show?host= (show.mjs), answered and saved in the latest run as a typed one is (source
 // mcp, with who asked), and asks for a healthy baseline at /baseline?host=, a snapshot of its own.
+// A procedure (procedures.mjs) runs a box workflow on a shell of its own in the box's session: /procedure?host= lists the
+// box's and asks for one, /procedure/approve runs a change once a person approves it in the tracer UI, and
+// /procedure/cancel stops one.
 // Login settings come from bridge/.env (see .env.example). Listens on localhost only.
 import { existsSync, readFileSync } from 'node:fs';
 import { createServer } from 'node:http';
@@ -22,6 +25,7 @@ import { fileURLToPath } from 'node:url';
 import ssh2 from 'ssh2';
 import { WebSocketServer } from 'ws';
 import { record } from './history.mjs';
+import { definitions, paramsOf, Procedure } from './procedures.mjs';
 import { accepted, boxAt, boxDir, boxes, boxOf, ensureWiring, latest, lines, PYTHON, Run, runsOf, TEMPLATES_DIR, wiring } from './recorder.mjs';
 import { shareOut, worker } from './shells.mjs';
 import { showLine } from './show.mjs';
@@ -59,6 +63,8 @@ const SETTLE = 100;
 const BANNER = 2000;
 /** How many shells the poller opens, each a CLI session of its own, to share a snapshot's commands: 1 to 8. */
 const WORKERS = Math.min(8, Math.max(1, Math.round(Number(env.BOX_WORKERS)) || 1));
+/** How long a change waits for a person to Approve it, in ms. */
+const PENDING = Number(env.PROCEDURE_PENDING_SEC ?? 900) * 1000;
 
 /**
  * The open sessions, by the host each was asked for. Each is its own SSH connection, terminal shell and poller, held by
@@ -84,6 +90,11 @@ function newSession(host) {
     marks: [], // strands marked as pulled, { strand, from, to, via, at }, waiting for their snapshot
     asked: [], // show commands asked for at /show, { cmd, by, done }, waiting for the poller's shell
     baselines: [], // baselines asked for at /baseline, { done }, waiting for their snapshot
+    halted: false, // its poller stopped on this connection, as a prerequisite failed: nothing asked of it would run
+    run: null, // the run being recorded, which a procedure's lines go into
+    epoch: 0, // how many connect snapshots it has taken whole, so a procedure knows the box is back after a drop
+    procedure: null, // the procedure asked for on it: the one running or waiting for Approve, else the last
+    snapshots: [], // fast snapshots asked for by its procedure, { done }, each answered with its run
   };
   /** The terminal's screen, read back for the commands typed in it. */
   s.screen = new Screen(s.size, (cmd) => { if (POLLS.length && s.state === 'connected') s.typed.push(cmd); });
@@ -165,9 +176,10 @@ function close(s) {
   s.conn = s.shell = null;
   s.state = 'down';
   s.taking = null;
-  for (const { done } of [...s.asked, ...s.baselines]) done(null); // answered: disconnected before they ran
+  for (const { done } of [...s.asked, ...s.baselines, ...s.snapshots]) done(null); // answered: disconnected before they ran
   s.asked = [];
   s.baselines = [];
+  s.snapshots = [];
   s.typed = [];
   s.marks = [];
   for (const ws of s.terms) ws.close();
@@ -209,6 +221,7 @@ async function poll(s, c, chs) {
   };
   // Every shell logs in at once. The others are set up after the first, one at a time, as its prerequisites set up the
   // first (unrecorded), so no two are in `configure` together; one that doesn't come up is dropped.
+  if (c === s.conn) s.halted = false;
   const login = ws.map((w) => {
     if (INIT.length) w.ch.write(INIT.map((cmd) => cmd + '\n').join(''));
     return w.prompt(TIMEOUT + BANNER, BANNER); // logged in and through INIT
@@ -226,6 +239,7 @@ async function poll(s, c, chs) {
    */
   const snapshot = async (trigger, mark) => {
     run = new Run(trigger, s.host, s.box);
+    if (c === s.conn) s.run = run;
     const full = trigger === 'connect';
     const cmds = full ? POLLS : POLLS.filter((p) => p.every > 0 || p.fast);
     const p = (run.meta.snapshot = { done: 0, of: cmds.length, ...(full ? {} : { fast: true }) }); // saved with each command, so a cut-short run says so
@@ -255,8 +269,16 @@ async function poll(s, c, chs) {
 
   await login[0];
   if (!live()) return; // closed while it logged in: nothing to record
-  // Paging left on could cut any output short, so after a failed prerequisite nothing more is recorded or polled.
-  if (!(await snapshot('connect'))) return console.log(`a prerequisite failed on ${s.host}, so it is not polled: see ${run.dir}/meta.json`);
+  // Paging left on could cut any output short, so after a failed prerequisite nothing more is recorded or polled, and
+  // what waits for the poller is answered.
+  if (!(await snapshot('connect'))) {
+    if (c === s.conn) {
+      s.halted = true;
+      for (const { done } of [...s.asked.splice(0), ...s.baselines.splice(0), ...s.snapshots.splice(0)]) done(null);
+    }
+    return console.log(`a prerequisite failed on ${s.host}, so it is not polled: see ${run.dir}/meta.json`);
+  }
+  if (c === s.conn && run.meta.snapshot.done === run.meta.snapshot.of) s.epoch++; // the box is back, whole: a procedure may go on
   while (live()) {
     if (changed) {
       changed = false;
@@ -286,6 +308,13 @@ async function poll(s, c, chs) {
       done(run.meta);
       continue;
     }
+    // A procedure's snapshot, before it and after it, into a run of its own: answered with that run.
+    if (s.snapshots.length) {
+      const { done } = s.snapshots.shift();
+      await snapshot('procedure');
+      done(run);
+      continue;
+    }
     const now = Date.now();
     const p = POLLS.find(({ cmd, every }) => every > 0 && now - last[cmd] >= every * 1000);
     if (p) await take(p.cmd, 'poll');
@@ -298,6 +327,49 @@ const body = async (req) => {
   for await (const chunk of req) s += chunk;
   return s.trim();
 };
+
+/**
+ * A shell of a procedure's own on session `s`'s connection, logged in, as a worker: dumb and very tall, as the poller's
+ * are. Null when the session isn't connected, or the box gives no shell or no prompt.
+ */
+const runnerShell = (s) => new Promise((done) => {
+  const c = s.conn;
+  if (!c || s.state !== 'connected') return done(null);
+  c.shell({ term: 'dumb', cols: 500, rows: 10000 }, async (err, ch) => {
+    if (err || c !== s.conn) {
+      ch?.close();
+      return done(null);
+    }
+    const w = worker(ch, { prompt: PROMPT, timeout: TIMEOUT, settle: SETTLE });
+    if (INIT.length) ch.write(INIT.map((cmd) => cmd + '\n').join(''));
+    if (await w.prompt(TIMEOUT + BANNER, BANNER)) return done(w);
+    ch.close();
+    done(null);
+  });
+});
+
+/** What a procedure needs of session `s` (see Procedure in procedures.mjs), which it holds as `holder` until it is over. */
+const hooksOf = (s, holder) => ({
+  connected: () => s.state === 'connected' && sessions.get(s.host) === s,
+  shell: () => runnerShell(s),
+  epoch: () => s.epoch,
+  snapshot: () => new Promise((done) => (sessions.get(s.host) === s ? s.snapshots.push({ done }) : done(null))),
+  record: async (line, at, raw, ok) => {
+    const run = s.run;
+    return { run: run.meta.run, parsed: await run.record(line, at, raw, ok, 'procedure', holder) };
+  },
+  end: () => {
+    s.holders.delete(holder);
+    if (!s.holders.size && sessions.get(s.host) === s) close(s);
+  },
+});
+
+/** The stream of the box at `host`, from its release (CSP-2.10.… is csp): its session's, else its last run's; or null. */
+function streamOf(s, host) {
+  const box = s?.box ?? boxAt(host);
+  const release = s?.polled['show software']?.raw?.match(/^active\s+(\S+)/m)?.[1] ?? (box && runsOf(box).findLast((m) => m.release)?.release);
+  return release?.split('-')[0].toLowerCase() ?? null;
+}
 
 const hostnameOf = (commands = {}) => commands['show system']?.raw?.match(/^hostname\s+(\S+)/m)?.[1]
   ?? commands['show system']?.data?.state?.hostname
@@ -314,8 +386,11 @@ const LOCAL = /^(localhost|127\.0\.0\.1)(:\d+)?$/;
 const HOST = /^[\w.:-]+$/;
 /** Who connects or asks (?by=): a physical view or a Codex session, one line of printable text. */
 const BY = /^[\x20-\x7e]{1,200}$/;
+/** A procedure's id (?id=) and the ref of one asked for (?ref=). */
+const ID = /^[a-z0-9-]{1,60}$/;
+const REF = /^[0-9a-f-]{36}$/;
 /** The endpoints that act on one box's session, named by ?host=. */
-const PER_HOST = ['/status', '/state', '/connect', '/disconnect', '/wiring', '/pull', '/show', '/baseline'];
+const PER_HOST = ['/status', '/state', '/connect', '/disconnect', '/wiring', '/pull', '/show', '/baseline', '/procedure', '/procedure/approve', '/procedure/cancel'];
 
 /** One request to the bridge, answered. */
 async function answer(req, res) {
@@ -328,12 +403,16 @@ async function answer(req, res) {
   // Every session, as /status?host= answers each.
   if (url.pathname === '/status' && !url.searchParams.has('host')) return json({ sessions: [...sessions.values()].map(statusOf) });
   if (PER_HOST.includes(url.pathname)) {
-    const { host = '', by } = Object.fromEntries(url.searchParams);
+    const { host = '', by, id, ref } = Object.fromEntries(url.searchParams);
     if (!HOST.test(host)) return res.writeHead(400).end('host: an IP or host name\n');
     if (by !== undefined && !BY.test(by)) return res.writeHead(400).end('by: who it is, one line of printable text\n');
+    if (id !== undefined && !ID.test(id)) return res.writeHead(400).end('id: a procedure\'s id\n');
+    if (ref !== undefined && !REF.test(ref)) return res.writeHead(400).end('ref: the ref of a procedure asked for\n');
     const post = req.method === 'POST';
     const s = sessions.get(host);
     const live = s?.state === 'connected';
+    /** Connected, with a poller to run what a show, a baseline or a procedure waits on. */
+    const polled = live && !!POLLS.length && !s.halted;
     /** The last state on disk of the box last reached at `host`. */
     const last = () => {
       const box = s?.box ?? boxAt(host);
@@ -384,7 +463,7 @@ async function answer(req, res) {
     if (url.pathname === '/show' && post) {
       const { cmd, why } = showLine(await body(req));
       if (why) return res.writeHead(400).end(`${why}\n`);
-      if (!live || !POLLS.length) return res.writeHead(409).end('Connect to the box first: a show runs on the session\n');
+      if (!polled) return res.writeHead(409).end('Connect to the box first: a show runs on the session\n');
       const got = await new Promise((done) => s.asked.push({ cmd, by, done }));
       if (!got) return res.writeHead(409).end('Disconnected before it ran\n');
       return json({ host, ...got });
@@ -392,7 +471,7 @@ async function answer(req, res) {
     // A healthy baseline, only once the person says the box is: a snapshot of its own (…-baseline), whose meta.json says
     // state: healthy once the snapshot is whole and every command in it read. Answered with that meta.json.
     if (url.pathname === '/baseline' && post) {
-      if (!live || !POLLS.length) return res.writeHead(409).end('Connect to the box first: a baseline is recorded in a snapshot\n');
+      if (!polled) return res.writeHead(409).end('Connect to the box first: a baseline is recorded in a snapshot\n');
       const meta = await new Promise((done) => s.baselines.push({ done }));
       if (meta?.state !== 'healthy') {
         return res.writeHead(409).end(!meta ? 'Disconnected before the snapshot began\n'
@@ -400,6 +479,54 @@ async function answer(req, res) {
           : `${meta.snapshot.failed.join(', ')} got no prompt back or didn't parse, so ${meta.run} is not a baseline: try again\n`);
       }
       return json(meta);
+    }
+    // The procedures of the box's stream (procedures.mjs), and the one asked for on its session now, or last.
+    if (url.pathname === '/procedure' && !post) {
+      const stream = streamOf(s, host);
+      return json({ host, stream, procedures: definitions(stream), current: s?.procedure?.status() ?? null });
+    }
+    // `by` asks for procedure `id` with the JSON params in the body: a read or reversible one runs now, a change waits
+    // for Approve. One at a time on a box, running or waiting; it holds the session until it is over.
+    if (url.pathname === '/procedure' && post) {
+      const text = await body(req);
+      if (!by) return res.writeHead(400).end('by: who asks\n');
+      const def = definitions(streamOf(s, host)).find((p) => p.id === id);
+      if (!def) return res.writeHead(404).end("id: one of the box's procedures, from GET /procedure\n");
+      if (!polled) return res.writeHead(409).end('Connect to the box first: a procedure runs on its session\n');
+      if (s.procedure && !s.procedure.over) return res.writeHead(409).end(`${s.procedure.def.label} is ${s.procedure.state} on this box: one at a time\n`);
+      let given;
+      try { given = text ? JSON.parse(text) : {}; } catch { return res.writeHead(400).end('params: a JSON object\n'); }
+      const { params, why } = paramsOf(def, given);
+      if (why) return res.writeHead(400).end(`${why}\n`);
+      const holder = `procedure:${def.id}`;
+      s.procedure = new Procedure(def, params, { by, hooks: hooksOf(s, holder), timeout: TIMEOUT, pendingMs: PENDING });
+      s.holders.add(holder);
+      s.procedure.start();
+      return json(s.procedure.status());
+    }
+    // A person approves the change waiting on the box (?ref=), typing its hostname in the body. Only from the tracer UI:
+    // a browser always sends the page's Origin and a page can't fake it, so the MCP server can't approve what it asked
+    // for. A local process that forges headers could: this is a guard, not security.
+    if (url.pathname === '/procedure/approve' && post) {
+      const typed = await body(req);
+      if ((req.headers.origin ?? '').replace(/^https?:\/\//, '') !== req.headers.host) return res.writeHead(403).end('Approve only from the tracer UI\n');
+      if (!by) return res.writeHead(400).end('by: who approves\n');
+      const p = s?.procedure;
+      if (!p || p.state !== 'pending' || p.ref !== ref) return res.writeHead(409).end('Nothing with that ref is waiting for Approve on this box\n');
+      if (!polled) return res.writeHead(409).end('Connect to the box first: a procedure runs on its session\n');
+      const hostname = hostnameOf(s.polled);
+      if (!hostname) return res.writeHead(409).end("The box's hostname isn't known yet: wait for its snapshot\n");
+      if (typed.toLowerCase() !== hostname.toLowerCase()) return res.writeHead(400).end(`Type the box's hostname, ${hostname}, to approve\n`);
+      p.approve(by);
+      return json(p.status());
+    }
+    // `by` stops the procedure on the box (?ref=): a waiting one at once, a running one at its next step.
+    if (url.pathname === '/procedure/cancel' && post) {
+      if (!by) return res.writeHead(400).end('by: who cancels\n');
+      const p = s?.procedure;
+      if (!p || p.over || p.ref !== ref) return res.writeHead(409).end('Nothing with that ref is running or waiting on this box\n');
+      p.cancel(by);
+      return json(p.status());
     }
     return res.writeHead(404).end();
   }
