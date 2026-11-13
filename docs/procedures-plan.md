@@ -1,6 +1,6 @@
 # Procedures and Iter 3 UI plan (2026-11-12)
 
-The box workflows found in the boxes' logs become **procedures**: ops MOPs that the bridge runs, shown in the UI and in `ols-mcp`, and tiered by risk. Iter 3's UI comes with them: the fixed Horsham lab with a lock, a BERT SmartAccess button, live LEDs and stats, and a card's insides drawn with the anatomy kit. Built in the phases below, each one proving a piece before anything riskier uses it. Why it is built this way is in the [decisions](decisions.md); what is built, in the [guide](guide.md).
+The box workflows found in the boxes' logs become **procedures**: ops MOPs that the bridge runs, shown in the UI and in `ols-mcp`, and tiered by risk. Iter 3's UI comes with them: the fixed Horsham lab with a lock that follows the hardware, the BERT's SmartAccess AnyWhere, and a card's insides drawn with the anatomy kit. Built in the phases below, each one proving a piece before anything riskier uses it. Why it is built this way is in the [decisions](decisions.md); what is built, in the [guide](guide.md).
 
 ## Status
 
@@ -16,7 +16,7 @@ The box workflows found in the boxes' logs become **procedures**: ops MOPs that 
 | 5 | [Software audit and health check](#5-software-audit-and-health-check) (read) | | | |
 | 6 | [Lab file and lock](#6-lab-file-and-lock) | | | |
 | 7 | [BERT SmartAccess](#7-bert-smartaccess) | check 7 | | |
-| 8 | [LEDs and stats](#8-leds-and-stats) | check 8, for temperature only | | |
+| 8 | Removed 2026-11-13: [LEDs and stats](#8-leds-and-stats-removed) | | | |
 | 9 | [Locate chassis](#9-locate-chassis) (reversible) | check 1 | | |
 | 10 | [Reboot card or NE](#10-reboot-card-or-ne) (change) | checks 2–4 | | |
 | 11 | [Software upgrade, Commit and Rollback](#11-software-upgrade-commit-and-rollback) (change) | checks 5, 9 | | |
@@ -62,7 +62,7 @@ The 8 boxes' `history.jsonl` hold 599 config lines (279 CLI or console, 320 NETC
 - **set, delete and rpc need `configure`.** There is no config commit.
 - **`config-saving-mode` can be manual:** without `save configuration`, a cold reboot loses the changes. A procedure that changes config ends with a save.
 - **`cli confirmation-required` is on by default,** and applies to the CLI session it is set in.
-- **The CLI has no LED state:** an LED is drawn from a card's oper-status and its alarms.
+- **The CLI has no LED state.**
 
 ## Box checks
 
@@ -76,8 +76,7 @@ By hand, on the work machine; the answer goes in the last column. Each gates the
 | 4 | At the next planned card reboot: what `reboot card <slot> cold` prints with confirmation on | 10 | |
 | 5 | `download sw-image ?`: does it ask for an SFTP user or password? And `show software` while a download runs | 11 | |
 | 6 | `show aaa user admin` (max-idle-time): is that why box 5 opened a new connect run every 10 min on 2026-11-11? | 1, the shell reopen only | |
-| 7 | The SmartAccess AnyWhere version, and whether its exe or `.lnk` takes an IP or a URI | 7; without an answer, open it and copy the IP | |
-| 8 | Does `show card 1-*` print every card's detail, temperature included? | 8, temperature only | |
+| 7 | On a Windows PC with SmartAccess AnyWhere: does `SmartAccessAnyWhere.exe` take the BERT's IP on its command line (`--help`, then the IP as its one argument)? And does the BERT take a second SmartAccess connection while one is open: refused, the first dropped, or both? | 7; without answers, Copy only and no claim | |
 | 9 | `LOAD_*` filled in `bridge/.env`: can the bridge's own SFTP login list the load directory? | 11 | |
 
 ## Procedures
@@ -170,25 +169,27 @@ This plan, the [BERT plan](bert-smartaccess-plan.md) brought in line, the [decis
 - Bridge: `GET /lab` answers `{ topology, mtime }`; `PUT /lab?mtime=` answers 409 when the file changed since (after a pull), else writes it atomically.
 - App: loads the lab on start and saves it with `PUT`, debounced. The browser keeps only the view, and an offline copy shown read-only while the bridge is down. New, Open, Save, the new-project dialog and the corporation dropdown go (switching would overwrite the lab); the stream shows as a label.
 - Lock: a 🔒 button in the top bar; unlocking asks for the password, checked by SHA-256 in the browser, and a reload locks again. While locked: no adding, deleting or moving devices or racks (palette, drag, Delete key, rack moves), and no host or name edits. Cards, pluggables, fibers and bays stay free. The lock is a client-side check, not security.
+- **It follows the hardware:** a card or pluggable the box reports in or out changes the lab file, locked or not, since the lock leaves cards and pluggables free. Connect already syncs a box's cards, pluggables and strands into the topology (`discover` in `src/live.ts`). The view sends the device's synced slots and strands to `POST /lab/sync?host=`, and the bridge applies them to the lab file itself in one write, so two views syncing one box, or someone editing, never overwrite each other. The toast says what changed. It runs while someone has that box's physical view connected; a box nobody has open is brought up to date the next time someone does. Doing it with nobody watching needs `discover` and the catalog in the bridge, which are TypeScript in `src/` today: later, if it is wanted.
 - Docs: the [product decision](decisions.md#product), the README's Run steps, the guide.
-- Browser check: locked, nothing can be dragged, deleted or added; unlocked, everything can; a save doesn't reload the page; a file changed on disk gets a 409 and a toast to reload.
+- Browser check: locked, nothing can be dragged, deleted or added; unlocked, everything can; a save doesn't reload the page; a file changed on disk gets a 409 and a toast to reload; a card the fake box reports changed lands in the lab file while it is locked.
 
 ### 7. BERT SmartAccess
 
-As in the [BERT plan](bert-smartaccess-plan.md): `bridge/launcher.mjs` and `POST /tester/open?host=`, the tester's header, and tests with a stub spawn. Testers stop polling `/status` and `/state`. Proven on the work machine.
+As in the [BERT plan](bert-smartaccess-plan.md), rewritten 2026-11-13 for a tracer hosted on a Linux machine:
+- SmartAccess AnyWhere is a Windows app on each person's PC, so it opens there, never on the server: no launcher in the bridge.
+- The BERT's one fixed IP is its device's `host` in the lab file, the same for everyone, editable only while the lab is unlocked.
+- The tester's header: the IP, **Copy**, and **Open SmartAccess**, which copies the IP and, if check 7 finds the exe takes it, opens an `ols-bert:` link that a one-time registration on the PC hands to the exe.
+- One at a time, if check 7 finds the BERT takes one connection: the bridge keeps one claim on it, which everyone sees (who, since when), let go by **Done** or 30 min after the page holding it last said so. Advisory: SmartAccess opened outside the tracer isn't stopped.
+- Testers stop polling `/status` and `/state`.
 
-### 8. LEDs and stats
+### 8. LEDs and stats (removed)
 
-- `src/live.ts` `ledOf(state, slot)`: `off`, `ok`, `minor`, `major` or `critical`, from `show card`'s oper-status and the worst alarm on the card or its ports; the chassis LED from the system alarms.
-- An LED per slot at the chassis and on the name plate at the card, in place of the static one.
-- Stats on hover and in the inspector: used and rated power, software and firmware (`show card`), temperature (`show card <slot>`, when read), per-port power and PM (as `light()` and `l0` have them). It works from the last state on disk too.
-- Tests on recorded state; a browser check against a bridge reading recorded runs, with no session.
+Removed 2026-11-13: an LED's behaviour is the product's own, in its profile in the codebase, to be captured from there, never defined here. Card stats go with it. Both are in the [roadmap](roadmap.md#later). The numbers of the phases after it stay as they were.
 
 ### 9. Locate chassis
 
 - Start, hold for `duration` (60 s by default) or until Stop, then stop: on the end, on cancel and on a failure.
 - The MCP's `/mcp/lab` with only `run_reversible`, and a README block for its Codex server.
-- The chassis LED blinks while it runs.
 - Proven: the box blinks, once from the UI and once from Codex.
 
 ### 10. Reboot card or NE
