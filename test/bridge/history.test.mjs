@@ -83,6 +83,25 @@ describe('episodes', () => {
     }]);
   });
 
+  it('takes a reboot typed in any case as a reboot', () => {
+    expect(episodes([did(0, 'rpc', 'Reboot ne cold'), loss(150, 'CREATE'), loss(200, 'CLEAR')]).map((e) => [e.cause, e.what, e.lossAt])).toEqual([['reboot', 'Reboot ne cold', at(150)]]);
+  });
+
+  it("puts an outage up to 30 min after an activate, rollback or database clear down to it, a restart, and a reboot's up to 10 min", () => {
+    for (const what of ['activate candidate-sw-image', 'Rollback', 'clear database keep-networking']) {
+      expect(episodes([did(0, 'rpc', what), loss(1182, 'CREATE'), loss(1300, 'CLEAR')]).map((e) => [e.cause, e.what, e.lossAt, e.backSec])).toEqual([['restart', what, at(1182), 1300]]);
+      expect(episodes([did(0, 'rpc', what), loss(1801, 'CREATE')]).map((e) => [e.cause, e.lossAt])).toEqual([['restart', null], [null, at(1801)]]);
+    }
+    expect(episodes([did(0, 'rpc', 'reboot ne cold'), loss(601, 'CREATE')]).map((e) => [e.cause, e.lossAt])).toEqual([['reboot', null], [null, at(601)]]);
+    // A commit takes a second and restarts nothing.
+    expect(episodes([did(0, 'rpc', 'commit active-sw-image'), loss(601, 'CREATE')]).map((e) => [e.cause, e.lossAt])).toEqual([['config', null], [null, at(601)]]);
+  });
+
+  it("takes a missing card's alarm that a restart raises again as no card taken out", () => {
+    const out = episodes([did(0, 'rpc', 'activate candidate-sw-image'), { ...loss(1200, 'CREATE', 'card 1-1', 'EQPT_ABSENCE'), sa: false }, loss(1210, 'CREATE'), loss(1500, 'CLEAR')]);
+    expect(out.map((e) => [e.cause, e.what, e.lossAt])).toEqual([['restart', 'activate candidate-sw-image', at(1210)]]);
+  });
+
   it('leaves an outage nothing explains for a person to label, and one long after a change too', () => {
     expect(episodes([loss(0, 'CREATE'), loss(60, 'CLEAR')])).toEqual([{ at: at(0), cause: null, what: 'IN_LOS@port 1-1-ad11', lossAt: at(0), backAt: at(60), first: ['IN_LOS@port 1-1-ad11'], outageSec: 60, backSec: 60 }]);
     const late = episodes([did(0, 'set', 'set media-channel 2 center-frequency 193600000'), loss(601, 'CREATE')]);

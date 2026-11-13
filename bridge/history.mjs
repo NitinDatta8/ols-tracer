@@ -59,14 +59,27 @@ export function record(boxDir) {
 
 /** A loss of signal or frame that hits traffic: an outage while any is up. */
 const isLoss = (e) => e.kind === 'alarm' && e.sa && /LOS|LOF/.test(e.alarm);
-/** What the box itself says was done: a reboot, another configuration change, or a card taken out. */
+/**
+ * The rpcs that restart the box as a reboot does, only later: an activate switches to the new release 10 to 20 min
+ * after it, a rollback to the old one in about 2 min, and clearing the database restarts it in about 3.
+ */
+const RESTART = /^(activate|rollback|clear database)(\s|$)/i;
+/** What the box itself says was done: a reboot, a restart, another configuration change, or a card taken out. */
 function cause(e) {
-  if (e.kind === 'config') return { cause: e.type === 'rpc' && /^reboot /.test(e.details) ? 'reboot' : 'config', what: e.details };
+  if (e.kind === 'config') {
+    const rpc = e.type === 'rpc';
+    return { cause: rpc && /^reboot /i.test(e.details) ? 'reboot' : rpc && RESTART.test(e.details) ? 'restart' : 'config', what: e.details };
+  }
   if (e.kind === 'alarm' && e.action === 'CREATE' && e.alarm === 'EQPT_ABSENCE') return { cause: 'card out', what: e.resource };
   return null;
 }
 /** How long after something was done its outage may start and still be put down to it, in s. */
 const REACH = 600;
+/** The same after a restart: as long as an activate may take, whose switch came 581 to 1182 s after it on these boxes. */
+const RESTART_REACH = 1800;
+const reach = (ep) => (ep.cause === 'restart' ? RESTART_REACH : REACH) * 1000;
+/** Whether `ep` brought the box up again, so it raised its standing alarms again. */
+const restarted = (ep) => ep?.cause === 'reboot' || ep?.cause === 'restart';
 /** How long a card's light can go before the box notices the card is missing (2 s on box 3's C1125), in s. */
 const NOTICE = 5;
 /** The first alarms of an outage, kept as its evidence: those raised within this long of its start, in s. */
@@ -87,8 +100,8 @@ export function episodes(h) {
   for (const e of h) {
     const t = Date.parse(e.at);
     let c = cause(e);
-    // A reboot raises the standing alarms again, a missing card's among them: that card wasn't just taken out.
-    if (c?.cause === 'card out' && last?.cause === 'reboot' && t - Date.parse(last.at) <= REACH * 1000) c = null;
+    // A reboot or restart raises the standing alarms again, a missing card's among them: that card wasn't just taken out.
+    if (c?.cause === 'card out' && restarted(last) && t - Date.parse(last.at) <= reach(last)) c = null;
     // A card taken out takes its light with it before the box says the card is missing: the loss is the card's.
     if (c?.cause === 'card out' && open?.cause === null && t - Date.parse(open.lossAt) <= NOTICE * 1000) Object.assign((last = open), c);
     else if (c) out.push((last = { at: e.at, ...c, ...(e.ip ? { ip: e.ip } : {}), lossAt: null, backAt: null, first: [] }));
@@ -98,7 +111,7 @@ export function episodes(h) {
     if (e.action === 'CREATE') up.add(id);
     else up.delete(id);
     if (!was && up.size) {
-      const fresh = last && !last.lossAt && !last.restores && t - Date.parse(last.at) <= REACH * 1000;
+      const fresh = last && !last.lossAt && !last.restores && t - Date.parse(last.at) <= reach(last);
       if (!fresh) out.push((last = { at: e.at, cause: null, what: id, lossAt: null, backAt: null, first: [] }));
       (open = last).lossAt = e.at;
     }
