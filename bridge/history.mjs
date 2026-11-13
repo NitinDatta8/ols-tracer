@@ -8,6 +8,13 @@ import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { iso, lines, metaOf, runsIn } from './recorder.mjs';
 
+/**
+ * Alarms that come and go with the light's ripple, so they never start a snapshot, and the health check leaves them
+ * out: threshold warnings (box 3's AD11 input sits on its 3 dBm one) and a WSS attenuation at its limit. A fault
+ * raises a LOS or a failure with them.
+ */
+export const FLAPS = /_WARNING$|^REACH_MAX_ATT/;
+
 /** A `show log alarm` or `show log configuration` parse (snapshot or poll) as history events, at box time. */
 function events(cmd, data) {
   if (/^show log alarm/.test(cmd)) {

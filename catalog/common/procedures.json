@@ -1,3 +1,20 @@
 {
-  "procedures": []
+  "procedures": [
+    {
+      "id": "software-audit",
+      "label": "Software audit",
+      "level": "chassis",
+      "tier": "read",
+      "steps": [{ "send": "show software upgradeable-device" }],
+      "verify": "software"
+    },
+    {
+      "id": "health-check",
+      "label": "Health check",
+      "level": "chassis",
+      "tier": "read",
+      "steps": [],
+      "verify": "health"
+    }
+  ]
 }

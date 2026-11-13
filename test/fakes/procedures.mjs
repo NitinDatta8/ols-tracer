@@ -12,9 +12,12 @@ CHECKS.flag = {
   shows: () => ['show flag'],
   test: (out) => (out['show flag'].raw.trim() === 'up' ? { ok: true } : { ok: false, why: `the flag is ${out['show flag'].raw.trim()}` }),
 };
+/** An audit's check of the tests' own: each line the box's `show found` prints is a finding. */
+CHECKS.found = { shows: () => ['show found'], test: (out) => ({ ok: true, findings: out['show found'].raw.split('\n').map((l) => l.trim()).filter((l) => l && l !== 'None') }) };
 export const PROCEDURES = [
   { id: 'look', label: 'Look', level: 'chassis', tier: 'read', steps: [{ send: 'show card' }, { send: 'show software' }], verify: 'flag' },
   { id: 'look-drop', label: 'Look, dropped', level: 'chassis', tier: 'read', steps: [{ send: 'show drop' }] },
+  { id: 'audit', label: 'Audit', level: 'chassis', tier: 'read', steps: [], verify: 'found' },
   { id: 'hold', label: 'Hold', level: 'chassis', tier: 'reversible', steps: [{ send: 'set led on' }, { wait: 'flag', every: 1, timeout: 60 }], restore: [{ send: 'set led off' }] },
   { id: 'set-bad', label: 'Set bad', level: 'chassis', tier: 'change', steps: [{ send: 'set thing on' }, { send: 'set bogus 1' }, { send: 'set never 1' }] },
   {

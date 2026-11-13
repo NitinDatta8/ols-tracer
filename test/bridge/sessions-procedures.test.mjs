@@ -10,8 +10,8 @@ import { ask, current, over, PROCEDURES, saved, SETUP, typed } from '../fakes/pr
 vi.mock('ssh2', async () => ({ default: await import('../fakes/ssh2.mjs') }));
 
 describe('procedures', () => {
-  it('a read procedure runs on a shell of its own, into a procedure run, with its lines recorded as its own', async () => {
-    const box = fake(1, { answers: { 'show flag': 'up' } });
+  it('a read procedure runs on a shell of its own, into a procedure run, with its lines recorded as its own; what its verify finds leaves it done', async () => {
+    const box = fake(1, { answers: { 'show flag': 'up', 'show found': 'card 1-4 is absent\nNO_CMT_SW on software' } });
     await connect(host(1), 'view:a');
     await whole(folder(1));
     const list = (await call('GET', `/procedure?host=${host(1)}`)).body;
@@ -33,6 +33,12 @@ describe('procedures', () => {
     // Its shell is closed, and the session is the view's alone again.
     expect(box.shells.size).toBe(1 + WORKERS);
     expect(await status(host(1), 'view:a')).toMatchObject({ holders: 1, held: true });
+    // An audit's findings are its result, not a failure: it is done, each finding in its log.
+    expect((await ask(host(1), 'audit', 'codex:c')).status).toBe(200);
+    const audit = await over(host(1));
+    expect(audit).toMatchObject({ id: 'audit', state: 'done', why: null });
+    expect(audit.log.map((e) => [e.step, e.check, e.ok, e.why ?? null])).toEqual([
+      ['verify', 'found', true, null], ['finding', 'found', false, 'card 1-4 is absent'], ['finding', 'found', false, 'NO_CMT_SW on software']]);
   }, 40000);
 
   it("one at a time on a box, another box's meanwhile; it holds the session the view left; cancelled, a reversible one restores", async () => {

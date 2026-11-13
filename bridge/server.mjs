@@ -24,7 +24,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import ssh2 from 'ssh2';
 import { WebSocketServer } from 'ws';
-import { record } from './history.mjs';
+import { FLAPS, record } from './history.mjs';
 import { definitions, paramsOf, Procedure } from './procedures.mjs';
 import { accepted, boxAt, boxDir, boxes, boxOf, ensureWiring, latest, lines, PYTHON, Run, runsOf, TEMPLATES_DIR, wiring } from './recorder.mjs';
 import { shareOut, worker } from './shells.mjs';
@@ -46,13 +46,8 @@ const here = (p) => fileURLToPath(new URL(p, import.meta.url));
  * in seconds rather than a minute or more.
  */
 const { prereqs: PREREQS = [], commands: POLLS = [] } = existsSync(here('poll.json')) ? JSON.parse(readFileSync(here('poll.json'), 'utf8')) : {};
-/** The template of `show alarm`, whose result changing starts a new snapshot. */
+/** The template of `show alarm`, whose result changing starts a new snapshot (threshold flaps aside: FLAPS). */
 const ALARMS = 'cli_shortcut_cmds_platform__alarm__show__alarm';
-/**
- * Alarms that come and go with the light's ripple, so they never start a snapshot: threshold warnings (box 3's AD11
- * input sits on its 3 dBm one) and a WSS attenuation at its limit. A fault raises a LOS or a failure with them.
- */
-const FLAPS = /_WARNING$|^REACH_MAX_ATT/;
 /** The box's prompt: a regex the last line of output matches once a command is done. */
 const PROMPT = new RegExp(env.BOX_PROMPT ?? '[#>$] ?$');
 /** How long the poller waits for a command's prompt before it sends Ctrl-C, in ms. */
@@ -351,6 +346,7 @@ const runnerShell = (s) => new Promise((done) => {
 /** What a procedure needs of session `s` (see Procedure in procedures.mjs), which it holds as `holder` until it is over. */
 const hooksOf = (s, holder) => ({
   connected: () => s.state === 'connected' && sessions.get(s.host) === s,
+  box: () => s.box,
   shell: () => runnerShell(s),
   epoch: () => s.epoch,
   snapshot: () => new Promise((done) => (sessions.get(s.host) === s ? s.snapshots.push({ done }) : done(null))),

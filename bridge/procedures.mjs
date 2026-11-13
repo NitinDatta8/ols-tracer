@@ -9,7 +9,8 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { fillStep, fits } from './fill.mjs';
-import { accepted, iso } from './recorder.mjs';
+import { FLAPS } from './history.mjs';
+import { accepted, iso, latest, runsOf } from './recorder.mjs';
 
 /** Where the definitions are read from: catalog/, or BRIDGE_CATALOG (the tests' own). */
 const CATALOG = process.env.BRIDGE_CATALOG ?? fileURLToPath(new URL('../catalog', import.meta.url));
@@ -30,12 +31,69 @@ const SETUP = ['configure', 'set cli length 0', 'set cli width 1024'];
 const QUIET = 'set cli confirmation-required no';
 
 /**
- * The named checks a procedure's `pre`, `wait` and `verify` use, each { shows(args), test(out, args) }: `shows` lists
- * the show lines it reads, and `test` judges what they printed, `out[line]` being { raw, data } (`data` the parse,
- * when the command has a template), as { ok: true } or { ok: false, why }. Small functions over the box's own output,
- * not a language. They come with the procedures that use them; a test may add its own.
+ * The named checks a procedure's `pre`, `wait` and `verify` use, each { shows(args), test(out, args, box) }: `shows`
+ * lists the show lines it reads, and `test` judges what they printed, `out[line]` being { raw, data } (`data` the
+ * parse, when the command has a template), `box` the box's folder for a check that compares with its recorded runs, as
+ * { ok: true } or { ok: false, why }. A verify that judged the box adds `findings`, what it found wrong, one line each:
+ * the procedure is still done, each finding in its log, as an audit's result is no failure of it. Small functions over
+ * the box's own output, not a language. They come with the procedures that use them; a test may add its own.
  */
-export const CHECKS = {};
+export const CHECKS = {
+  /**
+   * software-audit's: the active release committed, no candidate left behind, and each card whose software-version
+   * names a release of the box's stream (800mx_CSP-2.10.100.10_20261013) on the active one. A TMUX card's own OS
+   * names none, so show card can't judge it (docs/procedures-plan.md#5-software-audit-and-health-check).
+   */
+  software: {
+    shows: () => ['show software', 'show card'],
+    test: (out) => {
+      const sw = out['show software'].data?.state;
+      const cards = out['show card'].data?.state?.cards;
+      if (!sw?.active || !cards) return { ok: false, why: 'show software or show card did not parse' };
+      const findings = [];
+      if (sw['active-status'] !== 'committed') findings.push(`active-status ${sw['active-status'] ?? 'none'}: ${sw.active} is not committed`);
+      if (sw.candidate) findings.push(`candidate ${sw.candidate} left behind (candidate-status ${sw['candidate-status'] ?? 'none'})`);
+      const stream = `${sw.active.split('-')[0]}-`;
+      for (const [slot, c] of Object.entries(cards)) {
+        const v = c['software-version'] ?? '';
+        const release = v.includes(stream) ? v.slice(v.indexOf(stream)).split(' ')[0] : null;
+        if (release && release !== sw.active) findings.push(`card ${slot} (${c['module-type']}) runs ${release}, not ${sw.active}`);
+      }
+      return { ok: true, findings };
+    },
+  },
+  /**
+   * health-check's: each card provisioned in and active; no alarm the box's latest healthy baseline (its run with
+   * state healthy) didn't have, threshold flaps left out; no NO_CMT_SW or DATETIME_UNCHANGED, baseline or not; and as
+   * a warning config-saving-mode manual, as a cold reboot loses what wasn't saved then.
+   */
+  health: {
+    shows: () => ['show card', 'show alarm', 'show system'],
+    test: (out, _args, box) => {
+      const cards = out['show card'].data?.state?.cards;
+      const alarms = out['show alarm'].data;
+      const system = out['show system'].data;
+      if (!cards || !alarms || !system) return { ok: false, why: 'show card, show alarm or show system did not parse' };
+      const findings = [];
+      for (const [slot, c] of Object.entries(cards)) {
+        if (c['module-type'] === 'NONE') continue;
+        if (c.present !== 'true') findings.push(`card ${slot} (${c['module-type']}) is absent`);
+        else if (c['oper-status'] !== 'active') findings.push(`card ${slot} (${c['module-type']}) is ${c['oper-status']}`);
+      }
+      const base = box ? runsOf(box).filter((m) => m.state === 'healthy').at(-1) : undefined;
+      const was = base && latest(base.run, { box, polls: false })?.commands['show alarm']?.data;
+      const key = (a) => `${a['alarm-abbreviate']} on ${a.resource}`;
+      const known = was && new Set(Object.values(was.alarms ?? {}).map(key));
+      for (const a of Object.values(alarms.alarms ?? {})) {
+        if (['NO_CMT_SW', 'DATETIME_UNCHANGED'].includes(a['alarm-abbreviate'])) findings.push(`${key(a)}: ${a.text}`);
+        else if (known && !FLAPS.test(a['alarm-abbreviate']) && !known.has(key(a))) findings.push(`${key(a)} (${a.severity}), not in baseline ${base.run}`);
+      }
+      if (!known) findings.push('no healthy baseline to compare its alarms with: capture one once the box is healthy');
+      if ((system.state ?? system.config)?.['config-saving-mode'] === 'manual') findings.push('warning: config-saving-mode manual, so a cold reboot loses what was not saved');
+      return { ok: true, findings };
+    },
+  },
+};
 
 const words = (v) => Array.isArray(v) && v.length > 0 && v.every((x) => typeof x === 'string' && WORD.test(x));
 const seconds = (v) => typeof v === 'number' && Number.isFinite(v) && v > 0;
@@ -172,6 +230,7 @@ class Dropped extends Error {}
  * for approve() until `pendingMs` has passed; the others start at once. `timeout` is how long a line may take, in ms,
  * unless its step says. `hooks` is what it needs of the bridge's session with the box:
  * - `connected()`: whether the session is connected now;
+ * - `box()`: the box's folder, for a check that compares with its runs;
  * - `shell()`: a shell of its own on the session's connection, logged in, as a worker (shells.mjs), or null;
  * - `epoch()`: how many connect snapshots the session has taken whole so far, so a new one says the box is back;
  * - `snapshot()`: a fast snapshot into a new `procedure` run, answered with that Run, or null if the session closed;
@@ -306,7 +365,7 @@ export class Procedure {
       if (!r.ok) return { ok: false, why: `${line}: no prompt within ${this.timeout / 1000} s` };
       out[line] = { raw: r.raw, data: r.parsed?.data };
     }
-    return c.test(out, args);
+    return c.test(out, args, this.hooks.box());
   }
 
   /** A step's line, typed once: in configure if it changes the box, where the box has to take it. */
@@ -414,6 +473,7 @@ export class Procedure {
         const r = await reading(() => this.check(this.plan.verify.check, this.params))();
         this.note({ step: 'verify', check: this.plan.verify.check, ok: r.ok, ...(r.ok ? {} : { why: r.why }) });
         if (!r.ok) throw new Stop('failed', `${this.plan.verify.check}: ${r.why}`);
+        for (const why of r.findings ?? []) this.note({ step: 'finding', check: this.plan.verify.check, ok: false, why });
       }
     } catch (e) {
       [state, why] = e instanceof Stop ? [e.state, e.message]

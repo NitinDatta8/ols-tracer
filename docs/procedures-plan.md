@@ -13,7 +13,7 @@ The box workflows found in the boxes' logs become **procedures**: ops MOPs that 
 | 2 | [Procedure runner](#2-procedure-runner) | | 2026-11-12 | |
 | 3 | [Procedures panel](#3-procedures-panel) | | 2026-11-12 | |
 | 4 | [MCP](#4-mcp) | | 2026-11-13 | |
-| 5 | [Software audit and health check](#5-software-audit-and-health-check) (read) | | | |
+| 5 | [Software audit and health check](#5-software-audit-and-health-check) (read) | | 2026-11-13 | |
 | 6 | [Lab file and lock](#6-lab-file-and-lock) | | | |
 | 7 | [BERT SmartAccess](#7-bert-smartaccess) | check 7 | | |
 | 8 | Removed 2026-11-13: [LEDs and stats](#8-leds-and-stats-removed) | | | |
@@ -85,7 +85,8 @@ By hand, on the work machine; the answer goes in the last column. Each gates the
 - `level` is chassis, card or port; `tier` is read, reversible or change.
 - `params` are filled from the topology, a show or the load list. A param is one word: one of its enum's values, or an address that matches its pattern. Anything else is refused before a line is typed.
 - A step is `{ send, drops?, timeout? }` or `{ wait: <check>, args, every, timeout }`. The placeholders are `fillStep`'s, each a param. A read procedure sends only `show` lines, only a change may drop the session, and no line may change the shell's mode (`configure`, `exit`, `^^^`, `bash`): the runner does that itself.
-- `pre`, `verify` and each `wait` name a check: a small JS function that lists the shows it reads and judges what they printed, not a mini-language. One procedure per box at a time is checked for every procedure.
+- `pre`, `verify` and each `wait` name a check: a small JS function that lists the shows it reads and judges what they printed, not a mini-language, with the box's folder for one that compares with its runs. One procedure per box at a time is checked for every procedure.
+- A verify that judged the box may return findings, what it found wrong: the procedure still ends `done`, each finding a `finding` step in its log. `failed` is for one that couldn't run or judge.
 - `restore` undoes a reversible procedure.
 - Default timeouts come from the [table above](#what-the-runs-show).
 
@@ -158,10 +159,16 @@ This plan, the [BERT plan](bert-smartaccess-plan.md) brought in line, the [decis
 
 ### 5. Software audit and health check
 
-- `software-audit`: `show software`, `show card` and `show software upgradeable-device`. It flags an active-status other than `committed`, a candidate left behind, and a card running other than the active release.
-- `health-check`: cards active; alarms not in the latest healthy baseline, threshold flaps left out; `NO_CMT_SW`; `DATETIME_UNCHANGED`; `config-saving-mode manual` as a warning. The MCP's `procedure_status` adds its first losses.
-- Test: fed each box's latest recorded outputs, the audit flags exactly 03, 04, 05, test01 and test02, and passes 06–08. It is skipped without the bridge's Python, as the template tests are.
-- Proven: one run on box 3.
+- `software-audit`: its check, `software`, reads `show software` and `show card`. It flags an active-status other than `committed`, a candidate left behind, and a card running other than the active release: one whose `software-version` in `show card` names a release of the box's stream (`800mx_CSP-2.10.100.10_20261013`) other than the active one. A TMUX card's own OS (`TWSOA25_OS_GE_2.6.1…`) names no release, so it isn't judged. `show software upgradeable-device` would say what each card should run, but no run has ever had it (it isn't in `bridge/poll.json`), so its form is unknown: the audit types it first and records it in its procedure run, and judges it only once a run on a box has shown its form and it has a template.
+- `health-check`: its check, `health`, reads `show card`, `show alarm` and `show system`: each card provisioned is in and active; no alarm that the latest healthy baseline (the box's latest run with `state: healthy`) didn't have, threshold flaps left out (`FLAPS`, now in `bridge/history.mjs`); no `NO_CMT_SW` or `DATETIME_UNCHANGED`, baseline or not; `config-saving-mode manual` as a warning. A box with no healthy baseline says so. The MCP's `procedure_status` and `run_procedure` add its first losses, traced on its procedure run's snapshot.
+- What either finds is the procedure's result, not a failure: it ends `done` with its findings (see [Procedures](#procedures)).
+- Test: fed each box's latest recorded outputs, parsed again with their templates, the audit flags exactly 03, 04, 05, test01 and test02, and passes 06–08; a card on another release is flagged and a TMUX card's OS is not; the health check names box 3's problems since its baseline of 2026-11-08, and says box 6 has none. It is skipped without the bridge's Python, as the template tests are. A tests' procedure with findings ends `done`.
+- Proven: one run on box 3, from the work machine, once this is pushed and pulled there:
+  1. `npm run bridge` and `npm run dev`; open box 3's physical view and **Connect**; wait for the dot to go green and the connect snapshot to finish.
+  2. **Procedures** → **Software audit** → **Run**. It ends `done` within a minute, its log `send show software upgradeable-device`, `verify software`, and while box 3 is as on 2026-11-10, two findings in red: `active-status active: CSP-2.10.100.10_20261013 is not committed` and `candidate Release_CSP-2.9.0.235_20260209.tar left behind (candidate-status inactive)`.
+  3. **Health check** → **Run**. It ends `done`, its findings the cards not in or not active (on 2026-11-10: 1-4 and 1-8 absent, 1-21 inactive), `NO_CMT_SW`, `DATETIME_UNCHANGED`, and each alarm not in baseline `20261108-151528-baseline`.
+  4. `data/boxes/paho-gs2000-03/runs/` has a `<YYYYMMDD-HHMMSS>-procedure` run for each, with `procedure.json` (`state: done`, the findings in its log) and the audit's `show software upgradeable-device` output in `raw/`: the first capture of it. Commit them.
+  5. From Codex, after `npm run setup` in ols-mcp and with `tool_timeout_sec = 150` in its block: `run_procedure` paho-gs2000-03 `health-check` answers `done`, with the findings in its log and `firstLosses`; `procedure_status` paho-gs2000-03 answers the same.
 
 ### 6. Lab file and lock
 
