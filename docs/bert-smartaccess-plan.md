@@ -1,12 +1,14 @@
 # BERT tester SmartAccess launch plan (2026-11-11)
 
+> **2026-11-12:** to be built as phase 7 of the [procedures plan](procedures-plan.md#7-bert-smartaccess). The IP is the device's `host`, fixed and stored once; the open-only mode copies it to the clipboard.
+
 How OLS Tracer should open Viavi SmartAccess AnyWhere from the BERT tester view, and prefill/preconnect it to a target IP when possible.
 
 ## Goal
 
 - From a BERT tester in the Physical view, click one button and launch SmartAccess AnyWhere.
 - Keep the current model intact: BERT has no box CLI in OLS Tracer.
-- Support a per-device tester target IP in the topology.
+- The BERT's IP is fixed and stored once: in the device's own `host`, in the lab file.
 - Keep this safe: no arbitrary command execution from the browser.
 
 ## Scope
@@ -31,7 +33,8 @@ How OLS Tracer should open Viavi SmartAccess AnyWhere from the BERT tester view,
 - The bridge (`bridge/server.mjs`) is the right place for local process launch.
 - BERT remains a tester chassis with no SSH/CLI connection flow.
 - The tool path may be environment-specific (example:
-  `C:\Users\nitindatta.movva\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Viavi\SmartAccessAnyWhere.lnk`).
+  `%APPDATA%\Microsoft\Windows\Start Menu\Programs\Viavi\SmartAccessAnyWhere.lnk`).
+- The bridge listens on 127.0.0.1 only, so SmartAccess opens on the machine that runs the bridge: the work machine.
 - Preconnect behavior depends on SmartAccess AnyWhere startup capabilities:
   - direct command-line args (best), or
   - a wrapper script that automates UI fields, or
@@ -42,7 +45,7 @@ How OLS Tracer should open Viavi SmartAccess AnyWhere from the BERT tester view,
 For tester chassis only:
 
 - Header controls show:
-  - `Tester IP` input (saved on that device), and
+  - `Tester IP` input: the device's `host`, editable only while the lab is unlocked (always drawn, so nothing shifts), and
   - `Open SmartAccess` button.
 - Button behavior:
   - disabled when no tester IP,
@@ -54,8 +57,7 @@ For tester chassis only:
 
 ### 1) Topology data model
 
-- Extend device state with a tester target host, e.g. `testerHost?: string`.
-- Keep backward compatibility (optional field, no migration bump needed).
+- The tester's IP is the device's existing `host` (`src/types.ts`), stored once in the lab file. No new field.
 
 Likely files:
 
@@ -98,7 +100,7 @@ Likely files:
 
 1. **Direct preconnect** (if SmartAccess supports stable startup args/URI).
 2. **Wrapper preconnect** (PowerShell/AutoHotkey wrapper receives IP and automates connect).
-3. **Open-only fallback** (launch SmartAccess without preconnect).
+3. **Open-only fallback** (launch SmartAccess without preconnect): the IP is copied to the clipboard, and the toast says so.
 
 Configuration from `bridge/.env` (examples):
 
@@ -182,7 +184,6 @@ Update after implementation:
 
 - What exact SmartAccess AnyWhere version is used in the lab?
 - Does that version support command-line target arguments or URI protocol?
-- Should tester target be per-device (`testerHost`) or shared global default + per-device override?
 - Should launch attempts be recorded in run history, or only bridge logs?
 
 ## Acceptance criteria

@@ -7,6 +7,7 @@ The decisions in force, by topic, each with its date and why. The full log, with
 - **Packet Tracer's interaction model,** as a React + TypeScript + Vite web app: the stream is picked per project, rules are allowed lists, graphics are generic SVG, the L0, L1 and Data views are cosmetic, and a topology is a local `.olst.json` plus autosave, with no backend. People in the industry already know Packet Tracer. (2026-10-29)
 - **A link is one strand,** `a` Tx → `b` Rx, and a duplex pair is two links. It replaced the MVP's auto-crossed duplex cable. (2026-10-29)
 - **A pet project:** it lives in this repo and changes nothing in the product.
+- **The lab page is the fixed Horsham lab,** one file in the repo (`catalog/csp/lab.olst.json`) that the bridge serves and saves and a commit shares, in place of New, Open and Save. Adding, removing or moving a chassis or rack needs it unlocked; cards and pluggables stay free. The lock is a check in the browser that keeps only the password's hash, not security. A lab set up once by hand is the same for everyone. Being built: [procedures plan](procedures-plan.md#6-lab-file-and-lock). (2026-11-12)
 
 ## Catalog
 
@@ -20,6 +21,9 @@ The decisions in force, by topic, each with its date and why. The full log, with
 - **The terminal is a real xterm.js on the box's shell,** so Tab, history and the box's modes work. **Run** may send any command, config included. (2026-10-29)
 - **Live state is the CLI's text, parsed with TTP** (Python) and polled every 10–30 s: it needs nothing from the product. Not a JSON mode, not gNMI; if the product ships gNMI, `gnmic` replaces the poller and the UI stays the same. (2026-10-30)
 - **The poller has shells of its own** in the session, so it never types into the terminal: 1 to 8 (`BOX_WORKERS`, default 1, since a box's limit on CLI sessions is only known on the box). A command is done when its prompt is quiet for 100 ms. Paging is turned off on every login (`set cli length 0`, `set cli width 1024`), and that is recorded. (2026-10-30, 2026-10-31, 2026-11-06)
+- **Box changes go through procedures, tiered by risk:** a read procedure runs from the MCP; a reversible lab action runs from the MCP with an approval on every call, and restores itself; an upgrade, reboot or provisioning is queued by the MCP and runs once a person clicks **Approve** in the tracer UI. Commit and Rollback are each their own Approve, after a soak. The boxes' logs show these done by hand again and again, and a change done wrong takes a box down. Being built: [procedures plan](procedures-plan.md); until then the MCP sends only `show`. (2026-11-12)
+- **A procedure's step lines are the source of truth for rpc lines.** The CLI index lists most rpcs without their arguments (`rpc reboot`), so the lines come from the box logs, and the MCP's `check()` takes an rpc line only when it matches one. Taking any words after a known rpc would let made-up commands through. (2026-11-12)
+- **Software loads come from one load server,** named in `bridge/.env` with its login, and the UI lists them per stream. (2026-11-12)
 
 ## Recording
 
