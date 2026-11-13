@@ -42,6 +42,25 @@ describe('worker', () => {
     expect(await w.output('hang')).toEqual({ raw: '', ok: false });
     expect(await w.output('show card')).toEqual({ raw: 'out of show card', ok: true });
   });
+
+  it("waits as long as a command's own timeout, when it has one", async () => {
+    const w = worker(fakeShell({ delay: 150 }), { ...OPTS, timeout: 80 });
+    await w.prompt(300);
+    expect(await w.output('show slow', 400)).toEqual({ raw: 'out of show slow', ok: true });
+    expect((await w.output('show slow')).ok).toBe(false);
+  });
+
+  it('types nothing more into a shell that closed while its command ran', async () => {
+    const ch = fakeShell({ outputs: { 'reboot ne cold': ['Rebooting\r\n', null] } });
+    const writes = [];
+    const write = ch.write;
+    ch.write = (d) => { writes.push(d); write(d); };
+    const w = worker(ch, OPTS);
+    await w.prompt(300);
+    setTimeout(() => ch.close(), 50);
+    expect(await w.output('reboot ne cold')).toEqual({ raw: 'Rebooting\n', ok: false });
+    expect([w.open, writes]).toEqual([false, ['reboot ne cold\n']]);
+  });
 });
 
 describe('shareOut', () => {

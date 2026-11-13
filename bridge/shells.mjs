@@ -23,12 +23,13 @@ export function worker(ch, { prompt: PROMPT, timeout, settle }) {
       wake();
     });
   }
-  /** A command's output, the lines between its echo and the next prompt, and whether the prompt came back. */
-  async function output(cmd) {
+  /** A command's output, the lines between its echo and the next prompt, and whether the prompt came back in `ms`. */
+  async function output(cmd, ms = timeout) {
     buf = '';
     ch.write(cmd + '\n');
-    if (await prompt(timeout)) return { raw: lines().slice(1, -1).join('\n'), ok: true };
+    if (await prompt(ms)) return { raw: lines().slice(1, -1).join('\n'), ok: true };
     const raw = lines().slice(1).join('\n');
+    if (!w.open) return { raw, ok: false }; // closed: nothing to stop, and nothing to write to
     ch.write('\x03'); // Ctrl-C, so a hung command does not spill into the next one
     await prompt(timeout);
     return { raw, ok: false };
