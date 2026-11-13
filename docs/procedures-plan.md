@@ -11,7 +11,7 @@ The box workflows found in the boxes' logs become **procedures**: ops MOPs that 
 | 0 | [Docs](#0-docs) | | 2026-11-12 | |
 | 1 | [Fixes found on the way](#1-fixes-found-on-the-way) | check 6, for the shell reopen only | 2026-11-12, but the shell reopen | |
 | 2 | [Procedure runner](#2-procedure-runner) | | 2026-11-12 | |
-| 3 | [Procedures panel](#3-procedures-panel) | | | |
+| 3 | [Procedures panel](#3-procedures-panel) | | 2026-11-12 | |
 | 4 | [MCP](#4-mcp) | | | |
 | 5 | [Software audit and health check](#5-software-audit-and-health-check) (read) | | | |
 | 6 | [Lab file and lock](#6-lab-file-and-lock) | | | |
@@ -145,10 +145,10 @@ This plan, the [BERT plan](bert-smartaccess-plan.md) brought in line, the [decis
 
 ### 3. Procedures panel
 
-- `src/procedures.ts`: `procedureItems()`, as `termItems` is for terminals, greyed out with why: not connected, one already running or pending, test equipment, another level.
+- `src/procedures.ts`: `procedureItems()`, as `termItems` is for terminals, greyed out with why: not connected, one already running or pending, test equipment, another level. A param named `card` starts as the card it is at. Whether a param's value is taken is `fits` in `bridge/fill.mjs`, the bridge's own rule.
 - `src/Menu.tsx`: an item carries its action, a terminal or a procedure, so a right-click on a card offers that card's procedures.
-- `src/Procedures.tsx`: a **Procedures** button in the physical view's header, with a dot while one runs, opens a fixed-size panel over the stage in three regions: the list; the params, the exact lines and Run, Request, Approve (type the hostname) and Cancel; the step log, with a progress line for long waits. It asks `GET /procedure` every second while open or running.
-- Browser check: the panel's boxes stay put in every state; a fixture procedure runs; Approve needs the hostname; Cancel works.
+- `src/ProcedurePanel.tsx`: a **Procedures** button in the physical view's header, with a dot while one runs, opens a fixed-size panel over the stage in three regions: the list; the params, the exact lines and Run, Request, Approve (type the hostname) and Cancel; the step log, with a progress line for long waits. It asks `GET /procedure` every second while open or while one waits or runs, else every 5 s while connected, so a change asked for from Codex shows within 5 s. The buttons sit in one row that never moves, each enabled only when it applies; the list says only why one is not for here, and why none can run now is said once.
+- Browser check (passed 2026-11-12, against the fake bridge): the panel's parts and the header keep their boxes in nine states; a read procedure runs; a change waits, a wrong hostname is refused, the right one in any case approves it; Cancel stops a wait and the reversible one restores; a right-click on a card offers its procedure and opens the panel at it, `card` filled in; Esc closes it.
 
 ### 4. MCP
 

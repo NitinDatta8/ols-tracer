@@ -3,14 +3,23 @@ import { createPortal } from 'react-dom';
 import { useStore } from './store';
 import type { TermItem } from './terminals';
 
-type Open = { x: number; y: number; title: string; items: TermItem[] };
+/** A line of a right-click menu: `pick` when it can be picked, else `why` it is greyed out. */
+export interface MenuItem { key: string; label: string; pick?: () => void; why?: string; title?: string }
+
+type Open = { x: number; y: number; title: string; items: MenuItem[] };
+
+/** Terminals as menu lines (see termItems): picking one opens its window. */
+export const termLines = (items: TermItem[]): MenuItem[] => items.map((item) => ({
+  key: item.kind, label: item.label, why: item.why, title: item.why ?? item.open?.steps.join(' → '),
+  pick: item.open && (() => useStore.getState().openTerm(item.open!)),
+}));
 
 /**
- * A right-click menu of terminals (see termItems), at the pointer: picking one opens its window. One that can't open is
- * greyed out with why under it. Esc, a click elsewhere, a scroll or leaving the page closes it.
+ * A right-click menu at the pointer, of terminals (termLines) and procedures: picking a line does what it says. One that
+ * can't be picked is greyed out with why under it. Esc, a click elsewhere, a scroll or leaving the page closes it.
  * Returns the handler for onContextMenu and the menu to render.
  */
-export function useTermMenu() {
+export function useMenu() {
   const [menu, setMenu] = useState<Open | null>(null);
   useEffect(() => {
     if (!menu) return;
@@ -29,7 +38,7 @@ export function useTermMenu() {
     };
   }, [menu]);
 
-  const open = (e: MouseEvent, { title, items }: { title: string; items: TermItem[] }) => {
+  const open = (e: MouseEvent, { title, items }: { title: string; items: MenuItem[] }) => {
     e.preventDefault();
     e.stopPropagation();
     setMenu({ x: e.clientX, y: e.clientY, title, items });
@@ -42,8 +51,8 @@ export function useTermMenu() {
       onContextMenu={(e) => { e.preventDefault(); e.stopPropagation(); }}>
       <h5>{menu.title}</h5>
       {menu.items.map((item) => (
-        <button key={item.kind} role="menuitem" disabled={!item.open} title={item.why ?? item.open?.steps.join(' → ')}
-          onClick={() => { if (item.open) useStore.getState().openTerm(item.open); setMenu(null); }}>
+        <button key={item.key} role="menuitem" disabled={!item.pick} title={item.title ?? item.why}
+          onClick={() => { item.pick?.(); setMenu(null); }}>
           {item.label}
           {item.why && <small>{item.why}</small>}
         </button>

@@ -5,7 +5,7 @@ import {
 } from '@xyflow/react';
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type MouseEvent as ReactMouseEvent } from 'react';
 import { byId } from './catalog';
-import { useTermMenu } from './Menu';
+import { termLines, useMenu } from './Menu';
 import { behaviorOf, roleOf, showsInView, toneOf } from './ports';
 import { light, stateFor, type Light } from './live';
 import { AlarmButton, MgmtStrip, portGrid } from './PhysicalView';
@@ -153,7 +153,7 @@ function DeviceNode({ id, data }: NodeProps) {
   const chassis = byId(cat.chassis, device?.chassis);
   const cards = device ? cardsOf(t, cat, device) : [];
   const ports = cards.flatMap((c) => c.ports);
-  const [menuAt, menu] = useTermMenu();
+  const [menuAt, menu] = useMenu();
 
   // React Flow measures handles on mount and on resize, but a new pluggable can add a handle without resizing
   // the node, so re-measure when the set changes. (Not on mount: that would fit the view before every node is
@@ -169,7 +169,10 @@ function DeviceNode({ id, data }: NodeProps) {
 
   if (!device) return null;
   /** Right-click: the card's terminals on a card, else the chassis's. */
-  const onMenu = (e: ReactMouseEvent) => menuAt(e, termMenu(cat, device, (e.target as Element).closest('[data-slot]')?.getAttribute('data-slot')));
+  const onMenu = (e: ReactMouseEvent) => {
+    const { title, items } = termMenu(cat, device, (e.target as Element).closest('[data-slot]')?.getAttribute('data-slot'));
+    menuAt(e, { title, items: termLines(items) });
+  };
   if (racked) {
     return (
       <div className="device racked" onContextMenu={onMenu}>

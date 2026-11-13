@@ -8,14 +8,14 @@ import { randomUUID } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { fillStep } from './fill.mjs';
+import { fillStep, fits } from './fill.mjs';
 import { accepted, iso } from './recorder.mjs';
 
 /** Where the definitions are read from: catalog/, or BRIDGE_CATALOG (the tests' own). */
 const CATALOG = process.env.BRIDGE_CATALOG ?? fileURLToPath(new URL('../catalog', import.meta.url));
 const TIERS = ['read', 'reversible', 'change'];
 const LEVELS = ['chassis', 'card', 'port'];
-/** A param's value: one word of printable text, so it can never add a second command to a line. */
+/** An enum's value: one word of printable text. */
 const WORD = /^[\x21-\x7e]{1,64}$/;
 /** A step's line: one line of printable text, with nothing around it. */
 const LINE = /^[\x21-\x7e](?:[\x20-\x7e]{0,298}[\x21-\x7e])?$/;
@@ -102,12 +102,6 @@ function problem(p) {
   }
   if (p.tier === 'reversible' && !p.restore.length) return 'restore: at least one line';
   return null;
-}
-
-/** Whether `v` is one of the values a param takes. */
-function fits(spec, v) {
-  if (typeof v !== 'string' || !WORD.test(v)) return false;
-  return spec.enum ? spec.enum.includes(v) : new RegExp(`^(?:${spec.pattern})$`).test(v);
 }
 
 /** One folder's procedures.json, each definition checked: none when it has no such file. Throws with why on a bad one. */

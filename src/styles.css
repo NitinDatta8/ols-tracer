@@ -182,6 +182,43 @@ main { position: relative; min-height: 0; }
 /* Over the chassis while Connect draws it from the box (discover in live.ts). */
 .stage .fetching { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; background: rgb(44 54 64 / 75%); color: #fff; font-weight: 600; }
 .fit { width: max-content; transform-origin: 0 0; }
+/*
+ * Procedures (ProcedurePanel.tsx): the header's button, with a dot while one waits for Approve or runs, and the panel
+ * over the stage, the stage's own size whatever it shows: the list, the one picked or asked for, and its log, each
+ * scrolling in a cell of its own, with the buttons in one row that never moves.
+ */
+.physical header .procs { width: 118px; }
+.procs .dot { display: inline-block; width: 7px; height: 7px; margin-right: 5px; border-radius: 50%; background: #9aa5b1; }
+.procs.pending .dot { background: #f59e0b; }
+.procs.running .dot { background: #22c55e; animation: procs-blink 1s steps(2, start) infinite; }
+@keyframes procs-blink { to { visibility: hidden; } }
+.procedures { position: absolute; inset: 0; z-index: 3; display: grid; grid-template: 'head head head' 36px 'list pick log' minmax(0, 1fr) / 240px minmax(0, 1fr) minmax(0, 1fr); gap: 1px; background: var(--border); font-size: 13px; }
+.procedures > * { min-width: 0; min-height: 0; background: #fff; }
+.procedures-head { grid-area: head; display: flex; align-items: center; gap: 10px; padding: 0 8px 0 12px; }
+.procedures-head small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.procedures-list { grid-area: list; display: grid; align-content: start; gap: 4px; padding: 8px; overflow: auto; }
+.procedures-list button { display: grid; gap: 1px; text-align: left; }
+.procedures-list button small { color: var(--muted); font-size: 11px; }
+.procedures-list button.on small { color: #dbe7ff; }
+.procedures-pick { grid-area: pick; display: grid; grid-template-rows: minmax(0, 1fr) auto auto; }
+.procedures-body, .procedures-log { overflow: auto; padding: 10px 12px; }
+.procedures-log { grid-area: log; }
+.procedures h4 { margin: 0 0 6px; }
+.procedures .tier { padding: 1px 6px; border-radius: 999px; background: #eef1f5; color: var(--muted); font-size: 11px; font-weight: normal; }
+.procedures .tier.change { background: #fdecea; color: var(--error); }
+.procedures .lines, .procedures .log { margin: 6px 0; padding-left: 20px; }
+.procedures .lines li, .procedures .log li { margin: 2px 0; }
+.procedures code { font: 12px var(--mono); }
+.procedures .params { display: flex; flex-wrap: wrap; gap: 8px 14px; }
+.procedures .params label { display: grid; gap: 2px; color: var(--muted); font-size: 12px; }
+.procedures .params input, .procedures .params select { width: 160px; padding: 3px 6px; border: 1px solid var(--border); border-radius: 6px; font: 13px var(--mono); }
+.procedures .log .bad { color: var(--error); }
+.procedures .log time { color: var(--muted); font: 11px var(--mono); }
+.procedures .progress { min-height: 1.3em; margin: 0; color: #8a6d00; }
+.procedures .said { height: 1.4em; margin: 0; padding: 0 12px; overflow: hidden; color: var(--error); text-overflow: ellipsis; white-space: nowrap; }
+.procedures .actions { display: flex; gap: 6px; padding: 8px 12px; border-top: 1px solid #eef1f5; }
+.procedures .actions .ask { width: 84px; }
+.procedures .actions input { flex: 1; min-width: 0; padding: 4px 8px; border: 1px solid var(--border); border-radius: 6px; font: 13px var(--mono); }
 .physical .hint { flex: none; margin-top: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } /* one line, whichever hint */
 
 /*

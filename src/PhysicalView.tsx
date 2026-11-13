@@ -3,10 +3,13 @@ import { byId, cli } from './catalog';
 import { Inside } from './Inside';
 import { inside as insideOf, l0Problems, pathsThrough, routesOf } from './l0';
 import { discover, light, stateFor, type BoxState } from './live';
-import { useTermMenu } from './Menu';
+import { termLines, useMenu } from './Menu';
 import { PipeLayer, type PipeEnds } from './Pipe';
+import { procedureItems } from './procedures';
+import { ProceduresButton, ProceduresPanel, useProcedures } from './ProcedurePanel';
 import { roleOf, toneOf } from './ports';
 import { alarms, bays, coverage, fiberable, fiberError, fibersAt, isStrand, linecardError, path, pluggableError, resolve, sameEnd, span, touches, wired } from './rules';
+import { bridge, sessionOf } from './bridge';
 import { useCatalog, useStore } from './store';
 import { BoxTerminal, type Keys } from './Terminal';
 import { termMenu } from './terminals';
@@ -161,17 +164,6 @@ function useFit() {
 }
 
 const NO_BRIDGE: Box = { state: 'down', error: 'Bridge not running: npm run bridge' };
-/** This page, as the bridge tells who holds a session: closing it leaves its sessions and no one else's. */
-const ME = `view:${crypto.randomUUID()}`;
-/** The query naming the box's session, and this page as who joins or leaves it. */
-const sessionOf = (host: string) => `host=${encodeURIComponent(host)}&by=${encodeURIComponent(ME)}`;
-
-/**
- * A request to the CLI bridge, which Vite proxies under /bridge. The header tells the bridge it comes from this app.
- * Disconnect is sent with keepalive, so it still goes out when the page closes.
- */
-const bridge = (path: string, body?: string) => fetch(`${import.meta.env.BASE_URL}bridge/${path}`,
-  { method: body === undefined ? 'GET' : 'POST', headers: { 'x-ols-tracer': '1' }, body, keepalive: path.startsWith('disconnect') });
 
 /**
  * The session with `host`, checked every 5 s while the view is open (every second while it connects). Closing the view
@@ -232,6 +224,9 @@ function useStrands(host: string, state: Box['state'], snapshot?: Box['snapshot'
   return strands;
 }
 
+/** The box's hostname, as its show system names it, or null. */
+const hostnameOf = (s: BoxState | null) => s?.commands['show system']?.raw?.match(/^hostname\s+(\S+)/m)?.[1] ?? null;
+
 /** Where the light on the fibers comes from: the box now, its last run, or nowhere. */
 const lightLabel = (s: BoxState | null) => !s ? 'No light data for this box'
   : s.live ? 'Live' : `Last state · ${new Date(s.at ?? 0).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}`;
@@ -251,7 +246,7 @@ export function PhysicalView() {
     if (slot && d?.slots[slot]) return slot;
     return (byId(cat.chassis, d?.chassis)?.tester && Object.keys(d?.slots ?? {})[0]) || null;
   });
-  const [menuAt, menu] = useTermMenu(); // right-click: terminals in their own windows
+  const [menuAt, menu] = useMenu(); // right-click: terminals in their own windows, and procedures
   const [inner, setInner] = useState(false); // an L0 card is shown from the inside, not its ports
   const [drag, setDrag] = useState<Drag | null>(null);
   const [tip, setTip] = useState<{ p: PluggableDef; x: number; y: number; up: boolean } | null>(null);
@@ -263,6 +258,10 @@ export function PhysicalView() {
   const host = byId(t.devices, openId ?? undefined)?.host?.trim() ?? ''; // the opened device's box
   const [box, checkBox] = useBox(host);
   useLight(host, box.state);
+  // The Procedures panel, open at the chassis or a card (`slot`), with the one picked in the right-click menu.
+  const [procs, setProcs] = useState<{ pick: string | null; slot: string | null } | null>(null);
+  const opened = byId(t.devices, openId ?? undefined);
+  const [procsGot, refreshProcs] = useProcedures(byId(cat.chassis, opened?.chassis)?.tester ? '' : host, box.host === host && box.state === 'connected', !!procs);
   const strands = useStrands(host, box.state, box.snapshot);
   const inferredPower = (strands ?? []).some((s) => /power fallback/i.test(s.notes ?? ''));
   const [lastSyncAt, setLastSyncAt] = useState<number | null>(null);
@@ -297,17 +296,19 @@ export function PhysicalView() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return;
-      if (wire) setWire(null);
+      if (procs) setProcs(null);
+      else if (wire) setWire(null);
       else if (detail || alarmsFor) { setDetail(null); setAlarmsFor(null); }
       else if (cardSlot) setCardSlot(null);
       else setOpenDevice(null);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [wire, detail, alarmsFor, cardSlot, setOpenDevice]);
+  }, [procs, wire, detail, alarmsFor, cardSlot, setOpenDevice]);
 
-  // The hovered element, and the level whose alarms were listed, are gone once the level or side changes.
-  useEffect(() => { setFocus(null); setWire(null); setAlarmsFor(null); setTip(null); setInner(false); }, [cardSlot, back]);
+  // The hovered element, the level whose alarms were listed, and the Procedures panel opened there, are gone once the
+  // level or side changes.
+  useEffect(() => { setFocus(null); setWire(null); setAlarmsFor(null); setTip(null); setInner(false); setProcs(null); }, [cardSlot, back]);
 
   const device = byId(t.devices, openId ?? undefined);
   if (!device) return null;
@@ -340,6 +341,20 @@ export function PhysicalView() {
     notify(r.ok ? `${pulled} marked as pulled: a snapshot with its answer.json is being recorded` : await r.text());
     if (r.ok) setPulled('');
   }, () => notify(NO_BRIDGE.error!));
+
+  /**
+   * Right-click a card (or anywhere at a card) for its terminals and procedures, anywhere else for the chassis's. A
+   * procedure picked opens the Procedures panel at it, to check its params and lines before it runs.
+   */
+  const stageMenu = (e: MouseEvent) => {
+    const slot = (e.target as Element).closest('[data-slot]')?.getAttribute('data-slot') ?? cardSlot;
+    const { title, items } = termMenu(cat, device, slot);
+    const at = slot && byId(cat.linecards, device.slots[slot]?.linecard) ? slot : null;
+    const level = at ? 'card' : 'chassis';
+    const procedures = procedureItems(procsGot.list, { level, tester, connected: here.state === 'connected' }).filter((i) => i.def.level === level)
+      .map(({ def, why }) => ({ key: `procedure ${def.id}`, label: `${def.label}…`, why, pick: why ? undefined : () => setProcs({ pick: def.id, slot: at }) }));
+    menuAt(e, { title, items: [...termLines(items), ...procedures] });
+  };
 
   /** "3", or "1–2" for a card that spans slots. */
   const slotLabel = (slot: string, width?: number) => {
@@ -700,6 +715,7 @@ export function PhysicalView() {
             </select>
             <button disabled={here.state !== 'connected' || !pulled}>Mark pulled</button>
           </form>
+          <ProceduresButton current={procsGot.list?.current} open={!!procs} onClick={() => setProcs(procs ? null : { pick: null, slot: cardSlot })} />
           </>}
           <span className="spacer" />
           {/* There at a card too, so the header never shifts: either one goes back to that side of the chassis. */}
@@ -718,11 +734,13 @@ export function PhysicalView() {
         <div className="body">
           {tray()}
           {/* The chassis is scaled to fit; a card's plate fills the stage as laid out, its cages sized to it. */}
-          {/* Right-click a card (or anywhere at a card) for its terminals, anywhere else for the chassis's. */}
-          <div ref={stage} className="stage"
-            onContextMenu={(e) => menuAt(e, termMenu(cat, device, (e.target as Element).closest('[data-slot]')?.getAttribute('data-slot') ?? cardSlot))}>
+          <div ref={stage} className="stage" onContextMenu={stageMenu}>
             {card && cardSlot ? cardLevel(cardSlot, card) : <div className="fit" style={fit}>{back ? backLevel() : chassisLevel()}</div>}
             {fetching && <div className="fetching">Fetching data from box{here.snapshot ? ` · ${here.snapshot.done} of ${here.snapshot.of} commands` : ''}</div>}
+            {procs && (
+              <ProceduresPanel host={host} hostname={hostnameOf(boxState)} got={procsGot} refresh={refreshProcs} slot={procs.slot} chassis={device.chassisNo ?? 1}
+                tester={tester} connected={here.state === 'connected'} pick={procs.pick} onClose={() => setProcs(null)} />
+            )}
           </div>
           {/*
             * The box's CLI, typed into as over ssh (Tab, ↑, Ctrl-C and Escape go to the box while it has focus), and under
