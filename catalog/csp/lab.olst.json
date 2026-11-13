@@ -1,6 +1,9 @@
 {
   "version": 1,
   "stream": "csp",
+  "lock": {
+    "sha256": "01de9305399f7a1c50c9d7518be66434c92cde4e5525772518e7c36e6f7e2922"
+  },
   "devices": [
     {
       "id": "d1",

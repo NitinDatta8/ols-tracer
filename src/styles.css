@@ -32,7 +32,12 @@ button.primary, button.on { background: var(--accent); border-color: var(--accen
 .topbar { display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: #1f2933; color: #fff; }
 .topbar button, .topbar .button { background: #323f4b; border-color: #52606d; color: #fff; }
 .topbar button.on { background: var(--accent); border-color: var(--accent); }
-.topbar .corp { padding: 3px 6px; border: 1px solid #52606d; border-radius: 4px; background: #323f4b; color: #fff; font: inherit; font-size: 13px; }
+.topbar .stream { min-width: 64px; font-size: 13px; color: #cbd2d9; }
+/* The lock: its button one width whatever it says, and the password field's place kept while it is hidden. */
+.topbar .lock { display: flex; gap: 6px; }
+.topbar .lock button { width: 112px; }
+.topbar .lock input { width: 170px; padding: 3px 6px; border: 1px solid #52606d; border-radius: 4px; background: #323f4b; color: #fff; font: inherit; font-size: 13px; }
+.topbar .lab-state { width: 72px; color: #f5b971; }
 main { position: relative; min-height: 0; }
 .canvas { position: absolute; inset: 0; }
 .overlay { position: absolute; top: 10px; right: 10px; width: 320px; display: grid; gap: 8px; z-index: 5; pointer-events: none; }
@@ -49,6 +54,7 @@ main { position: relative; min-height: 0; }
   background: #fff; border: 1px solid var(--border); border-radius: 4px; cursor: grab; font-size: 12px;
 }
 .item small { color: var(--muted); font-size: 11px; }
+.item.off { opacity: 0.45; cursor: not-allowed; }
 .icon rect { fill: #e4e9ef; stroke: #52606d; }
 .icon line { stroke: #9aa5b1; }
 .icon circle { fill: var(--fiber); }
@@ -137,8 +143,6 @@ main { position: relative; min-height: 0; }
 /* Dialogs */
 .backdrop { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; background: rgb(15 23 42 / 35%); }
 .dialog { max-width: 96vw; max-height: 94vh; overflow: auto; padding: 16px; background: #fff; border-radius: 12px; box-shadow: 0 24px 60px rgb(15 23 42 / 28%); }
-.radio { display: block; margin: 6px 0; }
-.row { display: flex; gap: 8px; margin-top: 12px; }
 .cli { display: flex; align-items: center; gap: 8px; margin-top: 10px; padding: 6px 8px; background: #1e2329; color: #d6f5d6; border-radius: 4px; }
 /* The CLI terminal (xterm.js) over the command for what is hovered. */
 .term { grid-area: term; display: flex; flex-direction: column; min-height: 0; overflow: hidden; background: #0d1117; border-radius: 10px; box-shadow: 0 1px 3px rgb(15 23 42 / 25%); }

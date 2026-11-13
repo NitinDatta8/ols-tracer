@@ -1,7 +1,8 @@
 // The app's store, action by action, on the CSP catalog: devices and racks, cards, pluggables and fibers with the
-// toasts that refuse them, a box's parts filled in, and the browser autosave, read back from one saved before ids were
-// renamed. The browser's localStorage is a stand-in here, set before the store loads.
+// toasts that refuse them, a box's parts filled in, the lab opened, locked and read-only, and the browser's copy, read
+// back from one saved before ids were renamed. The browser's localStorage is a stand-in here, set before the store loads.
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import lab from '../../catalog/csp/lab.olst.json';
 import type { Topology } from '../../src/types';
 
 const saved = vi.hoisted(() => {
@@ -25,7 +26,10 @@ it('picks up the autosave from before ids were renamed, and saves only the topol
   expect(JSON.parse(saved.get('ols-tracer')!)).toEqual({ state: { topology: topology(), view: 'Data' }, version: 2 });
 });
 
-beforeEach(() => s().load({ version: 1, stream: 'csp', devices: [], links: [], racks: [] }));
+beforeEach(() => {
+  useStore.setState({ readOnly: null, unlocked: false });
+  s().load({ version: 1, stream: 'csp', devices: [], links: [], racks: [] });
+});
 
 describe('devices and racks', () => {
   it('names a device after its number, a tester after itself with its module in, and never reuses a number above', () => {
@@ -141,19 +145,72 @@ describe('cards, pluggables and fibers', () => {
   });
 });
 
-describe('the rest of the view', () => {
-  it('opens only a file for a known stream, ids renamed, and toasts for anything else', () => {
-    const file = (t: object) => JSON.stringify(t);
-    s().open(file({ version: 1, stream: 'corp-b', links: [], devices: [{ id: 'd1', chassis: 'ch-2026-4ru', name: 'S', x: 0, y: 0, slots: {} }] }));
+describe('the lab', () => {
+  const LOCKED = 'Locked: unlock the lab (🔒) to add, delete or move a chassis or a rack, or to change a box IP';
+
+  it("opens the lab file, the repo's too, as a topology of a known stream, ids renamed, and else shows it read-only, saying why", () => {
+    s().openLab(structuredClone(lab) as unknown as Topology, 5);
+    expect([topology().devices.length, topology().lock?.sha256, s().labMtime, s().readOnly]).toEqual([9, lab.lock.sha256, 5, null]);
+    s().openLab({ version: 1, stream: 'corp-b', links: [], devices: [{ id: 'd1', chassis: 'ch-2026-4ru', name: 'S', x: 0, y: 0, slots: {} }] }, 7);
     expect(topology()).toMatchObject({ stream: 'tencent', devices: [{ chassis: 'ch-16slot' }] });
+    expect([s().labMtime, s().readOnly]).toEqual([7, null]);
     const before = topology();
-    for (const bad of ['{not json', file({ version: 2, stream: 'csp', devices: [], links: [] }), file({ version: 1, stream: 'nope', devices: [], links: [] }), file({ version: 1, stream: 'csp', devices: [{ id: 'd1' }], links: [] })]) {
-      useStore.setState({ toast: null });
-      s().open(bad);
-      expect(s().toast, bad).toBe('Not a valid .olst.json file for a known stream');
+    const why = 'The lab file is not a valid .olst.json for a known stream';
+    for (const bad of [{ version: 2, stream: 'csp', devices: [], links: [] }, { version: 1, stream: 'nope', devices: [], links: [] }, { version: 1, stream: 'csp', devices: [{ id: 'd1' }], links: [] }]) {
+      useStore.setState({ toast: null, readOnly: null });
+      s().openLab(bad as unknown as Topology, 8);
+      expect([s().toast, s().readOnly, s().labMtime], JSON.stringify(bad)).toEqual([why, why, 7]);
       expect(topology()).toBe(before);
     }
   });
+
+  it('locked, adds, deletes or moves no chassis or rack, nor changes a box IP; cards, pluggables, fibers and bays stay free', () => {
+    s().addRack(0, 0);
+    s().addDevice('ch-8slot', 0, 0, { rack: 'r1', index: 0 });
+    s().addDevice('ch-8slot', 50, 50);
+    s().load({ ...topology(), lock: { sha256: lab.lock.sha256 } });
+    const before = topology();
+    for (const change of [() => s().addDevice('ch-8slot', 0, 0), () => s().addRack(1, 1), () => s().moveRack('r1', 5, 5), () => s().deleteRack('r1'),
+      () => s().place('d1', { x: 1, y: 1 }), () => s().deleteDevice('d2'), () => s().updateDevice('d2', { x: 9, y: 9 }), () => s().updateDevice('d2', { host: 'box.test' })]) {
+      useStore.setState({ toast: null });
+      change();
+      expect([s().toast, topology()]).toEqual([LOCKED, before]);
+    }
+    s().insertLinecard('d1', '1', 'lc-c1125');
+    s().insertLinecard('d1', '7', 'lc-800mx');
+    s().insertLinecard('d2', '1', 'lc-c1125');
+    s().insertPluggable('d1', '7', 'PORT4', 'c100q10000lr402f');
+    s().connect(at('d1', '1', 'AD1'), at('d2', '1', 'AD1'));
+    s().setRoute('f1', 'canvas', [{ x: 1, y: 2 }]);
+    s().updateDevice('d2', { emptyBays: ['PSU2'] });
+    s().remove(at('d1', '7', 'PORT4'));
+    expect([Object.keys(topology().devices[0].slots), topology().links.map((l) => l.id), topology().devices[1].emptyBays]).toEqual([['1', '7'], ['f1'], ['PSU2']]);
+    s().deleteLink('f1');
+    expect(topology().links).toEqual([]);
+    s().setLab({ unlocked: true });
+    s().addDevice('ch-8slot', 0, 0);
+    s().updateDevice('d3', { host: 'box.test' });
+    expect(topology().devices.map((d) => [d.id, d.host])).toEqual([['d1', undefined], ['d2', undefined], ['d3', 'box.test']]);
+  });
+
+  it("read-only, changes nothing but what the box reports, and says why", () => {
+    s().addDevice('ch-8slot', 0, 0);
+    s().insertLinecard('d1', '1', 'lc-c1125');
+    const why = 'Bridge not running: the lab is shown as last loaded here, read-only. Start it with npm run bridge';
+    s().setLab({ readOnly: why, unlocked: true });
+    const before = topology();
+    for (const change of [() => s().addDevice('ch-8slot', 0, 0), () => s().insertLinecard('d1', '7', 'lc-800mx'), () => s().insertPluggable('d1', '1', 'AD1', 'c100q10000lr402f'),
+      () => s().connect(at('d1', '1', 'AD1'), at('d1', '1', 'AD2')), () => s().remove({ device: 'd1', slot: '1' }), () => s().updateDevice('d1', { emptyBays: ['FAN1'] })]) {
+      useStore.setState({ toast: null });
+      change();
+      expect([s().toast, topology()]).toEqual([why, before]);
+    }
+    s().fill('d1', {});
+    expect(topology().devices[0].slots).toEqual({});
+  });
+});
+
+describe('the rest of the view', () => {
 
   it('selects one thing at a time, and lets go of it only when it is the one selected', () => {
     s().select('d1', true);

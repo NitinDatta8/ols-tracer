@@ -162,7 +162,7 @@ export type Strand = 'tx' | 'rx';
 /**
  * Simplex SMF from a's Tx to b's Rx. Each strand of a port has its own fiber, so a port's Tx and Rx may go to
  * different ports. a = b is a loopback (line ports only).
- * `routes` holds its corners per view ('canvas', 'chassis:<device>', 'card:<device>/<slot>') once the user
+ * `routes` holds its corners per view ('canvas', 'chassis:<device>', 'card:<device>/<slot>') once someone
  * moves it there; elsewhere it is routed automatically.
  */
 export interface Link { id: string; type: 'smf'; a: End; b: End; routes?: Record<string, { x: number; y: number }[]> }
@@ -173,7 +173,11 @@ export interface Link { id: string; type: 'smf'; a: End; b: End; routes?: Record
  */
 export interface Rack { id: string; name: string; x: number; y: number; devices: string[] }
 
-export interface Topology { version: 1; stream: string; devices: Device[]; links: Link[]; racks?: Rack[] }
+/**
+ * `lock` is the lab's (catalog/csp/lab.olst.json): the SHA-256 of its password, in hex. Adding, deleting or moving a
+ * chassis or a rack, or changing a box IP, needs it unlocked in the browser: a check there, not security.
+ */
+export interface Topology { version: 1; stream: string; devices: Device[]; links: Link[]; racks?: Rack[]; lock?: { sha256: string } }
 
 export type View = 'L0' | 'L1' | 'Data';
 

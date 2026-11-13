@@ -8,8 +8,8 @@ export const ME = `view:${crypto.randomUUID()}`;
 export const sessionOf = (host: string) => `host=${encodeURIComponent(host)}&by=${encodeURIComponent(ME)}`;
 
 /**
- * A request to the CLI bridge: a POST with `body`, else a GET. The header tells the bridge it comes from this app.
- * Disconnect is sent with keepalive, so it still goes out when the page closes.
+ * A request to the CLI bridge: a POST with `body` (or `method`, the lab's PUT), else a GET. The header tells the bridge it
+ * comes from this app. Disconnect is sent with keepalive, so it still goes out when the page closes.
  */
-export const bridge = (path: string, body?: string) => fetch(`${import.meta.env.BASE_URL}bridge/${path}`,
-  { method: body === undefined ? 'GET' : 'POST', headers: { 'x-ols-tracer': '1' }, body, keepalive: path.startsWith('disconnect') });
+export const bridge = (path: string, body?: string, method = body === undefined ? 'GET' : 'POST') => fetch(`${import.meta.env.BASE_URL}bridge/${path}`,
+  { method, headers: { 'x-ols-tracer': '1' }, body, keepalive: path.startsWith('disconnect') });

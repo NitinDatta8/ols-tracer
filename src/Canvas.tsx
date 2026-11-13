@@ -13,7 +13,7 @@ import { Pipe } from './Pipe';
 import { indexAt, rackLayout, within, type Size } from './racks';
 import { layout, moveRun, type Fiber, type Pt, type Rect, type Route } from './route';
 import { alarms, coverage, fiberable, fibersAt, path, resolve, sameEnd, span } from './rules';
-import { useCatalog, useStore } from './store';
+import { useCatalog, useLocked, useStore } from './store';
 import { termMenu } from './terminals';
 import type { Catalog, Device, End, Link, Topology, View } from './types';
 
@@ -298,6 +298,7 @@ export function Canvas() {
   const selected = useStore((s) => s.selected);
   const modalOpen = useStore((s) => !!s.openDevice);
   const live = useStore((s) => s.live);
+  const locked = useLocked(); // no chassis or rack dragged or deleted: fibers stay free
   const cat = useCatalog();
   const { addDevice, updateDevice, deleteDevice, select, connect, deleteLink, setOpenDevice, setRoute, addRack, moveRack, deleteRack, place } = useStore.getState();
   const { screenToFlowPosition } = useReactFlow();
@@ -313,15 +314,15 @@ export function Canvas() {
   // sit behind everything, the fibers over them and the devices on top; a racked device is where its rack stacks it.
   const nodes = useMemo<Node[]>(() => [
     ...racks.frames.map(({ rack, list, rect }) => ({
-      id: rack.id, type: 'rack', position: { x: rack.x, y: rack.y }, zIndex: 0,
+      id: rack.id, type: 'rack', position: { x: rack.x, y: rack.y }, zIndex: 0, deletable: !locked,
       data: { name: rack.name, w: rect.w, h: rect.h, count: list.length }, selected: rack.id === selected, measured: measured[rack.id],
     })),
     ...t.devices.map((d) => ({
-      id: d.id, type: 'device', zIndex: 2, data: { racked: racks.byDevice.has(d.id) },
+      id: d.id, type: 'device', zIndex: 2, data: { racked: racks.byDevice.has(d.id) }, deletable: !locked,
       position: dragging?.id === d.id ? dragging : racks.byDevice.get(d.id)?.at[d.id] ?? { x: d.x, y: d.y },
       selected: d.id === selected, measured: measured[d.id],
     })),
-  ], [racks, t.devices, selected, measured, dragging]);
+  ], [racks, t.devices, selected, measured, dragging, locked]);
 
   // Where each device and its Tx and Rx handles are, as React Flow measured them; a string, so routes recompute only when one moved.
   const geometry = useFlowStore((s) => JSON.stringify([...s.nodeLookup.values()].filter((n) => n.type === 'device').map((n) => [
@@ -376,6 +377,7 @@ export function Canvas() {
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         connectionMode={ConnectionMode.Strict}
+        nodesDraggable={!locked}
         connectionLineType={ConnectionLineType.Straight}
         onNodesChange={(changes) => changes.forEach((c) => {
           if (c.type === 'dimensions' && c.dimensions) { const size = c.dimensions; setMeasured((m) => ({ ...m, [c.id]: size })); }

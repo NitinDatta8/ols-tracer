@@ -17,6 +17,8 @@
 // A procedure (procedures.mjs) runs a box workflow on a shell of its own in the box's session: /procedure?host= lists the
 // box's and asks for one, /procedure/approve runs a change once a person approves it in the tracer UI, and
 // /procedure/cancel stops one.
+// The lab file (lab.mjs), the fixed lab the app shows everyone, is read at /lab and saved with a PUT there, refused once
+// the file changed since it was read; a connected box's physical view syncs its device into it at /lab/sync?host=.
 // Login settings come from bridge/.env (see .env.example). Listens on localhost only.
 import { existsSync, readFileSync } from 'node:fs';
 import { createServer } from 'node:http';
@@ -25,6 +27,7 @@ import { fileURLToPath } from 'node:url';
 import ssh2 from 'ssh2';
 import { WebSocketServer } from 'ws';
 import { FLAPS, record } from './history.mjs';
+import { readLab, saveLab, syncLab } from './lab.mjs';
 import { definitions, paramsOf, Procedure } from './procedures.mjs';
 import { accepted, boxAt, boxDir, boxes, boxOf, ensureWiring, latest, lines, PYTHON, Run, runsOf, TEMPLATES_DIR, wiring } from './recorder.mjs';
 import { shareOut, worker } from './shells.mjs';
@@ -371,10 +374,13 @@ const hostnameOf = (commands = {}) => commands['show system']?.raw?.match(/^host
   ?? commands['show system']?.data?.state?.hostname
   ?? commands['show system']?.data?.config?.hostname;
 
-/** The box's strands: from wiring.csv, generated from command output only when missing. `box` when no hostname says. */
+/**
+ * The box's strands: from wiring.csv, generated from command output only when missing. `box` when no hostname says;
+ * null while neither names it (a new host before its show system), never another box's.
+ */
 const strands = (commands = {}, box) => {
   const hostname = hostnameOf(commands);
-  return hostname ? ensureWiring(commands, boxOf(hostname)) : ensureWiring(commands, box);
+  return hostname ? ensureWiring(commands, boxOf(hostname)) : box ? ensureWiring(commands, box) : null;
 };
 
 const LOCAL = /^(localhost|127\.0\.0\.1)(:\d+)?$/;
@@ -386,7 +392,7 @@ const BY = /^[\x20-\x7e]{1,200}$/;
 const ID = /^[a-z0-9-]{1,60}$/;
 const REF = /^[0-9a-f-]{36}$/;
 /** The endpoints that act on one box's session, named by ?host=. */
-const PER_HOST = ['/status', '/state', '/connect', '/disconnect', '/wiring', '/pull', '/show', '/baseline', '/procedure', '/procedure/approve', '/procedure/cancel'];
+const PER_HOST = ['/status', '/state', '/connect', '/disconnect', '/wiring', '/pull', '/show', '/baseline', '/procedure', '/procedure/approve', '/procedure/cancel', '/lab/sync'];
 
 /** One request to the bridge, answered. */
 async function answer(req, res) {
@@ -398,6 +404,15 @@ async function answer(req, res) {
   const json = (v) => res.setHeader('content-type', 'application/json').end(JSON.stringify(v));
   // Every session, as /status?host= answers each.
   if (url.pathname === '/status' && !url.searchParams.has('host')) return json({ sessions: [...sessions.values()].map(statusOf) });
+  // The lab file: { topology, mtime }, or saved from the JSON body if it is still the file of ?mtime=, else a 409.
+  if (url.pathname === '/lab') {
+    if (req.method === 'GET') { const lab = readLab(); return lab ? json(lab) : res.writeHead(404).end('No lab file\n'); }
+    if (req.method !== 'PUT') return res.writeHead(405, { allow: 'GET, PUT' }).end();
+    let topology;
+    try { topology = JSON.parse(await body(req)); } catch { return res.writeHead(400).end('A topology, as JSON\n'); }
+    const r = saveLab(topology, Number(url.searchParams.get('mtime')));
+    return r.why ? res.writeHead(r.status).end(`${r.why}\n`) : json(r);
+  }
   if (PER_HOST.includes(url.pathname)) {
     const { host = '', by, id, ref } = Object.fromEntries(url.searchParams);
     if (!HOST.test(host)) return res.writeHead(400).end('host: an IP or host name\n');
@@ -449,7 +464,7 @@ async function answer(req, res) {
     if (url.pathname === '/pull' && post) {
       const id = await body(req);
       if (!live || !POLLS.length) return res.writeHead(409).end('Connect to the box first: a pull is recorded in a snapshot\n');
-      const strand = strands(s.polled, s.box).find((x) => x.strand === id);
+      const strand = strands(s.polled, s.box)?.find((x) => x.strand === id);
       if (!strand) return res.writeHead(400).end('A strand from wiring.csv\n');
       s.marks.push({ ...strand, at: Date.now() });
       return res.end();
@@ -515,6 +530,16 @@ async function answer(req, res) {
       if (typed.toLowerCase() !== hostname.toLowerCase()) return res.writeHead(400).end(`Type the box's hostname, ${hostname}, to approve\n`);
       p.approve(by);
       return json(p.status());
+    }
+    // What the box at `host` reports, as its physical view synced it while connected: its device in the lab file gets
+    // its cards, pluggables and fibers, in one write (lab.mjs). Answered with what changed.
+    if (url.pathname === '/lab/sync' && post) {
+      const text = await body(req);
+      if (!live) return res.writeHead(409).end('Connect to the box first: the lab follows what it reports\n');
+      let sync;
+      try { sync = JSON.parse(text); } catch { return res.writeHead(400).end('slots and links, as JSON\n'); }
+      const r = syncLab(host, sync);
+      return r.why ? res.writeHead(r.status).end(`${r.why}\n`) : json(r);
     }
     // `by` stops the procedure on the box (?ref=): a waiting one at once, a running one at its next step.
     if (url.pathname === '/procedure/cancel' && post) {

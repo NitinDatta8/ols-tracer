@@ -10,7 +10,8 @@ import { ProceduresButton, ProceduresPanel, useProcedures } from './ProcedurePan
 import { roleOf, toneOf } from './ports';
 import { alarms, bays, coverage, fiberable, fiberError, fibersAt, isStrand, linecardError, path, pluggableError, resolve, sameEnd, span, touches, wired } from './rules';
 import { bridge, sessionOf } from './bridge';
-import { useCatalog, useStore } from './store';
+import { syncLab } from './lab';
+import { useCatalog, useLocked, useStore } from './store';
 import { BoxTerminal, type Keys } from './Terminal';
 import { termMenu } from './terminals';
 import type { Alarm, Catalog, CliLevel, Datasheet, End, LinecardDef, Link, PluggableDef, PortDef, Strand, Topology } from './types';
@@ -267,10 +268,12 @@ export function PhysicalView() {
   const [lastSyncAt, setLastSyncAt] = useState<number | null>(null);
   const [pulled, setPulled] = useState(''); // the strand picked to mark as pulled
   const keys = useRef<Keys>(null); // types into the CLI terminal
-  const { setOpenDevice, updateDevice, insertLinecard, insertPluggable, remove, notify, connect, deleteLink, fill } = useStore.getState();
+  const { setOpenDevice, updateDevice, insertLinecard, insertPluggable, remove, notify, connect, deleteLink } = useStore.getState();
+  const locked = useLocked(); // the lab's layout: the box IP is part of it
   const synced = useRef(''); // this session's last synced snapshot for the opened device
 
-  // While connected, keeps the opened device in sync with what the box reports once its current snapshot is complete.
+  // While connected, keeps the opened device in sync with what the box reports once its current snapshot is complete,
+  // here and in the lab file, locked or not (syncLab), and toasts what changed.
   useEffect(() => {
     if (box.state !== 'connected') {
       synced.current = '';
@@ -285,12 +288,13 @@ export function PhysicalView() {
     if (signature === synced.current) return;
     const base = { ...t, links: t.links.filter((l) => !(touches(l, { device: d.id }) && isStrand(l))) };
     const { links, refused } = wired(cat, base, { ...d, slots: found.slots }, strands);
-    fill(d.id, found.slots, links);
     synced.current = signature;
     setLastSyncAt(Date.now());
-    notify(`Synced from the box${links.length ? `, with fibers ${links.map((l) => l.id).join(', ')}` : ''}`
-      + `${found.missing.length ? `. Left out (not mapped from show inventory): ${found.missing.join(', ')}` : ''}${refused.map((r) => `. Fiber ${r}`).join('')}`);
-  }, [box.state, box.snapshot, live, t, openId, cat, fill, notify, strands]);
+    const notes = `${found.missing.length ? `. Left out (not mapped from show inventory): ${found.missing.join(', ')}` : ''}${refused.map((r) => `. Fiber ${r}`).join('')}`;
+    syncLab(host, d.id, found.slots, links).then((changed) => {
+      if (changed.length || notes) notify(`Synced from the box${changed.length ? `: ${changed.join(', ')}` : ''}${notes}`);
+    }, (e: Error) => notify(`Synced from the box, but not into the lab file: ${e.message}`));
+  }, [box.state, box.snapshot, live, t, openId, cat, notify, strands, host]);
 
   // Escape goes up one level: fiber being run → picked part or side panel → linecard → chassis → canvas.
   useEffect(() => {
@@ -696,8 +700,8 @@ export function PhysicalView() {
           {/* The box to run CLI commands on. The view leaves its session when it closes. A tester has none. */}
           {tester ? <small className="muted">{chassis?.name}: test equipment, no box to connect to and no CLI</small> : <>
           <form className="box" onSubmit={(e) => { e.preventDefault(); connectBox(); }}>
-            <input value={device.host ?? ''} placeholder="Box IP" aria-label="Box IP" spellCheck={false} disabled={linked}
-              onChange={(e) => updateDevice(device.id, { host: e.target.value })} />
+            <input value={device.host ?? ''} placeholder="Box IP" aria-label="Box IP" spellCheck={false} disabled={linked || locked}
+              title={locked && !linked ? 'Locked: unlock the lab (🔒) to change the box IP' : undefined} onChange={(e) => updateDevice(device.id, { host: e.target.value })} />
             <button className={`run ${here.state}`} disabled={!device.host?.trim()}>
               <span className="dot" />{linked ? 'Disconnect' : 'Connect'}
             </button>

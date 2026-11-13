@@ -1,13 +1,13 @@
 // The bridge's endpoints over runs written here by hand, in a data root of its own: what /runs, /run, /history, /state
 // and /wiring give for a full snapshot, a fast one over it, one cut short, a run grouped into a folder and the polls;
 // that a run broken by hand (a meta.json or a line cut short, a raw file gone) never takes the bridge down, nor the
-// other boxes; and the checks every request passes. ssh2 is the fake in test/fakes/ssh2.mjs, so the sessions here never
+// other boxes; the lab file read, saved and synced from a box; and the checks every request passes. ssh2 is the fake in test/fakes/ssh2.mjs, so the sessions here never
 // leave this process.
-import { chmodSync, mkdirSync, writeFileSync } from 'node:fs';
+import { chmodSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { request } from 'node:http';
 import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
-import { call, connect, disconnect, fake, folder, host, hostname, port, root, runs, sessions, status, until, whole } from '../fakes/lab.mjs';
+import { call, catalog, connect, disconnect, fake, folder, host, hostname, port, root, runs, sessions, status, until, whole } from '../fakes/lab.mjs';
 
 vi.mock('ssh2', async () => ({ default: await import('../fakes/ssh2.mjs') }));
 
@@ -189,6 +189,44 @@ describe.skipIf(process.getuid?.() === 0)('a run folder the bridge cannot write'
     }
     await disconnect(host(1), 'view:a');
   }, 40000);
+});
+
+describe('the lab file', () => {
+  it('is read with its mtime, saved over the file it was read from, and follows a connected box, locked or not', async () => {
+    const lab = join(catalog, 'csp', 'lab.olst.json');
+    expect(await call('GET', '/lab')).toEqual({ status: 404, body: 'No lab file\n' });
+    mkdirSync(join(catalog, 'csp'), { recursive: true });
+    const t = { version: 1, stream: 'csp', lock: { sha256: 'a'.repeat(64) }, devices: [{ id: 'd1', chassis: 'ch-8slot', name: 'Site-1', x: 0, y: 0, host: host(1), slots: {} }], links: [] };
+    writeFileSync(lab, JSON.stringify(t));
+    const { body: { topology, mtime } } = await call('GET', '/lab');
+    expect(topology).toEqual(t);
+    const put = (m, body) => call('PUT', `/lab?mtime=${m}`, body);
+    const saved = await put(mtime, JSON.stringify({ ...t, racks: [] }));
+    expect(saved.status).toBe(200);
+    expect(await put(mtime, JSON.stringify(t))).toEqual({ status: 409, body: 'The lab file changed since it was loaded: reload the page to get it\n' });
+    expect(await put(saved.body.mtime, '{nope')).toEqual({ status: 400, body: 'A topology, as JSON\n' });
+    expect((await call('POST', '/lab')).status).toBe(405);
+    // A box's sync only while it is connected; then its device gets what it reports, in one write.
+    const sync = JSON.stringify({ slots: { 1: { linecard: 'lc-c1125', ports: {} } }, links: [] });
+    expect(await call('POST', `/lab/sync?host=${host(1)}`, sync)).toEqual({ status: 409, body: 'Connect to the box first: the lab follows what it reports\n' });
+    fake(1);
+    await connect(host(1), 'view:a');
+    await whole(folder(1));
+    const synced = await call('POST', `/lab/sync?host=${host(1)}`, sync);
+    expect(synced).toEqual({ status: 200, body: { was: saved.body.mtime, mtime: expect.any(Number), changed: ['slot 1: lc-c1125 in'] } });
+    expect(JSON.parse(readFileSync(lab, 'utf8')).devices[0].slots).toEqual({ 1: { linecard: 'lc-c1125', ports: {} } });
+    expect(await call('POST', `/lab/sync?host=${host(1)}`, '{nope')).toEqual({ status: 400, body: 'slots and links, as JSON\n' });
+    await disconnect(host(1), 'view:a');
+  });
+
+  it("gives a new box no strands until its show system names it, never another box's, so its view syncs none", async () => {
+    fake(2, { hang: ['show system'] });
+    await connect(host(2), 'view:a');
+    await until(async () => (await status(host(2))).state === 'connected');
+    expect(await call('GET', `/wiring?host=${host(2)}`)).toEqual({ status: 200, body: null });
+    expect(await call('POST', `/pull?host=${host(2)}`, 'F03')).toEqual({ status: 400, body: 'A strand from wiring.csv\n' });
+    await disconnect(host(2), 'view:a');
+  });
 });
 
 describe('every request', () => {

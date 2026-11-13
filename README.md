@@ -4,30 +4,30 @@ A Packet Tracer–style web app for optical line systems: put chassis, linecards
 
 ## Setup
 
-1. Install [Node.js](https://nodejs.org) 22.12 or newer, git and the [GitHub CLI](https://cli.github.com). For a lab box, also Python 3.
+1. Install [Node.js](https://nodejs.org) 22.12 or newer, Python 3, git and the [GitHub CLI](https://cli.github.com).
 2. Get the code:
    ```sh
    gh auth login                        # once per machine
    gh repo clone NitinDatta8/ols-tracer
    cd ols-tracer
    npm install
+   npm run bridge:setup                 # the bridge's Python venv, with TTP
    ```
 3. For a lab box only:
    ```sh
    cp bridge/.env.example bridge/.env   # set BOX_USER and BOX_PASSWORD (or BOX_KEY); git-ignored
-   npm run bridge:setup                 # a Python venv with TTP
    ```
 
 ## Run
 
-1. `npm run dev`, then open http://localhost:5173.
-2. **Open** → `examples/csp.olst.json` for Horsham setup (transport + transmission lab).
-3. For a lab box, run `npm run bridge` in a second terminal. Click a device, type the box's IP in the header and click **Connect**. The machine must reach the box over SSH.
+1. `npm run bridge`. It serves the lab, `catalog/csp/lab.olst.json` (the Horsham lab: transport and transmission), and saves changes to it as they are made: commit the file to share them.
+2. In a second terminal, `npm run dev`, then open http://localhost:5173. The lab opens locked: **🔒 Locked** in the top bar unlocks it with the lab's password, to add, delete or move a chassis or a rack. Without the bridge, the page shows its last copy of the lab, read-only.
+3. For a lab box, click its device, then **Connect** next to its IP. The machine must reach the box over SSH.
 
 ## Test
 
 ```sh
-npm test         # everything in test/, about 30 s, no box needed
+npm test         # everything in test/, about 40 s, no box needed
 npm run build    # typecheck and production build
 ```
 

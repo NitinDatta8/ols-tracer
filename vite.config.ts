@@ -8,7 +8,7 @@ export default defineConfig({
   // serves itself.
   server: {
     proxy: {
-      '^/bridge/(status|state|connect|disconnect|wiring|pull|term|shell|procedure)(?=[/?]|$)': {
+      '^/bridge/(status|state|connect|disconnect|wiring|pull|term|shell|procedure|lab)(?=[/?]|$)': {
         target: process.env.BRIDGE_URL ?? 'http://127.0.0.1:8022', ws: true, rewrite: (p) => p.replace(/^\/bridge/, ''),
       },
     },
