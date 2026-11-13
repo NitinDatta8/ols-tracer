@@ -172,7 +172,7 @@ This plan, the [BERT plan](bert-smartaccess-plan.md) brought in line, the [decis
 
 ### 6. Lab file and lock
 
-- `examples/csp.olst.json` moves to `catalog/csp/lab.olst.json` (`git mv`) and gets `lock: { sha256 }`. The plain password leaves `notes.md` when item 6 moves to [notes done](archive/notes-done.md), once its owner says so.
+- `examples/csp.olst.json` moves to `catalog/csp/lab.olst.json` (`git mv`) and gets `lock: { sha256 }`. The plain password has left `notes.md`: item 6 is in [notes done](archive/notes-done.md) without it.
 - Bridge (`bridge/lab.mjs`): `GET /lab` answers `{ topology, mtime }`; `PUT /lab?mtime=` answers 409 when the file changed since (after a pull), else writes it in one step, a whole file renamed over it.
 - App (`src/lab.ts`): loads the lab on start and saves it with `PUT` half a second after a change, one request at a time. A 409 says to reload and leaves the page read-only. The browser keeps only the view and a copy of the lab, shown read-only while the bridge is down, and asks the bridge again every 5 s. New, Open, Save, the new-project dialog and the corporation dropdown go (switching would overwrite the lab); the stream shows as a label.
 - Lock: a 🔒 button in the top bar; unlocking asks for the password, checked by SHA-256 in the browser, and a reload locks again. While locked: no adding, deleting or moving devices or racks (palette, drag, Delete key, rack moves), and no host edits (names have no edit). Cards, pluggables, fibers and bays stay free. The store refuses the rest with a toast that says why, so no control can get round it. The lock is a client-side check, not security. The browser's SHA-256 (`crypto.subtle`) needs localhost or HTTPS: hosting will need HTTPS anyway.
