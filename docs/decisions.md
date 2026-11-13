@@ -16,6 +16,7 @@ The decisions in force, by topic, each with its date and why. The full log, with
 - **Generated from the IIVI profiles,** one catalog per stream (`csp`, `ctc`, `polaris`, `tencent`, `ws`); `common/` keeps only `cli.json`. Ports take their role from the profile, and a `behavior` drives the views and rules. (2026-10-29)
 - **The IIVI CLI XML (`cli_shortcut_cmds_*.xml`) is the command source of truth;** PDFs are only references. `data/` holds the captures, the TTP templates and the generated CLI index, CSP first. `cli-observed.json` and `cli-index.merged.json` are git-ignored and rebuilt by `npm run sync:cli-data:csp`. (2026-10-29, 2026-10-31)
 - **The L0 cards' profile data is in the catalog** (light path, amplifiers, port limits, thresholds, channel plan), used read-only. (2026-11-01)
+- **Card fronts come from the OLS Introduction deck,** kept by hand in `common/faceplates.json` with its pictures in `public/faceplates/`: a card the deck draws shows only the ports on its front, and the profile's others are inside it (no fiber, no LOS). A card the deck doesn't draw keeps all its profile ports. (2026-11-13)
 
 ## Box access
 

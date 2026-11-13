@@ -67,6 +67,23 @@ export interface Stream { id: string; name: string }
  */
 export interface Datasheet { vendor?: string; part?: string; image?: string; url?: string; about?: string; specs?: Record<string, string> }
 
+/** [x, y, width, height] in a picture's pixels. */
+export type Box = [number, number, number, number];
+
+/**
+ * Where a port is on its card's faceplate picture: `box` its connector (a duplex LC or an MPO, its Tx the left half and
+ * its Rx the right, OUT then IN as the fronts print them; or the cage a module goes in), or `tx` and `rx` where they
+ * sit apart (a line module's T over its R). A port with only a `tx` is an output alone, such as a monitor tap.
+ */
+export interface FacePort { box?: Box; tx?: Box; rx?: Box }
+
+/**
+ * A front as the product deck draws it (catalog/common/faceplates.json): the picture under public/ and its size in
+ * pixels. A card's `ports` are its optical ports on it; a port of the card's not there is inside the card (an
+ * amplifier's BAIN, the WSS's COM), so it is not drawn and takes no fiber. A chassis's `slots` are where its slots are.
+ */
+export interface Faceplate { image: string; size: [number, number]; ports?: Record<string, FacePort>; slots?: Record<string, Box> }
+
 export interface ChassisDef extends Datasheet {
   id: string;
   name: string;
@@ -83,6 +100,8 @@ export interface ChassisDef extends Datasheet {
   tester?: boolean;
   /** The cards a new one comes with, by slot: a tester's own module. */
   comesWith?: Record<string, string>;
+  /** Its front as the deck draws it, with where each slot is: the physical view puts the cards in there. */
+  faceplate?: Faceplate;
 }
 
 /**
@@ -105,6 +124,8 @@ export interface LinecardDef extends Datasheet {
   columns?: number;
   ports: PortDef[];
   l0?: L0CardMetadata;
+  /** Its front as the deck draws it: then only the ports on it are drawn and take fibers. */
+  faceplate?: Faceplate;
 }
 
 /** `formFactor` is the family (SFP, QSFP, OSFP); its variants differ by `speed`. `dco` marks digital coherent optics. */

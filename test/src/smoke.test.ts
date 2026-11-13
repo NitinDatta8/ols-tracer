@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import box3 from '../../examples/box3.olst.json';
 import demo from '../../examples/demo.olst.json';
-import { byId, cli, cliAddress, nextMode } from '../../src/catalog';
+import { byId, cli, cliAddress, nextMode, type Faces } from '../../src/catalog';
 import { catalogFor as fromDisk } from '../../src/catalog-node';
 import { catalogFor, streams } from '../../src/catalog-vite';
 import { discover, light, stateFor, type BoxState } from '../../src/live';
@@ -41,6 +41,21 @@ describe.each(streams)('stream $id', ({ id }) => {
     for (const lc of cat.linecards) for (const p of lc.ports) for (const a of p.allowedPluggables) expect(plugs.has(a), a).toBe(true);
   });
 
+  it("draws a card the deck has on its picture, with only the card's own ports, each inside the picture", () => {
+    for (const lc of cat.linecards.filter((l) => l.faceplate)) {
+      const { image, size: [w, h], ports = {} } = lc.faceplate!;
+      expect(existsSync(resolve(repoRoot, 'public', image)), `${id}:${lc.id} ${image}`).toBe(true);
+      for (const [port, f] of Object.entries(ports)) {
+        expect(byId(lc.ports, port), `${id}:${lc.id} has no port ${port}`).toBeDefined();
+        for (const [x, y, bw, bh] of [f.box, f.tx, f.rx].filter((b) => !!b)) expect(x >= 0 && y >= 0 && x + bw <= w && y + bh <= h, `${id}:${lc.id} ${port}`).toBe(true);
+      }
+    }
+    for (const c of cat.chassis.filter((x) => x.faceplate)) {
+      expect(existsSync(resolve(repoRoot, 'public', c.faceplate!.image)), `${id}:${c.id}`).toBe(true);
+      for (const slot of c.slots) expect(c.faceplate!.slots?.[slot.id], `${id}:${c.id} slot ${slot.id}`).toBeDefined();
+    }
+  });
+
   it('keeps width-based slot restrictions per chassis/stream', () => {
     for (const chassis of cat.chassis) {
       const columns = chassis.columns ?? chassis.slots.length;
@@ -52,6 +67,19 @@ describe.each(streams)('stream $id', ({ id }) => {
       });
     }
   });
+});
+
+it('keeps a faceplate only for a card some stream has, each one like another taking a card it draws', () => {
+  const faces = JSON.parse(readFileSync(resolve(repoRoot, 'catalog/common/faceplates.json'), 'utf8')) as Faces;
+  const cards = new Set(streams.flatMap((s) => catalogFor(s.id).linecards.map((l) => l.id)));
+  for (const [id, f] of Object.entries(faces.linecards ?? {})) {
+    expect(cards.has(id), id).toBe(true);
+    if (f.like) expect(faces.linecards?.[f.like]?.image, `${id} like ${f.like}`).toBeDefined();
+  }
+  // Box 3's C925 front: its OSC, amplifier ports and COM are inside it; LINE, A/D1 to A/D9 and the two monitor taps are not.
+  const c925 = byId(catalogFor('csp').linecards, 'lc-c925')!;
+  expect(c925.ports.filter((p) => !c925.faceplate?.ports?.[p.id]).map((p) => p.id)).toEqual(['OSC', 'BAIN', 'LINEIN', 'LINEOUT', 'PAOUT', 'COM']);
+  expect(c925.faceplate?.ports?.MON1).toEqual({ tx: [631, 62, 26, 36] });
 });
 
 it('fills CLI templates', () => {

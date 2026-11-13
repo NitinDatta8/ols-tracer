@@ -1,6 +1,6 @@
 import { byId, endAt } from './catalog';
-import { canLoopback } from './ports';
-import type { Alarm, Catalog, ChassisDef, Device, End, Link, Topology } from './types';
+import { canLoopback, onFront } from './ports';
+import type { Alarm, Catalog, ChassisDef, Device, End, Link, Strand, Topology } from './types';
 
 /** Look up the catalog card, port and pluggable at an endpoint. Any of them may be missing; `fixed` = built-in Tx/Rx, no pluggable. */
 export function resolve(t: Topology, cat: Catalog, e: End) {
@@ -11,10 +11,20 @@ export function resolve(t: Topology, cat: Catalog, e: End) {
   return { card, port, pluggable, fixed: !!port && !port.allowedPluggables.length };
 }
 
-/** Can the port take a fiber: it has a pluggable or fixed Tx/Rx. */
+/** Can the port take a fiber: it is on the card's front and has a pluggable or fixed Tx/Rx. */
 export const fiberable = (t: Topology, cat: Catalog, e: End) => {
-  const { pluggable, fixed } = resolve(t, cat, e);
-  return !!pluggable || fixed;
+  const { card, pluggable, fixed } = resolve(t, cat, e);
+  return onFront(card, e.port) && (!!pluggable || fixed);
+};
+
+/**
+ * Why a fiber can't use a port's `strand`: the port is inside the card, or the front has no such strand; else null (a
+ * port the card doesn't have is for the other rules).
+ */
+const offFront = (t: Topology, cat: Catalog, e: End, strand: Strand) => {
+  const { card, port } = resolve(t, cat, e);
+  if (!port || onFront(card, e.port, strand)) return null;
+  return onFront(card, e.port) ? `${path(t, e)} has no ${strand === 'tx' ? 'Tx' : 'Rx'} on the card's front` : `${path(t, e)} is inside the card, not on its front`;
 };
 
 /** Port path for labels, e.g. Site-A/2/L1. */
@@ -95,6 +105,7 @@ const bothEnds = (ok: (t: Topology, cat: Catalog, e: End) => boolean, why: strin
 };
 
 export const fiberRules: FiberRule[] = [
+  (t, cat, a, b) => offFront(t, cat, a, 'tx') ?? offFront(t, cat, b, 'rx'),
   bothEnds(fiberable, 'has no pluggable'),
   bothEnds((t, cat, e) => resolve(t, cat, e).fixed || resolve(t, cat, e).pluggable?.fiber === 'SMF', 'is not single-mode (SMF)'),
   (t, _cat, a, b) => (fibersAt(t, a).tx ? `${path(t, a)} Tx already has a fiber`
@@ -153,13 +164,17 @@ export function validate(t: Topology, cat: Catalog): string[] {
 /** Back bay ids: PSU1…PSUn or FAN1…FANn. */
 export const bays = (kind: 'PSU' | 'FAN', n = 0) => Array.from({ length: n }, (_, i) => `${kind}${i + 1}`);
 
-/** LOS on every pluggable or fixed port without a fiber into its Rx, and one alarm per empty PSU or fan bay. */
+/**
+ * LOS on every pluggable or fixed port with an Rx on the card's front and no fiber into it, and one alarm per empty PSU
+ * or fan bay.
+ */
 export function alarms(t: Topology, cat: Catalog, d: Device): Alarm[] {
   const chassis = byId(cat.chassis, d.chassis);
   const empty = (kind: 'PSU' | 'FAN', n?: number) => bays(kind, n).filter((bay) => d.emptyBays?.includes(bay));
   return [
     ...Object.entries(d.slots).flatMap(([slot, s]) => (byId(cat.linecards, s.linecard)?.ports ?? [])
-      .filter((p) => (s.ports[p.id] || !p.allowedPluggables.length) && !fibersAt(t, { device: d.id, slot, port: p.id }).rx)
+      .filter((p) => (s.ports[p.id] || !p.allowedPluggables.length) && onFront(byId(cat.linecards, s.linecard), p.id, 'rx')
+        && !fibersAt(t, { device: d.id, slot, port: p.id }).rx)
       .map((p): Alarm => ({ severity: 'critical', slot, port: p.id, text: 'LOS · loss of signal, no fiber into Rx' }))),
     ...empty('PSU', chassis?.psus).map((bay): Alarm => ({ severity: 'major', bay, text: 'Power supply missing · no redundancy' })),
     ...empty('FAN', chassis?.fans).map((bay): Alarm => ({ severity: 'major', bay, text: 'Fan tray missing · less cooling' })),

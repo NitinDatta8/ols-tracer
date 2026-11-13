@@ -58,6 +58,35 @@ describe('catalogs', () => {
   });
 });
 
+describe('faceplates', () => {
+  // The same stream, now with the deck's fronts: the chassis's, a card's, and the wide card drawn like it.
+  const faces: Record<string, unknown> = {
+    ...files,
+    'common/faceplates.json': {
+      chassis: { 'ch-x': { page: '6', image: 'faceplates/x.png', size: [100, 20], slots: { 1: [0, 0, 50, 10], 2: [50, 0, 50, 10] } } },
+      linecards: {
+        'lc-known': { name: 'KNOWN-9', page: '7', image: 'faceplates/known.png', size: [100, 40], ports: { P1: { box: [10, 10, 20, 10] } }, about: 'A card.', specs: { Gain: '20 dB' } },
+        'lc-wide': { like: 'lc-known', name: 'WIDE-9', page: '8' },
+      },
+    },
+  };
+  const cat = catalogs((name) => faces[name])('x');
+
+  it("gives a card the deck draws its faceplate and the deck's facts, and one like it the same picture and specs", () => {
+    expect(byId(cat.linecards, 'lc-known')).toMatchObject({
+      faceplate: { image: 'faceplates/known.png', size: [100, 40], ports: { P1: { box: [10, 10, 20, 10] } } },
+      image: 'faceplates/known.png', about: 'A card.', specs: { 'Deck name': 'KNOWN-9', Gain: '20 dB', 'Deck pages': '7' },
+    });
+    expect(byId(cat.linecards, 'lc-wide')).toMatchObject({ faceplate: { image: 'faceplates/known.png' }, specs: { 'Deck name': 'WIDE-9', Gain: '20 dB', 'Deck pages': '8' } });
+    expect(byId(cat.chassis, 'ch-x')?.faceplate).toEqual({ image: 'faceplates/x.png', size: [100, 20], slots: { 1: [0, 0, 50, 10], 2: [50, 0, 50, 10] } });
+  });
+
+  it('leaves a card the deck does not draw as it was', () => {
+    expect(byId(cat.linecards, 'lc-t')).toEqual(byId(streamFor('x').linecards, 'lc-t'));
+    expect(byId(cat.linecards, 'lc-newcard')?.faceplate).toBeUndefined();
+  });
+});
+
 describe('CLI addresses', () => {
   const csp = catalogFor('csp');
   const device = (box3 as unknown as Topology).devices[0];

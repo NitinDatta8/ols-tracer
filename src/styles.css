@@ -386,6 +386,53 @@ main { position: relative; min-height: 0; }
 .bay .cage-head { justify-self: stretch; }
 .bay > svg { width: 100%; height: 100%; min-height: 0; padding: 2px; }
 
+/*
+ * Fronts as the product deck draws them (Face.tsx): the picture, and over it, placed in percent of it, each slot or
+ * port. A port's spot is clear over its connector, light with the module in it, green where the part being placed fits;
+ * its strands are clear until a fiber is on them. A card's picture fills its slots; its name plate shows on hover.
+ */
+.art { position: relative; container-type: inline-size; }
+.art > * { position: absolute; }
+.art > img { inset: 0; width: 100%; height: 100%; object-fit: fill; pointer-events: none; user-select: none; }
+.art .spot { border: 1px solid transparent; border-radius: 3px; }
+.art .spot:hover { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.art .spot.in { background: rgb(228 233 239 / 92%); border-color: #9aa5b1; color: #1f2933; cursor: pointer; }
+.art .spot > small {
+  position: absolute; inset: 6% 4% auto; overflow: hidden; font-size: clamp(5px, 1.3cqw, 13px); font-weight: 600; line-height: 1.2;
+  text-align: center; text-overflow: ellipsis; white-space: nowrap;
+}
+.art .spot.fits { background: rgb(34 197 94 / 45%); border: 2px dashed var(--fiber); cursor: copy; }
+.art .spot.wiring { box-shadow: 0 0 0 2px var(--accent), 0 0 8px var(--accent); }
+.art .spot.off { opacity: .25; pointer-events: none; }
+.art .spot > .strand { position: absolute; min-width: 0; padding: 0; background: none; border: 1px solid transparent; border-radius: 2px; }
+.art .spot > .strand:hover { background: rgb(255 255 255 / 25%); border-color: #fff; }
+.art .spot > .strand.lit { background: rgb(74 222 128 / 60%); border-color: var(--fiber); box-shadow: 0 0 6px var(--fiber); }
+.art .spot > .alarm { position: absolute; top: -9px; left: -9px; z-index: 3; } /* top left: a module's ✕ is top right */
+.art .spot > .remove { position: absolute; top: 2px; right: 3px; z-index: 3; color: #b91c1c; font-size: clamp(8px, 1.2cqw, 13px); cursor: pointer; }
+/* A chassis the deck draws: its picture at its own size, in the middle of the stage (scaled to fit, see useFit). */
+.faceplate.rack-view.photo { display: grid; place-items: center; width: max(var(--w), var(--fit-w, 0px)); height: max(var(--h), var(--fit-h, 0px)); }
+.chassis-art { width: var(--w); color: #fff; }
+.chassis-art .slot:not(.filled) { background: none; border: 1px solid transparent; box-shadow: none; } /* the empty bay shows */
+.chassis-art .slot:hover { border-color: var(--accent); }
+.chassis-art .slot.fits { background: rgb(20 83 45 / 60%); border: 2px dashed var(--fiber); }
+.chassis-art .slot > .cage-head, .chassis-art .slot > .far { justify-self: start; padding: 0 4px; background: rgb(17 24 32 / 80%); border-radius: 3px; }
+.chassis-art .slot > .far { justify-self: center; }
+.slot.faced { padding: 0; background: #111820; border: none; box-shadow: none; }
+.slots > .slot.faced { position: relative; }
+.slot.faced > .art { position: absolute; inset: 0; width: 100%; height: 100%; } /* stretched to its slots */
+.slot.faced > .cage-head {
+  position: absolute; z-index: 3; top: 2px; left: 2px; max-width: calc(100% - 4px); padding: 0 4px; background: rgb(17 24 32 / 85%);
+  border-radius: 3px; opacity: 0; pointer-events: none; transition: opacity .15s;
+}
+.slot.faced:hover > .cage-head { opacity: 1; pointer-events: auto; }
+.slot.faced > .slot-alarm { position: absolute; z-index: 3; top: 2px; right: 2px; }
+.slot.faced:hover { outline: 2px solid var(--accent); }
+/* At a card: its picture as big as the stage lets it be, the far ends of its fibers under it. */
+.card-art-stage { display: grid; place-items: center; min-height: 0; container-type: size; }
+.card-art { width: min(100cqw, 100cqh * var(--ar)); box-shadow: 0 2px 10px rgb(0 0 0 / 45%); }
+/* On the canvas a port's handles sit over its connector too. */
+.spot > .react-flow__handle.strand { position: absolute; min-width: 0; padding: 0; }
+
 /* Alarms: a bell with the count, only where there are any; red = critical, orange = major */
 .alarm {
   display: inline-flex; align-items: center; gap: 3px; padding: 0 6px; border: none; border-radius: 9px;

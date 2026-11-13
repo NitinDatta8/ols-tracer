@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type DragEvent, type MouseEvent } from 'react';
 import { byId, cli } from './catalog';
+import { Art, around, asset, at as over, CardFace, faced, frontPorts, inside, strandBoxes, type Faced } from './Face';
 import { Inside } from './Inside';
 import { inside as insideOf, l0Problems, pathsThrough, routesOf } from './l0';
 import { discover, light, stateFor, type BoxState } from './live';
@@ -14,7 +15,7 @@ import { syncLab } from './lab';
 import { useCatalog, useLocked, useStore } from './store';
 import { BoxTerminal, type Keys } from './Terminal';
 import { termMenu } from './terminals';
-import type { Alarm, Catalog, CliLevel, Datasheet, End, LinecardDef, Link, PluggableDef, PortDef, Strand, Topology } from './types';
+import type { Alarm, Box as Area, Catalog, CliLevel, Datasheet, End, FacePort, LinecardDef, Link, PluggableDef, PortDef, Strand, Topology } from './types';
 
 type Drag = { kind: 'card' | 'plug'; id: string };
 type At = { slot: string; port?: string };
@@ -50,9 +51,6 @@ export const portGrid = (lc: LinecardDef, cage: string, row = '1fr') => {
 /** The form factors a port takes, e.g. "QSFP / QSFPDD"; none for a fixed LC connector. */
 const takes = (cat: Catalog, p: PortDef) => [...new Set(p.allowedPluggables.map((a) => byId(cat.pluggables, a)?.formFactor ?? a))].join(' / ');
 
-/** A link as is, or a file under public/. */
-const asset = (path: string) => (/^https?:/.test(path) ? path : import.meta.env.BASE_URL + path);
-
 /** Product photo, else a placeholder with its form factor and speed (or "No image"). */
 const Pic = ({ p, big }: { p: Datasheet & { name: string; formFactor?: string; speed?: string }; big?: boolean }) => {
   const [failed, setFailed] = useState(false);
@@ -86,6 +84,25 @@ const Strands = ({ t, end, onClick, far }: { t: Topology; end: End; onClick: (e:
     </div>
   );
 };
+
+/**
+ * A port's strands on its card's faceplate picture, over its connector (`box`) as the deck draws it: lit while a fiber
+ * is on it, its tooltip where the fiber goes or comes from. An output alone (a monitor tap) has just its Tx.
+ */
+const FaceStrands = ({ t, end, box, strands, onClick }: { t: Topology; end: End; box: Area; strands: Partial<Record<Strand, Area>>; onClick: (e: MouseEvent, s: Strand) => void }) => {
+  const on = fibersAt(t, end);
+  return (['tx', 'rx'] as const).map((s) => {
+    const [where, l] = [strands[s], on[s]];
+    return where && (
+      <span key={s} className={`strand wire${l ? ' lit' : ''}`} style={inside(box, where)} data-pipe-end={pin(end, s)} onClick={(e) => onClick(e, s)}
+        title={l ? `${path(t, l.a)} Tx → ${path(t, l.b)} Rx` : `${end.port} ${STRAND[s]}: no fiber`} />
+    );
+  });
+};
+
+/** What a port on a faceplate is, for its tooltip: its id and role, and the unknown module in it, LC or what it takes. */
+const portTip = (cat: Catalog, p: PortDef, unknown?: string) =>
+  `${p.id} · ${roleOf(p)} · ${unknown ? `unknown ${unknown}` : p.allowedPluggables.length ? `empty, takes ${takes(cat, p)}` : 'LC'}`;
 
 /** Where an alarm is raised: 3/C1, or a back bay such as PSU2. */
 const place = (a: Alarm) => a.bay ?? `${a.slot}/${a.port}`;
@@ -321,7 +338,7 @@ export function PhysicalView() {
   const columns = chassis?.columns ?? slots.length;
   const ru = Math.ceil(slots.length / columns) || 1; // drawn one rack unit (1U) high per row of slots
   const card = cardSlot ? byId(cat.linecards, device.slots[cardSlot]?.linecard) : undefined;
-  const builtIn = card && !card.ports.some((p) => p.allowedPluggables.length); // a card with fixed ports only
+  const builtIn = card && !frontPorts(card).some((p) => p.allowedPluggables.length); // a card with fixed ports only (on its front)
   const tester = !!chassis?.tester; // test equipment: no box to connect to, no CLI
   const command = (level: CliLevel, at?: At) => (tester ? '' : cli(cat, level, { chassis: device.chassisNo ?? 1, ...at }));
   const boxState = stateFor(live, device);
@@ -430,67 +447,104 @@ export function PhysicalView() {
   /** Far end label: just slot/port when it is on this chassis. */
   const farLabel = (far: End) => (far.device === device.id ? `${far.slot}/${far.port}` : path(t, far));
 
-  /** A linecard as a small tile: its name over its width and port count. */
-  const cardTile = (lc: LinecardDef) => (
-    <div key={lc.id} className={`tile${shown('card', lc.id) ? ' on' : ''}`} draggable
-      title={`${lc.name} · ${lc.width ?? 1} slot${(lc.width ?? 1) > 1 ? 's' : ''} · ${lc.ports.length} port${lc.ports.length > 1 ? 's' : ''}`}
-      onDragStart={(e) => { e.dataTransfer.setData('text/plain', lc.id); setDrag({ kind: 'card', id: lc.id }); }}
-      onDragEnd={() => setDrag(null)}
-      onClick={() => pick('card', lc.id)}>
-      <b>{lc.name}</b>
-      <small>{lc.width ?? 1} slot{(lc.width ?? 1) > 1 ? 's' : ''} · {lc.ports.length} port{lc.ports.length > 1 ? 's' : ''}</small>
-    </div>
+  /** A linecard as a small tile: its name over its width and port count (those on its front, for one the deck draws). */
+  const cardTile = (lc: LinecardDef) => {
+    const n = frontPorts(lc).length;
+    return (
+      <div key={lc.id} className={`tile${shown('card', lc.id) ? ' on' : ''}`} draggable
+        title={`${lc.name} · ${lc.width ?? 1} slot${(lc.width ?? 1) > 1 ? 's' : ''} · ${n} port${n > 1 ? 's' : ''}${faced(lc) ? ' on its front' : ''}`}
+        onDragStart={(e) => { e.dataTransfer.setData('text/plain', lc.id); setDrag({ kind: 'card', id: lc.id }); }}
+        onDragEnd={() => setDrag(null)}
+        onClick={() => pick('card', lc.id)}>
+        <b>{lc.name}</b>
+        <small>{lc.width ?? 1} slot{(lc.width ?? 1) > 1 ? 's' : ''} · {n} port{n > 1 ? 's' : ''}</small>
+      </div>
+    );
+  };
+
+  /**
+   * A card the deck draws, in its slot: its faceplate, and on each port of its front the module in it (click for its
+   * datasheet) or its connector, with the Tx and Rx to run fibers from.
+   */
+  const slotFace = (lc: Faced, slotId: string) => (
+    <CardFace card={lc} data-pipe-box port={(p, box, f) => {
+      const end = { device: device.id, slot: slotId, port: p.id };
+      const { pluggable, fixed } = resolve(t, cat, end);
+      const inserted = device.slots[slotId].ports[p.id];
+      const from = wire && sameEnd(wire.end, end);
+      const target = wire && !fiberError(t, cat, ...ends(wire, end));
+      return (
+        <div className={`spot ${toneOf(p)}${inserted ? ' in' : ''}${from ? ' wiring' : ''}${target ? ' fits' : ''}`} style={over(lc.faceplate, box)}
+          title={pluggable ? undefined : portTip(cat, p, inserted?.pluggable)} {...hoverable(pluggable)}
+          onClick={pluggable ? (e) => { e.stopPropagation(); show('plug', pluggable.id, { slot: slotId, port: p.id }); } : undefined}>
+          {inserted && <small>{pluggable?.name ?? `unknown ${inserted.pluggable}`}</small>}
+          {(fixed || inserted) && <FaceStrands t={t} end={end} box={box} strands={strandBoxes(f, !!inserted)} onClick={(e, s) => onStrand(e, end, s)} />}
+        </div>
+      );
+    }} />
   );
 
+  /**
+   * The chassis front: its picture from the deck with each card in its slots, where the deck has one (cards it does not
+   * draw keep their cages), else the 19-inch panel drawn to scale with the management ports at its left.
+   */
   const chassisLevel = () => {
     const taken = coverage(cat, device);
-    return (
-      <div className="faceplate rack-view" onDragOver={(e) => e.preventDefault()} onDrop={onDrop}>
-        <div className="rack" style={{ '--u': ru } as CSSProperties}>
-        <MgmtStrip ports={chassis?.mgmtPorts?.front} />
-        <div className="slots" style={{ gridTemplate: `repeat(${ru}, 1fr) / repeat(${columns}, 1fr)` }}>
-          {slots.map((slot, i) => {
-            const state = device.slots[slot.id];
-            if (!state && taken.has(slot.id)) return null; // under a wide card to its left
-            const lc = byId(cat.linecards, state?.linecard);
-            const fits = part?.kind === 'card' && !state && !linecardError(cat, device, slot.id, part.id);
-            return (
-              <div key={slot.id} data-slot={slot.id} className={`slot${state ? ' filled' : ''}${fits ? ' fits' : ''}`}
-                style={{ gridColumn: `${(i % columns) + 1} / span ${lc?.width ?? 1}`, gridRow: Math.floor(i / columns) + 1 }}
-                onClick={state ? () => setCardSlot(slot.id) : fits ? () => insertLinecard(device.id, slot.id, part.id) : undefined}
-                onMouseEnter={state ? () => setFocus({ slot: slot.id }) : undefined} onMouseLeave={() => setFocus(null)}>
-                <div className="cage-head">
-                  <b>{state ? (lc?.name ?? `unknown ${state.linecard}`) : 'empty'}</b>
-                  <small>slot {slotLabel(slot.id, lc?.width)}</small>
-                  {alarmButton({ slot: slot.id })}
-                  {state && <span className="remove" onClick={(e) => { e.stopPropagation(); removeAt(slot.id); }}>✕</span>}
-                </div>
-                {lc ? (
-                  <div className="port-grid" style={portGrid(lc, '52px')}>
-                    {lc.ports.map((p) => {
-                      const end = { device: device.id, slot: slot.id, port: p.id };
-                      const { pluggable } = resolve(t, cat, end);
-                      const from = wire && sameEnd(wire.end, end);
-                      const target = wire && !fiberError(t, cat, ...ends(wire, end));
-                      return (
-                        <div key={p.id} className={`mini ${toneOf(p)}${pluggable ? ' filled' : ''}${from ? ' wiring' : ''}${target ? ' fits' : ''}`}
-                          data-pipe-box {...hoverable(pluggable)}
-                          onClick={pluggable ? (e) => { e.stopPropagation(); show('plug', pluggable.id, { slot: slot.id, port: p.id }); } : undefined}>
-                          {/* The cage, labelled with its port: a module in it, empty, or a fixed LC connector, as at the card. */}
-                          <small className={`face${pluggable ? ' in' : p.allowedPluggables.length ? '' : ' lc'}`}>{p.id}</small>
-                          <Strands t={t} end={end} onClick={(e, s) => onStrand(e, end, s)} />
-                        </div>
-                      );
-                    })}
+    const photo = chassis?.faceplate?.slots ? chassis.faceplate : undefined;
+    const views = slots.map((slot, i) => {
+      const state = device.slots[slot.id];
+      if (!state && taken.has(slot.id)) return null; // under a wide card to its left
+      const lc = byId(cat.linecards, state?.linecard);
+      const fits = part?.kind === 'card' && !state && !linecardError(cat, device, slot.id, part.id);
+      // In the picture, a card spans the boxes of all the slots it takes.
+      const boxes = photo ? ((chassis && span(chassis, slot.id, lc?.width)) ?? [slot.id]).map((id) => photo.slots?.[id]).filter((b) => !!b) : [];
+      if (photo && !boxes.length) return null;
+      return (
+        <div key={slot.id} data-slot={slot.id} className={`slot${state ? ' filled' : ''}${fits ? ' fits' : ''}${faced(lc) ? ' faced' : ''}`}
+          style={photo ? over(photo, around(...boxes)) : { gridColumn: `${(i % columns) + 1} / span ${lc?.width ?? 1}`, gridRow: Math.floor(i / columns) + 1 }}
+          onClick={state ? () => setCardSlot(slot.id) : fits ? () => insertLinecard(device.id, slot.id, part.id) : undefined}
+          onMouseEnter={state ? () => setFocus({ slot: slot.id }) : undefined} onMouseLeave={() => setFocus(null)}>
+          <div className="cage-head">
+            <b>{state ? (lc?.name ?? `unknown ${state.linecard}`) : 'empty'}</b>
+            <small>slot {slotLabel(slot.id, lc?.width)}</small>
+            {!faced(lc) && alarmButton({ slot: slot.id })}
+            {state && <span className="remove" onClick={(e) => { e.stopPropagation(); removeAt(slot.id); }}>✕</span>}
+          </div>
+          {/* A card the deck draws shows its name plate on hover, so it covers none of its front; its bell stays. */}
+          {faced(lc) && <span className="slot-alarm">{alarmButton({ slot: slot.id })}</span>}
+          {faced(lc) ? slotFace(lc, slot.id) : lc ? (
+            <div className="port-grid" style={portGrid(lc, '52px')}>
+              {lc.ports.map((p) => {
+                const end = { device: device.id, slot: slot.id, port: p.id };
+                const { pluggable } = resolve(t, cat, end);
+                const from = wire && sameEnd(wire.end, end);
+                const target = wire && !fiberError(t, cat, ...ends(wire, end));
+                return (
+                  <div key={p.id} className={`mini ${toneOf(p)}${pluggable ? ' filled' : ''}${from ? ' wiring' : ''}${target ? ' fits' : ''}`}
+                    data-pipe-box {...hoverable(pluggable)}
+                    onClick={pluggable ? (e) => { e.stopPropagation(); show('plug', pluggable.id, { slot: slot.id, port: p.id }); } : undefined}>
+                    {/* The cage, labelled with its port: a module in it, empty, or a fixed LC connector, as at the card. */}
+                    <small className={`face${pluggable ? ' in' : p.allowedPluggables.length ? '' : ' lc'}`}>{p.id}</small>
+                    <Strands t={t} end={end} onClick={(e, s) => onStrand(e, end, s)} />
                   </div>
-                ) : (
-                  <small className="far">{fits ? (drag ? 'drop here' : 'click to insert') : 'drag a linecard here'}</small>
-                )}
-              </div>
-            );
-          })}
+                );
+              })}
+            </div>
+          ) : (
+            <small className="far">{fits ? (drag ? 'drop here' : 'click to insert') : 'drag a linecard here'}</small>
+          )}
         </div>
-        </div>
+      );
+    });
+    return (
+      <div className={`faceplate rack-view${photo ? ' photo' : ''}`} onDragOver={(e) => e.preventDefault()} onDrop={onDrop}
+        style={photo && { '--w': `${photo.size[0]}px`, '--h': `${photo.size[1]}px` } as CSSProperties}>
+        {photo ? <Art face={photo} className="chassis-art">{views}</Art> : (
+          <div className="rack" style={{ '--u': ru } as CSSProperties}>
+            <MgmtStrip ports={chassis?.mgmtPorts?.front} />
+            <div className="slots" style={{ gridTemplate: `repeat(${ru}, 1fr) / repeat(${columns}, 1fr)` }}>{views}</div>
+          </div>
+        )}
         {/* Fibers between two cards of this chassis, and loopbacks; the rest show their far end in the strand's tooltip. */}
         <PipeLayer view={`chassis:${device.id}`} spacing={{ margin: 2, lane: 7, hop: 3 }} width={5} light={lightOf}
           ends={t.links.filter((l) => l.a.device === device.id && l.b.device === device.id).map((link) => ({ link, a: pin(link.a, 'tx'), b: pin(link.b, 'rx') }))} />
@@ -510,8 +564,30 @@ export function PhysicalView() {
   });
 
   /**
-   * The linecard's slot enlarged to fill the stage: the same rows of ports as at the chassis, each cage big enough to
-   * show what is plugged in, and no bigger than 280 × 200 px, so cages look alike from card to card.
+   * A port of a card the deck draws, at the card: over its connector or cage on the faceplate, the module in it (click
+   * for its datasheet, ✕ to take it out) or, while one being placed fits, a green cage to click; its alarms; its Tx and Rx.
+   */
+  const cardSpot = (slotId: string, lc: Faced, p: PortDef, box: Area, f: FacePort) => {
+    const end = { device: device.id, slot: slotId, port: p.id };
+    const { pluggable, fixed } = resolve(t, cat, end);
+    const inserted = device.slots[slotId].ports[p.id];
+    const fits = part?.kind === 'plug' && !inserted && !pluggableError(cat, lc.id, p.id, part.id);
+    return (
+      <div data-port={p.id} className={`spot ${toneOf(p)}${fits ? ' fits' : ''}${inserted ? ' in' : ''}${wire && sameEnd(wire.end, end) ? ' wiring' : ''}`}
+        style={over(lc.faceplate, box)} title={pluggable ? undefined : portTip(cat, p, inserted?.pluggable)} {...hoverable(pluggable, { slot: slotId, port: p.id })}
+        onClick={pluggable ? () => show('plug', pluggable.id, { slot: slotId, port: p.id }) : fits ? () => insertPluggable(device.id, slotId, p.id, part.id) : undefined}>
+        {inserted && <small>{pluggable?.name ?? `unknown ${inserted.pluggable}`}</small>}
+        {(fixed || inserted) && <FaceStrands t={t} end={end} box={box} strands={strandBoxes(f, !!inserted)} onClick={(e, s) => onStrand(e, end, s)} />}
+        {alarmButton({ slot: slotId, port: p.id })}
+        {inserted && <span className="remove" title="Take it out" onClick={(e) => { e.stopPropagation(); removeAt(slotId, p.id); }}>✕</span>}
+      </div>
+    );
+  };
+
+  /**
+   * The linecard enlarged to fill the stage: its faceplate as the deck draws it, with only the ports on its front, or
+   * else the same rows of ports as at the chassis, each cage big enough to show what is plugged in, and no bigger than
+   * 280 × 200 px, so cages look alike from card to card.
    */
   const cardLevel = (slotId: string, lc: LinecardDef) => {
     // The card's fibers, in port order: out of a Tx or into an Rx, each piped to a terminal for its far end under
@@ -529,7 +605,7 @@ export function PhysicalView() {
       <div className="faceplate card-plate" onDragOver={(e) => e.preventDefault()} onDrop={onDrop}>
         <div className="plate-label" title="Datasheet" onClick={() => show('card', lc.id, { slot: slotId })}>
           <b>{lc.name}</b>
-          <small>slot {slotLabel(slotId, lc.width)} · {lc.ports.length} ports</small>
+          <small>slot {slotLabel(slotId, lc.width)} · {frontPorts(lc).length} ports{faced(lc) ? ' on its front' : ''}</small>
           {/* The other cards are not shown here, so the far end is picked from a list. Always there, so the plate never shifts. */}
           <label className="connect-to" onClick={(e) => e.stopPropagation()}>
             {wire && (
@@ -557,6 +633,11 @@ export function PhysicalView() {
         {inner ? (
           <Inside rows={insideOf(t, cat, boxState, device, slotId)} paths={pathsThrough(t, cat, boxState, device, slotId)} state={boxState}
             problems={boxState ? l0Problems(t, cat, boxState, device) : []} />
+        ) : faced(lc) ? (
+          <div className="card-art-stage">
+            <CardFace card={lc} className="card-art" data-pipe-box style={{ '--ar': lc.faceplate.size[0] / lc.faceplate.size[1] } as CSSProperties}
+              port={(p, box, f) => cardSpot(slotId, lc, p, box, f)} />
+          </div>
         ) : (
         <div className="cages port-grid" style={portGrid(lc, '280px', '200px')}>
           {lc.ports.map((p) => {
@@ -633,7 +714,7 @@ export function PhysicalView() {
   const tray = () => {
     const supportedByCard = card && new Set(
       cat.pluggables
-        .filter((plug) => card.ports.some((port) => port.allowedPluggables.some((a) => a === plug.id || a === plug.formFactor)))
+        .filter((plug) => frontPorts(card).some((port) => port.allowedPluggables.some((a) => a === plug.id || a === plug.formFactor)))
         .map((plug) => plug.id),
     );
     const pluggables = card ? cat.pluggables.filter((plug) => supportedByCard?.has(plug.id)) : [];
@@ -673,10 +754,18 @@ export function PhysicalView() {
     }
     if (detail?.kind === 'card') {
       const lc = byId(cat.linecards, detail.id);
-      const roleCounts = lc?.ports.reduce((m, p) => m.set(roleOf(p), (m.get(roleOf(p)) ?? 0) + 1), new Map<string, number>());
+      const front = lc && frontPorts(lc);
+      const roleCounts = front?.reduce((m, p) => m.set(roleOf(p), (m.get(roleOf(p)) ?? 0) + 1), new Map<string, number>());
       const roles = roleCounts && [...roleCounts.entries()].map(([role, n]) => `${n} ${role}`).join(', ');
-      return lc && { item: lc, tag: 'Linecard', facts: { Width: `${lc.width ?? 1} slot${(lc.width ?? 1) > 1 ? 's' : ''}`, Ports: `${lc.ports.length} (${roles})` },
-        command: detail.at && command('card', detail.at) };
+      // A card the deck draws also lists the ports its profile has that are inside it, not on its front.
+      const within = lc?.ports.filter((p) => !front?.includes(p)).map((p) => p.id).join(', ');
+      return lc && {
+        item: lc, tag: 'Linecard', command: detail.at && command('card', detail.at),
+        facts: {
+          Width: `${lc.width ?? 1} slot${(lc.width ?? 1) > 1 ? 's' : ''}`, Ports: `${front!.length}${faced(lc) ? ' on its front' : ''} (${roles})`,
+          ...(within && { 'Inside the card': within }),
+        },
+      };
     }
   })();
   /** The command under the CLI terminal: for what is hovered, else what was clicked, else the level shown. */

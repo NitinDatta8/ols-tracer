@@ -2,7 +2,7 @@
 // and a client card, and SMF and MMF optics. Each rule's refusal, case by case, and the alarms a topology raises.
 import { describe, expect, it } from 'vitest';
 import { alarms, bays, coverage, fiberError, fibersAt, linecardError, path, pluggableError, resolve, sameEnd, span, touches, validate, wired } from '../../src/rules';
-import type { Catalog, Device, End, Link, Topology } from '../../src/types';
+import type { Catalog, Device, End, LinecardDef, Link, Topology } from '../../src/types';
 
 const cat: Catalog = {
   chassis: [{
@@ -176,5 +176,29 @@ describe('alarms', () => {
 
   it('names the back bays', () => {
     expect([bays('PSU', 2), bays('FAN', 1), bays('FAN')]).toEqual([['PSU1', 'PSU2'], ['FAN1'], []]);
+  });
+});
+
+describe('cards the deck draws', () => {
+  // An amplifier whose faceplate has LINE and SIG, and MON1, a monitor tap with only its Tx; its BAIN is inside it.
+  const amp: LinecardDef = {
+    id: 'lc-amp', name: 'AMP', width: 2,
+    ports: [{ id: 'LINE', role: 'line', allowedPluggables: [] }, { id: 'SIG', role: 'port', allowedPluggables: [] },
+      { id: 'MON1', role: 'monitor', allowedPluggables: [] }, { id: 'BAIN', role: 'ampin', allowedPluggables: [] }],
+    faceplate: { image: 'faceplates/amp.png', size: [400, 80], ports: { LINE: { box: [10, 10, 40, 30] }, SIG: { box: [60, 10, 40, 30] }, MON1: { tx: [110, 10, 20, 30] } } },
+  };
+  const drawn: Catalog = { ...cat, chassis: [{ ...chassis, slots: chassis.slots.map((s) => ({ ...s, allowedLinecards: [...s.allowedLinecards, 'lc-amp'] })) }], linecards: [...cat.linecards, amp] };
+  const f = device('d3', 'Site-F', { 1: { linecard: 'lc-amp', ports: {} }, 3: { linecard: 'lc-tp', ports: { L1: { pluggable: 'qsfp-zr' } } } });
+  const tf: Topology = { ...t, devices: [f], links: [] };
+
+  it('runs fibers only from strands on its front: none from a port inside it, none into a tap', () => {
+    expect(fiberError(tf, drawn, at('d3', '1', 'BAIN'), at('d3', '3', 'L1'))).toBe('Site-F/1/BAIN is inside the card, not on its front');
+    expect(fiberError(tf, drawn, at('d3', '3', 'L1'), at('d3', '1', 'MON1'))).toBe("Site-F/1/MON1 has no Rx on the card's front");
+    expect(fiberError(tf, drawn, at('d3', '1', 'MON1'), at('d3', '3', 'L1'))).toBeNull();
+    expect(fiberError(tf, drawn, at('d3', '1', 'SIG'), at('d3', '3', 'L1'))).toBeNull();
+  });
+
+  it('raises a LOS only on a port whose Rx is on its front', () => {
+    expect(alarms(tf, drawn, f).map((x) => `${x.slot}/${x.port}`)).toEqual(['1/LINE', '1/SIG', '3/L1']);
   });
 });

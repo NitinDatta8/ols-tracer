@@ -5,8 +5,9 @@ import {
 } from '@xyflow/react';
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type MouseEvent as ReactMouseEvent } from 'react';
 import { byId } from './catalog';
+import { Art, around, at, CardFace, faced, inside, strandBoxes, type Faced } from './Face';
 import { termLines, useMenu } from './Menu';
-import { behaviorOf, roleOf, showsInView, toneOf } from './ports';
+import { behaviorOf, onFront, roleOf, showsInView, toneOf } from './ports';
 import { light, stateFor, type Light } from './live';
 import { AlarmButton, MgmtStrip, portGrid } from './PhysicalView';
 import { Pipe } from './Pipe';
@@ -42,14 +43,17 @@ const bottoms = (hs?: { id?: string | null; x: number; y: number; width: number;
 const visibleLinks = (t: Topology, cat: Catalog, view: View) =>
   t.links.filter((l) => [l.a, l.b].every((e) => showsInView(view, resolve(t, cat, e).port)));
 
-/** Each card, in slot order, with its ports that can take a fiber: those with a pluggable or a fixed connector. */
+/**
+ * Each card, in slot order, with its ports that can take a fiber: those on its front with a pluggable or a fixed
+ * connector, and which of their strands are there (a monitor tap has only a Tx).
+ */
 function cardsOf(t: Topology, cat: Catalog, d: Device) {
   return Object.entries(d.slots).map(([slot, s]) => {
     const card = byId(cat.linecards, s.linecard);
     const ports = (card?.ports ?? []).flatMap((p) => {
       const end = { device: d.id, slot, port: p.id };
-      const { pluggable, fixed } = resolve(t, cat, end);
-      return pluggable || fixed ? [{ end, port: p, pluggable }] : [];
+      const { pluggable } = resolve(t, cat, end);
+      return fiberable(t, cat, end) ? [{ end, port: p, pluggable, tx: onFront(card, p.id, 'tx'), rx: onFront(card, p.id, 'rx') }] : [];
     });
     return { slot, name: card?.name ?? `unknown ${s.linecard}`, ports };
   });
@@ -67,8 +71,9 @@ export const ChassisIcon = ({ tester }: { tester?: boolean }) => (
 );
 
 /**
- * A racked device's front, drawn as the physical view draws its chassis (the same 19-inch panel, slots and mini cages,
- * see chassisLevel there), with each port that can take a fiber giving its Tx and Rx as handles to run fibers from.
+ * A racked device's front, drawn as the physical view draws its chassis (its picture from the deck with the cards the
+ * deck draws on it, else the same 19-inch panel, slots and mini cages, see chassisLevel there), with each port that can
+ * take a fiber giving its Tx and Rx as handles to run fibers from.
  */
 function ChassisFront({ t, cat, device, view }: { t: Topology; cat: Catalog; device: Device; view: View }) {
   const chassis = byId(cat.chassis, device.chassis);
@@ -77,50 +82,73 @@ function ChassisFront({ t, cat, device, view }: { t: Topology; cat: Catalog; dev
   const ru = Math.ceil(slots.length / columns) || 1;
   const taken = coverage(cat, device);
   const list = alarms(t, cat, device);
-  return (
-    <div className="faceplate rack-view">
-      <div className="rack" style={{ '--u': ru } as CSSProperties}>
-        <MgmtStrip ports={chassis?.mgmtPorts?.front} />
-        <div className="slots" style={{ gridTemplate: `repeat(${ru}, 1fr) / repeat(${columns}, 1fr)` }}>
-          {slots.map((slot, i) => {
-            const state = device.slots[slot.id];
-            if (!state && taken.has(slot.id)) return null; // under a wide card to its left
-            const lc = byId(cat.linecards, state?.linecard);
-            const ids = (chassis && span(chassis, slot.id, lc?.width)) ?? [slot.id];
-            return (
-              <div key={slot.id} data-slot={slot.id} className={`slot${state ? ' filled' : ''}`}
-                style={{ gridColumn: `${(i % columns) + 1} / span ${lc?.width ?? 1}`, gridRow: Math.floor(i / columns) + 1 }}>
-                <div className="cage-head">
-                  <b>{state ? (lc?.name ?? `unknown ${state.linecard}`) : 'empty'}</b>
-                  <small>slot {ids.length > 1 ? `${ids[0]}–${ids.at(-1)}` : slot.id}</small>
-                  <AlarmButton list={list.filter((a) => a.slot === slot.id)} />
-                </div>
-                {lc && (
-                  <div className="port-grid" style={portGrid(lc, '52px')}>
-                    {lc.ports.map((p) => {
-                      const end = { device: device.id, slot: slot.id, port: p.id };
-                      const { pluggable, fixed } = resolve(t, cat, end);
-                      const lit = fibersAt(t, end);
-                      return (
-                        <div key={p.id} className={`mini ${toneOf(p)}${pluggable ? ' filled' : ''}${showsInView(view, p) ? '' : ' off'}`}
-                          title={`${path(t, end)} · ${roleOf(p)} · ${pluggable?.name ?? (fixed ? 'fixed Tx/Rx' : 'no pluggable')}`}>
-                          <small className={`face${pluggable ? ' in' : fixed ? ' lc' : ''}`}>{p.id}</small>
-                          <div className="lc">
-                            {pluggable || fixed ? <>
-                              <Handle id={handleOf(end)} type="source" position={Position.Bottom} className={`strand${lit.tx ? ' lit' : ''}`}>Tx</Handle>
-                              <Handle id={handleOf(end)} type="target" position={Position.Bottom} className={`strand${lit.rx ? ' lit' : ''}`}>Rx</Handle>
-                            </> : <><span className="strand">Tx</span><span className="strand">Rx</span></>}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            );
-          })}
+  const photo = chassis?.faceplate?.slots ? chassis.faceplate : undefined;
+  /** A card the deck draws: its faceplate, with each port's Tx and Rx handles over its connector. */
+  const face = (lc: Faced, slot: string) => (
+    <CardFace card={lc} port={(p, box, f) => {
+      const end = { device: device.id, slot, port: p.id };
+      const { pluggable, fixed } = resolve(t, cat, end);
+      const [lit, strands] = [fibersAt(t, end), strandBoxes(f, !!pluggable)];
+      return (
+        <div className={`spot ${toneOf(p)}${pluggable ? ' in' : ''}${showsInView(view, p) ? '' : ' off'}`} style={at(lc.faceplate, box)}
+          title={`${path(t, end)} · ${roleOf(p)} · ${pluggable?.name ?? (fixed ? 'fixed Tx/Rx' : 'no pluggable')}`}>
+          {pluggable && <small>{pluggable.name}</small>}
+          {(pluggable || fixed) && <>
+            {strands.tx && <Handle id={handleOf(end)} type="source" position={Position.Bottom} className={`strand${lit.tx ? ' lit' : ''}`} style={inside(box, strands.tx)} />}
+            {strands.rx && <Handle id={handleOf(end)} type="target" position={Position.Bottom} className={`strand${lit.rx ? ' lit' : ''}`} style={inside(box, strands.rx)} />}
+          </>}
         </div>
+      );
+    }} />
+  );
+  const views = slots.map((slot, i) => {
+    const state = device.slots[slot.id];
+    if (!state && taken.has(slot.id)) return null; // under a wide card to its left
+    const lc = byId(cat.linecards, state?.linecard);
+    const ids = (chassis && span(chassis, slot.id, lc?.width)) ?? [slot.id];
+    const boxes = photo ? ids.map((id) => photo.slots?.[id]).filter((b) => !!b) : [];
+    if (photo && !boxes.length) return null;
+    return (
+      <div key={slot.id} data-slot={slot.id} className={`slot${state ? ' filled' : ''}${faced(lc) ? ' faced' : ''}`}
+        style={photo ? at(photo, around(...boxes)) : { gridColumn: `${(i % columns) + 1} / span ${lc?.width ?? 1}`, gridRow: Math.floor(i / columns) + 1 }}>
+        <div className="cage-head">
+          <b>{state ? (lc?.name ?? `unknown ${state.linecard}`) : 'empty'}</b>
+          <small>slot {ids.length > 1 ? `${ids[0]}–${ids.at(-1)}` : slot.id}</small>
+          {!faced(lc) && <AlarmButton list={list.filter((a) => a.slot === slot.id)} />}
+        </div>
+        {faced(lc) && <span className="slot-alarm"><AlarmButton list={list.filter((a) => a.slot === slot.id)} /></span>}
+        {faced(lc) ? face(lc, slot.id) : lc && (
+          <div className="port-grid" style={portGrid(lc, '52px')}>
+            {lc.ports.map((p) => {
+              const end = { device: device.id, slot: slot.id, port: p.id };
+              const { pluggable, fixed } = resolve(t, cat, end);
+              const lit = fibersAt(t, end);
+              return (
+                <div key={p.id} className={`mini ${toneOf(p)}${pluggable ? ' filled' : ''}${showsInView(view, p) ? '' : ' off'}`}
+                  title={`${path(t, end)} · ${roleOf(p)} · ${pluggable?.name ?? (fixed ? 'fixed Tx/Rx' : 'no pluggable')}`}>
+                  <small className={`face${pluggable ? ' in' : fixed ? ' lc' : ''}`}>{p.id}</small>
+                  <div className="lc">
+                    {pluggable || fixed ? <>
+                      <Handle id={handleOf(end)} type="source" position={Position.Bottom} className={`strand${lit.tx ? ' lit' : ''}`}>Tx</Handle>
+                      <Handle id={handleOf(end)} type="target" position={Position.Bottom} className={`strand${lit.rx ? ' lit' : ''}`}>Rx</Handle>
+                    </> : <><span className="strand">Tx</span><span className="strand">Rx</span></>}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
+    );
+  });
+  return (
+    <div className={`faceplate rack-view${photo ? ' photo' : ''}`} style={photo && { '--w': `${photo.size[0]}px`, '--h': `${photo.size[1]}px` } as CSSProperties}>
+      {photo ? <Art face={photo} className="chassis-art">{views}</Art> : (
+        <div className="rack" style={{ '--u': ru } as CSSProperties}>
+          <MgmtStrip ports={chassis?.mgmtPorts?.front} />
+          <div className="slots" style={{ gridTemplate: `repeat(${ru}, 1fr) / repeat(${columns}, 1fr)` }}>{views}</div>
+        </div>
+      )}
     </div>
   );
 }
@@ -198,14 +226,14 @@ function DeviceNode({ id, data }: NodeProps) {
         <div key={slot} className="card-row" data-slot={slot}>
           {!chassis?.tester && <div className="card-name">{slot} · {name}</div>}
           <div className="ports">
-            {ports.map(({ end, port, pluggable }) => {
+            {ports.map(({ end, port, pluggable, tx, rx }) => {
               const lit = fibersAt(t, end);
               return (
                 <div key={handleOf(end)} className={`port ${toneOf(port)}${showsInView(view, port) ? '' : ' off'}`} title={`${path(t, end)} · ${roleOf(port)} · ${pluggable?.name ?? 'fixed Tx/Rx'}`}>
                   {end.port}
                   <div className="lc">
-                    <Handle id={handleOf(end)} type="source" position={Position.Bottom} className={`strand${lit.tx ? ' lit' : ''}`}>Tx</Handle>
-                    <Handle id={handleOf(end)} type="target" position={Position.Bottom} className={`strand${lit.rx ? ' lit' : ''}`}>Rx</Handle>
+                    {tx && <Handle id={handleOf(end)} type="source" position={Position.Bottom} className={`strand${lit.tx ? ' lit' : ''}`}>Tx</Handle>}
+                    {rx && <Handle id={handleOf(end)} type="target" position={Position.Bottom} className={`strand${lit.rx ? ' lit' : ''}`}>Rx</Handle>}
                   </div>
                 </div>
               );

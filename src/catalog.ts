@@ -1,7 +1,7 @@
 // The catalog as a stream's hardware and CLI, put together from catalog/'s files, and the helpers over it. It reads no
 // files itself, so it runs in the app and in Node alike: catalog-vite.ts gives it the files Vite bundles for the app,
 // catalog-node.ts the same files from disk.
-import type { Catalog, CliLevel, Device, End } from './types';
+import type { Catalog, CliLevel, Device, End, Faceplate } from './types';
 
 type Hardware = Pick<Catalog, 'chassis' | 'linecards' | 'pluggables'>;
 
@@ -98,10 +98,33 @@ function hydrate(chassis: Catalog['chassis'], linecards: Catalog['linecards'], p
 }
 
 /**
+ * An entry of common/faceplates.json: the deck's picture of a front and where things are on it, or `like` another
+ * card's; and what the deck calls the card, on which PDF pages, and its facts.
+ */
+type FaceEntry = Partial<Faceplate> & { like?: string; name?: string; page?: string; about?: string; specs?: Record<string, string> };
+export type Faces = { chassis?: Record<string, FaceEntry>; linecards?: Record<string, FaceEntry> };
+
+/** Gives each item the deck draws its faceplate, and the deck's facts for its datasheet (behind any it has already). */
+function withFaces<T extends Catalog['chassis'][number] | Catalog['linecards'][number]>(items: T[], entries: Record<string, FaceEntry> = {}): T[] {
+  return items.map((item) => {
+    const entry = entries[item.id];
+    if (!entry) return item;
+    const { image, size, ports, slots, specs } = entry.like ? entries[entry.like] : entry;
+    return {
+      ...item,
+      faceplate: { image: image!, size: size!, ...(ports && { ports }), ...(slots && { slots }) },
+      image: item.image ?? image,
+      about: item.about ?? entry.about,
+      specs: { ...(entry.name && { 'Deck name': entry.name }), ...(entry.specs ?? specs), ...(entry.page && { 'Deck pages': entry.page }), ...item.specs },
+    };
+  });
+}
+
+/**
  * `catalogFor`, over the catalog/ files that `read` gives by name (csp/linecards.json), or undefined for one that isn't
  * there. A stream's hardware (chassis/linecards/pluggables) is its own files only, plus its `testers.json`: hardware kept
- * by hand, which the IIVI profiles don't have and the syncs never overwrite, such as a BERT. `common/` holds just
- * `cli.json`. Each stream is put together once.
+ * by hand, which the IIVI profiles don't have and the syncs never overwrite, such as a BERT. `common/` holds `cli.json`
+ * and `faceplates.json`, the fronts the product deck draws, also kept by hand. Each stream is put together once.
  */
 export function catalogs(read: (name: string) => unknown) {
   const cache = new Map<string, Catalog>();
@@ -110,8 +133,11 @@ export function catalogs(read: (name: string) => unknown) {
       [...((read(`${stream}/${kind}.json`) as Hardware[K]) ?? []), ...((read(`${stream}/testers.json`) as Partial<Hardware>)?.[kind] ?? [])] as Catalog[K];
     if (!cache.has(stream)) {
       const base = hydrate(merge('chassis'), merge('linecards'), merge('pluggables'));
+      const faces = read('common/faceplates.json') as Faces | undefined;
       cache.set(stream, {
-        ...base,
+        chassis: withFaces(base.chassis, faces?.chassis),
+        linecards: withFaces(base.linecards, faces?.linecards),
+        pluggables: base.pluggables,
         cli: { ...(read('common/cli.json') as Catalog['cli']), ...(read(`${stream}/cli.json`) as Catalog['cli']) },
       } as Catalog);
     }

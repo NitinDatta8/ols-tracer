@@ -1,0 +1,746 @@
+{
+  "about": "Cards and chassis as the OLS Introduction deck (docs/internal/OLS Introduction 20260419.pdf, git-ignored; `page` its PDF pages) draws them, kept by hand: the IIVI syncs never write this file. `image` is the deck’s picture of the front, under public/, `size` its pixels, and `ports` where each of the card’s optical ports is on it, as [x, y, width, height]: `box` its connector (a duplex LC or MPO, Tx the left half and Rx the right, OUT then IN as the fronts print them; or a cage), or `tx` and `rx` where they sit apart. A port of the card not listed is inside it; one with only a `tx` is an output alone (a monitor tap). `like` takes another card’s picture and ports (and specs, unless it has its own). `slots` are where a chassis’s slots are on its picture.",
+  "chassis": {
+    "ch-8slot": {
+      "page": "6",
+      "image": "faceplates/gs2000-front.png",
+      "size": [1150, 207],
+      "slots": {"1": [139, 8, 233, 92], "2": [376, 8, 233, 92], "3": [614, 8, 233, 92], "4": [852, 8, 233, 92], "5": [139, 107, 233, 92], "6": [376, 107, 233, 92], "7": [614, 107, 233, 92], "8": [852, 107, 233, 92]}
+    }
+  },
+  "linecards": {
+    "lc-c925": {
+      "name": "TMUX-C9-25",
+      "page": "9",
+      "image": "faceplates/tmux-c9-25.png",
+      "size": [778, 154],
+      "ports": {
+        "LINE": {"box": [36, 62, 51, 37]},
+        "AD1": {"box": [95, 62, 52, 36]},
+        "AD2": {"box": [153, 62, 52, 36]},
+        "AD3": {"box": [212, 62, 52, 36]},
+        "AD4": {"box": [270, 62, 52, 36]},
+        "AD5": {"box": [328, 62, 52, 36]},
+        "AD6": {"box": [387, 62, 52, 36]},
+        "AD7": {"box": [445, 62, 52, 36]},
+        "AD8": {"box": [503, 62, 52, 36]},
+        "AD9": {"box": [562, 62, 52, 36]},
+        "MON1": {"tx": [631, 62, 26, 36]},
+        "MON2": {"tx": [657, 62, 26, 36]}
+      },
+      "about": "Terminal mux with amplifiers (generic R2.9): a twin 9-degree WSS, a boost and a pre-amplifier, OCM, OTDR and OSC on one card. Its OSC, amplifier ports (BAIN, LINEIN, LINEOUT, PAOUT) and the WSS’s logical COM port are inside it, so only LINE, A/D1–A/D9 and MON 1/2 are on its front.",
+      "specs": {
+        "Front": "LINE, A/D1–A/D9 (DLC) and MON 1/2: one DLC, MON1 the LINE OUT test point, MON2 the LINE IN one after the pre-amp, both −19 dB",
+        "Boost amp (BA)": "15–25 dB gain, 21 dBm out",
+        "Pre-amp (PA)": "15–25 dB gain, 21 dBm out, a 0–25 dB VOA before it",
+        "WSS": "twin 9-degree, 6.25 GHz centre grid, 12.5 GHz bandwidth steps, up to 15 dB per channel",
+        "OCM": "integrated, 6.25 GHz flex grid",
+        "OTDR": "1611 nm, integrated",
+        "OSC": "GE at 1510 nm, 28 dB dynamic range",
+        "Span": "up to 25 dB attenuation adjustment; auto span loss measurement and ingress adaptation; auto channel power control"
+      }
+    },
+    "lc-tmuxc935": {
+      "name": "TMUX-C9-35",
+      "page": "11",
+      "image": "faceplates/tmux-c9-35.png",
+      "size": [778, 154],
+      "ports": {
+        "LINE": {"box": [36, 62, 51, 37]},
+        "AD1": {"box": [95, 62, 52, 36]},
+        "AD2": {"box": [153, 62, 52, 36]},
+        "AD3": {"box": [212, 62, 52, 36]},
+        "AD4": {"box": [270, 62, 52, 36]},
+        "AD5": {"box": [328, 62, 52, 36]},
+        "AD6": {"box": [387, 62, 52, 36]},
+        "AD7": {"box": [445, 62, 52, 36]},
+        "AD8": {"box": [503, 62, 52, 36]},
+        "AD9": {"box": [562, 62, 52, 36]},
+        "MON1": {"tx": [631, 62, 26, 36]},
+        "MON2": {"tx": [657, 62, 26, 36]}
+      },
+      "about": "The TMUX-C9-25 with a 35 dB pre-amplifier and an amplified DWDM OSC (generic R2.9.100). The same front: LINE, A/D1–A/D9 and MON 1/2.",
+      "specs": {
+        "Front": "LINE, A/D1–A/D9 (DLC) and MON 1/2: one DLC, MON1 the LINE OUT test point, MON2 the LINE IN one after the pre-amp, both −19 dB",
+        "Boost amp (BA)": "15–25 dB gain, 21 dBm out",
+        "Pre-amp (PA)": "22–35 dB gain, 21 dBm out, a 0–25 dB VOA before it",
+        "WSS": "twin 9-degree, 6.25 GHz centre grid, 12.5 GHz bandwidth steps, up to 15 dB per channel",
+        "OTDR": "1611 nm, 35 dB",
+        "OSC": "100M DWDM at 191.2 THz (1567.95 nm), 45 dB dynamic range, amplified by the pre-amp; 3 dB more loss before the OSC Rx in the official release",
+        "LEDs": "STAT, one per LINE and A/D port"
+      }
+    },
+    "lc-c25": {
+      "name": "TMUX-C-25",
+      "page": "10",
+      "image": "faceplates/tmux-c-25.png",
+      "size": [778, 154],
+      "ports": {
+        "LINE": {"box": [95, 62, 52, 37]},
+        "SIG": {"box": [213, 61, 51, 37]},
+        "MON1": {"tx": [514, 62, 26, 36]},
+        "MON2": {"tx": [540, 62, 26, 36]}
+      },
+      "about": "Terminal amplifier with no WSS (generic R2.9.100): a boost and a pre-amplifier, OCM and OSC. SIG takes the whole band in and out; the OSC is inside the card.",
+      "specs": {
+        "Front": "LINE and SIG (DLC), MON 1/2: one DLC, MON1 the LINE OUT test point, MON2 the LINE IN one after the pre-amp, both −19 dB",
+        "Boost amp (BA)": "7–18 dB gain, 21 dBm out",
+        "Pre-amp (PA)": "15–25 dB gain, 21 dBm out, a 0–25 dB VOA before it",
+        "OCM": "integrated",
+        "OSC": "GE at 1510 nm, 28 dB dynamic range",
+        "Span": "up to 15 dB attenuation adjustment; auto span loss measurement and adaptation TBD",
+        "LEDs": "STAT, one per LINE and SIG"
+      }
+    },
+    "lc-400mx": {
+      "name": "400MX-S (M4QD)",
+      "page": "12",
+      "image": "faceplates/m4qd.png",
+      "size": [778, 315],
+      "ports": {
+        "L1": {"box": [144, 91, 137, 64]},
+        "C1": {"box": [385, 91, 135, 64]},
+        "C2": {"box": [385, 186, 135, 64]},
+        "C3": {"box": [562, 90, 135, 65]},
+        "C4": {"box": [562, 187, 134, 63]}
+      },
+      "about": "400G muxponder (generic R2.5 and R2.9): four 100GE clients into one 400G line. 400MX-S is a label sticker on the M4QD card.",
+      "specs": {
+        "Front": "L1 QSFP-DD cage (up to 25 W), C1–C4 QSFP28 cages (up to 7.2 W): C1 over C2, C3 over C4",
+        "Data path": "4×100GE ↔ 400G-16QAM OpenZR+ SS (OPMODE 102), through a gearbox (4×CAUI-4 or OTL4.4 ↔ 4×100GAUI-2)",
+        "Functions": "temperature, optical and coherent PM; line and client loopback; NTA upgrade of the card and DCO; 3rd-party pluggables; latch graceful shutdown; line 400G PRBS BERT",
+        "LEDs": "green, red, amber"
+      }
+    },
+    "lc-800mx": {
+      "name": "800MX",
+      "page": "13–14",
+      "image": "faceplates/800mx.png",
+      "size": [743, 287],
+      "ports": {
+        "PORT1": {"box": [49, 64, 132, 59]},
+        "PORT2": {"box": [185, 63, 131, 60]},
+        "PORT3": {"box": [319, 64, 132, 59]},
+        "PORT4": {"box": [454, 64, 130, 58]},
+        "PORT5": {"box": [587, 63, 131, 59]},
+        "PORT6": {"box": [49, 155, 131, 56]},
+        "PORT7": {"box": [185, 155, 130, 56]},
+        "PORT8": {"box": [320, 155, 129, 56]},
+        "PORT9": {"box": [454, 154, 128, 56]},
+        "PORT10": {"box": [588, 154, 130, 56]}
+      },
+      "about": "800G muxponder, transponder and regenerator (generic R2.9).",
+      "specs": {
+        "Front": "10 QSFP-DD800 cages, 1–5 over 6–10, each a line or a client port",
+        "Module power by port": "1, 5, 6, 10: 32 W (DCO); 3, 8: 25 W; 2, 4, 7, 9: 12 W",
+        "Line DCO": "QSFP-DD800 FTCE3326R1PCL (max 32 W): 800G 123.8 GBd mPCS SDFEC, 600G 118 GBd 8QAM, 400G 118 GBd QPSK OFEC ZR+, 400G 80 GBd 8QAM OFEC ZR+, 400G 85 GBd 16QAM-PS OFEC ZR+ (TBD)",
+        "Clients": "QSFP-DD800 800GE (800GAUI-8, DR8 later), QSFP-DD 400GE (400GAUI-8: FR4), QSFP28 100GE (CAUI-4: CWDM4, LR4)",
+        "Service modes": "8×100GE and 2×400GE ↔ 800G: OPMODE 140; 4×100GE or 400GE ↔ ITU400-16QAMPS-85G-SDFEC: OPMODE 105; 4×100GE or 400GE ↔ ZR400G-OFEC-QPSK: OPMODE 103; 6×100GE ↔ ZR600G-OFEC-8QAM: OPMODE 150",
+        "Inside": "two Microchip META-DX2+ PM6214 gearboxes with OTN",
+        "LEDs": "11 RGB: card status/power, one per port",
+        "Max power": "300 W",
+        "Environment": "−5 to 45 °C at sea level, 5–85 % RH, 40 °C with one fan failed"
+      }
+    },
+    "lc-t1x12c8": {
+      "name": "T1X12C8 (T1XC128)",
+      "page": "18–19, 53",
+      "image": "faceplates/t1x12c8.png",
+      "size": [591, 241],
+      "ports": {
+        "L1": {"tx": [24, 26, 54, 39], "rx": [24, 65, 54, 39]},
+        "C1": {"box": [107, 79, 119, 52]},
+        "C3": {"box": [231, 71, 111, 61]},
+        "C5": {"box": [342, 71, 112, 61]},
+        "C7": {"box": [460, 79, 120, 53]},
+        "C2": {"box": [107, 146, 119, 53]},
+        "C4": {"box": [232, 138, 111, 62]},
+        "C6": {"box": [343, 138, 112, 62]},
+        "C8": {"box": [461, 147, 119, 53]}
+      },
+      "about": "Tencent OPC8 1200G muxponder, the same card as Polaris L1X12C8: the line module (CIM8) at L1 and eight client cages.",
+      "specs": {
+        "Front": "L1 the line, its Tx over its Rx; client cages C1, C3, C5, C7 over C2, C4, C6, C8",
+        "Client cages": "C1, C2, C7, C8 QSFP112 (400GE, takes QSFP56/28); C3–C6 QSFP56 (200GE, takes QSFP28); C1–C4 on PHY1, C5–C8 on PHY2",
+        "Service modes": "8×100GE and 2×400GE ↔ 800G: OPMODE 54; 4×100GE or 400GE ↔ 400G-16QAMPS-90G-SDFEC: OPMODE 55; ↔ 400G-16QAMPS-128G-SDFEC: OPMODE 56; 6×100GE ↔ 600G-16QAMPS-138G-SDFEC: OPMODE 57",
+        "Line Tx": "max 10 dBm in C band, 8 dBm in L band",
+        "Clients": "QSFP112 FR4; QSFP28 CWDM4, LR4",
+        "LEDs": "card status, line port, one per client port",
+        "Max power": "200 W",
+        "Data path": "4×, 6×, 8×100GE and 1×, 2×400GE ↔ ODUflex ↔ 400G/600G/800G ENH-ZR; 3×400GE ↔ 1200G after grey",
+        "Functions": "CRS and SNC service models, TTI, LLDP, test signal, loopback, SNCP, OCH 1+1 with SD, telemetry"
+      }
+    },
+    "lc-op3": {
+      "name": "OP3",
+      "page": "20",
+      "image": "faceplates/op3.png",
+      "size": [395, 161],
+      "ports": {
+        "1A": {"box": [18, 31, 52, 37]},
+        "1B": {"box": [75, 31, 52, 37]},
+        "1SIG": {"box": [75, 94, 52, 36]},
+        "2A": {"box": [142, 31, 52, 37]},
+        "2B": {"box": [198, 31, 52, 37]},
+        "2SIG": {"box": [198, 94, 52, 36]},
+        "3A": {"box": [266, 31, 52, 37]},
+        "3B": {"box": [321, 31, 52, 37]},
+        "3SIG": {"box": [321, 94, 52, 36]}
+      },
+      "about": "Tencent OPC8 OCH 1+1 protection, C and L band: three protection units, each A and B protecting SIG; also protection assisted by the electrical layer.",
+      "specs": {
+        "Front": "1A 1B over 1SIG, 2A 2B over 2SIG, 3A 3B over 3SIG (DLP LC, no shutter)",
+        "LEDs": "card, primary, secondary and common port status",
+        "Power monitor": "each port, in and out"
+      }
+    },
+    "lc-awcl": {
+      "name": "AWCL",
+      "page": "21, 28–29",
+      "image": "faceplates/awcl.png",
+      "size": [1561, 155],
+      "ports": {
+        "LINE": {"box": [310, 87, 52, 36]},
+        "EXP1": {"box": [400, 87, 52, 36]},
+        "EXP2": {"box": [471, 87, 52, 36]},
+        "EXP3": {"box": [538, 87, 52, 36]},
+        "EXP4": {"box": [607, 87, 52, 36]},
+        "EXP5": {"box": [675, 87, 52, 36]},
+        "EXP6": {"box": [744, 87, 52, 36]},
+        "EXP7": {"box": [812, 87, 52, 36]},
+        "EXP8": {"box": [880, 87, 52, 36]},
+        "AUX": {"box": [1024, 87, 52, 36]},
+        "EMUX1": {"box": [1102, 88, 59, 26]},
+        "EMUX2": {"box": [1200, 88, 59, 26]},
+        "EMUX3": {"box": [1297, 88, 59, 26]},
+        "MF": {"box": [1396, 88, 59, 26]}
+      },
+      "about": "Tencent OPC8 C+L ROADM, 4 slots: C and L pre-amps and boosters, a 2×2×32 C&L WSS (its 33rd port adds ASE), HR-OCM and ASE per band, OTDR, OSC and an intra-node SFP. EXT1 and EXT2 are RJ-45s for the extension shelf (with 12 V), not fibers.",
+      "specs": {
+        "Front": "LINE, EXP1–EXP8, AUX (Coherent probe or OSA) DLP LC; EMUX1–EMUX3 MPO-24 (24 add/drop); MF MPO-12 (Back-C/L, ASE-C/L, OCM-C/L); EXT1, EXT2 RJ-45",
+        "Pre-amps": "PA-SWG-C and PA-SWG-L, 24 dBm, 10–20 dB (20–24 extended), 18–28 dB (28–32 extended)",
+        "Boosters": "BA-VGA-C 24 dBm and BA-VGA-L 23 dBm with output VOA, 14–22 dB (22–25 extended)",
+        "OTDR": "1630–1650 nm, 38 dB dynamic range, switched to 2 fibers",
+        "OSC": "1625 nm, 35 dB dynamic range; intra-node SFP 1GbE at 191.2 THz",
+        "ASE filling": "band level, fast, on line-input LOS (under 5 ms typical, 10 ms max); channel level through the WSS 33rd add port; force, auto, revertive with WTR, hold-off"
+      }
+    },
+    "lc-ilae-swg-cl": {
+      "name": "ILAE-SWG-CL",
+      "page": "22",
+      "image": "faceplates/ilae-swg-cl.png",
+      "size": [782, 155],
+      "ports": {
+        "LINEA": {"box": [297, 83, 52, 36]},
+        "LINEB": {"box": [369, 83, 52, 36]},
+        "AUX": {"box": [447, 83, 52, 36]}
+      },
+      "about": "Tencent OPC8 C&L inline amplifier, 2 slots: an amplifier per band and direction, an HR-OCM per band, OTDR and two OSCs.",
+      "specs": {
+        "Front": "LINEA, LINEB, AUX (DLP LC); OSCA and OSCB SFP cages",
+        "Amplifiers": "2×ILA-SWG-C 24 dBm, 2×ILA-SWG-L 23 dBm, 10–20 dB (20–24 extended), 18–28 dB (28–32 extended), 0–15 dB output VOA",
+        "OTDR": "1630–1650 nm, 40 dB dynamic range, switched to 4 fibers",
+        "OSC": "2 × 1625 nm, 35 dB link budget",
+        "LEDs": "card, AUX, line A and B"
+      }
+    },
+    "lc-ila-swg-cl": {
+      "name": "ILA-SWG-CL",
+      "page": "22",
+      "image": "faceplates/ila-swg-cl.png",
+      "size": [782, 155],
+      "ports": {
+        "LINEA": {"box": [297, 83, 52, 36]},
+        "LINEB": {"box": [369, 83, 52, 36]},
+        "AUX": {"box": [447, 83, 52, 36]}
+      },
+      "about": "Tencent OPC8 C&L inline amplifier, 2 slots: the ILAE-SWG-CL with internal middle-stage access for gain equalisation (a 2 dB GFF middle stage).",
+      "specs": {
+        "Front": "LINEA, LINEB, AUX (DLP LC); OSCA and OSCB SFP cages",
+        "Amplifiers": "2×ILA-SWG-C 24 dBm, 2×ILA-SWG-L 23 dBm, 10–20 dB (20–24 extended), 18–28 dB (28–32 extended), 0–15 dB output VOA",
+        "OTDR": "1630–1650 nm, 40 dB dynamic range, switched to 4 fibers",
+        "OSC": "2 × 1625 nm, 35 dB link budget",
+        "LEDs": "card, AUX, line A and B"
+      }
+    },
+    "lc-fga": {
+      "name": "FGA",
+      "page": "32–33",
+      "image": "faceplates/fga.png",
+      "size": [394, 161],
+      "ports": {
+        "LINE": {"box": [89, 64, 52, 36]},
+        "SIG": {"box": [246, 64, 52, 36]}
+      },
+      "about": "Tencent: a fixed-gain amplifier, 1 slot: a 10 dB add amplifier, then a 0–15 dB VOA, 18 dBm out at LINE. It lets an OPC8 C+L system carry OLS1000 T2X4C8 traffic (64 × 75 GHz from a MUX64 into the AWCL).",
+      "specs": {
+        "Front": "LINE and SIG (inner-shutter DLC)",
+        "LEDs": "STAT, one per port",
+        "Monitors": "SIG in, amplifier out, LINE in and out"
+      }
+    },
+    "lc-t1x8c8": {
+      "name": "T1X8C8",
+      "page": "36–37",
+      "image": "faceplates/t1x8c8.png",
+      "size": [388, 155],
+      "ports": {
+        "L1": {"tx": [26, 18, 38, 26], "rx": [26, 44, 38, 26]},
+        "C1": {"box": [88, 42, 66, 30]},
+        "C3": {"box": [171, 42, 67, 30]},
+        "C5": {"box": [240, 42, 66, 30]},
+        "C7": {"box": [308, 42, 68, 30]},
+        "C2": {"box": [88, 91, 66, 30]},
+        "C4": {"box": [171, 92, 67, 30]},
+        "C6": {"box": [239, 92, 67, 30]},
+        "C8": {"box": [308, 92, 69, 30]}
+      },
+      "about": "Tencent R3.2.0 800G muxponder: the integrated DCO line at L1 and eight client cages, odd ones on top; two Marvell x9340P gearboxes.",
+      "specs": {
+        "Front": "L1 the line, its Tx over its Rx; cages 1, 3, 5, 7 over 2, 4, 6, 8: QSFP-DD at 1 and 7 (8 SerDes) and 2 and 8 (4), QSFP28 at 3–6 (4)",
+        "Service modes": "8×100GE, 2×400GE ↔ ITU800G-16QAMPS-132G-OFEC (1×800GE, 4×200GE later); 4×100GE or 400GE ↔ ITU400G-16QAMPS-90G-OFEC or ITU400G-16QAMPS-120G-SDFEC",
+        "Clients": "QSFP112 400GE, QSFP28 100GE, QSFP56 200GE (HwRdy), QSFP-DD 800GE and 400GE (later)",
+        "Size": "40 × 102.5 × 274 mm, 8 to a chassis",
+        "LEDs": "10 (sticker): card status/power, line, one per client",
+        "Environment": "−5 to 45 °C at 1800 ft, 5–85 % RH, −40 to 85 °C stored"
+      }
+    },
+    "lc-lch08": {
+      "name": "LCH08",
+      "page": "39",
+      "image": "faceplates/lch08.png",
+      "size": [389, 155],
+      "ports": {
+        "PORT1": {"box": [63, 43, 66, 30]},
+        "PORT2": {"box": [140, 43, 67, 30]},
+        "PORT3": {"box": [218, 43, 66, 30]},
+        "PORT4": {"box": [297, 43, 65, 30]},
+        "PORT5": {"box": [62, 105, 67, 29]},
+        "PORT6": {"box": [140, 104, 67, 30]},
+        "PORT7": {"box": [218, 104, 66, 30]},
+        "PORT8": {"box": [297, 104, 66, 30]}
+      },
+      "about": "Tencent POLS (R3.100.0, IPoDWDM with 800G Coherent Lite DCOs, 1.6T later): eight cages, 1–4 over 5–8.",
+      "specs": {
+        "Front": "cages 1–4 over 5–8, heat sinks between the rows"
+      }
+    },
+    "lc-dgecl": {
+      "name": "DGE-CL",
+      "page": "45",
+      "image": "faceplates/dge-cl.png",
+      "size": [1561, 155],
+      "ports": {
+        "LINE_WEST": {"box": [308, 85, 55, 40]},
+        "LINE_EAST": {"box": [469, 85, 55, 40]}
+      },
+      "about": "Polaris C+L inline amplifier with DGE, 4 slots (the AWCL board): an amplifier per band and direction, twin C and twin L DGE, an HR-OCM per band, OTDR and two OSCs. AUX is on its front but not in its port list.",
+      "specs": {
+        "Front": "LINE_WEST, LINE_EAST, AUX (DLP LC); EXT1, EXT2 RJ-45 and the extension connector (12 V)",
+        "Amplifiers": "2×ILA-SWG-C 24 dBm, 2×ILA-SWG-L 23 dBm, 10–20 dB (20–24 extended), 18–28 dB (28–32 extended), 0–15 dB output VOA",
+        "OTDR": "1630–1650 nm, 40 dB dynamic range, switched to 4 fibers",
+        "OSC": "2 × 1625 nm, 35 dB link budget",
+        "LEDs": "card, AUX, line A and B"
+      }
+    },
+    "lc-olp3-3": {
+      "name": "OLP3-3",
+      "page": "47, 97",
+      "image": "faceplates/olp3-3.png",
+      "size": [392, 161],
+      "ports": {
+        "1A": {"box": [22, 31, 54, 37]},
+        "1B": {"box": [78, 31, 54, 37]},
+        "2A": {"box": [143, 31, 54, 37]},
+        "2B": {"box": [199, 31, 54, 37]},
+        "3A": {"box": [266, 31, 54, 37]},
+        "3B": {"box": [321, 31, 54, 37]},
+        "1C": {"box": [22, 84, 54, 37]},
+        "1SIG": {"box": [78, 84, 54, 37]},
+        "2C": {"box": [143, 84, 54, 37]},
+        "2SIG": {"box": [199, 84, 54, 37]},
+        "3C": {"box": [266, 84, 54, 37]},
+        "3SIG": {"box": [321, 84, 54, 37]}
+      },
+      "about": "Polaris OCH protection, C and L band: three 1+2 units, A, B and C protecting SIG; under 50 ms; absolute or relative switch, revertive or not, hold-off, commands; SF/SD from optical power or the L1 card’s diagnosis.",
+      "specs": {
+        "Front": "1A 1B over 1C 1SIG, 2A 2B over 2C 2SIG, 3A 3B over 3C 3SIG (12 DLC)",
+        "LEDs": "RGB, one per LC port, and card status",
+        "Size": "1 slot, 1RU"
+      }
+    },
+    "lc-iracl": {
+      "name": "IRA-CL",
+      "page": "48, 63",
+      "image": "faceplates/ira-cl.png",
+      "size": [1561, 155],
+      "ports": {
+        "LINE": {"box": [308, 85, 55, 40]},
+        "EXP1": {"box": [399, 85, 55, 40]},
+        "EXP2": {"box": [469, 85, 55, 40]},
+        "EXP3": {"box": [536, 85, 55, 40]},
+        "EXP4": {"box": [606, 85, 55, 40]},
+        "EXP5": {"box": [674, 85, 55, 40]},
+        "EXP6": {"box": [743, 85, 55, 40]},
+        "EXP7": {"box": [811, 85, 55, 40]},
+        "EXP8": {"box": [880, 85, 55, 40]},
+        "MPO1": {"box": [1102, 88, 59, 26]},
+        "MPO2": {"box": [1200, 88, 59, 26]},
+        "MPO3": {"box": [1297, 88, 59, 26]}
+      },
+      "about": "Polaris C+L ROADM, 4 slots: the AWCL board renamed and recoloured, the same optics. AUX and MF are on its front but not in its port list; its EXP33 and SIG ports are inside the card.",
+      "specs": {
+        "Front": "LINE, EXP1–EXP8, AUX (DLC); MPO1 (9~16), MPO2 (17~24), MPO3 (25~32), MF (MPO); EXT1, EXT2 RJ-45 with 12 V for the extension shelf",
+        "Cascade": "a second IRA-CL’s LINE into the first one’s EXP (EXP8 by default), with two MUXPANEL-32C32L, for up to 63C + 63L add/drop"
+      }
+    },
+    "lc-ilacl": {
+      "name": "ILA-CL",
+      "page": "49",
+      "image": "faceplates/ila-cl.png",
+      "size": [782, 155],
+      "ports": {
+        "LINE_WEST": {"box": [296, 81, 55, 39]},
+        "LINE_EAST": {"box": [368, 81, 55, 39]}
+      },
+      "about": "Polaris C+L inline amplifier, 2 slots: the ILA-SWG-CL board renamed and recoloured, MF removed, the same optics. AUX is on its front but not in its port list.",
+      "specs": {
+        "Front": "LINE_WEST, LINE_EAST, AUX (DLP LC); OSCE and OSCW SFP cages"
+      }
+    },
+    "lc-ramancl-16": {
+      "name": "RAMAN-CL-16",
+      "page": "60–62",
+      "image": "faceplates/raman-cl-16.png",
+      "size": [392, 161],
+      "ports": {
+        "LINE": {"box": [73, 63, 55, 39]},
+        "SIG": {"box": [188, 63, 55, 39]}
+      },
+      "about": "Polaris C+L backward Raman pump, 1 slot (PN 60G410001), with its own OSC; a pair per span, or one at an OTM or ROADM.",
+      "specs": {
+        "Front": "LINE (toward the span), SIG (to the amplifier)",
+        "Pumps": "1425, 1435, 1446, 1463, 1492, 1499 nm",
+        "Gain": "10–17 dB in 0.1 dB steps, spans up to 42 dB",
+        "OSC": "191.15 THz (1568.36 nm) DWDM, 100FX, at least 44 dB port to port, in the pump’s direction",
+        "Laser safety": "APSD on the line (the Raman APSD triggers the amplifier’s), APR on LINE in and SIG out",
+        "LEDs": "STAT, one per port"
+      }
+    },
+    "lc-tmuxc64": {
+      "name": "TMUX-C64",
+      "page": "72",
+      "image": "faceplates/tmux-c64.png",
+      "size": [1561, 155],
+      "ports": {
+        "A": {"box": [308, 85, 55, 40]},
+        "B": {"box": [470, 85, 55, 40]},
+        "MPO1": {"box": [711, 88, 59, 26]},
+        "MPO2": {"box": [809, 88, 59, 26]},
+        "MPO3": {"box": [905, 88, 59, 26]},
+        "MPO4": {"box": [1004, 88, 59, 26]},
+        "MPO5": {"box": [1102, 88, 59, 26]},
+        "MPO6": {"box": [1200, 88, 59, 26]},
+        "MPO7": {"box": [1297, 88, 59, 26]},
+        "MPO8": {"box": [1396, 88, 59, 26]}
+      },
+      "about": "Polaris C band flex-grid mux/demux, 4 slots: two 2×32 WSS; a 1×2 switch and a 50/50 coupler from A/B into the WSS COM ports, a 2×2 50/50 coupler back out to A/B. Its SIG port is inside the card.",
+      "specs": {
+        "Front": "A and B (inner-shutter DLP LC); MPO1–MPO8 (channels 1–8 to 57–64)",
+        "LEDs": "STAT, A, B"
+      }
+    },
+    "lc-tmuxc-32": {
+      "name": "TMUX-C-32",
+      "page": "74",
+      "image": "faceplates/tmux-c-32.png",
+      "size": [782, 155],
+      "ports": {
+        "SIG": {"box": [296, 81, 55, 39]},
+        "LINE": {"box": [368, 81, 55, 39]},
+        "AUX": {"box": [447, 81, 55, 39]}
+      },
+      "about": "Polaris C band terminal amplifier, 2 slots: the ILA-CL with its L band and the SIG-side OSC taken out.",
+      "specs": {
+        "Front": "SIG, LINE, AUX (inner-shutter DLP LC); the OSC SFP cage",
+        "Pre-amp": "PA-SWG-C 24 dBm, 10–20 dB (20–24 extended), 18–28 dB (28–32 extended)",
+        "Booster": "BA-SWG-C 24 dBm with output VOA, 10–20 dB (20–24 extended), 18–28 dB (28–32 extended)",
+        "OTDR": "1630–1650 nm, 38 dB dynamic range, switched to 2 fibers",
+        "OSC": "1625 nm, 35 dB dynamic range",
+        "LEDs": "card, AUX, LINE, SIG"
+      }
+    },
+    "lc-iladc-32": {
+      "name": "ILAD-C-32",
+      "page": "75",
+      "image": "faceplates/ilad-c-32.png",
+      "size": [782, 155],
+      "ports": {
+        "LINE_WEST": {"box": [296, 81, 55, 39]},
+        "LINE_EAST": {"box": [368, 81, 55, 39]},
+        "AUX": {"box": [447, 81, 55, 39]}
+      },
+      "about": "Polaris C band inline amplifier, 2 slots: the ILA-CL with its L band taken out.",
+      "specs": {
+        "Front": "LINE_WEST, LINE_EAST, AUX (inner-shutter DLP LC); OSCE and OSCW SFP cages",
+        "Amplifiers": "2 × C band 24 dBm, 10–20 dB (20–24 extended), 18–28 dB (28–32 extended), 0–15 dB output VOA",
+        "OTDR": "1630–1650 nm, 38 dB dynamic range, switched to 4 fibers",
+        "OSC": "2 × 1625 nm, 35 dB dynamic range"
+      }
+    },
+    "lc-iladc-dge-32": {
+      "name": "ILAD-C-DGE-32",
+      "page": "76",
+      "image": "faceplates/ilad-c-dge-32.png",
+      "size": [1561, 155],
+      "ports": {
+        "LINE_WEST": {"box": [308, 85, 55, 40]},
+        "LINE_EAST": {"box": [469, 85, 55, 40]},
+        "AUX": {"box": [1023, 85, 55, 40]}
+      },
+      "about": "Polaris C band inline amplifier with twin DGE, 4 slots: the DGE-CL with its L band taken out.",
+      "specs": {
+        "Front": "LINE_WEST, LINE_EAST, AUX (inner-shutter DLP LC); EXT1, EXT2 RJ-45",
+        "Amplifiers": "2×ILA-SWG-C 24 dBm, 10–20 dB (20–24 extended), 18–28 dB (28–32 extended), 0–15 dB output VOA",
+        "OTDR": "1630–1650 nm, 40 dB dynamic range, switched to 4 fibers",
+        "OSC": "2 × 1625 nm, 35 dB link budget"
+      }
+    },
+    "lc-tmuxc32-32": {
+      "name": "TMUX-C32-32",
+      "page": "77",
+      "image": "faceplates/tmux-c32-32.png",
+      "size": [1561, 155],
+      "ports": {
+        "LINE": {"box": [308, 85, 55, 40]},
+        "EXP1": {"box": [399, 85, 55, 40]},
+        "EXP2": {"box": [469, 85, 55, 40]},
+        "EXP3": {"box": [536, 85, 55, 40]},
+        "EXP4": {"box": [606, 85, 55, 40]},
+        "EXP5": {"box": [674, 85, 55, 40]},
+        "EXP6": {"box": [743, 85, 55, 40]},
+        "EXP7": {"box": [811, 85, 55, 40]},
+        "EXP8": {"box": [880, 85, 55, 40]},
+        "MPO1": {"box": [1102, 88, 59, 26]},
+        "MPO2": {"box": [1200, 88, 59, 26]},
+        "MPO3": {"box": [1297, 88, 59, 26]}
+      },
+      "about": "Polaris C band ROADM, 4 slots: the IRA-CL with its L band and ASE taken out. AUX is on its front but not in its port list; its EXP33 and SIG are inside the card.",
+      "specs": {
+        "Front": "LINE, EXP1–EXP8, AUX (inner-shutter DLP LC); MPO1–MPO3 (24 add/drop); EXT1, EXT2 RJ-45",
+        "Pre-amp": "PA-SWG-C 24 dBm, 10–20 dB (20–24 extended), 18–28 dB (28–32 extended)",
+        "Booster": "BA-VGA-C 24 dBm with output VOA, 14–22 dB (22–25 extended)",
+        "OTDR": "1630–1650 nm, 38 dB dynamic range, switched to 2 fibers",
+        "OSC": "1625 nm, 35 dB dynamic range"
+      }
+    },
+    "lc-olp3": {
+      "name": "OLP3",
+      "page": "69, 78",
+      "image": "faceplates/olp3.png",
+      "size": [392, 161],
+      "ports": {
+        "1A": {"box": [22, 31, 54, 37]},
+        "1B": {"box": [78, 31, 54, 37]},
+        "2A": {"box": [143, 31, 54, 37]},
+        "2B": {"box": [199, 31, 54, 37]},
+        "3A": {"box": [266, 31, 54, 37]},
+        "3B": {"box": [321, 31, 54, 37]},
+        "1SIG": {"box": [78, 85, 54, 37]},
+        "2SIG": {"box": [199, 85, 54, 37]},
+        "3SIG": {"box": [321, 85, 54, 37]}
+      },
+      "about": "Polaris C band OCH protection: three 1+1 units, A and B protecting SIG; the OLP3-3 with port C, its LED and its PD taken out and a 50:50 coupler in, so the protection state machine always keeps alternate 2 locked out.",
+      "specs": {
+        "Front": "1A 1B over 1SIG, 2A 2B over 2SIG, 3A 3B over 3SIG (9 DLC)",
+        "Switching": "under 50 ms",
+        "Size": "1 slot, 1RU"
+      }
+    },
+    "lc-l1x12c8": {
+      "name": "L1X12C8 (L1X12C8-L)",
+      "page": "53–55, 79",
+      "image": "faceplates/l1x12c8.png",
+      "size": [802, 328],
+      "ports": {
+        "L1": {"tx": [29, 34, 75, 53], "rx": [29, 87, 75, 54]},
+        "C1": {"box": [142, 95, 164, 83]},
+        "C3": {"box": [313, 95, 152, 83]},
+        "C5": {"box": [465, 95, 152, 83]},
+        "C7": {"box": [624, 96, 164, 83]},
+        "C2": {"box": [142, 188, 163, 82]},
+        "C4": {"box": [314, 188, 152, 84]},
+        "C6": {"box": [466, 188, 152, 84]},
+        "C8": {"box": [625, 189, 163, 82]}
+      },
+      "about": "Polaris 1200G muxponder, C band (L1X12C8-L for L band); clients 1–8 mux into line port 1.",
+      "specs": {
+        "Front": "L1 the line, its Tx over its Rx; client cages C1, C3, C5, C7 over C2, C4, C6, C8",
+        "Client cages": "C1, C2, C7, C8 QSFP112 (400GE, takes QSFP56/28); C3–C6 QSFP56 (200GE, takes QSFP28); C1–C4 on PHY1, C5–C8 on PHY2",
+        "Service modes": "8×100GE and 2×400GE ↔ 800G: OPMODE 54; 4×100GE or 400GE ↔ 400G-16QAMPS-90G-SDFEC: OPMODE 55; ↔ 400G-16QAMPS-128G-SDFEC: OPMODE 56; 6×100GE ↔ 600G-16QAMPS-138G-SDFEC: OPMODE 57",
+        "Line Tx": "max 10 dBm in C band, 8 dBm in L band",
+        "Clients": "QSFP112 FR4; QSFP28 CWDM4, LR4",
+        "LEDs": "card status, line port, one per client port",
+        "Max power": "200 W",
+        "Regeneration": "one 800G simplex one-way regeneration"
+      }
+    },
+    "lc-l3x8c7": {
+      "name": "L3X8C7",
+      "page": "50–52, 79",
+      "image": "faceplates/l3x8c7.png",
+      "size": [792, 328],
+      "ports": {
+        "PORT1": {"box": [55, 76, 139, 64]},
+        "PORT2": {"box": [198, 73, 138, 68]},
+        "PORT3": {"box": [341, 75, 137, 66]},
+        "PORT4": {"box": [482, 72, 139, 68]},
+        "PORT5": {"box": [623, 75, 139, 65]},
+        "PORT6": {"box": [55, 175, 139, 65]},
+        "PORT7": {"box": [198, 175, 138, 65]},
+        "PORT8": {"box": [340, 175, 138, 65]},
+        "PORT9": {"box": [482, 175, 139, 64]},
+        "PORT10": {"box": [623, 175, 138, 64]}
+      },
+      "about": "Polaris 800G muxponder, transponder and regenerator: the deck describes it as the 800MX, with the same faceplate (label COHR-RL3X8C7_Flex).",
+      "specs": {
+        "Front": "10 QSFP-DD800 cages, 1–5 over 6–10, each a line or a client port",
+        "Module power by port": "1, 5, 6, 10: 32 W (DCO); 3, 8: 25 W; 2, 4, 7, 9: 12 W",
+        "Line DCO": "QSFP-DD800 FTCE3326R1PCL (max 32 W): 800G 123.8 GBd mPCS SDFEC, 600G 118 GBd 8QAM, 400G 118 GBd QPSK OFEC ZR+, 400G 80 GBd 8QAM OFEC ZR+, 400G 85 GBd 16QAM-PS OFEC ZR+ (TBD)",
+        "Clients": "QSFP-DD800 800GE (800GAUI-8, DR8 later), QSFP-DD 400GE (400GAUI-8: FR4), QSFP28 100GE (CAUI-4: CWDM4, LR4)",
+        "Service modes": "8×100GE and 2×400GE ↔ 800G: OPMODE 140; 4×100GE or 400GE ↔ ITU400-16QAMPS-85G-SDFEC: OPMODE 105; 4×100GE or 400GE ↔ ZR400G-OFEC-QPSK: OPMODE 103; 6×100GE ↔ ZR600G-OFEC-8QAM: OPMODE 150",
+        "Inside": "two Microchip META-DX2+ PM6214 gearboxes with OTN",
+        "LEDs": "11 RGB: card status/power, one per port",
+        "Max power": "300 W",
+        "Environment": "−5 to 45 °C at sea level, 5–85 % RH, 40 °C with one fan failed",
+        "Regeneration": "four 800G simplex one-way regenerations"
+      }
+    },
+    "lc-fmux-32": {
+      "name": "FMUX_32",
+      "page": "95",
+      "image": "faceplates/fmux-32.png",
+      "size": [1662, 310],
+      "ports": {
+        "SIGA": {"box": [100, 177, 112, 78]},
+        "SIGB": {"box": [253, 177, 112, 78]},
+        "COM1": {"box": [406, 177, 112, 78]},
+        "COM2": {"box": [560, 177, 112, 78]},
+        "SIG": {"box": [713, 177, 112, 78]},
+        "MPO1": {"box": [892, 188, 130, 56]},
+        "MPO2": {"box": [1078, 188, 130, 56]},
+        "MPO3": {"box": [1265, 188, 130, 56]},
+        "MPO4": {"box": [1451, 188, 130, 56]}
+      },
+      "about": "Polaris BONE 2.0 C band 32-channel flex-grid mux/demux, 2 slots: 0–15 dB per channel per direction; SIGA and SIGB through a 2×2 coupler extend it to 64 channels with 1+1 protection over COM1 and COM2. Its EXP33, the WSS COM3 loopback for link discovery, is inside the card.",
+      "specs": {
+        "Front": "SIGA, SIGB, COM1, COM2, SIG (DLC); MPO1–MPO4 (channels 1–8 to 25–32)",
+        "Grid": "6.25 GHz centre, 12.5 GHz steps, 50–500 GHz channels",
+        "Loss": "up 4.5 dB, drop 5.5 dB, through the WSS 9.5 dB",
+        "SFP": "one DWDM SFP (191.2 THz TBD) toward SIG",
+        "Monitors": "SIG and COM in and out, the WSS COM3 loopback; channel power at SIG by HR-OCM or UWB OCM",
+        "LEDs": "STAT, one per DLC port"
+      }
+    },
+    "lc-ira-32": {
+      "name": "IRA_32",
+      "page": "96",
+      "image": "faceplates/ira-32.png",
+      "size": [1561, 155],
+      "ports": {
+        "LINE": {"box": [308, 85, 55, 40]},
+        "EXP1": {"box": [399, 85, 55, 40]},
+        "EXP2": {"box": [469, 85, 55, 40]},
+        "EXP3": {"box": [536, 85, 55, 40]},
+        "EXP4": {"box": [606, 85, 55, 40]},
+        "EXP5": {"box": [674, 85, 55, 40]},
+        "EXP6": {"box": [743, 85, 55, 40]},
+        "EXP7": {"box": [811, 85, 55, 40]},
+        "EXP8": {"box": [880, 85, 55, 40]},
+        "MPO1": {"box": [1102, 88, 59, 26]},
+        "MPO2": {"box": [1200, 88, 59, 26]},
+        "MPO3": {"box": [1297, 88, 59, 26]}
+      },
+      "about": "Polaris BONE 2.0 C band ROADM, 4 slots: pre-amp and booster at 24.5 dBm, an ASE source (19 dBm into the WSS), a 2×32 WSS, HR or UWB OCM, OTDR, OSC and a DWDM SFP toward the EXP ports. Its EXP33 and SIG are inside the card.",
+      "specs": {
+        "Front": "LINE, EXP1–EXP8 (inner-shutter DLP LC); MPO1–MPO3 (24 add/drop)",
+        "Pre-amp": "PA-SWG-C 24.5 dBm, 10–20 dB (20–24 extended), 18–28 dB (28–32 extended)",
+        "Booster": "BA-VGA-C 24.5 dBm with output VOA, 10–20 dB (20–24 extended), 18–28 dB (28–32 extended)",
+        "OTDR": "1630–1650 nm, 38 dB dynamic range, switched to 2 fibers",
+        "OSC": "1625 nm, 35 dB dynamic range",
+        "Loss": "WSS 9 dB"
+      }
+    },
+    "lc-tila": {
+      "name": "TILA",
+      "page": "98",
+      "image": "faceplates/tila.png",
+      "size": [1662, 310],
+      "ports": {
+        "LINE_WEST": {"box": [628, 177, 111, 78]},
+        "LINE_EAST": {"box": [1003, 177, 112, 78]}
+      },
+      "about": "Polaris BONE 2.0 C band terminal or inline amplifier, 2 slots: two amplifiers at 24.5 dBm, HR or UWB OCM, OTDR and two OSCs; as a terminal amplifier its LINE_WEST APSD and OSC are off.",
+      "specs": {
+        "Front": "LINE_WEST, LINE_EAST (inner-shutter DLP LC)",
+        "Amplifiers": "10–20 dB (20–24 extended), 18–28 dB (28–32 extended), 0–15 dB output VOA",
+        "OTDR": "1630–1650 nm, 38 dB dynamic range, switched to 4 fibers",
+        "OSC": "2 × 1625 nm, 35 dB dynamic range"
+      }
+    },
+    "lc-dge": {
+      "name": "DGE",
+      "page": "99",
+      "image": "faceplates/dge.png",
+      "size": [1561, 155],
+      "ports": {
+        "LINE_WEST": {"box": [303, 87, 52, 37]},
+        "LINE_EAST": {"box": [467, 87, 53, 37]}
+      },
+      "about": "Polaris BONE 2.0 C band inline amplifier with twin DGE, 4 slots: two ILA-SWG-C at 24.5 dBm with output VOA, HR-OCM, OTDR and two OSCs.",
+      "specs": {
+        "Front": "LINE_WEST, LINE_EAST (inner-shutter DLP LC)",
+        "Amplifiers": "10–20 dB (20–24 extended), 18–28 dB (28–32 extended), 0–15 dB output VOA",
+        "OTDR": "1630–1650 nm, 40 dB dynamic range, switched to 4 fibers",
+        "OSC": "2 × 1625 nm, 35 dB link budget"
+      }
+    },
+    "lc-m4qd": {
+      "like": "lc-400mx",
+      "name": "M4QD",
+      "page": "12",
+      "about": "The 400MX-S card under its own name: the deck’s picture of it is labelled M4QD."
+    },
+    "lc-800mx-sec": {
+      "like": "lc-800mx",
+      "name": "800MX_MACSEC",
+      "page": "15–16",
+      "about": "The 800MX with MACsec, client to line, at 100GE, 400GE and 800GE (generic R2.9.200). The deck draws it with the 800MX faceplate.",
+      "specs": {
+        "Front": "10 QSFP/QSFP-DD cages, 1–5 over 6–10",
+        "Line": "800G or 400G QSFP-DD DCO",
+        "Clients": "QSFP28 100GE, QSFP-DD 400GE, QSFP-DD 800GE",
+        "MACsec": "IEEE 802.1AE-2018, 802.1AEbn-2011 (256-bit key), 802.1AEbw-2013 (XPN); GCM-AES-128/256 and GCM-AES-XPN-128/256; up to 2048 SecYs, 2048 SCs and 4096 SAs per direction; global, static per-channel and inline bypass; NIST FIPS-197 CAVP A6777",
+        "Groups": "8×100GE ↔ 800G DCO; 2 groups 2×400GE ↔ 800G; 2 groups 800GE ↔ 800G; 2 groups 4×100GE ↔ 400G"
+      }
+    },
+    "lc-t1x12c8l": {
+      "like": "lc-t1x12c8",
+      "name": "T1X12C8L",
+      "page": "18–19, 53",
+      "about": "The L band T1X12C8."
+    },
+    "lc-t1x8c8l": {
+      "like": "lc-t1x8c8",
+      "name": "T1X8C8L",
+      "page": "36–37",
+      "about": "The L band T1X8C8."
+    },
+    "lc-l1x12c8l": {
+      "like": "lc-l1x12c8",
+      "name": "L1X12C8-L",
+      "page": "53–55, 79",
+      "about": "The L band L1X12C8."
+    }
+  }
+}

@@ -22,6 +22,7 @@ What is left and what comes next. What is built is in the [guide](guide.md), why
 - **Any box, not just box 3:** `bridge/poll.json` names box 3's ports (1-7-4, 1-7-5); take them from `show port` and `show assignment`. While a box is connected, show its `show alarm` alarms instead of the simulated ones.
 - **Box 3 readings nobody has explained:** what `show optical-port`'s flags `C` and `M` mean, why F03 seems to gain 6 dB, and why F05 loses 6.5 dB through a 10 dB pad.
 - **Leftovers:** `src/store.ts` upgrades `ch-2026-4ru` to `ch-16slot`, a chassis no stream has; the 9 photos in `public/pluggables/` are unused (key them by part number); GitHub Support still has to purge the orphaned commits that held an internal PDF.
+- **Fronts the deck doesn't draw** ([OLS Introduction](reference/ols-introduction.md#cards)): box 3's C1125 and the other cards listed there keep all their profile ports, internal ones too, until a picture of their front comes (a photo, or the card's own deck). The deck also disagrees with the catalog on the front panel's third port (ETH, not MON), the back's MUX ports, and C925/C935/C25 LINE, a fixed LC in the deck but taking SFPs in the profile.
 - Requests not planned yet are in [notes](notes.md).
 
 ## Later
