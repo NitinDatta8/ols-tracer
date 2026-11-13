@@ -17,7 +17,8 @@ const here = (p) => fileURLToPath(new URL(p, import.meta.url));
 const REPO_ROOT = here('..');
 const BOX = (env.BOX_DATA_BOX ?? 'paho-gs2000-03').trim() || 'paho-gs2000-03';
 const BOX_DATA_ROOT = resolve(REPO_ROOT, env.BOX_DATA_ROOT ?? join('data', 'boxes', BOX));
-const TEMPLATES_DIR = join(BOX_DATA_ROOT, 'ttp', 'templates');
+/** The TTP templates every box's output is parsed with: the default box's, or BOX_DATA_ROOT's. */
+export const TEMPLATES_DIR = join(BOX_DATA_ROOT, 'ttp', 'templates');
 const RUNS_DIR = join(BOX_DATA_ROOT, 'runs');
 /** Every box's folder, and the box a session's runs go to until `show system` names another: BOX. */
 const BOXES = dirname(BOX_DATA_ROOT);

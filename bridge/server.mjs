@@ -22,7 +22,7 @@ import { fileURLToPath } from 'node:url';
 import ssh2 from 'ssh2';
 import { WebSocketServer } from 'ws';
 import { record } from './history.mjs';
-import { accepted, boxAt, boxDir, boxes, boxOf, ensureWiring, latest, lines, PYTHON, Run, runsOf, wiring } from './recorder.mjs';
+import { accepted, boxAt, boxDir, boxes, boxOf, ensureWiring, latest, lines, PYTHON, Run, runsOf, TEMPLATES_DIR, wiring } from './recorder.mjs';
 import { shareOut, worker } from './shells.mjs';
 import { showLine } from './show.mjs';
 import { Logins, typeSteps, validSteps } from './terminals.mjs';
@@ -521,6 +521,11 @@ server.on('upgrade', (req, socket, head) => {
 
 if (!existsSync(PYTHON)) {
   console.error(`bridge: no Python at ${PYTHON}, so nothing would parse. Run npm run bridge:setup first.`);
+  process.exit(1);
+}
+// Without them every run would be recorded unparsed, as eight were while the box folders were renamed.
+if (!existsSync(TEMPLATES_DIR)) {
+  console.error(`bridge: no TTP templates at ${TEMPLATES_DIR}, so nothing would parse. Check BOX_DATA_BOX and BOX_DATA_ROOT in bridge/.env.`);
   process.exit(1);
 }
 server.listen(PORT, '127.0.0.1', () => console.log(`bridge on http://127.0.0.1:${PORT}: connect to a box from its physical view`));
