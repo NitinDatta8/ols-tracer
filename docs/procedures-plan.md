@@ -12,7 +12,7 @@ The box workflows found in the boxes' logs become **procedures**: ops MOPs that 
 | 1 | [Fixes found on the way](#1-fixes-found-on-the-way) | check 6, for the shell reopen only | 2026-11-12, but the shell reopen | |
 | 2 | [Procedure runner](#2-procedure-runner) | | 2026-11-12 | |
 | 3 | [Procedures panel](#3-procedures-panel) | | 2026-11-12 | |
-| 4 | [MCP](#4-mcp) | | | |
+| 4 | [MCP](#4-mcp) | | 2026-11-13 | |
 | 5 | [Software audit and health check](#5-software-audit-and-health-check) (read) | | | |
 | 6 | [Lab file and lock](#6-lab-file-and-lock) | | | |
 | 7 | [BERT SmartAccess](#7-bert-smartaccess) | check 7 | | |
@@ -151,9 +151,9 @@ This plan, the [BERT plan](bert-smartaccess-plan.md) brought in line, the [decis
 
 ### 4. MCP
 
-- On `/mcp`: `list_procedures`, `procedure_status`, and `run_procedure` by tier, as in [Procedures](#procedures); a read procedure is waited for up to about 2 min, then answered with its status.
-- `check()` takes rpc lines from `procedures.json` only.
-- An OLS Tracer test checks every procedure line: a show, set or delete line resolves exactly in the CLI index, an rpc line's head is an index rpc, and each rpc line's shape was seen in some box's `history.jsonl`.
+- On `/mcp`: `list_procedures`, `procedure_status`, and `run_procedure` by tier, as in [Procedures](#procedures); a read procedure is waited for up to about 2 min (`PROCEDURE_WAIT_SEC`, 120 s), then answered with its status. Codex gives a tool call 60 s unless the server's `tool_timeout_sec` says more, so the README's Codex block sets it to 150.
+- `check()` takes rpc lines from `procedures.json` only: `rpcOf` (`bridge/cli-index.mjs`) finds the index rpc a line starts with, and `fillsStep` (`bridge/fill.mjs`) whether a step's line is that line, each placeholder one word its param takes.
+- An OLS Tracer test (`test/bridge/procedure-lines.test.mjs`) checks every procedure line, its checks' shows too: a show line is a show of the CLI index, a set or delete line one with no word left out, an rpc line's head is an index rpc, and each rpc line's shape, each value of an enum param in it too, was sent to some box (`history.jsonl`). It is shown to catch made-up lines on procedures of its own before it runs on the catalog's.
 - Updated: the server's instructions (their first 247 characters stay), the README's tools and its "never the box", the [MCP decision](decisions.md#mcp), the pinned tool names in its tests, the fake bridge, and the pin.
 
 ### 5. Software audit and health check

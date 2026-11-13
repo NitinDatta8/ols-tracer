@@ -1,8 +1,8 @@
 // commandFor: which CLI index command a typed line runs, on a small index of its own, and csp's index against what
-// the poller runs and the templates it parses with.
+// the poller runs and the templates it parses with; rpcOf: the rpc a line starts with, on csp's.
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { commandFor } from '../../bridge/cli-index.mjs';
+import { commandFor, rpcOf } from '../../bridge/cli-index.mjs';
 
 const index = [
   { commandId: 'och', op: 'show', syntax: 'show och <name>' },
@@ -75,6 +75,20 @@ describe("csp's CLI index", () => {
     expect(cmds.filter((c) => c.startsWith('show ') && commandFor(commands, c).op !== 'show')).toEqual([]);
     expect(poll.commands.filter((p) => !(Number.isInteger(p.every) && p.every >= 0))).toEqual([]);
     expect(poll.prereqs.map((c) => commandFor(commands, c)?.op ?? null)).toEqual([null, 'set', 'set', null]); // configure and exit are the CLI's own
+  });
+
+  it('finds the rpc a line starts with, the longest, with or without its rpc, and none for any other line', () => {
+    const rpc = (line) => rpcOf(commands, line)?.syntax ?? null;
+    expect(rpc('reboot ne cold')).toBe('rpc reboot');
+    expect(rpc('rpc reboot ne cold')).toBe('rpc reboot');
+    expect(rpc('  reboot   card 1-6 cold ')).toBe('rpc reboot');
+    expect(rpc('save configuration')).toBe('rpc save');
+    expect(rpc('clear database keep-networking')).toBe('rpc clear database keep-networking');
+    expect(rpc('clear database keep-networking now')).toBe('rpc clear database keep-networking');
+    expect(rpc('commit')).toBe('rpc commit');
+    for (const line of ['show card', 'set och 1-7-5 laser enabled', 'delete media-channel 2', 'frobnicate now', 'Reboot ne cold', 'rpc', '']) {
+      expect(rpc(line), JSON.stringify(line)).toBeNull();
+    }
   });
 
   it('names every TTP template of every box, but the parts they extend', () => {

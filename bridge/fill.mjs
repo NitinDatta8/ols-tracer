@@ -1,6 +1,7 @@
 // A line with its placeholders filled in: the right-click terminals' steps (src/terminals.ts) and the procedures' step
-// lines (procedures.mjs, and the app's panel, src/procedures.ts), so all fill them alike; and the values a procedure's
-// param takes, so the panel and the bridge take the same ones.
+// lines (procedures.mjs, and the app's panel, src/procedures.ts), so all fill them alike; the values a procedure's
+// param takes, so the panel and the bridge take the same ones; and whether a line typed elsewhere is a step filled in,
+// for the MCP's check_commands.
 
 /** A param's value: one word of printable text, so it can never add a second command to a line. */
 const WORD = /^[\x21-\x7e]{1,64}$/;
@@ -34,4 +35,32 @@ export function fillStep(line, vars) {
     return String(times ? Number(v) * Number(times) : v);
   });
   return ok ? out : null;
+}
+
+/**
+ * Whether `line` is `step` filled in: its text as it is, and each placeholder one word its param takes (`fits`), or for
+ * `{name*4}` a number that is such a value times 4. fillStep the other way round, so a line typed elsewhere counts as a
+ * procedure's only when one of its steps could have typed it.
+ * @param {string} step
+ * @param {Record<string, { enum?: string[], pattern?: string }>} specs
+ * @param {string} line
+ * @returns {boolean}
+ */
+export function fillsStep(step, specs, line) {
+  const parts = step.split(/\{(\w+)(?:\*(\d+))?\}/); // text, then a placeholder's name and times, then text, and so on
+  const from = (/** @type {number} */ i, /** @type {number} */ at) => {
+    if (!line.startsWith(parts[i], at)) return false;
+    at += parts[i].length;
+    if (i === parts.length - 1) return at === line.length;
+    const [name, times] = [parts[i + 1], parts[i + 2]];
+    if (!Object.hasOwn(specs, name)) return false;
+    // The value ends somewhere in the word that starts here: try each end, as the text after it may start in the word.
+    for (let end = at + 1; end <= line.length && !/\s/.test(line[end - 1]); end++) {
+      const v = line.slice(at, end);
+      const value = !times ? v : /^\d+$/.test(v) && Number(v) % Number(times) === 0 ? String(Number(v) / Number(times)) : null;
+      if (value !== null && fits(specs[name], value) && from(i + 3, end)) return true;
+    }
+    return false;
+  };
+  return from(0, 0);
 }

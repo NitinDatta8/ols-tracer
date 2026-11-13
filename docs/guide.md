@@ -170,11 +170,11 @@ The bridge polls the box for its live state, so the canvas can show it later, an
 | `bridge/typed.mjs` | Reads typed `show` commands back from a headless copy of the terminal's screen, for the recorder, and holds the rule for which lines may run on the box (`showOf`), which `/show` and the MCP's `run_show` use too |
 | `bridge/show.mjs` | `POST /show`'s line check (`showOf` and the CLI index) and its run on one of the poller's shells |
 | `bridge/procedures.mjs` | Procedures: their definitions from the catalog, each checked, their params, the named checks, and the runner |
-| `bridge/fill.mjs` | A line's placeholders filled in, for the terminals' steps and the procedures' lines |
+| `bridge/fill.mjs` | A line's placeholders filled in, for the terminals' steps and the procedures' lines, and whether a line typed elsewhere is a procedure's step filled in (`fillsStep`, for the MCP's `check_commands`) |
 | `bridge/recorder.mjs` | Writes the poller's snapshots and polls as run folders under `data/boxes/<box-id>/runs/`, and generates a missing `wiring.csv` (`inferWiring`); run on its own, parses a run's raw output again |
 | `bridge/tables.mjs` | Reads the CLI's tables by column name, a row merged across `[config]` and `[state]`; shared with `src/l0.ts` |
 | `bridge/history.mjs` | A box's alarm and configuration history from all its runs (`history.jsonl`), and the episodes in it |
-| `bridge/cli-index.mjs` | Which command of the CLI index a command line runs, for its template (and for the sync's counts) |
+| `bridge/cli-index.mjs` | Which command of the CLI index a command line runs, for its template (and for the sync's counts), and which rpc a line starts with (`rpcOf`): the index lists most rpcs without their arguments |
 | `bridge/parse.py`, `data/boxes/<box-id>/ttp/templates/` | Turns a command's output into JSON with its TTP template; `data/boxes/<box-id>/ttp/fixtures/` holds sample outputs for the tests |
 | `src/Terminal.tsx` | The CLI terminal: xterm.js on the bridge's `/term` WebSocket |
 
@@ -184,7 +184,7 @@ The bridge polls the box for its live state, so the canvas can show it later, an
 
 - **Sessions** (`test/bridge/sessions-*.test.mjs`, `endpoints.test.mjs`): the real bridge in the test's own process, with ssh2 swapped for a fake (`test/fakes/ssh2.mjs`) that opens no socket. Its boxes are made up (`box-1.t1.test` …) and their runs go to a temp folder. Six people (physical views and Codex sessions) on one box, and six boxes at once, each held by six: one SSH login and one snapshot a box, whatever the number of people, one box's people never touching another's, the bridge quick to answer, and nothing left open once everyone leaves. Also a box that refuses the login, drops the connection, never answers a command or is slow to prompt; shows, pulls and baselines asked for at once; terminals and terminal windows; procedures (`sessions-procedures`, `-changes`, `-drops`: the tests' own, in `test/fakes/procedures.mjs`, read from a catalog of their own) run, approved, cancelled and dropped; and run files broken by hand, which never take the bridge down.
 - **Recorded runs** (`runs.test.mjs`, `templates.test.mjs`, `test/src/smoke.test.ts`, `l0.test.ts`): box 3's runs as `/run` serves them, the light and the L0 path on them, and every TTP template against its fixture. The bridge ones need `npm run bridge:setup`'s Python, and are skipped without it.
-- **Units:** each module's corner cases: the CLI index match, tables, the history and its episodes, the recorder, wiring inference, the poller's shells, typed and asked shows, terminal windows, procedure definitions and params, and the app's catalog, rules, discovery, light, routing, store and procedures.
+- **Units:** each module's corner cases: the CLI index match, tables, the history and its episodes, the recorder, wiring inference, the poller's shells, typed and asked shows, terminal windows, procedure definitions and params, every procedure line against the CLI index and the boxes' logs (`procedure-lines.test.mjs`, shown first to catch made-up lines on procedures of its own), and the app's catalog, rules, discovery, light, routing, store and procedures.
 
 ## Choices the plan left open
 
