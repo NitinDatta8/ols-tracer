@@ -5,7 +5,7 @@ import {
 } from '@xyflow/react';
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type MouseEvent as ReactMouseEvent } from 'react';
 import { byId } from './catalog';
-import { Art, around, at, CardFace, faced, inside, strandBoxes, type Faced } from './Face';
+import { at, CardFace, faced, inside, strandBoxes, type Faced } from './Face';
 import { termLines, useMenu } from './Menu';
 import { behaviorOf, onFront, roleOf, showsInView, toneOf } from './ports';
 import { light, stateFor, type Light } from './live';
@@ -71,8 +71,8 @@ export const ChassisIcon = ({ tester }: { tester?: boolean }) => (
 );
 
 /**
- * A racked device's front, drawn as the physical view draws its chassis (its picture from the deck with the cards the
- * deck draws on it, else the same 19-inch panel, slots and mini cages, see chassisLevel there), with each port that can
+ * A racked device's front, drawn as the physical view draws its chassis (the same 19-inch panel and slots, with the cards
+ * the deck draws as their faceplates and the others with mini cages, see chassisLevel there), with each port that can
  * take a fiber giving its Tx and Rx as handles to run fibers from.
  */
 function ChassisFront({ t, cat, device, view }: { t: Topology; cat: Catalog; device: Device; view: View }) {
@@ -82,20 +82,20 @@ function ChassisFront({ t, cat, device, view }: { t: Topology; cat: Catalog; dev
   const ru = Math.ceil(slots.length / columns) || 1;
   const taken = coverage(cat, device);
   const list = alarms(t, cat, device);
-  const photo = chassis?.faceplate?.slots ? chassis.faceplate : undefined;
   /** A card the deck draws: its faceplate, with each port's Tx and Rx handles over its connector. */
   const face = (lc: Faced, slot: string) => (
     <CardFace card={lc} port={(p, box, f) => {
       const end = { device: device.id, slot, port: p.id };
       const { pluggable, fixed } = resolve(t, cat, end);
       const [lit, strands] = [fibersAt(t, end), strandBoxes(f, !!pluggable)];
+      const on = pluggable ? ' on-module' : ''; // a module's Tx and Rx are labelled, as at a cage
       return (
         <div className={`spot ${toneOf(p)}${pluggable ? ' in' : ''}${showsInView(view, p) ? '' : ' off'}`} style={at(lc.faceplate, box)}
           title={`${path(t, end)} · ${roleOf(p)} · ${pluggable?.name ?? (fixed ? 'fixed Tx/Rx' : 'no pluggable')}`}>
           {pluggable && <small>{pluggable.name}</small>}
           {(pluggable || fixed) && <>
-            {strands.tx && <Handle id={handleOf(end)} type="source" position={Position.Bottom} className={`strand${lit.tx ? ' lit' : ''}`} style={inside(box, strands.tx)} />}
-            {strands.rx && <Handle id={handleOf(end)} type="target" position={Position.Bottom} className={`strand${lit.rx ? ' lit' : ''}`} style={inside(box, strands.rx)} />}
+            {strands.tx && <Handle id={handleOf(end)} type="source" position={Position.Bottom} className={`strand${on}${lit.tx ? ' lit' : ''}`} style={inside(box, strands.tx)}>{pluggable && 'Tx'}</Handle>}
+            {strands.rx && <Handle id={handleOf(end)} type="target" position={Position.Bottom} className={`strand${on}${lit.rx ? ' lit' : ''}`} style={inside(box, strands.rx)}>{pluggable && 'Rx'}</Handle>}
           </>}
         </div>
       );
@@ -106,11 +106,9 @@ function ChassisFront({ t, cat, device, view }: { t: Topology; cat: Catalog; dev
     if (!state && taken.has(slot.id)) return null; // under a wide card to its left
     const lc = byId(cat.linecards, state?.linecard);
     const ids = (chassis && span(chassis, slot.id, lc?.width)) ?? [slot.id];
-    const boxes = photo ? ids.map((id) => photo.slots?.[id]).filter((b) => !!b) : [];
-    if (photo && !boxes.length) return null;
     return (
       <div key={slot.id} data-slot={slot.id} className={`slot${state ? ' filled' : ''}${faced(lc) ? ' faced' : ''}`}
-        style={photo ? at(photo, around(...boxes)) : { gridColumn: `${(i % columns) + 1} / span ${lc?.width ?? 1}`, gridRow: Math.floor(i / columns) + 1 }}>
+        style={{ gridColumn: `${(i % columns) + 1} / span ${lc?.width ?? 1}`, gridRow: Math.floor(i / columns) + 1 }}>
         <div className="cage-head">
           <b>{state ? (lc?.name ?? `unknown ${state.linecard}`) : 'empty'}</b>
           <small>slot {ids.length > 1 ? `${ids[0]}–${ids.at(-1)}` : slot.id}</small>
@@ -142,13 +140,11 @@ function ChassisFront({ t, cat, device, view }: { t: Topology; cat: Catalog; dev
     );
   });
   return (
-    <div className={`faceplate rack-view${photo ? ' photo' : ''}`} style={photo && { '--w': `${photo.size[0]}px`, '--h': `${photo.size[1]}px` } as CSSProperties}>
-      {photo ? <Art face={photo} className="chassis-art">{views}</Art> : (
-        <div className="rack" style={{ '--u': ru } as CSSProperties}>
-          <MgmtStrip ports={chassis?.mgmtPorts?.front} />
-          <div className="slots" style={{ gridTemplate: `repeat(${ru}, 1fr) / repeat(${columns}, 1fr)` }}>{views}</div>
-        </div>
-      )}
+    <div className="faceplate rack-view">
+      <div className="rack" style={{ '--u': ru } as CSSProperties}>
+        <MgmtStrip ports={chassis?.mgmtPorts?.front} />
+        <div className="slots" style={{ gridTemplate: `repeat(${ru}, 1fr) / repeat(${columns}, 1fr)` }}>{views}</div>
+      </div>
     </div>
   );
 }

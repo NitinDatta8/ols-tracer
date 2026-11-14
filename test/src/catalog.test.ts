@@ -59,13 +59,14 @@ describe('catalogs', () => {
 });
 
 describe('faceplates', () => {
-  // The same stream, now with the deck's fronts: the chassis's, a card's, and the wide card drawn like it.
+  // The same stream, now with the deck's fronts: a card's, its P1 a fixed connector, and the wide card drawn like it;
+  // and the chassis's PSU.
   const faces: Record<string, unknown> = {
     ...files,
     'common/faceplates.json': {
-      chassis: { 'ch-x': { page: '6', image: 'faceplates/x.png', size: [100, 20], slots: { 1: [0, 0, 50, 10], 2: [50, 0, 50, 10] } } },
+      chassis: { 'ch-x': { page: '6', units: { PSU: 'faceplates/psu.png' } } },
       linecards: {
-        'lc-known': { name: 'KNOWN-9', page: '7', image: 'faceplates/known.png', size: [100, 40], ports: { P1: { box: [10, 10, 20, 10] } }, about: 'A card.', specs: { Gain: '20 dB' } },
+        'lc-known': { name: 'KNOWN-9', page: '7', image: 'faceplates/known.png', size: [100, 40], ports: { P1: { box: [10, 10, 20, 10], fixed: true } }, about: 'A card.', specs: { Gain: '20 dB' } },
         'lc-wide': { like: 'lc-known', name: 'WIDE-9', page: '8' },
       },
     },
@@ -78,7 +79,16 @@ describe('faceplates', () => {
       image: 'faceplates/known.png', about: 'A card.', specs: { 'Deck name': 'KNOWN-9', Gain: '20 dB', 'Deck pages': '7' },
     });
     expect(byId(cat.linecards, 'lc-wide')).toMatchObject({ faceplate: { image: 'faceplates/known.png' }, specs: { 'Deck name': 'WIDE-9', Gain: '20 dB', 'Deck pages': '8' } });
-    expect(byId(cat.chassis, 'ch-x')?.faceplate).toEqual({ image: 'faceplates/x.png', size: [100, 20], slots: { 1: [0, 0, 50, 10], 2: [50, 0, 50, 10] } });
+  });
+
+  it('takes no module in a port the deck draws as a fixed connector, whatever the profile lists for it', () => {
+    expect(byId(cat.linecards, 'lc-known')!.ports).toEqual([{ id: 'P1', role: 'client', allowedPluggables: [] }]);
+    expect(byId(streamFor('x').linecards, 'lc-known')!.ports[0].allowedPluggables).toEqual(['CFP2']);
+  });
+
+  it("gives a chassis the deck pictures its PSU's and fan's pictures for its back", () => {
+    expect(byId(cat.chassis, 'ch-x')?.units).toEqual({ PSU: 'faceplates/psu.png' });
+    expect(byId(cat.chassis, 'ch-t')?.units).toBeUndefined();
   });
 
   it('leaves a card the deck does not draw as it was', () => {

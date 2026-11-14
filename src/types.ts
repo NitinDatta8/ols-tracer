@@ -75,14 +75,18 @@ export type Box = [number, number, number, number];
  * its Rx the right, OUT then IN as the fronts print them; or the cage a module goes in), or `tx` and `rx` where they
  * sit apart (a line module's T over its R). A port with only a `tx` is an output alone, such as a monitor tap.
  */
-export interface FacePort { box?: Box; tx?: Box; rx?: Box }
+export interface FacePort {
+  box?: Box; tx?: Box; rx?: Box;
+  /** A fixed connector, though the profile lists modules for the port (the OSC SFPs on a TMUX's LINE): it takes none. */
+  fixed?: boolean;
+}
 
 /**
- * A front as the product deck draws it (catalog/common/faceplates.json): the picture under public/ and its size in
- * pixels. A card's `ports` are its optical ports on it; a port of the card's not there is inside the card (an
- * amplifier's BAIN, the WSS's COM), so it is not drawn and takes no fiber. A chassis's `slots` are where its slots are.
+ * A card's front as the product deck draws it (catalog/common/faceplates.json): the picture under public/ and its size
+ * in pixels. Its `ports` are the card's optical ports on it; a port of the card's not there is inside the card (an
+ * amplifier's BAIN, the WSS's COM), so it is not drawn and takes no fiber.
  */
-export interface Faceplate { image: string; size: [number, number]; ports?: Record<string, FacePort>; slots?: Record<string, Box> }
+export interface Faceplate { image: string; size: [number, number]; ports?: Record<string, FacePort> }
 
 export interface ChassisDef extends Datasheet {
   id: string;
@@ -100,8 +104,8 @@ export interface ChassisDef extends Datasheet {
   tester?: boolean;
   /** The cards a new one comes with, by slot: a tester's own module. */
   comesWith?: Record<string, string>;
-  /** Its front as the deck draws it, with where each slot is: the physical view puts the cards in there. */
-  faceplate?: Faceplate;
+  /** Pictures of its PSU and its fan from the deck, under public/, drawn in their bays at the back. */
+  units?: Partial<Record<'PSU' | 'FAN', string>>;
 }
 
 /**

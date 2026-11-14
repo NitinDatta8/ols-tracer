@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type DragEvent, type MouseEvent } from 'react';
 import { byId, cli } from './catalog';
-import { Art, around, asset, at as over, CardFace, faced, frontPorts, inside, strandBoxes, type Faced } from './Face';
+import { asset, at as over, CardFace, faced, frontPorts, inside, strandBoxes, type Faced } from './Face';
 import { Inside } from './Inside';
 import { inside as insideOf, l0Problems, pathsThrough, routesOf } from './l0';
 import { discover, light, stateFor, type BoxState } from './live';
@@ -86,16 +86,19 @@ const Strands = ({ t, end, onClick, far }: { t: Topology; end: End; onClick: (e:
 };
 
 /**
- * A port's strands on its card's faceplate picture, over its connector (`box`) as the deck draws it: lit while a fiber
- * is on it, its tooltip where the fiber goes or comes from. An output alone (a monitor tap) has just its Tx.
+ * A port's strands on its card's faceplate picture, over its connector (`box`) as the deck draws it, or on the
+ * `module` in its cage, labelled Tx and Rx there as at a cage: lit while a fiber is on it, its tooltip where the fiber
+ * goes or comes from. An output alone (a monitor tap) has just its Tx.
  */
-const FaceStrands = ({ t, end, box, strands, onClick }: { t: Topology; end: End; box: Area; strands: Partial<Record<Strand, Area>>; onClick: (e: MouseEvent, s: Strand) => void }) => {
-  const on = fibersAt(t, end);
+const FaceStrands = ({ t, end, box, f, module, onClick }: { t: Topology; end: End; box: Area; f: FacePort; module: boolean; onClick: (e: MouseEvent, s: Strand) => void }) => {
+  const [on, strands] = [fibersAt(t, end), strandBoxes(f, module)];
   return (['tx', 'rx'] as const).map((s) => {
     const [where, l] = [strands[s], on[s]];
     return where && (
-      <span key={s} className={`strand wire${l ? ' lit' : ''}`} style={inside(box, where)} data-pipe-end={pin(end, s)} onClick={(e) => onClick(e, s)}
-        title={l ? `${path(t, l.a)} Tx → ${path(t, l.b)} Rx` : `${end.port} ${STRAND[s]}: no fiber`} />
+      <span key={s} className={`strand wire${module ? ' on-module' : ''}${l ? ' lit' : ''}`} style={inside(box, where)} data-pipe-end={pin(end, s)}
+        onClick={(e) => onClick(e, s)} title={l ? `${path(t, l.a)} Tx → ${path(t, l.b)} Rx` : `${end.port} ${STRAND[s]}: no fiber`}>
+        {module && STRAND[s]}
+      </span>
     );
   });
 };
@@ -478,30 +481,26 @@ export function PhysicalView() {
           title={pluggable ? undefined : portTip(cat, p, inserted?.pluggable)} {...hoverable(pluggable)}
           onClick={pluggable ? (e) => { e.stopPropagation(); show('plug', pluggable.id, { slot: slotId, port: p.id }); } : undefined}>
           {inserted && <small>{pluggable?.name ?? `unknown ${inserted.pluggable}`}</small>}
-          {(fixed || inserted) && <FaceStrands t={t} end={end} box={box} strands={strandBoxes(f, !!inserted)} onClick={(e, s) => onStrand(e, end, s)} />}
+          {(fixed || inserted) && <FaceStrands t={t} end={end} box={box} f={f} module={!!inserted} onClick={(e, s) => onStrand(e, end, s)} />}
         </div>
       );
     }} />
   );
 
   /**
-   * The chassis front: its picture from the deck with each card in its slots, where the deck has one (cards it does not
-   * draw keep their cages), else the 19-inch panel drawn to scale with the management ports at its left.
+   * The chassis front: the 19-inch panel drawn to scale with the management ports at its left, and each card in its
+   * slots (a card the deck draws as its faceplate, any other with its cages).
    */
   const chassisLevel = () => {
     const taken = coverage(cat, device);
-    const photo = chassis?.faceplate?.slots ? chassis.faceplate : undefined;
     const views = slots.map((slot, i) => {
       const state = device.slots[slot.id];
       if (!state && taken.has(slot.id)) return null; // under a wide card to its left
       const lc = byId(cat.linecards, state?.linecard);
       const fits = part?.kind === 'card' && !state && !linecardError(cat, device, slot.id, part.id);
-      // In the picture, a card spans the boxes of all the slots it takes.
-      const boxes = photo ? ((chassis && span(chassis, slot.id, lc?.width)) ?? [slot.id]).map((id) => photo.slots?.[id]).filter((b) => !!b) : [];
-      if (photo && !boxes.length) return null;
       return (
         <div key={slot.id} data-slot={slot.id} className={`slot${state ? ' filled' : ''}${fits ? ' fits' : ''}${faced(lc) ? ' faced' : ''}`}
-          style={photo ? over(photo, around(...boxes)) : { gridColumn: `${(i % columns) + 1} / span ${lc?.width ?? 1}`, gridRow: Math.floor(i / columns) + 1 }}
+          style={{ gridColumn: `${(i % columns) + 1} / span ${lc?.width ?? 1}`, gridRow: Math.floor(i / columns) + 1 }}
           onClick={state ? () => setCardSlot(slot.id) : fits ? () => insertLinecard(device.id, slot.id, part.id) : undefined}
           onMouseEnter={state ? () => setFocus({ slot: slot.id }) : undefined} onMouseLeave={() => setFocus(null)}>
           <div className="cage-head">
@@ -537,14 +536,11 @@ export function PhysicalView() {
       );
     });
     return (
-      <div className={`faceplate rack-view${photo ? ' photo' : ''}`} onDragOver={(e) => e.preventDefault()} onDrop={onDrop}
-        style={photo && { '--w': `${photo.size[0]}px`, '--h': `${photo.size[1]}px` } as CSSProperties}>
-        {photo ? <Art face={photo} className="chassis-art">{views}</Art> : (
-          <div className="rack" style={{ '--u': ru } as CSSProperties}>
-            <MgmtStrip ports={chassis?.mgmtPorts?.front} />
-            <div className="slots" style={{ gridTemplate: `repeat(${ru}, 1fr) / repeat(${columns}, 1fr)` }}>{views}</div>
-          </div>
-        )}
+      <div className="faceplate rack-view" onDragOver={(e) => e.preventDefault()} onDrop={onDrop}>
+        <div className="rack" style={{ '--u': ru } as CSSProperties}>
+          <MgmtStrip ports={chassis?.mgmtPorts?.front} />
+          <div className="slots" style={{ gridTemplate: `repeat(${ru}, 1fr) / repeat(${columns}, 1fr)` }}>{views}</div>
+        </div>
         {/* Fibers between two cards of this chassis, and loopbacks; the rest show their far end in the strand's tooltip. */}
         <PipeLayer view={`chassis:${device.id}`} spacing={{ margin: 2, lane: 7, hop: 3 }} width={5} light={lightOf}
           ends={t.links.filter((l) => l.a.device === device.id && l.b.device === device.id).map((link) => ({ link, a: pin(link.a, 'tx'), b: pin(link.b, 'rx') }))} />
@@ -577,7 +573,7 @@ export function PhysicalView() {
         style={over(lc.faceplate, box)} title={pluggable ? undefined : portTip(cat, p, inserted?.pluggable)} {...hoverable(pluggable, { slot: slotId, port: p.id })}
         onClick={pluggable ? () => show('plug', pluggable.id, { slot: slotId, port: p.id }) : fits ? () => insertPluggable(device.id, slotId, p.id, part.id) : undefined}>
         {inserted && <small>{pluggable?.name ?? `unknown ${inserted.pluggable}`}</small>}
-        {(fixed || inserted) && <FaceStrands t={t} end={end} box={box} strands={strandBoxes(f, !!inserted)} onClick={(e, s) => onStrand(e, end, s)} />}
+        {(fixed || inserted) && <FaceStrands t={t} end={end} box={box} f={f} module={!!inserted} onClick={(e, s) => onStrand(e, end, s)} />}
         {alarmButton({ slot: slotId, port: p.id })}
         {inserted && <span className="remove" title="Take it out" onClick={(e) => { e.stopPropagation(); removeAt(slotId, p.id); }}>✕</span>}
       </div>
@@ -683,10 +679,14 @@ export function PhysicalView() {
     );
   };
 
-  /** One PSU or fan bay. ✕ pulls the unit out, which raises an alarm; Insert puts it back. */
+  /**
+   * One PSU or fan bay, the unit in it as the deck pictures it (else drawn). ✕ pulls the unit out, which raises an alarm;
+   * Insert puts it back.
+   */
   const bayBox = (bay: string) => {
     const fitted = !device.emptyBays?.includes(bay);
     const psu = psus.includes(bay);
+    const unit = chassis?.units?.[psu ? 'PSU' : 'FAN'];
     return (
       <div key={bay} className={`bay${fitted ? ' filled' : ''}`}>
         <div className="cage-head">
@@ -694,7 +694,8 @@ export function PhysicalView() {
           {alarmButton({ bay })}
           {fitted && <span className="remove" onClick={() => fitBay(bay, false)}>✕</span>}
         </div>
-        {fitted ? (psu ? <PsuIcon /> : <FanIcon />) : <button onClick={() => fitBay(bay, true)}>Insert {psu ? 'PSU' : 'fan'}</button>}
+        {fitted ? (unit ? <img className="unit-pic" src={asset(unit)} alt="" draggable={false} /> : psu ? <PsuIcon /> : <FanIcon />)
+          : <button onClick={() => fitBay(bay, true)}>Insert {psu ? 'PSU' : 'fan'}</button>}
       </div>
     );
   };

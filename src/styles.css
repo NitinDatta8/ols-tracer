@@ -385,10 +385,11 @@ main { position: relative; min-height: 0; }
 .bay.filled { background: #1f2933; border-style: solid; border-top: 3px solid #9aa5b1; color: #fff; }
 .bay .cage-head { justify-self: stretch; }
 .bay > svg { width: 100%; height: 100%; min-height: 0; padding: 2px; }
+.bay > .unit-pic { width: 100%; height: 100%; min-height: 0; padding: 4px; object-fit: contain; } /* the deck's picture, never stretched */
 
 /*
- * Fronts as the product deck draws them (Face.tsx): the picture, and over it, placed in percent of it, each slot or
- * port. A port's spot is clear over its connector, light with the module in it, green where the part being placed fits;
+ * Fronts as the product deck draws them (Face.tsx): the picture, and over it, placed in percent of it, each port. A
+ * port's spot is clear over its connector, light with the module in it, green where the part being placed fits;
  * its strands are clear until a fiber is on them. A card's picture fills its slots; its name plate shows on hover.
  */
 .art { position: relative; container-type: inline-size; }
@@ -407,16 +408,15 @@ main { position: relative; min-height: 0; }
 .art .spot > .strand { position: absolute; min-width: 0; padding: 0; background: none; border: 1px solid transparent; border-radius: 2px; }
 .art .spot > .strand:hover { background: rgb(255 255 255 / 25%); border-color: #fff; }
 .art .spot > .strand.lit { background: rgb(74 222 128 / 60%); border-color: var(--fiber); box-shadow: 0 0 6px var(--fiber); }
+/* On a module in its cage, its Tx and Rx show labelled, as at a cage; over a fixed connector the picture shows them. */
+.art .spot > .strand.on-module {
+  display: grid; place-items: center; overflow: hidden; background: #323f4b; border-color: #52606d; color: #cbd2d9;
+  font-size: clamp(5px, 1.1cqw, 11px); line-height: 1;
+}
+.art .spot > .strand.on-module.lit { background: #bbf7d0; border-color: var(--fiber); color: #14532d; }
+.art .spot > .strand.on-module:hover { border-color: var(--accent); }
 .art .spot > .alarm { position: absolute; top: -9px; left: -9px; z-index: 3; } /* top left: a module's ✕ is top right */
 .art .spot > .remove { position: absolute; top: 2px; right: 3px; z-index: 3; color: #b91c1c; font-size: clamp(8px, 1.2cqw, 13px); cursor: pointer; }
-/* A chassis the deck draws: its picture at its own size, in the middle of the stage (scaled to fit, see useFit). */
-.faceplate.rack-view.photo { display: grid; place-items: center; width: max(var(--w), var(--fit-w, 0px)); height: max(var(--h), var(--fit-h, 0px)); }
-.chassis-art { width: var(--w); color: #fff; }
-.chassis-art .slot:not(.filled) { background: none; border: 1px solid transparent; box-shadow: none; } /* the empty bay shows */
-.chassis-art .slot:hover { border-color: var(--accent); }
-.chassis-art .slot.fits { background: rgb(20 83 45 / 60%); border: 2px dashed var(--fiber); }
-.chassis-art .slot > .cage-head, .chassis-art .slot > .far { justify-self: start; padding: 0 4px; background: rgb(17 24 32 / 80%); border-radius: 3px; }
-.chassis-art .slot > .far { justify-self: center; }
 .slot.faced { padding: 0; background: #111820; border: none; box-shadow: none; }
 .slots > .slot.faced { position: relative; }
 .slot.faced > .art { position: absolute; inset: 0; width: 100%; height: 100%; } /* stretched to its slots */

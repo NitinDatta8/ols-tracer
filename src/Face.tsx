@@ -1,5 +1,5 @@
-// Fronts as the product deck draws them (catalog/common/faceplates.json): the picture, with what goes on each slot or
-// port placed over it, in percent of the picture so it holds at any size. Used by the physical view and the canvas.
+// Card fronts as the product deck draws them (catalog/common/faceplates.json): the picture, with what goes on each port
+// placed over it, in percent of the picture so it holds at any size. Used by the physical view and the canvas.
 import { Fragment, type CSSProperties, type HTMLAttributes, type ReactNode } from 'react';
 import { strandsAt } from './ports';
 import type { Box, FacePort, Faceplate, LinecardDef, PortDef, Strand } from './types';

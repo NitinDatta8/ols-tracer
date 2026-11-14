@@ -1,7 +1,7 @@
 // The catalog as a stream's hardware and CLI, put together from catalog/'s files, and the helpers over it. It reads no
 // files itself, so it runs in the app and in Node alike: catalog-vite.ts gives it the files Vite bundles for the app,
 // catalog-node.ts the same files from disk.
-import type { Catalog, CliLevel, Device, End, Faceplate } from './types';
+import type { Catalog, ChassisDef, CliLevel, Device, End, Faceplate, LinecardDef } from './types';
 
 type Hardware = Pick<Catalog, 'chassis' | 'linecards' | 'pluggables'>;
 
@@ -98,21 +98,26 @@ function hydrate(chassis: Catalog['chassis'], linecards: Catalog['linecards'], p
 }
 
 /**
- * An entry of common/faceplates.json: the deck's picture of a front and where things are on it, or `like` another
- * card's; and what the deck calls the card, on which PDF pages, and its facts.
+ * An entry of common/faceplates.json: the deck's picture of a card's front and where its ports are on it, or `like`
+ * another card's; and what the deck calls the card, on which PDF pages, and its facts.
  */
 type FaceEntry = Partial<Faceplate> & { like?: string; name?: string; page?: string; about?: string; specs?: Record<string, string> };
-export type Faces = { chassis?: Record<string, FaceEntry>; linecards?: Record<string, FaceEntry> };
+/** common/faceplates.json: the cards' fronts, and a chassis's back units (`units`, its PSU's and fan's pictures). */
+export type Faces = { chassis?: Record<string, Pick<ChassisDef, 'units'> & { page?: string }>; linecards?: Record<string, FaceEntry> };
 
-/** Gives each item the deck draws its faceplate, and the deck's facts for its datasheet (behind any it has already). */
-function withFaces<T extends Catalog['chassis'][number] | Catalog['linecards'][number]>(items: T[], entries: Record<string, FaceEntry> = {}): T[] {
+/**
+ * Gives each card the deck draws its faceplate, and the deck's facts for its datasheet (behind any it has already). A
+ * port the deck draws as a fixed connector takes no module, whatever the profile lists for it.
+ */
+function withFaces(items: LinecardDef[], entries: Record<string, FaceEntry> = {}): LinecardDef[] {
   return items.map((item) => {
     const entry = entries[item.id];
     if (!entry) return item;
-    const { image, size, ports, slots, specs } = entry.like ? entries[entry.like] : entry;
+    const { image, size, ports, specs } = entry.like ? entries[entry.like] : entry;
     return {
       ...item,
-      faceplate: { image: image!, size: size!, ...(ports && { ports }), ...(slots && { slots }) },
+      ports: item.ports.map((p) => (ports?.[p.id]?.fixed ? { ...p, allowedPluggables: [] } : p)),
+      faceplate: { image: image!, size: size!, ...(ports && { ports }) },
       image: item.image ?? image,
       about: item.about ?? entry.about,
       specs: { ...(entry.name && { 'Deck name': entry.name }), ...(entry.specs ?? specs), ...(entry.page && { 'Deck pages': entry.page }), ...item.specs },
@@ -124,7 +129,8 @@ function withFaces<T extends Catalog['chassis'][number] | Catalog['linecards'][n
  * `catalogFor`, over the catalog/ files that `read` gives by name (csp/linecards.json), or undefined for one that isn't
  * there. A stream's hardware (chassis/linecards/pluggables) is its own files only, plus its `testers.json`: hardware kept
  * by hand, which the IIVI profiles don't have and the syncs never overwrite, such as a BERT. `common/` holds `cli.json`
- * and `faceplates.json`, the fronts the product deck draws, also kept by hand. Each stream is put together once.
+ * and `faceplates.json`, the card fronts and the chassis's PSU and fan the product deck draws, also kept by hand. Each
+ * stream is put together once.
  */
 export function catalogs(read: (name: string) => unknown) {
   const cache = new Map<string, Catalog>();
@@ -135,9 +141,9 @@ export function catalogs(read: (name: string) => unknown) {
       const base = hydrate(merge('chassis'), merge('linecards'), merge('pluggables'));
       const faces = read('common/faceplates.json') as Faces | undefined;
       cache.set(stream, {
-        chassis: withFaces(base.chassis, faces?.chassis),
+        ...base,
+        chassis: base.chassis.map((c) => (faces?.chassis?.[c.id]?.units ? { ...c, units: faces.chassis[c.id].units } : c)),
         linecards: withFaces(base.linecards, faces?.linecards),
-        pluggables: base.pluggables,
         cli: { ...(read('common/cli.json') as Catalog['cli']), ...(read(`${stream}/cli.json`) as Catalog['cli']) },
       } as Catalog);
     }

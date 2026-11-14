@@ -4,8 +4,8 @@ What the OLS Introduction deck (`docs/internal/OLS Introduction 20260419.pdf`, g
 2026, 128 pages) says that the tracer can use. Page numbers are the PDF's (a viewer's): page 25 is a review comment,
 so from page 26 on the slide numbers printed on them are one lower.
 
-The cards' and the chassis's front pictures are in `public/faceplates/`, and where each port is on them in
-`catalog/common/faceplates.json` (kept by hand; the IIVI syncs never write it). The physical view and the canvas draw a
+The cards' front pictures, and the GS2000's PSU and fan cut from its back, are in `public/faceplates/`, and where
+each port is on them in `catalog/common/faceplates.json` (kept by hand; the IIVI syncs never write it). The physical view and the canvas draw a
 card the deck has from its picture, with only the ports on its front. The deck's facts for each card are in its
 datasheet (click the card's name plate).
 

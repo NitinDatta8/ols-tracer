@@ -1,12 +1,7 @@
 {
-  "about": "Cards and chassis as the OLS Introduction deck (docs/internal/OLS Introduction 20260419.pdf, git-ignored; `page` its PDF pages) draws them, kept by hand: the IIVI syncs never write this file. `image` is the deck’s picture of the front, under public/, `size` its pixels, and `ports` where each of the card’s optical ports is on it, as [x, y, width, height]: `box` its connector (a duplex LC or MPO, Tx the left half and Rx the right, OUT then IN as the fronts print them; or a cage), or `tx` and `rx` where they sit apart. A port of the card not listed is inside it; one with only a `tx` is an output alone (a monitor tap). `like` takes another card’s picture and ports (and specs, unless it has its own). `slots` are where a chassis’s slots are on its picture.",
+  "about": "Cards, and a chassis’s PSU and fan, as the OLS Introduction deck (docs/internal/OLS Introduction 20260419.pdf, git-ignored; `page` its PDF pages) draws them, kept by hand: the IIVI syncs never write this file. `image` is the deck’s picture of the front, under public/, `size` its pixels, and `ports` where each of the card’s optical ports is on it, as [x, y, width, height]: `box` its connector (a duplex LC or MPO, Tx the left half and Rx the right, OUT then IN as the fronts print them; or a cage), or `tx` and `rx` where they sit apart. A port of the card not listed is inside it; one with only a `tx` is an output alone (a monitor tap). `like` takes another card’s picture and ports (and specs, unless it has its own). A port with `fixed` is a fixed connector on the front though the profile lists modules for it (the OSC SFPs on a TMUX’s LINE): it takes none. A chassis’s `units` are its PSU’s and its fan’s pictures, cut from its back.",
   "chassis": {
-    "ch-8slot": {
-      "page": "6",
-      "image": "faceplates/gs2000-front.png",
-      "size": [1150, 207],
-      "slots": {"1": [139, 8, 233, 92], "2": [376, 8, 233, 92], "3": [614, 8, 233, 92], "4": [852, 8, 233, 92], "5": [139, 107, 233, 92], "6": [376, 107, 233, 92], "7": [614, 107, 233, 92], "8": [852, 107, 233, 92]}
-    }
+    "ch-8slot": {"page": "6", "units": {"PSU": "faceplates/gs2000-psu.png", "FAN": "faceplates/gs2000-fan.png"}}
   },
   "linecards": {
     "lc-c925": {
@@ -15,7 +10,7 @@
       "image": "faceplates/tmux-c9-25.png",
       "size": [778, 154],
       "ports": {
-        "LINE": {"box": [36, 62, 51, 37]},
+        "LINE": {"box": [36, 62, 51, 37], "fixed": true},
         "AD1": {"box": [95, 62, 52, 36]},
         "AD2": {"box": [153, 62, 52, 36]},
         "AD3": {"box": [212, 62, 52, 36]},
@@ -46,7 +41,7 @@
       "image": "faceplates/tmux-c9-35.png",
       "size": [778, 154],
       "ports": {
-        "LINE": {"box": [36, 62, 51, 37]},
+        "LINE": {"box": [36, 62, 51, 37], "fixed": true},
         "AD1": {"box": [95, 62, 52, 36]},
         "AD2": {"box": [153, 62, 52, 36]},
         "AD3": {"box": [212, 62, 52, 36]},
@@ -76,7 +71,7 @@
       "image": "faceplates/tmux-c-25.png",
       "size": [778, 154],
       "ports": {
-        "LINE": {"box": [95, 62, 52, 37]},
+        "LINE": {"box": [95, 62, 52, 37], "fixed": true},
         "SIG": {"box": [213, 61, 51, 37]},
         "MON1": {"tx": [514, 62, 26, 36]},
         "MON2": {"tx": [540, 62, 26, 36]}
@@ -269,7 +264,7 @@
       "image": "faceplates/fga.png",
       "size": [394, 161],
       "ports": {
-        "LINE": {"box": [89, 64, 52, 36]},
+        "LINE": {"box": [89, 64, 52, 36], "fixed": true},
         "SIG": {"box": [246, 64, 52, 36]}
       },
       "about": "Tencent: a fixed-gain amplifier, 1 slot: a 10 dB add amplifier, then a 0–15 dB VOA, 18 dBm out at LINE. It lets an OPC8 C+L system carry OLS1000 T2X4C8 traffic (64 × 75 GHz from a MUX64 into the AWCL).",

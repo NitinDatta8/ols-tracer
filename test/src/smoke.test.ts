@@ -50,10 +50,7 @@ describe.each(streams)('stream $id', ({ id }) => {
         for (const [x, y, bw, bh] of [f.box, f.tx, f.rx].filter((b) => !!b)) expect(x >= 0 && y >= 0 && x + bw <= w && y + bh <= h, `${id}:${lc.id} ${port}`).toBe(true);
       }
     }
-    for (const c of cat.chassis.filter((x) => x.faceplate)) {
-      expect(existsSync(resolve(repoRoot, 'public', c.faceplate!.image)), `${id}:${c.id}`).toBe(true);
-      for (const slot of c.slots) expect(c.faceplate!.slots?.[slot.id], `${id}:${c.id} slot ${slot.id}`).toBeDefined();
-    }
+    for (const c of cat.chassis) for (const image of Object.values(c.units ?? {})) expect(existsSync(resolve(repoRoot, 'public', image)), `${id}:${c.id} ${image}`).toBe(true);
   });
 
   it('keeps width-based slot restrictions per chassis/stream', () => {
@@ -80,6 +77,8 @@ it('keeps a faceplate only for a card some stream has, each one like another tak
   const c925 = byId(catalogFor('csp').linecards, 'lc-c925')!;
   expect(c925.ports.filter((p) => !c925.faceplate?.ports?.[p.id]).map((p) => p.id)).toEqual(['OSC', 'BAIN', 'LINEIN', 'LINEOUT', 'PAOUT', 'COM']);
   expect(c925.faceplate?.ports?.MON1).toEqual({ tx: [631, 62, 26, 36] });
+  // Its LINE is a duplex LC like A/D1, though the profile lists the OSC SFPs for it; the OSC inside keeps them.
+  expect(['LINE', 'OSC'].map((id) => byId(c925.ports, id)!.allowedPluggables.length)).toEqual([0, 6]);
 });
 
 it('fills CLI templates', () => {
