@@ -65,7 +65,11 @@
       "slots": {
         "1": {
           "linecard": "lc-bert-tester",
-          "ports": {}
+          "ports": {
+            "P1": {
+              "pluggable": "ctq1mlr4cs1-01"
+            }
+          }
         }
       }
     },
@@ -214,6 +218,30 @@
         }
       },
       "host": "10.111.25.19"
+    },
+    {
+      "id": "d10",
+      "chassis": "ch-8slot",
+      "name": "Site-10",
+      "x": -21,
+      "y": 1460,
+      "slots": {
+        "1": {
+          "linecard": "lc-c925",
+          "ports": {}
+        },
+        "5": {
+          "linecard": "lc-800mx",
+          "ports": {
+            "PORT5": {
+              "pluggable": "ftcd3323r1pcl-1y"
+            },
+            "PORT4": {
+              "pluggable": "trq5e14enf-lf002-m"
+            }
+          }
+        }
+      }
     }
   ],
   "links": [
@@ -285,6 +313,34 @@
         "device": "d1",
         "slot": "1",
         "port": "LINE"
+      }
+    },
+    {
+      "id": "f6",
+      "type": "smf",
+      "a": {
+        "device": "d10",
+        "slot": "5",
+        "port": "PORT5"
+      },
+      "b": {
+        "device": "d10",
+        "slot": "1",
+        "port": "AD2"
+      }
+    },
+    {
+      "id": "f7",
+      "type": "smf",
+      "a": {
+        "device": "d10",
+        "slot": "1",
+        "port": "AD2"
+      },
+      "b": {
+        "device": "d10",
+        "slot": "5",
+        "port": "PORT5"
       }
     }
   ],

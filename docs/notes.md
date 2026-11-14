@@ -1,4 +1,7 @@
-2. run_show still asks for permission everytime
+
+0. anatomy on wss internals same way as in ols pdf. we will run this with our lab setup. ui should show thhat. how??
+
+1. read dbi commands they give you direct info from database. ability to run read only db commands. 
 3. What is stopping us from getting alarms and live state every 500ms? bad architecture? Python? move to C++?
 4. How do we fill knowledge.json to understand internals of commands. For example we have OCH different types of values like chromatic dispersion, state of polarization. what do these values mean? How to read them for debug purposes and teaching purposes? Input to agent. whats the best format? any agent can use this. for example there are multiple values that can be set for media channel? what does each option mean? Maybe we make it like a tree start with show hit tab and find all possible options. then keep drilling down recursively and for all possible options we get a proper description.  
 5. Command hallucinations are happening. We need to avoid that. If there are multiple candidates you think are possible then ask which one is meant and wait for the answer. 
