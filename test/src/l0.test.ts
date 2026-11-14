@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import box3 from '../../examples/box3.olst.json';
 import { byId, cliAddress } from '../../src/catalog';
 import { catalogFor } from '../../src/catalog-vite';
-import { activePorts, alarmsOn, firstLoss, heads, hopName, inside, judge, l0Problems, limitsAt, mediaChannels, portPower, tables, trace, type Limit, type Stage } from '../../src/l0';
+import { activePorts, alarmsOn, fibers, firstLoss, heads, hopName, inside, judge, l0Problems, limitsAt, mediaChannels, portPower, tables, trace, type Limit, type Stage } from '../../src/l0';
 import { light, type BoxState } from '../../src/live';
 import type { Link, Topology } from '../../src/types';
 
@@ -253,7 +253,7 @@ describe('inside a card', () => {
     expect(out.stages.map((x) => x.kind)).toEqual(['ports', 'wss', 'amp', 'ports']);
     expect(back.stages.map((x) => x.kind)).toEqual(['ports', 'amp', 'wss', 'ports']);
     expect(out.stages[0]).toMatchObject({ cells: [{ id: 'AD11', dir: 'in', dBm: 2.61, flag: 'C' }] });
-    expect((out.stages[0] as { idle: string[] }).idle).toHaveLength(10);
+    expect((out.stages[0] as Extract<Stage, { kind: 'ports' }>).idle).toHaveLength(10);
     expect(out.stages[3]).toMatchObject({ cells: [{ id: 'LINE', dir: 'out', flag: 'M' }] });
   });
 
@@ -275,6 +275,18 @@ describe('inside a card', () => {
   it('adds what the media channel says', () => {
     const [out] = rowsOf(withRaw(healthy, 'show media-channel', channels('ad11')));
     expect(stage(out.stages, 1).facts.slice(0, 2)).toEqual([{ label: 'Channel', value: '6 · 193500000 MHz · 100000 MHz wide' }, { label: 'VOA', value: '15.00 dB' }]);
+  });
+
+  it('has a reading for every fiber of a C925: box 5 with light on AD6, the VOA ahead of the PA', () => {
+    const s: BoxState = { live: false, ...latest('20261111-203632-connect', { box: 'paho-gs2000-05' }) };
+    const d = { ...device, slots: { 1: { linecard: 'lc-c925', ports: {} } } };
+    const [out, back] = inside({ ...t, devices: [d], links: [] }, cat, s, d, '1').map((row) => fibers(row));
+    const lit = (list: typeof out) => list.filter((f) => f.dBm !== undefined).map((f) => f.name);
+    expect(out).toHaveLength(9 + 1 + 1);
+    expect(lit(out)).toEqual(['AD6 in', 'WSS mux to BA', 'LINE out']);
+    expect(lit(back)).toEqual(['LINE in', 'VOA to PA', 'PA to WSS demux', 'AD6 out']);
+    expect(out[9].dBm).toBeCloseTo(-18.15, 0); // the BA's input, as `show amplifier` had it at the snapshot
+    expect(back.find((f) => f.leg)).toMatchObject({ source: 'show amplifier, PA input-power' });
   });
 
   it('still draws its stages with no box', () => {

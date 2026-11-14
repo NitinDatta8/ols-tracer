@@ -264,8 +264,9 @@ export const hopName = (hop: Hop) => (hop.kind === 'fiber' ? hop.id
 export interface PortCell { id: string; at: string; dir: Dir; dBm?: number; flag?: string; dark: boolean; heat: Verdict | null; alarms: string[] }
 export interface Fact { label: string; value: string; heat?: Verdict | null }
 export type Stage =
-  | { kind: 'ports'; cells: PortCell[]; idle: string[] }
-  | { kind: 'wss' | 'amp'; id: string; facts: Fact[]; alarms: string[] };
+  | { kind: 'ports'; cells: PortCell[]; idle: PortCell[] }
+  /** An amplifier also has the box's power into and out of it, and `voa` when its card has a VOA ahead of it. */
+  | { kind: 'wss' | 'amp'; id: string; facts: Fact[]; alarms: string[]; in?: number; out?: number; voa?: boolean };
 /** One way through a card, in the order light takes it. `back` when it is the way back over an earlier row's ports. */
 export interface Row { stages: Stage[]; back: boolean }
 
@@ -309,7 +310,7 @@ export function inside(t: Topology, cat: Catalog, s: BoxState | null, d: Device,
   };
   const ports = (ids: string[], dir: Dir): Stage => {
     const used = (id: string) => ids.length === 1 || active.ports.has(address(id)) || !!fibersAt(t, { device: d.id, slot, port: id })[dir === 'in' ? 'rx' : 'tx'];
-    return { kind: 'ports', cells: ids.filter(used).map((id) => cell(id, dir)), idle: ids.filter((id) => !used(id)) };
+    return { kind: 'ports', cells: ids.filter(used).map((id) => cell(id, dir)), idle: ids.filter((id) => !used(id)).map((id) => cell(id, dir)) };
   };
   const amp = (id: string): Stage => {
     const at = address(id);
@@ -322,6 +323,7 @@ export function inside(t: Topology, cat: Catalog, s: BoxState | null, d: Device,
     const gain = stat('actual-gain');
     return {
       kind: 'amp', id, alarms: s ? alarmsOn(s, { kind: 'amp', at, id }).map(alarmText) : [],
+      in: stat('input-power'), out: stat('output-power'), voa: (def?.ingressVoaAttenRange?.max ?? 0) > 0,
       facts: [
         ...power('input-power', 'in', 'In'),
         ...(b ? [{ label: 'Gain', value: gain === undefined ? 'none' : `${dB(gain)} of ${b['target-gain']}` }] : []),
@@ -348,7 +350,7 @@ export function inside(t: Topology, cat: Catalog, s: BoxState | null, d: Device,
   const read = (stage: Stage, dir: Dir) => {
     if (stage.kind === 'ports') return stage.cells.length === 1 ? { name: stage.cells[0].id, v: stage.cells[0].dBm } : undefined;
     if (stage.kind === 'wss') return undefined;
-    return { name: stage.id, v: lit(ampState(s, address(stage.id))?.stats?.[dir === 'in' ? 'input-power' : 'output-power']?.instant) };
+    return { name: stage.id, v: stage[dir] };
   };
 
   const ways = fans(routesOf(card));
@@ -364,6 +366,26 @@ export function inside(t: Topology, cat: Catalog, s: BoxState | null, d: Device,
     });
     const back = ways.slice(0, i).some((w) => w.from.includes(to[0]) && w.to.includes(from[0]));
     return { stages, back };
+  });
+}
+
+/**
+ * A fiber inside a card, from stage `from` of a row to the next, with the box's reading of the light in it: a port's own
+ * power, else the amplifier's at that end. `leg` is the piece from an amplifier's VOA into it, which reads the
+ * amplifier's input; with no port ahead of that VOA the piece into it has no reading.
+ */
+export interface Fiber { from: number; port?: PortCell; leg?: 'voa'; dBm?: number; heat?: Verdict | null; name: string; source: string }
+
+export function fibers(row: Row): Fiber[] {
+  const nameOf = (x: Stage) => (x.kind === 'ports' ? 'ports' : x.kind === 'wss' ? `WSS ${x.id}` : x.id);
+  return row.stages.slice(0, -1).flatMap((a, from): Fiber[] => {
+    const b = row.stages[from + 1];
+    const voa: Fiber[] = b.kind === 'amp' && b.voa ? [{ from, leg: 'voa', dBm: b.in, name: `VOA to ${b.id}`, source: `show amplifier, ${b.id} input-power` }] : [];
+    const ports = a.kind === 'ports' ? a : b.kind === 'ports' ? b : null;
+    if (ports) return [...[...ports.cells, ...ports.idle].map((c) => ({ from, port: c, dBm: c.dBm, heat: c.heat, name: `${c.id} ${c.dir}`, source: 'show optical-port' })), ...voa];
+    type Part = Exclude<Stage, { kind: 'ports' }>;
+    const [amp, way] = b.kind === 'amp' ? [b, 'in' as const] : [a as Part, 'out' as const];
+    return [{ from, dBm: voa.length ? undefined : amp[way], name: `${nameOf(a)} to ${nameOf(b)}`, source: voa.length ? 'no reading ahead of the VOA' : `show amplifier, ${amp.id} ${way}put-power` }, ...voa];
   });
 }
 

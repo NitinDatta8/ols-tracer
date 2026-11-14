@@ -2,7 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProp
 import { byId, cli } from './catalog';
 import { asset, at as over, CardFace, faced, frontPorts, inside, strandBoxes, type Faced } from './Face';
 import { Inside } from './Inside';
-import { inside as insideOf, l0Problems, pathsThrough, routesOf } from './l0';
+import { inside as insideOf, l0Problems, routesOf } from './l0';
 import { discover, light, stateFor, type BoxState } from './live';
 import { termLines, useMenu } from './Menu';
 import { PipeLayer, type PipeEnds } from './Pipe';
@@ -627,8 +627,7 @@ export function PhysicalView() {
           <span className="led" />
         </div>
         {inner ? (
-          <Inside rows={insideOf(t, cat, boxState, device, slotId)} paths={pathsThrough(t, cat, boxState, device, slotId)} state={boxState}
-            problems={boxState ? l0Problems(t, cat, boxState, device) : []} />
+          <Inside rows={insideOf(t, cat, boxState, device, slotId)} problems={boxState ? l0Problems(t, cat, boxState, device) : []} />
         ) : faced(lc) ? (
           <div className="card-art-stage">
             <CardFace card={lc} className="card-art" data-pipe-box style={{ '--ar': lc.faceplate.size[0] / lc.faceplate.size[1] } as CSSProperties}

@@ -320,38 +320,42 @@ main { position: relative; min-height: 0; }
 .lc { display: flex; gap: 4px; }
 .cage.wiring { border-color: var(--accent); box-shadow: 0 0 6px var(--accent); }
 
-/* Inside an L0 card: each way light goes through it, stage by stage. A way back runs right to left, under the way out. */
+/* Inside an L0 card: its optical diagram (see Inside.tsx) over a line of readout. */
 .plate-label .seg button { padding: 2px 8px; font-size: 12px; }
 .plate-label .seg button:not(.on) { color: var(--text); }
-.inside { display: flex; flex-direction: column; justify-content: safe center; gap: 14px; min-height: 0; overflow: auto; padding: 4px; color: #e4e7eb; font-size: 12px; }
-.inside-path { margin: 0; color: #cbd2d9; font-family: var(--mono); font-size: 11px; line-height: 1.5; }
-.inside-path b { color: #fca5a5; }
+.inside { display: flex; flex-direction: column; gap: 8px; min-height: 0; overflow: auto; padding: 4px; color: #e4e7eb; font-size: 12px; }
 .inside-problem { margin: 0; color: #fca5a5; }
-.inside-row { display: flex; align-items: stretch; gap: 6px; }
-.inside-row.back { flex-direction: row-reverse; }
-.inside-arrow { flex: none; align-self: center; width: 20px; color: #facc15; font-size: 16px; text-align: center; }
-.inside-stage { flex: 1 1 0; display: flex; flex-direction: column; justify-content: center; gap: 4px; min-width: 0; padding: 6px 8px; background: #1f2933; border: 1px solid #52606d; border-radius: 6px; }
-.inside-stage.ports { border-top: 3px solid var(--l1); }
-.inside-stage.amp { border-top: 3px solid #facc15; }
-.inside-stage.wss { border-top: 3px solid var(--data); }
-.inside-stage.alarmed { border-color: #f59e0b; }
-.inside-stage h5 { margin: 0; font-size: 12px; }
-.inside-stage dl { display: grid; gap: 1px; margin: 0; }
-.inside-stage dl > div { display: flex; justify-content: space-between; gap: 8px; padding: 0 3px; border-radius: 2px; }
-.inside-stage dt { color: #9aa5b1; }
-.inside-stage dd { margin: 0; font-family: var(--mono); font-size: 11px; white-space: nowrap; }
-.inside-port { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 6px; padding: 2px 3px; border-radius: 2px; }
-.inside-port span { font-family: var(--mono); font-size: 11px; }
-.inside-port small, .inside-idle { color: #9aa5b1; }
-.inside-port.dark span { color: #9aa5b1; }
+.inside-fig { flex: 1 1 0; min-height: 120px; width: 100%; background: #18212a; border-radius: 6px; }
+.inside-fig text { fill: #cbd2d9; font-size: 12px; font-weight: 600; dominant-baseline: central; pointer-events: none; }
+.inside-part rect, .inside-part path, .inside-part circle { fill: #222d38; stroke: #9aa5b1; stroke-width: 1.5; stroke-linejoin: round; }
+.inside-part .mark { fill: none; }
+.inside-part:hover > * { stroke: #fff; }
+.inside-part.alarmed > :not(text) { stroke: #f59e0b; }
+.inside-port rect { fill: #2f3d2a; stroke: #84a35b; }
+.inside-port.lit rect { fill: #a3c46a; }
+.inside-port text { fill: #7b8794; font-family: var(--mono); font-weight: 400; }
+.inside-port.lit text { fill: #fff; }
+/* A fiber: the glass, the light in it when the box reads any, its arrowhead, and a wide path under the pointer. */
+.inside-fiber path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.inside-fiber .glass { stroke: #4a5663; stroke-width: 1.2; }
+.inside-fiber .head { fill: #4a5663; }
+.inside-fiber.lit .glass { stroke: #a16207; stroke-width: 2.4; }
+.inside-fiber .light { stroke: #facc15; stroke-width: 2.4; stroke-dasharray: 8 6; filter: drop-shadow(0 0 3px #facc15); animation: inside-flow 900ms linear infinite; }
+.inside-fiber.lit .head { fill: #facc15; }
+.inside-fiber.warning .light { stroke: #fb923c; filter: drop-shadow(0 0 3px #fb923c); }
+.inside-fiber.failure .light { stroke: #f87171; filter: drop-shadow(0 0 3px #f87171); }
+.inside-fiber .hit { stroke: transparent; stroke-width: 9; }
+.inside-fiber:hover .glass { stroke: #fff; }
+@keyframes inside-flow { to { stroke-dashoffset: -14; } }
+/* What the box reports at the fiber or part under the pointer. Two lines always, so nothing moves when it fills. */
+.inside-readout { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 2px 14px; height: 36px; margin: 0; overflow: hidden; color: #9aa5b1; font-size: 12px; line-height: 17px; }
+.inside-readout b { color: #fff; }
+.inside-readout span { padding: 0 3px; border-radius: 2px; color: #e4e7eb; font-family: var(--mono); font-size: 11px; }
+.inside-readout i { color: #9aa5b1; font-style: normal; }
+.inside-readout em { color: #fbbf24; font-style: normal; }
 .inside .warning { background: rgb(217 119 6 / 35%); }
 .inside .failure { background: rgb(220 38 38 / 45%); }
-.inside-alarm { color: #fbbf24; }
-@media (max-width: 760px) {
-  .inside-row, .inside-row.back { flex-direction: column; }
-  .inside-arrow { transform: rotate(90deg); }
-  .inside-row.back .inside-arrow { transform: rotate(-90deg); }
-}
+@media (prefers-reduced-motion: reduce) { .inside-fiber .light { animation: none; } }
 
 /* Physical view: fibers as pipes over the faceplate, and the far-end terminals under a card */
 .pipes { position: absolute; inset: 0; z-index: 1; overflow: visible; pointer-events: none; }
