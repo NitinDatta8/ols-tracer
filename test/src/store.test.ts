@@ -150,7 +150,7 @@ describe('the lab', () => {
 
   it("opens the lab file, the repo's too, as a topology of a known stream, ids renamed, and else shows it read-only, saying why", () => {
     s().openLab(structuredClone(lab) as unknown as Topology, 5);
-    expect([topology().devices.length, topology().lock?.sha256, s().labMtime, s().readOnly]).toEqual([9, lab.lock.sha256, 5, null]);
+    expect([topology().devices.length, topology().lock?.sha256, s().labMtime, s().readOnly]).toEqual([lab.devices.length, lab.lock.sha256, 5, null]);
     s().openLab({ version: 1, stream: 'corp-b', links: [], devices: [{ id: 'd1', chassis: 'ch-2026-4ru', name: 'S', x: 0, y: 0, slots: {} }] }, 7);
     expect(topology()).toMatchObject({ stream: 'tencent', devices: [{ chassis: 'ch-16slot' }] });
     expect([s().labMtime, s().readOnly]).toEqual([7, null]);
