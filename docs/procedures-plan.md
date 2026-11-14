@@ -76,7 +76,7 @@ By hand, on the work machine; the answer goes in the last column. Each gates the
 | 4 | At the next planned card reboot: what `reboot card <slot> cold` prints with confirmation on | 10 | |
 | 5 | `download sw-image ?`: does it ask for an SFTP user or password? And `show software` while a download runs | 11 | |
 | 6 | `show aaa user admin` (max-idle-time): is that why box 5 opened a new connect run every 10 min on 2026-11-11? | 1, the shell reopen only | |
-| 7 | On a Windows PC with SmartAccess AnyWhere: does `SmartAccessAnyWhere.exe` take the BERT's IP on its command line (`--help`, then the IP as its one argument)? And does the BERT take a second SmartAccess connection while one is open: refused, the first dropped, or both? | 7; without answers, Copy only and no claim | |
+| 7 | First: does the BERT answer VNC on its IP without SmartAccess? Connected in SmartAccess, its Information page lists the VNC device port (SSH port redirections); then, SmartAccess closed, `Test-NetConnection <BERT IP> -Port <that port>` in PowerShell. If it does, the BERT's screen goes in its panel and the rest of this check falls away. Else, on a Windows PC with SmartAccess AnyWhere: does `SmartAccessAnyWhere.exe` take the BERT's IP on its command line (`--help`, then the IP as its one argument)? And does the BERT take a second SmartAccess connection while one is open: refused, the first dropped, or both? | 7; without answers, Copy only and no claim | |
 | 9 | `LOAD_*` filled in `bridge/.env`: can the bridge's own SFTP login list the load directory? | 11 | |
 
 ## Procedures
