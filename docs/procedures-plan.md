@@ -15,7 +15,7 @@ The box workflows found in the boxes' logs become **procedures**: ops MOPs that 
 | 4 | [MCP](#4-mcp) | | 2026-11-13 | |
 | 5 | [Software audit and health check](#5-software-audit-and-health-check) (read) | | 2026-11-13 | |
 | 6 | [Lab file and lock](#6-lab-file-and-lock) | | 2026-11-13 | |
-| 7 | [BERT SmartAccess](#7-bert-smartaccess) | check 7 | | |
+| 7 | [BERT screen](#7-bert-screen) | check 7 | 2026-11-16, not yet on the lab's BERT | |
 | 8 | Removed 2026-11-13: [LEDs and stats](#8-leds-and-stats-removed) | | | |
 | 9 | [Locate chassis](#9-locate-chassis) (reversible) | check 1 | | |
 | 10 | [Reboot card or NE](#10-reboot-card-or-ne) (change) | checks 2–4 | | |
@@ -76,7 +76,7 @@ By hand, on the work machine; the answer goes in the last column. Each gates the
 | 4 | At the next planned card reboot: what `reboot card <slot> cold` prints with confirmation on | 10 | |
 | 5 | `download sw-image ?`: does it ask for an SFTP user or password? And `show software` while a download runs | 11 | |
 | 6 | `show aaa user admin` (max-idle-time): is that why box 5 opened a new connect run every 10 min on 2026-11-11? | 1, the shell reopen only | |
-| 7 | First: does the BERT answer VNC on its IP without SmartAccess? Connected in SmartAccess, its Information page lists the VNC device port (SSH port redirections); then, SmartAccess closed, `Test-NetConnection <BERT IP> -Port <that port>` in PowerShell. If it does, the BERT's screen goes in its panel and the rest of this check falls away. Else, on a Windows PC with SmartAccess AnyWhere: does `SmartAccessAnyWhere.exe` take the BERT's IP on its command line (`--help`, then the IP as its one argument)? And does the BERT take a second SmartAccess connection while one is open: refused, the first dropped, or both? | 7; without answers, Copy only and no claim | |
+| 7 | Does the BERT answer VNC on its IP without SmartAccess? `Test-NetConnection <BERT IP> -Port 5900` in PowerShell, SmartAccess closed | 7 | 2026-11-16, from a lab PC: ports 22 and 5900 open. So the BERT's screen goes in its physical view; the old questions (the exe's command line, a second SmartAccess) fell away with SmartAccess |
 | 9 | `LOAD_*` filled in `bridge/.env`: can the bridge's own SFTP login list the load directory? | 11 | |
 
 ## Procedures
@@ -180,14 +180,14 @@ This plan, the [BERT plan](bert-smartaccess-plan.md) brought in line, the [decis
 - Docs: the [product decision](decisions.md#product), the README's Run steps, the guide.
 - Browser check (passed 2026-11-13, against the fake bridge, the lab copied with made-up hosts): locked, nothing can be dragged, deleted or added, nor a box IP changed, and a card still goes in; unlocked, everything can, and each change is saved; no save reloads the page; a file changed on disk gets a 409, a toast to reload and **Read-only**; a reload locks again; a card the fake box reports in lands in the lab file while it is locked, with one toast; with the bridge down the page shows its last copy read-only, and loads the lab again once the bridge is back; the top bar keeps its boxes in every state.
 
-### 7. BERT SmartAccess
+### 7. BERT screen
 
-As in the [BERT plan](bert-smartaccess-plan.md), rewritten 2026-11-13 for a tracer hosted on a Linux machine:
-- SmartAccess AnyWhere is a Windows app on each person's PC, so it opens there, never on the server: no launcher in the bridge.
-- The BERT's one fixed IP is its device's `host` in the lab file, the same for everyone, editable only while the lab is unlocked.
-- The tester's header: the IP, **Copy**, and **Open SmartAccess**, which copies the IP and, if check 7 finds the exe takes it, opens an `ols-bert:` link that a one-time registration on the PC hands to the exe.
-- One at a time, if check 7 finds the BERT takes one connection: the bridge keeps one claim on it, which everyone sees (who, since when), let go by **Done** or 30 min after the page holding it last said so. Advisory: SmartAccess opened outside the tracer isn't stopped.
+As in the [BERT plan](bert-smartaccess-plan.md), rewritten 2026-11-16 once check 7 found the BERT answers VNC on its IP:
+- The BERT's physical view opens at its **Screen**: its VNC server, the one SmartAccess's Remote Screen shows, in noVNC (`src/Screen.tsx`), shared, with a VNC password asked for over it and **Reconnect**. **Ports** has its two ports, and its stage takes the terminal's room.
+- The bridge relays the page's WebSocket (`/vnc?host=`) to port 5900 on the BERT (`BERT_VNC_PORT`), only for a tester's IP in the lab file. It runs on the Linux host, so nothing runs on anyone's PC.
+- The BERT's one fixed IP is its device's `host` in the lab file, next to **← Back**, editable only while the lab is unlocked.
 - Testers stop polling `/status` and `/state`.
+- Tests: the relay in `test/bridge/screens.test.mjs`; a browser check (passed 2026-11-16) against a fake VNC server. Left: proven on the lab's BERT.
 
 ### 8. LEDs and stats (removed)
 

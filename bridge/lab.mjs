@@ -7,13 +7,23 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { changes } from './changes.mjs';
 
-/** The lab file: under catalog/, or BRIDGE_CATALOG (the tests' own). */
-export const LAB = join(process.env.BRIDGE_CATALOG ?? fileURLToPath(new URL('../catalog', import.meta.url)), 'csp', 'lab.olst.json');
+/** The lab file and its testers: under catalog/, or BRIDGE_CATALOG (the tests' own). */
+const CSP = join(process.env.BRIDGE_CATALOG ?? fileURLToPath(new URL('../catalog', import.meta.url)), 'csp');
+export const LAB = join(CSP, 'lab.olst.json');
 
 /** The lab, and its file's mtime in ms; null with no file. */
 export function readLab() {
   if (!existsSync(LAB)) return null;
   return { topology: JSON.parse(readFileSync(LAB, 'utf8')), mtime: statSync(LAB).mtimeMs };
+}
+
+/** The IPs of the lab's testers (a BERT's), as their devices have them: the only hosts /vnc relays a screen from. */
+export function testerHosts() {
+  const lab = readLab();
+  const file = join(CSP, 'testers.json');
+  if (!lab || !existsSync(file)) return new Set();
+  const testers = new Set(JSON.parse(readFileSync(file, 'utf8')).chassis.filter((c) => c.tester).map((c) => c.id));
+  return new Set(lab.topology.devices.filter((d) => testers.has(d.chassis) && d.host?.trim()).map((d) => d.host.trim()));
 }
 
 /** Writes `topology` as the lab file in one step, a whole file renamed over it, and gives its new mtime. */

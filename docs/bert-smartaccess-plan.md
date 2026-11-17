@@ -1,29 +1,29 @@
-# BERT tester SmartAccess plan (2026-11-11, rewritten 2026-11-13)
+# BERT screen plan (2026-11-11, rewritten 2026-11-13 and 2026-11-16)
 
-How a person opens VIAVI SmartAccess AnyWhere on the lab's BERT from the BERT tester in the physical view. Built as phase 7 of the [procedures plan](procedures-plan.md#7-bert-smartaccess).
+How a person drives the lab's BERT from the BERT tester in the physical view: its own screen, live, in the page. Built as phase 7 of the [procedures plan](procedures-plan.md#7-bert-screen).
 
 ## Facts
 
-- **SmartAccess AnyWhere is a Windows app** on each person's PC: VIAVI's Qt installer (`SmartAccessAnyWhere_V26-09-28-winsetup.zip`, installer 25.11.27) puts `SmartAccessAnyWhere.exe` under `Viavi\SmartAccessAnywhere` in the Program Files folder, with a Start-menu and a desktop shortcut. Its shortcuts pass no arguments, and it registers no URL protocol, so a web page can't start it as installed. Whether the exe takes an IP on its command line can't be seen from the installer: [box check 7](procedures-plan.md#box-checks).
-- **What SmartAccess does underneath** (from the installer's files, 2026-11-14): a Qt app with no web engine. With an IP it opens SSH to the BERT (port 22, or 443) with its own login, the BERT answers its service ports, and each mode is a tunnel to a standard service on the BERT: Remote Screen is VNC, Web View is HTTP (opened in the browser), File Transfer is FTP, Console is telnet. The page used in the lab is Remote Screen. So if the BERT also answers VNC on its IP without SmartAccess, the tracer can show that same screen in the BERT's panel (noVNC in the page, a relay in the bridge): [box check 7](procedures-plan.md#box-checks).
-- **The tracer will be hosted on a Linux machine,** and everyone who opens it sees the same lab. The server can't run a Windows app, and one it ran would open on the server, not on the person's screen. So SmartAccess opens on the person's own PC, and the bridge never launches anything.
-- **The BERT has one fixed IP,** and SmartAccess works only with it.
-- **Maybe one person at a time:** whether the BERT takes a second SmartAccess connection is box check 7's second question.
+- **What SmartAccess AnyWhere does underneath** (from the installer's files, 2026-11-14): a Qt app with no web engine. With an IP it opens SSH to the BERT (port 22, or 443) with its own login, the BERT answers its service ports, and each mode is a tunnel to a standard service on the BERT: Remote Screen is VNC, Web View is HTTP (opened in the browser), File Transfer is FTP, Console is telnet. The page used in the lab is Remote Screen.
+- **The BERT answers VNC on its IP without SmartAccess** ([box check 7](procedures-plan.md#box-checks), 2026-11-16: from a lab PC, ports 22 and 5900 open). So the tracer shows the same screen itself, and nothing about the BERT is drawn or invented here.
+- **The tracer will be hosted on a Linux machine,** and everyone who opens it sees the same lab. The bridge runs there and reaches the BERT, so nothing runs on anyone's PC.
+- **The BERT has one fixed IP.**
 
-## Design
+## Design (built 2026-11-16)
 
-- **The IP is stored once:** the BERT device's `host` in the lab file, the same for everyone, editable only while the lab is unlocked. No new field.
-- **The tester's header** (a tester has no box session, so it never polls `/status` or `/state`): the IP, always drawn so nothing shifts; **Copy**; and **Open SmartAccess**, which copies the IP and says so, then:
-  - if check 7 finds the exe takes the IP: opens `ols-bert://<ip>`. A one-time registration on each PC (a `.reg` and a `.cmd`, kept in the repo with how to install them) maps that link to `SmartAccessAnyWhere.exe <ip>`. The browser asks once before it hands a link to an app;
-  - if not: nothing more. The person opens SmartAccess and pastes the IP.
-- **One at a time,** only if check 7 finds the BERT takes one connection: the bridge keeps one claim on the BERT, which every view shows: free, or in use and since when, and by whom once the tracer has logins. **Use the BERT** claims it, refused while someone else holds it; **Done** lets it go, as does 30 min with no word from the page that holds it. The claim is advisory: SmartAccess opened outside the tracer isn't stopped.
+- **The IP is stored once:** the BERT device's `host` in the lab file, the same for everyone, next to **← Back**, editable only while the lab is unlocked.
+- **The BERT opens at its Screen** (**Ports | Screen** on its name plate, as an L0 card's **Ports | Inside**): noVNC (`@novnc/novnc`, `src/Screen.tsx`) scaled to fit, clicked and typed on as on the BERT. A VNC password, if the BERT asks for one, is asked for over the screen; **Reconnect** once it closes. **Ports** has its two ports, to put optics in and fiber. It has no CLI, so its stage takes the terminal's room.
+- **The bridge relays it:** the page's WebSocket at `/bridge/vnc?host=` goes byte for byte to `BERT_VNC_PORT` (5900) on the BERT, only for a tester's IP in the lab file (`testerHosts` in `bridge/lab.mjs`), and only from the app's Origin, like `/term`. So it is no way into anything else.
+- **Shared:** noVNC asks the BERT to share its screen, so everyone who has it open sees the same one, and a SmartAccess session on it stays open.
+- Testers no longer poll `/status` and `/state`: their IP is their screen's, not a box to connect to.
 
-## Dropped (2026-11-13)
+## Dropped
 
-The first plan had the bridge start SmartAccess (`bridge/launcher.mjs`, `POST /tester/open`, `BERT_SAA_PATH`, `BERT_LAUNCH_MODE`, a `cmd /c start`, and the IP copied by the bridge). That works only while the bridge runs on the person's own Windows PC, never once the tracer is hosted on Linux.
+- 2026-11-13: the bridge starting SmartAccess (`bridge/launcher.mjs`, `POST /tester/open`, `BERT_SAA_PATH`, `BERT_LAUNCH_MODE`, a `cmd /c start`). That worked only while the bridge ran on the person's own Windows PC.
+- 2026-11-16, once check 7 found VNC open: **Copy**, **Open SmartAccess**, the `ols-bert:` link with its one-time registration on each PC, and the one-at-a-time claim on the BERT. The screen is in the page and shared.
 
 ## Tests
 
-- The header: the IP and buttons in every state, Copy and the link, and the input read-only while locked.
-- If there is a claim: claimed, refused for a second view, let go by Done and by time, and the same state for every view.
-- A browser check, then proven on a lab PC: SmartAccess opens on the BERT.
+- The relay (`test/bridge/screens.test.mjs`): both ways, closed with either end, refused for a box's IP, an IP in no device and another Origin.
+- Browser check (passed 2026-11-16, against a fake VNC server on the dev machine, the lab copied with made-up hosts): the BERT opens at its screen, drawn and fitted; clicks and keys reach it; **Ports** and back; **Reconnect** once it closes; a VNC password asked for and sent. The IP input is read-only while locked.
+- Left: proven on the lab's BERT, and whether its VNC server keeps a SmartAccess session open alongside.

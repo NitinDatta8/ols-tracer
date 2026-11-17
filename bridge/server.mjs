@@ -19,15 +19,18 @@
 // /procedure/cancel stops one.
 // The lab file (lab.mjs), the fixed lab the app shows everyone, is read at /lab and saved with a PUT there, refused once
 // the file changed since it was read; a connected box's physical view syncs its device into it at /lab/sync?host=.
+// A BERT's own screen (its VNC server, the one SmartAccess's Remote Screen shows) reaches the page's noVNC over a
+// WebSocket at /bridge/vnc?host=<the BERT's IP>, relayed byte for byte to BERT_VNC_PORT (5900) on a tester in the lab file.
 // Login settings come from bridge/.env (see .env.example). Listens on localhost only.
 import { existsSync, readFileSync } from 'node:fs';
 import { createServer } from 'node:http';
+import net from 'node:net';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import ssh2 from 'ssh2';
 import { WebSocketServer } from 'ws';
 import { FLAPS, record } from './history.mjs';
-import { readLab, saveLab, syncLab } from './lab.mjs';
+import { readLab, saveLab, syncLab, testerHosts } from './lab.mjs';
 import { definitions, paramsOf, Procedure } from './procedures.mjs';
 import { accepted, boxAt, boxDir, boxes, boxOf, ensureWiring, latest, lines, PYTHON, Run, runsOf, TEMPLATES_DIR, wiring } from './recorder.mjs';
 import { shareOut, worker } from './shells.mjs';
@@ -104,6 +107,7 @@ const statusOf = (s) => ({ state: s.state, host: s.host, box: s.box ?? null, err
 
 const terminals = new WebSocketServer({ noServer: true }); // the physical views', each on its box's session shell
 const windows = new WebSocketServer({ noServer: true }); // terminal windows, each on a shell of its own
+const screens = new WebSocketServer({ noServer: true }); // BERT screens, each relayed to its VNC server
 
 /** How to log in to `host`: bridge/.env's user, and its password or key. */
 const loginOptions = (host) => ({
@@ -634,15 +638,28 @@ async function openWindow(ws, params) {
   });
 }
 
+/** A BERT's screen: the page's noVNC relayed byte for byte to the VNC server on `host`. Closing either closes the other. */
+function relayScreen(ws, host) {
+  const vnc = net.connect(Number(env.BERT_VNC_PORT ?? 5900), host);
+  vnc.on('data', (d) => ws.readyState === ws.OPEN && ws.send(d)).on('close', () => ws.close()).on('error', (e) => console.log(`BERT screen on ${host}: ${e.message}`));
+  ws.on('message', (m) => vnc.write(m)).on('close', () => vnc.destroy()).on('error', () => {});
+}
+
 // A terminal attaches. A browser cannot add the header to a WebSocket, but always sends the page's Origin, which a page
 // cannot fake: only a page served from the host it connects to (the app, through Vite's proxy) gets a terminal.
 // Without it, any web page could type commands on the box. /term?host= is a physical view's, on that box's session;
-// /shell a terminal window's.
+// /shell a terminal window's; /vnc?host= a BERT's screen, only from a tester's IP in the lab file, so it is no way
+// into anything else.
 server.on('upgrade', (req, socket, head) => {
   const { host: to = '', origin = '' } = req.headers;
   const url = new URL(req.url ?? '', 'http://bridge');
-  if (!['/term', '/shell'].includes(url.pathname) || !LOCAL.test(to) || origin.replace(/^https?:\/\//, '') !== to) return socket.destroy();
+  if (!['/term', '/shell', '/vnc'].includes(url.pathname) || !LOCAL.test(to) || origin.replace(/^https?:\/\//, '') !== to) return socket.destroy();
   if (url.pathname === '/shell') return windows.handleUpgrade(req, socket, head, (ws) => void openWindow(ws, url.searchParams));
+  if (url.pathname === '/vnc') {
+    const host = url.searchParams.get('host') ?? '';
+    if (!testerHosts().has(host)) return socket.destroy();
+    return screens.handleUpgrade(req, socket, head, (ws) => relayScreen(ws, host));
+  }
   const s = sessions.get(url.searchParams.get('host') ?? '');
   if ([...url.searchParams.keys()].join() !== 'host' || !s) return socket.destroy();
   terminals.handleUpgrade(req, socket, head, (ws) => {

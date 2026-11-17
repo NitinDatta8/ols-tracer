@@ -2,6 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProp
 import { byId, cli } from './catalog';
 import { asset, at as over, CardFace, faced, frontPorts, inside, strandBoxes, type Faced } from './Face';
 import { Inside } from './Inside';
+import { Screen } from './Screen';
 import { inside as insideOf, l0Problems, routesOf } from './l0';
 import { discover, light, stateFor, type BoxState } from './live';
 import { termLines, useMenu } from './Menu';
@@ -268,7 +269,7 @@ export function PhysicalView() {
     return (byId(cat.chassis, d?.chassis)?.tester && Object.keys(d?.slots ?? {})[0]) || null;
   });
   const [menuAt, menu] = useMenu(); // right-click: terminals in their own windows, and procedures
-  const [inner, setInner] = useState(false); // an L0 card is shown from the inside, not its ports
+  const [inner, setInner] = useState(false); // an L0 card is shown from the inside, a tester by its screen, not its ports
   const [drag, setDrag] = useState<Drag | null>(null);
   const [tip, setTip] = useState<{ p: PluggableDef; x: number; y: number; up: boolean } | null>(null);
   const [detail, setDetail] = useState<Detail | null>(null); // datasheet in the side panel
@@ -276,13 +277,14 @@ export function PhysicalView() {
   const [wire, setWire] = useState<Wire | null>(null);
   const [back, setBack] = useState(false); // chassis seen from the back: PSUs and fans
   const [alarmsFor, setAlarmsFor] = useState<Where | null>(null); // level whose alarms the side panel lists
-  const host = byId(t.devices, openId ?? undefined)?.host?.trim() ?? ''; // the opened device's box
+  const opened = byId(t.devices, openId ?? undefined);
+  const testerOpen = !!byId(cat.chassis, opened?.chassis)?.tester; // its IP is its screen's, not a box to connect to
+  const host = testerOpen ? '' : opened?.host?.trim() ?? ''; // the opened device's box
   const [box, checkBox] = useBox(host);
   useLight(host, box.state);
   // The Procedures panel, open at the chassis or a card (`slot`), with the one picked in the right-click menu.
   const [procs, setProcs] = useState<{ pick: string | null; slot: string | null } | null>(null);
-  const opened = byId(t.devices, openId ?? undefined);
-  const [procsGot, refreshProcs] = useProcedures(byId(cat.chassis, opened?.chassis)?.tester ? '' : host, box.host === host && box.state === 'connected', !!procs);
+  const [procsGot, refreshProcs] = useProcedures(host, box.host === host && box.state === 'connected', !!procs);
   const strands = useStrands(host, box.state, box.snapshot);
   const inferredPower = (strands ?? []).some((s) => /power fallback/i.test(s.notes ?? ''));
   const [lastSyncAt, setLastSyncAt] = useState<number | null>(null);
@@ -331,8 +333,8 @@ export function PhysicalView() {
   }, [procs, wire, detail, alarmsFor, cardSlot, setOpenDevice]);
 
   // The hovered element, the level whose alarms were listed, and the Procedures panel opened there, are gone once the
-  // level or side changes.
-  useEffect(() => { setFocus(null); setWire(null); setAlarmsFor(null); setTip(null); setInner(false); setProcs(null); }, [cardSlot, back]);
+  // level or side changes. A tester opens at its screen.
+  useEffect(() => { setFocus(null); setWire(null); setAlarmsFor(null); setTip(null); setInner(testerOpen); setProcs(null); }, [cardSlot, back]);
 
   const device = byId(t.devices, openId ?? undefined);
   if (!device) return null;
@@ -637,16 +639,18 @@ export function PhysicalView() {
               </>
             )}
           </label>
-          {routesOf(lc).length > 0 && (
+          {(tester || routesOf(lc).length > 0) && (
             <span className="seg" onClick={(e) => e.stopPropagation()}>
               <button className={inner ? '' : 'on'} onClick={() => setInner(false)}>Ports</button>
-              <button className={inner ? 'on' : ''} onClick={() => setInner(true)}>Inside</button>
+              <button className={inner ? 'on' : ''} onClick={() => setInner(true)}>{tester ? 'Screen' : 'Inside'}</button>
             </span>
           )}
           {alarmButton({ slot: slotId })}
           <span className="led" />
         </div>
-        {inner ? (
+        {inner && tester ? (
+          <Screen host={device.host?.trim() ?? ''} />
+        ) : inner ? (
           <Inside rows={insideOf(t, cat, boxState, device, slotId)} problems={boxState ? l0Problems(t, cat, boxState, device) : []} />
         ) : faced(lc) ? (
           <div className="card-art-stage">
@@ -799,8 +803,14 @@ export function PhysicalView() {
         <header>
           {/* Focus moves here, so Escape closes the view without React Flow also deselecting the node. */}
           <button autoFocus onClick={() => (cardSlot ? side(false) : setOpenDevice(null))} title={cardSlot ? 'Back to the chassis' : 'Back to the canvas'}>← Back</button>
-          {/* The box to run CLI commands on. The view leaves its session when it closes. A tester has none. */}
-          {tester ? <small className="muted">{chassis?.name}: test equipment, no box to connect to and no CLI</small> : <>
+          {/* The box to run CLI commands on. The view leaves its session when it closes. A tester has none: its IP is its screen's. */}
+          {tester ? (
+            <form className="box" onSubmit={(e) => e.preventDefault()}>
+              <input value={device.host ?? ''} placeholder="BERT IP" aria-label="BERT IP" spellCheck={false} disabled={locked}
+                title={locked ? 'Locked: unlock the lab (🔒) to change the BERT IP' : undefined} onChange={(e) => updateDevice(device.id, { host: e.target.value })} />
+              <small className="muted">{chassis?.name}: its own screen under Screen, no CLI</small>
+            </form>
+          ) : <>
           <form className="box" onSubmit={(e) => { e.preventDefault(); connectBox(); }}>
             <input value={device.host ?? ''} placeholder="Box IP" aria-label="Box IP" spellCheck={false} disabled={linked || locked}
               title={locked && !linked ? 'Locked: unlock the lab (🔒) to change the box IP' : undefined} onChange={(e) => updateDevice(device.id, { host: e.target.value })} />
@@ -837,7 +847,7 @@ export function PhysicalView() {
           * The same four fixed areas at every level: the parts to put in across the top as small icons, the faceplate
           * (scaled to fit) the full width under them, and the CLI terminal and the details side by side at the bottom.
           */}
-        <div className="body">
+        <div className={`body${tester ? ' tester' : ''}`}>
           {tray()}
           {/* The chassis is scaled to fit; a card's plate fills the stage as laid out, its cages sized to it. */}
           <div ref={stage} className="stage" onContextMenu={stageMenu}>
@@ -850,14 +860,14 @@ export function PhysicalView() {
           </div>
           {/*
             * The box's CLI, typed into as over ssh (Tab, ↑, Ctrl-C and Escape go to the box while it has focus), and under
-            * it the command for what is hovered, to Copy or Run.
+            * it the command for what is hovered, to Copy or Run. A tester has none: its stage, with its screen, takes the room.
             */}
-          <section className="term">
-            {tester ? <p className="no-cli">{chassis?.name} has no CLI here. Fiber its ports to client ports with the same optics.</p> : <>
+          {!tester && (
+            <section className="term">
               <BoxTerminal live={linked && here.state === 'connected'} src={`bridge/term?host=${encodeURIComponent(host)}`} ref={keys} />
               <Cli command={suggested} box={here} onRun={runOnBox} />
-            </>}
-          </section>
+            </section>
+          )}
           <aside className="inspector">
             {(sheet || alarmsFor) && <button className="close" onClick={() => { setDetail(null); setAlarmsFor(null); }} aria-label="Close">✕</button>}
             {sheet ? (
