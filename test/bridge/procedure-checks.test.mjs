@@ -1,8 +1,9 @@
 // The catalog's checks (CHECKS in bridge/procedures.mjs) on the boxes' own recorded output: each show a check reads,
 // as the box last printed it in a snapshot, parsed again with its TTP template, as the runner parses what it types.
 // The software audit flags exactly the boxes whose release isn't committed and passes the rest; the health check names
-// box 3's problems against its latest healthy baseline, and says when a box has none. Needs npm run bridge:setup's
-// Python, as the template tests do, and is skipped without it.
+// box 3's problems against its latest healthy baseline, and says when a box has none; the reboots' and the upgrade's
+// waits judge that output as it is, and changed as a reboot or an upgrade would change it. Needs npm run
+// bridge:setup's Python, as the template tests do, and is skipped without it.
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
@@ -82,5 +83,55 @@ describe.skipIf(!existsSync(PYTHON) || !existsSync(TEMPLATES_DIR))("the catalog'
     ]);
     out['show system'].data.state['config-saving-mode'] = 'manual';
     expect(CHECKS.health.test(out, {}, box).findings.at(-1)).toBe('warning: config-saving-mode manual, so a cold reboot loses what was not saved');
+  });
+
+  it("a card reboot's waits: down once it raises COMMUNICATION_FAILURE or leaves active, up once it is in and active again", async () => {
+    const out = await outputs('card-down', BOX3);
+    const comm = { resource: 'card 1-7', 'alarm-abbreviate': 'COMMUNICATION_FAILURE', severity: 'CRITICAL', text: 'Communication failure' };
+    expect(CHECKS['card-down'].test(out, { card: '1-7' })).toEqual({ ok: false, why: 'card 1-7 is still in and active, with no COMMUNICATION_FAILURE' });
+    expect(CHECKS['card-up'].test(out, { card: '1-7' })).toEqual({ ok: true });
+    expect(CHECKS['card-up'].test(out, { card: '1-4' })).toEqual({ ok: false, why: 'card 1-4 is absent' });
+    out['show alarm'].data.alarms.comm = comm;
+    expect(CHECKS['card-down'].test(out, { card: '1-7' })).toEqual({ ok: true });
+    expect(CHECKS['card-up'].test(out, { card: '1-7' })).toEqual({ ok: false, why: 'card 1-7 has COMMUNICATION_FAILURE' });
+    delete out['show alarm'].data.alarms.comm;
+    out['show card'].data.state.cards['1-7']['oper-status'] = 'inactive';
+    expect(CHECKS['card-down'].test(out, { card: '1-7' })).toEqual({ ok: true });
+    expect(CHECKS['card-up'].test(out, { card: '1-7' })).toEqual({ ok: false, why: 'card 1-7 is inactive' });
+  });
+
+  it("an NE reboot's wait: every card in and active before it is so again; one absent or down before is left alone", async () => {
+    const before = await outputs('cards-up', BOX3);
+    const now = await outputs('cards-up', BOX3);
+    expect(CHECKS['cards-up'].test(now, {}, BOX3, before)).toEqual({ ok: true }); // 1-4 and 1-8 absent, 1-21 inactive, before too
+    now['show card'].data.state.cards['1-1']['oper-status'] = 'inactive';
+    now['show alarm'].data.alarms.comm = { resource: 'card 1-7', 'alarm-abbreviate': 'COMMUNICATION_FAILURE' };
+    expect(CHECKS['cards-up'].test(now, {}, BOX3, before)).toEqual({ ok: false, why: 'not back yet: card 1-1, 1-7' });
+  });
+
+  it('the software checks on each box: committed on 06 to 08, waiting for commit or rollback on the others', async () => {
+    const status = {};
+    for (const box of boxes()) {
+      const out = await outputs('committed', box);
+      status[box] = [CHECKS.committed.test(out).ok, CHECKS.uncommitted.test(out).ok];
+    }
+    const uncommitted = ['03', '04', '05', 'test01', 'test02'].map((n) => `paho-gs2000-${n}`);
+    for (const [box, s] of Object.entries(status)) expect(s, box).toEqual(uncommitted.includes(box) ? [false, true] : [true, false]);
+  });
+
+  it("an upgrade's pre and waits on box 3 and box 6: committed first, the load picked downloaded, then active", async () => {
+    const three = await outputs('upgradable', BOX3);
+    const six = await outputs('upgradable', 'paho-gs2000-06');
+    const load = 'Release_CSP-2.10.100.10_20261013.tar';
+    expect(CHECKS.upgradable.test(three, { file: load })).toEqual({ ok: false, why: 'CSP-2.10.100.10_20261013 is not committed: commit it or roll it back first' });
+    const running = `Release_${six['show software'].data.state.active}.tar`;
+    expect(CHECKS.upgradable.test(six, { file: running })).toEqual({ ok: false, why: `${six['show software'].data.state.active} is the release running already` });
+    expect(CHECKS.upgradable.test(six, { file: load })).toEqual({ ok: true });
+    expect(CHECKS.downloaded.test(three, { file: 'Release_CSP-2.9.0.235_20260209.tar' })).toEqual({ ok: false, why: 'candidate-status inactive' });
+    expect(CHECKS.downloaded.test(three, { file: load })).toEqual({ ok: false, why: 'the candidate is Release_CSP-2.9.0.235_20260209.tar' });
+    three['show software'].data.state['candidate-status'] = 'download-completed';
+    expect(CHECKS.downloaded.test(three, { file: 'Release_CSP-2.9.0.235_20260209.tar' })).toEqual({ ok: true });
+    expect(CHECKS.activated.test(three, { file: load })).toEqual({ ok: true });
+    expect(CHECKS.activated.test(six, { file: load })).toEqual({ ok: false, why: `the active release is ${six['show software'].data.state.active}` });
   });
 });

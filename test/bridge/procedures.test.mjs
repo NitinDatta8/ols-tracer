@@ -61,6 +61,8 @@ describe('definitions', () => {
       [{ ...reboot, params: { card: { pattern: '(' } } }, 'params.card.pattern: not a regex'],
       [{ ...reboot, params: { card: { pattern: '.*', enum: ['1-6'] } } }, 'params.card: an enum or a pattern, one of them'],
       [{ ...reboot, params: { card: { pattern: '\\d+-\\d+' }, mode: { enum: ['cold'], default: 'hot' } } }, 'params.mode.default: not one of its values'],
+      [{ ...reboot, params: { card: { pattern: '\\d+-\\d+', example: 'card 7' }, mode: { enum: ['cold'] } } }, 'params.card.example: not one of its values'],
+      [{ ...reboot, params: { card: { pattern: '\\d+-\\d+', hint: 'a card' }, mode: { enum: ['cold'] } } }, 'params.card: only enum, pattern, default, label and example'],
       [{ ...audit, restore: [] }, 'restore: a reversible procedure has one, and only it'],
       [{ ...locate, restore: undefined }, 'restore: a reversible procedure has one, and only it'],
       [{ ...locate, restore: [] }, 'restore: at least one line'],
@@ -100,6 +102,7 @@ describe('planOf', () => {
     const { params } = paramsOf(reboot, { card: '1-6' });
     expect(planOf(reboot, params)).toEqual({
       pre: [],
+      before: [],
       steps: [{ send: 'reboot card 1-6 cold' }, { wait: 'cardUp', shows: ['show card 1-6'], args: { card: '1-6', mode: 'cold' }, every: 5, timeout: 180 }],
       verify: { check: 'cardUp', shows: ['show card 1-6'] },
       restore: [],

@@ -24,11 +24,15 @@ export function fakeBox(host, { hostname = host.split('.')[0].toUpperCase(), ans
   const box = {
     host, hostname, answers, delay, hang: new Set(hang), refuse, password, welcome,
     typed: [], connections: new Set(), shells: new Set(), logins: 0, interrupts: 0, overlaps: 0,
-    /** What the box prints for `cmd`. */
-    answer(cmd) {
+    /**
+     * What the box prints for `cmd`, typed into `shell`. Its `cli confirmation-required` is that shell's own, as the
+     * CLI's is per session; how a box prints it is not captured yet (box check 3), so this is a guess at its form.
+     */
+    answer(cmd, shell) {
       const a = box.answers[cmd];
       if (a !== undefined) return typeof a === 'function' ? a(cmd) : a;
       if (cmd === 'show system') return `hostname ${box.hostname}\nlocation lab`;
+      if (cmd === 'show cli confirmation-required') return `confirmation-required ${shell?.confirm ?? 'yes'}`;
       if (cmd === 'show software') return `active ${RELEASE}`;
       return 'None';
     },
@@ -45,7 +49,7 @@ export function fakeBox(host, { hostname = host.split('.')[0].toUpperCase(), ans
 class Shell extends EventEmitter {
   constructor(box, { term = 'xterm', cols = 80, rows = 24 } = {}) {
     super();
-    Object.assign(this, { box, term, size: { cols, rows }, mode: '>', line: '', open: true, timers: new Set(), answering: 0 });
+    Object.assign(this, { box, term, size: { cols, rows }, mode: '>', line: '', open: true, timers: new Set(), answering: 0, confirm: 'yes' });
     box.shells.add(this);
     this.later(() => this.say(`Welcome to ${box.hostname}\r\n${this.prompt()}`), box.welcome);
   }
@@ -92,7 +96,8 @@ class Shell extends EventEmitter {
     if (this.box.hang.has(cmd)) return;
     if (cmd === 'configure') this.mode = '#';
     else if (cmd === 'exit') this.mode = '>';
-    const out = String(this.box.answer(cmd) ?? '');
+    else if (/^set cli confirmation-required (yes|no)$/.test(cmd)) this.confirm = cmd.split(' ').at(-1);
+    const out = String(this.box.answer(cmd, this) ?? '');
     this.later(() => {
       this.answering--;
       this.say(`${out ? `${out.replace(/\r?\n/g, '\r\n')}\r\n` : ''}${this.prompt()}`);

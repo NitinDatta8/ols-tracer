@@ -25,7 +25,17 @@ describe('changes', () => {
     expect(end).toMatchObject({ state: 'failed', why: 'set bogus 1: the box refused it: Error: invalid input. Left on the box: set thing on', sent: ['set thing on'] });
     expect(box.count('set never 1')).toBe(0);
     const [run] = end.runs;
-    expect(typed(folder(1), run)).toEqual([...SETUP, 'set cli confirmation-required no', 'exit', 'configure', 'set thing on', 'set bogus 1', 'exit']);
+    expect(typed(folder(1), run)).toEqual([...SETUP, 'set cli confirmation-required no', 'exit', 'show cli confirmation-required', 'configure', 'set thing on', 'set bogus 1', 'exit']);
+  }, 40000);
+
+  it('a shell where the CLI would still ask to confirm a line runs nothing', async () => {
+    const box = fake(1, { answers: { 'show cli confirmation-required': 'confirmation-required yes' } });
+    await connect(host(1), 'view:a');
+    await whole(folder(1));
+    const asked = (await ask(host(1), 'set-bad', 'view:a')).body;
+    expect((await approve(host(1), asked.ref, hostname(1))).status).toBe(200);
+    expect(await over(host(1))).toMatchObject({ state: 'failed', why: 'the CLI would ask to confirm its lines: "show cli confirmation-required" printed confirmation-required yes', sent: [] });
+    expect(box.count('set thing on')).toBe(0);
   }, 40000);
 
   it('a change cancelled while it waits never runs, and one nobody approves expires and lets go of the session', async () => {

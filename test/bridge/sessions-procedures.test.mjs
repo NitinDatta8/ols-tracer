@@ -64,9 +64,9 @@ describe('procedures', () => {
     expect(end.log.map((e) => [e.step, e.line ?? e.check, e.ok])).toEqual([['send', 'set led on', true], ['restore', 'set led off', true]]);
     // Its lines: its shell set up, the step, the wait's looks, one a second, and the restore, each in configure.
     const lines = typed(folder(1), run);
-    expect(lines.slice(0, 8)).toEqual([...SETUP, 'set cli confirmation-required no', 'exit', 'configure', 'set led on', 'exit']);
+    expect(lines.slice(0, 9)).toEqual([...SETUP, 'set cli confirmation-required no', 'exit', 'show cli confirmation-required', 'configure', 'set led on', 'exit']);
     expect(lines.slice(-3)).toEqual(['configure', 'set led off', 'exit']);
-    expect(new Set(lines.slice(8, -3))).toEqual(new Set(['show flag']));
+    expect(new Set(lines.slice(9, -3))).toEqual(new Set(['show flag']));
     // A reversible one takes a snapshot after it, into a second procedure run.
     expect(end.runs).toHaveLength(2);
     expect((await runs(folder(1))).filter((m) => m.trigger === 'procedure').map((m) => m.run)).toEqual(end.runs);

@@ -24,7 +24,7 @@ describe('drops', () => {
     expect(end.runs).toEqual([end.runs[0], second.run, end.runs[2]]);
     const lines = index(folder(1), second.run);
     expect(lines.findIndex((l) => l.source === 'procedure')).toBeGreaterThan(lines.findLastIndex((l) => l.source === 'snapshot'));
-    expect(typed(folder(1), second.run)).toEqual([...SETUP, 'set cli confirmation-required no', 'exit', 'show flag', 'show flag']);
+    expect(typed(folder(1), second.run)).toEqual([...SETUP, 'set cli confirmation-required no', 'exit', 'show cli confirmation-required', 'show flag', 'show flag']);
   }, 60000);
 
   it('a drop in the wait after a step that expects one: the wait runs again once the box is back, the line typed once', async () => {
@@ -47,4 +47,5 @@ describe('drops', () => {
     expect(end.log.map((e) => [e.step, e.line ?? e.check ?? null, e.tries ?? null])).toEqual([['send', 'activate sw', null], ['drop', 'activate sw', null], ['back', null, null], ['wait', 'flag', 1]]);
     expect([box.count('activate sw'), box.logins, shown]).toEqual([1, 2, 3]);
   }, 60000);
+
 });

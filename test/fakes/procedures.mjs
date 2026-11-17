@@ -12,6 +12,12 @@ CHECKS.flag = {
   shows: () => ['show flag'],
   test: (out) => (out['show flag'].raw.trim() === 'up' ? { ok: true } : { ok: false, why: `the flag is ${out['show flag'].raw.trim()}` }),
 };
+/** A wait of the tests' own that reads before the procedure begins: the box's `show flag` prints what it printed then. */
+CHECKS.again = {
+  shows: () => ['show flag'],
+  before: true,
+  test: (out, _args, _box, before) => (out['show flag'].raw === before['show flag'].raw ? { ok: true } : { ok: false, why: `the flag is ${out['show flag'].raw.trim()}` }),
+};
 /** An audit's check of the tests' own: each line the box's `show found` prints is a finding. */
 CHECKS.found = { shows: () => ['show found'], test: (out) => ({ ok: true, findings: out['show found'].raw.split('\n').map((l) => l.trim()).filter((l) => l && l !== 'None') }) };
 export const PROCEDURES = [
@@ -25,6 +31,7 @@ export const PROCEDURES = [
     steps: [{ send: 'reboot ne {mode}', drops: true, timeout: 60 }, { wait: 'flag', every: 1, timeout: 60 }], verify: 'flag',
   },
   { id: 'activate', label: 'Activate', level: 'chassis', tier: 'change', steps: [{ send: 'activate sw', drops: true, timeout: 60 }, { wait: 'flag', every: 1, timeout: 60 }] },
+  { id: 'restart', label: 'Restart', level: 'chassis', tier: 'change', steps: [{ send: 'restart ne', drops: true, timeout: 30 }, { wait: 'again', every: 1, timeout: 3 }] },
 ];
 mkdirSync(join(catalog, 'common'), { recursive: true });
 writeFileSync(join(catalog, 'common', 'procedures.json'), JSON.stringify({ procedures: PROCEDURES }));

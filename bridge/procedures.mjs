@@ -25,20 +25,131 @@ const isShow = (line) => /^show(\s|$)/.test(line);
 const MODES = /^(configure|exit|end|\^\^\^|bash|kgdb|cliclient)(\s|$)/;
 /**
  * The runner's shell is set up as the poller's, so nothing pages or wraps. One that may change the box also turns the
- * CLI's confirmation prompts off, which `cli confirmation-required` does for that CLI session only.
+ * CLI's confirmation prompts off, which `cli confirmation-required` does for that CLI session only, and reads it back:
+ * a line that asked to confirm would never get its prompt, so a shell where they are still on runs nothing.
  */
 const SETUP = ['configure', 'set cli length 0', 'set cli width 1024'];
 const QUIET = 'set cli confirmation-required no';
+const QUIET_NOW = 'show cli confirmation-required';
+/** What an 800MX card raises from about 12 s into its reboot until about 100 s, by the box logs. */
+const COMM = 'COMMUNICATION_FAILURE';
+/** Show card's cards, by slot (1-7), or null when it did not parse. */
+const cardsIn = (out) => out['show card']?.data?.state?.cards ?? null;
+/** Show alarm's alarms, or null when it did not parse. */
+const alarmsIn = (out) => (out['show alarm']?.data ? Object.values(out['show alarm'].data.alarms ?? {}) : null);
+/** Whether card `c`, as show card has it, is in and active. */
+const up = (c) => c?.present === 'true' && c['oper-status'] === 'active';
+/** Whether the box raised COMMUNICATION_FAILURE on card `slot`. */
+const unreachable = (alarms, slot) => alarms.some((a) => a['alarm-abbreviate'] === COMM && a.resource === `card ${slot}`);
+/** Show software's state, or null when it did not parse. */
+const softwareIn = (out) => out['show software']?.data?.state ?? null;
+/** The release a load names, as show software's active does: Release_CSP-2.10.100.10_20261013.tar → CSP-2.10.100.10_20261013. */
+export const releaseOf = (file) => file.replace(/^Release_/, '').replace(/\.tar$/, '');
+const NOT_PARSED = (shows) => ({ ok: false, why: `${shows} did not parse` });
 
 /**
- * The named checks a procedure's `pre`, `wait` and `verify` use, each { shows(args), test(out, args, box) }: `shows`
- * lists the show lines it reads, and `test` judges what they printed, `out[line]` being { raw, data } (`data` the
- * parse, when the command has a template), `box` the box's folder for a check that compares with its recorded runs, as
- * { ok: true } or { ok: false, why }. A verify that judged the box adds `findings`, what it found wrong, one line each:
- * the procedure is still done, each finding in its log, as an audit's result is no failure of it. Small functions over
- * the box's own output, not a language. They come with the procedures that use them; a test may add its own.
+ * The named checks a procedure's `pre`, `wait` and `verify` use, each { shows(args), test(out, args, box, before) }:
+ * `shows` lists the show lines it reads, and `test` judges what they printed, `out[line]` being { raw, data } (`data`
+ * the parse, when the command has a template), `box` the box's folder for a check that compares with its recorded runs,
+ * as { ok: true } or { ok: false, why }. A check with `before: true`, a wait's, also gets what its shows printed before
+ * the procedure's first step, to tell the box back as it was. A verify that judged the box adds `findings`, what it
+ * found wrong, one line each: the procedure is still done, each finding in its log, as an audit's result is no failure
+ * of it. Small functions over the box's own output, not a language. They come with the procedures that use them; a
+ * test may add its own.
  */
 export const CHECKS = {
+  /**
+   * reboot-card's first wait: the card has gone down, raising COMMUNICATION_FAILURE or no longer in and active. An
+   * 800MX raises it about 12 s in; a TMUX card logged none in the box logs, so a card that shows neither fails here,
+   * saying so, rather than pass a reboot nobody saw.
+   */
+  'card-down': {
+    shows: () => ['show card', 'show alarm'],
+    test: (out, { card }) => {
+      const cards = cardsIn(out);
+      const alarms = alarmsIn(out);
+      if (!cards || !alarms) return NOT_PARSED('show card or show alarm');
+      if (unreachable(alarms, card) || !up(cards[card])) return { ok: true };
+      return { ok: false, why: `card ${card} is still in and active, with no ${COMM}` };
+    },
+  },
+  /** reboot-card's second wait: the card is in and active again, and its COMMUNICATION_FAILURE cleared. */
+  'card-up': {
+    shows: () => ['show card', 'show alarm'],
+    test: (out, { card }) => {
+      const cards = cardsIn(out);
+      const alarms = alarmsIn(out);
+      if (!cards || !alarms) return NOT_PARSED('show card or show alarm');
+      if (unreachable(alarms, card)) return { ok: false, why: `card ${card} has ${COMM}` };
+      if (!up(cards[card])) return { ok: false, why: `card ${card} is ${cards[card]?.present === 'true' ? cards[card]['oper-status'] : 'absent'}` };
+      return { ok: true };
+    },
+  },
+  /**
+   * reboot-ne's wait: every card that was in and active before it is so again, without COMMUNICATION_FAILURE. A card
+   * that was absent or down before is left to the health check.
+   */
+  'cards-up': {
+    shows: () => ['show card', 'show alarm'],
+    before: true,
+    test: (out, _args, _box, before) => {
+      const cards = cardsIn(out);
+      const alarms = alarmsIn(out);
+      const was = before && cardsIn(before);
+      if (!cards || !alarms || !was) return NOT_PARSED('show card or show alarm');
+      const down = Object.keys(was).filter((slot) => up(was[slot]) && (!up(cards[slot]) || unreachable(alarms, slot)));
+      return down.length ? { ok: false, why: `not back yet: card ${down.join(', ')}` } : { ok: true };
+    },
+  },
+  /** software-upgrade's pre: the active release committed, and not the load picked already. */
+  upgradable: {
+    shows: () => ['show software'],
+    test: (out, { file }) => {
+      const sw = softwareIn(out);
+      if (!sw?.active) return NOT_PARSED('show software');
+      if (sw['active-status'] !== 'committed') return { ok: false, why: `${sw.active} is not committed: commit it or roll it back first` };
+      if (sw.active === releaseOf(file)) return { ok: false, why: `${sw.active} is the release running already` };
+      return { ok: true };
+    },
+  },
+  /** software-upgrade's first wait: the load picked is the candidate, downloaded whole. */
+  downloaded: {
+    shows: () => ['show software'],
+    test: (out, { file }) => {
+      const sw = softwareIn(out);
+      if (!sw) return NOT_PARSED('show software');
+      if (sw.candidate !== file) return { ok: false, why: `the candidate is ${sw.candidate ?? 'none'}` };
+      return sw['candidate-status'] === 'download-completed' ? { ok: true } : { ok: false, why: `candidate-status ${sw['candidate-status'] ?? 'none'}` };
+    },
+  },
+  /** software-upgrade's last wait: the box runs the load picked, active and not yet committed. */
+  activated: {
+    shows: () => ['show software'],
+    test: (out, { file }) => {
+      const sw = softwareIn(out);
+      if (!sw?.active) return NOT_PARSED('show software');
+      if (sw.active !== releaseOf(file)) return { ok: false, why: `the active release is ${sw.active}` };
+      return sw['active-status'] === 'active' ? { ok: true } : { ok: false, why: `active-status ${sw['active-status'] ?? 'none'}` };
+    },
+  },
+  /** Commit's and Rollback's pre: an activated release waits for one of them (active-status active). */
+  uncommitted: {
+    shows: () => ['show software'],
+    test: (out) => {
+      const sw = softwareIn(out);
+      if (!sw?.active) return NOT_PARSED('show software');
+      return sw['active-status'] === 'active' ? { ok: true } : { ok: false, why: `active-status ${sw['active-status'] ?? 'none'}: nothing waits to be committed or rolled back` };
+    },
+  },
+  /** Commit's and Rollback's wait: the release running is committed. */
+  committed: {
+    shows: () => ['show software'],
+    test: (out) => {
+      const sw = softwareIn(out);
+      if (!sw?.active) return NOT_PARSED('show software');
+      return sw['active-status'] === 'committed' ? { ok: true } : { ok: false, why: `active-status ${sw['active-status'] ?? 'none'}` };
+    },
+  },
   /**
    * software-audit's: the active release committed, no candidate left behind, and each card whose software-version
    * names a release of the box's stream (800mx_CSP-2.10.100.10_20261013) on the active one. A TMUX card's own OS
@@ -113,13 +224,14 @@ function problem(p) {
   if (typeof params !== 'object' || Array.isArray(params)) return 'params: an object';
   for (const [name, spec] of Object.entries(params)) {
     if (!/^\w{1,40}$/.test(name) || !spec || typeof spec !== 'object') return `params.${name}: { enum } or { pattern }`;
-    if (Object.keys(spec).some((k) => !['enum', 'pattern', 'default', 'label'].includes(k))) return `params.${name}: only enum, pattern, default and label`;
+    if (Object.keys(spec).some((k) => !['enum', 'pattern', 'default', 'label', 'example'].includes(k))) return `params.${name}: only enum, pattern, default, label and example`;
     if ((spec.enum === undefined) === (spec.pattern === undefined)) return `params.${name}: an enum or a pattern, one of them`;
     if (spec.enum !== undefined && !words(spec.enum)) return `params.${name}.enum: a list of words`;
     if (spec.pattern !== undefined) {
       try { new RegExp(spec.pattern); } catch { return `params.${name}.pattern: not a regex`; }
     }
     if (spec.default !== undefined && !fits(spec, spec.default)) return `params.${name}.default: not one of its values`;
+    if (spec.example !== undefined && !fits(spec, spec.example)) return `params.${name}.example: not one of its values`;
   }
   const check = (name, where) => (typeof name === 'string' && Object.hasOwn(CHECKS, name) ? null : `${where}: ${name} is not a check`);
   const fills = (line, where) => holes(line).map((h) => (Object.hasOwn(params, h) ? null : `${where}: {${h}} is not a param`)).find(Boolean) ?? null;
@@ -205,12 +317,14 @@ const argsOf = (s, params) => ({ ...params, ...Object.fromEntries(Object.entries
 
 /**
  * What `def` does with `params`, every line filled in, as the panel and Approve show it: the checks first (each with the
- * shows it reads), each step's line or wait, the verify and the restore.
+ * shows it reads), what its waits read before it begins (`before`), each step's line or wait, the verify and the restore.
  */
 export function planOf(def, params) {
   const reads = (name, args) => ({ check: name, shows: CHECKS[name].shows(args) });
+  const before = new Map(def.steps.filter((s) => s.wait !== undefined && CHECKS[s.wait].before).map((s) => [s.wait, reads(s.wait, argsOf(s, params))]));
   return {
     pre: (def.pre ?? []).map((name) => reads(name, params)),
+    before: [...before.values()],
     steps: def.steps.map((s) => (s.send !== undefined
       ? { send: fillStep(s.send, params), ...(s.drops ? { drops: true } : {}), ...(s.timeout ? { timeout: s.timeout } : {}) }
       : { wait: s.wait, shows: CHECKS[s.wait].shows(argsOf(s, params)), args: argsOf(s, params), every: s.every ?? 10, timeout: s.timeout })),
@@ -246,6 +360,7 @@ export class Procedure {
     this.state = def.tier === 'change' ? 'pending' : 'running';
     this.askedAt = iso(Date.now());
     this.log = []; // what it did, in order: { at, step, line?, check?, ok, why? }
+    this.before = {}; // what each `before` check's shows printed before the first step, by check
     this.sent = []; // the lines that changed the box, as the box took them
     this.runs = []; // the runs it recorded into, its procedure run first
     this.waiting = null; // the wait going on: { what, tries, why, until }, `what` a check or the box coming back
@@ -322,7 +437,10 @@ export class Procedure {
     }).finally(() => { this.wake = () => {}; });
   }
 
-  /** A shell of its own, set up: no paging and, unless it only reads, no confirmation prompts. */
+  /**
+   * A shell of its own, set up: no paging and, unless it only reads, no confirmation prompts, read back as `no`, else it
+   * stops before a line that would wait for a yes.
+   */
   async open() {
     const w = await this.hooks.shell();
     if (!w) throw new Stop('failed', 'no shell of its own on the box');
@@ -333,6 +451,10 @@ export class Procedure {
       const r = await this.type(line);
       if (!accepted(r)) throw new Stop('failed', `its shell could not be set up: "${line}" printed ${r.raw.trim() || 'nothing'}`);
     }
+    if (this.def.tier === 'read') return;
+    const r = await this.type(QUIET_NOW);
+    // `no` the last word of a line, as `key value` prints it, and no `yes`: an error that says "no such …" is no answer.
+    if (!accepted(r) || !/(^|[\s:=|])no[\s|]*$/m.test(r.raw) || /\byes\b/.test(r.raw)) throw new Stop('failed', `the CLI would ask to confirm its lines: "${QUIET_NOW}" printed ${r.raw.trim() || 'nothing'}`);
   }
 
   /** Types `line` on its shell and records it, in the session's current run. Throws Dropped if the shell closed. */
@@ -354,18 +476,23 @@ export class Procedure {
     if (!accepted(r)) throw new Stop('failed', `"${line}" printed ${r.raw.trim() || 'nothing'}`);
   }
 
-  /** Runs check `name` with `args`: its shows on its shell, then its test. */
-  async check(name, args) {
-    const c = CHECKS[name];
+  /** What check `name`'s shows print with `args`, typed on its shell: { out }, or { why } when one gets no prompt. */
+  async outputs(name, args) {
     const out = {};
-    for (const line of c.shows(args)) {
+    for (const line of CHECKS[name].shows(args)) {
       if (!isShow(line)) throw new Stop('failed', `${name} would type ${line}: a check only reads`);
       await this.mode(false);
       const r = await this.type(line);
-      if (!r.ok) return { ok: false, why: `${line}: no prompt within ${this.timeout / 1000} s` };
+      if (!r.ok) return { why: `${line}: no prompt within ${this.timeout / 1000} s` };
       out[line] = { raw: r.raw, data: r.parsed?.data };
     }
-    return c.test(out, args, this.hooks.box());
+    return { out };
+  }
+
+  /** Runs check `name` with `args`: its shows on its shell, then its test, with what they printed before it began. */
+  async check(name, args) {
+    const { out, why } = await this.outputs(name, args);
+    return out ? CHECKS[name].test(out, args, this.hooks.box(), this.before[name]) : { ok: false, why };
   }
 
   /** A step's line, typed once: in configure if it changes the box, where the box has to take it. */
@@ -387,11 +514,15 @@ export class Procedure {
     this.note({ step: 'send', line: step.send, ok: true });
   }
 
-  /** A wait: its check every `every` s until it passes, for `timeout` s at most. */
-  async wait(step) {
+  /**
+   * A wait: its check every `every` s until it passes, for `timeout` s at most. After a step that drops the session
+   * (`drop`) it can't pass until the session has dropped: a box that has not gone down yet is not back.
+   */
+  async wait(step, drop) {
     const until = Date.now() + step.timeout * 1000;
     for (let tries = 1; ; tries++) {
-      const r = await this.check(step.wait, step.args);
+      let r = await this.check(step.wait, step.args);
+      if (r.ok && drop) r = { ok: false, why: `the box has not dropped the session since ${drop.line}` };
       if (r.ok) return this.note({ step: 'wait', check: step.wait, ok: true, tries });
       this.boundary();
       if (Date.now() + step.every * 1000 > until) throw new Stop('failed', `${step.wait}: still not so after ${step.timeout} s: ${r.why}`);
@@ -420,10 +551,11 @@ export class Procedure {
 
   /**
    * Runs it, with a fast snapshot first, into a procedure run that keeps its procedure.json, and one after a reversible
-   * or change: its checks, its steps in order, its verify. A step that drops the session expects it, and while it reads
-   * (that step, or a wait or the verify after it) the runner waits for the box to come back and goes on: a wait or the
-   * verify runs again, a line sent never is. A drop anywhere else stops it, saying to check the box. However it ends, a
-   * reversible one restores and the shell leaves configure.
+   * or change: its checks, what its waits read before it begins, its steps in order, its verify. A step that drops the
+   * session expects it, and while it reads (that step, or a wait or the verify after it) the runner waits for the box to
+   * come back and goes on: a wait or the verify runs again, a line sent never is; the wait after it can't pass before
+   * the drop. A drop anywhere else stops it, saying to check the box. However it ends, a reversible one restores and the
+   * shell leaves configure.
    */
   async run() {
     this.startedAt = iso(Date.now());
@@ -452,10 +584,17 @@ export class Procedure {
         this.note({ step: 'pre', check: name, ok: r.ok, ...(r.ok ? {} : { why: r.why }) });
         if (!r.ok) throw new Stop('failed', `${name}: ${r.why}`);
       }
+      for (const { check: name } of this.plan.before) {
+        this.boundary();
+        const { out, why: no } = await this.outputs(name, this.plan.steps.find((s) => s.wait === name).args);
+        this.note({ step: 'before', check: name, ok: !!out, ...(out ? {} : { why: no }) });
+        if (!out) throw new Stop('failed', `${name}, before it began: ${no}`);
+        this.before[name] = out;
+      }
       for (const step of this.plan.steps) {
         this.boundary();
         if (step.send === undefined) {
-          await reading(() => this.wait(step))();
+          await reading(() => this.wait(step, drop))();
           continue;
         }
         if (step.drops) drop = { line: step.send, timeout: step.timeout ?? this.timeout / 1000, until: Date.now() + (step.timeout ?? this.timeout / 1000) * 1000 };

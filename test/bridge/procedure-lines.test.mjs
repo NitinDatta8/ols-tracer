@@ -22,10 +22,19 @@ const sent = readdirSync(BOXES).flatMap((box) => {
 const asked = (def) => Object.entries(def.params ?? {})
   .reduce((sets, [name, spec]) => sets.flatMap((s) => (spec.enum ?? [`{${name}}`]).map((v) => ({ ...s, [name]: v }))), [{}]);
 
+/**
+ * Whether set line `words` sets several leaves of one entity at once, as the box logs type a cross-connection
+ * (`set cross-connection CC4_2 source-entity A destination-entity B`): each leaf and its value an index set of its own.
+ */
+const combined = (words) => words[0] === 'set' && words.length > 5 && (words.length - 3) % 2 === 0
+  && Array.from({ length: (words.length - 3) / 2 }, (_, i) => [...words.slice(0, 3), ...words.slice(3 + 2 * i, 5 + 2 * i)].join(' '))
+    .every((one) => { const c = commandFor(commands, one); return c?.op === 'set' && c.syntax.split(' ').length === 5; });
+
 /** Why the box wouldn't take `line`, a line of a procedure whose params are `specs`, or null when it would. */
 function lineProblem(line, specs) {
   if (line === null) return 'a placeholder times a number, on a pattern param: not checked';
   const words = line.trim().split(/\s+/);
+  if (combined(words)) return null;
   if (['show', 'set', 'delete'].includes(words[0])) {
     const c = commandFor(commands, line);
     if (c?.op !== words[0]) return `not a ${words[0]} command in the CLI index`;
@@ -88,6 +97,7 @@ describe('the lines a procedure types', () => {
         { params: { path: { pattern: 'sftp://\\S+' }, file: { pattern: 'Release_\\S+\\.tar' } } }),
       def('trim', [{ send: 'set och {port} target-output-power {dbm}' }, { send: 'save configuration' }], { params: { port, dbm: { pattern: '-?\\d+' } } }),
       def('drop-channel', [{ send: 'delete media-channel {index}' }], { params: { index: { pattern: '\\d+' } } }),
+      def('connect', [{ send: 'set cross-connection {name} source-entity 100GE-{port}-1 destination-entity 100GE-{port}' }], { params: { name: { pattern: '\\w+' }, port } }),
       def('look', [{ send: 'show software' }, { send: 'show card {card}' }], { tier: 'read', params: { card }, pre: ['cards'] }),
     ];
     for (const d of good) expect(problems(d), d.id).toEqual([]);
@@ -100,6 +110,7 @@ describe('the lines a procedure types', () => {
       [def('no-value', [{ send: 'set och {port} target-output-power' }], { params: { port } }),
         ["set och {port} target-output-power: a word left out: the CLI index's is set och <name> target-output-power <target-output-power-value>"]],
       [def('every-channel', [{ send: 'delete media-channel' }]), ["delete media-channel: a word left out: the CLI index's is delete media-channel <index>"]],
+      [def('connect-colour', [{ send: 'set cross-connection CC1 source-entity A colour blue' }]), ['set cross-connection CC1 source-entity A colour blue: not a set command in the CLI index']],
       [def('frobnicate', [{ send: 'frobnicate now' }]), ['frobnicate now: starts with no rpc of the CLI index']],
       [def('reboot-chassis', [{ send: 'reboot chassis now' }]), ['reboot chassis now: no box was sent a line of its shape (history.jsonl)']],
       [def('lukewarm', [{ send: 'reboot ne {mode}' }], { params: { mode: { enum: ['cold', 'lukewarm'] } } }), ['reboot ne lukewarm: no box was sent a line of its shape (history.jsonl)']],

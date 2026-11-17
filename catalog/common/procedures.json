@@ -15,6 +15,120 @@
       "tier": "read",
       "steps": [],
       "verify": "health"
+    },
+    {
+      "id": "reboot-card",
+      "label": "Reboot card",
+      "level": "card",
+      "tier": "change",
+      "params": {
+        "card": { "pattern": "[1-9]-[1-8]", "label": "Card" },
+        "mode": { "enum": ["cold", "warm"], "default": "cold", "label": "Mode" }
+      },
+      "steps": [
+        { "send": "reboot card {card} {mode}", "timeout": 60 },
+        { "wait": "card-down", "every": 2, "timeout": 60 },
+        { "wait": "card-up", "every": 10, "timeout": 300 }
+      ]
+    },
+    {
+      "id": "reboot-ne",
+      "label": "Reboot NE",
+      "level": "chassis",
+      "tier": "change",
+      "params": {
+        "mode": { "enum": ["cold", "warm"], "default": "cold", "label": "Mode" }
+      },
+      "steps": [
+        { "send": "reboot ne {mode}", "drops": true, "timeout": 600 },
+        { "wait": "cards-up", "every": 15, "timeout": 600 }
+      ],
+      "verify": "health"
+    },
+    {
+      "id": "software-upgrade",
+      "label": "Software upgrade",
+      "level": "chassis",
+      "tier": "change",
+      "params": {
+        "path": { "pattern": "sftp://[\\w.-]+(/[\\w.-]+)*/?", "label": "SFTP folder", "example": "sftp://server/data/ftp/CSP_R2.10.0/20261013" },
+        "file": { "pattern": "Release_[A-Z]+-[\\d.]+_\\d{8}\\.tar", "label": "Load", "example": "Release_CSP-2.10.100.10_20261013.tar" }
+      },
+      "pre": ["upgradable"],
+      "steps": [
+        { "send": "download sw-image path {path} file-name {file}", "timeout": 120 },
+        { "wait": "downloaded", "every": 30, "timeout": 7200 },
+        { "send": "activate candidate-sw-image", "drops": true, "timeout": 1800 },
+        { "wait": "activated", "every": 30, "timeout": 1800 }
+      ]
+    },
+    {
+      "id": "software-commit",
+      "label": "Commit software",
+      "level": "chassis",
+      "tier": "change",
+      "pre": ["uncommitted"],
+      "steps": [
+        { "send": "commit active-sw-image" },
+        { "wait": "committed", "every": 5, "timeout": 120 }
+      ]
+    },
+    {
+      "id": "software-rollback",
+      "label": "Roll back software",
+      "level": "chassis",
+      "tier": "change",
+      "pre": ["uncommitted"],
+      "steps": [
+        { "send": "rollback", "drops": true, "timeout": 900 },
+        { "wait": "committed", "every": 15, "timeout": 900 }
+      ]
+    },
+    {
+      "id": "service-turn-up",
+      "label": "Service turn-up",
+      "level": "card",
+      "tier": "change",
+      "params": {
+        "card": { "pattern": "[1-9]-[1-8]", "label": "Card" },
+        "line": { "pattern": "[1-9]|10", "label": "Line port" },
+        "mode": { "enum": ["PROT_ZR800_16QAMPS_123P8G", "PROT_ZR400_16QAMSS_60G"], "label": "Line port-mode" },
+        "frequency": { "pattern": "1[89]\\d{7}", "label": "Frequency", "example": "193500000" },
+        "power": { "pattern": "-?\\d{1,2}", "default": "0", "label": "Target power, dBm" },
+        "lane": { "pattern": "[1-8]", "default": "1", "label": "Line 100GE" },
+        "client": { "pattern": "[1-9]|10", "label": "Client port" },
+        "name": { "pattern": "[\\w-]{1,32}", "label": "Cross-connection", "example": "CC4_2" }
+      },
+      "steps": [
+        { "send": "set port {card}-{line} port-mode {mode}" },
+        { "send": "set port {card}-{line} admin-state in-service" },
+        { "send": "set port {card}-{line} laser enabled" },
+        { "send": "set och {card}-{line} frequency {frequency}" },
+        { "send": "set och {card}-{line} target-output-power {power}" },
+        { "send": "set logical-channel flexgo-{card}-{line} time-slot-type eth-100g" },
+        { "send": "set port {card}-{client} port-mode PROT_100GE" },
+        { "send": "set port {card}-{client} admin-state in-service" },
+        { "send": "set port {card}-{client} laser enabled" },
+        { "send": "set cross-connection {name} source-entity 100GE-{card}-{line}-{lane} destination-entity 100GE-{card}-{client}" },
+        { "send": "save configuration" }
+      ]
+    },
+    {
+      "id": "service-teardown",
+      "label": "Service teardown",
+      "level": "card",
+      "tier": "change",
+      "params": {
+        "card": { "pattern": "[1-9]-[1-8]", "label": "Card" },
+        "client": { "pattern": "[1-9]|10", "label": "Client port" },
+        "name": { "pattern": "[\\w-]{1,32}", "label": "Cross-connection", "example": "CC4_2" }
+      },
+      "steps": [
+        { "send": "set port {card}-{client} admin-state out-of-service" },
+        { "send": "set port {card}-{client} laser disabled" },
+        { "send": "delete cross-connection {name}" },
+        { "send": "save configuration" }
+      ]
     }
   ]
 }
