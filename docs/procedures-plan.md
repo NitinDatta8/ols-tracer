@@ -11,16 +11,16 @@ The box workflows found in the boxes' logs become **procedures**: ops MOPs that 
 | 0 | [Docs](#0-docs) | | 2026-11-12 | |
 | 1 | [Fixes found on the way](#1-fixes-found-on-the-way) | check 6, for the shell reopen only | 2026-11-12, but the shell reopen | |
 | 2 | [Procedure runner](#2-procedure-runner) | | 2026-11-12 | |
-| 3 | [Procedures panel](#3-procedures-panel) | | 2026-11-12 | |
+| 3 | [Procedures panel](#3-procedures-panel) | | 2026-11-12; redone 2026-11-16 | |
 | 4 | [MCP](#4-mcp) | | 2026-11-13 | |
 | 5 | [Software audit and health check](#5-software-audit-and-health-check) (read) | | 2026-11-13 | |
 | 6 | [Lab file and lock](#6-lab-file-and-lock) | | 2026-11-13 | |
 | 7 | [BERT screen](#7-bert-screen) | check 7 | 2026-11-16, not yet on the lab's BERT | |
 | 8 | Removed 2026-11-13: [LEDs and stats](#8-leds-and-stats-removed) | | | |
-| 9 | [Locate chassis](#9-locate-chassis) (reversible) | check 1 | | |
-| 10 | [Reboot card or NE](#10-reboot-card-or-ne) (change) | checks 2–4 | | |
-| 11 | [Software upgrade, Commit and Rollback](#11-software-upgrade-commit-and-rollback) (change) | checks 5, 9 | | |
-| 12 | [Service turn-up and teardown](#12-service-turn-up-and-teardown) (change) | | | |
+| 9 | [Locate chassis](#9-locate-chassis) (reversible) | check 1 | not yet: no box has been sent its line | |
+| 10 | [Reboot card or NE](#10-reboot-card-or-ne) (change) | checks 2–4, made a runtime check | 2026-11-16 | |
+| 11 | [Software upgrade, Commit and Rollback](#11-software-upgrade-commit-and-rollback) (change) | check 5; check 9 for the load list only | 2026-11-16, the load typed in | |
+| 12 | [Service turn-up and teardown](#12-service-turn-up-and-teardown) (change) | | 2026-11-16 | |
 | 13 | [Inside view](#13-inside-view) | | | |
 | 14 | [Procedure miner](#14-procedure-miner) | | | |
 | 15 | [Close-out](#15-close-out) | | | |
@@ -72,7 +72,7 @@ By hand, on the work machine; the answer goes in the last column. Each gates the
 | --- | --- | --- | --- |
 | 1 | `locate-chassis ?`, then its start and stop lines, watching the box; the config log then holds the real lines | 9 | |
 | 2 | Two CLI sessions in `configure` at once: is the second let in? | 10 | |
-| 3 | In `configure`: `set cli confirmation-required no`, then `show cli confirmation-required` in that session and in a second one | 10 | |
+| 3 | In `configure`: `set cli confirmation-required no`, then `show cli confirmation-required` in that session and in a second one | 10 || Asked by every change since 2026-11-16: its shell's `show cli confirmation-required` has to print `no`, or it stops before its first line |
 | 4 | At the next planned card reboot: what `reboot card <slot> cold` prints with confirmation on | 10 | |
 | 5 | `download sw-image ?`: does it ask for an SFTP user or password? And `show software` while a download runs | 11 | |
 | 6 | `show aaa user admin` (max-idle-time): is that why box 5 opened a new connect run every 10 min on 2026-11-11? | 1, the shell reopen only | |
@@ -83,19 +83,19 @@ By hand, on the work machine; the answer goes in the last column. Each gates the
 
 **A definition** lives in `catalog/common/procedures.json`, kept by hand; a stream's `catalog/<stream>/procedures.json` overrides entries by `id`. Each is `{ id, label, level, tier, params, pre, steps, verify, restore }`:
 - `level` is chassis, card or port; `tier` is read, reversible or change.
-- `params` are filled from the topology, a show or the load list. A param is one word: one of its enum's values, or an address that matches its pattern. Anything else is refused before a line is typed.
+- `params` are filled from the topology, a show or the load list. A param is one word: one of its enum's values, or an address that matches its pattern. Anything else is refused before a line is typed. Its `label` names it in the panel, and `example`, a value of it, is shown in its empty field.
 - A step is `{ send, drops?, timeout? }` or `{ wait: <check>, args, every, timeout }`. The placeholders are `fillStep`'s, each a param. A read procedure sends only `show` lines, only a change may drop the session, and no line may change the shell's mode (`configure`, `exit`, `^^^`, `bash`): the runner does that itself.
-- `pre`, `verify` and each `wait` name a check: a small JS function that lists the shows it reads and judges what they printed, not a mini-language, with the box's folder for one that compares with its runs. One procedure per box at a time is checked for every procedure.
+- `pre`, `verify` and each `wait` name a check: a small JS function that lists the shows it reads and judges what they printed, not a mini-language, with the box's folder for one that compares with its runs. A wait's check marked `before` also gets what its shows printed before the first step, to tell the box back as it was (`cards-up`). One procedure per box at a time is checked for every procedure.
 - A verify that judged the box may return findings, what it found wrong: the procedure still ends `done`, each finding a `finding` step in its log. `failed` is for one that couldn't run or judge.
 - `restore` undoes a reversible procedure.
 - Default timeouts come from the [table above](#what-the-runs-show).
 
 **The runner** (`bridge/procedures.mjs`; only the bridge talks to boxes):
-- Runs on a shell of its own on the box's session, so polls, typed shows and `/show` go on. That shell's prerequisites are `configure`, `set cli length 0`, `set cli width 1024`, `set cli confirmation-required no` (but in a read procedure) and `exit`.
+- Runs on a shell of its own on the box's session, so polls, typed shows and `/show` go on. That shell's prerequisites are `configure`, `set cli length 0`, `set cli width 1024`, `set cli confirmation-required no` (but in a read procedure) and `exit`; then, but in a read procedure, `show cli confirmation-required` has to print `no`, else it stops before its first line, as a line that asked to confirm would never get its prompt. That is box check 3, asked by every change.
 - Enters `configure` only for set, delete and rpc steps, and always leaves it.
 - Holds the session (`procedure:<id>`) until it ends, so it outlives the view that started it.
 - Never sends a line twice.
-- A `drops` step is followed by a `wait` for the box. A drop is expected while that step's own line is typed, and in the waits and the verify after it, until the box is back: the runner then waits for the reconnect and that connect run's snapshot, whole, so its shell is never in `configure` while the poller sets up, opens its shell again and goes on, a wait or the verify running again. A drop anywhere else, a line being typed among them, stops it, saying to check the box.
+- A `drops` step is followed by a `wait` for the box, which can't pass until the session has dropped: a box that has not gone down yet is not back. A drop is expected while that step's own line is typed, and in the waits and the verify after it, until the box is back: the runner then waits for the reconnect and that connect run's snapshot, whole, so its shell is never in `configure` while the poller sets up, opens its shell again and goes on, a wait or the verify running again. A drop anywhere else, a line being typed among them, stops it, saying to check the box.
 - Cancel stops at the next step boundary, or at once in a `wait`. The reversible tier restores; the change tier says what is left on the box.
 - A pending change expires after 15 min. A bridge restart abandons a procedure: its `procedure.json` says how far it got, and nothing resumes on its own.
 
@@ -141,20 +141,21 @@ This plan, the [BERT plan](bert-smartaccess-plan.md) brought in line, the [decis
 - `vite.config.ts`: the new endpoints proxied. The proxy's `\b` also sends a file named like an endpoint (`/bridge/state.mjs`) to the bridge, so it becomes `(?=[/?]|$)`. Its target comes from `BRIDGE_URL`, so a check can run against a bridge on a spare port.
 - `src/catalog-vite.ts`: the glob leaves out `procedures.json` and `lab.olst.json`, so a save never reloads the page.
 - `bridge/shells.mjs`: a line's own timeout, and no Ctrl-C into a shell that closed.
-- Tests, on `test/fakes/lab.mjs` (`sessions-procedures`, `-changes`, `-drops`, with the tests' procedures in `test/fakes/procedures.mjs`; units in `procedures.test.mjs`): a read procedure end to end (the run, `procedure.json`, the index lines, the `latest()` skip); one procedure per box; a rejected step fails and leaves `configure`; cancel; pending → Approve (the Origin rule) → runs, and a pending one expires; a view leaving mid-run doesn't close the session; a drop on a `drops` step goes on after the reconnect's snapshot, and on any other step stops.
+- Tests, on `test/fakes/lab.mjs` (`sessions-procedures`, `-changes`, `-drops`, and since 2026-11-16 `-restarts`, with the tests' procedures in `test/fakes/procedures.mjs`; units in `procedures.test.mjs`): a read procedure end to end (the run, `procedure.json`, the index lines, the `latest()` skip); one procedure per box; a rejected step fails and leaves `configure`; cancel; pending → Approve (the Origin rule) → runs, and a pending one expires; a view leaving mid-run doesn't close the session; a drop on a `drops` step goes on after the reconnect's snapshot, and on any other step stops.
 
 ### 3. Procedures panel
 
 - `src/procedures.ts`: `procedureItems()`, as `termItems` is for terminals, greyed out with why: not connected, one already running or pending, test equipment, another level. A param named `card` starts as the card it is at. Whether a param's value is taken is `fits` in `bridge/fill.mjs`, the bridge's own rule.
 - `src/Menu.tsx`: an item carries its action, a terminal or a procedure, so a right-click on a card offers that card's procedures.
 - `src/ProcedurePanel.tsx`: a **Procedures** button in the physical view's header, with a dot while one runs, opens a fixed-size panel over the stage in three regions: the list; the params, the exact lines and Run, Request, Approve (type the hostname) and Cancel; the step log, with a progress line for long waits. It asks `GET /procedure` every second while open or while one waits or runs, else every 5 s while connected, so a change asked for from Codex shows within 5 s. The buttons sit in one row that never moves, each enabled only when it applies; the list says only why one is not for here, and why none can run now is said once.
+- Redone 2026-11-16, after a run on the lab found it hard to read (Run, the hostname, Approve and Cancel all in one row, mostly greyed; the lines and the log in two columns): the list by tier, one line each; the one picked or asked for in one column, its params (the ones it ran with, read-only, once asked), its steps marked from its log as it goes (`timeline` in `src/procedures.ts`: a drop as a line is typed passes that line, a drop in a wait is noted on it) with a wait's tries and time left, what it found listed apart, and a pill (Waiting for Approve, Running with its time, Done with its findings, Failed). The row under it says what applies and holds only the buttons that do: Run or Request approval; the hostname, Approve and Cancel request; Cancel; Run again…. Browser check passed against a fake box that acts out the catalog's procedures: a health check with findings, a commit its pre refuses, an upgrade, a rollback, an NE reboot, a request cancelled and a card reboot from the card's menu; the panel's parts keep their boxes in all 13 states.
 - Browser check (passed 2026-11-12, against the fake bridge): the panel's parts and the header keep their boxes in nine states; a read procedure runs; a change waits, a wrong hostname is refused, the right one in any case approves it; Cancel stops a wait and the reversible one restores; a right-click on a card offers its procedure and opens the panel at it, `card` filled in; Esc closes it.
 
 ### 4. MCP
 
 - On `/mcp`: `list_procedures`, `procedure_status`, and `run_procedure` by tier, as in [Procedures](#procedures); a read procedure is waited for up to about 2 min (`PROCEDURE_WAIT_SEC`, 120 s), then answered with its status. Codex gives a tool call 60 s unless the server's `tool_timeout_sec` says more, so the README's Codex block sets it to 150.
 - `check()` takes rpc lines from `procedures.json` only: `rpcOf` (`bridge/cli-index.mjs`) finds the index rpc a line starts with, and `fillsStep` (`bridge/fill.mjs`) whether a step's line is that line, each placeholder one word its param takes.
-- An OLS Tracer test (`test/bridge/procedure-lines.test.mjs`) checks every procedure line, its checks' shows too: a show line is a show of the CLI index, a set or delete line one with no word left out, an rpc line's head is an index rpc, and each rpc line's shape, each value of an enum param in it too, was sent to some box (`history.jsonl`). It is shown to catch made-up lines on procedures of its own before it runs on the catalog's.
+- An OLS Tracer test (`test/bridge/procedure-lines.test.mjs`) checks every procedure line, its checks' shows too: a show line is a show of the CLI index, a set or delete line one with no word left out (a set of several settings, as the box logs type a cross-connection, each setting one), an rpc line's head is an index rpc, and each rpc line's shape, each value of an enum param in it too, was sent to some box (`history.jsonl`). It is shown to catch made-up lines on procedures of its own before it runs on the catalog's.
 - Updated: the server's instructions (their first 247 characters stay), the README's tools and its "never the box", the [MCP decision](decisions.md#mcp), the pinned tool names in its tests, the fake bridge, and the pin.
 
 ### 5. Software audit and health check
@@ -195,30 +196,35 @@ Removed 2026-11-13: an LED's behaviour is the product's own, in its profile in t
 
 ### 9. Locate chassis
 
+- Not built: the CLI index has `rpc locate-chassis` ("start or stop system locate-chassis") without its words, and no box log has it, so its lines would be made up. Box check 1 gives them.
 - Start, hold for `duration` (60 s by default) or until Stop, then stop: on the end, on cancel and on a failure.
 - The MCP's `/mcp/lab` with only `run_reversible`, and a README block for its Codex server.
 - Proven: the box blinks, once from the UI and once from Codex.
 
 ### 10. Reboot card or NE
 
-- `reboot-card`: card, and cold or warm. Waits for `COMMUNICATION_FAILURE` raised and cleared (3 min), then oper-status active. A failed card reboot offers Reboot NE.
-- `reboot-ne`: drops SSH; waits for the reconnect, `SYS_STARTUP` and the alarms to settle (6 min).
-- The runner shell's `set cli confirmation-required no`, or the prompt answered, as check 3 finds.
-- Tests: the fake box replays box 3's 2026-10-28 card reboot alarms in order, and an NE reboot (the drop, refused logins, `SYS_STARTUP`).
-- Proven: one approved from the UI, one queued from Codex and approved.
+Built 2026-11-16 (`catalog/common/procedures.json`), with the lines from the box logs:
+- `reboot-card` (at a card): `reboot card {card} {mode}`, cold or warm; waits `card-down`, every 2 s for up to 60 s (it raised `COMMUNICATION_FAILURE`, or it is no longer in and active), then `card-up`, every 10 s for up to 5 min (in, active, the alarm cleared). By the logs an 800MX raises `COMMUNICATION_FAILURE` about 12 s in and clears it at 90–100 s; box 3's TMUX card 1-1 logged none on 2026-11-02, so a card that shows neither fails `card-down`, saying so: its first run on a TMUX card tells how it shows a reboot.
+- `reboot-ne` (at the chassis): `reboot ne {mode}`, which drops the session, up to 10 min to come back; reads `cards-up` before it, then waits for every card in and active before it to be so again, every 15 s for up to 10 min; then the health check, as its verify. By the logs the box clears its alarms 24–30 s in and raises `NO_CMT_SW` again about 145 s in.
+- Checks 2–4 by the runner: a second CLI session refused `configure` fails it before any line; `show cli confirmation-required` has to print `no` in its shell (see [Procedures](#procedures)), so a reboot never waits on a prompt.
+- Tests: the checks on the boxes' recorded `show card` and `show alarm`, changed as a reboot changes them (`procedure-checks.test.mjs`); the runner, a step that drops the session but the box never does, a wait that reads before it begins, and the confirmation prompts left on (`sessions-restarts`, `sessions-changes`); every line against the CLI index and the box logs (`procedure-lines.test.mjs`).
+- Proven: one approved from the UI, one queued from Codex and approved. Box check 3's answer is then in the procedure run's `show cli confirmation-required`.
 
 ### 11. Software upgrade, Commit and Rollback
 
-- `GET /loads?stream=`: the bridge lists `Release_<STREAM>-*.tar` on `LOAD_SERVER` under `LOAD_DIR` over SFTP, two levels down, with its login only in `bridge/.env`; cached for a minute.
-- `software-upgrade`: download, waiting for candidate-status `download-completed`, checked every 30 s for up to 2 h; activate, which drops SSH, waiting for `CU_SWITCH` and `NO_CMT_SW` for up to 30 min; verify that the active release is the load picked. It marks the baseline stale and offers **Capture baseline**.
-- `software-commit` and `software-rollback`, each its own Approve, offered only while active-status is `active` and after the soak: by default `SETTLE_SEC` (480 s) with a clean health check.
-- Tests: a fake SFTP listing, and a fake box's download and activate.
+Built 2026-11-16, the load typed in:
+- `software-upgrade`: the SFTP folder and the load's file name typed in (`sftp://…`, `Release_CSP-….tar`), as the box logs give them; its pre, `upgradable`: the release running committed (box 04 rolled back before its download on 2026-10-29) and not the load already. `download sw-image path {path} file-name {file}`; waits `downloaded` (that file the candidate, `download-completed`) every 30 s for up to 2 h; `activate candidate-sw-image`, which drops the session (the box restarts: `DATETIME_UNCHANGED` and `NO_CMT_SW` raised again 10–20 min in), up to 30 min; waits `activated` (that release active, not committed) every 30 s for up to 30 min. Should the download ask for an SFTP password (check 5), its line gets no prompt within 2 min and it fails with nothing left on the box.
+- `software-commit`: pre `uncommitted`; `commit active-sw-image`; waits `committed` every 5 s for up to 2 min. `software-rollback`: pre `uncommitted`; `rollback`, which drops the session (a CU switch: not seen in the logs, as nobody was connected then; a rollback that doesn't drop fails after 15 min saying so); waits `committed`. Each its own Approve. The soak before them is the person's call: no `SETTLE_SEC` yet.
+- Not built: `GET /loads` (the bridge listing the loads over SFTP, check 9), marking the baseline stale and offering **Capture baseline**.
+- Tests: the checks on each box's recorded `show software`; the browser check's fake box downloads, activates (dropping the session), commits and rolls back.
 - Proven: one upgrade on test01 or test02.
 
 ### 12. Service turn-up and teardown
 
-- The lines and their order from box 04's turn-up on 2026-10-27 and its teardown on 2026-11-05; the params from the topology.
-- `pre`: the port-mode fits the transceiver. Both end with `save configuration`.
+Built 2026-11-16, at a card, the params typed in:
+- `service-turn-up`: the lines and their order from box 04's turn-up on 2026-10-27, one setting a line where the box logs typed them apart, and `laser enabled` on both ports, as 2026-11-05 typed it after a teardown: the line port's port-mode (ZR800 or ZR400), in-service, laser; its OCH frequency and target power; its logical channel `eth-100g`; the client port `PROT_100GE`, in-service, laser; the cross-connection from the line's 100GE lane to the client, as one line as the box logs type it; `save configuration`.
+- `service-teardown`: the client port out of service, its laser off, the cross-connection deleted, `save configuration`. It leaves the line port alone: other services may ride it (box 04 did take its line port down by hand on 2026-11-05).
+- Not built: params from the topology, and the pre that the port-mode fits the transceiver (it needs the transceiver's modes from the catalog); a turn-up on a line port already carrying services sets its port-mode again, so Approve shows the lines.
 - Proven on box 04.
 
 ### 13. Inside view
