@@ -230,11 +230,12 @@ main { position: relative; min-height: 0; }
  * panel, 44.45 mm (1U) high per row of slots less 0.8 mm clearance, with 16.3 mm ears either side of the 450 mm
  * opening and three mounting holes per U in each ear. --mm is pixels per millimetre.
  */
-.faceplate.rack-view { --mm: 2.35px; padding: 0; background: none; border: none; color: var(--text); }
+/* A column filling the stage (--fit-h from useFit): the rack takes what the far ends' terminals under it leave. */
+.faceplate.rack-view { --mm: 2.35px; display: flex; flex-direction: column; min-height: var(--fit-h, 0px); padding: 0; background: none; border: none; color: var(--text); }
 .rack {
-  /* At least to scale; stretched further to fill the stage (--fit-w, --fit-h from useFit). */
-  position: relative; display: flex; gap: 4px;
-  width: max(calc(482.6 * var(--mm)), var(--fit-w, 0px)); height: max(calc((44.45 * var(--u) - 0.8) * var(--mm)), var(--fit-h, 0px));
+  /* At least to scale; stretched further to fill the stage (--fit-w from useFit, and its height in the column). */
+  position: relative; display: flex; flex: 1 0 auto; min-height: 0; gap: 4px;
+  width: max(calc(482.6 * var(--mm)), var(--fit-w, 0px)); height: calc((44.45 * var(--u) - 0.8) * var(--mm));
   padding: 4px calc(16.3 * var(--mm)); background: linear-gradient(#4a5865, #2c3640); border: 1px solid #1f2933; color: #fff;
 }
 .rack::before, .rack::after {
@@ -361,6 +362,7 @@ main { position: relative; min-height: 0; }
 .pipes { position: absolute; inset: 0; z-index: 1; overflow: visible; pointer-events: none; }
 .pipes .pipe, .pipes .pipe-fill { pointer-events: stroke; cursor: pointer; }
 .terminals { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; min-height: 28px; }
+.rack-view .terminals { margin-top: 14px; } /* room for the pipes down from the rack */
 .terminals .terminal { padding: 4px 8px; background: #111820; border: 1px solid #a16207; border-top: 3px solid #facc15; border-radius: 4px; color: #fde68a; font-size: 11px; }
 /* Fills the name plate between the name and the bell, so the bell and LED stay at the right. */
 .connect-to { flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 6px; font-size: 12px; cursor: default; }

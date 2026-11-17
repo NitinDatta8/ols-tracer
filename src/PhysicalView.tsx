@@ -488,6 +488,33 @@ export function PhysicalView() {
   );
 
   /**
+   * The fibers on card `slotId`'s ports, in port order: out of a Tx or into an Rx, each piped to a terminal for its far
+   * end (its arrows then flow up into the Rx); a loopback from the port's Tx to its own Rx. `away` keeps only those
+   * whose far end is on another device (a BERT, another box): at the chassis, the rest run card to card.
+   */
+  const fibersOf = (slotId: string, lc: LinecardDef, away = false) => lc.ports.flatMap((p): (PipeEnds & { far?: End })[] => {
+    const end = { device: device.id, slot: slotId, port: p.id };
+    const { tx, rx } = fibersAt(t, end);
+    if (tx && tx === rx) return away ? [] : [{ link: tx, a: pin(end, 'tx'), b: pin(end, 'rx') }];
+    const keep = (far: End) => !away || far.device !== device.id;
+    return [
+      ...(tx && keep(tx.b) ? [{ link: tx, a: pin(end, 'tx'), b: `far:${tx.id}`, far: tx.b }] : []),
+      ...(rx && keep(rx.a) ? [{ link: rx, a: pin(end, 'rx'), b: `far:${rx.id}`, far: rx.a, reverse: true }] : []),
+    ];
+  });
+  /** Under a faceplate, a terminal for each fiber's far end, which its pipe runs up into. */
+  const farEnds = (fibers: (PipeEnds & { far?: End })[]) => (
+    // Always there, so the faceplate does not grow when it is fibered.
+    <div className="terminals">
+      {fibers.map(({ link, far, reverse }) => far && (
+        <div key={link.id} className="terminal" data-pipe-box data-pipe-end={`far:${link.id}`} data-pipe-top title={path(t, far)}>
+          {reverse ? `← ${farLabel(far)} Tx` : `→ ${farLabel(far)} Rx`}
+        </div>
+      ))}
+    </div>
+  );
+
+  /**
    * The chassis front: the 19-inch panel drawn to scale with the management ports at its left, and each card in its
    * slots (a card the deck draws as its faceplate, any other with its cages).
    */
@@ -535,15 +562,18 @@ export function PhysicalView() {
         </div>
       );
     });
+    // Fibers between two cards of this chassis, and loopbacks, card to card; one to another device to its far end's
+    // terminal under the rack.
+    const away = slots.flatMap((s) => { const lc = byId(cat.linecards, device.slots[s.id]?.linecard); return lc ? fibersOf(s.id, lc, true) : []; });
+    const within = t.links.filter((l) => l.a.device === device.id && l.b.device === device.id).map((link) => ({ link, a: pin(link.a, 'tx'), b: pin(link.b, 'rx') }));
     return (
       <div className="faceplate rack-view" onDragOver={(e) => e.preventDefault()} onDrop={onDrop}>
         <div className="rack" style={{ '--u': ru } as CSSProperties}>
           <MgmtStrip ports={chassis?.mgmtPorts?.front} />
           <div className="slots" style={{ gridTemplate: `repeat(${ru}, 1fr) / repeat(${columns}, 1fr)` }}>{views}</div>
         </div>
-        {/* Fibers between two cards of this chassis, and loopbacks; the rest show their far end in the strand's tooltip. */}
-        <PipeLayer view={`chassis:${device.id}`} spacing={{ margin: 2, lane: 7, hop: 3 }} width={5} light={lightOf}
-          ends={t.links.filter((l) => l.a.device === device.id && l.b.device === device.id).map((link) => ({ link, a: pin(link.a, 'tx'), b: pin(link.b, 'rx') }))} />
+        {farEnds(away)}
+        <PipeLayer view={`chassis:${device.id}`} spacing={{ margin: 2, lane: 7, hop: 3 }} width={5} light={lightOf} ends={[...within, ...away]} />
       </div>
     );
   };
@@ -586,17 +616,7 @@ export function PhysicalView() {
    * 280 × 200 px, so cages look alike from card to card.
    */
   const cardLevel = (slotId: string, lc: LinecardDef) => {
-    // The card's fibers, in port order: out of a Tx or into an Rx, each piped to a terminal for its far end under
-    // the card (its arrows then flow up into the Rx). A loopback runs from the port's Tx to its own Rx.
-    const fibers = lc.ports.flatMap((p): (PipeEnds & { far?: End })[] => {
-      const end = { device: device.id, slot: slotId, port: p.id };
-      const { tx, rx } = fibersAt(t, end);
-      if (tx && tx === rx) return [{ link: tx, a: pin(end, 'tx'), b: pin(end, 'rx') }];
-      return [
-        ...(tx ? [{ link: tx, a: pin(end, 'tx'), b: `far:${tx.id}`, far: tx.b }] : []),
-        ...(rx ? [{ link: rx, a: pin(end, 'rx'), b: `far:${rx.id}`, far: rx.a, reverse: true }] : []),
-      ];
-    });
+    const fibers = fibersOf(slotId, lc); // each to a terminal under the card: the other cards are not shown here
     return (
       <div className="faceplate card-plate" onDragOver={(e) => e.preventDefault()} onDrop={onDrop}>
         <div className="plate-label" title="Datasheet" onClick={() => show('card', lc.id, { slot: slotId })}>
@@ -665,14 +685,7 @@ export function PhysicalView() {
           })}
         </div>
         )}
-        {/* Always there, so the card does not grow when it is fibered. */}
-        <div className="terminals">
-          {!inner && fibers.map(({ link, far, reverse }) => far && (
-            <div key={link.id} className="terminal" data-pipe-box data-pipe-end={`far:${link.id}`} data-pipe-top title={path(t, far)}>
-              {reverse ? `← ${farLabel(far)} Tx` : `→ ${farLabel(far)} Rx`}
-            </div>
-          ))}
-        </div>
+        {farEnds(inner ? [] : fibers)}
         {!inner && <PipeLayer view={`card:${device.id}/${slotId}`} spacing={{ margin: 10, lane: 18, hop: 9 }} width={14} ends={fibers} light={lightOf} />}
       </div>
     );
