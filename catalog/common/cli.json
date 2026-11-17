@@ -11,7 +11,7 @@
     { "name": "kgdb", "enter": "kgdb", "about": "kgdb: application-level access, to turn features on or off" }
   ],
   "terminals": {
-    "engineering": ["configure", "^^^"],
+    "engineering": ["configure", "^^^", "bash"],
     "telnet": ["configure", "^^^", "bash", "telnet 1.0.1.{slot*4}"],
     "noTelnet": ["lc-400mx"]
   }
