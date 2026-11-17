@@ -188,41 +188,76 @@ main { position: relative; min-height: 0; }
 .fit { width: max-content; transform-origin: 0 0; }
 /*
  * Procedures (ProcedurePanel.tsx): the header's button, with a dot while one waits for Approve or runs, and the panel
- * over the stage, the stage's own size whatever it shows: the list, the one picked or asked for, and its log, each
- * scrolling in a cell of its own, with the buttons in one row that never moves.
+ * over the stage, the stage's own size whatever it shows: the list by tier, and the one picked or asked for, its params,
+ * its steps marked as they go, scrolling in a cell of their own, and under them one row that never moves.
  */
-.physical header .procs { width: 118px; }
-.procs .dot { display: inline-block; width: 7px; height: 7px; margin-right: 5px; border-radius: 50%; background: #9aa5b1; }
+.physical header .procs { white-space: nowrap; }
+.procs .dot { display: inline-block; width: 7px; height: 7px; margin-right: 6px; border-radius: 50%; background: #9aa5b1; vertical-align: 1px; }
 .procs.pending .dot { background: #f59e0b; }
 .procs.running .dot { background: #22c55e; animation: procs-blink 1s steps(2, start) infinite; }
 @keyframes procs-blink { to { visibility: hidden; } }
-.procedures { position: absolute; inset: 0; z-index: 3; display: grid; grid-template: 'head head head' 36px 'list pick log' minmax(0, 1fr) / 240px minmax(0, 1fr) minmax(0, 1fr); gap: 1px; background: var(--border); font-size: 13px; }
+.procedures { position: absolute; inset: 0; z-index: 3; display: grid; grid-template: 'head head' 36px 'list pick' minmax(0, 1fr) / 230px minmax(0, 1fr); gap: 1px; background: var(--border); font-size: 13px; }
 .procedures > * { min-width: 0; min-height: 0; background: #fff; }
 .procedures-head { grid-area: head; display: flex; align-items: center; gap: 10px; padding: 0 8px 0 12px; }
 .procedures-head small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.procedures-list { grid-area: list; display: grid; align-content: start; gap: 4px; padding: 8px; overflow: auto; }
-.procedures-list button { display: grid; gap: 1px; text-align: left; }
+.procedures-list { grid-area: list; display: grid; align-content: start; gap: 12px; padding: 10px 8px; overflow: auto; background: #f8fafc; }
+.procedures-list .group { display: grid; gap: 4px; }
+.procedures-list h5 { margin: 0 4px 2px; color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; }
+.procedures-list h5.change { color: var(--error); }
+.procedures-list button { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; background: #fff; text-align: left; }
+.procedures-list button > span { display: flex; align-items: center; gap: 6px; min-width: 0; }
 .procedures-list button small { color: var(--muted); font-size: 11px; }
+.procedures-list button.off:not(.on) { color: var(--muted); }
+.procedures-list button.on { background: var(--accent); }
 .procedures-list button.on small { color: #dbe7ff; }
-.procedures-pick { grid-area: pick; display: grid; grid-template-rows: minmax(0, 1fr) auto auto; }
-.procedures-body, .procedures-log { overflow: auto; padding: 10px 12px; }
-.procedures-log { grid-area: log; }
-.procedures h4 { margin: 0 0 6px; }
-.procedures .tier { padding: 1px 6px; border-radius: 999px; background: #eef1f5; color: var(--muted); font-size: 11px; font-weight: normal; }
+.procedures-list .state { width: 7px; height: 7px; border-radius: 50%; background: #9aa5b1; }
+.procedures-list .state.pending { background: #f59e0b; }
+.procedures-list .state.running, .procedures-list .state.done { background: #22c55e; }
+.procedures-list .state.failed { background: var(--error); }
+.procedures-pick { grid-area: pick; display: grid; grid-template-rows: auto auto minmax(0, 1fr) 52px; }
+.procedures .pick-head { display: flex; align-items: center; gap: 8px; min-height: 42px; padding: 0 14px; }
+.procedures h4 { margin: 0; font-size: 14px; }
+.procedures .tier { padding: 1px 7px; border-radius: 999px; background: #eef1f5; color: var(--muted); font-size: 11px; }
 .procedures .tier.change { background: #fdecea; color: var(--error); }
-.procedures .lines, .procedures .log { margin: 6px 0; padding-left: 20px; }
-.procedures .lines li, .procedures .log li { margin: 2px 0; }
+.procedures .tier.reversible { background: #fef3c7; color: #92400e; }
+.procedures .pill { padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.procedures .pill.pending, .procedures .pill.found { background: #fef3c7; color: #92400e; }
+.procedures .pill.running, .procedures .pill.done { background: #dcfce7; color: #166534; }
+.procedures .pill.failed { background: #fdecea; color: var(--error); }
+.procedures .pill.cancelled, .procedures .pill.expired { background: #eef1f5; color: var(--muted); }
+.procedures .params { display: flex; flex-wrap: wrap; align-items: end; gap: 6px 12px; min-height: 30px; padding: 0 14px 10px; border-bottom: 1px solid #eef1f5; }
+.procedures .params label { display: grid; gap: 2px; color: var(--muted); font-size: 11px; }
+.procedures .params select { width: 170px; }
+.procedures .params input, .procedures .params select { padding: 3px 6px; border: 1px solid var(--border); border-radius: 6px; background: #fff; color: var(--text); font: 12px var(--mono); }
+.procedures .params input[aria-invalid='true'] { border-color: var(--error); }
+.procedures .params :disabled { background: #f6f8fa; }
+.procedures-body { overflow: auto; padding: 8px 10px; }
+.procedures .steps { display: grid; gap: 1px; margin: 0; padding: 0; list-style: none; }
+.procedures .steps li { display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; gap: 8px; align-items: baseline; padding: 4px 6px; border-radius: 6px; }
+.procedures .steps li.now { background: #eef4ff; }
+.procedures .steps li.bad { background: #fdf2f1; }
+.procedures .steps .mark { color: #9aa5b1; text-align: center; }
+.procedures .steps .ok .mark { color: #16a34a; }
+.procedures .steps .bad .mark { color: var(--error); }
+.procedures .steps .now .mark { color: var(--accent); animation: procs-blink 1s steps(2, start) infinite; }
+.procedures .steps .what { margin-right: 6px; color: var(--muted); }
+.procedures .steps code { overflow-wrap: anywhere; }
+.procedures .steps small { color: var(--muted); }
+.procedures .steps .note { display: block; color: #8a6d00; }
+.procedures .steps .bad .note { color: var(--error); }
+.procedures .steps time { color: var(--muted); font: 11px var(--mono); }
 .procedures code { font: 12px var(--mono); }
-.procedures .params { display: flex; flex-wrap: wrap; gap: 8px 14px; }
-.procedures .params label { display: grid; gap: 2px; color: var(--muted); font-size: 12px; }
-.procedures .params input, .procedures .params select { width: 160px; padding: 3px 6px; border: 1px solid var(--border); border-radius: 6px; font: 13px var(--mono); }
-.procedures .log .bad { color: var(--error); }
-.procedures .log time { color: var(--muted); font: 11px var(--mono); }
-.procedures .progress { min-height: 1.3em; margin: 0; color: #8a6d00; }
-.procedures .said { height: 1.4em; margin: 0; padding: 0 12px; overflow: hidden; color: var(--error); text-overflow: ellipsis; white-space: nowrap; }
-.procedures .actions { display: flex; gap: 6px; padding: 8px 12px; border-top: 1px solid #eef1f5; }
-.procedures .actions .ask { width: 84px; }
-.procedures .actions input { flex: 1; min-width: 0; padding: 4px 8px; border: 1px solid var(--border); border-radius: 6px; font: 13px var(--mono); }
+.procedures .findings { margin: 10px 6px 0; padding: 8px 12px; border: 1px solid #f5c2bd; border-radius: 8px; background: #fffaf9; }
+.procedures .findings h5 { margin: 0 0 4px; color: var(--error); font-size: 12px; }
+.procedures .findings ul { margin: 0; padding-left: 18px; }
+.procedures .typed { margin: 10px 6px 0; }
+.procedures .actions { display: flex; align-items: center; gap: 8px; padding: 0 14px; border-top: 1px solid #eef1f5; }
+.procedures .actions.pending { background: #fffbeb; }
+.procedures .said { flex: 1; min-width: 0; margin: 0; overflow: hidden; color: var(--muted); text-overflow: ellipsis; white-space: nowrap; }
+.procedures .said.bad { color: var(--error); }
+.procedures .actions button { white-space: nowrap; }
+.procedures .actions button.danger { background: var(--error); border-color: var(--error); color: #fff; }
+.procedures .actions input { width: 220px; padding: 4px 8px; border: 1px solid var(--border); border-radius: 6px; font: 13px var(--mono); }
 .physical .hint { flex: none; margin-top: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } /* one line, whichever hint */
 
 /*

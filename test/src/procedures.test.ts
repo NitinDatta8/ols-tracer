@@ -1,7 +1,7 @@
 // The Procedures panel's model (src/procedures.ts): what is offered where and why not, the params a procedure starts
-// with, a param's value as the bridge takes it, and the lines it will type.
+// with, a param's value as the bridge takes it, the lines it will type, and how far one asked for got, step by step.
 import { describe, expect, it } from 'vitest';
-import { active, paramProblem, procedureItems, restoreOf, startParams, stepsOf, type Asked, type BoxProcedures, type ProcedureDef } from '../../src/procedures';
+import { active, draft, paramProblem, procedureItems, span, startParams, timeline, type Asked, type BoxProcedures, type ProcedureDef } from '../../src/procedures';
 
 const audit: ProcedureDef = { id: 'audit', label: 'Software audit', level: 'chassis', tier: 'read', steps: [{ send: 'show software' }] };
 const reboot: ProcedureDef = {
@@ -55,11 +55,56 @@ describe('paramProblem', () => {
   });
 });
 
-describe('stepsOf and restoreOf', () => {
-  it("fill in each line, a line with a param missing being null, and give a wait's check and times", () => {
-    expect(stepsOf(reboot, { card: '1-7', mode: 'warm' })).toEqual([{ send: 'reboot card 1-7 warm', drops: false }, { wait: 'cardUp', every: 5, timeout: 180 }]);
-    expect(stepsOf(reboot, { mode: 'warm' })[0]).toEqual({ send: null, drops: false });
-    expect(restoreOf(locate, { seconds: '60' })).toEqual(['locate-chassis stop']);
-    expect(restoreOf(audit, {})).toEqual([]);
+describe('draft', () => {
+  it("fills in each line, a line with a param missing being null, and gives a wait's check and times, and the undo", () => {
+    expect(draft(reboot, { card: '1-7', mode: 'warm' })).toEqual([
+      { kind: 'send', what: 'type', code: 'reboot card 1-7 warm', state: 'todo' },
+      { kind: 'wait', what: 'wait for cardUp', code: null, more: 'every 5 s, up to 3 min', state: 'todo' },
+    ]);
+    expect(draft(reboot, { mode: 'warm' })[0].code).toBeNull();
+    expect(draft(locate, { seconds: '60' }).map((r) => [r.kind, r.code])).toEqual([['send', 'locate-chassis start 60'], ['restore', 'locate-chassis stop']]);
+    expect([30, 120, 600, 7200, 5400].map(span)).toEqual(['30 s', '2 min', '10 min', '2 h', '90 min']);
+  });
+});
+
+describe('timeline', () => {
+  const at = '2026-11-16T19:00:00-05:00';
+  const rebootNe = (state: Asked['state'], log: Asked['log']): Asked => ({
+    ...asked(state), id: 'reboot-ne', label: 'Reboot NE', tier: 'change', log,
+    plan: {
+      pre: [], before: [{ check: 'cards-up', shows: ['show card', 'show alarm'] }],
+      steps: [{ send: 'reboot ne cold', drops: true, timeout: 600 }, { wait: 'cards-up', shows: ['show card', 'show alarm'], every: 15, timeout: 600 }],
+      verify: { check: 'health', shows: ['show card', 'show alarm', 'show system'] }, restore: [],
+    },
+  });
+  const marks = (p: Asked) => timeline(p).rows.map((r) => [r.kind, r.state, r.note ?? null]);
+
+  it('marks each step from the log: a drop as its line is typed passes that line, and the box coming back is noted on it', () => {
+    const p = rebootNe('done', [
+      { at, step: 'before', check: 'cards-up', ok: true }, { at, step: 'drop', line: 'reboot ne cold', ok: true }, { at, step: 'back', ok: true },
+      { at, step: 'wait', check: 'cards-up', ok: true, tries: 3 }, { at, step: 'verify', check: 'health', ok: true },
+      { at, step: 'finding', check: 'health', ok: false, why: 'card 1-4 (800MX) is absent' },
+    ]);
+    expect(marks(p)).toEqual([
+      ['before', 'ok', null], ['send', 'ok', 'the box dropped the session, as expected; it came back'], ['wait', 'ok', 'passed on try 3'], ['verify', 'ok', null],
+    ]);
+    expect(timeline(p).findings).toEqual(['card 1-4 (800MX) is absent']);
+    expect(timeline(p).rows[1]).toMatchObject({ code: 'reboot ne cold', more: 'drops the session', at });
+  });
+
+  it('marks the next step now while it runs, a drop in a wait on that wait, and where it stopped when it failed', () => {
+    expect(marks(rebootNe('running', [{ at, step: 'before', check: 'cards-up', ok: true }]))).toEqual([['before', 'ok', null], ['send', 'now', null], ['wait', 'todo', null], ['verify', 'todo', null]]);
+    const typed = [{ at, step: 'before', check: 'cards-up', ok: true }, { at, step: 'send', line: 'reboot ne cold', ok: true }, { at, step: 'drop', line: 'reboot ne cold', ok: true }];
+    expect(marks(rebootNe('running', typed))[2]).toEqual(['wait', 'now', 'the box dropped the session']);
+    expect(marks(rebootNe('failed', typed.slice(0, 2)))).toEqual([['before', 'ok', null], ['send', 'ok', null], ['wait', 'bad', null], ['verify', 'todo', null]]);
+    expect(marks(rebootNe('pending', []))).toEqual([['before', 'todo', null], ['send', 'todo', null], ['wait', 'todo', null], ['verify', 'todo', null]]);
+  });
+
+  it('a check that failed is where it stopped, saying why; a reversible one marks its undo', () => {
+    const p: Asked = { ...rebootNe('failed', [{ at, step: 'pre', check: 'upgradable', ok: false, why: 'not committed' }]), plan: { pre: [{ check: 'upgradable', shows: ['show software'] }], steps: [{ send: 'commit active-sw-image' }], verify: null, restore: [] } };
+    expect(marks(p)).toEqual([['pre', 'bad', 'not committed'], ['send', 'todo', null]]);
+    const held: Asked = { ...asked('cancelled'), tier: 'reversible', plan: { pre: [], steps: [{ send: 'set led on' }], verify: null, restore: ['set led off'] },
+      log: [{ at, step: 'send', line: 'set led on', ok: true }, { at, step: 'restore', line: 'set led off', ok: true }] };
+    expect(marks(held)).toEqual([['send', 'ok', null], ['restore', 'ok', null]]);
   });
 });
