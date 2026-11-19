@@ -175,6 +175,43 @@ const dedupeBy = (items, keyFn) => {
   return out;
 };
 
+function mergeInternalLinksByCard(...maps) {
+  const byCard = new Map();
+
+  for (const map of maps) {
+    if (!(map instanceof Map)) continue;
+    for (const [cardType, links] of map.entries()) {
+      if (!Array.isArray(links) || !links.length) continue;
+      const bySource = byCard.get(cardType) ?? new Map();
+
+      for (const link of links) {
+        const sourcePort = normalizePortRef(link?.sourcePort);
+        if (!sourcePort) continue;
+
+        const destSet = bySource.get(sourcePort) ?? new Set();
+        for (const dest of (Array.isArray(link?.destPorts) ? link.destPorts : []).map(normalizePortRef).filter(Boolean)) {
+          destSet.add(dest);
+        }
+
+        if (destSet.size) bySource.set(sourcePort, destSet);
+      }
+
+      if (bySource.size) byCard.set(cardType, bySource);
+    }
+  }
+
+  const out = new Map();
+  for (const [cardType, bySource] of byCard.entries()) {
+    const links = [...bySource.entries()]
+      .map(([sourcePort, destPorts]) => ({ sourcePort, destPorts: [...destPorts].sort() }))
+      .filter((link) => link.destPorts.length)
+      .sort((a, b) => a.sourcePort.localeCompare(b.sourcePort));
+    if (links.length) out.set(cardType, links);
+  }
+
+  return out;
+}
+
 function parseL0AmplifierMaps(l0CardXml) {
   const out = new Map();
   for (const moCfgMatch of l0CardXml.matchAll(/<mo_cfg\b[^>]*>([\s\S]*?)<\/mo_cfg>/g)) {
@@ -346,6 +383,174 @@ function parseL0ValidationGrid(l0ValidateXml) {
   return out;
 }
 
+function parseL0ValidationWssInternalLinks(l0ValidateXml) {
+  const out = new Map();
+  const section = l0ValidateXml.match(/<validation_WSS>([\s\S]*?)<\/validation_WSS>/)?.[1] ?? '';
+  if (!section) return out;
+
+  const addDropByType = new Map();
+  for (const adMatch of section.matchAll(/<ad_port>([\s\S]*?)<\/ad_port>/g)) {
+    const raw = adMatch[1];
+    const name = String(parseTags(raw, 'name')[0] ?? '').trim();
+    const ports = [...new Set(parseTags(raw, 'port_name').map(normalizePortRef).filter(Boolean))].sort();
+    if (name && ports.length) addDropByType.set(name, ports);
+  }
+
+  const lineByType = new Map();
+  for (const lineMatch of section.matchAll(/<line_port>([\s\S]*?)<\/line_port>/g)) {
+    const raw = lineMatch[1];
+    const name = String(parseTags(raw, 'name')[0] ?? '').trim();
+    const ports = [...new Set(parseTags(raw, 'port_name').map(normalizePortRef).filter(Boolean))].sort();
+    if (name && ports.length) lineByType.set(name, ports);
+  }
+
+  const byCard = new Map();
+  for (const cardMatch of l0ValidateXml.matchAll(/<card>([\s\S]*?)<\/card>/g)) {
+    const cardRaw = cardMatch[1];
+    const cardType = normalizeCardKey(parseTags(cardRaw, 'card-type')[0]);
+    if (!cardType || cardType === 'NONE') continue;
+
+    const wssType = cardRaw.match(/<validation_WSS_type>([\s\S]*?)<\/validation_WSS_type>/)?.[1] ?? '';
+    if (!wssType) continue;
+
+    const adType = String(parseTags(wssType, 'ad_type')[0] ?? '').trim();
+    const lineType = String(parseTags(wssType, 'line_type')[0] ?? '').trim();
+    const addDropPorts = addDropByType.get(adType) ?? [];
+    const linePorts = lineByType.get(lineType) ?? [];
+    if (!addDropPorts.length || !linePorts.length) continue;
+
+    const bySource = byCard.get(cardType) ?? new Map();
+
+    for (const linePort of linePorts) {
+      const current = bySource.get(linePort) ?? new Set();
+      for (const adPort of addDropPorts) current.add(adPort);
+      if (current.size) bySource.set(linePort, current);
+    }
+
+    for (const adPort of addDropPorts) {
+      const current = bySource.get(adPort) ?? new Set();
+      for (const linePort of linePorts) current.add(linePort);
+      if (current.size) bySource.set(adPort, current);
+    }
+
+    if (bySource.size) byCard.set(cardType, bySource);
+  }
+
+  for (const [cardType, bySource] of byCard.entries()) {
+    const links = [...bySource.entries()]
+      .map(([sourcePort, destPorts]) => ({ sourcePort, destPorts: [...destPorts].sort() }))
+      .filter((link) => link.destPorts.length)
+      .sort((a, b) => a.sourcePort.localeCompare(b.sourcePort));
+    if (links.length) out.set(cardType, links);
+  }
+
+  return out;
+}
+
+function parseL0PlugAmplifierDefaults(l0PlugXml) {
+  const out = new Map();
+  if (!l0PlugXml) return out;
+
+  const addCandidate = (entry, field, value, keyFn = (v) => JSON.stringify(v)) => {
+    if (value === undefined || value === null || value === '') return;
+    const byKey = entry.candidates.get(field) ?? new Map();
+    byKey.set(keyFn(value), value);
+    entry.candidates.set(field, byKey);
+  };
+
+  const pickConsensus = (entry, field) => {
+    const byKey = entry.candidates.get(field);
+    if (!byKey || byKey.size !== 1) return undefined;
+    return [...byKey.values()][0];
+  };
+
+  for (const ruleMatch of l0PlugXml.matchAll(/<rule>([\s\S]*?)<\/rule>/g)) {
+    const ruleRaw = ruleMatch[1];
+    const cardType = normalizeCardKey(parseTags(ruleRaw, 'card-type')[0]);
+    if (!cardType || cardType === 'NONE') continue;
+
+    const byAmp = new Map();
+
+    for (const moduleMatch of ruleRaw.matchAll(/<module>([\s\S]*?)<\/module>/g)) {
+      const moduleRaw = moduleMatch[1];
+      const wildcardKey = String(parseTags(moduleRaw, 'wildcard-key')[0] ?? '').trim();
+      if (!wildcardKey.startsWith('/openconfig-optical-amplifier:optical-amplifier/amplifiers/amplifier')) continue;
+
+      const ampId = normalizePortRef(parseTags(moduleRaw, 'name')[0]);
+      if (!ampId) continue;
+      const entry = byAmp.get(ampId) ?? { candidates: new Map() };
+
+      const attrs = {};
+      for (const attrMatch of moduleRaw.matchAll(/<attribute>([\s\S]*?)<\/attribute>/g)) {
+        const attrRaw = attrMatch[1];
+        const leaf = String(parseTags(attrRaw, 'leaf')[0] ?? '').trim();
+        const value = String(parseTags(attrRaw, 'value')[0] ?? '').trim();
+        if (!leaf || value === '') continue;
+        attrs[leaf] = value;
+      }
+
+      addCandidate(entry, 'targetGain', parseNum(attrs['target-gain']));
+      addCandidate(entry, 'targetGainTilt', parseNum(attrs['target-gain-tilt']));
+      addCandidate(entry, 'targetOutputPower', parseNum(attrs['target-output-power']));
+      addCandidate(entry, 'maxOutputPower', parseNum(attrs['max-output-power']));
+      addCandidate(entry, 'ingressVoaAtten', parseNum(attrs['ingress-voa-atten']));
+      addCandidate(entry, 'targetSpanLossOffset', parseNum(attrs['target-span-loss-offset']));
+
+      const type = String(attrs.type ?? '').trim().toUpperCase();
+      if (type) addCandidate(entry, 'type', type, (v) => v);
+
+      const gainMin = parseNum(attrs['min-gain']);
+      const gainMax = parseNum(attrs['max-gain']);
+      if (gainMin !== undefined && gainMax !== undefined) {
+        addCandidate(entry, 'gainRange', { min: gainMin, max: gainMax }, (v) => `${v.min}|${v.max}`);
+      }
+
+      const tiltMin = parseNum(attrs['min-gain-tilt']);
+      const tiltMax = parseNum(attrs['max-gain-tilt']);
+      if (tiltMin !== undefined && tiltMax !== undefined) {
+        addCandidate(entry, 'targetGainTiltRange', { min: tiltMin, max: tiltMax }, (v) => `${v.min}|${v.max}`);
+      }
+
+      const ingressVoaMin = parseNum(attrs['min-ingress-voa']);
+      const ingressVoaMax = parseNum(attrs['max-ingress-voa']);
+      if (ingressVoaMin !== undefined && ingressVoaMax !== undefined) {
+        addCandidate(entry, 'ingressVoaAttenRange', { min: ingressVoaMin, max: ingressVoaMax }, (v) => `${v.min}|${v.max}`);
+      }
+
+      const spanLossMin = parseNum(attrs['min-target-span-loss-offset']);
+      const spanLossMax = parseNum(attrs['max-target-span-loss-offset']);
+      if (spanLossMin !== undefined && spanLossMax !== undefined) {
+        addCandidate(entry, 'targetSpanLossOffsetRange', { min: spanLossMin, max: spanLossMax }, (v) => `${v.min}|${v.max}`);
+      }
+
+      byAmp.set(ampId, entry);
+    }
+
+    const finalized = new Map();
+    for (const [ampId, entry] of byAmp.entries()) {
+      const amp = {
+        type: pickConsensus(entry, 'type'),
+        targetGain: pickConsensus(entry, 'targetGain'),
+        gainRange: pickConsensus(entry, 'gainRange'),
+        targetGainTilt: pickConsensus(entry, 'targetGainTilt'),
+        targetGainTiltRange: pickConsensus(entry, 'targetGainTiltRange'),
+        targetOutputPower: pickConsensus(entry, 'targetOutputPower'),
+        maxOutputPower: pickConsensus(entry, 'maxOutputPower'),
+        ingressVoaAtten: pickConsensus(entry, 'ingressVoaAtten'),
+        ingressVoaAttenRange: pickConsensus(entry, 'ingressVoaAttenRange'),
+        targetSpanLossOffset: pickConsensus(entry, 'targetSpanLossOffset'),
+        targetSpanLossOffsetRange: pickConsensus(entry, 'targetSpanLossOffsetRange'),
+      };
+
+      if (Object.values(amp).some((value) => value !== undefined)) finalized.set(ampId, amp);
+    }
+
+    if (finalized.size) out.set(cardType, finalized);
+  }
+
+  return out;
+}
+
 function parseL0ChannelMonitors(l0CardXml) {
   const out = new Map();
   const section = l0CardXml.match(/<channel-monitor-maps>([\s\S]*?)<\/channel-monitor-maps>/)?.[1] ?? '';
@@ -395,21 +600,33 @@ function loadL0ProfileData(stream) {
 
   const l0CardPath = join(streamRoot, 'l0_card_profile.xml');
   const l0PowerPath = join(streamRoot, 'l0_power_ctrl_mgr_profile.xml');
-  const l0ValidatePath = join(streamRoot, 'l0_validate_profile.xml');
+  const l0PlugPath = join(streamRoot, 'l0_plug_module_profile.xml');
+  const l0ValidatePath = [
+    'l0_validate_profile.xml',
+    'l0_validation_profile.xml',
+  ].map((name) => join(streamRoot, name)).find((path) => existsSync(path))
+    ?? join(streamRoot, 'l0_validate_profile.xml');
 
   const l0CardXml = existsSync(l0CardPath) ? stripXmlComments(readFileSync(l0CardPath, 'utf8')) : '';
   const l0PowerXml = existsSync(l0PowerPath) ? stripXmlComments(readFileSync(l0PowerPath, 'utf8')) : '';
+  const l0PlugXml = existsSync(l0PlugPath) ? stripXmlComments(readFileSync(l0PlugPath, 'utf8')) : '';
   const l0ValidateXml = existsSync(l0ValidatePath) ? stripXmlComments(readFileSync(l0ValidatePath, 'utf8')) : '';
 
-  if (!l0CardXml && !l0PowerXml && !l0ValidateXml) return null;
+  if (!l0CardXml && !l0PowerXml && !l0PlugXml && !l0ValidateXml) return null;
+
+  const internalLinksByCard = mergeInternalLinksByCard(
+    parseL0InternalLinks(l0CardXml),
+    parseL0ValidationWssInternalLinks(l0ValidateXml),
+  );
 
   return {
     amplifierMapByCard: parseL0AmplifierMaps(l0CardXml),
-    internalLinksByCard: parseL0InternalLinks(l0CardXml),
+    internalLinksByCard,
     powerCtrlByCard: parseL0PowerControl(l0PowerXml),
     amplifierRangesByCard: parseL0AmplifierRanges(l0ValidateXml),
     wavelengthByCard: parseL0ValidationWavelength(l0ValidateXml),
     gridByCard: parseL0ValidationGrid(l0ValidateXml),
+    plugAmplifierDefaultsByCard: parseL0PlugAmplifierDefaults(l0PlugXml),
     channelMonitorByCard: parseL0ChannelMonitors(l0CardXml),
   };
 }
@@ -548,6 +765,7 @@ function buildInternalPaths(internalLinks, otsLinks) {
 
 function buildL0Metadata(vendorType, l0Data, thresholdMap, profileAmplifierDefaults) {
   const key = normalizeCardKey(vendorType);
+  const plugAmplifierDefaults = l0Data?.plugAmplifierDefaultsByCard.get(key) ?? new Map();
   const hasL0CardData = !!l0Data && (
     l0Data.amplifierMapByCard.has(key)
     || l0Data.internalLinksByCard.has(key)
@@ -556,6 +774,7 @@ function buildL0Metadata(vendorType, l0Data, thresholdMap, profileAmplifierDefau
     || l0Data.wavelengthByCard.has(key)
     || l0Data.gridByCard.has(key)
     || l0Data.channelMonitorByCard.has(key)
+    || plugAmplifierDefaults.size > 0
   );
   if (!hasL0CardData) return null;
 
@@ -570,12 +789,14 @@ function buildL0Metadata(vendorType, l0Data, thresholdMap, profileAmplifierDefau
   const amplifierNames = [...new Set([
     ...amplifierMap.keys(),
     ...profileAmplifierDefaults.keys(),
+    ...plugAmplifierDefaults.keys(),
     ...amplifierRanges.keys(),
   ])].sort();
 
   const amplifiers = amplifierNames.map((ampId) => {
     const fromCfg = amplifierMap.get(ampId) ?? {};
     const fromProfile = profileAmplifierDefaults.get(ampId) ?? {};
+    const fromPlug = plugAmplifierDefaults.get(ampId) ?? {};
     const fromRange = amplifierRanges.get(ampId) ?? {};
     const lineRole = (() => {
       const ingress = otsLinks.some((link) => normalizePortRef(link.ingressAmplifier) === ampId);
@@ -587,20 +808,20 @@ function buildL0Metadata(vendorType, l0Data, thresholdMap, profileAmplifierDefau
 
     const amp = {
       id: ampId,
-      ...(fromCfg.type || fromProfile.type ? { type: fromCfg.type ?? fromProfile.type } : {}),
-      ...(fromCfg.ingressPort || fromProfile.ingressPort ? { ingressPort: fromCfg.ingressPort ?? fromProfile.ingressPort } : {}),
-      ...(fromCfg.egressPort || fromProfile.egressPort ? { egressPort: fromCfg.egressPort ?? fromProfile.egressPort } : {}),
+      ...(fromCfg.type || fromProfile.type || fromPlug.type ? { type: fromCfg.type ?? fromProfile.type ?? fromPlug.type } : {}),
+      ...(fromCfg.ingressPort || fromProfile.ingressPort || fromPlug.ingressPort ? { ingressPort: fromCfg.ingressPort ?? fromProfile.ingressPort ?? fromPlug.ingressPort } : {}),
+      ...(fromCfg.egressPort || fromProfile.egressPort || fromPlug.egressPort ? { egressPort: fromCfg.egressPort ?? fromProfile.egressPort ?? fromPlug.egressPort } : {}),
       ...(lineRole ? { lineRole } : {}),
-      ...(fromProfile.targetGain !== undefined ? { targetGain: fromProfile.targetGain } : {}),
-      ...(fromRange.gainRange || fromProfile.gainRange ? { gainRange: fromRange.gainRange ?? fromProfile.gainRange } : {}),
-      ...(fromProfile.targetGainTilt !== undefined ? { targetGainTilt: fromProfile.targetGainTilt } : {}),
-      ...(fromRange.targetGainTiltRange ? { targetGainTiltRange: fromRange.targetGainTiltRange } : {}),
-      ...(fromProfile.targetOutputPower !== undefined ? { targetOutputPower: fromProfile.targetOutputPower } : {}),
-      ...(fromProfile.maxOutputPower !== undefined ? { maxOutputPower: fromProfile.maxOutputPower } : {}),
-      ...(fromProfile.ingressVoaAtten !== undefined ? { ingressVoaAtten: fromProfile.ingressVoaAtten } : {}),
-      ...(fromRange.ingressVoaAttenRange ? { ingressVoaAttenRange: fromRange.ingressVoaAttenRange } : {}),
-      ...(fromProfile.targetSpanLossOffset !== undefined ? { targetSpanLossOffset: fromProfile.targetSpanLossOffset } : {}),
-      ...(fromRange.targetSpanLossOffsetRange ? { targetSpanLossOffsetRange: fromRange.targetSpanLossOffsetRange } : {}),
+      ...(fromProfile.targetGain !== undefined || fromPlug.targetGain !== undefined ? { targetGain: fromProfile.targetGain ?? fromPlug.targetGain } : {}),
+      ...(fromRange.gainRange || fromProfile.gainRange || fromPlug.gainRange ? { gainRange: fromRange.gainRange ?? fromProfile.gainRange ?? fromPlug.gainRange } : {}),
+      ...(fromProfile.targetGainTilt !== undefined || fromPlug.targetGainTilt !== undefined ? { targetGainTilt: fromProfile.targetGainTilt ?? fromPlug.targetGainTilt } : {}),
+      ...(fromRange.targetGainTiltRange || fromProfile.targetGainTiltRange || fromPlug.targetGainTiltRange ? { targetGainTiltRange: fromRange.targetGainTiltRange ?? fromProfile.targetGainTiltRange ?? fromPlug.targetGainTiltRange } : {}),
+      ...(fromProfile.targetOutputPower !== undefined || fromPlug.targetOutputPower !== undefined ? { targetOutputPower: fromProfile.targetOutputPower ?? fromPlug.targetOutputPower } : {}),
+      ...(fromProfile.maxOutputPower !== undefined || fromPlug.maxOutputPower !== undefined ? { maxOutputPower: fromProfile.maxOutputPower ?? fromPlug.maxOutputPower } : {}),
+      ...(fromProfile.ingressVoaAtten !== undefined || fromPlug.ingressVoaAtten !== undefined ? { ingressVoaAtten: fromProfile.ingressVoaAtten ?? fromPlug.ingressVoaAtten } : {}),
+      ...(fromRange.ingressVoaAttenRange || fromProfile.ingressVoaAttenRange || fromPlug.ingressVoaAttenRange ? { ingressVoaAttenRange: fromRange.ingressVoaAttenRange ?? fromProfile.ingressVoaAttenRange ?? fromPlug.ingressVoaAttenRange } : {}),
+      ...(fromProfile.targetSpanLossOffset !== undefined || fromPlug.targetSpanLossOffset !== undefined ? { targetSpanLossOffset: fromProfile.targetSpanLossOffset ?? fromPlug.targetSpanLossOffset } : {}),
+      ...(fromRange.targetSpanLossOffsetRange || fromProfile.targetSpanLossOffsetRange || fromPlug.targetSpanLossOffsetRange ? { targetSpanLossOffsetRange: fromRange.targetSpanLossOffsetRange ?? fromProfile.targetSpanLossOffsetRange ?? fromPlug.targetSpanLossOffsetRange } : {}),
     };
     return amp;
   }).filter((amp) => Object.keys(amp).length > 1);
