@@ -175,6 +175,49 @@ const dedupeBy = (items, keyFn) => {
   return out;
 };
 
+const hasOwn = (obj, key) => Object.prototype.hasOwnProperty.call(obj, key);
+
+function extractYangDbModelMap(yangAttributes) {
+  if (!yangAttributes || typeof yangAttributes !== 'object' || Array.isArray(yangAttributes)) return null;
+
+  const rawKeys = Array.isArray(yangAttributes.key)
+    ? yangAttributes.key.filter((key) => typeof key === 'string' && key.trim())
+    : Object.keys(yangAttributes).filter((key) => key !== 'key');
+
+  const seen = new Set();
+  const out = {};
+
+  for (const key of rawKeys) {
+    const yangKey = String(key).trim();
+    if (!yangKey || seen.has(yangKey) || !hasOwn(yangAttributes, yangKey)) continue;
+    seen.add(yangKey);
+
+    const entry = yangAttributes[yangKey];
+    if (!entry || typeof entry !== 'object' || Array.isArray(entry)) continue;
+
+    const model = {};
+
+    if (typeof entry.classname === 'string' && entry.classname.trim()) {
+      model.classname = entry.classname;
+    }
+
+    if (Array.isArray(entry.classparam) && entry.classparam.length) {
+      model.classparam = entry.classparam.map((value) => (typeof value === 'string' ? value : String(value)));
+    }
+
+    if (entry.cbtype && typeof entry.cbtype === 'object' && !Array.isArray(entry.cbtype)) {
+      const cbtype = Object.fromEntries(
+        Object.entries(entry.cbtype).filter(([, value]) => typeof value === 'boolean'),
+      );
+      if (Object.keys(cbtype).length) model.cbtype = cbtype;
+    }
+
+    if (Object.keys(model).length) out[yangKey] = model;
+  }
+
+  return Object.keys(out).length ? out : null;
+}
+
 function mergeInternalLinksByCard(...maps) {
   const byCard = new Map();
 
@@ -1023,6 +1066,7 @@ function collectPortModules(node, classMap, acc = [], parentHidden = false) {
       : [];
     const className = classMap?.[moduleName];
     const hints = collectHints(mod);
+    const modelMap = extractYangDbModelMap(mod?.attributes?.yangattributes);
 
     if (!hidden && names.length && looksLikePortModule(moduleName, className, names, mod, hints)) {
       acc.push({
@@ -1031,6 +1075,7 @@ function collectPortModules(node, classMap, acc = [], parentHidden = false) {
         names,
         serviceTypes: [...hints.serviceTypes],
         formFactors: [...hints.formFactors],
+        ...(modelMap ? { modelMap } : {}),
       });
     }
 
@@ -1144,6 +1189,7 @@ for (const stream of streamIds) {
   const pluggables = [...synced, ...(PLUGGABLE_FIXES[stream.toLowerCase()] ?? []).filter((fix) => !synced.some((p) => p.id === fix.id))];
   const l1ServiceTypesByCard = options.strict ? parseSupportedServiceTypesByCard(streamL1Path) : new Map();
   const l0Data = loadL0ProfileData(stream);
+  const includeCspModelMap = stream.toLowerCase() === 'csp';
 
   const linecards = [];
   for (const vendorType of vendorTypes) {
@@ -1156,6 +1202,7 @@ for (const stream of streamIds) {
     const root = parsed[Object.keys(parsed)[0]];
     const classMap = root?.classname ?? {};
     const moduleDefs = collectPortModules(root, classMap);
+    const linecardModelMap = includeCspModelMap ? extractYangDbModelMap(root?.attributes?.yangattributes) : null;
     const thresholdMap = extractProfileOpticalThresholds(root);
     const profileAmplifierDefaults = extractProfileAmplifierDefaults(root);
     const l0 = buildL0Metadata(vendorType, l0Data, thresholdMap, profileAmplifierDefaults);
@@ -1227,6 +1274,7 @@ for (const stream of streamIds) {
           role,
           ...(Object.keys(behavior).length ? { behavior } : {}),
           allowedPluggables: fix ? fix(allowedPluggables) : allowedPluggables,
+          ...(includeCspModelMap && moduleInfo.modelMap ? { modelMap: moduleInfo.modelMap } : {}),
         });
       }
     }
@@ -1240,6 +1288,7 @@ for (const stream of streamIds) {
       id: linecardIdForVendorType(vendorType),
       name: linecardNameForVendorType(vendorType),
       ...(width > 1 ? { width } : {}),
+      ...(includeCspModelMap && linecardModelMap ? { modelMap: linecardModelMap } : {}),
       ...(l0 ? { l0 } : {}),
       ports,
     });

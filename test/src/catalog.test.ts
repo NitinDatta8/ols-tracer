@@ -117,7 +117,22 @@ describe('CLI addresses', () => {
 
   it("maps the box's module type to a linecard, by the profile's map or by its name", () => {
     const chassis = byId(csp.chassis, 'ch-8slot')!;
-    expect([linecardFor(chassis, 'TMUXC1125'), linecardFor(chassis, '800MX'), linecardFor(chassis, 'Brand New 9'), linecardFor(chassis, '')]).toEqual(['lc-c1125', 'lc-800mx', 'lc-brand-new-9', 'lc-unknown']);
+    expect([
+      linecardFor(chassis, 'TMUXC1125'),
+      linecardFor(chassis, '800MX'),
+      linecardFor(chassis, 'PTM-E'),
+      linecardFor(chassis, 'Brand New 9'),
+      linecardFor(chassis, ''),
+    ]).toEqual(['lc-c1125', 'lc-800mx', 'lc-ptm-e', 'lc-brand-new-9', 'lc-unknown']);
+  });
+
+  it('resolves module aliases from PLATFORM maps too', () => {
+    const csm = catalogFor('csm');
+    const tencent = catalogFor('tencent');
+    expect([
+      linecardFor(byId(csm.chassis, 'ch-8slot')!, '800MX'),
+      linecardFor(byId(tencent.chassis, 'ch-8slot')!, 'T1X12C8H'),
+    ]).toEqual(['lc-l3x8c7', 'lc-t1x12c8']);
   });
 
   it('fills a CLI template, leaving a value it is not given as it is', () => {

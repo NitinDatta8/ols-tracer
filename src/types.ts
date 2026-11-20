@@ -59,6 +59,15 @@ export interface L0CardMetadata {
   channelPlan?: L0ChannelPlan;
 }
 
+export interface YangDbBinding {
+  classname?: string;
+  classparam?: string[];
+  cbtype?: Record<string, boolean>;
+}
+
+/** YANG path key -> DB/class callback mapping, as the profile's `yangattributes` carries it. */
+export type YangDbModelMap = Record<string, YangDbBinding>;
+
 export interface Stream { id: string; name: string }
 
 /**
@@ -114,7 +123,7 @@ export interface ChassisDef extends Datasheet {
  * `allowedPluggables` lists pluggable ids or whole form-factor families ("QSFP" = every QSFP speed).
  * An empty list means a fixed LC connector (SMF, no pluggable needed).
  */
-export interface PortDef { id: string; role: Role; behavior?: PortBehavior; allowedPluggables: string[] }
+export interface PortDef { id: string; role: Role; behavior?: PortBehavior; allowedPluggables: string[]; modelMap?: YangDbModelMap }
 
 /**
  * `width` is how many side-by-side slots the card takes (default 1); it sits in the leftmost one.
@@ -127,6 +136,7 @@ export interface LinecardDef extends Datasheet {
   width?: number;
   columns?: number;
   ports: PortDef[];
+  modelMap?: YangDbModelMap;
   l0?: L0CardMetadata;
   /** Its front as the deck draws it: then only the ports on it are drawn and take fibers. */
   faceplate?: Faceplate;

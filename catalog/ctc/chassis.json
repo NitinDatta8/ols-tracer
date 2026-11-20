@@ -222,12 +222,25 @@
         "vendorType": "OTDR",
         "linecardId": "lc-otdr",
         "profile": "OTDR.json"
+      },
+      {
+        "vendorType": "PTME",
+        "linecardId": "lc-ptm-e",
+        "aliasOf": "PTM-E",
+        "source": "cardname"
+      },
+      {
+        "vendorType": "PTMW",
+        "linecardId": "lc-ptm-w",
+        "aliasOf": "PTM-W",
+        "source": "cardname"
       }
     ],
     "linecardMappingComplete": true,
     "knownLinecardMappings": 0,
     "fallbackLinecardMappings": 28,
     "knownMappingComplete": false,
+    "aliasLinecardMappings": 2,
     "slots": [
       {
         "id": "1",
@@ -265,6 +278,11 @@
       {
         "id": "2",
         "allowedLinecards": [
+          "lc-oa25",
+          "lc-oa35",
+          "lc-ola25",
+          "lc-ola35a",
+          "lc-ola35b",
           "lc-ptm-e",
           "lc-ptm-w",
           "lc-tff1619",
@@ -281,6 +299,11 @@
           "lc-op2",
           "lc-t4b4",
           "lc-t2b2",
+          "lc-m10q2b2",
+          "lc-tws05oa25",
+          "lc-tws05oa35",
+          "lc-tws09oa25",
+          "lc-tws09oa35",
           "lc-ocm",
           "lc-otdr"
         ]
@@ -377,6 +400,11 @@
       {
         "id": "6",
         "allowedLinecards": [
+          "lc-oa25",
+          "lc-oa35",
+          "lc-ola25",
+          "lc-ola35a",
+          "lc-ola35b",
           "lc-ptm-e",
           "lc-ptm-w",
           "lc-tff1619",
@@ -393,6 +421,11 @@
           "lc-op2",
           "lc-t4b4",
           "lc-t2b2",
+          "lc-m10q2b2",
+          "lc-tws05oa25",
+          "lc-tws05oa35",
+          "lc-tws09oa25",
+          "lc-tws09oa35",
           "lc-ocm",
           "lc-otdr"
         ]

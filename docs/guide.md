@@ -34,7 +34,7 @@ catalog/
   streams.json              # the five corporations (streams): csp, ctc, polaris, tencent, ws
   common/cli.json           # CLI command templates and modes, merged into every stream
   common/faceplates.json    # kept by hand: card fronts, and the chassis's PSU and fan, from the OLS Introduction deck (pictures in public/faceplates/)
-  <stream>/                 # chassis.json, linecards.json, pluggables.json, cli.json
+  <stream>/                 # chassis.json, linecards.json, pluggables.json, cli.json, platform.json
   csp/testers.json          # kept by hand: the BERT tester (chassis and linecard), merged into CSP's hardware
 ```
 
@@ -42,7 +42,7 @@ The stream files are generated from the IIVI profiles in `../IIVI_Platform/profi
 
 | File | Generated from | Script |
 | --- | --- | --- |
-| `streams.json`, `<stream>/chassis.json` | `platform/<stream>/CHASSIS.json`, plus each card's profile for its width | `npm run sync:platform` |
+| `streams.json`, `<stream>/chassis.json`, `<stream>/platform.json` | `platform/<stream>/CHASSIS.json`, `PLATFORM.json`, plus each card's profile for width and slot starts | `npm run sync:platform` |
 | `<stream>/linecards.json`, `<stream>/pluggables.json` | `CHASSIS.json` and `l1/<stream>/l1_profile.xml` (its `supported-part-no` lists) | `npm run sync:linecards` |
 | `<stream>/cli.json` | `cli/<stream>/cli_shortcut_cmds_eqpt.xml` and `cli_shortcut_cmds_l1.xml` | `npm run sync:cli` |
 
@@ -51,7 +51,8 @@ The stream files are generated from the IIVI profiles in `../IIVI_Platform/profi
 - A stream is any profile folder that has all three: `platform/<stream>/CHASSIS.json`, `cli/<stream>` and `l1/<stream>`.
 - A stream's hardware files are its whole catalog: `common/` has no hardware. `<stream>/testers.json` adds test equipment the profiles don't have, as `{ chassis, linecards, pluggables }`; no sync writes it, so edit it by hand. A tester chassis has `tester: true` (no box, no CLI, named after itself) and `comesWith` (the cards a new one has in, by slot). Only `cli.json` merges, a stream's overriding `common/`'s level by level.
 - Every stream has one chassis today, `ch-8slot`: 8 linecard slots as 4×2, 2 PSUs and 3 fans. `slotDomains` keeps the profile's slot ids by kind (linecard 1–8, psu 21–22, fan 31–33, fp, cu, mux).
-- The linecards are the chassis's `supportedVendorTypes` (`TMUXC1125`, `800MX`, …). `vendorTypeMap` gives each its linecard id: known names get readable ids (`lc-c1125`, `lc-800mx`), the rest `lc-<vendor type>` (`lc-tmuxc935`). `linecardMappingComplete` means every vendor type got a mapping, `knownLinecardMappings` and `fallbackLinecardMappings` count each kind, and `knownMappingComplete` is true only when none fell back.
+- The linecards are the chassis's `supportedVendorTypes` (`TMUXC1125`, `800MX`, …). `vendorTypeMap` gives each its linecard id: known names get readable ids (`lc-c1125`, `lc-800mx`), the rest `lc-<vendor type>` (`lc-tmuxc935`), and aliases from `PLATFORM.json` (`cardname`, `cardclass`, `cardpreconf`, `cardnamemapping`) are included there too. `linecardMappingComplete` means every vendor type got a mapping, `knownLinecardMappings` and `fallbackLinecardMappings` count each kind, `knownMappingComplete` is true only when none fell back, and `aliasLinecardMappings` counts aliases that resolve to a linecard.
+- `<stream>/platform.json` carries stream metadata straight from `PLATFORM.json` and `CHASSIS.json`: LED rules (`ledrules`, `LED`), card class/preconf maps, unavailable values and switches, chassis limits/type where present, and non-linecard module families (CU/PSU/FAN/UI/MUX and peers) for discovery and diagnostics. For CSP, it also carries `l0Led`, extracted from `l0/csp/l0_cmd_profile.json`: the APS LED command-state map (with refs resolved), register prefix-to-LED mapping, OP3 command rewrites and action knobs.
 - When the catalog loads (`hydrate` in `src/catalog.ts`), each slot's allowed list also gets every supported card that fits there, a card the profiles name without describing it gets a placeholder (one client port P1, one line port L1), and a port's pluggable family that no pluggable has gets a `<family>-placeholder`.
 - A port's `role` comes from its profile module or its name: `line` (`LINEPORT`, `L1`), `client` (`CLIENTPORT`, `C1`), `adddrop` (`AD11`), `com`, `osc`, `monitor`, else `port`. Its `behavior` (`showsInL1`, `showsInData`, `canLoopback`, `serviceGroup`) drives the views and rules; without one, line ports show in L1 and loop back, and client ports show in Data.
 - The pluggables are the `supported-part-no` parts, with the lowercase part number as their id (`ftlc1154rdpl`), and their form factor (SFP, QSFP, QSFPDD, CFP2), speed and `dco`.

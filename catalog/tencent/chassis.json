@@ -216,12 +216,105 @@
         "vendorType": "AOM",
         "linecardId": "lc-aom",
         "profile": "AOM.json"
+      },
+      {
+        "vendorType": "CMUX32CL",
+        "linecardId": "lc-cmux-32-cl",
+        "aliasOf": "CMUX-32-CL",
+        "source": "cardclass"
+      },
+      {
+        "vendorType": "CMUX64",
+        "linecardId": "lc-cmux-64",
+        "aliasOf": "CMUX-64",
+        "source": "cardclass"
+      },
+      {
+        "vendorType": "ILA",
+        "linecardId": "lc-ila-swg",
+        "aliasOf": "ILA-SWG",
+        "source": "cardclass"
+      },
+      {
+        "vendorType": "ILACL",
+        "linecardId": "lc-ila-swg-cl",
+        "aliasOf": "ILA-SWG-CL",
+        "source": "cardname"
+      },
+      {
+        "vendorType": "ILACL_GFF",
+        "linecardId": "lc-ila-swg-cl",
+        "aliasOf": "ILA-SWG-CL",
+        "source": "cardclass"
+      },
+      {
+        "vendorType": "ILAECL",
+        "linecardId": "lc-ilae-swg-cl",
+        "aliasOf": "ILAE-SWG-CL",
+        "source": "cardname"
+      },
+      {
+        "vendorType": "ILAEL",
+        "linecardId": "lc-ilae-swg-l",
+        "aliasOf": "ILAE-SWG-L",
+        "source": "cardname"
+      },
+      {
+        "vendorType": "ILAL",
+        "linecardId": "lc-ila-swg-l",
+        "aliasOf": "ILA-SWG-L",
+        "source": "cardname"
+      },
+      {
+        "vendorType": "ILAL_GFF",
+        "linecardId": "lc-ila-swg-l",
+        "aliasOf": "ILA-SWG-L",
+        "source": "cardclass"
+      },
+      {
+        "vendorType": "OA",
+        "linecardId": "lc-oa-swg",
+        "aliasOf": "OA-SWG",
+        "source": "cardclass"
+      },
+      {
+        "vendorType": "OP",
+        "linecardId": "lc-ops",
+        "aliasOf": "OPS",
+        "source": "cardclass"
+      },
+      {
+        "vendorType": "T1X12C8H",
+        "linecardId": "lc-t1x12c8",
+        "aliasOf": "T1X12C8",
+        "source": "cardname",
+        "condition": "'60GBA0001' == result['part-no']"
+      },
+      {
+        "vendorType": "T1X12C8HL",
+        "linecardId": "lc-t1x12c8l",
+        "aliasOf": "T1X12C8L",
+        "source": "cardname",
+        "condition": "'60GBA0001' == result['part-no']"
+      },
+      {
+        "vendorType": "T1X8C8-L",
+        "linecardId": "lc-t1x8c8l",
+        "aliasOf": "T1X8C8L",
+        "source": "cardpreconf"
+      },
+      {
+        "vendorType": "T2X4C8",
+        "linecardId": "lc-ch4l2e8",
+        "aliasOf": "CH4L2E8",
+        "source": "cardclass"
       }
     ],
     "linecardMappingComplete": true,
     "knownLinecardMappings": 0,
     "fallbackLinecardMappings": 27,
     "knownMappingComplete": false,
+    "aliasLinecardMappings": 15,
     "slots": [
       {
         "id": "1",
@@ -262,10 +355,19 @@
           "lc-fga",
           "lc-t1x8c8",
           "lc-t1x8c8l",
+          "lc-oa-swg",
+          "lc-ila-swg",
+          "lc-ila-swg-cl",
+          "lc-ilae-swg-cl",
+          "lc-cmux-32-cl",
+          "lc-wss9",
+          "lc-ops",
           "lc-op1",
+          "lc-op6",
           "lc-op3",
           "lc-ch4l2e8",
           "lc-t4b4",
+          "lc-tws09oa25",
           "lc-otdr",
           "lc-t1x12c8",
           "lc-t1x12c8l",
@@ -359,10 +461,19 @@
           "lc-fga",
           "lc-t1x8c8",
           "lc-t1x8c8l",
+          "lc-oa-swg",
+          "lc-ila-swg",
+          "lc-ila-swg-cl",
+          "lc-ilae-swg-cl",
+          "lc-cmux-32-cl",
+          "lc-wss9",
+          "lc-ops",
           "lc-op1",
+          "lc-op6",
           "lc-op3",
           "lc-ch4l2e8",
           "lc-t4b4",
+          "lc-tws09oa25",
           "lc-otdr",
           "lc-t1x12c8",
           "lc-t1x12c8l",

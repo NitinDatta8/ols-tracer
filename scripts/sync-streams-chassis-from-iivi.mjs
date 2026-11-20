@@ -338,6 +338,19 @@ function collectCspL0LedProfile(iiviRoot, stream) {
   };
 }
 
+function collectCspPlatformDictionaries(platformMeta, stream) {
+  if (stream.toLowerCase() !== 'csp') return {};
+
+  const dictKeys = ['openconfig-rpc', 'dupparams', 'OPTICALCHANNEL', 'widevalidation'];
+  const dictionaries = {};
+  for (const dictKey of dictKeys) {
+    if (Object.hasOwn(platformMeta, dictKey)) {
+      dictionaries[dictKey] = platformMeta[dictKey];
+    }
+  }
+  return dictionaries;
+}
+
 const iiviRoot = fromRepo(options.iiviRoot);
 const catalogRoot = fromRepo(options.out);
 const platformRoot = join(iiviRoot, 'profile/cu/platform');
@@ -511,6 +524,7 @@ for (const stream of streamIds) {
     LED: platformMeta.LED ?? {},
     switch: platformMeta.switch ?? {},
     unavailablevalue: platformMeta.unavailablevalue ?? {},
+    ...collectCspPlatformDictionaries(platformMeta, stream),
     chassis: {
       ...(attrs['chassis-type'] !== undefined ? { type: attrs['chassis-type'] } : {}),
       ...(attrs.chassislimit !== undefined ? { limits: attrs.chassislimit } : {}),

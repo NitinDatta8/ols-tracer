@@ -1,0 +1,701 @@
+{
+  "aliases": {
+    "rules": [
+      {
+        "from": "CIM",
+        "to": "PANEL",
+        "source": "cardname"
+      },
+      {
+        "from": "MUXPANEL32C32L",
+        "to": "MUXPANEL_32C32L",
+        "source": "cardclass"
+      },
+      {
+        "from": "800MX",
+        "to": "L3X8C7",
+        "source": "cardclass"
+      },
+      {
+        "from": "1200MX",
+        "to": "L1X8C10",
+        "source": "cardclass"
+      },
+      {
+        "from": "ILACL",
+        "to": "ILA_CL",
+        "source": "cardclass"
+      },
+      {
+        "from": "IRACL",
+        "to": "IRA_CL",
+        "source": "cardclass"
+      },
+      {
+        "from": "DGECL",
+        "to": "DGE_CL",
+        "source": "cardclass"
+      },
+      {
+        "from": "L1X12C8L",
+        "to": "RL1X12C8_L",
+        "source": "cardclass"
+      },
+      {
+        "from": "L1X12C8",
+        "to": "RL1X12C8",
+        "source": "cardclass"
+      },
+      {
+        "from": "L3X8C7",
+        "to": "RL3X8C7_FLEX",
+        "source": "cardclass"
+      },
+      {
+        "from": "TMUXC_32",
+        "to": "OA_C",
+        "source": "cardclass"
+      },
+      {
+        "from": "RAMANCL_16",
+        "to": "RAMAN_CL",
+        "source": "cardclass"
+      },
+      {
+        "from": "TMUXC32_32",
+        "to": "IRA_C",
+        "source": "cardclass"
+      },
+      {
+        "from": "ILADC_32",
+        "to": "ILA_C",
+        "source": "cardclass"
+      },
+      {
+        "from": "ILADC_DGE_32",
+        "to": "DGE_C",
+        "source": "cardclass"
+      },
+      {
+        "from": "PB64",
+        "to": "MUXPANEL_64",
+        "source": "cardclass"
+      },
+      {
+        "from": "TMUXC64",
+        "to": "TMUXC_64",
+        "source": "cardclass"
+      },
+      {
+        "from": "PMUXC64",
+        "to": "MUX64",
+        "source": "cardclass"
+      },
+      {
+        "from": "L1X8C8X8",
+        "to": "RL1X8C8X8",
+        "source": "cardclass"
+      },
+      {
+        "from": "L1X8C8X8L",
+        "to": "RL1X8C8X8_L",
+        "source": "cardclass"
+      },
+      {
+        "from": "IRACL",
+        "to": "IRA_CL",
+        "source": "cardpreconf"
+      },
+      {
+        "from": "ILACL",
+        "to": "ILA_CL",
+        "source": "cardpreconf"
+      },
+      {
+        "from": "DGECL",
+        "to": "DGE_CL",
+        "source": "cardpreconf"
+      },
+      {
+        "from": "L1X12C8",
+        "to": "RL1X12C8",
+        "source": "cardpreconf"
+      },
+      {
+        "from": "L1X12C8L",
+        "to": "RL1X12C8_L",
+        "source": "cardpreconf"
+      },
+      {
+        "from": "L3X8C7",
+        "to": "RL3X8C7_FLEX",
+        "source": "cardpreconf"
+      },
+      {
+        "from": "MUXPANEL32C32L",
+        "to": "MUXPANEL_32C32L",
+        "source": "cardpreconf"
+      },
+      {
+        "from": "TMUXC_32",
+        "to": "OA_C",
+        "source": "cardpreconf"
+      },
+      {
+        "from": "RAMANCL_16",
+        "to": "RAMAN_CL",
+        "source": "cardpreconf"
+      },
+      {
+        "from": "TMUXC32_32",
+        "to": "IRA_C",
+        "source": "cardpreconf"
+      },
+      {
+        "from": "PB64",
+        "to": "MUXPANE_64",
+        "source": "cardpreconf"
+      },
+      {
+        "from": "ILADC_32",
+        "to": "ILA_C",
+        "source": "cardpreconf"
+      },
+      {
+        "from": "ILADC_DGE_32",
+        "to": "DGE_C",
+        "source": "cardpreconf"
+      },
+      {
+        "from": "TMUXC64",
+        "to": "TMUXC_64",
+        "source": "cardpreconf"
+      },
+      {
+        "from": "PMUXC64",
+        "to": "MUX64",
+        "source": "cardpreconf"
+      },
+      {
+        "from": "L1X8C8X8",
+        "to": "RL1X8C8X8",
+        "source": "cardpreconf"
+      },
+      {
+        "from": "L1X8C8X8L",
+        "to": "RL1X8C8X8_L",
+        "source": "cardpreconf"
+      }
+    ],
+    "cardname": {
+      "CIM": "PANEL"
+    },
+    "cardnamemapping": {}
+  },
+  "cardclass": {
+    "MUXPANEL32C32L": "MUXPANEL_32C32L",
+    "800MX": "L3X8C7",
+    "1200MX": "L1X8C10",
+    "ILACL": "ILA_CL",
+    "IRACL": "IRA_CL",
+    "DGECL": "DGE_CL",
+    "OLP3_3": "OLP3_3",
+    "L1X12C8L": "RL1X12C8_L",
+    "L1X12C8": "RL1X12C8",
+    "L3X8C7": "RL3X8C7_FLEX",
+    "TMUXC_32": "OA_C",
+    "RAMANCL_16": "RAMAN_CL",
+    "TMUXC32_32": "IRA_C",
+    "ILADC_32": "ILA_C",
+    "ILADC_DGE_32": "DGE_C",
+    "PB64": "MUXPANEL_64",
+    "TMUXC64": "TMUXC_64",
+    "PMUXC64": "MUX64",
+    "L1X8C8X8": "RL1X8C8X8",
+    "L1X8C8X8L": "RL1X8C8X8_L"
+  },
+  "cardpreconf": {
+    "IRACL": "IRA_CL",
+    "ILACL": "ILA_CL",
+    "DGECL": "DGE_CL",
+    "L1X12C8": "RL1X12C8",
+    "L1X12C8L": "RL1X12C8_L",
+    "L3X8C7": "RL3X8C7_FLEX",
+    "MUXPANEL32C32L": "MUXPANEL_32C32L",
+    "TMUXC_32": "OA_C",
+    "RAMANCL_16": "RAMAN_CL",
+    "TMUXC32_32": "IRA_C",
+    "PB64": "MUXPANE_64",
+    "ILADC_32": "ILA_C",
+    "ILADC_DGE_32": "DGE_C",
+    "TMUXC64": "TMUXC_64",
+    "PMUXC64": "MUX64",
+    "L1X8C8X8": "RL1X8C8X8",
+    "L1X8C8X8L": "RL1X8C8X8_L"
+  },
+  "ledrules": {
+    "default": {
+      "alarm": {
+        "normal": {
+          "color": 1,
+          "blink": 1
+        },
+        "critical": {
+          "color": 3,
+          "blink": 1
+        },
+        "major": {
+          "color": 2,
+          "blink": 1
+        },
+        "minor": {
+          "color": 1,
+          "blink": 1
+        }
+      },
+      "power": {
+        "LINECARD": {
+          "classname": "Components_Component_Linecard_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "power-admin-state"
+        },
+        "PORT": {
+          "classname": "Components_Component_OpticalPort_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "admin-state"
+        },
+        "maint": {
+          "color": 2,
+          "blink": 2
+        },
+        "disabled": {
+          "color": 4,
+          "blink": 1
+        }
+      }
+    },
+    "mandatorycard": {
+      "alarm": {
+        "normal": {
+          "color": 1,
+          "blink": 1
+        },
+        "critical": {
+          "color": 3,
+          "blink": 1
+        },
+        "major": {
+          "color": 2,
+          "blink": 1
+        },
+        "minor": {
+          "color": 1,
+          "blink": 1
+        }
+      },
+      "power": {
+        "FAN": {
+          "classname": "Components_Component_Fan_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "power-admin-state"
+        },
+        "PSU": {
+          "classname": "Components_Component_PowerSupply_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "power-admin-state"
+        },
+        "CU": {
+          "classname": "Components_Component_Cu_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "power-admin-state"
+        },
+        "PORT": {
+          "classname": "Components_Component_OpticalPort_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "admin-state"
+        },
+        "maint": {
+          "color": 2,
+          "blink": 2
+        },
+        "disabled": {
+          "color": 4,
+          "blink": 1
+        }
+      }
+    },
+    "frontpanel": {
+      "alarm": {
+        "normal": {
+          "color": 1,
+          "blink": 1
+        },
+        "critical": {
+          "color": 3,
+          "blink": 1
+        },
+        "major": {
+          "color": 2,
+          "blink": 1
+        },
+        "minor": {
+          "color": 1,
+          "blink": 1
+        }
+      },
+      "power": {
+        "PANEL": {
+          "classname": "Components_Component_Panel_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "power-admin-state"
+        },
+        "PORT": {
+          "classname": "Components_Component_OpticalPort_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "admin-state"
+        },
+        "maint": {
+          "color": 2,
+          "blink": 2
+        },
+        "disabled": {
+          "color": 4,
+          "blink": 1
+        }
+      }
+    }
+  },
+  "LED": {
+    "default": {
+      "identity": {
+        "key": []
+      },
+      "attributes": {
+        "key": [
+          "autocreated",
+          "yangattributes",
+          "rule"
+        ],
+        "autocreated": true,
+        "yangattributes": {
+          "key": [
+            "config",
+            "state"
+          ],
+          "config": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "APPLDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "APPLDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0,
+            "led_off_mask_port_na": false,
+            "led_off_mask_card_admin": false,
+            "led_off_mask_port_admin": false
+          },
+          "state": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "ASICDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "ASICDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0
+          }
+        },
+        "rule": {
+          "name": "default"
+        }
+      },
+      "modules": {
+        "key": []
+      }
+    },
+    "mandatorycard": {
+      "identity": {
+        "key": []
+      },
+      "attributes": {
+        "key": [
+          "autocreated",
+          "yangattributes"
+        ],
+        "autocreated": true,
+        "yangattributes": {
+          "key": [
+            "config",
+            "state"
+          ],
+          "config": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "APPLDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "APPLDB"
+            },
+            "name": "",
+            "ledmode": 2,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0,
+            "led_off_mask_port_na": false,
+            "led_off_mask_card_admin": false,
+            "led_off_mask_port_admin": false
+          },
+          "state": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "ASICDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "ASICDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0
+          }
+        },
+        "rule": {
+          "name": "mandatorycard"
+        }
+      },
+      "modules": {
+        "key": []
+      }
+    }
+  },
+  "switch": {
+    "state-notify": {
+      "notify-switch": true,
+      "filters": [
+        {
+          "yangattr-key": "(state$)",
+          "key-name": "(CHASSIS|LINECARD|PORT|MUX|MUXPANEL|FAN|PSU|PANEL|CU)"
+        },
+        {
+          "yangattr-key": "(^state$)",
+          "key-name": "(CHASSIS|TRANSCEIVER|OCH|OCM)"
+        }
+      ]
+    },
+    "test-statistics": {
+      "statistics-switch": true,
+      "loglevel": "INFO"
+    },
+    "CLIDisableSync": {
+      "sync": true
+    },
+    "CHASSISFollowOCard": {
+      "follow": false
+    }
+  },
+  "unavailablevalue": {
+    "INVALID_VALUE": 0,
+    "INVALID_POWER": 0,
+    "INVALID_CURRENT": -99.9,
+    "INVALID_VOLTAGE": -99.9,
+    "INVALID_TEMP": -99.9
+  },
+  "chassis": {
+    "type": {
+      "60GEA0001": "GS2000_Chassis",
+      "60GDA0001": "BONE_Chassis"
+    },
+    "limits": {
+      "BONE_EPC": {
+        "PSU": [
+          "60S770001",
+          "60S780001"
+        ],
+        "FAN": [
+          "FAN"
+        ]
+      }
+    }
+  },
+  "moduleFamilies": {
+    "CU": {
+      "slotDomain": "cu",
+      "slots": [
+        "41",
+        "42"
+      ],
+      "modules": [
+        {
+          "vendorType": "CULED",
+          "dataref": "PLATFORM:LED:mandatorycard"
+        }
+      ]
+    },
+    "FAN": {
+      "slotDomain": "fan",
+      "slots": [
+        "31",
+        "32",
+        "33"
+      ],
+      "modules": [
+        {
+          "vendorType": "FANLED",
+          "dataref": "PLATFORM:LED:mandatorycard"
+        },
+        {
+          "vendorType": "FANS",
+          "type": "FAN",
+          "cardtype": "FANS",
+          "tray": 2
+        },
+        {
+          "vendorType": "FANSU",
+          "type": "FAN",
+          "cardtype": "FANSU",
+          "tray": 2
+        },
+        {
+          "vendorType": "FAN",
+          "type": "FAN",
+          "cardtype": "FAN",
+          "tray": 1
+        }
+      ]
+    },
+    "MUXPANEL": {
+      "modules": [
+        {
+          "vendorType": "MUXPANEL32C32L",
+          "profile": "MUXPANEL-32C32L.json"
+        },
+        {
+          "vendorType": "PB64",
+          "profile": "MUXPANEL_64.json"
+        },
+        {
+          "vendorType": "PMUXC64",
+          "profile": "PMUXC64.json"
+        },
+        {
+          "vendorType": "MUX_32",
+          "profile": "MUX_C32.json"
+        },
+        {
+          "vendorType": "MUX_64",
+          "profile": "MUX_C64.json"
+        },
+        {
+          "vendorType": "MUXPANEL_64",
+          "profile": "MUXPANEL_64N.json"
+        }
+      ]
+    },
+    "MUXPANEL_64": {
+      "modules": [
+        {
+          "vendorType": "MUXPANEL_64",
+          "profile": "MUXPANEL_64.json"
+        }
+      ]
+    },
+    "PANEL": {
+      "modules": [
+        {
+          "vendorType": "CONNPORT"
+        },
+        {
+          "vendorType": "PORT"
+        },
+        {
+          "vendorType": "ETHPORT"
+        },
+        {
+          "vendorType": "PANELLED"
+        }
+      ]
+    },
+    "PSU": {
+      "slotDomain": "psu",
+      "slots": [
+        "21",
+        "22"
+      ],
+      "modules": []
+    },
+    "UI": {
+      "slotDomain": "fp",
+      "slots": [
+        "40"
+      ],
+      "modules": [
+        {
+          "vendorType": "UI",
+          "profile": "UI.json"
+        }
+      ]
+    }
+  }
+}

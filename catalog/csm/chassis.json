@@ -174,12 +174,103 @@
         "vendorType": "L1X8C8X8L",
         "linecardId": "lc-l1x8c8x8l",
         "profile": "L1X8C8X8L.json"
+      },
+      {
+        "vendorType": "800MX",
+        "linecardId": "lc-l3x8c7",
+        "aliasOf": "L3X8C7",
+        "source": "cardclass"
+      },
+      {
+        "vendorType": "DGE_C",
+        "linecardId": "lc-iladc-dge-32",
+        "aliasOf": "ILADC_DGE_32",
+        "source": "cardpreconf"
+      },
+      {
+        "vendorType": "DGE_CL",
+        "linecardId": "lc-dgecl",
+        "aliasOf": "DGECL",
+        "source": "cardpreconf"
+      },
+      {
+        "vendorType": "ILA_C",
+        "linecardId": "lc-iladc-32",
+        "aliasOf": "ILADC_32",
+        "source": "cardpreconf"
+      },
+      {
+        "vendorType": "ILA_CL",
+        "linecardId": "lc-ilacl",
+        "aliasOf": "ILACL",
+        "source": "cardpreconf"
+      },
+      {
+        "vendorType": "IRA_C",
+        "linecardId": "lc-tmuxc32-32",
+        "aliasOf": "TMUXC32_32",
+        "source": "cardpreconf"
+      },
+      {
+        "vendorType": "IRA_CL",
+        "linecardId": "lc-iracl",
+        "aliasOf": "IRACL",
+        "source": "cardpreconf"
+      },
+      {
+        "vendorType": "OA_C",
+        "linecardId": "lc-tmuxc-32",
+        "aliasOf": "TMUXC_32",
+        "source": "cardpreconf"
+      },
+      {
+        "vendorType": "RAMAN_CL",
+        "linecardId": "lc-ramancl-16",
+        "aliasOf": "RAMANCL_16",
+        "source": "cardpreconf"
+      },
+      {
+        "vendorType": "RL1X12C8",
+        "linecardId": "lc-l1x12c8",
+        "aliasOf": "L1X12C8",
+        "source": "cardpreconf"
+      },
+      {
+        "vendorType": "RL1X12C8_L",
+        "linecardId": "lc-l1x12c8l",
+        "aliasOf": "L1X12C8L",
+        "source": "cardpreconf"
+      },
+      {
+        "vendorType": "RL1X8C8X8",
+        "linecardId": "lc-l1x8c8x8",
+        "aliasOf": "L1X8C8X8",
+        "source": "cardpreconf"
+      },
+      {
+        "vendorType": "RL1X8C8X8_L",
+        "linecardId": "lc-l1x8c8x8l",
+        "aliasOf": "L1X8C8X8L",
+        "source": "cardpreconf"
+      },
+      {
+        "vendorType": "RL3X8C7_FLEX",
+        "linecardId": "lc-l3x8c7",
+        "aliasOf": "L3X8C7",
+        "source": "cardpreconf"
+      },
+      {
+        "vendorType": "TMUXC_64",
+        "linecardId": "lc-tmuxc64",
+        "aliasOf": "TMUXC64",
+        "source": "cardpreconf"
       }
     ],
     "linecardMappingComplete": true,
     "knownLinecardMappings": 0,
     "fallbackLinecardMappings": 20,
     "knownMappingComplete": false,
+    "aliasLinecardMappings": 15,
     "slots": [
       {
         "id": "1",

@@ -1,0 +1,4609 @@
+{
+  "aliases": {
+    "rules": [
+      {
+        "from": "PTME",
+        "to": "PTM-E",
+        "source": "cardname"
+      },
+      {
+        "from": "PTMW",
+        "to": "PTM-W",
+        "source": "cardname"
+      },
+      {
+        "from": "PANEL",
+        "to": "CIM",
+        "source": "cardname"
+      },
+      {
+        "from": "400MX-S",
+        "to": "400MXS",
+        "source": "cardname"
+      },
+      {
+        "from": "TWS09OA25",
+        "to": "TMUXC925",
+        "source": "cardname"
+      },
+      {
+        "from": "TMUXC11_25",
+        "to": "TMUXC1125",
+        "source": "cardname"
+      }
+    ],
+    "cardname": {
+      "PTME": "PTM-E",
+      "PTMW": "PTM-W",
+      "PANEL": "CIM",
+      "400MX-S": "400MXS",
+      "TWS09OA25": "TMUXC925",
+      "TMUXC11_25": "TMUXC1125"
+    },
+    "cardnamemapping": {}
+  },
+  "cardclass": {},
+  "cardpreconf": {},
+  "ledrules": {
+    "default": {
+      "alarm": {
+        "normal": {
+          "color": 1,
+          "blink": 1
+        },
+        "critical": {
+          "color": 3,
+          "blink": 1
+        },
+        "major": {
+          "color": 2,
+          "blink": 2
+        },
+        "minor": {
+          "color": 2,
+          "blink": 2
+        }
+      },
+      "power": {
+        "LINECARD": {
+          "classname": "Components_Component_Linecard_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "power-admin-state"
+        },
+        "maint": {
+          "color": 2,
+          "blink": 2
+        },
+        "disabled": {
+          "color": 4,
+          "blink": 1
+        }
+      },
+      "admin": {
+        "PORT": {
+          "disabled": {
+            "color": 2,
+            "blink": 1
+          }
+        },
+        "LINECARD": {
+          "disabled": {
+            "color": 2,
+            "blink": 1
+          }
+        }
+      }
+    },
+    "opticalcard": {
+      "alarm": {
+        "normal": {
+          "color": 1,
+          "blink": 1
+        },
+        "critical": {
+          "color": 3,
+          "blink": 1
+        },
+        "major": {
+          "color": 2,
+          "blink": 1
+        },
+        "minor": {
+          "color": 2,
+          "blink": 1
+        }
+      },
+      "power": {
+        "LINECARD": {
+          "classname": "Components_Component_Linecard_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "power-admin-state"
+        },
+        "PORT": {
+          "classname": "Components_Component_OpticalPort_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "admin-state"
+        },
+        "maint": {
+          "color": 2,
+          "blink": 2
+        },
+        "disabled": {
+          "color": 2,
+          "blink": 2
+        }
+      },
+      "admin": {
+        "PORT": {
+          "disabled": {
+            "color": 2,
+            "blink": 2
+          }
+        },
+        "LINECARD": {
+          "disabled": {
+            "color": 2,
+            "blink": 2
+          }
+        }
+      }
+    },
+    "mandatorycard": {
+      "alarm": {
+        "normal": {
+          "color": 1,
+          "blink": 1
+        },
+        "critical": {
+          "color": 3,
+          "blink": 1
+        },
+        "major": {
+          "color": 2,
+          "blink": 1
+        },
+        "minor": {
+          "color": 2,
+          "blink": 1
+        }
+      },
+      "power": {
+        "maint": {
+          "color": 2,
+          "blink": 2
+        },
+        "disabled": {
+          "color": 2,
+          "blink": 1
+        }
+      },
+      "admin": {
+        "PORT": {
+          "disabled": {
+            "color": 2,
+            "blink": 1
+          }
+        },
+        "LINECARD": {
+          "disabled": {
+            "color": 2,
+            "blink": 1
+          }
+        }
+      }
+    }
+  },
+  "LED": {
+    "default": {
+      "identity": {
+        "key": []
+      },
+      "attributes": {
+        "key": [
+          "autocreated",
+          "yangattributes",
+          "rule"
+        ],
+        "autocreated": true,
+        "yangattributes": {
+          "key": [
+            "config",
+            "state"
+          ],
+          "config": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "APPLDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "APPLDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0,
+            "led_off_mask_port_na": false,
+            "led_off_mask_card_admin": false,
+            "led_off_mask_port_admin": false
+          },
+          "state": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "ASICDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "ASICDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0
+          }
+        },
+        "rule": {
+          "name": "default"
+        }
+      },
+      "modules": {
+        "key": []
+      }
+    },
+    "opticalcard": {
+      "identity": {
+        "key": []
+      },
+      "attributes": {
+        "key": [
+          "autocreated",
+          "yangattributes",
+          "rule"
+        ],
+        "autocreated": true,
+        "yangattributes": {
+          "key": [
+            "config",
+            "state"
+          ],
+          "config": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "APPLDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "APPLDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0,
+            "led_off_mask_port_na": false,
+            "led_off_mask_card_admin": false,
+            "led_off_mask_port_admin": false
+          },
+          "state": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "ASICDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "ASICDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0
+          }
+        },
+        "rule": {
+          "name": "opticalcard"
+        }
+      },
+      "modules": {
+        "key": []
+      }
+    },
+    "port_na": {
+      "identity": {
+        "key": []
+      },
+      "attributes": {
+        "key": [
+          "autocreated",
+          "yangattributes",
+          "rule"
+        ],
+        "autocreated": true,
+        "yangattributes": {
+          "key": [
+            "config",
+            "state"
+          ],
+          "config": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "APPLDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "APPLDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0,
+            "led_off_mask_port_na": true,
+            "led_off_mask_card_admin": false,
+            "led_off_mask_port_admin": false
+          },
+          "state": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "ASICDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "ASICDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0
+          }
+        },
+        "rule": {
+          "name": "default"
+        }
+      },
+      "modules": {
+        "key": []
+      }
+    },
+    "mandatorycard": {
+      "identity": {
+        "key": []
+      },
+      "attributes": {
+        "key": [
+          "autocreated",
+          "yangattributes"
+        ],
+        "autocreated": true,
+        "yangattributes": {
+          "key": [
+            "config",
+            "state"
+          ],
+          "config": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "APPLDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "APPLDB"
+            },
+            "name": "",
+            "ledmode": 2,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0,
+            "led_off_mask_port_na": false,
+            "led_off_mask_card_admin": false,
+            "led_off_mask_port_admin": false
+          },
+          "state": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "ASICDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "ASICDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0
+          }
+        },
+        "rule": {
+          "name": "mandatorycard"
+        }
+      },
+      "modules": {
+        "key": []
+      }
+    }
+  },
+  "switch": {},
+  "unavailablevalue": {
+    "INVALID_VALUE": 0,
+    "INVALID_POWER": 0,
+    "INVALID_CURRENT": -99.9,
+    "INVALID_VOLTAGE": -99.9,
+    "INVALID_TEMP": -99.9,
+    "INVALID_INPUT_POWER": -99.99,
+    "INVALID_OUTPUT_POWER": -99.99,
+    "INVALID_LASER_BIAS_CURRENT": -99.99
+  },
+  "openconfig-rpc": {
+    "get-ne-info": {
+      "ne-type": "COHERENT-GS2000"
+    }
+  },
+  "dupparams": {
+    "COMPLIANCE_CODE": {
+      "SM-LL-V": "10GBASE-ZR",
+      "10GBASE-ER": "10GBASE-ER",
+      "10GBASE-LRM": "10GBASE-LRM",
+      "10GBASE-LR": "10GBASE-LR",
+      "10GBASE-SR": "10GBASE-SR",
+      "OC-192, short reach": "OC-192-SR",
+      "OC-48, long reach": "OC48-LR",
+      "OC-48, intermediate reach": "OC48-IR",
+      "OC-48, short reach": "OC48-SR",
+      "OC-12, single mode, long reach": "OC12-LR",
+      "OC-12, single mode, inter. Reach": "OC12-IR",
+      "OC-12, short reach": "OC12-SR",
+      "OC-3, single mode, long reach": "OC3-LR",
+      "OC-3, single mode, inter. Reach": "OC3-IR",
+      "OC-3, short reach": "OC3-SR",
+      "BASE-PX": "BASE-PX",
+      "BASE-BX10": "BASE-BX10",
+      "100BASE-FX": "100BASE-FX",
+      "100BASE-LX/LX10": "100BASE-LX/LX10",
+      "1000BASE-T": "1000BASE-T",
+      "1000BASE-CX": "1000BASE-CX",
+      "1000BASE-LX": "1000BASE-LX",
+      "1000BASE-SX": "1000BASE-SX",
+      "G959.1 profile P1I1-2D1 (10709 MBd, 2km, 1310 nm SM)": "P1I1-2D1",
+      "G959.1 profile P1L1-2D2 (10709 MBd, 80km, 1550 nm SM)": "P1L1-2D2",
+      "G959.1 profile P1S1-2D2 (10709 MBd, 40km, 1550 nm SM)": "P1S1-2D2"
+    },
+    "TUNABLE_WAVELENGTH": [
+      {
+        "freq": "191.70",
+        "wavelength": "1563.86"
+      },
+      {
+        "freq": "191.75",
+        "wavelength": "1563.45"
+      },
+      {
+        "freq": "191.80",
+        "wavelength": "1563.05"
+      },
+      {
+        "freq": "191.85",
+        "wavelength": "1562.64"
+      },
+      {
+        "freq": "191.90",
+        "wavelength": "1562.23"
+      },
+      {
+        "freq": "191.95",
+        "wavelength": "1561.83"
+      },
+      {
+        "freq": "192.00",
+        "wavelength": "1561.42"
+      },
+      {
+        "freq": "192.05",
+        "wavelength": "1561.01"
+      },
+      {
+        "freq": "192.10",
+        "wavelength": "1560.61"
+      },
+      {
+        "freq": "192.15",
+        "wavelength": "1560.20"
+      },
+      {
+        "freq": "192.20",
+        "wavelength": "1559.79"
+      },
+      {
+        "freq": "192.25",
+        "wavelength": "1559.39"
+      },
+      {
+        "freq": "192.30",
+        "wavelength": "1558.98"
+      },
+      {
+        "freq": "192.35",
+        "wavelength": "1558.58"
+      },
+      {
+        "freq": "192.40",
+        "wavelength": "1558.17"
+      },
+      {
+        "freq": "192.45",
+        "wavelength": "1557.77"
+      },
+      {
+        "freq": "192.50",
+        "wavelength": "1557.36"
+      },
+      {
+        "freq": "192.55",
+        "wavelength": "1556.96"
+      },
+      {
+        "freq": "192.60",
+        "wavelength": "1556.55"
+      },
+      {
+        "freq": "192.65",
+        "wavelength": "1556.15"
+      },
+      {
+        "freq": "192.70",
+        "wavelength": "1555.75"
+      },
+      {
+        "freq": "192.75",
+        "wavelength": "1555.34"
+      },
+      {
+        "freq": "192.80",
+        "wavelength": "1554.94"
+      },
+      {
+        "freq": "192.85",
+        "wavelength": "1554.54"
+      },
+      {
+        "freq": "192.90",
+        "wavelength": "1554.13"
+      },
+      {
+        "freq": "192.95",
+        "wavelength": "1553.73"
+      },
+      {
+        "freq": "193.00",
+        "wavelength": "1553.33"
+      },
+      {
+        "freq": "193.05",
+        "wavelength": "1552.93"
+      },
+      {
+        "freq": "193.10",
+        "wavelength": "1552.52"
+      },
+      {
+        "freq": "193.15",
+        "wavelength": "1552.12"
+      },
+      {
+        "freq": "193.20",
+        "wavelength": "1551.72"
+      },
+      {
+        "freq": "193.25",
+        "wavelength": "1551.32"
+      },
+      {
+        "freq": "193.30",
+        "wavelength": "1550.92"
+      },
+      {
+        "freq": "193.35",
+        "wavelength": "1550.52"
+      },
+      {
+        "freq": "193.40",
+        "wavelength": "1550.12"
+      },
+      {
+        "freq": "193.45",
+        "wavelength": "1549.72"
+      },
+      {
+        "freq": "193.50",
+        "wavelength": "1549.32"
+      },
+      {
+        "freq": "193.55",
+        "wavelength": "1548.91"
+      },
+      {
+        "freq": "193.60",
+        "wavelength": "1548.51"
+      },
+      {
+        "freq": "193.65",
+        "wavelength": "1548.11"
+      },
+      {
+        "freq": "193.70",
+        "wavelength": "1547.72"
+      },
+      {
+        "freq": "193.75",
+        "wavelength": "1547.32"
+      },
+      {
+        "freq": "193.80",
+        "wavelength": "1546.92"
+      },
+      {
+        "freq": "193.85",
+        "wavelength": "1546.52"
+      },
+      {
+        "freq": "193.90",
+        "wavelength": "1546.12"
+      },
+      {
+        "freq": "193.95",
+        "wavelength": "1545.72"
+      },
+      {
+        "freq": "194.00",
+        "wavelength": "1545.32"
+      },
+      {
+        "freq": "194.05",
+        "wavelength": "1544.92"
+      },
+      {
+        "freq": "194.10",
+        "wavelength": "1544.53"
+      },
+      {
+        "freq": "194.15",
+        "wavelength": "1544.13"
+      },
+      {
+        "freq": "194.20",
+        "wavelength": "1543.73"
+      },
+      {
+        "freq": "194.25",
+        "wavelength": "1543.33"
+      },
+      {
+        "freq": "194.30",
+        "wavelength": "1542.94"
+      },
+      {
+        "freq": "194.35",
+        "wavelength": "1542.54"
+      },
+      {
+        "freq": "194.40",
+        "wavelength": "1542.14"
+      },
+      {
+        "freq": "194.45",
+        "wavelength": "1541.75"
+      },
+      {
+        "freq": "194.50",
+        "wavelength": "1541.35"
+      },
+      {
+        "freq": "194.55",
+        "wavelength": "1540.95"
+      },
+      {
+        "freq": "194.60",
+        "wavelength": "1540.56"
+      },
+      {
+        "freq": "194.65",
+        "wavelength": "1540.16"
+      },
+      {
+        "freq": "194.70",
+        "wavelength": "1539.77"
+      },
+      {
+        "freq": "194.75",
+        "wavelength": "1539.37"
+      },
+      {
+        "freq": "194.80",
+        "wavelength": "1538.98"
+      },
+      {
+        "freq": "194.85",
+        "wavelength": "1538.58"
+      },
+      {
+        "freq": "194.90",
+        "wavelength": "1538.19"
+      },
+      {
+        "freq": "194.95",
+        "wavelength": "1537.79"
+      },
+      {
+        "freq": "195.00",
+        "wavelength": "1537.40"
+      },
+      {
+        "freq": "195.05",
+        "wavelength": "1537.00"
+      },
+      {
+        "freq": "195.10",
+        "wavelength": "1536.61"
+      },
+      {
+        "freq": "195.15",
+        "wavelength": "1536.22"
+      },
+      {
+        "freq": "195.20",
+        "wavelength": "1535.82"
+      },
+      {
+        "freq": "195.25",
+        "wavelength": "1535.43"
+      },
+      {
+        "freq": "195.30",
+        "wavelength": "1535.04"
+      },
+      {
+        "freq": "195.35",
+        "wavelength": "1534.64"
+      },
+      {
+        "freq": "195.40",
+        "wavelength": "1534.25"
+      },
+      {
+        "freq": "195.45",
+        "wavelength": "1533.86"
+      },
+      {
+        "freq": "195.50",
+        "wavelength": "1533.47"
+      },
+      {
+        "freq": "195.55",
+        "wavelength": "1533.07"
+      },
+      {
+        "freq": "195.60",
+        "wavelength": "1532.68"
+      },
+      {
+        "freq": "195.65",
+        "wavelength": "1532.29"
+      },
+      {
+        "freq": "195.70",
+        "wavelength": "1531.90"
+      },
+      {
+        "freq": "195.75",
+        "wavelength": "1531.51"
+      },
+      {
+        "freq": "195.80",
+        "wavelength": "1531.12"
+      },
+      {
+        "freq": "195.85",
+        "wavelength": "1530.72"
+      },
+      {
+        "freq": "195.90",
+        "wavelength": "1530.33"
+      },
+      {
+        "freq": "195.95",
+        "wavelength": "1529.94"
+      },
+      {
+        "freq": "196.00",
+        "wavelength": "1529.55"
+      },
+      {
+        "freq": "196.05",
+        "wavelength": "1529.16"
+      }
+    ],
+    "media-channel": [
+      {
+        "index": 1,
+        "min-edge-freq": 192750000,
+        "max-edge-freq": 192850000,
+        "center-freq": 192800000
+      },
+      {
+        "index": 2,
+        "min-edge-freq": 192950000,
+        "max-edge-freq": 193050000,
+        "center-freq": 193000000
+      },
+      {
+        "index": 3,
+        "min-edge-freq": 193150000,
+        "max-edge-freq": 193250000,
+        "center-freq": 193200000
+      },
+      {
+        "index": 4,
+        "min-edge-freq": 193350000,
+        "max-edge-freq": 193450000,
+        "center-freq": 193400000
+      },
+      {
+        "index": 5,
+        "min-edge-freq": 193550000,
+        "max-edge-freq": 193650000,
+        "center-freq": 193600000
+      },
+      {
+        "index": 6,
+        "min-edge-freq": 193750000,
+        "max-edge-freq": 193850000,
+        "center-freq": 193800000
+      },
+      {
+        "index": 7,
+        "min-edge-freq": 193950000,
+        "max-edge-freq": 194050000,
+        "center-freq": 194000000
+      },
+      {
+        "index": 8,
+        "min-edge-freq": 194150000,
+        "max-edge-freq": 194250000,
+        "center-freq": 194200000
+      },
+      {
+        "index": 9,
+        "min-edge-freq": 194350000,
+        "max-edge-freq": 194450000,
+        "center-freq": 194400000
+      }
+    ],
+    "wavelength-router-specification-slice": {
+      "script": "list([i for i in range(191325000, 196150000, 6250)])"
+    }
+  },
+  "chassis": {
+    "ledTest": {
+      "default": {
+        "operational-mode": {
+          "value": 0
+        },
+        "type": {
+          "value": 0
+        },
+        "duration": {
+          "value": 60,
+          "min": 10,
+          "max": 300
+        }
+      },
+      "rules": [
+        {
+          "type": 0,
+          "rule": {
+            "color_state": 2,
+            "blink_state": 1
+          },
+          "componenttype": [
+            "LINECARD",
+            "PANEL",
+            "PORT"
+          ]
+        }
+      ]
+    },
+    "locate": {
+      "default": {
+        "enabled": {
+          "value": 0
+        },
+        "executedtime": {
+          "value": 600,
+          "min": 60,
+          "max": 3600
+        }
+      }
+    }
+  },
+  "moduleFamilies": {
+    "CU": {
+      "slotDomain": "cu",
+      "slots": [
+        "41",
+        "42"
+      ],
+      "modules": [
+        {
+          "vendorType": "CULED",
+          "dataref": "PLATFORM:LED:mandatorycard"
+        }
+      ]
+    },
+    "FAN": {
+      "slotDomain": "fan",
+      "slots": [
+        "31",
+        "32",
+        "33"
+      ],
+      "modules": [
+        {
+          "vendorType": "FANLED",
+          "dataref": "PLATFORM:LED:mandatorycard"
+        },
+        {
+          "vendorType": "FANS",
+          "type": "FAN",
+          "cardtype": "FANS",
+          "tray": 2
+        },
+        {
+          "vendorType": "FANSU",
+          "type": "FAN",
+          "cardtype": "FANSU",
+          "tray": 2
+        },
+        {
+          "vendorType": "FAN",
+          "type": "FAN",
+          "cardtype": "FAN",
+          "tray": 1
+        }
+      ]
+    },
+    "MUX": {
+      "slotDomain": "mux",
+      "slots": [
+        "50",
+        "51",
+        "52",
+        "53"
+      ],
+      "modules": [
+        {
+          "vendorType": "MUX48",
+          "profile": "MUX48.json"
+        },
+        {
+          "vendorType": "MUX96",
+          "profile": "MUX96.json"
+        },
+        {
+          "vendorType": "PMUX48",
+          "profile": "PMUX48.json"
+        }
+      ]
+    },
+    "PANELCIM": {
+      "slotDomain": "fp",
+      "slots": [
+        "40"
+      ],
+      "modules": [
+        {
+          "vendorType": "CIM",
+          "profile": "CIM.json"
+        },
+        {
+          "vendorType": "CIM2",
+          "profile": "CIM2.json"
+        }
+      ]
+    },
+    "PSU": {
+      "slotDomain": "psu",
+      "slots": [
+        "21",
+        "22"
+      ],
+      "modules": []
+    },
+    "UI": {
+      "slotDomain": "fp",
+      "slots": [
+        "40"
+      ],
+      "modules": [
+        {
+          "vendorType": "UI",
+          "profile": "UI.json"
+        }
+      ]
+    },
+    "VIM": {
+      "modules": [
+        {
+          "vendorType": "CONNPORT"
+        },
+        {
+          "vendorType": "PORT"
+        }
+      ]
+    }
+  },
+  "l0Led": {
+    "source": "l0/csp/l0_cmd_profile.json",
+    "commandStates": {
+      "default": [
+        {
+          "key": "CMD_APS_LED_PRIMARY_PRIMARY_OP2_1_INACTIVE",
+          "commandType": "combined",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 5 MODE RED SLOWBLINK",
+          "resolvedCmd": "LED 5 MODE RED SLOWBLINK",
+          "resolved": {
+            "raw": "LED 5 MODE RED SLOWBLINK",
+            "led": 5,
+            "operation": "MODE",
+            "color": "RED",
+            "mode": "SLOWBLINK"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_PRIMARY_PRIMARY_OP1_1_INACTIVE",
+          "commandType": "combined",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 4 MODE RED SLOWBLINK",
+          "resolvedCmd": "LED 4 MODE RED SLOWBLINK",
+          "resolved": {
+            "raw": "LED 4 MODE RED SLOWBLINK",
+            "led": 4,
+            "operation": "MODE",
+            "color": "RED",
+            "mode": "SLOWBLINK"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_PRIMARY_PRIMARY_OP2_2_INACTIVE",
+          "commandType": "combined",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "inactive",
+          "cmd": "LED 2 MODE RED SLOWBLINK",
+          "resolvedCmd": "LED 2 MODE RED SLOWBLINK",
+          "resolved": {
+            "raw": "LED 2 MODE RED SLOWBLINK",
+            "led": 2,
+            "operation": "MODE",
+            "color": "RED",
+            "mode": "SLOWBLINK"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_PRIMARY_PRIMARY_OP1_2_INACTIVE",
+          "commandType": "combined",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_PRIMARY_PRIMARY_OP2_2_INACTIVE",
+          "resolvedCmd": "LED 2 MODE RED SLOWBLINK",
+          "resolved": {
+            "raw": "LED 2 MODE RED SLOWBLINK",
+            "led": 2,
+            "operation": "MODE",
+            "color": "RED",
+            "mode": "SLOWBLINK"
+          },
+          "refChain": [
+            "CMD_APS_LED_PRIMARY_PRIMARY_OP2_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_PRIMARY_PRIMARY_OP2_1_ACTIVE",
+          "commandType": "combined",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "active",
+          "cmd": "LED 5 MODE GREEN SLOWBLINK",
+          "resolvedCmd": "LED 5 MODE GREEN SLOWBLINK",
+          "resolved": {
+            "raw": "LED 5 MODE GREEN SLOWBLINK",
+            "led": 5,
+            "operation": "MODE",
+            "color": "GREEN",
+            "mode": "SLOWBLINK"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_PRIMARY_PRIMARY_OP1_1_ACTIVE",
+          "commandType": "combined",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "active",
+          "cmd": "LED 4 MODE GREEN SLOWBLINK",
+          "resolvedCmd": "LED 4 MODE GREEN SLOWBLINK",
+          "resolved": {
+            "raw": "LED 4 MODE GREEN SLOWBLINK",
+            "led": 4,
+            "operation": "MODE",
+            "color": "GREEN",
+            "mode": "SLOWBLINK"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_PRIMARY_PRIMARY_OP2_2_ACTIVE",
+          "commandType": "combined",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "active",
+          "cmd": "LED 2 MODE GREEN SLOWBLINK",
+          "resolvedCmd": "LED 2 MODE GREEN SLOWBLINK",
+          "resolved": {
+            "raw": "LED 2 MODE GREEN SLOWBLINK",
+            "led": 2,
+            "operation": "MODE",
+            "color": "GREEN",
+            "mode": "SLOWBLINK"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_PRIMARY_PRIMARY_OP1_2_ACTIVE",
+          "commandType": "combined",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_PRIMARY_PRIMARY_OP2_2_ACTIVE",
+          "resolvedCmd": "LED 2 MODE GREEN SLOWBLINK",
+          "resolved": {
+            "raw": "LED 2 MODE GREEN SLOWBLINK",
+            "led": 2,
+            "operation": "MODE",
+            "color": "GREEN",
+            "mode": "SLOWBLINK"
+          },
+          "refChain": [
+            "CMD_APS_LED_PRIMARY_PRIMARY_OP2_2_ACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_PRIMARY_SECONDARY_OP2_1_INACTIVE",
+          "commandType": "combined",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 4 MODE RED ON",
+          "resolvedCmd": "LED 4 MODE RED ON",
+          "resolved": {
+            "raw": "LED 4 MODE RED ON",
+            "led": 4,
+            "operation": "MODE",
+            "color": "RED",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_PRIMARY_SECONDARY_OP1_1_INACTIVE",
+          "commandType": "combined",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 2 MODE RED ON",
+          "resolvedCmd": "LED 2 MODE RED ON",
+          "resolved": {
+            "raw": "LED 2 MODE RED ON",
+            "led": 2,
+            "operation": "MODE",
+            "color": "RED",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_PRIMARY_SECONDARY_OP2_2_INACTIVE",
+          "commandType": "combined",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "inactive",
+          "cmd": "LED 1 MODE RED ON",
+          "resolvedCmd": "LED 1 MODE RED ON",
+          "resolved": {
+            "raw": "LED 1 MODE RED ON",
+            "led": 1,
+            "operation": "MODE",
+            "color": "RED",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_PRIMARY_SECONDARY_OP1_2_INACTIVE",
+          "commandType": "combined",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_PRIMARY_SECONDARY_OP2_2_INACTIVE",
+          "resolvedCmd": "LED 1 MODE RED ON",
+          "resolved": {
+            "raw": "LED 1 MODE RED ON",
+            "led": 1,
+            "operation": "MODE",
+            "color": "RED",
+            "mode": "ON"
+          },
+          "refChain": [
+            "CMD_APS_LED_PRIMARY_SECONDARY_OP2_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_PRIMARY_SECONDARY_OP2_1_ACTIVE",
+          "commandType": "combined",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "active",
+          "cmd": "LED 4 MODE GREEN ON",
+          "resolvedCmd": "LED 4 MODE GREEN ON",
+          "resolved": {
+            "raw": "LED 4 MODE GREEN ON",
+            "led": 4,
+            "operation": "MODE",
+            "color": "GREEN",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_PRIMARY_SECONDARY_OP1_1_ACTIVE",
+          "commandType": "combined",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "active",
+          "cmd": "LED 2 MODE GREEN ON",
+          "resolvedCmd": "LED 2 MODE GREEN ON",
+          "resolved": {
+            "raw": "LED 2 MODE GREEN ON",
+            "led": 2,
+            "operation": "MODE",
+            "color": "GREEN",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_PRIMARY_SECONDARY_OP2_2_ACTIVE",
+          "commandType": "combined",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "active",
+          "cmd": "LED 1 MODE GREEN ON",
+          "resolvedCmd": "LED 1 MODE GREEN ON",
+          "resolved": {
+            "raw": "LED 1 MODE GREEN ON",
+            "led": 1,
+            "operation": "MODE",
+            "color": "GREEN",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_PRIMARY_SECONDARY_OP1_2_ACTIVE",
+          "commandType": "combined",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_PRIMARY_SECONDARY_OP2_2_ACTIVE",
+          "resolvedCmd": "LED 1 MODE GREEN ON",
+          "resolved": {
+            "raw": "LED 1 MODE GREEN ON",
+            "led": 1,
+            "operation": "MODE",
+            "color": "GREEN",
+            "mode": "ON"
+          },
+          "refChain": [
+            "CMD_APS_LED_PRIMARY_SECONDARY_OP2_2_ACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_SECONDARY_PRIMARY_OP2_1_INACTIVE",
+          "commandType": "combined",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 5 MODE RED ON",
+          "resolvedCmd": "LED 5 MODE RED ON",
+          "resolved": {
+            "raw": "LED 5 MODE RED ON",
+            "led": 5,
+            "operation": "MODE",
+            "color": "RED",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_SECONDARY_PRIMARY_OP1_1_INACTIVE",
+          "commandType": "combined",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 4 MODE RED ON",
+          "resolvedCmd": "LED 4 MODE RED ON",
+          "resolved": {
+            "raw": "LED 4 MODE RED ON",
+            "led": 4,
+            "operation": "MODE",
+            "color": "RED",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_SECONDARY_PRIMARY_OP2_2_INACTIVE",
+          "commandType": "combined",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "inactive",
+          "cmd": "LED 2 MODE RED ON",
+          "resolvedCmd": "LED 2 MODE RED ON",
+          "resolved": {
+            "raw": "LED 2 MODE RED ON",
+            "led": 2,
+            "operation": "MODE",
+            "color": "RED",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_SECONDARY_PRIMARY_OP1_2_INACTIVE",
+          "commandType": "combined",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_SECONDARY_PRIMARY_OP2_2_INACTIVE",
+          "resolvedCmd": "LED 2 MODE RED ON",
+          "resolved": {
+            "raw": "LED 2 MODE RED ON",
+            "led": 2,
+            "operation": "MODE",
+            "color": "RED",
+            "mode": "ON"
+          },
+          "refChain": [
+            "CMD_APS_LED_SECONDARY_PRIMARY_OP2_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_SECONDARY_PRIMARY_OP2_1_ACTIVE",
+          "commandType": "combined",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "active",
+          "cmd": "LED 5 MODE GREEN ON",
+          "resolvedCmd": "LED 5 MODE GREEN ON",
+          "resolved": {
+            "raw": "LED 5 MODE GREEN ON",
+            "led": 5,
+            "operation": "MODE",
+            "color": "GREEN",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_SECONDARY_PRIMARY_OP1_1_ACTIVE",
+          "commandType": "combined",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "active",
+          "cmd": "LED 4 MODE GREEN ON",
+          "resolvedCmd": "LED 4 MODE GREEN ON",
+          "resolved": {
+            "raw": "LED 4 MODE GREEN ON",
+            "led": 4,
+            "operation": "MODE",
+            "color": "GREEN",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_SECONDARY_PRIMARY_OP2_2_ACTIVE",
+          "commandType": "combined",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "active",
+          "cmd": "LED 2 MODE GREEN ON",
+          "resolvedCmd": "LED 2 MODE GREEN ON",
+          "resolved": {
+            "raw": "LED 2 MODE GREEN ON",
+            "led": 2,
+            "operation": "MODE",
+            "color": "GREEN",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_SECONDARY_PRIMARY_OP1_2_ACTIVE",
+          "commandType": "combined",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_SECONDARY_PRIMARY_OP2_2_ACTIVE",
+          "resolvedCmd": "LED 2 MODE GREEN ON",
+          "resolved": {
+            "raw": "LED 2 MODE GREEN ON",
+            "led": 2,
+            "operation": "MODE",
+            "color": "GREEN",
+            "mode": "ON"
+          },
+          "refChain": [
+            "CMD_APS_LED_SECONDARY_PRIMARY_OP2_2_ACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_SECONDARY_SECONDARY_OP2_1_INACTIVE",
+          "commandType": "combined",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 4 MODE RED SLOWBLINK",
+          "resolvedCmd": "LED 4 MODE RED SLOWBLINK",
+          "resolved": {
+            "raw": "LED 4 MODE RED SLOWBLINK",
+            "led": 4,
+            "operation": "MODE",
+            "color": "RED",
+            "mode": "SLOWBLINK"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_SECONDARY_SECONDARY_OP1_1_INACTIVE",
+          "commandType": "combined",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 2 MODE RED SLOWBLINK",
+          "resolvedCmd": "LED 2 MODE RED SLOWBLINK",
+          "resolved": {
+            "raw": "LED 2 MODE RED SLOWBLINK",
+            "led": 2,
+            "operation": "MODE",
+            "color": "RED",
+            "mode": "SLOWBLINK"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_SECONDARY_SECONDARY_OP2_2_INACTIVE",
+          "commandType": "combined",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "inactive",
+          "cmd": "LED 1 MODE RED SLOWBLINK",
+          "resolvedCmd": "LED 1 MODE RED SLOWBLINK",
+          "resolved": {
+            "raw": "LED 1 MODE RED SLOWBLINK",
+            "led": 1,
+            "operation": "MODE",
+            "color": "RED",
+            "mode": "SLOWBLINK"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_SECONDARY_SECONDARY_OP1_2_INACTIVE",
+          "commandType": "combined",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_SECONDARY_SECONDARY_OP2_2_INACTIVE",
+          "resolvedCmd": "LED 1 MODE RED SLOWBLINK",
+          "resolved": {
+            "raw": "LED 1 MODE RED SLOWBLINK",
+            "led": 1,
+            "operation": "MODE",
+            "color": "RED",
+            "mode": "SLOWBLINK"
+          },
+          "refChain": [
+            "CMD_APS_LED_SECONDARY_SECONDARY_OP2_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_SECONDARY_SECONDARY_OP2_1_ACTIVE",
+          "commandType": "combined",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "active",
+          "cmd": "LED 4 MODE GREEN SLOWBLINK",
+          "resolvedCmd": "LED 4 MODE GREEN SLOWBLINK",
+          "resolved": {
+            "raw": "LED 4 MODE GREEN SLOWBLINK",
+            "led": 4,
+            "operation": "MODE",
+            "color": "GREEN",
+            "mode": "SLOWBLINK"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_SECONDARY_SECONDARY_OP1_1_ACTIVE",
+          "commandType": "combined",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "active",
+          "cmd": "LED 2 MODE GREEN SLOWBLINK",
+          "resolvedCmd": "LED 2 MODE GREEN SLOWBLINK",
+          "resolved": {
+            "raw": "LED 2 MODE GREEN SLOWBLINK",
+            "led": 2,
+            "operation": "MODE",
+            "color": "GREEN",
+            "mode": "SLOWBLINK"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_SECONDARY_SECONDARY_OP2_2_ACTIVE",
+          "commandType": "combined",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "active",
+          "cmd": "LED 1 MODE GREEN SLOWBLINK",
+          "resolvedCmd": "LED 1 MODE GREEN SLOWBLINK",
+          "resolved": {
+            "raw": "LED 1 MODE GREEN SLOWBLINK",
+            "led": 1,
+            "operation": "MODE",
+            "color": "GREEN",
+            "mode": "SLOWBLINK"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_SECONDARY_SECONDARY_OP1_2_ACTIVE",
+          "commandType": "combined",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_SECONDARY_SECONDARY_OP2_2_ACTIVE",
+          "resolvedCmd": "LED 1 MODE GREEN SLOWBLINK",
+          "resolved": {
+            "raw": "LED 1 MODE GREEN SLOWBLINK",
+            "led": 1,
+            "operation": "MODE",
+            "color": "GREEN",
+            "mode": "SLOWBLINK"
+          },
+          "refChain": [
+            "CMD_APS_LED_SECONDARY_SECONDARY_OP2_2_ACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP3_1_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 2 MODE 1Hz",
+          "resolvedCmd": "LED 2 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 2 MODE 1Hz",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP3_2_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 2,
+          "activity": "inactive",
+          "cmd": "LED 5 MODE 1Hz",
+          "resolvedCmd": "LED 5 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 5 MODE 1Hz",
+            "led": 5,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP3_3_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 3,
+          "activity": "inactive",
+          "cmd": "LED 8 MODE 1Hz",
+          "resolvedCmd": "LED 8 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 8 MODE 1Hz",
+            "led": 8,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP3_1_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 1,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP3_1_INACTIVE",
+          "resolvedCmd": "LED 2 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 2 MODE 1Hz",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "1Hz"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP3_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP3_2_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP3_2_INACTIVE",
+          "resolvedCmd": "LED 5 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 5 MODE 1Hz",
+            "led": 5,
+            "operation": "MODE",
+            "mode": "1Hz"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP3_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP3_3_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 3,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP3_3_INACTIVE",
+          "resolvedCmd": "LED 8 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 8 MODE 1Hz",
+            "led": 8,
+            "operation": "MODE",
+            "mode": "1Hz"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP3_3_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP3_1_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 3 MODE ON",
+          "resolvedCmd": "LED 3 MODE ON",
+          "resolved": {
+            "raw": "LED 3 MODE ON",
+            "led": 3,
+            "operation": "MODE",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP3_2_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 2,
+          "activity": "inactive",
+          "cmd": "LED 6 MODE ON",
+          "resolvedCmd": "LED 6 MODE ON",
+          "resolved": {
+            "raw": "LED 6 MODE ON",
+            "led": 6,
+            "operation": "MODE",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP3_3_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 3,
+          "activity": "inactive",
+          "cmd": "LED 9 MODE ON",
+          "resolvedCmd": "LED 9 MODE ON",
+          "resolved": {
+            "raw": "LED 9 MODE ON",
+            "led": 9,
+            "operation": "MODE",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP3_1_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 1,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP3_1_INACTIVE",
+          "resolvedCmd": "LED 3 MODE ON",
+          "resolved": {
+            "raw": "LED 3 MODE ON",
+            "led": 3,
+            "operation": "MODE",
+            "mode": "ON"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP3_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP3_2_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP3_2_INACTIVE",
+          "resolvedCmd": "LED 6 MODE ON",
+          "resolved": {
+            "raw": "LED 6 MODE ON",
+            "led": 6,
+            "operation": "MODE",
+            "mode": "ON"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP3_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP3_3_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 3,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP3_3_INACTIVE",
+          "resolvedCmd": "LED 9 MODE ON",
+          "resolved": {
+            "raw": "LED 9 MODE ON",
+            "led": 9,
+            "operation": "MODE",
+            "mode": "ON"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP3_3_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP3_1_INACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 2 COLOR RED",
+          "resolvedCmd": "LED 2 COLOR RED",
+          "resolved": {
+            "raw": "LED 2 COLOR RED",
+            "led": 2,
+            "operation": "COLOR",
+            "color": "RED"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP3_2_INACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 2,
+          "activity": "inactive",
+          "cmd": "LED 5 COLOR RED",
+          "resolvedCmd": "LED 5 COLOR RED",
+          "resolved": {
+            "raw": "LED 5 COLOR RED",
+            "led": 5,
+            "operation": "COLOR",
+            "color": "RED"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP3_3_INACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 3,
+          "activity": "inactive",
+          "cmd": "LED 8 COLOR RED",
+          "resolvedCmd": "LED 8 COLOR RED",
+          "resolved": {
+            "raw": "LED 8 COLOR RED",
+            "led": 8,
+            "operation": "COLOR",
+            "color": "RED"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP3_1_ACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 1,
+          "activity": "active",
+          "cmd": "LED 2 COLOR GREEN",
+          "resolvedCmd": "LED 2 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 2 COLOR GREEN",
+            "led": 2,
+            "operation": "COLOR",
+            "color": "GREEN"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP3_2_ACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 2,
+          "activity": "active",
+          "cmd": "LED 5 COLOR GREEN",
+          "resolvedCmd": "LED 5 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 5 COLOR GREEN",
+            "led": 5,
+            "operation": "COLOR",
+            "color": "GREEN"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP3_3_ACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 3,
+          "activity": "active",
+          "cmd": "LED 8 COLOR GREEN",
+          "resolvedCmd": "LED 8 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 8 COLOR GREEN",
+            "led": 8,
+            "operation": "COLOR",
+            "color": "GREEN"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP3_1_INACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 3 COLOR RED",
+          "resolvedCmd": "LED 3 COLOR RED",
+          "resolved": {
+            "raw": "LED 3 COLOR RED",
+            "led": 3,
+            "operation": "COLOR",
+            "color": "RED"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP3_2_INACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 2,
+          "activity": "inactive",
+          "cmd": "LED 6 COLOR RED",
+          "resolvedCmd": "LED 6 COLOR RED",
+          "resolved": {
+            "raw": "LED 6 COLOR RED",
+            "led": 6,
+            "operation": "COLOR",
+            "color": "RED"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP3_3_INACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 3,
+          "activity": "inactive",
+          "cmd": "LED 9 COLOR RED",
+          "resolvedCmd": "LED 9 COLOR RED",
+          "resolved": {
+            "raw": "LED 9 COLOR RED",
+            "led": 9,
+            "operation": "COLOR",
+            "color": "RED"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP3_1_ACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 1,
+          "activity": "active",
+          "cmd": "LED 3 COLOR GREEN",
+          "resolvedCmd": "LED 3 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 3 COLOR GREEN",
+            "led": 3,
+            "operation": "COLOR",
+            "color": "GREEN"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP3_2_ACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 2,
+          "activity": "active",
+          "cmd": "LED 6 COLOR GREEN",
+          "resolvedCmd": "LED 6 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 6 COLOR GREEN",
+            "led": 6,
+            "operation": "COLOR",
+            "color": "GREEN"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP3_3_ACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 3,
+          "activity": "active",
+          "cmd": "LED 9 COLOR GREEN",
+          "resolvedCmd": "LED 9 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 9 COLOR GREEN",
+            "led": 9,
+            "operation": "COLOR",
+            "color": "GREEN"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_PRIMARY_OP3_1_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 2 MODE ON",
+          "resolvedCmd": "LED 2 MODE ON",
+          "resolved": {
+            "raw": "LED 2 MODE ON",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_PRIMARY_OP3_2_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 2,
+          "activity": "inactive",
+          "cmd": "LED 5 MODE ON",
+          "resolvedCmd": "LED 5 MODE ON",
+          "resolved": {
+            "raw": "LED 5 MODE ON",
+            "led": 5,
+            "operation": "MODE",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_PRIMARY_OP3_3_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 3,
+          "activity": "inactive",
+          "cmd": "LED 8 MODE ON",
+          "resolvedCmd": "LED 8 MODE ON",
+          "resolved": {
+            "raw": "LED 8 MODE ON",
+            "led": 8,
+            "operation": "MODE",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_PRIMARY_OP3_1_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 1,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_SECONDARY_PRIMARY_OP3_1_INACTIVE",
+          "resolvedCmd": "LED 2 MODE ON",
+          "resolved": {
+            "raw": "LED 2 MODE ON",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "ON"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_SECONDARY_PRIMARY_OP3_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_PRIMARY_OP3_2_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_SECONDARY_PRIMARY_OP3_2_INACTIVE",
+          "resolvedCmd": "LED 5 MODE ON",
+          "resolved": {
+            "raw": "LED 5 MODE ON",
+            "led": 5,
+            "operation": "MODE",
+            "mode": "ON"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_SECONDARY_PRIMARY_OP3_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_PRIMARY_OP3_3_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 3,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_SECONDARY_PRIMARY_OP3_3_INACTIVE",
+          "resolvedCmd": "LED 8 MODE ON",
+          "resolved": {
+            "raw": "LED 8 MODE ON",
+            "led": 8,
+            "operation": "MODE",
+            "mode": "ON"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_SECONDARY_PRIMARY_OP3_3_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_SECONDARY_OP3_1_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 3 MODE 1Hz",
+          "resolvedCmd": "LED 3 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 3 MODE 1Hz",
+            "led": 3,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_SECONDARY_OP3_2_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 2,
+          "activity": "inactive",
+          "cmd": "LED 6 MODE 1Hz",
+          "resolvedCmd": "LED 6 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 6 MODE 1Hz",
+            "led": 6,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_SECONDARY_OP3_3_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 3,
+          "activity": "inactive",
+          "cmd": "LED 9 MODE 1Hz",
+          "resolvedCmd": "LED 9 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 9 MODE 1Hz",
+            "led": 9,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_SECONDARY_OP3_1_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 1,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_SECONDARY_SECONDARY_OP3_1_INACTIVE",
+          "resolvedCmd": "LED 3 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 3 MODE 1Hz",
+            "led": 3,
+            "operation": "MODE",
+            "mode": "1Hz"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_SECONDARY_SECONDARY_OP3_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_SECONDARY_OP3_2_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_SECONDARY_SECONDARY_OP3_2_INACTIVE",
+          "resolvedCmd": "LED 6 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 6 MODE 1Hz",
+            "led": 6,
+            "operation": "MODE",
+            "mode": "1Hz"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_SECONDARY_SECONDARY_OP3_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_SECONDARY_OP3_3_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 3,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_SECONDARY_SECONDARY_OP3_3_INACTIVE",
+          "resolvedCmd": "LED 9 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 9 MODE 1Hz",
+            "led": 9,
+            "operation": "MODE",
+            "mode": "1Hz"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_SECONDARY_SECONDARY_OP3_3_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_PRIMARY_OP3_1_INACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 1,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP3_1_INACTIVE",
+          "resolvedCmd": "LED 2 COLOR RED",
+          "resolved": {
+            "raw": "LED 2 COLOR RED",
+            "led": 2,
+            "operation": "COLOR",
+            "color": "RED"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP3_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_PRIMARY_OP3_2_INACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 2,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP3_2_INACTIVE",
+          "resolvedCmd": "LED 5 COLOR RED",
+          "resolved": {
+            "raw": "LED 5 COLOR RED",
+            "led": 5,
+            "operation": "COLOR",
+            "color": "RED"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP3_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_PRIMARY_OP3_3_INACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 3,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP3_3_INACTIVE",
+          "resolvedCmd": "LED 8 COLOR RED",
+          "resolved": {
+            "raw": "LED 8 COLOR RED",
+            "led": 8,
+            "operation": "COLOR",
+            "color": "RED"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP3_3_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_PRIMARY_OP3_1_ACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 1,
+          "activity": "active",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP3_1_ACTIVE",
+          "resolvedCmd": "LED 2 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 2 COLOR GREEN",
+            "led": 2,
+            "operation": "COLOR",
+            "color": "GREEN"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP3_1_ACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_PRIMARY_OP3_2_ACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP3_2_ACTIVE",
+          "resolvedCmd": "LED 5 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 5 COLOR GREEN",
+            "led": 5,
+            "operation": "COLOR",
+            "color": "GREEN"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP3_2_ACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_PRIMARY_OP3_3_ACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP3",
+          "lane": 3,
+          "activity": "active",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP3_3_ACTIVE",
+          "resolvedCmd": "LED 8 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 8 COLOR GREEN",
+            "led": 8,
+            "operation": "COLOR",
+            "color": "GREEN"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP3_3_ACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_SECONDARY_OP3_1_INACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 1,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP3_1_INACTIVE",
+          "resolvedCmd": "LED 3 COLOR RED",
+          "resolved": {
+            "raw": "LED 3 COLOR RED",
+            "led": 3,
+            "operation": "COLOR",
+            "color": "RED"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP3_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_SECONDARY_OP3_2_INACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 2,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP3_2_INACTIVE",
+          "resolvedCmd": "LED 6 COLOR RED",
+          "resolved": {
+            "raw": "LED 6 COLOR RED",
+            "led": 6,
+            "operation": "COLOR",
+            "color": "RED"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP3_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_SECONDARY_OP3_3_INACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 3,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP3_3_INACTIVE",
+          "resolvedCmd": "LED 9 COLOR RED",
+          "resolved": {
+            "raw": "LED 9 COLOR RED",
+            "led": 9,
+            "operation": "COLOR",
+            "color": "RED"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP3_3_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_SECONDARY_OP3_1_ACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 1,
+          "activity": "active",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP3_1_ACTIVE",
+          "resolvedCmd": "LED 3 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 3 COLOR GREEN",
+            "led": 3,
+            "operation": "COLOR",
+            "color": "GREEN"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP3_1_ACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_SECONDARY_OP3_2_ACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP3_2_ACTIVE",
+          "resolvedCmd": "LED 6 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 6 COLOR GREEN",
+            "led": 6,
+            "operation": "COLOR",
+            "color": "GREEN"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP3_2_ACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_SECONDARY_OP3_3_ACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP3",
+          "lane": 3,
+          "activity": "active",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP3_3_ACTIVE",
+          "resolvedCmd": "LED 9 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 9 COLOR GREEN",
+            "led": 9,
+            "operation": "COLOR",
+            "color": "GREEN"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP3_3_ACTIVE"
+          ]
+        }
+      ],
+      "ce": [
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP2_1_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 5 MODE 1Hz",
+          "resolvedCmd": "LED 5 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 5 MODE 1Hz",
+            "led": 5,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP2_2_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "inactive",
+          "cmd": "LED 2 MODE 1Hz",
+          "resolvedCmd": "LED 2 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 2 MODE 1Hz",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP1_1_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 4 MODE 1Hz",
+          "resolvedCmd": "LED 4 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 4 MODE 1Hz",
+            "led": 4,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP1_2_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP2_2_INACTIVE",
+          "resolvedCmd": "LED 2 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 2 MODE 1Hz",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "1Hz"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP2_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP2_1_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP2_1_INACTIVE",
+          "resolvedCmd": "LED 5 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 5 MODE 1Hz",
+            "led": 5,
+            "operation": "MODE",
+            "mode": "1Hz"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP2_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP2_2_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP2_2_INACTIVE",
+          "resolvedCmd": "LED 2 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 2 MODE 1Hz",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "1Hz"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP2_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP1_1_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP1_1_INACTIVE",
+          "resolvedCmd": "LED 4 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 4 MODE 1Hz",
+            "led": 4,
+            "operation": "MODE",
+            "mode": "1Hz"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP1_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP1_2_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP2_2_INACTIVE",
+          "resolvedCmd": "LED 2 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 2 MODE 1Hz",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "1Hz"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP2_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP2_1_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 4 MODE ON",
+          "resolvedCmd": "LED 4 MODE ON",
+          "resolved": {
+            "raw": "LED 4 MODE ON",
+            "led": 4,
+            "operation": "MODE",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP2_2_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "inactive",
+          "cmd": "LED 1 MODE ON",
+          "resolvedCmd": "LED 1 MODE ON",
+          "resolved": {
+            "raw": "LED 1 MODE ON",
+            "led": 1,
+            "operation": "MODE",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP1_1_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 2 MODE ON",
+          "resolvedCmd": "LED 2 MODE ON",
+          "resolved": {
+            "raw": "LED 2 MODE ON",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP1_2_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP2_2_INACTIVE",
+          "resolvedCmd": "LED 1 MODE ON",
+          "resolved": {
+            "raw": "LED 1 MODE ON",
+            "led": 1,
+            "operation": "MODE",
+            "mode": "ON"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP2_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP2_1_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP2_1_INACTIVE",
+          "resolvedCmd": "LED 4 MODE ON",
+          "resolved": {
+            "raw": "LED 4 MODE ON",
+            "led": 4,
+            "operation": "MODE",
+            "mode": "ON"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP2_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP2_2_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP2_2_INACTIVE",
+          "resolvedCmd": "LED 1 MODE ON",
+          "resolved": {
+            "raw": "LED 1 MODE ON",
+            "led": 1,
+            "operation": "MODE",
+            "mode": "ON"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP2_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP1_1_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP1_1_INACTIVE",
+          "resolvedCmd": "LED 2 MODE ON",
+          "resolved": {
+            "raw": "LED 2 MODE ON",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "ON"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP1_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP1_2_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP2_2_INACTIVE",
+          "resolvedCmd": "LED 1 MODE ON",
+          "resolved": {
+            "raw": "LED 1 MODE ON",
+            "led": 1,
+            "operation": "MODE",
+            "mode": "ON"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP2_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_1_INACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 5 COLOR RED",
+          "resolvedCmd": "LED 5 COLOR RED",
+          "resolved": {
+            "raw": "LED 5 COLOR RED",
+            "led": 5,
+            "operation": "COLOR",
+            "color": "RED"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_2_INACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "inactive",
+          "cmd": "LED 2 COLOR RED",
+          "resolvedCmd": "LED 2 COLOR RED",
+          "resolved": {
+            "raw": "LED 2 COLOR RED",
+            "led": 2,
+            "operation": "COLOR",
+            "color": "RED"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP1_1_INACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 4 COLOR RED",
+          "resolvedCmd": "LED 4 COLOR RED",
+          "resolved": {
+            "raw": "LED 4 COLOR RED",
+            "led": 4,
+            "operation": "COLOR",
+            "color": "RED"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP1_2_INACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_2_INACTIVE",
+          "resolvedCmd": "LED 2 COLOR RED",
+          "resolved": {
+            "raw": "LED 2 COLOR RED",
+            "led": 2,
+            "operation": "COLOR",
+            "color": "RED"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_1_ACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "active",
+          "cmd": "LED 5 COLOR GREEN",
+          "resolvedCmd": "LED 5 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 5 COLOR GREEN",
+            "led": 5,
+            "operation": "COLOR",
+            "color": "GREEN"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_2_ACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "active",
+          "cmd": "LED 2 COLOR GREEN",
+          "resolvedCmd": "LED 2 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 2 COLOR GREEN",
+            "led": 2,
+            "operation": "COLOR",
+            "color": "GREEN"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP1_1_ACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "active",
+          "cmd": "LED 4 COLOR GREEN",
+          "resolvedCmd": "LED 4 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 4 COLOR GREEN",
+            "led": 4,
+            "operation": "COLOR",
+            "color": "GREEN"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP1_2_ACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_2_ACTIVE",
+          "resolvedCmd": "LED 2 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 2 COLOR GREEN",
+            "led": 2,
+            "operation": "COLOR",
+            "color": "GREEN"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_2_ACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP2_1_INACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP1_1_INACTIVE",
+          "resolvedCmd": "LED 4 COLOR RED",
+          "resolved": {
+            "raw": "LED 4 COLOR RED",
+            "led": 4,
+            "operation": "COLOR",
+            "color": "RED"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP1_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP2_2_INACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "inactive",
+          "cmd": "LED 1 COLOR RED",
+          "resolvedCmd": "LED 1 COLOR RED",
+          "resolved": {
+            "raw": "LED 1 COLOR RED",
+            "led": 1,
+            "operation": "COLOR",
+            "color": "RED"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP1_1_INACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_2_INACTIVE",
+          "resolvedCmd": "LED 2 COLOR RED",
+          "resolved": {
+            "raw": "LED 2 COLOR RED",
+            "led": 2,
+            "operation": "COLOR",
+            "color": "RED"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP1_2_INACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP2_2_INACTIVE",
+          "resolvedCmd": "LED 1 COLOR RED",
+          "resolved": {
+            "raw": "LED 1 COLOR RED",
+            "led": 1,
+            "operation": "COLOR",
+            "color": "RED"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP2_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP2_1_ACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "active",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP1_1_ACTIVE",
+          "resolvedCmd": "LED 4 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 4 COLOR GREEN",
+            "led": 4,
+            "operation": "COLOR",
+            "color": "GREEN"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP1_1_ACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP2_2_ACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "active",
+          "cmd": "LED 1 COLOR GREEN",
+          "resolvedCmd": "LED 1 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 1 COLOR GREEN",
+            "led": 1,
+            "operation": "COLOR",
+            "color": "GREEN"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP1_1_ACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "active",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_2_ACTIVE",
+          "resolvedCmd": "LED 2 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 2 COLOR GREEN",
+            "led": 2,
+            "operation": "COLOR",
+            "color": "GREEN"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_2_ACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP1_2_ACTIVE",
+          "commandType": "color",
+          "selectorA": "primary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP2_2_ACTIVE",
+          "resolvedCmd": "LED 1 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 1 COLOR GREEN",
+            "led": 1,
+            "operation": "COLOR",
+            "color": "GREEN"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP2_2_ACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_PRIMARY_OP2_1_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 5 MODE ON",
+          "resolvedCmd": "LED 5 MODE ON",
+          "resolved": {
+            "raw": "LED 5 MODE ON",
+            "led": 5,
+            "operation": "MODE",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_PRIMARY_OP2_2_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP1_1_INACTIVE",
+          "resolvedCmd": "LED 2 MODE ON",
+          "resolved": {
+            "raw": "LED 2 MODE ON",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "ON"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP1_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_PRIMARY_OP1_1_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP2_1_INACTIVE",
+          "resolvedCmd": "LED 4 MODE ON",
+          "resolved": {
+            "raw": "LED 4 MODE ON",
+            "led": 4,
+            "operation": "MODE",
+            "mode": "ON"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP2_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_PRIMARY_OP1_2_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP1_1_INACTIVE",
+          "resolvedCmd": "LED 2 MODE ON",
+          "resolved": {
+            "raw": "LED 2 MODE ON",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "ON"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP1_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_PRIMARY_OP2_1_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "active",
+          "cmd": "LED 5 MODE ON",
+          "resolvedCmd": "LED 5 MODE ON",
+          "resolved": {
+            "raw": "LED 5 MODE ON",
+            "led": 5,
+            "operation": "MODE",
+            "mode": "ON"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_PRIMARY_OP2_2_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP1_1_INACTIVE",
+          "resolvedCmd": "LED 2 MODE ON",
+          "resolved": {
+            "raw": "LED 2 MODE ON",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "ON"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP1_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_PRIMARY_OP1_1_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP2_1_INACTIVE",
+          "resolvedCmd": "LED 4 MODE ON",
+          "resolved": {
+            "raw": "LED 4 MODE ON",
+            "led": 4,
+            "operation": "MODE",
+            "mode": "ON"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP2_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_PRIMARY_OP1_2_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP1_1_INACTIVE",
+          "resolvedCmd": "LED 2 MODE ON",
+          "resolved": {
+            "raw": "LED 2 MODE ON",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "ON"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_SECONDARY_OP1_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_SECONDARY_OP2_1_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP1_1_INACTIVE",
+          "resolvedCmd": "LED 4 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 4 MODE 1Hz",
+            "led": 4,
+            "operation": "MODE",
+            "mode": "1Hz"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP1_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_SECONDARY_OP2_2_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "inactive",
+          "cmd": "LED 1 MODE 1Hz",
+          "resolvedCmd": "LED 1 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 1 MODE 1Hz",
+            "led": 1,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_SECONDARY_OP1_1_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP2_2_INACTIVE",
+          "resolvedCmd": "LED 2 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 2 MODE 1Hz",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "1Hz"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP2_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_SECONDARY_OP1_2_INACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "inactive",
+          "cmd": "LED 1 MODE 1Hz",
+          "resolvedCmd": "LED 1 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 1 MODE 1Hz",
+            "led": 1,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_SECONDARY_OP2_1_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP1_1_INACTIVE",
+          "resolvedCmd": "LED 4 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 4 MODE 1Hz",
+            "led": 4,
+            "operation": "MODE",
+            "mode": "1Hz"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP1_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_SECONDARY_OP2_2_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "active",
+          "cmd": "LED 1 MODE 1Hz",
+          "resolvedCmd": "LED 1 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 1 MODE 1Hz",
+            "led": 1,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_SECONDARY_OP1_1_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "active",
+          "ref": "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP2_2_INACTIVE",
+          "resolvedCmd": "LED 2 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 2 MODE 1Hz",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "1Hz"
+          },
+          "refChain": [
+            "CMD_APS_LED_MODE_PRIMARY_PRIMARY_OP2_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_MODE_SECONDARY_SECONDARY_OP1_2_ACTIVE",
+          "commandType": "mode",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "active",
+          "cmd": "LED 1 MODE 1Hz",
+          "resolvedCmd": "LED 1 MODE 1Hz",
+          "resolved": {
+            "raw": "LED 1 MODE 1Hz",
+            "led": 1,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_PRIMARY_OP2_1_INACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_1_INACTIVE",
+          "resolvedCmd": "LED 5 COLOR RED",
+          "resolved": {
+            "raw": "LED 5 COLOR RED",
+            "led": 5,
+            "operation": "COLOR",
+            "color": "RED"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_PRIMARY_OP2_2_INACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "inactive",
+          "cmd": "LED 2 COLOR RED",
+          "resolvedCmd": "LED 2 COLOR RED",
+          "resolved": {
+            "raw": "LED 2 COLOR RED",
+            "led": 2,
+            "operation": "COLOR",
+            "color": "RED"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_PRIMARY_OP1_1_INACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP1_1_INACTIVE",
+          "resolvedCmd": "LED 4 COLOR RED",
+          "resolved": {
+            "raw": "LED 4 COLOR RED",
+            "led": 4,
+            "operation": "COLOR",
+            "color": "RED"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP1_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_PRIMARY_OP1_2_INACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "inactive",
+          "cmd": "LED 2 COLOR RED",
+          "resolvedCmd": "LED 2 COLOR RED",
+          "resolved": {
+            "raw": "LED 2 COLOR RED",
+            "led": 2,
+            "operation": "COLOR",
+            "color": "RED"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_PRIMARY_OP2_1_ACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "active",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_1_ACTIVE",
+          "resolvedCmd": "LED 5 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 5 COLOR GREEN",
+            "led": 5,
+            "operation": "COLOR",
+            "color": "GREEN"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_1_ACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_PRIMARY_OP2_2_ACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_2_ACTIVE",
+          "resolvedCmd": "LED 2 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 2 COLOR GREEN",
+            "led": 2,
+            "operation": "COLOR",
+            "color": "GREEN"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_2_ACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_PRIMARY_OP1_1_ACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "active",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP1_1_ACTIVE",
+          "resolvedCmd": "LED 4 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 4 COLOR GREEN",
+            "led": 4,
+            "operation": "COLOR",
+            "color": "GREEN"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP1_1_ACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_PRIMARY_OP1_2_ACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "primary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_2_ACTIVE",
+          "resolvedCmd": "LED 2 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 2 COLOR GREEN",
+            "led": 2,
+            "operation": "COLOR",
+            "color": "GREEN"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_2_ACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_SECONDARY_OP2_1_INACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP1_1_INACTIVE",
+          "resolvedCmd": "LED 4 COLOR RED",
+          "resolved": {
+            "raw": "LED 4 COLOR RED",
+            "led": 4,
+            "operation": "COLOR",
+            "color": "RED"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP1_1_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_SECONDARY_OP2_2_INACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP2_2_INACTIVE",
+          "resolvedCmd": "LED 1 COLOR RED",
+          "resolved": {
+            "raw": "LED 1 COLOR RED",
+            "led": 1,
+            "operation": "COLOR",
+            "color": "RED"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP2_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_SECONDARY_OP1_1_INACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "inactive",
+          "cmd": "LED 2 COLOR RED",
+          "resolvedCmd": "LED 2 COLOR RED",
+          "resolved": {
+            "raw": "LED 2 COLOR RED",
+            "led": 2,
+            "operation": "COLOR",
+            "color": "RED"
+          }
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_SECONDARY_OP1_2_INACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "inactive",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP2_2_INACTIVE",
+          "resolvedCmd": "LED 1 COLOR RED",
+          "resolved": {
+            "raw": "LED 1 COLOR RED",
+            "led": 1,
+            "operation": "COLOR",
+            "color": "RED"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP2_2_INACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_SECONDARY_OP2_1_ACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 1,
+          "activity": "active",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP1_1_ACTIVE",
+          "resolvedCmd": "LED 4 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 4 COLOR GREEN",
+            "led": 4,
+            "operation": "COLOR",
+            "color": "GREEN"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP1_1_ACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_SECONDARY_OP2_2_ACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP2",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP2_2_ACTIVE",
+          "resolvedCmd": "LED 1 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 1 COLOR GREEN",
+            "led": 1,
+            "operation": "COLOR",
+            "color": "GREEN"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP2_2_ACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_SECONDARY_OP1_1_ACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 1,
+          "activity": "active",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_2_ACTIVE",
+          "resolvedCmd": "LED 2 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 2 COLOR GREEN",
+            "led": 2,
+            "operation": "COLOR",
+            "color": "GREEN"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_PRIMARY_OP2_2_ACTIVE"
+          ]
+        },
+        {
+          "key": "CMD_APS_LED_COLOR_SECONDARY_SECONDARY_OP1_2_ACTIVE",
+          "commandType": "color",
+          "selectorA": "secondary",
+          "selectorB": "secondary",
+          "op": "OP1",
+          "lane": 2,
+          "activity": "active",
+          "ref": "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP2_2_ACTIVE",
+          "resolvedCmd": "LED 1 COLOR GREEN",
+          "resolved": {
+            "raw": "LED 1 COLOR GREEN",
+            "led": 1,
+            "operation": "COLOR",
+            "color": "GREEN"
+          },
+          "refChain": [
+            "CMD_APS_LED_COLOR_PRIMARY_SECONDARY_OP2_2_ACTIVE"
+          ]
+        }
+      ]
+    },
+    "registerMap": [
+      {
+        "key": "PREFIX_OP3_STAT",
+        "scope": "default",
+        "op": "OP3",
+        "signal": "STAT",
+        "ledRef": "LED 1",
+        "led": 1
+      },
+      {
+        "key": "PREFIX_OP3_1-APSP",
+        "scope": "default",
+        "op": "OP3",
+        "signal": "1-APSP",
+        "ledRef": "LED 2",
+        "led": 2
+      },
+      {
+        "key": "PREFIX_OP3_1-APSS",
+        "scope": "default",
+        "op": "OP3",
+        "signal": "1-APSS",
+        "ledRef": "LED 3",
+        "led": 3
+      },
+      {
+        "key": "PREFIX_OP3_1-APSC",
+        "scope": "default",
+        "op": "OP3",
+        "signal": "1-APSC",
+        "ledRef": "LED 4",
+        "led": 4
+      },
+      {
+        "key": "PREFIX_OP3_2-APSP",
+        "scope": "default",
+        "op": "OP3",
+        "signal": "2-APSP",
+        "ledRef": "LED 5",
+        "led": 5
+      },
+      {
+        "key": "PREFIX_OP3_2-APSS",
+        "scope": "default",
+        "op": "OP3",
+        "signal": "2-APSS",
+        "ledRef": "LED 6",
+        "led": 6
+      },
+      {
+        "key": "PREFIX_OP3_2-APSC",
+        "scope": "default",
+        "op": "OP3",
+        "signal": "2-APSC",
+        "ledRef": "LED 7",
+        "led": 7
+      },
+      {
+        "key": "PREFIX_OP3_3-APSP",
+        "scope": "default",
+        "op": "OP3",
+        "signal": "3-APSP",
+        "ledRef": "LED 8",
+        "led": 8
+      },
+      {
+        "key": "PREFIX_OP3_3-APSS",
+        "scope": "default",
+        "op": "OP3",
+        "signal": "3-APSS",
+        "ledRef": "LED 9",
+        "led": 9
+      },
+      {
+        "key": "PREFIX_OP3_3-APSC",
+        "scope": "default",
+        "op": "OP3",
+        "signal": "3-APSC",
+        "ledRef": "LED 10",
+        "led": 10
+      },
+      {
+        "key": "PREFIX_CE_OP1_STAT",
+        "scope": "ce",
+        "op": "OP1",
+        "signal": "STAT",
+        "ledRef": "LED 0",
+        "led": 0
+      },
+      {
+        "key": "PREFIX_CE_OP1_1-APSP",
+        "scope": "ce",
+        "op": "OP1",
+        "signal": "1-APSP",
+        "ledRef": "LED 10",
+        "led": 10
+      },
+      {
+        "key": "PREFIX_CE_OP1_1-APSS",
+        "scope": "ce",
+        "op": "OP1",
+        "signal": "1-APSS",
+        "ledRef": "LED 11",
+        "led": 11
+      },
+      {
+        "key": "PREFIX_CE_OP1_1-APSC",
+        "scope": "ce",
+        "op": "OP1",
+        "signal": "1-APSC",
+        "ledRef": "LED 6",
+        "led": 6
+      },
+      {
+        "key": "PREFIX_OP1_STAT",
+        "scope": "default",
+        "op": "OP1",
+        "signal": "STAT",
+        "ledRef": "LED1",
+        "led": 1
+      },
+      {
+        "key": "PREFIX_OP1_1-APSP",
+        "scope": "default",
+        "op": "OP1",
+        "signal": "1-APSP",
+        "ledRef": "LED 10",
+        "led": 10
+      },
+      {
+        "key": "PREFIX_OP1_1-APSS",
+        "scope": "default",
+        "op": "OP1",
+        "signal": "1-APSS",
+        "ledRef": "LED 11",
+        "led": 11
+      },
+      {
+        "key": "PREFIX_OP1_1-APSC",
+        "scope": "default",
+        "op": "OP1",
+        "signal": "1-APSC",
+        "ledRef": "LED 6",
+        "led": 6
+      },
+      {
+        "key": "PREFIX_CE_OP2_STAT",
+        "scope": "ce",
+        "op": "OP2",
+        "signal": "STAT",
+        "ledRef": "LED 0",
+        "led": 0
+      },
+      {
+        "key": "PREFIX_CE_OP2_1-APSP",
+        "scope": "ce",
+        "op": "OP2",
+        "signal": "1-APSP",
+        "ledRef": "LED 10",
+        "led": 10
+      },
+      {
+        "key": "PREFIX_CE_OP2_1-APSS",
+        "scope": "ce",
+        "op": "OP2",
+        "signal": "1-APSS",
+        "ledRef": "LED 11",
+        "led": 11
+      },
+      {
+        "key": "PREFIX_CE_OP2_1-APSC",
+        "scope": "ce",
+        "op": "OP2",
+        "signal": "1-APSC",
+        "ledRef": "LED 6",
+        "led": 6
+      },
+      {
+        "key": "PREFIX_CE_OP2_2-APSP",
+        "scope": "ce",
+        "op": "OP2",
+        "signal": "2-APSP",
+        "ledRef": "LED 12",
+        "led": 12
+      },
+      {
+        "key": "PREFIX_CE_OP2_2-APSS",
+        "scope": "ce",
+        "op": "OP2",
+        "signal": "2-APSS",
+        "ledRef": "LED 13",
+        "led": 13
+      },
+      {
+        "key": "PREFIX_CE_OP2_2-APSC",
+        "scope": "ce",
+        "op": "OP2",
+        "signal": "2-APSC",
+        "ledRef": "LED 3",
+        "led": 3
+      },
+      {
+        "key": "PREFIX_OP2_STAT",
+        "scope": "default",
+        "op": "OP2",
+        "signal": "STAT",
+        "ledRef": "LED1",
+        "led": 1
+      },
+      {
+        "key": "PREFIX_OP2_1-APSP",
+        "scope": "default",
+        "op": "OP2",
+        "signal": "1-APSP",
+        "ledRef": "LED 10",
+        "led": 10
+      },
+      {
+        "key": "PREFIX_OP2_1-APSS",
+        "scope": "default",
+        "op": "OP2",
+        "signal": "1-APSS",
+        "ledRef": "LED 11",
+        "led": 11
+      },
+      {
+        "key": "PREFIX_OP2_1-APSC",
+        "scope": "default",
+        "op": "OP2",
+        "signal": "1-APSC",
+        "ledRef": "LED 6",
+        "led": 6
+      },
+      {
+        "key": "PREFIX_OP2_2-APSP",
+        "scope": "default",
+        "op": "OP2",
+        "signal": "2-APSP",
+        "ledRef": "LED 12",
+        "led": 12
+      },
+      {
+        "key": "PREFIX_OP2_2-APSS",
+        "scope": "default",
+        "op": "OP2",
+        "signal": "2-APSS",
+        "ledRef": "LED 13",
+        "led": 13
+      },
+      {
+        "key": "PREFIX_OP2_2-APSC",
+        "scope": "default",
+        "op": "OP2",
+        "signal": "2-APSC",
+        "ledRef": "LED 3",
+        "led": 3
+      }
+    ],
+    "cardOpMap": {
+      "description": "Now only OP3 need mapping cmd, others would use origin cmd as final",
+      "mappings": [
+        {
+          "source": "OP3_LED 1 MODE BLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 1 MODE BLINK",
+          "sourceParsed": {
+            "raw": "LED 1 MODE BLINK",
+            "led": 1,
+            "operation": "MODE",
+            "mode": "BLINK"
+          },
+          "target": "LED 1 MODE 1Hz",
+          "targetParsed": {
+            "raw": "LED 1 MODE 1Hz",
+            "led": 1,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 1 MODE SLOWBLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 1 MODE SLOWBLINK",
+          "sourceParsed": {
+            "raw": "LED 1 MODE SLOWBLINK",
+            "led": 1,
+            "operation": "MODE",
+            "mode": "SLOWBLINK"
+          },
+          "target": "LED 1 MODE 1Hz",
+          "targetParsed": {
+            "raw": "LED 1 MODE 1Hz",
+            "led": 1,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 1 MODE FASTBLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 1 MODE FASTBLINK",
+          "sourceParsed": {
+            "raw": "LED 1 MODE FASTBLINK",
+            "led": 1,
+            "operation": "MODE",
+            "mode": "FASTBLINK"
+          },
+          "target": "LED 1 MODE 2Hz",
+          "targetParsed": {
+            "raw": "LED 1 MODE 2Hz",
+            "led": 1,
+            "operation": "MODE",
+            "mode": "2Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 2 MODE BLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 2 MODE BLINK",
+          "sourceParsed": {
+            "raw": "LED 2 MODE BLINK",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "BLINK"
+          },
+          "target": "LED 2 MODE 1Hz",
+          "targetParsed": {
+            "raw": "LED 2 MODE 1Hz",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 2 MODE SLOWBLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 2 MODE SLOWBLINK",
+          "sourceParsed": {
+            "raw": "LED 2 MODE SLOWBLINK",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "SLOWBLINK"
+          },
+          "target": "LED 2 MODE 1Hz",
+          "targetParsed": {
+            "raw": "LED 2 MODE 1Hz",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 2 MODE FASTBLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 2 MODE FASTBLINK",
+          "sourceParsed": {
+            "raw": "LED 2 MODE FASTBLINK",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "FASTBLINK"
+          },
+          "target": "LED 2 MODE 2Hz",
+          "targetParsed": {
+            "raw": "LED 2 MODE 2Hz",
+            "led": 2,
+            "operation": "MODE",
+            "mode": "2Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 3 MODE BLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 3 MODE BLINK",
+          "sourceParsed": {
+            "raw": "LED 3 MODE BLINK",
+            "led": 3,
+            "operation": "MODE",
+            "mode": "BLINK"
+          },
+          "target": "LED 3 MODE 1Hz",
+          "targetParsed": {
+            "raw": "LED 3 MODE 1Hz",
+            "led": 3,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 3 MODE SLOWBLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 3 MODE SLOWBLINK",
+          "sourceParsed": {
+            "raw": "LED 3 MODE SLOWBLINK",
+            "led": 3,
+            "operation": "MODE",
+            "mode": "SLOWBLINK"
+          },
+          "target": "LED 3 MODE 1Hz",
+          "targetParsed": {
+            "raw": "LED 3 MODE 1Hz",
+            "led": 3,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 3 MODE FASTBLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 3 MODE FASTBLINK",
+          "sourceParsed": {
+            "raw": "LED 3 MODE FASTBLINK",
+            "led": 3,
+            "operation": "MODE",
+            "mode": "FASTBLINK"
+          },
+          "target": "LED 3 MODE 2Hz",
+          "targetParsed": {
+            "raw": "LED 3 MODE 2Hz",
+            "led": 3,
+            "operation": "MODE",
+            "mode": "2Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 4 MODE BLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 4 MODE BLINK",
+          "sourceParsed": {
+            "raw": "LED 4 MODE BLINK",
+            "led": 4,
+            "operation": "MODE",
+            "mode": "BLINK"
+          },
+          "target": "LED 4 MODE 1Hz",
+          "targetParsed": {
+            "raw": "LED 4 MODE 1Hz",
+            "led": 4,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 4 MODE SLOWBLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 4 MODE SLOWBLINK",
+          "sourceParsed": {
+            "raw": "LED 4 MODE SLOWBLINK",
+            "led": 4,
+            "operation": "MODE",
+            "mode": "SLOWBLINK"
+          },
+          "target": "LED 4 MODE 1Hz",
+          "targetParsed": {
+            "raw": "LED 4 MODE 1Hz",
+            "led": 4,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 4 MODE FASTBLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 4 MODE FASTBLINK",
+          "sourceParsed": {
+            "raw": "LED 4 MODE FASTBLINK",
+            "led": 4,
+            "operation": "MODE",
+            "mode": "FASTBLINK"
+          },
+          "target": "LED 4 MODE 2Hz",
+          "targetParsed": {
+            "raw": "LED 4 MODE 2Hz",
+            "led": 4,
+            "operation": "MODE",
+            "mode": "2Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 5 MODE BLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 5 MODE BLINK",
+          "sourceParsed": {
+            "raw": "LED 5 MODE BLINK",
+            "led": 5,
+            "operation": "MODE",
+            "mode": "BLINK"
+          },
+          "target": "LED 5 MODE 1Hz",
+          "targetParsed": {
+            "raw": "LED 5 MODE 1Hz",
+            "led": 5,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 5 MODE SLOWBLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 5 MODE SLOWBLINK",
+          "sourceParsed": {
+            "raw": "LED 5 MODE SLOWBLINK",
+            "led": 5,
+            "operation": "MODE",
+            "mode": "SLOWBLINK"
+          },
+          "target": "LED 5 MODE 1Hz",
+          "targetParsed": {
+            "raw": "LED 5 MODE 1Hz",
+            "led": 5,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 5 MODE FASTBLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 5 MODE FASTBLINK",
+          "sourceParsed": {
+            "raw": "LED 5 MODE FASTBLINK",
+            "led": 5,
+            "operation": "MODE",
+            "mode": "FASTBLINK"
+          },
+          "target": "LED 5 MODE 2Hz",
+          "targetParsed": {
+            "raw": "LED 5 MODE 2Hz",
+            "led": 5,
+            "operation": "MODE",
+            "mode": "2Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 6 MODE BLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 6 MODE BLINK",
+          "sourceParsed": {
+            "raw": "LED 6 MODE BLINK",
+            "led": 6,
+            "operation": "MODE",
+            "mode": "BLINK"
+          },
+          "target": "LED 6 MODE 1Hz",
+          "targetParsed": {
+            "raw": "LED 6 MODE 1Hz",
+            "led": 6,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 6 MODE SLOWBLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 6 MODE SLOWBLINK",
+          "sourceParsed": {
+            "raw": "LED 6 MODE SLOWBLINK",
+            "led": 6,
+            "operation": "MODE",
+            "mode": "SLOWBLINK"
+          },
+          "target": "LED 6 MODE 1Hz",
+          "targetParsed": {
+            "raw": "LED 6 MODE 1Hz",
+            "led": 6,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 6 MODE FASTBLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 6 MODE FASTBLINK",
+          "sourceParsed": {
+            "raw": "LED 6 MODE FASTBLINK",
+            "led": 6,
+            "operation": "MODE",
+            "mode": "FASTBLINK"
+          },
+          "target": "LED 6 MODE 2Hz",
+          "targetParsed": {
+            "raw": "LED 6 MODE 2Hz",
+            "led": 6,
+            "operation": "MODE",
+            "mode": "2Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 7 MODE BLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 7 MODE BLINK",
+          "sourceParsed": {
+            "raw": "LED 7 MODE BLINK",
+            "led": 7,
+            "operation": "MODE",
+            "mode": "BLINK"
+          },
+          "target": "LED 7 MODE 1Hz",
+          "targetParsed": {
+            "raw": "LED 7 MODE 1Hz",
+            "led": 7,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 7 MODE SLOWBLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 7 MODE SLOWBLINK",
+          "sourceParsed": {
+            "raw": "LED 7 MODE SLOWBLINK",
+            "led": 7,
+            "operation": "MODE",
+            "mode": "SLOWBLINK"
+          },
+          "target": "LED 7 MODE 1Hz",
+          "targetParsed": {
+            "raw": "LED 7 MODE 1Hz",
+            "led": 7,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 7 MODE FASTBLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 7 MODE FASTBLINK",
+          "sourceParsed": {
+            "raw": "LED 7 MODE FASTBLINK",
+            "led": 7,
+            "operation": "MODE",
+            "mode": "FASTBLINK"
+          },
+          "target": "LED 7 MODE 2Hz",
+          "targetParsed": {
+            "raw": "LED 7 MODE 2Hz",
+            "led": 7,
+            "operation": "MODE",
+            "mode": "2Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 8 MODE BLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 8 MODE BLINK",
+          "sourceParsed": {
+            "raw": "LED 8 MODE BLINK",
+            "led": 8,
+            "operation": "MODE",
+            "mode": "BLINK"
+          },
+          "target": "LED 8 MODE 1Hz",
+          "targetParsed": {
+            "raw": "LED 8 MODE 1Hz",
+            "led": 8,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 8 MODE SLOWBLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 8 MODE SLOWBLINK",
+          "sourceParsed": {
+            "raw": "LED 8 MODE SLOWBLINK",
+            "led": 8,
+            "operation": "MODE",
+            "mode": "SLOWBLINK"
+          },
+          "target": "LED 8 MODE 1Hz",
+          "targetParsed": {
+            "raw": "LED 8 MODE 1Hz",
+            "led": 8,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 8 MODE FASTBLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 8 MODE FASTBLINK",
+          "sourceParsed": {
+            "raw": "LED 8 MODE FASTBLINK",
+            "led": 8,
+            "operation": "MODE",
+            "mode": "FASTBLINK"
+          },
+          "target": "LED 8 MODE 2Hz",
+          "targetParsed": {
+            "raw": "LED 8 MODE 2Hz",
+            "led": 8,
+            "operation": "MODE",
+            "mode": "2Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 9 MODE BLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 9 MODE BLINK",
+          "sourceParsed": {
+            "raw": "LED 9 MODE BLINK",
+            "led": 9,
+            "operation": "MODE",
+            "mode": "BLINK"
+          },
+          "target": "LED 9 MODE 1Hz",
+          "targetParsed": {
+            "raw": "LED 9 MODE 1Hz",
+            "led": 9,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 9 MODE SLOWBLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 9 MODE SLOWBLINK",
+          "sourceParsed": {
+            "raw": "LED 9 MODE SLOWBLINK",
+            "led": 9,
+            "operation": "MODE",
+            "mode": "SLOWBLINK"
+          },
+          "target": "LED 9 MODE 1Hz",
+          "targetParsed": {
+            "raw": "LED 9 MODE 1Hz",
+            "led": 9,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 9 MODE FASTBLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 9 MODE FASTBLINK",
+          "sourceParsed": {
+            "raw": "LED 9 MODE FASTBLINK",
+            "led": 9,
+            "operation": "MODE",
+            "mode": "FASTBLINK"
+          },
+          "target": "LED 9 MODE 2Hz",
+          "targetParsed": {
+            "raw": "LED 9 MODE 2Hz",
+            "led": 9,
+            "operation": "MODE",
+            "mode": "2Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 10 MODE BLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 10 MODE BLINK",
+          "sourceParsed": {
+            "raw": "LED 10 MODE BLINK",
+            "led": 10,
+            "operation": "MODE",
+            "mode": "BLINK"
+          },
+          "target": "LED 10 MODE 1Hz",
+          "targetParsed": {
+            "raw": "LED 10 MODE 1Hz",
+            "led": 10,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 10 MODE SLOWBLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 10 MODE SLOWBLINK",
+          "sourceParsed": {
+            "raw": "LED 10 MODE SLOWBLINK",
+            "led": 10,
+            "operation": "MODE",
+            "mode": "SLOWBLINK"
+          },
+          "target": "LED 10 MODE 1Hz",
+          "targetParsed": {
+            "raw": "LED 10 MODE 1Hz",
+            "led": 10,
+            "operation": "MODE",
+            "mode": "1Hz"
+          }
+        },
+        {
+          "source": "OP3_LED 10 MODE FASTBLINK",
+          "op": "OP3",
+          "sourceCmd": "LED 10 MODE FASTBLINK",
+          "sourceParsed": {
+            "raw": "LED 10 MODE FASTBLINK",
+            "led": 10,
+            "operation": "MODE",
+            "mode": "FASTBLINK"
+          },
+          "target": "LED 10 MODE 2Hz",
+          "targetParsed": {
+            "raw": "LED 10 MODE 2Hz",
+            "led": 10,
+            "operation": "MODE",
+            "mode": "2Hz"
+          }
+        }
+      ]
+    },
+    "action": {
+      "description": "APS_LED_CTRL: default 'HAL', can be 'HAL', 'APPL'; PROT_SELECT_HWTYPE[0,1,2]: default 'SINGLE', can be 'SEPARATE','SINGLE'",
+      "settings": {
+        "APS_LED_CTRL": "APPL",
+        "PROT_SELECT_2": "SEPARATE"
+      }
+    }
+  }
+}

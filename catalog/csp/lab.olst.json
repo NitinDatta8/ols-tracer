@@ -19,11 +19,11 @@
         "7": {
           "linecard": "lc-800mx",
           "ports": {
+            "PORT1": {
+              "pluggable": "1513819"
+            },
             "PORT4": {
               "pluggable": "qsfp-lr4-100g"
-            },
-            "PORT5": {
-              "pluggable": "ftcd3323r1pcl-1y"
             }
           }
         }
@@ -68,10 +68,14 @@
           "ports": {
             "P1": {
               "pluggable": "ctq1mlr4cs1-01"
+            },
+            "P2": {
+              "pluggable": "c100q10000lr402f"
             }
           }
         }
-      }
+      },
+      "host": "10.111.25.14"
     },
     {
       "id": "d4",
@@ -164,7 +168,17 @@
         },
         "7": {
           "linecard": "lc-800mx",
-          "ports": {}
+          "ports": {
+            "PORT1": {
+              "pluggable": "1513819"
+            },
+            "PORT4": {
+              "pluggable": "qsfp-lr4-100g"
+            },
+            "PORT10": {
+              "pluggable": "ftlc3352s3pl1"
+            }
+          }
         }
       },
       "host": "10.111.25.16"
@@ -179,6 +193,17 @@
         "1": {
           "linecard": "lc-c925",
           "ports": {}
+        },
+        "3": {
+          "linecard": "lc-800mx",
+          "ports": {
+            "PORT1": {
+              "pluggable": "1513819"
+            },
+            "PORT4": {
+              "pluggable": "qsfp-lr4-100g"
+            }
+          }
         }
       },
       "host": "10.111.25.17"
@@ -209,7 +234,7 @@
       "y": 961,
       "slots": {
         "1": {
-          "linecard": "lc-c925",
+          "linecard": "lc-c1125",
           "ports": {}
         },
         "7": {
@@ -223,25 +248,9 @@
       "id": "d10",
       "chassis": "ch-8slot",
       "name": "Site-10",
-      "x": -21,
-      "y": 1460,
-      "slots": {
-        "1": {
-          "linecard": "lc-c925",
-          "ports": {}
-        },
-        "5": {
-          "linecard": "lc-800mx",
-          "ports": {
-            "PORT5": {
-              "pluggable": "ftcd3323r1pcl-1y"
-            },
-            "PORT4": {
-              "pluggable": "trq5e14enf-lf002-m"
-            }
-          }
-        }
-      }
+      "x": -267,
+      "y": 1686,
+      "slots": {}
     }
   ],
   "links": [
@@ -274,31 +283,143 @@
       }
     },
     {
-      "id": "F03",
+      "id": "F01@Site-6",
       "type": "smf",
       "a": {
-        "device": "d1",
+        "device": "d6",
         "slot": "7",
-        "port": "PORT5"
+        "port": "PORT1"
       },
       "b": {
-        "device": "d1",
+        "device": "d6",
         "slot": "1",
-        "port": "AD11"
+        "port": "AD6"
       }
     },
     {
-      "id": "F04",
+      "id": "F02@Site-6",
       "type": "smf",
       "a": {
-        "device": "d1",
+        "device": "d6",
         "slot": "1",
-        "port": "AD11"
+        "port": "AD6"
       },
       "b": {
-        "device": "d1",
+        "device": "d6",
         "slot": "7",
-        "port": "PORT5"
+        "port": "PORT1"
+      }
+    },
+    {
+      "id": "F03@Site-6",
+      "type": "smf",
+      "a": {
+        "device": "d6",
+        "slot": "1",
+        "port": "LINE"
+      },
+      "b": {
+        "device": "d6",
+        "slot": "1",
+        "port": "LINE"
+      }
+    },
+    {
+      "id": "f8",
+      "type": "smf",
+      "a": {
+        "device": "d3",
+        "slot": "1",
+        "port": "P1"
+      },
+      "b": {
+        "device": "d6",
+        "slot": "7",
+        "port": "PORT4"
+      }
+    },
+    {
+      "id": "f9",
+      "type": "smf",
+      "a": {
+        "device": "d6",
+        "slot": "7",
+        "port": "PORT4"
+      },
+      "b": {
+        "device": "d3",
+        "slot": "1",
+        "port": "P1"
+      }
+    },
+    {
+      "id": "f10",
+      "type": "smf",
+      "a": {
+        "device": "d3",
+        "slot": "1",
+        "port": "P2"
+      },
+      "b": {
+        "device": "d7",
+        "slot": "3",
+        "port": "PORT4"
+      }
+    },
+    {
+      "id": "f11",
+      "type": "smf",
+      "a": {
+        "device": "d7",
+        "slot": "3",
+        "port": "PORT4"
+      },
+      "b": {
+        "device": "d3",
+        "slot": "1",
+        "port": "P2"
+      }
+    },
+    {
+      "id": "f12",
+      "type": "smf",
+      "a": {
+        "device": "d7",
+        "slot": "3",
+        "port": "PORT1"
+      },
+      "b": {
+        "device": "d7",
+        "slot": "1",
+        "port": "AD8"
+      }
+    },
+    {
+      "id": "f13",
+      "type": "smf",
+      "a": {
+        "device": "d7",
+        "slot": "1",
+        "port": "AD8"
+      },
+      "b": {
+        "device": "d7",
+        "slot": "3",
+        "port": "PORT1"
+      }
+    },
+    {
+      "id": "f14",
+      "type": "smf",
+      "a": {
+        "device": "d7",
+        "slot": "1",
+        "port": "LINE"
+      },
+      "b": {
+        "device": "d7",
+        "slot": "1",
+        "port": "LINE"
       }
     },
     {
@@ -313,34 +434,6 @@
         "device": "d1",
         "slot": "1",
         "port": "LINE"
-      }
-    },
-    {
-      "id": "f6",
-      "type": "smf",
-      "a": {
-        "device": "d10",
-        "slot": "5",
-        "port": "PORT5"
-      },
-      "b": {
-        "device": "d10",
-        "slot": "1",
-        "port": "AD2"
-      }
-    },
-    {
-      "id": "f7",
-      "type": "smf",
-      "a": {
-        "device": "d10",
-        "slot": "1",
-        "port": "AD2"
-      },
-      "b": {
-        "device": "d10",
-        "slot": "5",
-        "port": "PORT5"
       }
     }
   ],

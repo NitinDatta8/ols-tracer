@@ -53,6 +53,7 @@
     "knownLinecardMappings": 0,
     "fallbackLinecardMappings": 1,
     "knownMappingComplete": false,
+    "aliasLinecardMappings": 0,
     "slots": [
       {
         "id": "1",

@@ -5,7 +5,7 @@ import type { Catalog, ChassisDef, CliLevel, Device, End, Faceplate, LinecardDef
 
 type Hardware = Pick<Catalog, 'chassis' | 'linecards' | 'pluggables'>;
 
-type VendorMap = { vendorType?: string; linecardId?: string };
+type VendorMap = { vendorType?: string; linecardId?: string; aliasOf?: string };
 type StreamChassis = Catalog['chassis'][number] & { supportedVendorTypes?: string[]; vendorTypeMap?: VendorMap[] };
 
 const slug = (text: string) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'unknown';
@@ -154,8 +154,15 @@ export function catalogs(read: (name: string) => unknown) {
 export const byId = <T extends { id: string }>(items: T[], id: string | undefined) => items.find((x) => x.id === id);
 
 /** The linecard id of a card the box calls `moduleType` (show card's module-type), as hydrate maps it: TMUXC1125 → lc-c1125. */
-export const linecardFor = (chassis: Catalog['chassis'][number], moduleType: string) =>
-  (chassis as StreamChassis).vendorTypeMap?.find((m) => m.vendorType === moduleType)?.linecardId ?? `lc-${slug(moduleType)}`;
+export const linecardFor = (chassis: Catalog['chassis'][number], moduleType: string) => {
+  const raw = String(moduleType ?? '').trim();
+  const compact = raw.toUpperCase().replace(/[^A-Z0-9]+/g, '');
+  const vendorMap = (chassis as StreamChassis).vendorTypeMap ?? [];
+  return vendorMap.find((m) => m.vendorType === raw)?.linecardId
+    ?? vendorMap.find((m) => String(m.vendorType ?? '').toUpperCase() === raw.toUpperCase())?.linecardId
+    ?? vendorMap.find((m) => String(m.vendorType ?? '').toUpperCase().replace(/[^A-Z0-9]+/g, '') === compact)?.linecardId
+    ?? `lc-${slug(raw)}`;
+};
 
 /** The CLI command for one level, e.g. `show card 1-3`. */
 export const cli = (cat: Catalog, level: CliLevel, vars: { chassis?: number; slot?: string; port?: string }) => {

@@ -1,0 +1,484 @@
+{
+  "aliases": {
+    "rules": [
+      {
+        "from": "PTME",
+        "to": "PTM-E",
+        "source": "cardname"
+      },
+      {
+        "from": "PTMW",
+        "to": "PTM-W",
+        "source": "cardname"
+      }
+    ],
+    "cardname": {
+      "PTME": "PTM-E",
+      "PTMW": "PTM-W"
+    },
+    "cardnamemapping": {}
+  },
+  "cardclass": {},
+  "cardpreconf": {},
+  "ledrules": {
+    "default": {
+      "alarm": {
+        "normal": {
+          "color": 1,
+          "blink": 1
+        },
+        "critical": {
+          "color": 3,
+          "blink": 1
+        },
+        "major": {
+          "color": 3,
+          "blink": 2
+        },
+        "minor": {
+          "color": 2,
+          "blink": 1
+        }
+      },
+      "power": {
+        "LINECARD": {
+          "classname": "Components_Component_Linecard_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "power-admin-state"
+        },
+        "PORT": {
+          "classname": "Components_Component_OpticalPort_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "admin-state"
+        },
+        "maint": {
+          "color": 2,
+          "blink": 2
+        },
+        "disabled": {
+          "color": 4,
+          "blink": 1
+        }
+      }
+    },
+    "opticalcard": {
+      "alarm": {
+        "normal": {
+          "color": 1,
+          "blink": 1
+        },
+        "critical": {
+          "color": 3,
+          "blink": 1
+        },
+        "major": {
+          "color": 2,
+          "blink": 1
+        },
+        "minor": {
+          "color": 2,
+          "blink": 1
+        }
+      },
+      "power": {
+        "LINECARD": {
+          "classname": "Components_Component_Linecard_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "power-admin-state"
+        },
+        "PORT": {
+          "classname": "Components_Component_OpticalPort_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "admin-state"
+        },
+        "maint": {
+          "color": 2,
+          "blink": 2
+        },
+        "disabled": {
+          "color": 4,
+          "blink": 1
+        }
+      }
+    },
+    "mandatorycard": {
+      "alarm": {
+        "normal": {
+          "color": 1,
+          "blink": 1
+        },
+        "critical": {
+          "color": 3,
+          "blink": 1
+        },
+        "major": {
+          "color": 2,
+          "blink": 1
+        },
+        "minor": {
+          "color": 2,
+          "blink": 1
+        }
+      },
+      "power": {
+        "maint": {
+          "color": 2,
+          "blink": 2
+        },
+        "disabled": {
+          "color": 4,
+          "blink": 1
+        }
+      }
+    }
+  },
+  "LED": {
+    "default": {
+      "identity": {
+        "key": []
+      },
+      "attributes": {
+        "key": [
+          "autocreated",
+          "yangattributes",
+          "rule"
+        ],
+        "autocreated": true,
+        "yangattributes": {
+          "key": [
+            "config",
+            "state"
+          ],
+          "config": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "APPLDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "APPLDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0,
+            "led_off_mask_port_na": false,
+            "led_off_mask_card_admin": false,
+            "led_off_mask_port_admin": false
+          },
+          "state": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "ASICDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "ASICDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0
+          }
+        },
+        "rule": {
+          "name": "default"
+        }
+      },
+      "modules": {
+        "key": []
+      }
+    },
+    "opticalcard": {
+      "identity": {
+        "key": []
+      },
+      "attributes": {
+        "key": [
+          "autocreated",
+          "yangattributes",
+          "rule"
+        ],
+        "autocreated": true,
+        "yangattributes": {
+          "key": [
+            "config",
+            "state"
+          ],
+          "config": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "APPLDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "APPLDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0,
+            "led_off_mask_port_na": false,
+            "led_off_mask_card_admin": false,
+            "led_off_mask_port_admin": false
+          },
+          "state": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "ASICDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "ASICDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0
+          }
+        },
+        "rule": {
+          "name": "opticalcard"
+        }
+      },
+      "modules": {
+        "key": []
+      }
+    },
+    "port_na": {
+      "identity": {
+        "key": []
+      },
+      "attributes": {
+        "key": [
+          "autocreated",
+          "yangattributes",
+          "rule"
+        ],
+        "autocreated": true,
+        "yangattributes": {
+          "key": [
+            "config",
+            "state"
+          ],
+          "config": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "APPLDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "APPLDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0,
+            "led_off_mask_port_na": true,
+            "led_off_mask_card_admin": false,
+            "led_off_mask_port_admin": false
+          },
+          "state": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "ASICDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "ASICDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0
+          }
+        },
+        "rule": {
+          "name": "default"
+        }
+      },
+      "modules": {
+        "key": []
+      }
+    },
+    "mandatorycard": {
+      "identity": {
+        "key": []
+      },
+      "attributes": {
+        "key": [
+          "autocreated",
+          "yangattributes"
+        ],
+        "autocreated": true,
+        "yangattributes": {
+          "key": [
+            "config",
+            "state"
+          ],
+          "config": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "APPLDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "APPLDB"
+            },
+            "name": "",
+            "ledmode": 2,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0,
+            "led_off_mask_port_na": false,
+            "led_off_mask_card_admin": false,
+            "led_off_mask_port_admin": false
+          },
+          "state": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "ASICDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "ASICDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0
+          }
+        },
+        "rule": {
+          "name": "mandatorycard"
+        }
+      },
+      "modules": {
+        "key": []
+      }
+    }
+  },
+  "switch": {},
+  "unavailablevalue": {},
+  "chassis": {},
+  "moduleFamilies": {
+    "FAN": {
+      "slotDomain": "fan",
+      "slots": [
+        "31",
+        "32",
+        "33"
+      ],
+      "modules": [
+        {
+          "vendorType": "FANLED",
+          "dataref": "PLATFORM:LED:mandatorycard"
+        }
+      ]
+    },
+    "MCU": {
+      "modules": [
+        {
+          "vendorType": "CULED",
+          "dataref": "PLATFORM:LED:mandatorycard"
+        }
+      ]
+    },
+    "MUX": {
+      "slotDomain": "mux",
+      "slots": [
+        "50",
+        "51",
+        "52",
+        "53"
+      ],
+      "modules": [
+        {
+          "vendorType": "MUX48",
+          "profile": "MUX48.json"
+        },
+        {
+          "vendorType": "MUX96",
+          "profile": "MUX96.json"
+        }
+      ]
+    },
+    "PANELCU": {
+      "modules": [
+        {
+          "vendorType": "CONNPORT"
+        },
+        {
+          "vendorType": "PORT"
+        },
+        {
+          "vendorType": "PANELLED",
+          "dataref": "PLATFORM:LED:mandatorycard"
+        }
+      ]
+    },
+    "PSU": {
+      "slotDomain": "psu",
+      "slots": [
+        "21",
+        "22"
+      ],
+      "modules": []
+    }
+  }
+}

@@ -1,0 +1,801 @@
+{
+  "aliases": {
+    "rules": [
+      {
+        "from": "T2X4C8",
+        "to": "CH4L2E8",
+        "source": "cardname"
+      },
+      {
+        "from": "ILAL",
+        "to": "ILA-SWG-L",
+        "source": "cardname"
+      },
+      {
+        "from": "ILACL",
+        "to": "ILA-SWG-CL",
+        "source": "cardname"
+      },
+      {
+        "from": "MUXPANEL96",
+        "to": "MUX-PANEL-96",
+        "source": "cardname"
+      },
+      {
+        "from": "MUXPANEL64CL",
+        "to": "MUX-PANEL-64-CL",
+        "source": "cardname"
+      },
+      {
+        "from": "ILAEL",
+        "to": "ILAE-SWG-L",
+        "source": "cardname"
+      },
+      {
+        "from": "ILAECL",
+        "to": "ILAE-SWG-CL",
+        "source": "cardname"
+      },
+      {
+        "from": "MUX-64",
+        "to": "MUX64",
+        "source": "cardname"
+      },
+      {
+        "from": "FAN",
+        "to": "FANS",
+        "source": "cardname"
+      },
+      {
+        "from": "OA-SWG",
+        "to": "OA",
+        "source": "cardclass"
+      },
+      {
+        "from": "CMUX-64",
+        "to": "CMUX64",
+        "source": "cardclass"
+      },
+      {
+        "from": "CMUX-32-CL",
+        "to": "CMUX32CL",
+        "source": "cardclass"
+      },
+      {
+        "from": "ILA-SWG",
+        "to": "ILA",
+        "source": "cardclass"
+      },
+      {
+        "from": "ILA-SWG-CL",
+        "to": "ILACL_GFF",
+        "source": "cardclass"
+      },
+      {
+        "from": "ILA-SWG-L",
+        "to": "ILAL_GFF",
+        "source": "cardclass"
+      },
+      {
+        "from": "ILAE-SWG-CL",
+        "to": "ILACL",
+        "source": "cardclass"
+      },
+      {
+        "from": "ILAE-SWG-L",
+        "to": "ILAL",
+        "source": "cardclass"
+      },
+      {
+        "from": "OPS",
+        "to": "OP",
+        "source": "cardclass"
+      },
+      {
+        "from": "CH4L2E8",
+        "to": "T2X4C8",
+        "source": "cardclass"
+      },
+      {
+        "from": "MUX-PANEL",
+        "to": "MUXPANEL",
+        "source": "cardclass"
+      },
+      {
+        "from": "MUX-PANEL-96",
+        "to": "MUXPANEL96",
+        "source": "cardclass"
+      },
+      {
+        "from": "MUX-64",
+        "to": "MUX64",
+        "source": "cardclass"
+      },
+      {
+        "from": "MUX-96",
+        "to": "MUX96",
+        "source": "cardclass"
+      },
+      {
+        "from": "MUX-PANEL-64-CL",
+        "to": "MUXPANEL64CL",
+        "source": "cardclass"
+      },
+      {
+        "from": "T1X8C8-L",
+        "to": "T1X8C8L",
+        "source": "cardclass"
+      },
+      {
+        "from": "T1X8C8L",
+        "to": "T1X8C8-L",
+        "source": "cardpreconf"
+      },
+      {
+        "from": "FANS",
+        "to": "FAN",
+        "source": "cardpreconf"
+      },
+      {
+        "from": "ILA-SWG-L",
+        "to": "ILAE-SWG-L",
+        "source": "cardnamemapping",
+        "condition": "float(componentTypeResult['hardware-version']) < 2.0"
+      },
+      {
+        "from": "ILA-SWG-CL",
+        "to": "ILAE-SWG-CL",
+        "source": "cardnamemapping",
+        "condition": "float(componentTypeResult['hardware-version']) < 2.0"
+      }
+    ],
+    "cardname": {
+      "T2X4C8": "CH4L2E8",
+      "ILAL": "ILA-SWG-L",
+      "ILACL": "ILA-SWG-CL",
+      "MUXPANEL96": "MUX-PANEL-96",
+      "MUXPANEL64CL": "MUX-PANEL-64-CL",
+      "ILAEL": "ILAE-SWG-L",
+      "ILAECL": "ILAE-SWG-CL",
+      "MUX-64": "MUX64",
+      "FAN": "FANS"
+    },
+    "cardnamemapping": {
+      "ILA-SWG-L": [
+        {
+          "newcardname": "ILAE-SWG-L",
+          "condition": "float(componentTypeResult['hardware-version']) < 2.0"
+        },
+        {
+          "newcardname": "ILA-SWG-L",
+          "condition": "float(componentTypeResult['hardware-version']) >= 2.0"
+        }
+      ],
+      "ILA-SWG-CL": [
+        {
+          "newcardname": "ILAE-SWG-CL",
+          "condition": "float(componentTypeResult['hardware-version']) < 2.0"
+        },
+        {
+          "newcardname": "ILA-SWG-CL",
+          "condition": "float(componentTypeResult['hardware-version']) >= 2.0"
+        }
+      ]
+    }
+  },
+  "cardclass": {
+    "OA-SWG": "OA",
+    "CMUX-64": "CMUX64",
+    "CMUX-32-CL": "CMUX32CL",
+    "ILA-SWG": "ILA",
+    "ILA-SWG-CL": "ILACL_GFF",
+    "ILA-SWG-L": "ILAL_GFF",
+    "ILAE-SWG-CL": "ILACL",
+    "ILAE-SWG-L": "ILAL",
+    "OPS": "OP",
+    "CH4L2E8": "T2X4C8",
+    "MUX-PANEL": "MUXPANEL",
+    "MUX-PANEL-96": "MUXPANEL96",
+    "MUX-64": "MUX64",
+    "MUX-96": "MUX96",
+    "MUX-PANEL-64-CL": "MUXPANEL64CL",
+    "T1X8C8-L": "T1X8C8L"
+  },
+  "cardpreconf": {
+    "T1X8C8L": "T1X8C8-L",
+    "FANS": "FAN"
+  },
+  "ledrules": {
+    "default": {
+      "alarm": {
+        "normal": {
+          "color": 1,
+          "blink": 1
+        },
+        "critical": {
+          "color": 3,
+          "blink": 1
+        },
+        "major": {
+          "color": 2,
+          "blink": 1
+        },
+        "minor": {
+          "color": 1,
+          "blink": 1
+        }
+      },
+      "power": {
+        "LINECARD": {
+          "classname": "Components_Component_Linecard_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "power-admin-state"
+        },
+        "PORT": {
+          "classname": "Components_Component_OpticalPort_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "admin-state"
+        },
+        "maint": {
+          "color": 2,
+          "blink": 2
+        },
+        "disabled": {
+          "color": 4,
+          "blink": 1
+        }
+      }
+    },
+    "mandatorycard": {
+      "alarm": {
+        "normal": {
+          "color": 1,
+          "blink": 1
+        },
+        "critical": {
+          "color": 3,
+          "blink": 1
+        },
+        "major": {
+          "color": 2,
+          "blink": 1
+        },
+        "minor": {
+          "color": 1,
+          "blink": 1
+        }
+      },
+      "power": {
+        "FAN": {
+          "classname": "Components_Component_Fan_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "power-admin-state"
+        },
+        "PSU": {
+          "classname": "Components_Component_PowerSupply_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "power-admin-state"
+        },
+        "CU": {
+          "classname": "Components_Component_Cu_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "power-admin-state"
+        },
+        "PORT": {
+          "classname": "Components_Component_OpticalPort_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "admin-state"
+        },
+        "maint": {
+          "color": 2,
+          "blink": 2
+        },
+        "disabled": {
+          "color": 4,
+          "blink": 1
+        }
+      }
+    },
+    "cu": {
+      "alarm": {
+        "normal": {
+          "color": 1,
+          "blink": 1
+        },
+        "critical": {
+          "color": 3,
+          "blink": 1
+        },
+        "major": {
+          "color": 2,
+          "blink": 1
+        },
+        "minor": {
+          "color": 1,
+          "blink": 1
+        }
+      },
+      "power": {
+        "CU": {
+          "classname": "Components_Component_Cu_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "power-admin-state"
+        },
+        "maint": {
+          "color": 2,
+          "blink": 3
+        },
+        "disabled": {
+          "color": 4,
+          "blink": 1
+        }
+      }
+    },
+    "frontpanel": {
+      "alarm": {
+        "normal": {
+          "color": 1,
+          "blink": 1
+        },
+        "critical": {
+          "color": 3,
+          "blink": 1
+        },
+        "major": {
+          "color": 2,
+          "blink": 1
+        },
+        "minor": {
+          "color": 1,
+          "blink": 1
+        }
+      },
+      "power": {
+        "PANEL": {
+          "classname": "Components_Component_Panel_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "power-admin-state"
+        },
+        "PORT": {
+          "classname": "Components_Component_OpticalPort_Config",
+          "classparam": [
+            "getKey()",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "admin-state"
+        },
+        "maint": {
+          "color": 2,
+          "blink": 2
+        },
+        "disabled": {
+          "color": 4,
+          "blink": 1
+        }
+      }
+    },
+    "chassis": {
+      "alarm": {
+        "normal": {
+          "color": 1,
+          "blink": 1
+        },
+        "critical": {
+          "color": 3,
+          "blink": 1
+        },
+        "major": {
+          "color": 2,
+          "blink": 1
+        },
+        "minor": {
+          "color": 1,
+          "blink": 1
+        }
+      },
+      "power": {
+        "CHASSIS": {
+          "classname": "Components_Component_Cu_Config",
+          "classparam": [
+            "'CU-1-41'",
+            "None",
+            "CONFIGDB"
+          ],
+          "leafname": "power-admin-state"
+        },
+        "maint": {
+          "color": 2,
+          "blink": 2
+        },
+        "disabled": {
+          "color": 4,
+          "blink": 1
+        }
+      }
+    }
+  },
+  "LED": {
+    "default": {
+      "identity": {
+        "key": []
+      },
+      "attributes": {
+        "key": [
+          "autocreated",
+          "yangattributes",
+          "rule"
+        ],
+        "autocreated": true,
+        "yangattributes": {
+          "key": [
+            "config",
+            "state"
+          ],
+          "config": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "APPLDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "APPLDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0,
+            "led_off_mask_port_na": false,
+            "led_off_mask_card_admin": false,
+            "led_off_mask_port_admin": false
+          },
+          "state": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "ASICDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "ASICDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0
+          }
+        },
+        "rule": {
+          "name": "default"
+        }
+      },
+      "modules": {
+        "key": []
+      }
+    },
+    "mandatorycard": {
+      "identity": {
+        "key": []
+      },
+      "attributes": {
+        "key": [
+          "autocreated",
+          "yangattributes"
+        ],
+        "autocreated": true,
+        "yangattributes": {
+          "key": [
+            "config",
+            "state"
+          ],
+          "config": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "APPLDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "APPLDB"
+            },
+            "name": "",
+            "ledmode": 2,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0,
+            "led_off_mask_port_na": false,
+            "led_off_mask_card_admin": false,
+            "led_off_mask_port_admin": false
+          },
+          "state": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "ASICDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "ASICDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0
+          }
+        },
+        "rule": {
+          "name": "mandatorycard"
+        }
+      },
+      "modules": {
+        "key": []
+      }
+    },
+    "cu": {
+      "identity": {
+        "key": []
+      },
+      "attributes": {
+        "key": [
+          "autocreated",
+          "yangattributes"
+        ],
+        "autocreated": true,
+        "yangattributes": {
+          "key": [
+            "config",
+            "state"
+          ],
+          "config": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "APPLDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "APPLDB"
+            },
+            "name": "",
+            "ledmode": 2,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0,
+            "led_off_mask_port_na": false,
+            "led_off_mask_card_admin": false,
+            "led_off_mask_port_admin": false
+          },
+          "state": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "ASICDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "ASICDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0
+          }
+        },
+        "rule": {
+          "name": "cu"
+        }
+      },
+      "modules": {
+        "key": []
+      }
+    },
+    "chassis": {
+      "identity": {
+        "key": []
+      },
+      "attributes": {
+        "key": [
+          "autocreated",
+          "yangattributes"
+        ],
+        "autocreated": true,
+        "yangattributes": {
+          "key": [
+            "config",
+            "state"
+          ],
+          "config": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "APPLDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "APPLDB"
+            },
+            "name": "",
+            "ledmode": 2,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0,
+            "led_off_mask_port_na": false,
+            "led_off_mask_card_admin": false,
+            "led_off_mask_port_admin": false
+          },
+          "state": {
+            "classname": "Hmo_Leds_Led",
+            "classparam": [
+              "self.object._parent.getKey()",
+              "None",
+              "ASICDB"
+            ],
+            "cbtype": {
+              "query": false,
+              "post": true,
+              "cbinst": "ASICDB"
+            },
+            "name": "",
+            "ledmode": 0,
+            "sw_color_state": 0,
+            "sw_blink_state": 0,
+            "hw_color_state": 0,
+            "hw_blink_state": 0
+          }
+        },
+        "rule": {
+          "name": "chassis"
+        }
+      },
+      "modules": {
+        "key": []
+      }
+    }
+  },
+  "switch": {
+    "state-notify": {
+      "notify-switch": true,
+      "filters": [
+        {
+          "yangattr-key": "(state$)",
+          "key-name": "(LINECARD|PORT|MUX|MUXPANEL|FAN|PSU|PANEL|CU)"
+        },
+        {
+          "yangattr-key": "(^state$)",
+          "key-name": "(CHASSIS|TRANSCEIVER|OCH|OCM)"
+        }
+      ]
+    },
+    "test-statistics": {
+      "statistics-switch": true,
+      "loglevel": "INFO"
+    },
+    "reboot": {
+      "func": "validationcall_RpcReboot_kpl"
+    }
+  },
+  "unavailablevalue": {
+    "INVALID_VALUE": 0,
+    "INVALID_POWER": 0,
+    "INVALID_CURRENT": -99.9,
+    "INVALID_VOLTAGE": -99.9,
+    "INVALID_TEMP": -99.9
+  },
+  "chassis": {
+    "type": {
+      "60GBC0001": "TPC-0-A",
+      "60GBF0001": "TPC-0-B"
+    }
+  },
+  "moduleFamilies": {
+    "CHASSISLED": {
+      "modules": []
+    },
+    "CU": {
+      "slotDomain": "cu",
+      "slots": [
+        "41"
+      ],
+      "modules": [
+        {
+          "vendorType": "CONNPORT"
+        },
+        {
+          "vendorType": "PORT"
+        },
+        {
+          "vendorType": "CULED",
+          "dataref": "PLATFORM:LED:cu"
+        }
+      ]
+    },
+    "FAN": {
+      "slotDomain": "fan",
+      "slots": [
+        "31",
+        "32",
+        "33",
+        "34",
+        "35"
+      ],
+      "modules": [
+        {
+          "vendorType": "FANLED",
+          "dataref": "PLATFORM:LED:mandatorycard"
+        },
+        {
+          "vendorType": "FANS",
+          "type": "FAN",
+          "cardtype": "FANS",
+          "tray": 2
+        }
+      ]
+    },
+    "PSU": {
+      "slotDomain": "psu",
+      "slots": [
+        "21",
+        "22"
+      ],
+      "modules": []
+    }
+  }
+}
