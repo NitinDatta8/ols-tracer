@@ -1,4 +1,4 @@
-// Every line a procedure types is one the box takes (docs/procedures-plan.md#4-mcp): a show, set or delete line is a
+// Every line a procedure types is one the box takes (docs/archive/procedures-plan.md#4-mcp): a show, set or delete line is a
 // command of the CLI index, a set or delete with no word left out; an rpc line starts with an index rpc, and since the
 // index lists most rpcs without their arguments, its shape was typed on some box (a history.jsonl), each value of an
 // enum param too. The checks' shows count as lines. Shown to catch made-up lines on procedures of the test's own, then

@@ -1,5 +1,7 @@
 # BERT screen plan (2026-11-11, rewritten 2026-11-13 and 2026-11-16)
 
+> **Archived 2026-11-20:** built; proving it on the lab's BERT is in the [roadmap](../roadmap.md#left). Kept as it was for its history. Current state: [guide](../guide.md) · decisions: [decisions](../decisions.md).
+
 How a person drives the lab's BERT from the BERT tester in the physical view: its own screen, live, in the page. Built as phase 7 of the [procedures plan](procedures-plan.md#7-bert-screen).
 
 ## Facts

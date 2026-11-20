@@ -11,12 +11,12 @@ What is left and what comes next. What is built is in the [guide](guide.md), why
 | 2.5 | Box 3 replica: Connect draws the box from its own CLI, the bridge records every run, and an agent names a pulled fiber | Done but for box runs (below) |
 | 3 | Run the light: measured light on the fibers, threshold colours, L0 cards from the inside | Done, read-only |
 | MCP | Codex diagnoses a box through the bridge, in the repo `ols-mcp` | Done: 26 of 30 exact on box 3's ten recorded cases, against 2 of 10 for the rule baseline |
+| Procedures | The box workflows done by hand, run by the bridge from the UI and the MCP and tiered by risk; the fixed lab with its lock; the BERT's own screen | Built 2026-11-16, except locate chassis and the miner (below). The read ones have run on the lab |
 
 ## Left
 
-- **Procedures** (notes item 8): the workflows the boxes' logs show done by hand, as procedures the bridge runs from the UI and the MCP, tiered by risk: a software audit and health check, locate chassis, reboot a card or the NE, a software upgrade with its Commit and Rollback, service turn-up and teardown, and a miner that finds more. Plan: [procedures plan](procedures-plan.md).
-- **Iter 3 UI**, in the same plan: the fixed lab with a lock, which follows the hardware (notes item 6); a card's insides drawn with the anatomy kit; the BERT's own screen in its physical view ([BERT plan](bert-smartaccess-plan.md)).
-- **Fixes found on the way** ([plan, phase 1](procedures-plan.md#1-fixes-found-on-the-way)): reboots typed in any case and restarts (activate, rollback, clear database) in the box's episodes; eight 2026-11-10 runs never parsed; box 5 opening a new connect run every 10 min.
+- **Procedure miner:** finds the workflows still done by hand in the boxes' logs and ranks them, to become procedures. Plan: [procedure miner plan](procedure-miner-plan.md).
+- **Procedures on the lab** (work machine; the steps are in the [archived procedures plan](archive/procedures-plan.md)): prove each change once on a box, and the BERT's screen on the lab's BERT. Box checks still open: 1 gives locate chassis its lines (phase 9, not built), 6 says whether an idle timeout is why box 5 opened a new connect run every 10 min (then reopen only the shell), and 9 says whether the bridge's SFTP login lists the loads (then `GET /loads`). Not built either: the turn-up's params from the topology and its check that the port-mode fits the transceiver, a soak before Commit and Rollback, and marking the baseline stale after an upgrade.
 - **Box runs** (work machine): pull F04 and F05, one per run, each marked in the UI and restored (F01 to F03 ran on 2026-11-05); healthy runs B and C, for drift.
 - **`show media-channel` template:** runs have its output since 2026-11-05, so give it a TTP template and fixture, and have `mediaChannels` in `src/l0.ts` read its `data` instead of raw columns. `show ocm` is captured, but nothing reads it.
 - **Any box, not just box 3:** `bridge/poll.json` names box 3's ports (1-7-4, 1-7-5); take them from `show port` and `show assignment`. While a box is connected, show its `show alarm` alarms instead of the simulated ones.

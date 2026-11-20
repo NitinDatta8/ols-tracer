@@ -4,7 +4,7 @@
 1. read dbi commands they give you direct info from database. ability to run read only db commands. 
 2. LED status and other details display
 3. Live status update. When uploaded on server run in round robin every 2 hours to always keep live status. maybe a card was moved from one slot to another or a fiber was plugged out etc etc. 
-4. Attach sim and visualize it? we use make sim csp, mk load csp, mk target csp. Difference between these 3 and how they can be visualized? 
+4. Attach sim and visualize it? we use mk sim csp, mk load csp, mk target csp. Difference between these 3 and how they can be visualized? 
 5. Increase the number of procedures. What can we do on the CU level? 
 6. MOVE TO NETCONF OVER CLI ASAP
 7. What is stopping us from getting alarms and live state every 500ms? bad architecture? Python? move to C++?

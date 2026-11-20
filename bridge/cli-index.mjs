@@ -24,7 +24,7 @@ export function commandFor(commands, line) {
 
 /**
  * The index rpc a command line starts with, the longest (`reboot ne cold` starts with `rpc reboot`), or null. Its
- * arguments are left to the procedures, whose step lines come from the box logs (docs/procedures-plan.md#procedures).
+ * arguments are left to the procedures, whose step lines come from the box logs (docs/archive/procedures-plan.md#procedures).
  */
 export function rpcOf(commands, line) {
   const words = line.trim().split(/\s+/);

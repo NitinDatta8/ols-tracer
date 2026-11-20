@@ -3,7 +3,7 @@
 // catalog/<stream>/procedures.json overrides one by id. Tiered by risk: a read procedure only reads, a reversible one
 // undoes itself (`restore`), and a change waits for a person to Approve it in the tracer UI. The runner types each line
 // once, waits on the box's own state between lines, and records every line in the session's current run (source
-// procedure). The model, and why, is in docs/procedures-plan.md#procedures.
+// procedure). The model, and why, is in docs/archive/procedures-plan.md#procedures.
 import { randomUUID } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -153,7 +153,7 @@ export const CHECKS = {
   /**
    * software-audit's: the active release committed, no candidate left behind, and each card whose software-version
    * names a release of the box's stream (800mx_CSP-2.10.100.10_20261013) on the active one. A TMUX card's own OS
-   * names none, so show card can't judge it (docs/procedures-plan.md#5-software-audit-and-health-check).
+   * names none, so show card can't judge it (docs/archive/procedures-plan.md#5-software-audit-and-health-check).
    */
   software: {
     shows: () => ['show software', 'show card'],
@@ -210,7 +210,7 @@ const words = (v) => Array.isArray(v) && v.length > 0 && v.every((x) => typeof x
 const seconds = (v) => typeof v === 'number' && Number.isFinite(v) && v > 0;
 const holes = (line) => [...line.matchAll(/\{(\w+)(?:\*\d+)?\}/g)].map((m) => m[1]);
 
-/** Why `p` is no procedure definition (docs/procedures-plan.md#procedures), or null when it is one. */
+/** Why `p` is no procedure definition (docs/archive/procedures-plan.md#procedures), or null when it is one. */
 function problem(p) {
   if (!p || typeof p !== 'object') return 'not an object';
   const known = ['id', 'label', 'level', 'tier', 'params', 'pre', 'steps', 'verify', 'restore'];

@@ -1,6 +1,8 @@
 # Procedures and Iter 3 UI plan (2026-11-12)
 
-The box workflows found in the boxes' logs become **procedures**: ops MOPs that the bridge runs, shown in the UI and in `ols-mcp`, and tiered by risk. Iter 3's UI comes with them: the fixed Horsham lab with a lock that follows the hardware, the BERT's SmartAccess AnyWhere, and a card's insides drawn with the anatomy kit. Built in the phases below, each one proving a piece before anything riskier uses it. Why it is built this way is in the [decisions](decisions.md); what is built, in the [guide](guide.md).
+> **Archived 2026-11-20:** built but for locate chassis (phase 9, which waits on box check 1), the inside view as planned (phase 13: the card's optical diagram was drawn instead, without the anatomy kit) and the miner (phase 14, now the [procedure miner plan](../procedure-miner-plan.md)). The read procedures have run on the lab (2026-11-16); no change has yet. What is left is in the [roadmap](../roadmap.md#left). Kept as it was for its history. Current state: [guide](../guide.md) · decisions: [decisions](../decisions.md).
+
+The box workflows found in the boxes' logs become **procedures**: ops MOPs that the bridge runs, shown in the UI and in `ols-mcp`, and tiered by risk. Iter 3's UI comes with them: the fixed Horsham lab with a lock that follows the hardware, the BERT's SmartAccess AnyWhere, and a card's insides drawn with the anatomy kit. Built in the phases below, each one proving a piece before anything riskier uses it. Why it is built this way is in the [decisions](../decisions.md); what is built, in the [guide](../guide.md).
 
 ## Status
 
@@ -25,7 +27,7 @@ The box workflows found in the boxes' logs become **procedures**: ops MOPs that 
 | 14 | [Procedure miner](#14-procedure-miner) | | | |
 | 15 | [Close-out](#15-close-out) | | | |
 
-Later, in the [roadmap](roadmap.md#later): factory reset and Day-0 (they need the console), the simulated pull with labelled runs, the add/drop and power sweeps, PRBS, loopback, OTDR and delay measurement, an upgrade campaign across boxes, and a nightly sanity run.
+Later, in the [roadmap](../roadmap.md#later): factory reset and Day-0 (they need the console), the simulated pull with labelled runs, the add/drop and power sweeps, PRBS, loopback, OTDR and delay measurement, an upgrade campaign across boxes, and a nightly sanity run.
 
 ## What the runs show
 
@@ -121,7 +123,7 @@ Each phase: build, tests, `npm run build`, for a UI phase a headless browser che
 
 ### 0. Docs
 
-This plan, the [BERT plan](bert-smartaccess-plan.md) brought in line, the [decisions](decisions.md) of 2026-11-12 and the [roadmap](roadmap.md#left) entries.
+This plan, the [BERT plan](bert-smartaccess-plan.md) brought in line, the [decisions](../decisions.md) of 2026-11-12 and the [roadmap](../roadmap.md#left) entries.
 
 ### 1. Fixes found on the way
 
@@ -156,7 +158,7 @@ This plan, the [BERT plan](bert-smartaccess-plan.md) brought in line, the [decis
 - On `/mcp`: `list_procedures`, `procedure_status`, and `run_procedure` by tier, as in [Procedures](#procedures); a read procedure is waited for up to about 2 min (`PROCEDURE_WAIT_SEC`, 120 s), then answered with its status. Codex gives a tool call 60 s unless the server's `tool_timeout_sec` says more, so the README's Codex block sets it to 150.
 - `check()` takes rpc lines from `procedures.json` only: `rpcOf` (`bridge/cli-index.mjs`) finds the index rpc a line starts with, and `fillsStep` (`bridge/fill.mjs`) whether a step's line is that line, each placeholder one word its param takes.
 - An OLS Tracer test (`test/bridge/procedure-lines.test.mjs`) checks every procedure line, its checks' shows too: a show line is a show of the CLI index, a set or delete line one with no word left out (a set of several settings, as the box logs type a cross-connection, each setting one), an rpc line's head is an index rpc, and each rpc line's shape, each value of an enum param in it too, was sent to some box (`history.jsonl`). It is shown to catch made-up lines on procedures of its own before it runs on the catalog's.
-- Updated: the server's instructions (their first 247 characters stay), the README's tools and its "never the box", the [MCP decision](decisions.md#mcp), the pinned tool names in its tests, the fake bridge, and the pin.
+- Updated: the server's instructions (their first 247 characters stay), the README's tools and its "never the box", the [MCP decision](../decisions.md#mcp), the pinned tool names in its tests, the fake bridge, and the pin.
 
 ### 5. Software audit and health check
 
@@ -173,12 +175,12 @@ This plan, the [BERT plan](bert-smartaccess-plan.md) brought in line, the [decis
 
 ### 6. Lab file and lock
 
-- `examples/csp.olst.json` moves to `catalog/csp/lab.olst.json` (`git mv`) and gets `lock: { sha256 }`. The plain password has left `notes.md`: item 6 is in [notes done](archive/notes-done.md) without it.
+- `examples/csp.olst.json` moves to `catalog/csp/lab.olst.json` (`git mv`) and gets `lock: { sha256 }`. The plain password has left `notes.md`: item 6 is in [notes done](notes-done.md) without it.
 - Bridge (`bridge/lab.mjs`): `GET /lab` answers `{ topology, mtime }`; `PUT /lab?mtime=` answers 409 when the file changed since (after a pull), else writes it in one step, a whole file renamed over it.
 - App (`src/lab.ts`): loads the lab on start and saves it with `PUT` half a second after a change, one request at a time. A 409 says to reload and leaves the page read-only. The browser keeps only the view and a copy of the lab, shown read-only while the bridge is down, and asks the bridge again every 5 s. New, Open, Save, the new-project dialog and the corporation dropdown go (switching would overwrite the lab); the stream shows as a label.
 - Lock: a 🔒 button in the top bar; unlocking asks for the password, checked by SHA-256 in the browser, and a reload locks again. While locked: no adding, deleting or moving devices or racks (palette, drag, Delete key, rack moves), and no host edits (names have no edit). Cards, pluggables, fibers and bays stay free. The store refuses the rest with a toast that says why, so no control can get round it. The lock is a client-side check, not security. The browser's SHA-256 (`crypto.subtle`) needs localhost or HTTPS: hosting will need HTTPS anyway.
 - **It follows the hardware:** a card or pluggable the box reports in or out changes the lab file, locked or not, since the lock leaves cards and pluggables free. Connect already syncs a box's cards, pluggables and strands into the topology (`discover` in `src/live.ts`). The view sends `POST /lab/sync?host=` the device's slots and every fiber on it, as its own sync leaves them, and the bridge gives that device in the lab file as it is those slots and fibers, in one write, so two views syncing one box, or someone editing, never overwrite each other. It writes only when something changed, and answers what did (`bridge/changes.mjs`, which the view uses too, sending nothing when the lab has it already); the toast says it. A box the bridge can't name yet (a new host before its `show system`) has no strands, `null`, never the default box's, so its first sync can't drop the fibers the lab has. It runs while someone has that box's physical view connected; a box nobody has open is brought up to date the next time someone does. Doing it with nobody watching needs `discover` and the catalog in the bridge, which are TypeScript in `src/` today: later, if it is wanted.
-- Docs: the [product decision](decisions.md#product), the README's Run steps, the guide.
+- Docs: the [product decision](../decisions.md#product), the README's Run steps, the guide.
 - Browser check (passed 2026-11-13, against the fake bridge, the lab copied with made-up hosts): locked, nothing can be dragged, deleted or added, nor a box IP changed, and a card still goes in; unlocked, everything can, and each change is saved; no save reloads the page; a file changed on disk gets a 409, a toast to reload and **Read-only**; a reload locks again; a card the fake box reports in lands in the lab file while it is locked, with one toast; with the bridge down the page shows its last copy read-only, and loads the lab again once the bridge is back; the top bar keeps its boxes in every state.
 
 ### 7. BERT screen
@@ -192,7 +194,7 @@ As in the [BERT plan](bert-smartaccess-plan.md), rewritten 2026-11-16 once check
 
 ### 8. LEDs and stats (removed)
 
-Removed 2026-11-13: an LED's behaviour is the product's own, in its profile in the codebase, to be captured from there, never defined here. Card stats go with it. Both are in the [roadmap](roadmap.md#later). The numbers of the phases after it stay as they were.
+Removed 2026-11-13: an LED's behaviour is the product's own, in its profile in the codebase, to be captured from there, never defined here. Card stats go with it. Both are in the [roadmap](../roadmap.md#later). The numbers of the phases after it stay as they were.
 
 ### 9. Locate chassis
 
@@ -241,4 +243,4 @@ Built 2026-11-16, at a card, the params typed in:
 
 ### 15. Close-out
 
-The guide, README, roadmap and decisions brought up to date; this plan and the BERT plan to [archive](archive/); notes items 6 and 8 to [notes done](archive/notes-done.md).
+The guide, README, roadmap and decisions brought up to date; this plan and the BERT plan to [archive](./); notes items 6 and 8 to [notes done](notes-done.md).
