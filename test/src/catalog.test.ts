@@ -2,7 +2,7 @@
 // its ids into the box's CLI addresses and back.
 import { describe, expect, it } from 'vitest';
 import box3 from '../../examples/box3.olst.json';
-import { byId, catalogs, cli, cliAddress, cliPort, endAt, linecardFor, nextMode } from '../../src/catalog';
+import { byId, catalogs, cli, cliAddress, cliPort, endAt, frequency, linecardFor, nextMode, wavelength } from '../../src/catalog';
 import { catalogFor } from '../../src/catalog-vite';
 import type { Device, Topology } from '../../src/types';
 
@@ -124,6 +124,13 @@ describe('CLI addresses', () => {
       linecardFor(chassis, 'Brand New 9'),
       linecardFor(chassis, ''),
     ]).toEqual(['lc-c1125', 'lc-800mx', 'lc-ptm-e', 'lc-brand-new-9', 'lc-unknown']);
+  });
+
+  it("gives a frequency's wavelength as the profile's tunable grid has it, which is c / f", () => {
+    const grid = csp.platform!.dupparams!.TUNABLE_WAVELENGTH!;
+    expect(grid).toHaveLength(88);
+    for (const g of grid) expect(wavelength(undefined, Math.round(Number(g.freq) * 1e6)).toFixed(2)).toBe(g.wavelength);
+    expect([frequency(csp, 193500000), frequency(csp, 193506250)]).toEqual(['193.5 THz · 1549.32 nm', '193.50625 THz · 1549.26 nm']);
   });
 
   it('resolves module aliases from PLATFORM maps too', () => {

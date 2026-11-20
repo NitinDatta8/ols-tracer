@@ -5,6 +5,7 @@
 // only what can be done now: Run or Request approval; the hostname and Approve; Cancel; or Run again.
 import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react';
 import { bridge, ME } from './bridge';
+import { useCatalog } from './store';
 import { active, draft, paramProblem, procedureItems, startParams, timeline, TIERS, type Asked, type BoxProcedures, type Level, type Row, type Tier } from './procedures';
 
 /** What the bridge said of the box's procedures: the list, or why there is none. */
@@ -117,6 +118,7 @@ export function ProceduresPanel({ host, hostname, got: { list, error }, refresh,
   const [putAway, setPutAway] = useState<string | null>(null);
   const result = now && now.id === shown && (asked || putAway !== now.ref) ? now : null;
   const [params, setParams] = useState<Record<string, string>>({});
+  const grid = useCatalog().platform?.dupparams?.TUNABLE_WAVELENGTH ?? [];
   // A procedure picked, or the card changed, starts from its defaults there. Keyed by id: the list is fetched anew each second.
   const defId = def?.id;
   useEffect(() => { setParams(def ? startParams(def, { chassis, slot }) : {}); }, [defId, chassis, slot]);
@@ -199,11 +201,16 @@ export function ProceduresPanel({ host, hostname, got: { list, error }, refresh,
                     {spec.enum.map((o) => <option key={o}>{o}</option>)}
                   </select>
                   : <input value={v} disabled={!!result} spellCheck={false} aria-invalid={bad} placeholder={spec.example ?? spec.pattern}
+                    list={name === 'frequency' ? 'grid-frequencies' : undefined}
                     style={{ width: `${Math.min(46, Math.max(14, (spec.example ?? v).length + 2))}ch` }} onChange={(e) => setParams({ ...params, [name]: e.target.value.trim() })} />}
               </label>
             );
           })}
           {def && !Object.keys(def.params ?? {}).length && <span className="muted">No params</span>}
+          {/* A frequency param offers the transceivers' tunable grid from the stream profile, in MHz as the box takes it. */}
+          <datalist id="grid-frequencies">
+            {grid.map((g) => <option key={g.freq} value={Math.round(Number(g.freq) * 1e6)}>{g.freq} THz · {g.wavelength} nm</option>)}
+          </datalist>
         </div>
         <div className="procedures-body">
           <ol className="steps">

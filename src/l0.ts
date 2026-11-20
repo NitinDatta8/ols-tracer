@@ -1,7 +1,7 @@
 // L0: the catalog's picture of a card's insides (`l0` on a linecard) joined with what the box reports. Read, never
 // modelled: nothing here predicts a power. A number shown is the box's, or the difference of two of the box's.
 import { tables } from '../bridge/tables.mjs';
-import { byId, cliAddress } from './catalog';
+import { byId, cliAddress, frequency } from './catalog';
 import { fibersAt, resolve } from './rules';
 import type { BoxState } from './live';
 import type { Catalog, Device, End, L0InternalPathDef, L0Range, LinecardDef, Link, PortDef, Topology } from './types';
@@ -10,19 +10,27 @@ type Dir = 'in' | 'out';
 
 // Readings
 
-/** Where the box has nothing to measure it prints -99.99, on a port and on an amplifier alike. */
-const lit = (v?: number) => (v !== undefined && v > -99 ? v : undefined);
+/**
+ * What the box prints where it has nothing to measure, on a port, a transceiver and an amplifier alike: the stream
+ * profile's INVALID_INPUT_POWER or INVALID_OUTPUT_POWER (-99.99 on CSP), else -99.99 as box 3 prints it.
+ */
+export const noReading = (cat: Catalog | undefined, dir: Dir) =>
+  cat?.platform?.unavailablevalue?.[dir === 'in' ? 'INVALID_INPUT_POWER' : 'INVALID_OUTPUT_POWER'] ?? -99.99;
+
+/** A reading, or none at or below the no-reading value. */
+export const lit = (v: number | undefined, cat: Catalog | undefined, dir: Dir) => (v !== undefined && v > noReading(cat, dir) ? v : undefined);
 
 /**
  * An L0 port's total power one way, from `show optical-port <at>` or its list form, whichever read it last (the port's
- * own on a tie): its dBm (none when dark) and flag.
+ * own on a tie): its dBm (none when dark) and flag. `cat` gives the stream's no-reading value.
  */
-export function portPower(s: BoxState, at: string, dir: Dir) {
+export function portPower(s: BoxState, at: string, dir: Dir, cat?: Catalog) {
   const read = (cmd: string) => ({ at: s.commands[cmd]?.at ?? -Infinity, p: s.commands[cmd]?.data?.state?.ports?.[`port-${at}`]?.[dir] });
   const [one, all] = [read(`show optical-port ${at}`), read('show optical-port')];
   const p: { 'optical-power'?: number; flag?: string } | undefined = (one.p && (!all.p || one.at >= all.at) ? one : all).p;
   const v = p?.['optical-power'];
-  return v === undefined ? undefined : { dBm: lit(v), flag: p?.flag, dark: lit(v) === undefined };
+  const dBm = lit(v, cat, dir);
+  return v === undefined ? undefined : { dBm, flag: p?.flag, dark: dBm === undefined };
 }
 
 export type BoxAlarm = { resource?: string; severity: string; 'alarm-abbreviate': string; text: string; direction?: string };
@@ -146,12 +154,38 @@ export function mediaChannels(s: BoxState | null): MediaChannel[] | null {
 }
 
 /** The ports of a card that carry light, as addresses, and how we know: its media channels, else the ports showing power. */
-export function activePorts(s: BoxState | null, card: LinecardDef | undefined, no: number, slot: string) {
+export function activePorts(s: BoxState | null, card: LinecardDef | undefined, no: number, slot: string, cat?: Catalog) {
   const here = `${no}-${slot}-`;
   const channels = mediaChannels(s)?.filter((c) => c.up && c.addDrop?.startsWith(here));
   if (channels) return { from: 'media-channel' as const, ports: new Set(channels.map((c) => c.addDrop!)) };
-  const shows = (p: PortDef) => !!s && (['in', 'out'] as const).some((d) => portPower(s, cliAddress(no, slot, p.id), d)?.dBm !== undefined);
+  const shows = (p: PortDef) => !!s && (['in', 'out'] as const).some((d) => portPower(s, cliAddress(no, slot, p.id), d, cat)?.dBm !== undefined);
   return { from: 'light' as const, ports: new Set((card?.ports ?? []).filter(shows).map((p) => cliAddress(no, slot, p.id))) };
+}
+
+/** A media channel as the spectrum draws it: its edges in MHz, and what the box says of it. */
+export interface Band { id: string; min: number; max: number; up: boolean; facts: Fact[] }
+
+/**
+ * The band the channel plan of the card in `slot` allows (its frequency range, else its monitor map's band), and the
+ * box's media channels through that card in it, for the card's spectrum. Null when the catalog has no band for it.
+ */
+export function spectrum(cat: Catalog, s: BoxState | null, d: Device, slot: string) {
+  const plan = byId(cat.linecards, d.slots[slot]?.linecard)?.l0?.channelPlan;
+  const map = plan?.monitorMaps?.find((m) => m.bandLowerFrequency && m.bandUpperFrequency);
+  const band = plan?.frequencyRange ?? { min: map?.bandLowerFrequency, max: map?.bandUpperFrequency };
+  if (!band.min || !band.max) return null;
+  const here = `${cliAddress(d.chassisNo ?? 1, slot)}-`;
+  const channels = (mediaChannels(s) ?? []).filter((c) => [c.addDrop, c.line].some((p) => p?.startsWith(here))).flatMap((c): Band[] => {
+    const [mid, width] = [Number(c.cols['center-frequency']), Number(c.cols.bandwidth)];
+    return mid && width ? [{
+      id: channelNo(c), min: mid - width / 2, max: mid + width / 2, up: c.up,
+      facts: [
+        { label: 'Frequency', value: frequency(cat, mid) }, { label: 'Width', value: `${width / 1000} GHz` },
+        { label: 'Ports', value: [c.addDrop, c.line].filter(Boolean).join(' ↔ ') }, { label: 'State', value: c.cols['admin-state'] ?? 'none' },
+      ],
+    }] : [];
+  });
+  return { min: band.min, max: band.max, channels };
 }
 
 // The light path
@@ -194,7 +228,7 @@ export function trace(t: Topology, cat: Catalog, s: BoxState | null, head: Link)
     const landing: End = link.b;
     const { card } = resolve(t, cat, landing);
     const no = chassisNo(t, landing);
-    const active = activePorts(s, card, no, landing.slot);
+    const active = activePorts(s, card, no, landing.slot, cat);
     const isActive = (r: L0InternalPathDef) => [r.fromPort, r.toPort].some((p) => active.ports.has(cliAddress(no, landing.slot, p)));
     const routes = routesOf(card).filter((r) => r.fromPort === landing.port)
       .map((r) => ({ r, next: fibersAt(t, { ...landing, port: r.toPort }).tx }))
@@ -296,12 +330,12 @@ export function inside(t: Topology, cat: Catalog, s: BoxState | null, d: Device,
   const card = byId(cat.linecards, d.slots[slot]?.linecard);
   const no = d.chassisNo ?? 1;
   const address = (port?: string) => cliAddress(no, slot, port);
-  const active = activePorts(s, card, no, slot);
+  const active = activePorts(s, card, no, slot, cat);
   const channels = mediaChannels(s) ?? [];
 
   const cell = (id: string, dir: Dir): PortCell => {
     const at = address(id);
-    const p = s ? portPower(s, at, dir) : undefined;
+    const p = s ? portPower(s, at, dir, cat) : undefined;
     return {
       id, at, dir, dBm: p?.dBm, flag: p?.flag, dark: !!p?.dark,
       heat: s ? verdictAt(s, card, id, at, dir, p?.dBm) : null,
@@ -316,14 +350,14 @@ export function inside(t: Topology, cat: Catalog, s: BoxState | null, d: Device,
     const at = address(id);
     const def = card?.l0?.amplifiers?.find((a) => a.id === id);
     const b = ampState(s, at);
-    const stat = (key: string) => lit(b?.stats?.[key]?.instant);
+    const stat = (key: string, dir: Dir = 'out') => lit(b?.stats?.[key]?.instant, cat, dir);
     /** A setting or state the box prints as a string, unless it is nothing to show: 0.00, or -99.99 while dark. */
-    const shown = (key: string, label: string): Fact[] => { const v = lit(Number(b?.[key]) || undefined); return v === undefined ? [] : [{ label, value: dB(v) }]; };
-    const power = (key: string, dir: Dir, label: string): Fact[] => (b ? [{ label, value: dBm(stat(key)), heat: s && verdictAt(s, card, undefined, at, dir, stat(key)) }] : []);
+    const shown = (key: string, label: string): Fact[] => { const v = lit(Number(b?.[key]) || undefined, cat, 'out'); return v === undefined ? [] : [{ label, value: dB(v) }]; };
+    const power = (key: string, dir: Dir, label: string): Fact[] => (b ? [{ label, value: dBm(stat(key, dir)), heat: s && verdictAt(s, card, undefined, at, dir, stat(key, dir)) }] : []);
     const gain = stat('actual-gain');
     return {
       kind: 'amp', id, alarms: s ? alarmsOn(s, { kind: 'amp', at, id }).map(alarmText) : [],
-      in: stat('input-power'), out: stat('output-power'), voa: (def?.ingressVoaAttenRange?.max ?? 0) > 0,
+      in: stat('input-power', 'in'), out: stat('output-power'), voa: (def?.ingressVoaAttenRange?.max ?? 0) > 0,
       facts: [
         ...power('input-power', 'in', 'In'),
         ...(b ? [{ label: 'Gain', value: gain === undefined ? 'none' : `${dB(gain)} of ${b['target-gain']}` }] : []),
@@ -340,7 +374,7 @@ export function inside(t: Topology, cat: Catalog, s: BoxState | null, d: Device,
     return {
       kind: 'wss', id: name, alarms: s ? alarmsOn(s, { kind: 'wss', at: address(), name, ports: ids.map(address) }).map(alarmText) : [],
       facts: through.flatMap((c) => [
-        { label: 'Channel', value: `${c.id}${c.cols['center-frequency'] ? ` · ${c.cols['center-frequency']} MHz` : ''}${c.cols.bandwidth ? ` · ${c.cols.bandwidth} MHz wide` : ''}` },
+        { label: 'Channel', value: `${c.id}${Number(c.cols['center-frequency']) ? ` · ${frequency(cat, Number(c.cols['center-frequency']))}` : ''}${Number(c.cols.bandwidth) ? ` · ${Number(c.cols.bandwidth) / 1000} GHz wide` : ''}` },
         ...(c.cols[`actual-${way}-voa-attenuation`] ? [{ label: 'VOA', value: `${c.cols[`actual-${way}-voa-attenuation`]} dB` }] : []),
       ]),
     };

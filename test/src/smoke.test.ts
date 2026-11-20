@@ -266,7 +266,7 @@ describe('light on box 3 from run 1', async () => {
     expect(lit03).toMatchObject({ dark: false, tx: -2.97, rx: undefined });
     // Run 1 has no `show optical-port`, so 1-1-ad11 (L0) has no value. (Its standing IN_OPTICAL_HIGH_WARNING is lost in
     // run 1: the hand capture's last `show alarm` line was a completion listing, `[filter]`, which parses empty.)
-    expect(lit03.notes).toEqual(['Tx 1-7-5: -2.97 dBm']);
+    expect(lit03.notes).toEqual(['Tx 1-7-5: -2.97 dBm', 'Frequency 193.5 THz · 1549.32 nm']); // the OCH's, as the profile's grid has it
     const lit04 = light(s, t, f04)!;
     expect(lit04).toMatchObject({ dark: false, tx: undefined, rx: -7.43 });
     expect(lit04.notes).toEqual(expect.arrayContaining(['OSNR 29.7 dB', 'Q-margin 3.4 dB']));
@@ -294,7 +294,7 @@ describe('light on box 3 with the fibers on AD11', async () => {
     const lit03 = light(s, t, f03)!;
     expect(lit03).toMatchObject({ dark: false, tx: TX, rx: 2.61 });
     expect(lit03.notes).toEqual([
-      `Tx 1-7-5: ${TX.toFixed(2)} dBm`, 'Rx 1-1-ad11: 2.61 dBm, flag C', `Tx − Rx: ${(TX - 2.61).toFixed(2)} dB`,
+      `Tx 1-7-5: ${TX.toFixed(2)} dBm`, 'Rx 1-1-ad11: 2.61 dBm, flag C', `Tx − Rx: ${(TX - 2.61).toFixed(2)} dB`, 'Frequency 193.5 THz · 1549.32 nm',
       'Rx 1-1-ad11: IN_OPTICAL_HIGH_WARNING: 2.61 dBm stands, declared over 3.00, clears under 2.50',
       'MAJOR IN_OPTICAL_HIGH_WARNING at 1-1-ad11: Input Optical Power higher than warning threshold',
     ]);

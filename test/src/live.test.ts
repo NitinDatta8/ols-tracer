@@ -3,7 +3,7 @@
 import { describe, expect, it } from 'vitest';
 import { byId } from '../../src/catalog';
 import { catalogFor } from '../../src/catalog-vite';
-import { discover, light, stateFor, type BoxState } from '../../src/live';
+import { discover, light, modulesOf, stateFor, type BoxState } from '../../src/live';
 import type { Device, Link, Topology } from '../../src/types';
 
 const state = (commands: BoxState['commands'], host = 'box.test'): BoxState => ({ live: true, host, commands });
@@ -91,7 +91,37 @@ describe('light', () => {
     expect(light(state({ 'show optical-port': { at: 0, data: { state: { ports } } } }), t, f03)).toMatchObject({ dark: true, rx: undefined, notes: ['No light at 1-1-ad11'] });
   });
 
+  it("reads an OCH or transceiver at the profile's no-reading value as no light, and gives the OCH's frequency", () => {
+    const cat = catalogFor('csp');
+    const s = state({ 'show transceiver 1-7-5': stats({ 'output-power': -99.99 }), 'show och 1-1-ad11': { at: 0, data: { state: { frequency: '193500000 MHz' } } } });
+    expect(light(s, t, f03, cat)).toMatchObject({ dark: true, tx: undefined, notes: ['Frequency 193.5 THz · 1549.32 nm', 'No light at 1-7-5'] });
+  });
+
   it('shows no reading while the box reads 0 in every cell, as after a reboot', () => {
     expect(light(state({ 'show och 1-7-5': stats({ 'output-power': 0, 'total-input-power': 0 }) }), t, f03)).toBeNull();
+  });
+});
+
+describe('modulesOf', () => {
+  // Box 3's show card (run 1) outside the linecard slots: its CIM in 40 and both CUs; no mux panels.
+  const cards = {
+    '1-40': { 'module-type': 'CIM', present: 'true', 'oper-status': 'active' },
+    '1-41': { 'module-type': 'CU', present: 'true', 'oper-status': 'active' },
+    '1-42': { 'module-type': 'CU', present: 'true', 'oper-status': 'active' },
+    '1-50': { 'module-type': 'NONE', present: 'false' },
+  };
+
+  it("gives each front panel, CU and mux panel slot of the profile's module families, with the module the box has there", () => {
+    const mods = modulesOf(catalogFor('csp'), empty, state({ 'show card': { at: 0, data: { state: { cards } } } }));
+    expect(Object.values(mods).map((m) => [m.slot, m.domain, m.family, m.card?.['module-type'] ?? null])).toEqual([
+      ['40', 'fp', 'PANELCIM', 'CIM'], ['41', 'cu', 'CU', 'CU'], ['42', 'cu', 'CU', 'CU'],
+      ['50', 'mux', 'MUX', null], ['51', 'mux', 'MUX', null], ['52', 'mux', 'MUX', null], ['53', 'mux', 'MUX', null],
+    ]);
+    expect(mods[50].takes).toEqual(['MUX48', 'MUX96', 'PMUX48']);
+    expect(mods[41].takes).toEqual([]); // the CU family lists only its LED
+  });
+
+  it('has the slots, with nothing in them, before the box is read', () => {
+    expect(Object.values(modulesOf(catalogFor('csp'), empty, null)).filter((m) => m.card)).toEqual([]);
   });
 });

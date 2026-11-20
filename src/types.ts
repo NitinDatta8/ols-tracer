@@ -165,9 +165,28 @@ export interface CliMode { name: string; prompt?: string; enter?: string; about?
  */
 export interface CliTerminals { engineering: string[]; telnet: string[]; noTelnet: string[] }
 
+/** A family of modules outside the linecard slots, as `<stream>/platform.json` has it: CU, PSU, FAN, UI, MUX… */
+export interface ModuleFamily {
+  /** Its kind of slot in the chassis's `slotDomains`: fp (the front panel), cu, mux, psu, fan. */
+  slotDomain?: string;
+  slots?: string[];
+  /** Its module types; an entry with a `dataref` is the family's LED, not a module. */
+  modules: { vendorType: string; dataref?: string }[];
+}
+
+/** What the app reads of `<stream>/platform.json`, the stream profile's PLATFORM.json as synced. */
+export interface Platform {
+  /** What the box prints where it has nothing to measure: INVALID_INPUT_POWER -99.99, INVALID_TEMP -99.9… */
+  unavailablevalue?: Record<string, number>;
+  /** Frequency (THz) to wavelength (nm), on the transceivers' tunable grid: { freq: "191.70", wavelength: "1563.86" }. */
+  dupparams?: { TUNABLE_WAVELENGTH?: { freq: string; wavelength: string }[] };
+  moduleFamilies?: Record<string, ModuleFamily>;
+}
+
 export interface Catalog {
   chassis: ChassisDef[]; linecards: LinecardDef[]; pluggables: PluggableDef[];
   cli: Record<CliLevel, string> & { modes: CliMode[]; terminals?: CliTerminals };
+  platform?: Platform;
 }
 
 // Topology (the saved .olst.json file)

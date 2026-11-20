@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { fibers, type Fact, type Fiber, type Row, type Stage } from './l0';
+import { fibers, type Band, type Fact, type Fiber, type Row, type Stage } from './l0';
 
 // The card's optical diagram, as its datasheet draws it: ports down each end, the WSS, each amplifier a triangle
 // pointing the way its light goes, a VOA ahead of an amplifier that has one. In the drawing's own units.
@@ -32,10 +32,11 @@ const stageTip = (s: Exclude<Stage, Ports>): Tip => ({ title: s.kind === 'amp' ?
 
 /**
  * Inside an L0 card: its optical diagram, with light in each fiber the box reads light in. Hovering a fiber or a part
- * shows what the box reports there, coloured against the same thresholds as the pipes. Under it, what the box has set
+ * shows what the box reports there, coloured against the same thresholds as the pipes. Under it, a card with a channel
+ * plan has its spectrum: the band the plan allows, each media channel through the card in it. Then what the box has set
  * outside the catalog.
  */
-export function Inside({ rows, problems }: { rows: Row[]; problems: string[] }) {
+export function Inside({ rows, problems, spectrum }: { rows: Row[]; problems: string[]; spectrum?: { min: number; max: number; channels: Band[] } | null }) {
   const [tip, setTip] = useState<Tip | null>(null);
   const hover = (t: Tip) => ({ onMouseEnter: () => setTip(t), onMouseLeave: () => setTip(null) });
   const heights = rows.map((r) => Math.max(72, ...r.stages.map((s) => (s.kind === 'ports' ? portsOf(s).length * PITCH : 0))));
@@ -102,6 +103,24 @@ export function Inside({ rows, problems }: { rows: Row[]; problems: string[] }) 
           {rows.map((row, i) => <g key={i}>{way(row, i)}</g>)}
         </svg>
       ) : <p className="inside-problem">The catalog has no light path for this card.</p>}
+      {spectrum && (() => {
+        const x = (mhz: number) => X0 + ((mhz - spectrum.min) / (spectrum.max - spectrum.min)) * (X1 - X0);
+        const thz = (mhz: number) => `${(mhz / 1e6).toFixed(2)} THz`;
+        return (
+          <svg className="inside-fig inside-spectrum" viewBox={`0 0 ${W} 44`} role="img" aria-label="The card's band and its media channels">
+            <rect className="band" x={X0} y={8} width={X1 - X0} height={20} />
+            <text x={X0 - 8} y={18} textAnchor="end">{thz(spectrum.min)}</text>
+            <text x={X1 + 8} y={18} textAnchor="start">{thz(spectrum.max)}</text>
+            {spectrum.channels.map((c) => (
+              <g key={c.id} className={`channel${c.up ? '' : ' down'}`} {...hover({ title: `Media channel ${c.id}`, facts: c.facts, notes: [] })}>
+                <rect x={x(c.min)} y={8} width={Math.max(2, x(c.max) - x(c.min))} height={20} />
+                <text x={(x(c.min) + x(c.max)) / 2} y={38} textAnchor="middle">{c.id}</text>
+              </g>
+            ))}
+            {!spectrum.channels.length && <text x={W / 2} y={18} textAnchor="middle">no media channels through this card</text>}
+          </svg>
+        );
+      })()}
       <p className="inside-readout">
         {tip ? (
           <>
@@ -109,7 +128,7 @@ export function Inside({ rows, problems }: { rows: Row[]; problems: string[] }) 
             {tip.facts.map((f) => <span key={f.label} className={f.heat?.level} title={f.heat?.why}><i>{f.label}</i> {f.value}</span>)}
             {tip.notes.map((note) => <em key={note}>{note}</em>)}
           </>
-        ) : 'Hover a fiber or a part for what the box reports there.'}
+        ) : `Hover a fiber or a part${spectrum?.channels.length ? ', or a media channel,' : ''} for what the box reports there.`}
       </p>
       {problems.map((p) => <p key={p} className="inside-problem">{p}</p>)}
     </div>

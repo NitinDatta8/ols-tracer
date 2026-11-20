@@ -1,7 +1,7 @@
 // The catalog as a stream's hardware and CLI, put together from catalog/'s files, and the helpers over it. It reads no
 // files itself, so it runs in the app and in Node alike: catalog-vite.ts gives it the files Vite bundles for the app,
 // catalog-node.ts the same files from disk.
-import type { Catalog, ChassisDef, CliLevel, Device, End, Faceplate, LinecardDef } from './types';
+import type { Catalog, ChassisDef, CliLevel, Device, End, Faceplate, LinecardDef, Platform } from './types';
 
 type Hardware = Pick<Catalog, 'chassis' | 'linecards' | 'pluggables'>;
 
@@ -145,6 +145,7 @@ export function catalogs(read: (name: string) => unknown) {
         chassis: base.chassis.map((c) => (faces?.chassis?.[c.id]?.units ? { ...c, units: faces.chassis[c.id].units } : c)),
         linecards: withFaces(base.linecards, faces?.linecards),
         cli: { ...(read('common/cli.json') as Catalog['cli']), ...(read(`${stream}/cli.json`) as Catalog['cli']) },
+        platform: read(`${stream}/platform.json`) as Platform | undefined,
       } as Catalog);
     }
     return cache.get(stream)!;
@@ -163,6 +164,19 @@ export const linecardFor = (chassis: Catalog['chassis'][number], moduleType: str
     ?? vendorMap.find((m) => String(m.vendorType ?? '').toUpperCase().replace(/[^A-Z0-9]+/g, '') === compact)?.linecardId
     ?? `lc-${slug(raw)}`;
 };
+
+/**
+ * The wavelength in nm of `mhz`, as the box prints frequencies: the stream profile's TUNABLE_WAVELENGTH for one on its
+ * grid (191.70 THz = 1563.86 nm), else c / f, which that table is.
+ */
+export const wavelength = (cat: Catalog | undefined, mhz: number) => {
+  const thz = mhz % 10000 ? undefined : (mhz / 1e6).toFixed(2);
+  const listed = cat?.platform?.dupparams?.TUNABLE_WAVELENGTH?.find((x) => x.freq === thz)?.wavelength;
+  return listed ? Number(listed) : 299792458e3 / mhz;
+};
+
+/** A frequency in MHz as THz, to the 6.25 GHz grid, with its wavelength: "193.5 THz · 1549.32 nm", "193.50625 THz · 1549.26 nm". */
+export const frequency = (cat: Catalog | undefined, mhz: number) => `${+(mhz / 1e6).toFixed(5)} THz · ${wavelength(cat, mhz).toFixed(2)} nm`;
 
 /** The CLI command for one level, e.g. `show card 1-3`. */
 export const cli = (cat: Catalog, level: CliLevel, vars: { chassis?: number; slot?: string; port?: string }) => {

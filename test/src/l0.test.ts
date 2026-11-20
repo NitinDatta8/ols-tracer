@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import box3 from '../../examples/box3.olst.json';
 import { byId, cliAddress } from '../../src/catalog';
 import { catalogFor } from '../../src/catalog-vite';
-import { activePorts, alarmsOn, fibers, firstLoss, heads, hopName, inside, judge, l0Problems, limitsAt, mediaChannels, portPower, tables, trace, type Limit, type Stage } from '../../src/l0';
+import { activePorts, alarmsOn, fibers, firstLoss, heads, hopName, inside, judge, l0Problems, limitsAt, mediaChannels, noReading, portPower, spectrum, tables, trace, type Limit, type Stage } from '../../src/l0';
 import { light, type BoxState } from '../../src/live';
 import type { Link, Topology } from '../../src/types';
 
@@ -230,6 +230,13 @@ describe('thresholds', () => {
 });
 
 describe('no light', () => {
+  it("takes the no-reading value from the stream profile, -99.99 on CSP, and -99.99 as box 3 prints it without one", () => {
+    expect([noReading(cat, 'in'), noReading(cat, 'out'), noReading(undefined, 'in')]).toEqual([-99.99, -99.99, -99.99]);
+    const other = { ...cat, platform: { unavailablevalue: { INVALID_INPUT_POWER: -60 } } };
+    expect(portPower(healthy, '1-1-ad11', 'in', other)?.dBm).toBe(2.61);
+    expect(noReading(other, 'in')).toBe(-60);
+  });
+
   it('is what -99.99 means: the strand is dark and shows no power', () => {
     const left = fiberedOn('AD1'); // AD1 reads -99.99 on the runs with the light on AD11
     const [f03, f04] = left.links;
@@ -274,7 +281,14 @@ describe('inside a card', () => {
 
   it('adds what the media channel says', () => {
     const [out] = rowsOf(withRaw(healthy, 'show media-channel', channels('ad11')));
-    expect(stage(out.stages, 1).facts.slice(0, 2)).toEqual([{ label: 'Channel', value: '6 · 193500000 MHz · 100000 MHz wide' }, { label: 'VOA', value: '15.00 dB' }]);
+    expect(stage(out.stages, 1).facts.slice(0, 2)).toEqual([{ label: 'Channel', value: '6 · 193.5 THz · 1549.32 nm · 100 GHz wide' }, { label: 'VOA', value: '15.00 dB' }]);
+  });
+
+  it("draws the card's band from its channel plan, with the media channels through the card", () => {
+    expect(spectrum(cat, healthy, device, '1')).toMatchObject({ min: 191350000, max: 196150000 });
+    const band = spectrum(cat, withRaw(healthy, 'show media-channel', channels('ad11')), device, '1')!;
+    expect(band.channels).toMatchObject([{ id: '6', min: 193450000, max: 193550000, up: true, facts: expect.arrayContaining([{ label: 'Width', value: '100 GHz' }]) }]);
+    expect(spectrum(cat, healthy, device, '7')).toBeNull(); // an 800MX has no channel plan
   });
 
   it('has a reading for every fiber of a C925: box 5 with light on AD6, the VOA ahead of the PA', () => {

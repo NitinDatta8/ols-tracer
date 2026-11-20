@@ -1,7 +1,7 @@
 // The box's light on the fibers, from what the CLI bridge read (GET /bridge/state, bridge/server.mjs): the poller's
 // results while a box is connected, else the last run on disk. Never saved in the .olst.json, like the alarms.
-import { byId, cliAddress, linecardFor } from './catalog';
-import { alarmsAt, portPower, verdictAt, worst, type Verdict } from './l0';
+import { byId, cliAddress, frequency, linecardFor } from './catalog';
+import { alarmsAt, lit, portPower, verdictAt, worst, type Verdict } from './l0';
 import { resolve } from './rules';
 import type { Catalog, Device, End, Link, SlotState, Topology } from './types';
 
@@ -49,24 +49,29 @@ export function light(s: BoxState | null, t: Topology, l: Link, cat?: Catalog): 
   if (!s) return null;
   const [a, b] = [address(t, l.a), address(t, l.b)];
   const [ochA, ochB, plugA, plugB] = [stats(s, `show och ${a}`), stats(s, `show och ${b}`), stats(s, `show transceiver ${a}`), stats(s, `show transceiver ${b}`)];
-  const [l0a, l0b] = [portPower(s, a, 'out'), portPower(s, b, 'in')];
-  const tx = ochA['output-power']?.instant ?? plugA['output-power']?.instant ?? l0a?.dBm;
-  const rx = ochB['total-input-power']?.instant ?? plugB['input-power']?.instant ?? l0b?.dBm;
+  const [l0a, l0b] = [portPower(s, a, 'out', cat), portPower(s, b, 'in', cat)];
+  // An OCH's or a transceiver's reading, else the L0 port's; one at the stream's no-reading value is no light there.
+  const [readTx, readRx] = [ochA['output-power']?.instant ?? plugA['output-power']?.instant, ochB['total-input-power']?.instant ?? plugB['input-power']?.instant];
+  const tx = lit(readTx, cat, 'out') ?? l0a?.dBm;
+  const rx = lit(readRx, cat, 'in') ?? l0b?.dBm;
   const alarms = alarmsAt(s, b);
   const laserOff = s.commands['show port']?.data?.state?.ports?.[a]?.laser === 'disabled' || s.commands[`show och ${a}`]?.data?.state?.laser === 'disabled';
-  const noLight = [tx === undefined && l0a?.dark ? a : null, rx === undefined && l0b?.dark ? b : null].filter(Boolean);
+  const noLight = [tx === undefined && (readTx !== undefined || l0a?.dark) ? a : null, rx === undefined && (readRx !== undefined || l0b?.dark) ? b : null].filter(Boolean);
   const dark = laserOff || !!noLight.length || alarms.some((x) => /LOS|LOF/.test(x['alarm-abbreviate']));
   if (tx === undefined && rx === undefined && !dark && !alarms.length) return null;
   const [txLanes, rxLanes] = [lanes(s, a, 'output-power'), lanes(s, b, 'input-power')];
   const card = (e: End) => (cat ? resolve(t, cat, e).card : undefined);
   const [txHeat, rxHeat] = [verdictAt(s, card(l.a), l.a.port, a, 'out', tx), verdictAt(s, card(l.b), l.b.port, b, 'in', rx)];
   const { osnr, 'q-margin': q, 'pre-fec-ber': ber } = ochB;
+  /** The line's frequency, as its OCH sets it ("193500000 MHz"). */
+  const mhz = parseFloat(s.commands[`show och ${a}`]?.data?.state?.frequency ?? s.commands[`show och ${b}`]?.data?.state?.frequency);
   return {
     dark, tx, rx, heat: worst(txHeat, rxHeat),
     notes: [
       ...(tx !== undefined ? [`Tx ${a}: ${dBm(tx)}${txLanes.length > 1 ? ` (lanes ${txLanes.join(' / ')})` : ''}${flag(l0a)}`] : []),
       ...(rx !== undefined ? [`Rx ${b}: ${dBm(rx)}${rxLanes.length > 1 ? ` (lanes ${rxLanes.join(' / ')})` : ''}${flag(l0b)}`] : []),
       ...(tx !== undefined && rx !== undefined ? [`Tx − Rx: ${(tx - rx).toFixed(2)} dB`] : []),
+      ...(mhz ? [`Frequency ${frequency(cat, mhz)}`] : []),
       ...(osnr ? [`OSNR ${osnr.instant} dB`] : []),
       ...(q ? [`Q-margin ${q.instant} dB`] : []),
       ...(ber ? [`Pre-FEC BER ${ber.instant.toExponential(2).toUpperCase()}`] : []),
@@ -160,6 +165,32 @@ function discoverPluggable(cat: Catalog, where: string, part: BoxPart, allowedPl
   };
   cat.pluggables.push(pluggable);
   return pluggable;
+}
+
+/**
+ * A slot of the chassis outside the linecard slots: the front panel's, a CU's, a mux panel's. `takes` is what its
+ * family lists for it; `card` is the module show card has present there, if any.
+ */
+export interface BoxModule { slot: string; domain: string; family: string; takes: string[]; card?: Record<string, string | number> }
+
+/**
+ * The slots the stream profile's module families give the front panel (fp, 40), the CUs (cu, 41 and 42) and the mux
+ * panels (mux, 50 to 53), by slot, each with the module show card has present there.
+ */
+export function modulesOf(cat: Catalog, d: Device, s: BoxState | null): Record<string, BoxModule> {
+  const cards: Record<string, Record<string, string | number>> = s?.commands['show card']?.data?.state?.cards ?? {};
+  const families = Object.entries(cat.platform?.moduleFamilies ?? {}).filter(([, f]) => ['fp', 'cu', 'mux'].includes(f.slotDomain ?? ''));
+  const found: Record<string, BoxModule> = {};
+  for (const [family, f] of families) {
+    for (const slot of f.slots ?? []) {
+      const at = cards[cliAddress(d.chassisNo ?? 1, slot)];
+      const card = at?.present === 'true' ? at : undefined;
+      const takes = f.modules.filter((m) => !m.dataref).map((m) => m.vendorType);
+      // Two families can share a slot (40: the CIM's and the UI's): the one that lists the module there wins.
+      if (!found[slot] || (card && takes.includes(String(card['module-type'])))) found[slot] = { slot, domain: f.slotDomain!, family, takes, card };
+    }
+  }
+  return found;
 }
 
 /**

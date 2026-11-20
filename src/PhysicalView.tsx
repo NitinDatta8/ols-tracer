@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type DragEvent, type MouseEvent } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type DragEvent, type MouseEvent, type ReactNode } from 'react';
 import { byId, cli } from './catalog';
 import { asset, at as over, CardFace, faced, frontPorts, inside, strandBoxes, type Faced } from './Face';
 import { Inside } from './Inside';
 import { Screen } from './Screen';
-import { inside as insideOf, l0Problems, routesOf } from './l0';
-import { discover, light, stateFor, type BoxState } from './live';
+import { inside as insideOf, l0Problems, routesOf, spectrum } from './l0';
+import { discover, light, modulesOf, stateFor, type BoxState } from './live';
 import { termLines, useMenu } from './Menu';
 import { PipeLayer, type PipeEnds } from './Pipe';
 import { procedureItems } from './procedures';
@@ -25,8 +25,10 @@ type At = { slot: string; port?: string };
  * A session is shared: `holders` is how many views and Codex sessions hold it, `held` whether this view is one.
  */
 type Box = { state: 'connected' | 'connecting' | 'down'; host?: string; error?: string; snapshot?: { done: number; of: number } | null; holders?: number; held?: boolean };
-/** The hardware whose datasheet the inspector shows, and where it sits (for its CLI command). */
-type Detail = { kind: 'card' | 'plug'; id: string; at?: At };
+/** The hardware whose datasheet the inspector shows, and where it sits (for its CLI command); a module's id is its slot. */
+type Detail = { kind: 'card' | 'plug' | 'module'; id: string; at?: At };
+/** What a module slot holds, by its slot domain. */
+const DOMAIN: Record<string, string> = { fp: 'Front panel', cu: 'Controller (CU)', mux: 'Mux panel' };
 /** A level whose alarms to list: {} the chassis, { slot } a card, { slot, port } a port, { bay } a PSU or fan. */
 type Where = Pick<Alarm, 'slot' | 'port' | 'bay'>;
 /** The strand a fiber is being run from. */
@@ -133,9 +135,13 @@ const FanIcon = () => (
 );
 const PsuIcon = () => <svg viewBox="0 0 24 24" width="48" height="48"><path d="M13 2 3 14h9l-1 8 10-12h-9z" fill="#fbbf24" /></svg>;
 
-/** Management ports, one under the other in a strip as narrow as an RJ-45 jack: USB-C drawn as such, the rest as RJ-45. */
-export const MgmtStrip = ({ ports }: { ports?: string[] }) => !ports?.length ? null : (
+/**
+ * Management ports, one under the other in a strip as narrow as an RJ-45 jack: USB-C drawn as such, the rest as RJ-45.
+ * `label` heads it: the front panel's module.
+ */
+export const MgmtStrip = ({ ports, label }: { ports?: string[]; label?: ReactNode }) => !ports?.length ? null : (
   <div className="mgmt">
+    {label}
     {ports.map((id) => (
       <div key={id} className="mgmt-port" title={id.startsWith('USB') ? `${id} port` : `${id} · RJ-45 Ethernet`}>
         {id.startsWith('USB')
@@ -398,7 +404,7 @@ export function PhysicalView() {
    * The part being dragged, else the one picked in the tray (its datasheet is shown, not from where it sits): the slots
    * or ports it fits light up green, and clicking one puts it there.
    */
-  const part: Drag | null = drag ?? (detail && !detail.at ? { kind: detail.kind, id: detail.id } : null);
+  const part: Drag | null = drag ?? (detail && !detail.at && detail.kind !== 'module' ? { kind: detail.kind, id: detail.id } : null);
   /** Clicking a part in the tray picks it, or drops the pick if it was picked. */
   const pick = (kind: Drag['kind'], id: string) => (part?.kind === kind && part.id === id ? setDetail(null) : show(kind, id));
   /** Runs the command on the box: types it into the CLI terminal, then Enter. */
@@ -409,6 +415,21 @@ export function PhysicalView() {
 
   const psus = bays('PSU', chassis?.psus);
   const fans = bays('FAN', chassis?.fans);
+  const mods = modulesOf(cat, device, boxState);
+  const domain = (name: string) => Object.values(mods).filter((m) => m.domain === name);
+  /** The CUs, at the foot of fan bays 31 and 32 as the deck draws them (41 under the first fan, 42 under the second). */
+  const cus = domain('cu');
+  /** A module slot's tag: the module the box has there (its type, and with `status` its oper-status), and its slot. Click for its sheet. */
+  const moduleTag = (slot: string | undefined, status = false) => {
+    const m = slot ? mods[slot] : undefined;
+    const type = m?.card?.['module-type'];
+    return m && (
+      <button key={m.slot} className={`module-tag${m.card ? ' in' : ''}`} title={`${DOMAIN[m.domain]} · slot ${m.slot}${m.card ? ` · ${type} ${m.card['oper-status']}` : ''}: click for its sheet`}
+        onClick={(e) => { e.stopPropagation(); show('module', m.slot, { slot: m.slot }); }}>
+        {m.domain === 'fp' ? (type ?? m.slot) : `${type ?? m.family} ${m.slot}`}{status && m.card && <small> · {m.card['oper-status']}</small>}
+      </button>
+    );
+  };
   /** Pull a PSU or fan out of its bay, or put it back. */
   const fitBay = (bay: string, fitted: boolean) => {
     const empty = device.emptyBays ?? [];
@@ -571,7 +592,7 @@ export function PhysicalView() {
     return (
       <div className="faceplate rack-view" onDragOver={(e) => e.preventDefault()} onDrop={onDrop}>
         <div className="rack" style={{ '--u': ru } as CSSProperties}>
-          <MgmtStrip ports={chassis?.mgmtPorts?.front} />
+          <MgmtStrip ports={chassis?.mgmtPorts?.front} label={moduleTag(domain('fp')[0]?.slot)} />
           <div className="slots" style={{ gridTemplate: `repeat(${ru}, 1fr) / repeat(${columns}, 1fr)` }}>{views}</div>
         </div>
         {farEnds(away)}
@@ -651,7 +672,7 @@ export function PhysicalView() {
         {inner && tester ? (
           <Screen host={device.host?.trim() ?? ''} />
         ) : inner ? (
-          <Inside rows={insideOf(t, cat, boxState, device, slotId)} problems={boxState ? l0Problems(t, cat, boxState, device) : []} />
+          <Inside rows={insideOf(t, cat, boxState, device, slotId)} problems={boxState ? l0Problems(t, cat, boxState, device) : []} spectrum={spectrum(cat, boxState, device, slotId)} />
         ) : faced(lc) ? (
           <div className="card-art-stage">
             <CardFace card={lc} className="card-art" data-pipe-box style={{ '--ar': lc.faceplate.size[0] / lc.faceplate.size[1] } as CSSProperties}
@@ -703,8 +724,9 @@ export function PhysicalView() {
     const fitted = !device.emptyBays?.includes(bay);
     const psu = psus.includes(bay);
     const unit = chassis?.units?.[psu ? 'PSU' : 'FAN'];
+    const cu = psu ? undefined : cus[fans.indexOf(bay)];
     return (
-      <div key={bay} className={`bay${fitted ? ' filled' : ''}`}>
+      <div key={bay} className={`bay${fitted ? ' filled' : ''}${cu ? ' with-cu' : ''}`}>
         <div className="cage-head">
           <b>{bay}</b><small>{psu ? 'power supply' : 'fan tray'}</small>
           {alarmButton({ bay })}
@@ -712,15 +734,21 @@ export function PhysicalView() {
         </div>
         {fitted ? (unit ? <img className="unit-pic" src={asset(unit)} alt="" draggable={false} /> : psu ? <PsuIcon /> : <FanIcon />)
           : <button onClick={() => fitBay(bay, true)}>Insert {psu ? 'PSU' : 'fan'}</button>}
+        {cu && moduleTag(cu.slot, true)}
       </div>
     );
   };
 
-  /** The back of the chassis, left to right: the NMS ports, the PSUs one above the other, then the fans. */
+  /**
+   * The back of the chassis, left to right: the NMS ports, the mux panels the box has (they sit apart, managed over
+   * the MUX ports here), the PSUs one above the other, then the fans with the CUs at their foot.
+   */
+  const muxes = domain('mux').filter((m) => m.card);
   const backLevel = () => (
     <div className="faceplate rack-view">
       <div className="rack" style={{ '--u': ru } as CSSProperties}>
         <MgmtStrip ports={chassis?.mgmtPorts?.back} />
+        {muxes.length > 0 && <div className="mux-panels">{muxes.map((m) => moduleTag(m.slot, true))}</div>}
         {psus.length > 0 && <div className="psus">{psus.map(bayBox)}</div>}
         {fans.map(bayBox)}
       </div>
@@ -768,6 +796,22 @@ export function PhysicalView() {
       const p = byId(cat.pluggables, detail.id);
       return p && { item: p, dco: p.dco, tag: p.dco ? 'DCO · digital coherent optics' : 'Pluggable optics',
         facts: { 'Form factor': p.formFactor, Speed: p.speed, Fiber: p.fiber }, command: detail.at && command('pluggable', detail.at) };
+    }
+    if (detail?.kind === 'module') {
+      const m = mods[detail.id];
+      const c = m?.card;
+      return m && {
+        item: { name: c ? String(c['module-type']) : `${m.family} ${m.slot}`, about: c?.description && c.description !== c['module-type'] ? String(c.description) : undefined } as Datasheet & { name: string },
+        tag: DOMAIN[m.domain], command: command('card', { slot: m.slot }),
+        facts: {
+          Slot: m.slot,
+          ...(c ? {
+            Status: `${c['oper-status']} · ${c['admin-state']}`, Software: String(c['software-version']), Firmware: String(c['firmware-version']),
+            Power: `${c['used-power']} of ${c['rated-power']} W`,
+          } : { Status: boxState ? 'none there' : 'not read: connect to the box' }),
+          ...(m.takes.length && { 'Profile lists': m.takes.join(', ') }),
+        },
+      };
     }
     if (detail?.kind === 'card') {
       const lc = byId(cat.linecards, detail.id);
